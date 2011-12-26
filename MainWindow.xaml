@@ -37,9 +37,16 @@
         </Style>
     </Window.Resources>
     
-    <Grid>
+    <Grid Name="outerGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="/TankIconMaker;component/Resources/background.jpg" Stretch="UniformToFill" TileMode="None" />
+            <DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0,30,30" ViewportUnits="Absolute">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <GeometryDrawing Geometry="M0,0 L30,0 30,30, 0,30Z" Brush="#FFc0c0c0"/>
+                        <GeometryDrawing Geometry="M0,15 L30,15 30,30, 15,30 15,0 0,0Z" Brush="#FFa0a0a0"/>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
@@ -65,8 +72,9 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Background="#87FFFFFF">
             </StackPanel>
-            <ScrollViewer Grid.Row="1">
-                <WrapPanel Name="tankIcons"></WrapPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                <WrapPanel Name="tankIcons" Orientation="Vertical" Margin="15">
+                </WrapPanel>
             </ScrollViewer>
         </Grid>
     </Grid>
