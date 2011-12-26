@@ -1,0 +1,7 @@
+syntax:glob
+*.csproj.user
+*.sln.cache
+*.suo
+bin
+obj
+builds
