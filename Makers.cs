@@ -3,7 +3,7 @@ using System.Drawing.Text;
 
 namespace TankIconMaker
 {
-    class Test1Maker : IconMaker
+    class Test1Maker : IconMakerGdi
     {
         public override string Name { get { return "Test 1"; } }
         public override string Author { get { return "Romkyns"; } }
@@ -29,7 +29,7 @@ namespace TankIconMaker
         }
     }
 
-    class Test2Maker : IconMaker
+    class Test2Maker : IconMakerGdi
     {
         public override string Name { get { return "Test 2"; } }
         public override string Author { get { return "Romkyns"; } }

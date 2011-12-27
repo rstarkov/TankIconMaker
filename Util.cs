@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using Ookii.Dialogs.Wpf;
+using RT.Util.Dialogs;
 
 namespace TankIconMaker
 {
@@ -36,6 +38,11 @@ namespace TankIconMaker
 
     static class ExtensionMethods
     {
+        public static string Fmt(this string formatString, params object[] args)
+        {
+            return string.Format(formatString, args);
+        }
+
         public static bool EqualsNoCase(this string string1, string string2)
         {
             return StringComparer.OrdinalIgnoreCase.Equals(string1, string2);

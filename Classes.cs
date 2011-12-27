@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace TankIconMaker
 {
@@ -181,6 +183,42 @@ namespace TankIconMaker
         public abstract string Name { get; }
         public abstract string Author { get; }
         public abstract int Version { get; }
+
+        public abstract BitmapSource DrawTankInternal(Tank tank);
+
+        public override string ToString()
+        {
+            return "{0} by {1} (v{2})".Fmt(Name, Author, Version);
+        }
+    }
+
+    abstract class IconMakerWpf : IconMaker
+    {
+        public override BitmapSource DrawTankInternal(Tank tank)
+        {
+            return DrawTank(tank);
+        }
+
+        public abstract BitmapSource DrawTank(Tank tank);
+
+        protected static BytesBitmap NewBitmap()
+        {
+            return new BytesBitmap(80, 24, PixelFormat.Format32bppArgb);
+        }
+    }
+
+    abstract class IconMakerGdi : IconMaker
+    {
+        public override BitmapSource DrawTankInternal(Tank tank)
+        {
+            var bmp = DrawTank(tank);
+            var handle = bmp.Bitmap.GetHbitmap();
+            var bmpSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            Ut.DeleteObject(handle);
+            GC.KeepAlive(bmp);
+            return bmpSource;
+        }
+
         public abstract BytesBitmap DrawTank(Tank tank);
 
         protected static BytesBitmap NewBitmap()

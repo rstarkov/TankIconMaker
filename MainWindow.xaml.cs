@@ -3,28 +3,33 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+using RT.Util;
+using RT.Util.Dialogs;
 
 namespace TankIconMaker
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : ManagedWindow
     {
         private string _exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private List<DataFileBuiltIn> _builtin = new List<DataFileBuiltIn>();
         private List<DataFileExtra> _extra = new List<DataFileExtra>();
+        private List<IconMaker> _makers = new List<IconMaker>();
 
         public MainWindow()
+            : base(Program.Settings.MainWindow)
         {
             InitializeComponent();
-            ReloadData();
+            IsEnabled = false;
+            ContentRendered += InitializeEverything;
+        }
+
+        void InitializeEverything(object _, EventArgs __)
+        {
+            ContentRendered -= InitializeEverything;
 
             if (File.Exists(Path.Combine(_exePath, "background.jpg")))
                 outerGrid.Background = new ImageBrush
@@ -32,6 +37,31 @@ namespace TankIconMaker
                     ImageSource = new BitmapImage(new Uri(Path.Combine(_exePath, "background.jpg"))),
                     Stretch = Stretch.UniformToFill,
                 };
+
+            ReloadData();
+
+            foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(IconMaker).IsAssignableFrom(t) && !t.IsAbstract))
+            {
+                var constructor = makerType.GetConstructor(new Type[0]);
+                if (constructor == null)
+                {
+                    DlgMessage.ShowWarning("Ignoring maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
+                    continue;
+                }
+                var maker = (IconMaker) constructor.Invoke(new object[0]);
+                _makers.Add(maker);
+                iconMaker.Items.Add(maker);
+            }
+
+            _makers = _makers.OrderBy(m => m.Name).ThenBy(m => m.Author).ThenBy(m => m.Version).ToList();
+
+            iconMaker.SelectedItem = _makers
+                .OrderBy(m => m.GetType().FullName == Program.Settings.SelectedMakerType ? 0 : 1)
+                .ThenBy(m => m.Name == Program.Settings.SelectedMakerName ? 0 : 1)
+                .ThenBy(m => _makers.IndexOf(m))
+                .First();
+
+            IsEnabled = true;
         }
 
         private void ReloadData()
@@ -102,27 +132,43 @@ namespace TankIconMaker
                     _extra.Add(new DataFileExtra(extraName, languageName, author, gameVersion, fileVersion, fi.FullName));
                 }
             }
+        }
 
+        private void RemakeIcons()
+        {
+            var maker = (IconMaker) iconMaker.SelectedItem;
             tankIcons.Children.Clear();
-            var maker = new Test1Maker();
             foreach (var tank in DistinctTanks(EnumTanks()))
             {
-                var bmp = maker.DrawTank(tank);
-                var handle = bmp.Bitmap.GetHbitmap();
-                var bmpWpf = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-
                 tankIcons.Children.Add(new Image
                 {
-                    Source = bmpWpf,
+                    Source = maker.DrawTankInternal(tank),
                     Width = 80, Height = 24,
                     SnapsToDevicePixels = true,
                     Margin = new Thickness { Right = 15 },
                     ToolTip = tank.SystemId + (tank["OfficialName"] == null ? "" : (" (" + tank["OfficialName"] + ")")),
                 });
-
-                Ut.DeleteObject(handle);
-                GC.KeepAlive(bmp);
             }
+        }
+
+        private void Window_SizeChanged(object _, SizeChangedEventArgs __)
+        {
+            Program.Settings.SaveThreaded();
+        }
+
+        private void Window_LocationChanged(object _, EventArgs __)
+        {
+            Program.Settings.SaveThreaded();
+        }
+
+        private void iconMaker_SelectionChanged(object _, SelectionChangedEventArgs __)
+        {
+            RemakeIcons();
+            var maker = (IconMaker) iconMaker.SelectedItem;
+            makerProperties.SelectedObject = maker;
+            Program.Settings.SelectedMakerType = maker.GetType().FullName;
+            Program.Settings.SelectedMakerName = maker.Name;
+            Program.Settings.SaveThreaded();
         }
 
         private IEnumerable<Tank> EnumTanks()
@@ -139,5 +185,6 @@ namespace TankIconMaker
             return tankList.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
                 .Select(p => tankList.First(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country));
         }
+
     }
 }
