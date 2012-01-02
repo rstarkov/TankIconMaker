@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using RT.Util;
 using RT.Util.Dialogs;
+
+/*
+ * Provide a means to load the in-game images and access them in the drawer
+ * Provide a means to load user-supplied images
+ * 
+ * Save splitter position and property grid column width
+ * View controls: one of each kind; all; specific kind/country combinations. Layout option: normal, extra spacing, in-game
+ * 
+ * Property editing
+ * Load/save sets of properties to XML files (make sure distribution is well-supported)
+ * "Reload data" button
+ * "Save icons" button
+ */
 
 namespace TankIconMaker
 {
@@ -50,10 +64,12 @@ namespace TankIconMaker
                 }
                 var maker = (IconMaker) constructor.Invoke(new object[0]);
                 _makers.Add(maker);
-                iconMaker.Items.Add(maker);
             }
 
             _makers = _makers.OrderBy(m => m.Name).ThenBy(m => m.Author).ThenBy(m => m.Version).ToList();
+
+            foreach (var maker in _makers)
+                iconMaker.Items.Add(maker);
 
             iconMaker.SelectedItem = _makers
                 .OrderBy(m => m.GetType().FullName == Program.Settings.SelectedMakerType ? 0 : 1)
@@ -62,6 +78,7 @@ namespace TankIconMaker
                 .First();
 
             IsEnabled = true;
+            loading.Visibility = Visibility.Collapsed;
         }
 
         private void ReloadData()
@@ -134,21 +151,55 @@ namespace TankIconMaker
             }
         }
 
-        private void RemakeIcons()
+        private void UpdateIcons()
         {
             var maker = (IconMaker) iconMaker.SelectedItem;
-            tankIcons.Children.Clear();
-            foreach (var tank in DistinctTanks(EnumTanks()))
+            maker.Initialize();
+
+            var images = tankIcons.Children.OfType<Image>().ToList();
+            var tanks = DistinctTanks(EnumTanks()).ToList();
+
+            for (int i = 0; i < tanks.Count; i++)
             {
-                tankIcons.Children.Add(new Image
+                if (i >= images.Count)
                 {
-                    Source = maker.DrawTankInternal(tank),
-                    Width = 80, Height = 24,
-                    SnapsToDevicePixels = true,
-                    Margin = new Thickness { Right = 15 },
-                    ToolTip = tank.SystemId + (tank["OfficialName"] == null ? "" : (" (" + tank["OfficialName"] + ")")),
+                    var img = new Image
+                    {
+                        Width = 80 * (zoom3x.IsChecked == true ? 3 : 1), Height = 24 * (zoom3x.IsChecked == true ? 3 : 1),
+                        SnapsToDevicePixels = true,
+                        Margin = new Thickness { Right = 15 },
+                    };
+                    tankIcons.Children.Add(img);
+                    images.Add(img);
+                }
+                var tank = tanks[i];
+                var image = images[i];
+
+                image.Opacity = 160;
+                image.ToolTip = tanks[i].SystemId + (tanks[i]["OfficialName"] == null ? "" : (" (" + tanks[i]["OfficialName"] + ")"));
+
+                Task.Factory.StartNew(() =>
+                {
+                    try
+                    {
+                        var source = maker.DrawTankInternal(tank);
+                        source.Freeze();
+                        Dispatcher.Invoke(new Action(() =>
+                        {
+                            image.Source = source;
+                            image.Opacity = 255;
+                        }));
+                    }
+                    catch
+                    {
+#warning Display a crossed out image or something
+                    }
                 });
             }
+
+            // Remove unused images
+            foreach (var image in images.Skip(tanks.Count))
+                tankIcons.Children.Remove(image);
         }
 
         private void Window_SizeChanged(object _, SizeChangedEventArgs __)
@@ -163,7 +214,7 @@ namespace TankIconMaker
 
         private void iconMaker_SelectionChanged(object _, SelectionChangedEventArgs __)
         {
-            RemakeIcons();
+            UpdateIcons();
             var maker = (IconMaker) iconMaker.SelectedItem;
             makerProperties.SelectedObject = maker;
             Program.Settings.SelectedMakerType = maker.GetType().FullName;
@@ -184,6 +235,20 @@ namespace TankIconMaker
             var tankList = tanks.ToList();
             return tankList.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
                 .Select(p => tankList.First(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country));
+        }
+
+        private void zoom3x_Changed(object sender, RoutedEventArgs e)
+        {
+            foreach (var child in tankIcons.Children.OfType<Image>())
+            {
+                child.Width = 80 * (zoom3x.IsChecked == true ? 3 : 1);
+                child.Height = 24 * (zoom3x.IsChecked == true ? 3 : 1);
+            }
+        }
+
+        private void makerProperties_PropertyChanged(object sender, RoutedEventArgs e)
+        {
+            UpdateIcons();
         }
 
     }
