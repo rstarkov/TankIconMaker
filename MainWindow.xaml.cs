@@ -33,7 +33,7 @@ namespace TankIconMaker
         private string _exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private List<DataFileBuiltIn> _builtin = new List<DataFileBuiltIn>();
         private List<DataFileExtra> _extra = new List<DataFileExtra>();
-        private List<IconMaker> _makers = new List<IconMaker>();
+        private List<MakerBase> _makers = new List<MakerBase>();
 
         public MainWindow()
             : base(Program.Settings.MainWindow)
@@ -62,7 +62,7 @@ namespace TankIconMaker
 
             ReloadData();
 
-            foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(IconMaker).IsAssignableFrom(t) && !t.IsAbstract))
+            foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(MakerBase).IsAssignableFrom(t) && !t.IsAbstract))
             {
                 var constructor = makerType.GetConstructor(new Type[0]);
                 if (constructor == null)
@@ -70,7 +70,7 @@ namespace TankIconMaker
                     DlgMessage.ShowWarning("Ignoring maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
                     continue;
                 }
-                var maker = (IconMaker) constructor.Invoke(new object[0]);
+                var maker = (MakerBase) constructor.Invoke(new object[0]);
                 _makers.Add(maker);
             }
 
@@ -161,7 +161,7 @@ namespace TankIconMaker
 
         private void UpdateIcons()
         {
-            var maker = (IconMaker) iconMaker.SelectedItem;
+            var maker = (MakerBase) iconMaker.SelectedItem;
             maker.Initialize();
 
             var images = tankIcons.Children.OfType<Image>().ToList();
@@ -230,7 +230,7 @@ namespace TankIconMaker
         private void iconMaker_SelectionChanged(object _, SelectionChangedEventArgs __)
         {
             UpdateIcons();
-            var maker = (IconMaker) iconMaker.SelectedItem;
+            var maker = (MakerBase) iconMaker.SelectedItem;
             makerProperties.SelectedObject = maker;
             Program.Settings.SelectedMakerType = maker.GetType().FullName;
             Program.Settings.SelectedMakerName = maker.Name;

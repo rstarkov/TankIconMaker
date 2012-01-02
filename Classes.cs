@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using D = System.Drawing;
+using DI = System.Drawing.Imaging;
 
 namespace TankIconMaker
 {
@@ -175,7 +178,7 @@ namespace TankIconMaker
         Special,
     }
 
-    abstract class IconMaker
+    abstract class MakerBase
     {
         [Browsable(false)]
         public abstract string Name { get; }
@@ -185,11 +188,43 @@ namespace TankIconMaker
         public abstract int Version { get; }
 
         public virtual void Initialize() { }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public abstract BitmapSource DrawTankInternal(Tank tank);
 
         public override string ToString()
         {
             return "{0} by {1} (v{2})".Fmt(Name, Author, Version);
+        }
+    }
+
+    abstract class MakerBaseWpf : MakerBase
+    {
+        public abstract void DrawTank(Tank tank, DrawingContext dc);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override BitmapSource DrawTankInternal(Tank tank)
+        {
+            var visual = new DrawingVisual();
+            using (var context = visual.RenderOpen())
+                DrawTank(tank, context);
+            var bitmap = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Default);
+            bitmap.Render(visual);
+            return bitmap;
+        }
+    }
+
+    abstract class MakerBaseGdi : MakerBase
+    {
+        public abstract void DrawTank(Tank tank, D.Graphics dc);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override BitmapSource DrawTankInternal(Tank tank)
+        {
+            var result = Ut.NewGdiBitmap();
+            using (var g = D.Graphics.FromImage(result.Bitmap))
+                DrawTank(tank, g);
+            return result.GetWpfSource();
         }
     }
 }

@@ -9,44 +9,7 @@ using DI = System.Drawing.Imaging;
 
 namespace TankIconMaker
 {
-    abstract class IconMakerWpf : IconMaker
-    {
-        public override BitmapSource DrawTankInternal(Tank tank)
-        {
-            var visual = new DrawingVisual();
-            using (var context = visual.RenderOpen())
-                DrawTank(tank, context);
-            var bitmap = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Default);
-            bitmap.Render(visual);
-            return bitmap;
-        }
-
-        public abstract void DrawTank(Tank tank, DrawingContext context);
-    }
-
-    class TextCompareWpf : IconMakerWpf
-    {
-        public override string Name { get { return "Text: WPF"; } }
-        public override string Author { get { return "Romkyns"; } }
-        public override int Version { get { return 1; } }
-
-        int FontSize { get; set; }
-
-        public TextCompareWpf()
-        {
-            FontSize = 8;
-        }
-
-        public override void DrawTank(Tank tank, DrawingContext context)
-        {
-            context.DrawRectangle(Brushes.Black, null, new Rect(1, 1, 78, 22));
-            var txt = new FormattedText("Matilda", CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Arial"), FontSize * 1.333333, Brushes.White);
-            context.DrawText(txt, new Point(2, 2));
-        }
-    }
-
-
-    class DarkAgent : IconMakerWpf
+    class MakerDarkAgent : MakerBaseWpf
     {
         public override string Name { get { return "Dark Agent (Black Spy replica)"; } }
         public override string Author { get { return "Romkyns"; } }
@@ -102,7 +65,7 @@ namespace TankIconMaker
         private Pen _outline, _outlineInner;
         private Brush _lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground;
 
-        public DarkAgent()
+        public MakerDarkAgent()
         {
             BackOpacity = 180;
             BackColorLight = Color.FromRgb(35, 140, 35);
@@ -153,11 +116,11 @@ namespace TankIconMaker
             return result;
         }
 
-        public override void DrawTank(Tank tank, DrawingContext context)
+        public override void DrawTank(Tank tank, DrawingContext dc)
         {
-            context.DrawRectangle(tank.Class.Pick(_lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground),
+            dc.DrawRectangle(tank.Class.Pick(_lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground),
                 _outline, new Rect(0.5, 1.5, 79, 21));
-            context.DrawRectangle(null, _outlineInner, new Rect(1.5, 2.5, 77, 19));
+            dc.DrawRectangle(null, _outlineInner, new Rect(1.5, 2.5, 77, 19));
 
             var nameFont = new D.Font("Arial", 8.5f);
             var nameBrush = new D.SolidBrush(tank.Category.Pick(NameColorNormal, NameColorPremium, NameColorSpecial).ToColorGdi());
@@ -168,7 +131,7 @@ namespace TankIconMaker
             });
             nameLayer.DrawImage(nameLayer.GetOutline(NameAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
             nameLayer = nameLayer.GetBlurred().DrawImage(nameLayer);
-            context.DrawImage(nameLayer);
+            dc.DrawImage(nameLayer);
 
             var tierFont = new D.Font("Arial", 8.5f);
             var tierColor = tank.Tier <= 5 ? Ut.BlendColors(Tier1Color, Tier5Color, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5Color, Tier10Color, (tank.Tier - 5) / 5.0);
@@ -180,7 +143,7 @@ namespace TankIconMaker
             });
             tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
             tierLayer = tierLayer.GetBlurred().DrawImage(tierLayer);
-            context.DrawImage(tierLayer);
+            dc.DrawImage(tierLayer);
         }
     }
 
