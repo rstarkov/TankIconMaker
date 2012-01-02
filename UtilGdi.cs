@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using W = System.Windows.Media;
+using WI = System.Windows.Media.Imaging;
 
 namespace TankIconMaker
 {
@@ -85,6 +87,17 @@ namespace TankIconMaker
             _stride += (padding == 0) ? 0 : 4 - padding;
             _bytes = new SharedPinnedByteArray(_stride * height);
             _bitmap = new Bitmap(width, height, _stride, format, _bytes.Address);
+        }
+
+        public int Width { get { return Bitmap.Width; } }
+        public int Height { get { return Bitmap.Height; } }
+
+        public WI.BitmapSource GetWpfSource()
+        {
+            var writable = new WI.WriteableBitmap(Width, Height, Bitmap.HorizontalResolution, Bitmap.VerticalResolution, W.PixelFormats.Bgra32, null);
+            writable.WritePixels(new System.Windows.Int32Rect(0, 0, Width, Height), Bits, Stride, 0);
+            writable.Freeze();
+            return writable;
         }
 
         #region Dispose stuff

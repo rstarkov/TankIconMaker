@@ -4,7 +4,8 @@
         xmlns:rt="clr-namespace:RT.Util;assembly=RT.Util"
         Title="MainWindow"
         xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
-        xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended" LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged">
+        xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended"
+        LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged">
     <Window.Resources>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Key="panelBackgroundBrush">
             <LinearGradientBrush.GradientStops>
@@ -73,7 +74,7 @@
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=iconMaker}">_Icon maker:</Label>
                 <ComboBox Name="iconMaker" SelectionChanged="iconMaker_SelectionChanged" />
             </StackPanel>
-            <extToolkit:PropertyGrid Margin="8" Name="makerProperties" Grid.Row="1"/>
+            <extToolkit:PropertyGrid Margin="8" Name="makerProperties" Grid.Row="1" PropertyChanged="makerProperties_PropertyChanged" />
         </Grid>
 
         <GridSplitter Width="8" Style="{StaticResource gridSplitterStyle}" />
@@ -83,13 +84,28 @@
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Background="#87FFFFFF">
-            </StackPanel>
+            <Grid Grid.Row="0" Background="#87FFFFFF">
+                <StackPanel Margin="8">
+                    <CheckBox Name="zoom3x" Checked="zoom3x_Changed" Unchecked="zoom3x_Changed">_Zoom 3x</CheckBox>
+                </StackPanel>
+            </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
-                <WrapPanel Name="tankIcons" Orientation="Vertical" Margin="15">
+                <WrapPanel Name="tankIcons" Orientation="Vertical" Margin="15" RenderOptions.BitmapScalingMode="NearestNeighbor">
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
+        
+        <Border Grid.ColumnSpan="2" Name="loading" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#D25F5F5F" Offset="1" />
+                    <GradientStop Color="#D2B4B4B4" Offset="0.484" />
+                    <GradientStop Color="#D2FFFFFF" Offset="0.131" />
+                    <GradientStop Color="#D2DEDEDE" Offset="0.418" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Candara">Loading...</TextBlock>
+        </Border>
     </Grid>
 
 </rt:ManagedWindow>
