@@ -13,6 +13,7 @@ namespace TankIconMaker
         public ManagedWindow.Settings MainWindow = new ManagedWindow.Settings();
         public double? LeftColumnWidth = null;
         public double? NameColumnWidth = null;
+        public int? DisplayMode = null;
 
         public string SelectedMakerType;
         public string SelectedMakerName;

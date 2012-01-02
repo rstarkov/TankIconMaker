@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -14,16 +15,16 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
- * Provide a means to load the in-game images and access them in the drawer
+ * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
- * 
- * View controls: one of each kind; all; specific kind/country combinations. Layout option: normal, extra spacing, in-game (with a typical low/mid/high tier balance)
- * 
+ * Proper resolution of properties
+ * Short names for all tanks
+ * "Save icons" button
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * "Reload data" button
- * "Save icons" button
- * 
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
+ * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
+ * In-game-like display of low/mid/high tier balance
  */
 
 namespace TankIconMaker
@@ -49,9 +50,19 @@ namespace TankIconMaker
                 ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
             if (Program.Settings.NameColumnWidth != null)
                 ctMakerProperties.NameColumnWidth = Program.Settings.NameColumnWidth.Value;
+            if (Program.Settings.DisplayMode >= 0 && Program.Settings.DisplayMode < ctDisplayMode.Items.Count)
+                ctDisplayMode.SelectedIndex = Program.Settings.DisplayMode.Value;
 
             Closing += (_, __) => SaveSettings();
             ContentRendered += InitializeEverything;
+
+            this.SizeChanged += Window_SizeChanged;
+            this.LocationChanged += Window_LocationChanged;
+            ctMakerDropdown.SelectionChanged += ctMakerDropdown_SelectionChanged;
+            ctZoomCheckbox.Checked += ctZoomCheckbox_Changed;
+            ctZoomCheckbox.Unchecked += ctZoomCheckbox_Changed;
+            ctMakerProperties.PropertyChanged += ctMakerProperties_PropertyChanged;
+            ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
         }
 
         void InitializeEverything(object _, EventArgs __)
@@ -96,6 +107,7 @@ namespace TankIconMaker
             // Done
             IsEnabled = true;
             ctLoadingBox.Visibility = Visibility.Collapsed;
+            _updateIconsTimer.Start();
         }
 
         private void ReloadData()
@@ -185,7 +197,7 @@ namespace TankIconMaker
             maker.Initialize();
 
             var images = ctIconsPanel.Children.OfType<Image>().ToList();
-            var tanks = DistinctTanks(EnumTanks()).ToList();
+            var tanks = EnumTanks().ToList();
 
             for (int i = 0; i < tanks.Count; i++)
             {
@@ -196,6 +208,7 @@ namespace TankIconMaker
                         Width = 80 * (ctZoomCheckbox.IsChecked == true ? 3 : 1), Height = 24 * (ctZoomCheckbox.IsChecked == true ? 3 : 1),
                         SnapsToDevicePixels = true,
                         Margin = new Thickness { Right = 15 },
+                        Cursor = Cursors.Hand,
                     };
                     ctIconsPanel.Children.Add(img);
                     images.Add(img);
@@ -260,17 +273,49 @@ namespace TankIconMaker
         private IEnumerable<Tank> EnumTanks()
         {
 #warning Implement property inheritance and languages
-            return _builtin.First().Data.Select(tank => new Tank(
-                tank,
-                new[] { new KeyValuePair<string, string>(_extra[1].Name, _extra[1].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault()) }
-            )).ToList();
+
+            IEnumerable<TankData> all = _builtin.First().Data;
+            IEnumerable<TankData> selection = null;
+
+            if (ctDisplayMode.SelectedIndex == 0) // all tanks
+                selection = all;
+            else if (ctDisplayMode.SelectedIndex == 1) // one of each
+                selection = all.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
+                    .SelectMany(p => SelectTiers(all.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
+
+            return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
+                .Select(tank => new Tank(
+                    tank,
+                    new[] { new KeyValuePair<string, string>(_extra[1].Name, _extra[1].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault()) }
+                )).ToList();
         }
 
-        private static IEnumerable<Tank> DistinctTanks(IEnumerable<Tank> tanks)
+        private IEnumerable<TankData> SelectTiers(IEnumerable<TankData> tanks)
         {
-            var tankList = tanks.ToList();
-            return tankList.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
-                .Select(p => tankList.First(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country));
+            TankData min = null;
+            TankData mid = null;
+            TankData max = null;
+            foreach (var tank in tanks)
+            {
+                if (min == null || tank.Tier < min.Tier)
+                    min = tank;
+                if (mid == null || Math.Abs(tank.Tier - 5) < Math.Abs(mid.Tier - 5))
+                    mid = tank;
+                if (max == null || tank.Tier > max.Tier)
+                    max = tank;
+            }
+            if (Math.Abs((mid == null ? 999 : mid.Tier) - (min == null ? 999 : min.Tier)) < 3)
+                mid = null;
+            if (Math.Abs((mid == null ? 999 : mid.Tier) - (max == null ? 999 : max.Tier)) < 3)
+                mid = null;
+            if (Math.Abs((min == null ? 999 : min.Tier) - (max == null ? 999 : max.Tier)) < 5)
+                max = null;
+            if (min != null)
+                yield return min;
+            if (mid != null)
+                yield return mid;
+            if (max != null)
+                yield return max;
         }
 
         private void ctZoomCheckbox_Changed(object _, RoutedEventArgs __)
@@ -287,5 +332,11 @@ namespace TankIconMaker
             ScheduleUpdateIcons();
         }
 
+        private void ctDisplayMode_SelectionChanged(object _, SelectionChangedEventArgs __)
+        {
+            Program.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
+            ScheduleUpdateIcons();
+            SaveSettings();
+        }
     }
 }
