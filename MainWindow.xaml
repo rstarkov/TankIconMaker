@@ -4,8 +4,7 @@
         xmlns:rt="clr-namespace:RT.Util;assembly=RT.Util"
         Title="MainWindow"
         xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
-        xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended"
-        LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged">
+        xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended">
     <Window.Resources>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Key="panelBackgroundBrush">
             <LinearGradientBrush.GradientStops>
@@ -72,23 +71,26 @@
                     <Button Grid.Column="1" MinWidth="25" Margin="4,0,0,0">...</Button>
                 </Grid>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=iconMaker}">_Icon maker:</Label>
-                <ComboBox Name="ctMakerDropdown" SelectionChanged="ctMakerDropdown_SelectionChanged" />
+                <ComboBox Name="ctMakerDropdown" />
             </StackPanel>
-            <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"
-                                     PropertyChanged="ctMakerProperties_PropertyChanged" />
+            <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"/>
         </Grid>
 
         <GridSplitter Width="8" Style="{StaticResource gridSplitterStyle}" />
         
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="#87FFFFFF">
-                <StackPanel Margin="8">
-                    <CheckBox Name="ctZoomCheckbox" Checked="ctZoomCheckbox_Changed" Unchecked="ctZoomCheckbox_Changed">_Zoom 3x</CheckBox>
-                </StackPanel>
+                <WrapPanel Margin="8">
+                    <CheckBox Name="ctZoomCheckbox" Margin="0,3,20,0">_Zoom 3x</CheckBox>
+                    <ComboBox Name="ctDisplayMode">
+                        <ComboBoxItem>All tanks</ComboBoxItem>
+                        <ComboBoxItem Selector.IsSelected="True">One of each combination</ComboBoxItem>
+                    </ComboBox>
+                </WrapPanel>
             </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
                 <WrapPanel Name="ctIconsPanel" Orientation="Vertical" Margin="15" RenderOptions.BitmapScalingMode="NearestNeighbor">
