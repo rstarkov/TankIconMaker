@@ -50,6 +50,15 @@ namespace TankIconMaker
                 draw(g);
             return result;
         }
+
+        public static Color BlendColors(Color left, Color right, double rightAmount)
+        {
+            return Color.FromArgb(
+                a: (byte) Math.Round(left.A * (1 - rightAmount) + right.A * rightAmount),
+                r: (byte) Math.Round(left.R * (1 - rightAmount) + right.R * rightAmount),
+                g: (byte) Math.Round(left.G * (1 - rightAmount) + right.G * rightAmount),
+                b: (byte) Math.Round(left.B * (1 - rightAmount) + right.B * rightAmount));
+        }
     }
 
     static class ExtensionMethods
@@ -80,11 +89,18 @@ namespace TankIconMaker
             return Color.FromArgb((byte) alpha, color.R, color.G, color.B);
         }
 
-        public static int SlowButPerfectWidth(string text, D.Font font)
+        public static int SlowButPerfectWidth(D.Graphics graphics, string text, D.Font font)
         {
             var bmp = new BytesBitmap(500, 20, D.Imaging.PixelFormat.Format32bppArgb);
             using (var g = D.Graphics.FromImage(bmp.Bitmap))
+            {
+                g.CompositingQuality = graphics.CompositingQuality;
+                g.InterpolationMode = graphics.InterpolationMode;
+                g.PixelOffsetMode = graphics.PixelOffsetMode;
+                g.SmoothingMode = graphics.SmoothingMode;
+                g.TextRenderingHint = graphics.TextRenderingHint;
                 g.DrawString(text, font, D.Brushes.White, 0, 0, D.StringFormat.GenericTypographic);
+            }
             var bits = bmp.Bits;
             int result = -1;
             for (int y = 0; y < bmp.Height; y++)
@@ -102,7 +118,7 @@ namespace TankIconMaker
         {
             var size = graphics.MeasureString(text, font, new D.PointF(0, 0), D.StringFormat.GenericTypographic);
 
-            int width = SlowButPerfectWidth(text, font);
+            int width = SlowButPerfectWidth(graphics, text, font);
             int height = (int) size.Height;
 
             int x = (left != null && right != null) ? (left.Value + right.Value) / 2 - width / 2
@@ -133,7 +149,7 @@ namespace TankIconMaker
             return target;
         }
 
-        public static BytesBitmap GetOutline(this BytesBitmap srcBitmap)
+        public static BytesBitmap GetOutline(this BytesBitmap srcBitmap, int opacity = 255)
         {
             var tgtBitmap = Ut.NewGdiBitmap();
             var src = srcBitmap.Bits;
@@ -152,7 +168,7 @@ namespace TankIconMaker
                         if (left != 0 || right != 0 || (y > 0 && src[b - srcBitmap.Stride + 3] > 0) || ((y < srcBitmap.Height - 1) && src[b + srcBitmap.Stride + 3] > 0))
                         {
                             tgt[b] = tgt[b + 1] = tgt[b + 2] = 0;
-                            tgt[b + 3] = 255;
+                            tgt[b + 3] = (byte) opacity;
                         }
                     }
                     left = cur;
@@ -225,6 +241,37 @@ namespace TankIconMaker
                 default: throw new Exception();
             }
         }
+
+        public static T Pick<T>(this Category class_, T normal, T premium, T special)
+        {
+            switch (class_)
+            {
+                case Category.Normal: return normal;
+                case Category.Premium: return premium;
+                case Category.Special: return special;
+                default: throw new Exception();
+            }
+        }
+
+        public static D.Text.TextRenderingHint ToGdi(this TextAntiAliasStyle style)
+        {
+            switch (style)
+            {
+                case TextAntiAliasStyle.AliasedHinted: return D.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+                case TextAntiAliasStyle.AntiAliased: return D.Text.TextRenderingHint.AntiAlias;
+                case TextAntiAliasStyle.AntiAliasedHinted: return D.Text.TextRenderingHint.AntiAliasGridFit;
+                case TextAntiAliasStyle.ClearTypeHinted: return D.Text.TextRenderingHint.ClearTypeGridFit;
+                default: throw new Exception();
+            }
+        }
+    }
+
+    enum TextAntiAliasStyle
+    {
+        AliasedHinted,
+        AntiAliased,
+        AntiAliasedHinted,
+        ClearTypeHinted,
     }
 
     /// <summary>Adapted from Paint.NET and thus exactly compatible in the RGB/HSV conversion (apart from hue 360, which must be 0 instead)</summary>

@@ -39,7 +39,6 @@ namespace TankIconMaker
             {
                 g.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
                 g.FillRectangle(Brushes.Black, new Rectangle(1, 1, 78, 22));
-                //"Medium stuff"
                 g.DrawString("Matilda", new Font("Arial", FontSize), Brushes.White, new Point(2, 2), StringFormat.GenericTypographic);
             }
             return result;

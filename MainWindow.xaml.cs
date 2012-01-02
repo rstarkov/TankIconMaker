@@ -12,12 +12,15 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
+ * Severe CPU usage sometimes when changing the tier color
+ */
+
+/*
  * Provide a means to load the in-game images and access them in the drawer
  * Provide a means to load user-supplied images
  * 
- * View controls: one of each kind; all; specific kind/country combinations. Layout option: normal, extra spacing, in-game
+ * View controls: one of each kind; all; specific kind/country combinations. Layout option: normal, extra spacing, in-game (with a typical low/mid/high tier balance)
  * 
- * Property editing
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * "Reload data" button
  * "Save icons" button
