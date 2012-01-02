@@ -11,6 +11,8 @@ namespace TankIconMaker
     class Settings : SettingsThreadedBase
     {
         public ManagedWindow.Settings MainWindow = new ManagedWindow.Settings();
+        public double? LeftColumnWidth = null;
+        public double? NameColumnWidth = null;
 
         public string SelectedMakerType;
         public string SelectedMakerName;

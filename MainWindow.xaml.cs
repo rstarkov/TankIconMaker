@@ -15,7 +15,6 @@ using RT.Util.Dialogs;
  * Provide a means to load the in-game images and access them in the drawer
  * Provide a means to load user-supplied images
  * 
- * Save splitter position and property grid column width
  * View controls: one of each kind; all; specific kind/country combinations. Layout option: normal, extra spacing, in-game
  * 
  * Property editing
@@ -38,6 +37,12 @@ namespace TankIconMaker
         {
             InitializeComponent();
             IsEnabled = false;
+            if (Program.Settings.LeftColumnWidth != null)
+                leftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
+            if (Program.Settings.NameColumnWidth != null)
+                makerProperties.NameColumnWidth = Program.Settings.NameColumnWidth.Value;
+
+            Closing += (_, __) => SaveSettings();
             ContentRendered += InitializeEverything;
         }
 
@@ -202,14 +207,21 @@ namespace TankIconMaker
                 tankIcons.Children.Remove(image);
         }
 
+        private void SaveSettings()
+        {
+            Program.Settings.LeftColumnWidth = leftColumn.Width.Value;
+            Program.Settings.NameColumnWidth = makerProperties.NameColumnWidth;
+            Program.Settings.SaveThreaded();
+        }
+
         private void Window_SizeChanged(object _, SizeChangedEventArgs __)
         {
-            Program.Settings.SaveThreaded();
+            SaveSettings();
         }
 
         private void Window_LocationChanged(object _, EventArgs __)
         {
-            Program.Settings.SaveThreaded();
+            SaveSettings();
         }
 
         private void iconMaker_SelectionChanged(object _, SelectionChangedEventArgs __)
@@ -219,7 +231,7 @@ namespace TankIconMaker
             makerProperties.SelectedObject = maker;
             Program.Settings.SelectedMakerType = maker.GetType().FullName;
             Program.Settings.SelectedMakerName = maker.Name;
-            Program.Settings.SaveThreaded();
+            SaveSettings();
         }
 
         private IEnumerable<Tank> EnumTanks()
