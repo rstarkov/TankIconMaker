@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using RT.Util;
 using RT.Util.Dialogs;
-
-/*
- * Severe CPU usage sometimes when changing the tier color
- */
 
 /*
  * Provide a means to load the in-game images and access them in the drawer
@@ -24,6 +22,8 @@ using RT.Util.Dialogs;
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * "Reload data" button
  * "Save icons" button
+ * 
+ * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
  */
 
 namespace TankIconMaker
@@ -34,16 +34,21 @@ namespace TankIconMaker
         private List<DataFileBuiltIn> _builtin = new List<DataFileBuiltIn>();
         private List<DataFileExtra> _extra = new List<DataFileExtra>();
         private List<MakerBase> _makers = new List<MakerBase>();
+        private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
+        private CancellationTokenSource _cancelRender = null;
 
         public MainWindow()
             : base(Program.Settings.MainWindow)
         {
             InitializeComponent();
+            _updateIconsTimer.Tick += UpdateIcons;
+            _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
+
             IsEnabled = false;
             if (Program.Settings.LeftColumnWidth != null)
-                leftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
+                ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
             if (Program.Settings.NameColumnWidth != null)
-                makerProperties.NameColumnWidth = Program.Settings.NameColumnWidth.Value;
+                ctMakerProperties.NameColumnWidth = Program.Settings.NameColumnWidth.Value;
 
             Closing += (_, __) => SaveSettings();
             ContentRendered += InitializeEverything;
@@ -54,7 +59,7 @@ namespace TankIconMaker
             ContentRendered -= InitializeEverything;
 
             if (File.Exists(Path.Combine(_exePath, "background.jpg")))
-                outerGrid.Background = new ImageBrush
+                ctOuterGrid.Background = new ImageBrush
                 {
                     ImageSource = new BitmapImage(new Uri(Path.Combine(_exePath, "background.jpg"))),
                     Stretch = Stretch.UniformToFill,
@@ -62,6 +67,7 @@ namespace TankIconMaker
 
             ReloadData();
 
+            // Find all the makers
             foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(MakerBase).IsAssignableFrom(t) && !t.IsAbstract))
             {
                 var constructor = makerType.GetConstructor(new Type[0]);
@@ -76,17 +82,20 @@ namespace TankIconMaker
 
             _makers = _makers.OrderBy(m => m.Name).ThenBy(m => m.Author).ThenBy(m => m.Version).ToList();
 
+            // Put the makers into the maker dropdown
             foreach (var maker in _makers)
-                iconMaker.Items.Add(maker);
+                ctMakerDropdown.Items.Add(maker);
 
-            iconMaker.SelectedItem = _makers
+            // Locate the closest match for the maker that was selected last time the program was run
+            ctMakerDropdown.SelectedItem = _makers
                 .OrderBy(m => m.GetType().FullName == Program.Settings.SelectedMakerType ? 0 : 1)
                 .ThenBy(m => m.Name == Program.Settings.SelectedMakerName ? 0 : 1)
                 .ThenBy(m => _makers.IndexOf(m))
                 .First();
 
+            // Done
             IsEnabled = true;
-            loading.Visibility = Visibility.Collapsed;
+            ctLoadingBox.Visibility = Visibility.Collapsed;
         }
 
         private void ReloadData()
@@ -159,12 +168,23 @@ namespace TankIconMaker
             }
         }
 
-        private void UpdateIcons()
+        private void ScheduleUpdateIcons()
         {
-            var maker = (MakerBase) iconMaker.SelectedItem;
+            if (_cancelRender != null)
+                _cancelRender.Cancel();
+            _cancelRender = new CancellationTokenSource();
+
+            _updateIconsTimer.Stop();
+            _updateIconsTimer.Start();
+        }
+
+        private void UpdateIcons(object _ = null, EventArgs __ = null)
+        {
+            _updateIconsTimer.Stop();
+            var maker = (MakerBase) ctMakerDropdown.SelectedItem;
             maker.Initialize();
 
-            var images = tankIcons.Children.OfType<Image>().ToList();
+            var images = ctIconsPanel.Children.OfType<Image>().ToList();
             var tanks = DistinctTanks(EnumTanks()).ToList();
 
             for (int i = 0; i < tanks.Count; i++)
@@ -173,11 +193,11 @@ namespace TankIconMaker
                 {
                     var img = new Image
                     {
-                        Width = 80 * (zoom3x.IsChecked == true ? 3 : 1), Height = 24 * (zoom3x.IsChecked == true ? 3 : 1),
+                        Width = 80 * (ctZoomCheckbox.IsChecked == true ? 3 : 1), Height = 24 * (ctZoomCheckbox.IsChecked == true ? 3 : 1),
                         SnapsToDevicePixels = true,
                         Margin = new Thickness { Right = 15 },
                     };
-                    tankIcons.Children.Add(img);
+                    ctIconsPanel.Children.Add(img);
                     images.Add(img);
                 }
                 var tank = tanks[i];
@@ -186,11 +206,14 @@ namespace TankIconMaker
                 image.Opacity = 160;
                 image.ToolTip = tanks[i].SystemId + (tanks[i]["OfficialName"] == null ? "" : (" (" + tanks[i]["OfficialName"] + ")"));
 
+                var cancel = _cancelRender.Token;
                 Task.Factory.StartNew(() =>
                 {
                     try
                     {
+                        if (cancel.IsCancellationRequested) return;
                         var source = maker.DrawTankInternal(tank);
+                        if (cancel.IsCancellationRequested) return;
                         source.Freeze();
                         Dispatcher.Invoke(new Action(() =>
                         {
@@ -198,22 +221,19 @@ namespace TankIconMaker
                             image.Opacity = 255;
                         }));
                     }
-                    catch
-                    {
-#warning Display a crossed out image or something
-                    }
-                });
+                    catch { image.Source = null; } // will do something more appropriate later
+                }, cancel);
             }
 
             // Remove unused images
             foreach (var image in images.Skip(tanks.Count))
-                tankIcons.Children.Remove(image);
+                ctIconsPanel.Children.Remove(image);
         }
 
         private void SaveSettings()
         {
-            Program.Settings.LeftColumnWidth = leftColumn.Width.Value;
-            Program.Settings.NameColumnWidth = makerProperties.NameColumnWidth;
+            Program.Settings.LeftColumnWidth = ctLeftColumn.Width.Value;
+            Program.Settings.NameColumnWidth = ctMakerProperties.NameColumnWidth;
             Program.Settings.SaveThreaded();
         }
 
@@ -227,11 +247,11 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private void iconMaker_SelectionChanged(object _, SelectionChangedEventArgs __)
+        private void ctMakerDropdown_SelectionChanged(object _, SelectionChangedEventArgs __)
         {
-            UpdateIcons();
-            var maker = (MakerBase) iconMaker.SelectedItem;
-            makerProperties.SelectedObject = maker;
+            ScheduleUpdateIcons();
+            var maker = (MakerBase) ctMakerDropdown.SelectedItem;
+            ctMakerProperties.SelectedObject = maker;
             Program.Settings.SelectedMakerType = maker.GetType().FullName;
             Program.Settings.SelectedMakerName = maker.Name;
             SaveSettings();
@@ -239,6 +259,7 @@ namespace TankIconMaker
 
         private IEnumerable<Tank> EnumTanks()
         {
+#warning Implement property inheritance and languages
             return _builtin.First().Data.Select(tank => new Tank(
                 tank,
                 new[] { new KeyValuePair<string, string>(_extra[1].Name, _extra[1].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault()) }
@@ -252,18 +273,18 @@ namespace TankIconMaker
                 .Select(p => tankList.First(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country));
         }
 
-        private void zoom3x_Changed(object sender, RoutedEventArgs e)
+        private void ctZoomCheckbox_Changed(object _, RoutedEventArgs __)
         {
-            foreach (var child in tankIcons.Children.OfType<Image>())
+            foreach (var child in ctIconsPanel.Children.OfType<Image>())
             {
-                child.Width = 80 * (zoom3x.IsChecked == true ? 3 : 1);
-                child.Height = 24 * (zoom3x.IsChecked == true ? 3 : 1);
+                child.Width = 80 * (ctZoomCheckbox.IsChecked == true ? 3 : 1);
+                child.Height = 24 * (ctZoomCheckbox.IsChecked == true ? 3 : 1);
             }
         }
 
-        private void makerProperties_PropertyChanged(object sender, RoutedEventArgs e)
+        private void ctMakerProperties_PropertyChanged(object _, RoutedEventArgs __)
         {
-            UpdateIcons();
+            ScheduleUpdateIcons();
         }
 
     }

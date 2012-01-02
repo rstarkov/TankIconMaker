@@ -41,7 +41,7 @@
         </Style>
     </Window.Resources>
     
-    <Grid Name="outerGrid">
+    <Grid Name="ctOuterGrid">
         <Grid.Background>
             <DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0,30,30" ViewportUnits="Absolute">
                 <DrawingBrush.Drawing>
@@ -53,7 +53,7 @@
             </DrawingBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" Name="leftColumn" />
+            <ColumnDefinition Width="300" Name="ctLeftColumn" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
@@ -64,18 +64,18 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="8,8,8,0">
                 <Label Padding="3,0,0,0" Target="{Binding ElementName=gameVersion}">_Game version:</Label>
-                <ComboBox Name="gameVersion"></ComboBox>
+                <ComboBox Name="ctGameVersion"></ComboBox>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=gamePath}">Game _directory:</Label>
                 <Grid>
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="auto"/></Grid.ColumnDefinitions>
-                    <TextBox Name="gamePath" Grid.Column="0"></TextBox>
+                    <TextBox Name="ctGamePath" Grid.Column="0"></TextBox>
                     <Button Grid.Column="1" MinWidth="25" Margin="4,0,0,0">...</Button>
                 </Grid>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=iconMaker}">_Icon maker:</Label>
-                <ComboBox Name="iconMaker" SelectionChanged="iconMaker_SelectionChanged" />
+                <ComboBox Name="ctMakerDropdown" SelectionChanged="ctMakerDropdown_SelectionChanged" />
             </StackPanel>
-            <extToolkit:PropertyGrid Margin="8" Name="makerProperties" Grid.Row="1" NameColumnWidth="150"
-                                     PropertyChanged="makerProperties_PropertyChanged" />
+            <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"
+                                     PropertyChanged="ctMakerProperties_PropertyChanged" />
         </Grid>
 
         <GridSplitter Width="8" Style="{StaticResource gridSplitterStyle}" />
@@ -87,16 +87,16 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="#87FFFFFF">
                 <StackPanel Margin="8">
-                    <CheckBox Name="zoom3x" Checked="zoom3x_Changed" Unchecked="zoom3x_Changed">_Zoom 3x</CheckBox>
+                    <CheckBox Name="ctZoomCheckbox" Checked="ctZoomCheckbox_Changed" Unchecked="ctZoomCheckbox_Changed">_Zoom 3x</CheckBox>
                 </StackPanel>
             </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
-                <WrapPanel Name="tankIcons" Orientation="Vertical" Margin="15" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                <WrapPanel Name="ctIconsPanel" Orientation="Vertical" Margin="15" RenderOptions.BitmapScalingMode="NearestNeighbor">
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
         
-        <Border Grid.ColumnSpan="2" Name="loading" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C">
+        <Border Grid.ColumnSpan="2" Name="ctLoadingBox" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#D25F5F5F" Offset="1" />
