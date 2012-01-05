@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using D = System.Drawing;
-using DI = System.Drawing.Imaging;
 
 namespace TankIconMaker
 {
@@ -62,6 +60,11 @@ namespace TankIconMaker
         [Description("The color of the tier text for tier 10 tanks. The color for tiers 2..9 is interpolated based on tier 1, 5 and 10 settings.")]
         public Color Tier10Color { get; set; }
 
+        [Category("Tank image"), DisplayName("Overhang")]
+        [Description("Indicates whether the tank picture should overhang above and below the background rectangle, fit strictly inside it or be clipped to its size.")]
+        public OverhangStyle Overhang { get; set; }
+        public enum OverhangStyle { Overhang, Fit, Clip }
+
         private Pen _outline, _outlineInner;
         private Brush _lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground;
 
@@ -80,9 +83,11 @@ namespace TankIconMaker
             NameAntiAlias = TextAntiAliasStyle.AliasedHinted;
 
             TierAntiAlias = TextAntiAliasStyle.AliasedHinted;
-            Tier1Color = Colors.Lime;
+            Tier1Color = Colors.White;
             Tier5Color = Colors.White;
             Tier10Color = Colors.Red;
+
+            Overhang = OverhangStyle.Clip;
 
             _outline = new Pen(Brushes.Black, 1); _outline.Freeze();
             _outlineInner = new Pen(new SolidColorBrush(Color.FromArgb(30, 255, 255, 255)), 1); _outlineInner.Freeze();
@@ -122,16 +127,17 @@ namespace TankIconMaker
                 _outline, new Rect(0.5, 1.5, 79, 21));
             dc.DrawRectangle(null, _outlineInner, new Rect(1.5, 2.5, 77, 19));
 
+            PixelRect nameSize = new PixelRect(), tierSize = new PixelRect();
+
             var nameFont = new D.Font("Arial", 8.5f);
             var nameBrush = new D.SolidBrush(tank.Category.Pick(NameColorNormal, NameColorPremium, NameColorSpecial).ToColorGdi());
             var nameLayer = Ut.NewGdiBitmap((D.Graphics g) =>
             {
                 g.TextRenderingHint = NameAntiAlias.ToGdi();
-                g.DrawString(tank["OfficialName"], nameFont, nameBrush, right: 80 - 4, bottom: 24 - 5);
+                nameSize = g.DrawString(tank["OfficialName"], nameFont, nameBrush, right: 80 - 5, bottom: 24 - 2, baseline: true);
             });
             nameLayer.DrawImage(nameLayer.GetOutline(NameAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
             nameLayer = nameLayer.GetBlurred().DrawImage(nameLayer);
-            dc.DrawImage(nameLayer);
 
             var tierFont = new D.Font("Arial", 8.5f);
             var tierColor = tank.Tier <= 5 ? Ut.BlendColors(Tier1Color, Tier5Color, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5Color, Tier10Color, (tank.Tier - 5) / 5.0);
@@ -139,10 +145,29 @@ namespace TankIconMaker
             var tierLayer = Ut.NewGdiBitmap((D.Graphics g) =>
             {
                 g.TextRenderingHint = TierAntiAlias.ToGdi();
-                g.DrawString(tank.Tier.ToString(), tierFont, tierBrush, left: 3, top: 1);
+                tierSize = g.DrawString(tank.Tier.ToString(), tierFont, tierBrush, left: 3, top: 5);
             });
             tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
             tierLayer = tierLayer.GetBlurred().DrawImage(tierLayer);
+
+            try
+            {
+                var image = Targa.LoadWpf(Path.Combine(@"I:\Games\WorldOfTanks\res\gui\maps\icons\vehicle\small", tank.SystemId + ".tga"));
+                var minmax = Ut.PreciseWidth(image, 100);
+                if (Overhang != OverhangStyle.Overhang)
+                    dc.PushClip(new RectangleGeometry(new Rect(1, 2, 78, 20)));
+                double height = Overhang == OverhangStyle.Fit ? 20 : 24;
+                double scale = height / image.Height;
+                dc.DrawImage(image, new Rect(
+                    Math.Max(10 - minmax.Left * scale, (tierSize.Right + nameSize.Left) / 2 - scale * minmax.CenterHorz),
+                    Overhang == OverhangStyle.Fit ? 2 : 0,
+                    image.Width * scale, height));
+                if (Overhang != OverhangStyle.Overhang)
+                    dc.Pop();
+            }
+            catch { }
+
+            dc.DrawImage(nameLayer);
             dc.DrawImage(tierLayer);
         }
     }

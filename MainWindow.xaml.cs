@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,6 +18,7 @@ using RT.Util.Dialogs;
 /*
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
+ * BytesBitmap to mimick BitmapSource in API (and name BitmapSourceGdi?)
  * Proper resolution of properties
  * Short names for all tanks
  * "Save icons" button
@@ -59,8 +61,6 @@ namespace TankIconMaker
             this.SizeChanged += Window_SizeChanged;
             this.LocationChanged += Window_LocationChanged;
             ctMakerDropdown.SelectionChanged += ctMakerDropdown_SelectionChanged;
-            ctZoomCheckbox.Checked += ctZoomCheckbox_Changed;
-            ctZoomCheckbox.Unchecked += ctZoomCheckbox_Changed;
             ctMakerProperties.PropertyChanged += ctMakerProperties_PropertyChanged;
             ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
         }
@@ -186,6 +186,9 @@ namespace TankIconMaker
                 _cancelRender.Cancel();
             _cancelRender = new CancellationTokenSource();
 
+            foreach (var image in ctIconsPanel.Children.OfType<Image>())
+                image.Opacity = 0.7;
+
             _updateIconsTimer.Stop();
             _updateIconsTimer.Start();
         }
@@ -205,18 +208,28 @@ namespace TankIconMaker
                 {
                     var img = new Image
                     {
-                        Width = 80 * (ctZoomCheckbox.IsChecked == true ? 3 : 1), Height = 24 * (ctZoomCheckbox.IsChecked == true ? 3 : 1),
                         SnapsToDevicePixels = true,
                         Margin = new Thickness { Right = 15 },
                         Cursor = Cursors.Hand,
                     };
+                    BindingOperations.SetBinding(img, Image.WidthProperty, new Binding
+                    {
+                        Source = ctZoomCheckbox,
+                        Path = new PropertyPath(CheckBox.IsCheckedProperty),
+                        Converter = LambdaConverter.New((bool check) => 80 * (check ? 5 : 1)),
+                    });
+                    BindingOperations.SetBinding(img, Image.HeightProperty, new Binding
+                    {
+                        Source = ctZoomCheckbox,
+                        Path = new PropertyPath(CheckBox.IsCheckedProperty),
+                        Converter = LambdaConverter.New((bool check) => 24 * (check ? 5 : 1)),
+                    });
                     ctIconsPanel.Children.Add(img);
                     images.Add(img);
                 }
                 var tank = tanks[i];
                 var image = images[i];
 
-                image.Opacity = 160;
                 image.ToolTip = tanks[i].SystemId + (tanks[i]["OfficialName"] == null ? "" : (" (" + tanks[i]["OfficialName"] + ")"));
 
                 var cancel = _cancelRender.Token;
@@ -231,10 +244,10 @@ namespace TankIconMaker
                         Dispatcher.Invoke(new Action(() =>
                         {
                             image.Source = source;
-                            image.Opacity = 255;
+                            image.Opacity = 1;
                         }));
                     }
-                    catch { image.Source = null; } // will do something more appropriate later
+                    catch { } // will do something more appropriate later
                 }, cancel);
             }
 
@@ -316,15 +329,6 @@ namespace TankIconMaker
                 yield return mid;
             if (max != null)
                 yield return max;
-        }
-
-        private void ctZoomCheckbox_Changed(object _, RoutedEventArgs __)
-        {
-            foreach (var child in ctIconsPanel.Children.OfType<Image>())
-            {
-                child.Width = 80 * (ctZoomCheckbox.IsChecked == true ? 3 : 1);
-                child.Height = 24 * (ctZoomCheckbox.IsChecked == true ? 3 : 1);
-            }
         }
 
         private void ctMakerProperties_PropertyChanged(object _, RoutedEventArgs __)

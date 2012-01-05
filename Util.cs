@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using D = System.Drawing;
@@ -59,6 +61,120 @@ namespace TankIconMaker
                 g: (byte) Math.Round(left.G * (1 - rightAmount) + right.G * rightAmount),
                 b: (byte) Math.Round(left.B * (1 - rightAmount) + right.B * rightAmount));
         }
+
+        public unsafe static int PreciseLeft(byte* image, int width, int height, int stride, int alphaThreshold = 0)
+        {
+            byte* start = image + 3;
+            byte* end = image + stride * (height - 1) + width * 4; // pointer to first byte beyond the last pixel
+            for (int x = 0; x < width; x++, start += 4)
+                for (byte* alpha = start; alpha < end; alpha += stride)
+                    if (*alpha > alphaThreshold)
+                        return x;
+            return width;
+        }
+
+        public unsafe static int PreciseRight(byte* image, int width, int height, int stride, int alphaThreshold = 0)
+        {
+            byte* start = image + (width - 1) * 4 + 3;
+            byte* end = image + stride * (height - 1) + width * 4; // pointer to first byte beyond the last pixel
+            for (int x = width - 1; x >= 0; x--, start -= 4)
+                for (byte* alpha = start; alpha < end; alpha += stride)
+                    if (*alpha > alphaThreshold)
+                        return x;
+            return -1;
+        }
+
+        public unsafe static int PreciseTop(byte* image, int width, int height, int stride, int alphaThreshold = 0, int left = 0)
+        {
+            byte* start = image + left * 4 + 3;
+            for (int y = 0; y < height; y++, start += stride)
+            {
+                byte* end = start + (width - left) * 4;
+                for (byte* alpha = start; alpha < end; alpha += 4)
+                    if (*alpha > alphaThreshold)
+                        return y;
+            }
+            return height;
+        }
+
+        public unsafe static int PreciseBottom(byte* image, int width, int height, int stride, int alphaThreshold = 0, int left = 0)
+        {
+            byte* start = image + (height - 1) * stride + left * 4 + 3;
+            for (int y = height - 1; y >= 0; y--, start -= stride)
+            {
+                byte* end = start + (width - left) * 4;
+                for (byte* alpha = start; alpha < end; alpha += 4)
+                    if (*alpha > alphaThreshold)
+                        return y;
+            }
+            return -1;
+        }
+
+        public unsafe static PixelRect PreciseSize(byte* image, int width, int height, int stride, int alphaThreshold = 0)
+        {
+            int left = PreciseLeft(image, width, height, stride, alphaThreshold);
+            int right = PreciseRight(image, width, height, stride, alphaThreshold);
+            int top = PreciseTop(image, right + 1, height, stride, alphaThreshold, left);
+            int bottom = PreciseBottom(image, right + 1, height, stride, alphaThreshold, left);
+            return PixelRect.FromBounds(left, top, right, bottom);
+        }
+
+        public unsafe static PixelRect PreciseWidth(byte* image, int width, int height, int stride, int alphaThreshold = 0)
+        {
+            return PixelRect.FromLeftRight(
+                PreciseLeft(image, width, height, stride, alphaThreshold),
+                PreciseRight(image, width, height, stride, alphaThreshold));
+        }
+
+        public unsafe static PixelRect PreciseHeight(byte* image, int width, int height, int stride, int alphaThreshold = 0, int left = 0)
+        {
+            return PixelRect.FromTopBottom(
+                PreciseTop(image, width, height, stride, alphaThreshold, left),
+                PreciseBottom(image, width, height, stride, alphaThreshold, left));
+        }
+
+        public unsafe static PixelRect PreciseSize(this WriteableBitmap image, int alphaThreshold = 0)
+        {
+            var result = PreciseSize((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold);
+            GC.KeepAlive(image);
+            return result;
+        }
+
+        public unsafe static PixelRect PreciseSize(this BytesBitmap image, int alphaThreshold = 0)
+        {
+            var result = PreciseSize((byte*) image.BitPtr, image.Width, image.Height, image.Stride, alphaThreshold);
+            GC.KeepAlive(image);
+            return result;
+        }
+
+        public unsafe static PixelRect PreciseWidth(this WriteableBitmap image, int alphaThreshold = 0)
+        {
+            var result = PreciseWidth((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold);
+            GC.KeepAlive(image);
+            return result;
+        }
+
+        public unsafe static PixelRect PreciseWidth(this BytesBitmap image, int alphaThreshold = 0)
+        {
+            var result = PreciseWidth((byte*) image.BitPtr, image.Width, image.Height, image.Stride, alphaThreshold);
+            GC.KeepAlive(image);
+            return result;
+        }
+
+        public unsafe static PixelRect PreciseHeight(this WriteableBitmap image, int alphaThreshold = 0, int left = 0)
+        {
+            var result = PreciseHeight((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold, left);
+            GC.KeepAlive(image);
+            return result;
+        }
+
+        public unsafe static PixelRect PreciseHeight(this BytesBitmap image, int alphaThreshold = 0, int left = 0)
+        {
+            var result = PreciseHeight((byte*) image.BitPtr, image.Width, image.Height, image.Stride, alphaThreshold, left);
+            GC.KeepAlive(image);
+            return result;
+        }
+
     }
 
     static class ExtensionMethods
@@ -89,9 +205,10 @@ namespace TankIconMaker
             return Color.FromArgb((byte) alpha, color.R, color.G, color.B);
         }
 
-        public static int SlowButPerfectWidth(D.Graphics graphics, string text, D.Font font)
+        public static BytesBitmap TextToBitmap(this D.Graphics graphics, string text, D.Font font, D.Brush brush)
         {
-            var bmp = new BytesBitmap(500, 20, D.Imaging.PixelFormat.Format32bppArgb);
+            var size = graphics.MeasureString(text, font); // the default is to include any overhangs into the calculation
+            var bmp = new BytesBitmap((int) size.Width + 1, (int) size.Height + 1, D.Imaging.PixelFormat.Format32bppArgb);
             using (var g = D.Graphics.FromImage(bmp.Bitmap))
             {
                 g.CompositingQuality = graphics.CompositingQuality;
@@ -99,37 +216,28 @@ namespace TankIconMaker
                 g.PixelOffsetMode = graphics.PixelOffsetMode;
                 g.SmoothingMode = graphics.SmoothingMode;
                 g.TextRenderingHint = graphics.TextRenderingHint;
-                g.DrawString(text, font, D.Brushes.White, 0, 0, D.StringFormat.GenericTypographic);
+                g.DrawString(text, font, brush, 0, 0);
             }
-            var bits = bmp.Bits;
-            int result = -1;
-            for (int y = 0; y < bmp.Height; y++)
-            {
-                int b = y * bmp.Stride;
-                for (int x = 0; x < bmp.Width; x++, b += 4)
-                    if (bits[b] != 0)
-                        result = Math.Max(result, x);
-            }
-            GC.KeepAlive(bmp);
-            return result + 1;
+            return bmp;
         }
 
-        public static void DrawString(this D.Graphics graphics, string text, D.Font font, D.Brush brush, int? left = null, int? right = null, int? top = null, int? bottom = null)
+        public static PixelRect DrawString(this D.Graphics graphics, string text, D.Font font, D.Brush brush,
+            int? left = null, int? right = null, int? top = null, int? bottom = null, bool baseline = false)
         {
-            var size = graphics.MeasureString(text, font, new D.PointF(0, 0), D.StringFormat.GenericTypographic);
+            var bmp = graphics.TextToBitmap(text, font, brush);
+            var size = baseline ? bmp.PreciseWidth().WithTopBottom(0, bmp.Height - 1) : bmp.PreciseSize();
 
-            int width = SlowButPerfectWidth(graphics, text, font);
-            int height = (int) size.Height;
+            int x = (left != null && right != null) ? (left.Value + right.Value) / 2 - size.CenterHorz
+                : (left != null) ? left.Value - size.Left
+                : (right != null) ? right.Value - size.Right
+                : 80 / 2 - size.CenterHorz / 2;
+            int y = (top != null && bottom != null) ? (top.Value + bottom.Value) / 2 - size.CenterVert
+                : (top != null) ? top.Value - size.Top
+                : (bottom != null) ? bottom.Value - size.Bottom
+                : 24 / 2 - size.CenterVert;
 
-            int x = (left != null && right != null) ? (left.Value + right.Value) / 2 - width / 2
-                : (left != null) ? left.Value
-                : (right != null) ? right.Value - width
-                : 80 / 2 - width / 2;
-            int y = (top != null && bottom != null) ? (top.Value + bottom.Value) / 2 - height / 2
-                : (top != null) ? top.Value
-                : (bottom != null) ? bottom.Value - height
-                : 24 / 2 - height / 2;
-            graphics.DrawString(text, font, brush, x, y, D.StringFormat.GenericTypographic);
+            graphics.DrawImageUnscaled(bmp.Bitmap, x, y);
+            return size.Shifted(x, y);
         }
 
         public static void DrawImage(this DrawingContext context, BytesBitmap bmp)
@@ -272,6 +380,34 @@ namespace TankIconMaker
         AntiAliased,
         AntiAliasedHinted,
         ClearTypeHinted,
+    }
+
+    /// <summary>A better Int32Rect, expressly designed to represent pixel areas - hence the left/right/top/bottom/width/height are always "inclusive".</summary>
+    struct PixelRect
+    {
+        private int _left, _width, _top, _height;
+        public int Left { get { return _left; } }
+        public int Top { get { return _top; } }
+        public int Right { get { return _left + _width - 1; } }
+        public int Bottom { get { return _top + _height - 1; } }
+        public int Width { get { return _width; } }
+        public int Height { get { return _height; } }
+        public int CenterHorz { get { return _left + _width / 2; } }
+        public int CenterVert { get { return _top + _height / 2; } }
+
+        public static PixelRect FromBounds(int left, int top, int right, int bottom)
+        {
+            return new PixelRect { _left = left, _top = top, _width = right - left + 1, _height = bottom - top + 1 };
+        }
+        public static PixelRect FromMixed(int left, int top, int width, int height)
+        {
+            return new PixelRect { _left = left, _top = top, _width = width, _height = height };
+        }
+        public static PixelRect FromLeftRight(int left, int right) { return FromBounds(left, 0, right, 0); }
+        public static PixelRect FromTopBottom(int top, int bottom) { return FromBounds(0, top, 0, bottom); }
+        public PixelRect WithLeftRight(int left, int right) { return FromBounds(left, Top, right, Bottom); }
+        public PixelRect WithTopBottom(int top, int bottom) { return FromBounds(Left, top, Right, bottom); }
+        public PixelRect Shifted(int deltaX, int deltaY) { return FromMixed(Left + deltaX, Top + deltaY, Width, Height); }
     }
 
     /// <summary>Adapted from Paint.NET and thus exactly compatible in the RGB/HSV conversion (apart from hue 360, which must be 0 instead)</summary>
@@ -451,4 +587,33 @@ namespace TankIconMaker
             return FromHSV(Hue, Saturation, Value, Alpha);
         }
     }
+
+    class LambdaConverter<TSource, TResult> : IValueConverter
+    {
+        private Func<TSource, TResult> _lambda;
+
+        public LambdaConverter(Func<TSource, TResult> lambda)
+        {
+            _lambda = lambda;
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return _lambda((TSource) value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    static class LambdaConverter
+    {
+        public static LambdaConverter<TSource, TResult> New<TSource, TResult>(Func<TSource, TResult> lambda)
+        {
+            return new LambdaConverter<TSource, TResult>(lambda);
+        }
+    }
+
 }
