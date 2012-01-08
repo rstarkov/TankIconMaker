@@ -43,7 +43,7 @@ namespace TankIconMaker
                     g.TextRenderingHint = AntiAlias.ToGdi();
                     g.DrawString(Text, new D.Font("Arial", (float) FontSize), D.Brushes.White, new D.Point(2, 2), D.StringFormat.GenericTypographic);
                 });
-                context.DrawImage(layer.GetWpfSource());
+                context.DrawImage(layer.ToWpf());
             }
         }
     }

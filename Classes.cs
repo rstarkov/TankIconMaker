@@ -208,7 +208,7 @@ namespace TankIconMaker
             var visual = new DrawingVisual();
             using (var context = visual.RenderOpen())
                 DrawTank(tank, context);
-            var bitmap = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Default);
+            var bitmap = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Pbgra32);
             bitmap.Render(visual);
             return bitmap;
         }
@@ -224,7 +224,7 @@ namespace TankIconMaker
             var result = Ut.NewGdiBitmap();
             using (var g = D.Graphics.FromImage(result.Bitmap))
                 DrawTank(tank, g);
-            return result.GetWpfSource();
+            return result.ToWpf();
         }
     }
 }

@@ -82,20 +82,24 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Background="#87FFFFFF">
-                <WrapPanel Margin="8">
-                    <CheckBox Name="ctZoomCheckbox" Margin="0,3,20,0">_Zoom 3x</CheckBox>
-                    <ComboBox Name="ctDisplayMode">
-                        <ComboBoxItem>All tanks</ComboBoxItem>
-                        <ComboBoxItem Selector.IsSelected="True">One of each combination</ComboBoxItem>
-                    </ComboBox>
-                </WrapPanel>
-            </Grid>
+            <WrapPanel Grid.Row="0" Background="#87FFFFFF">
+                <CheckBox Name="ctZoomCheckbox" Margin="8,11,8,8">_Zoom</CheckBox>
+                <ComboBox Name="ctDisplayMode" Margin="8">
+                    <ComboBoxItem>All tanks</ComboBoxItem>
+                    <ComboBoxItem Selector.IsSelected="True">One of each combination</ComboBoxItem>
+                </ComboBox>
+            </WrapPanel>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
                 <WrapPanel Name="ctIconsPanel" Orientation="Vertical" Margin="15" RenderOptions.BitmapScalingMode="NearestNeighbor">
                 </WrapPanel>
             </ScrollViewer>
+            <WrapPanel Grid.Row="2" Background="#87FFFFFF">
+                <Button Name="ctSave" Grid.Row="1" Margin="8" Click="ctSave_Click">
+                    <AccessText Margin="8,0">_Save...</AccessText>
+                </Button>
+            </WrapPanel>
         </Grid>
         
         <Border Grid.ColumnSpan="2" Name="ctLoadingBox" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C">

@@ -34,6 +34,9 @@ namespace TankIconMaker
         [Description("The color of the background used for artillery.")]
         public Color BackColorArtillery { get; set; }
 
+        [Category("Tank name"), DisplayName("Data source")]
+        [Description("Choose the name of the property that supplies the data for the bottom right location.")]
+        public string NameData { get; set; }
         [Category("Tank name"), DisplayName("Color: normal")]
         [Description("Used to color the name of all tanks that can be freely bought for silver in the game.")]
         public Color NameColorNormal { get; set; }
@@ -47,9 +50,6 @@ namespace TankIconMaker
         [Description("Determines how the tank name should be anti-aliased.")]
         public TextAntiAliasStyle NameAntiAlias { get; set; }
 
-        [Category("Tank tier"), DisplayName("Rendering style")]
-        [Description("Determines how the tank name should be anti-aliased.")]
-        public TextAntiAliasStyle TierAntiAlias { get; set; }
         [Category("Tank tier"), DisplayName("Tier  1 Color")]
         [Description("The color of the tier text for tier 1 tanks. The color for tiers 2..9 is interpolated based on tier 1, 5 and 10 settings.")]
         public Color Tier1Color { get; set; }
@@ -59,6 +59,9 @@ namespace TankIconMaker
         [Category("Tank tier"), DisplayName("Tier 10 Color")]
         [Description("The color of the tier text for tier 10 tanks. The color for tiers 2..9 is interpolated based on tier 1, 5 and 10 settings.")]
         public Color Tier10Color { get; set; }
+        [Category("Tank tier"), DisplayName("Rendering style")]
+        [Description("Determines how the tank name should be anti-aliased.")]
+        public TextAntiAliasStyle TierAntiAlias { get; set; }
 
         [Category("Tank image"), DisplayName("Overhang")]
         [Description("Indicates whether the tank picture should overhang above and below the background rectangle, fit strictly inside it or be clipped to its size.")]
@@ -77,20 +80,21 @@ namespace TankIconMaker
             BackColorDestroyer = Color.FromRgb(41, 83, 160);
             BackColorArtillery = Color.FromRgb(181, 47, 47);
 
-            NameColorNormal = Colors.White;
+            NameData = "NameShortWG";
+            NameColorNormal = Color.FromRgb(210, 210, 210);
             NameColorPremium = Colors.Yellow;
             NameColorSpecial = Color.FromRgb(242, 98, 103);
-            NameAntiAlias = TextAntiAliasStyle.AliasedHinted;
+            NameAntiAlias = TextAntiAliasStyle.ClearTypeHinted;
 
-            TierAntiAlias = TextAntiAliasStyle.AliasedHinted;
-            Tier1Color = Colors.White;
+            TierAntiAlias = TextAntiAliasStyle.ClearTypeHinted;
+            Tier1Color = NameColorNormal;
             Tier5Color = Colors.White;
             Tier10Color = Colors.Red;
 
             Overhang = OverhangStyle.Clip;
 
             _outline = new Pen(Brushes.Black, 1); _outline.Freeze();
-            _outlineInner = new Pen(new SolidColorBrush(Color.FromArgb(30, 255, 255, 255)), 1); _outlineInner.Freeze();
+            _outlineInner = new Pen(new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)), 1); _outlineInner.Freeze();
         }
 
         public override void Initialize()
@@ -109,10 +113,10 @@ namespace TankIconMaker
             {
                 GradientStops = new GradientStopCollection
                 {
-                    new GradientStop(hsv.ToColorWpf(), 0),
+                    new GradientStop(hsv.ToColorWpf(), 0.1),
                     new GradientStop(hsv.ScaleValue(0.56).ToColorWpf(), 0.49),
                     new GradientStop(hsv.ScaleValue(0.39).ToColorWpf(), 0.51),
-                    new GradientStop(hsv.ScaleValue(0.56).ToColorWpf(), 1),
+                    new GradientStop(hsv.ScaleValue(0.56).ToColorWpf(), 0.9),
                 },
                 StartPoint = new Point(0, 0),
                 EndPoint = new Point(0, 1),
@@ -134,7 +138,7 @@ namespace TankIconMaker
             var nameLayer = Ut.NewGdiBitmap((D.Graphics g) =>
             {
                 g.TextRenderingHint = NameAntiAlias.ToGdi();
-                nameSize = g.DrawString(tank["OfficialName"], nameFont, nameBrush, right: 80 - 5, bottom: 24 - 2, baseline: true);
+                nameSize = g.DrawString(tank[NameData] ?? "", nameFont, nameBrush, right: 80 - 4, bottom: 24 - 1, baseline: true);
             });
             nameLayer.DrawImage(nameLayer.GetOutline(NameAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
             nameLayer = nameLayer.GetBlurred().DrawImage(nameLayer);
@@ -145,7 +149,7 @@ namespace TankIconMaker
             var tierLayer = Ut.NewGdiBitmap((D.Graphics g) =>
             {
                 g.TextRenderingHint = TierAntiAlias.ToGdi();
-                tierSize = g.DrawString(tank.Tier.ToString(), tierFont, tierBrush, left: 3, top: 5);
+                tierSize = g.DrawString(tank.Tier.ToString(), tierFont, tierBrush, left: 3, top: 4);
             });
             tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
             tierLayer = tierLayer.GetBlurred().DrawImage(tierLayer);

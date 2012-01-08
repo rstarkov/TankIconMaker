@@ -8,7 +8,7 @@ using RT.Util.Forms;
 namespace TankIconMaker
 {
     [Settings("TankIconMaker", SettingsKind.UserSpecific)]
-    class Settings : SettingsThreadedBase
+    sealed class Settings : SettingsThreadedBase
     {
         public ManagedWindow.Settings MainWindow = new ManagedWindow.Settings();
         public double? LeftColumnWidth = null;
