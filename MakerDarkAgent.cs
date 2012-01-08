@@ -135,7 +135,7 @@ namespace TankIconMaker
 
             var nameFont = new D.Font("Arial", 8.5f);
             var nameBrush = new D.SolidBrush(tank.Category.Pick(NameColorNormal, NameColorPremium, NameColorSpecial).ToColorGdi());
-            var nameLayer = Ut.NewGdiBitmap((D.Graphics g) =>
+            var nameLayer = Ut.NewBitmapGdi((D.Graphics g) =>
             {
                 g.TextRenderingHint = NameAntiAlias.ToGdi();
                 nameSize = g.DrawString(tank[NameData] ?? "", nameFont, nameBrush, right: 80 - 4, bottom: 24 - 1, baseline: true);
@@ -146,7 +146,7 @@ namespace TankIconMaker
             var tierFont = new D.Font("Arial", 8.5f);
             var tierColor = tank.Tier <= 5 ? Ut.BlendColors(Tier1Color, Tier5Color, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5Color, Tier10Color, (tank.Tier - 5) / 5.0);
             var tierBrush = new D.SolidBrush(tierColor.ToColorGdi());
-            var tierLayer = Ut.NewGdiBitmap((D.Graphics g) =>
+            var tierLayer = Ut.NewBitmapGdi((D.Graphics g) =>
             {
                 g.TextRenderingHint = TierAntiAlias.ToGdi();
                 tierSize = g.DrawString(tank.Tier.ToString(), tierFont, tierBrush, left: 3, top: 4);

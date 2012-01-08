@@ -11,7 +11,7 @@ namespace TankIconMaker
     /// Wrapper around a GDI Bitmap that allows access to its raw byte data. The API is intended to somewhat
     /// resemble that of the WPF BitmapSource. Intentionally supports just a single pixel format: 32bppArgb, aka Bgra32.
     /// </summary>
-    public sealed class BitmapGdi : IDisposable
+    sealed class BitmapGdi : IDisposable
     {
         private SharedPinnedByteArray _bytes;
 
@@ -92,7 +92,7 @@ namespace TankIconMaker
     /// This class represents a byte array which is pinned to avoid relocation
     /// by the GC and implements reference counting.
     /// </summary>
-    internal sealed class SharedPinnedByteArray
+    sealed class SharedPinnedByteArray
     {
         private GCHandle _handle;
         private int _refCount;

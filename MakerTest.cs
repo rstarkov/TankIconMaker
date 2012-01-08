@@ -38,7 +38,7 @@ namespace TankIconMaker
             }
             else
             {
-                var layer = Ut.NewGdiBitmap((D.Graphics g) =>
+                var layer = Ut.NewBitmapGdi((D.Graphics g) =>
                 {
                     g.TextRenderingHint = AntiAlias.ToGdi();
                     g.DrawString(Text, new D.Font("Arial", (float) FontSize), D.Brushes.White, new D.Point(2, 2), D.StringFormat.GenericTypographic);
