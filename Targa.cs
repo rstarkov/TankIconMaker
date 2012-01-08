@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace TankIconMaker
 {
-    public class Targa
+    sealed class Targa
     {
         public int Width { get; private set; }
         public int Height { get; private set; }

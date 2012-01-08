@@ -34,6 +34,7 @@ using RT.Util.Dialogs;
  * Good handling of exceptions due to bugs in the program (show detail and exit)
  * Report file loading errors properly
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
+ * Same method to draw text with GDI (various anti-aliasing settings) and WPF (another item in the anti-alias enum)
  * 
  * Use a drop-down listing all possible properties for NameDataSource
  * In-game-like display of low/mid/high tier balance
@@ -47,7 +48,7 @@ using RT.Util.Dialogs;
 
 namespace TankIconMaker
 {
-    public partial class MainWindow : ManagedWindow
+    partial class MainWindow : ManagedWindow
     {
         private string _exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private List<DataFileBuiltIn> _builtin = new List<DataFileBuiltIn>();

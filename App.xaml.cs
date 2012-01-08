@@ -7,7 +7,7 @@ using RT.Util;
 
 namespace TankIconMaker
 {
-    public partial class App : Application
+    partial class App : Application
     {
         public App() { Program.App = this; }
 
