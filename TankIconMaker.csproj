@@ -58,12 +58,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BitmapGdi.cs" />
     <Compile Include="MakerDarkAgent.cs" />
     <Compile Include="MakerTest.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Targa.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="UtilGdi.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

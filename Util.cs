@@ -37,14 +37,14 @@ namespace TankIconMaker
             return fields.Select(f => f.Contains('"') ? Regex.Replace(f, @"^ *""(.*)"" *$", "$1").Replace(@"""""", @"""") : f).ToArray();
         }
 
-        public static BytesBitmap NewGdiBitmap()
+        public static BitmapGdi NewGdiBitmap()
         {
-            return new BytesBitmap(80, 24, DI.PixelFormat.Format32bppArgb);
+            return new BitmapGdi(80, 24, DI.PixelFormat.Format32bppArgb);
         }
 
-        public static BytesBitmap NewGdiBitmap(Action<D.Graphics> draw)
+        public static BitmapGdi NewGdiBitmap(Action<D.Graphics> draw)
         {
-            var result = new BytesBitmap(80, 24, DI.PixelFormat.Format32bppArgb);
+            var result = new BitmapGdi(80, 24, DI.PixelFormat.Format32bppArgb);
             using (var g = D.Graphics.FromImage(result.Bitmap))
                 draw(g);
             return result;
@@ -137,9 +137,9 @@ namespace TankIconMaker
             return result;
         }
 
-        public unsafe static PixelRect PreciseSize(this BytesBitmap image, int alphaThreshold = 0)
+        public unsafe static PixelRect PreciseSize(this BitmapGdi image, int alphaThreshold = 0)
         {
-            var result = PreciseSize((byte*) image.BitPtr, image.Width, image.Height, image.Stride, alphaThreshold);
+            var result = PreciseSize((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold);
             GC.KeepAlive(image);
             return result;
         }
@@ -151,9 +151,9 @@ namespace TankIconMaker
             return result;
         }
 
-        public unsafe static PixelRect PreciseWidth(this BytesBitmap image, int alphaThreshold = 0)
+        public unsafe static PixelRect PreciseWidth(this BitmapGdi image, int alphaThreshold = 0)
         {
-            var result = PreciseWidth((byte*) image.BitPtr, image.Width, image.Height, image.Stride, alphaThreshold);
+            var result = PreciseWidth((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold);
             GC.KeepAlive(image);
             return result;
         }
@@ -165,9 +165,9 @@ namespace TankIconMaker
             return result;
         }
 
-        public unsafe static PixelRect PreciseHeight(this BytesBitmap image, int alphaThreshold = 0, int left = 0)
+        public unsafe static PixelRect PreciseHeight(this BitmapGdi image, int alphaThreshold = 0, int left = 0)
         {
-            var result = PreciseHeight((byte*) image.BitPtr, image.Width, image.Height, image.Stride, alphaThreshold, left);
+            var result = PreciseHeight((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold, left);
             GC.KeepAlive(image);
             return result;
         }
@@ -202,10 +202,10 @@ namespace TankIconMaker
             return Color.FromArgb((byte) alpha, color.R, color.G, color.B);
         }
 
-        public static BytesBitmap TextToBitmap(this D.Graphics graphics, string text, D.Font font, D.Brush brush)
+        public static BitmapGdi TextToBitmap(this D.Graphics graphics, string text, D.Font font, D.Brush brush)
         {
             var size = graphics.MeasureString(text, font); // the default is to include any overhangs into the calculation
-            var bmp = new BytesBitmap((int) size.Width + 1, (int) size.Height + 1, D.Imaging.PixelFormat.Format32bppArgb);
+            var bmp = new BitmapGdi((int) size.Width + 1, (int) size.Height + 1, D.Imaging.PixelFormat.Format32bppArgb);
             using (var g = D.Graphics.FromImage(bmp.Bitmap))
             {
                 g.CompositingQuality = graphics.CompositingQuality;
@@ -222,7 +222,7 @@ namespace TankIconMaker
             int? left = null, int? right = null, int? top = null, int? bottom = null, bool baseline = false)
         {
             var bmp = graphics.TextToBitmap(text, font, brush);
-            var size = baseline ? bmp.PreciseWidth().WithTopBottom(0, bmp.Height - 1) : bmp.PreciseSize();
+            var size = baseline ? bmp.PreciseWidth().WithTopBottom(0, bmp.PixelHeight - 1) : bmp.PreciseSize();
 
             int x = (left != null && right != null) ? (left.Value + right.Value) / 2 - size.CenterHorz
                 : (left != null) ? left.Value - size.Left
@@ -237,9 +237,9 @@ namespace TankIconMaker
             return size.Shifted(x, y);
         }
 
-        public static void DrawImage(this DrawingContext context, BytesBitmap bmp)
+        public static void DrawImage(this DrawingContext context, BitmapGdi bmp)
         {
-            context.DrawImage(bmp.ToWpf(), new Rect(0, 0, bmp.Width, bmp.Height));
+            context.DrawImage(bmp.ToWpf(), new Rect(0, 0, bmp.PixelWidth, bmp.PixelHeight));
         }
 
         public static void DrawImage(this DrawingContext context, BitmapSource bmp)
@@ -247,30 +247,30 @@ namespace TankIconMaker
             context.DrawImage(bmp, new Rect(0, 0, bmp.Width, bmp.Height));
         }
 
-        public static BytesBitmap DrawImage(this BytesBitmap target, BytesBitmap source)
+        public static BitmapGdi DrawImage(this BitmapGdi target, BitmapGdi source)
         {
             using (var g = D.Graphics.FromImage(target.Bitmap))
                 g.DrawImageUnscaled(source.Bitmap, 0, 0);
             return target;
         }
 
-        public static BytesBitmap GetOutline(this BytesBitmap srcBitmap, int opacity = 255)
+        public static BitmapGdi GetOutline(this BitmapGdi srcBitmap, int opacity = 255)
         {
             var tgtBitmap = Ut.NewGdiBitmap();
-            var src = srcBitmap.Bits;
-            var tgt = tgtBitmap.Bits;
-            for (int y = 0; y < srcBitmap.Height; y++)
+            var src = srcBitmap.Bytes;
+            var tgt = tgtBitmap.Bytes;
+            for (int y = 0; y < srcBitmap.PixelHeight; y++)
             {
                 int b = y * srcBitmap.Stride;
                 int left = 0;
                 int cur = src[b + 0 + 3];
                 int right;
-                for (int x = 0; x < srcBitmap.Width; x++, b += 4)
+                for (int x = 0; x < srcBitmap.PixelWidth; x++, b += 4)
                 {
-                    right = x == srcBitmap.Width - 1 ? (byte) 0 : src[b + 4 + 3];
+                    right = x == srcBitmap.PixelWidth - 1 ? (byte) 0 : src[b + 4 + 3];
                     if (src[b + 3] == 0)
                     {
-                        if (left != 0 || right != 0 || (y > 0 && src[b - srcBitmap.Stride + 3] > 0) || ((y < srcBitmap.Height - 1) && src[b + srcBitmap.Stride + 3] > 0))
+                        if (left != 0 || right != 0 || (y > 0 && src[b - srcBitmap.Stride + 3] > 0) || ((y < srcBitmap.PixelHeight - 1) && src[b + srcBitmap.Stride + 3] > 0))
                         {
                             tgt[b] = tgt[b + 1] = tgt[b + 2] = 0;
                             tgt[b + 3] = (byte) opacity;
@@ -283,15 +283,15 @@ namespace TankIconMaker
             return tgtBitmap;
         }
 
-        public static BytesBitmap GetBlurred(this BytesBitmap srcBitmap)
+        public static BitmapGdi GetBlurred(this BitmapGdi srcBitmap)
         {
             var tgtBitmap = Ut.NewGdiBitmap();
-            var src = srcBitmap.Bits;
-            var tgt = tgtBitmap.Bits;
-            for (int y = 0; y < srcBitmap.Height; y++)
+            var src = srcBitmap.Bytes;
+            var tgt = tgtBitmap.Bytes;
+            for (int y = 0; y < srcBitmap.PixelHeight; y++)
             {
                 int b = y * srcBitmap.Stride;
-                for (int x = 0; x < srcBitmap.Width; x++, b += 4)
+                for (int x = 0; x < srcBitmap.PixelWidth; x++, b += 4)
                 {
                     tgt[b] = tgt[b + 1] = tgt[b + 2] = 0;
                     tgt[b + 3] = src[b + 3];
@@ -299,19 +299,19 @@ namespace TankIconMaker
             }
 
             for (int iter = 0; iter < 5; iter++)
-                for (int y = 0; y < srcBitmap.Height; y++)
+                for (int y = 0; y < srcBitmap.PixelHeight; y++)
                 {
                     int b = y * srcBitmap.Stride;
                     int left = 0;
                     int cur = tgt[b + 0 + 3];
                     int right;
-                    for (int x = 0; x < srcBitmap.Width; x++, b += 4)
+                    for (int x = 0; x < srcBitmap.PixelWidth; x++, b += 4)
                     {
-                        right = x == srcBitmap.Width - 1 ? (byte) 0 : tgt[b + 4 + 3];
+                        right = x == srcBitmap.PixelWidth - 1 ? (byte) 0 : tgt[b + 4 + 3];
                         if (tgt[b + 3] == 0)
                         {
                             int top = y == 0 ? 0 : tgt[b - srcBitmap.Stride + 3];
-                            int bottom = y == srcBitmap.Height - 1 ? 0 : tgt[b + srcBitmap.Stride + 3];
+                            int bottom = y == srcBitmap.PixelHeight - 1 ? 0 : tgt[b + srcBitmap.Stride + 3];
                             tgt[b + 3] = (byte) (((left + right + top + bottom) * 6) / 40);
                         }
                         left = cur;
@@ -321,12 +321,12 @@ namespace TankIconMaker
             return tgtBitmap;
         }
 
-        public static BytesBitmap ToGdi(this BitmapSource bmp)
+        public static BitmapGdi ToGdi(this BitmapSource bmp)
         {
-            var result = new BytesBitmap(bmp.PixelWidth, bmp.PixelHeight, DI.PixelFormat.Format32bppArgb);
+            var result = new BitmapGdi(bmp.PixelWidth, bmp.PixelHeight, DI.PixelFormat.Format32bppArgb);
             if (bmp.Format != PixelFormats.Bgra32)
                 bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
-            bmp.CopyPixels(result.Bits, result.Stride, 0);
+            bmp.CopyPixels(result.Bytes, result.Stride, 0);
             return result;
         }
 

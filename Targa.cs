@@ -75,7 +75,7 @@ namespace TankIconMaker
             return bitmap;
         }
 
-        public static BytesBitmap LoadGdi(string filename)
+        public static BitmapGdi LoadGdi(string filename)
         {
             throw new NotImplementedException();
         }
@@ -85,21 +85,21 @@ namespace TankIconMaker
             Save(image.ToGdi(), filename);
         }
 
-        public static void Save(BytesBitmap image, string filename)
+        public static void Save(BitmapGdi image, string filename)
         {
             using (var file = File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 var header = new byte[18];
                 header[2] = 2;
-                header[12] = (byte) (image.Width);
-                header[13] = (byte) (image.Width >> 8);
-                header[14] = (byte) (image.Height);
-                header[15] = (byte) (image.Height >> 8);
+                header[12] = (byte) (image.PixelWidth);
+                header[13] = (byte) (image.PixelWidth >> 8);
+                header[14] = (byte) (image.PixelHeight);
+                header[15] = (byte) (image.PixelHeight >> 8);
                 header[16] = 32;
                 header[17] = 32;
                 file.Write(header);
-                for (int y = 0; y < image.Height; y++)
-                    file.Write(image.Bits, y * image.Stride, image.Width * 4);
+                for (int y = 0; y < image.PixelHeight; y++)
+                    file.Write(image.Bytes, y * image.Stride, image.PixelWidth * 4);
             }
         }
     }
