@@ -16,7 +16,6 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
- * Must also render anything not already in cache - if not "All"
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * BytesBitmap to mimick BitmapSource in API (and name BitmapSourceGdi?)
@@ -68,7 +67,7 @@ namespace TankIconMaker
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
 
-            IsEnabled = false;
+            GlobalStatusShow("Loading...");
             if (Program.Settings.LeftColumnWidth != null)
                 ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
             if (Program.Settings.NameColumnWidth != null)
@@ -84,6 +83,21 @@ namespace TankIconMaker
             ctMakerDropdown.SelectionChanged += ctMakerDropdown_SelectionChanged;
             ctMakerProperties.PropertyChanged += ctMakerProperties_PropertyChanged;
             ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
+        }
+
+        private void GlobalStatusShow(string message)
+        {
+            (ctGlobalStatusBox.Child as TextBlock).Text = message;
+            ctGlobalStatusBox.Visibility = Visibility.Visible;
+            IsEnabled = false;
+            ctIconsPanel.Opacity = 0.6;
+        }
+
+        private void GlobalStatusHide()
+        {
+            IsEnabled = true;
+            ctGlobalStatusBox.Visibility = Visibility.Collapsed;
+            ctIconsPanel.Opacity = 1;
         }
 
         void InitializeEverything(object _, EventArgs __)
@@ -126,8 +140,7 @@ namespace TankIconMaker
                 .First();
 
             // Done
-            IsEnabled = true;
-            ctLoadingBox.Visibility = Visibility.Collapsed;
+            GlobalStatusHide();
             _updateIconsTimer.Start();
         }
 
@@ -282,7 +295,6 @@ namespace TankIconMaker
                             if (cancelToken.IsCancellationRequested) return;
                             var source = maker.DrawTankInternal(tank);
                             if (cancelToken.IsCancellationRequested) return;
-                            source.Freeze();
                             Dispatcher.Invoke(new Action(() =>
                             {
                                 if (cancelToken.IsCancellationRequested) return;
@@ -339,18 +351,18 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private IEnumerable<Tank> EnumTanks()
+        private IEnumerable<Tank> EnumTanks(bool all = false)
         {
 #warning Implement property inheritance and languages
 
-            IEnumerable<TankData> all = _builtin.First().Data;
+            IEnumerable<TankData> alls = _builtin.First().Data;
             IEnumerable<TankData> selection = null;
 
-            if (ctDisplayMode.SelectedIndex == 0) // all tanks
-                selection = all;
+            if (all || ctDisplayMode.SelectedIndex == 0) // all tanks
+                selection = alls;
             else if (ctDisplayMode.SelectedIndex == 1) // one of each
-                selection = all.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
-                    .SelectMany(p => SelectTiers(all.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
+                selection = alls.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
+                    .SelectMany(p => SelectTiers(alls.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
 
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
                 .Select(tank => new Tank(
@@ -416,10 +428,35 @@ namespace TankIconMaker
                     return;
             _overwriteAccepted = true;
 
-            foreach (var kvp in _renderCache)
-                Targa.Save(kvp.Value, Path.Combine(_path, kvp.Key + ".tga"));
+            GlobalStatusShow("Saving...");
 
-            DlgMessage.ShowInfo("Saved!\nEnjoy.");
+            var maker = (MakerBase) ctMakerDropdown.SelectedItem;
+            var tanks = EnumTanks(all: true).ToList();
+            var renders = _renderCache.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    foreach (var tank in tanks)
+                        if (!renders.ContainsKey(tank.SystemId))
+                            renders[tank.SystemId] = maker.DrawTankInternal(tank);
+                    foreach (var kvp in renders)
+                        Targa.Save(kvp.Value, Path.Combine(_path, kvp.Key + ".tga"));
+                }
+                finally
+                {
+                    Dispatcher.Invoke((Action) GlobalStatusHide);
+                }
+
+                Dispatcher.Invoke((Action) (() =>
+                {
+                    foreach (var kvp in renders)
+                        if (!_renderCache.ContainsKey(kvp.Key))
+                            _renderCache[kvp.Key] = kvp.Value;
+                    DlgMessage.ShowInfo("Saved!\nEnjoy.");
+                }));
+            });
         }
 
         private bool EnsureBackup()

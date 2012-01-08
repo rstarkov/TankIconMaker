@@ -37,6 +37,7 @@ namespace TankIconMaker
                 DrawTank(tank, context);
             var bitmap = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Pbgra32);
             bitmap.Render(visual);
+            bitmap.Freeze();
             return bitmap;
         }
     }
