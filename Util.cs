@@ -37,9 +37,6 @@ namespace TankIconMaker
             return fields.Select(f => f.Contains('"') ? Regex.Replace(f, @"^ *""(.*)"" *$", "$1").Replace(@"""""", @"""") : f).ToArray();
         }
 
-        [DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr hObject);
-
         public static BytesBitmap NewGdiBitmap()
         {
             return new BytesBitmap(80, 24, DI.PixelFormat.Format32bppArgb);
@@ -242,7 +239,7 @@ namespace TankIconMaker
 
         public static void DrawImage(this DrawingContext context, BytesBitmap bmp)
         {
-            context.DrawImage(bmp.GetWpfSource(), new Rect(0, 0, bmp.Width, bmp.Height));
+            context.DrawImage(bmp.ToWpf(), new Rect(0, 0, bmp.Width, bmp.Height));
         }
 
         public static void DrawImage(this DrawingContext context, BitmapSource bmp)
@@ -322,6 +319,15 @@ namespace TankIconMaker
                     }
                 }
             return tgtBitmap;
+        }
+
+        public static BytesBitmap ToGdi(this BitmapSource bmp)
+        {
+            var result = new BytesBitmap(bmp.PixelWidth, bmp.PixelHeight, DI.PixelFormat.Format32bppArgb);
+            if (bmp.Format != PixelFormats.Bgra32)
+                bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
+            bmp.CopyPixels(result.Bits, result.Stride, 0);
+            return result;
         }
 
         public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china)

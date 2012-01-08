@@ -92,7 +92,7 @@ namespace TankIconMaker
         public int Width { get { return Bitmap.Width; } }
         public int Height { get { return Bitmap.Height; } }
 
-        public WI.BitmapSource GetWpfSource()
+        public WI.BitmapSource ToWpf()
         {
             var writable = new WI.WriteableBitmap(Width, Height, Bitmap.HorizontalResolution, Bitmap.VerticalResolution, W.PixelFormats.Bgra32, null);
             writable.WritePixels(new System.Windows.Int32Rect(0, 0, Width, Height), Bits, Stride, 0);

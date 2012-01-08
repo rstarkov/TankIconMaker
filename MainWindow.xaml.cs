@@ -16,17 +16,33 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
+ * Must also render anything not already in cache - if not "All"
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * BytesBitmap to mimick BitmapSource in API (and name BitmapSourceGdi?)
+ * Game versions & paths
  * Proper resolution of properties
- * Short names for all tanks
- * "Save icons" button
+ *    Description and inheritance source
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * "Reload data" button
+ * Bundled properties:
+ *     Short names for all tanks
+ *     Override example for russian colloquial names
+ *     v0.7.1 as separate files
+ * 
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
+ * Good handling of exceptions due to bugs in the program (show detail and exit)
+ * Report file loading errors properly
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
+ * 
+ * Use a drop-down listing all possible properties for NameDataSource
  * In-game-like display of low/mid/high tier balance
+ * Allow the maker to tell us which tanks to invalidate on a property change.
+ */
+
+/*
+ * Inheritance use-cases:
+ *   Definitely: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  */
 
 namespace TankIconMaker
@@ -38,7 +54,11 @@ namespace TankIconMaker
         private List<DataFileExtra> _extra = new List<DataFileExtra>();
         private List<MakerBase> _makers = new List<MakerBase>();
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
-        private CancellationTokenSource _cancelRender = null;
+        private CancellationTokenSource _cancelRender = new CancellationTokenSource();
+        private Dictionary<string, BitmapSource> _renderCache = new Dictionary<string, BitmapSource>();
+
+        private string _path = Path.Combine(@"I:\Games\WorldOfTanks", @"res\gui\maps\icons\vehicle\contour");
+        private string _pathOriginal = Path.Combine(@"I:\Games\WorldOfTanks", @"res\gui\maps\icons\vehicle\contour", "original");
 
         public MainWindow()
             : base(Program.Settings.MainWindow)
@@ -114,6 +134,7 @@ namespace TankIconMaker
         {
             _builtin.Clear();
             _extra.Clear();
+            _renderCache.Clear();
 
             foreach (var fi in new DirectoryInfo(_exePath).GetFiles("Data-*.csv"))
             {
@@ -180,12 +201,16 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>
+        /// Schedules an icon update to occur after a short timeout. If called again before the timeout, will re-set the timeout
+        /// back to original value. If called during a render, the render is cancelled immediately. Call this if the event that
+        /// invalidated the current icons can occur frequently. Call <see cref="UpdateIcons"/> for immediate response.
+        /// </summary>
         private void ScheduleUpdateIcons()
         {
-            if (_cancelRender != null)
-                _cancelRender.Cancel();
-            _cancelRender = new CancellationTokenSource();
+            _cancelRender.Cancel();
 
+            ctSave.IsEnabled = false;
             foreach (var image in ctIconsPanel.Children.OfType<Image>())
                 image.Opacity = 0.7;
 
@@ -193,15 +218,26 @@ namespace TankIconMaker
             _updateIconsTimer.Start();
         }
 
+        /// <summary>
+        /// Begins an icon update immediately. The icons are rendered in the background without blocking the UI. If called during
+        /// a previous render, the render is cancelled immediately. Call this if the event that invalidated the current icons occurs
+        /// infrequently, to ensure immediate response to user action. For very frequent updates, use <see cref="ScheduleUpdateIcons"/>.
+        /// Only the icons not in the render cache are re-rendered; remove some or all to force a re-render of the icon.
+        /// </summary>
         private void UpdateIcons(object _ = null, EventArgs __ = null)
         {
             _updateIconsTimer.Stop();
+            _cancelRender.Cancel();
+            _cancelRender = new CancellationTokenSource();
+            var cancelToken = _cancelRender.Token; // must be a local so that the task lambda captures it; _cancelRender could get reassigned before a task gets to check for cancellation of the old one
+
             var maker = (MakerBase) ctMakerDropdown.SelectedItem;
             maker.Initialize();
 
             var images = ctIconsPanel.Children.OfType<Image>().ToList();
             var tanks = EnumTanks().ToList();
 
+            var tasks = new List<Action>();
             for (int i = 0; i < tanks.Count; i++)
             {
                 if (i >= images.Count)
@@ -211,6 +247,7 @@ namespace TankIconMaker
                         SnapsToDevicePixels = true,
                         Margin = new Thickness { Right = 15 },
                         Cursor = Cursors.Hand,
+                        Opacity = 0.7,
                     };
                     BindingOperations.SetBinding(img, Image.WidthProperty, new Binding
                     {
@@ -231,29 +268,47 @@ namespace TankIconMaker
                 var image = images[i];
 
                 image.ToolTip = tanks[i].SystemId + (tanks[i]["OfficialName"] == null ? "" : (" (" + tanks[i]["OfficialName"] + ")"));
-
-                var cancel = _cancelRender.Token;
-                Task.Factory.StartNew(() =>
+                if (_renderCache.ContainsKey(tank.SystemId))
                 {
-                    try
+                    image.Source = _renderCache[tank.SystemId];
+                    image.Opacity = 1;
+                }
+                else
+                    tasks.Add(() =>
                     {
-                        if (cancel.IsCancellationRequested) return;
-                        var source = maker.DrawTankInternal(tank);
-                        if (cancel.IsCancellationRequested) return;
-                        source.Freeze();
-                        Dispatcher.Invoke(new Action(() =>
+                        try
                         {
-                            image.Source = source;
-                            image.Opacity = 1;
-                        }));
-                    }
-                    catch { } // will do something more appropriate later
-                }, cancel);
+                            if (cancelToken.IsCancellationRequested) return;
+                            var source = maker.DrawTankInternal(tank);
+                            if (cancelToken.IsCancellationRequested) return;
+                            source.Freeze();
+                            Dispatcher.Invoke(new Action(() =>
+                            {
+                                if (cancelToken.IsCancellationRequested) return;
+                                _renderCache[tank.SystemId] = source;
+                                image.Source = source;
+                                image.Opacity = 1;
+                                if (ctIconsPanel.Children.OfType<Image>().All(c => c.Opacity == 1))
+                                    UpdateIconsCompleted();
+                            }));
+                        }
+                        catch { } // will do something more appropriate later
+                    });
             }
+            foreach (var task in tasks)
+                Task.Factory.StartNew(task, cancelToken);
 
             // Remove unused images
             foreach (var image in images.Skip(tanks.Count))
                 ctIconsPanel.Children.Remove(image);
+        }
+
+        /// <summary>
+        /// Called on the GUI thread whenever all the icon renders are completed.
+        /// </summary>
+        private void UpdateIconsCompleted()
+        {
+            ctSave.IsEnabled = true;
         }
 
         private void SaveSettings()
@@ -299,7 +354,10 @@ namespace TankIconMaker
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
                 .Select(tank => new Tank(
                     tank,
-                    new[] { new KeyValuePair<string, string>(_extra[1].Name, _extra[1].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault()) }
+                    new[] {
+                        new KeyValuePair<string, string>(_extra[1].Name, _extra[1].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault()),
+                        new KeyValuePair<string, string>(_extra[2].Name, _extra[2].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault())
+                    }
                 )).ToList();
         }
 
@@ -333,14 +391,68 @@ namespace TankIconMaker
 
         private void ctMakerProperties_PropertyChanged(object _, RoutedEventArgs __)
         {
+            _renderCache.Clear();
             ScheduleUpdateIcons();
         }
 
         private void ctDisplayMode_SelectionChanged(object _, SelectionChangedEventArgs __)
         {
             Program.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
-            ScheduleUpdateIcons();
+            UpdateIcons();
             SaveSettings();
+        }
+
+        bool _overwriteAccepted = false;
+
+        private void ctSave_Click(object _, RoutedEventArgs __)
+        {
+            if (!EnsureBackup())
+                return;
+
+            if (!_overwriteAccepted)
+                if (DlgMessage.ShowQuestion("Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL .tga files in this path will be overwritten, and there is NO UNDO for this!"
+                    .Fmt(_path), "&Yes, overwrite all files", "&Cancel") == 1)
+                    return;
+            _overwriteAccepted = true;
+
+            foreach (var kvp in _renderCache)
+                Targa.Save(kvp.Value, Path.Combine(_path, kvp.Key + ".tga"));
+
+            DlgMessage.ShowInfo("Saved!\nEnjoy.");
+        }
+
+        private bool EnsureBackup()
+        {
+            try
+            {
+                IEnumerable<FileInfo> copy;
+                var current = new DirectoryInfo(_path).GetFiles("*.tga");
+                if (Directory.Exists(_pathOriginal))
+                {
+                    var original = new DirectoryInfo(_pathOriginal).GetFiles("*.tga");
+                    copy = current.Except(original, CustomEqualityComparer<FileInfo>.By(di => di.Name, ignoreCase: true));
+                }
+                else
+                {
+                    if (DlgMessage.ShowInfo("TankIconMaker needs to make a backup of your original icons, in case you want them back.\n\nPath: {0}\n\nProceed?"
+                        .Fmt(_pathOriginal), "&Make backup", "&Cancel") == 1)
+                        return false;
+                    copy = current;
+                }
+
+                Directory.CreateDirectory(_pathOriginal);
+                foreach (var file in copy)
+                    file.CopyTo(Path.Combine(_pathOriginal, file.Name));
+
+                _overwriteAccepted = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+                DlgMessage.ShowError("Could not check / create backup of the original icons. Please tell the developer!\n\nError details: {0} ({1})."
+                    .Fmt(e.Message, e.GetType().Name));
+                return false;
+            }
         }
     }
 }
