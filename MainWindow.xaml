@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:rt="clr-namespace:RT.Util;assembly=RT.Util"
         Title="MainWindow"
+        Icon="/TankIconMaker;component/Resources/Graphics/icon.ico"
         xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
         xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended">
     <Window.Resources>
@@ -62,16 +63,30 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="8,8,8,0">
-                <Label Padding="3,0,0,0" Target="{Binding ElementName=gameVersion}">_Game version:</Label>
-                <ComboBox Name="ctGameVersion"></ComboBox>
-                <Label Padding="3,6,0,0" Target="{Binding ElementName=gamePath}">Game _directory:</Label>
+                <Label Padding="3,0,0,0" Target="{Binding ElementName=gamePath}">Game _directory:</Label>
                 <Grid>
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="auto"/></Grid.ColumnDefinitions>
-                    <TextBox Name="ctGamePath" Grid.Column="0"></TextBox>
-                    <Button Grid.Column="1" MinWidth="25" Margin="4,0,0,0">...</Button>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Name="ctGamePath" Grid.Column="0" IsEditable="True" TextSearch.TextPath="Path"></ComboBox>
+                    <Button Grid.Column="1" MinWidth="25" Margin="4,0,0,0" Click="BrowseForGameDirectory">...</Button>
                 </Grid>
+                <Label Padding="3,6,0,0" Target="{Binding ElementName=gameVersion}">_Game version:</Label>
+                <ComboBox Name="ctGameVersion"></ComboBox>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=iconMaker}">_Icon maker:</Label>
                 <ComboBox Name="ctMakerDropdown" />
+                <TextBlock Name="ctMakerDescription" Padding="0,6,0,0" TextWrapping="Wrap">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </StackPanel>
             <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"/>
         </Grid>

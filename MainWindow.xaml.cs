@@ -12,28 +12,31 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
+using RT.Util.Xml;
 
 /*
+ * More solid background behind the maker description
+ * Game versions & paths: use + and - buttons
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
- * BytesBitmap to mimick BitmapSource in API (and name BitmapSourceGdi?)
- * Game versions & paths
  * Proper resolution of properties
- *    Description and inheritance source
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
- * "Reload data" button
  * Bundled properties:
  *     Short names for all tanks
  *     Override example for russian colloquial names
  *     v0.7.1 as separate files
+ * "Reload data" button
  * 
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
  * Good handling of exceptions due to bugs in the program (show detail and exit)
+ * Good handling of when the bare minimum data files are missing (e.g. at least one BuitlIn and at least one GameVersion)
  * Report file loading errors properly
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
  * Same method to draw text with GDI (various anti-aliasing settings) and WPF (another item in the anti-alias enum)
+ * Deduce the text baseline in pixel-perfect fashion.
  * 
  * Use a drop-down listing all possible properties for NameDataSource
  * In-game-like display of low/mid/high tier balance
@@ -52,13 +55,11 @@ namespace TankIconMaker
         private string _exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private List<DataFileBuiltIn> _builtin = new List<DataFileBuiltIn>();
         private List<DataFileExtra> _extra = new List<DataFileExtra>();
+        private Dictionary<Version, GameVersion> _versions = new Dictionary<Version, GameVersion>();
         private List<MakerBase> _makers = new List<MakerBase>();
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
         private CancellationTokenSource _cancelRender = new CancellationTokenSource();
         private Dictionary<string, BitmapSource> _renderCache = new Dictionary<string, BitmapSource>();
-
-        private string _path = Path.Combine(@"I:\Games\WorldOfTanks", @"res\gui\maps\icons\vehicle\contour");
-        private string _pathOriginal = Path.Combine(@"I:\Games\WorldOfTanks", @"res\gui\maps\icons\vehicle\contour", "original");
 
         public MainWindow()
             : base(Program.Settings.MainWindow)
@@ -68,21 +69,17 @@ namespace TankIconMaker
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
 
             GlobalStatusShow("Loading...");
+
             if (Program.Settings.LeftColumnWidth != null)
                 ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
             if (Program.Settings.NameColumnWidth != null)
                 ctMakerProperties.NameColumnWidth = Program.Settings.NameColumnWidth.Value;
             if (Program.Settings.DisplayMode >= 0 && Program.Settings.DisplayMode < ctDisplayMode.Items.Count)
                 ctDisplayMode.SelectedIndex = Program.Settings.DisplayMode.Value;
+            ctGamePath.ItemsSource = Program.Settings.GameInstalls;
+            ctGamePath.Text = Program.Settings.SelectedGamePath;
 
-            Closing += (_, __) => SaveSettings();
             ContentRendered += InitializeEverything;
-
-            this.SizeChanged += Window_SizeChanged;
-            this.LocationChanged += Window_LocationChanged;
-            ctMakerDropdown.SelectionChanged += ctMakerDropdown_SelectionChanged;
-            ctMakerProperties.PropertyChanged += ctMakerProperties_PropertyChanged;
-            ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
         }
 
         private void GlobalStatusShow(string message)
@@ -139,6 +136,21 @@ namespace TankIconMaker
                 .ThenBy(m => _makers.IndexOf(m))
                 .First();
 
+            // Yes, this stuff is a bit WinForms'sy...
+            var gis = PushPathToListTop();
+            ctGameVersion.Text = gis.GameVersion;
+            ctMakerDropdown_SelectionChanged();
+
+            // Bind the events now that all the UI is set up as desired
+            Closing += (___, ____) => SaveSettings();
+            this.SizeChanged += SaveSettings;
+            this.LocationChanged += SaveSettings;
+            ctMakerDropdown.SelectionChanged += ctMakerDropdown_SelectionChanged;
+            ctMakerProperties.PropertyChanged += ctMakerProperties_PropertyChanged;
+            ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
+            ctGameVersion.SelectionChanged += ctGameVersion_SelectionChanged;
+            ctGamePath.PreviewKeyDown += ctGamePath_PreviewKeyDown;
+
             // Done
             GlobalStatusHide();
             _updateIconsTimer.Start();
@@ -148,6 +160,7 @@ namespace TankIconMaker
         {
             _builtin.Clear();
             _extra.Clear();
+            _versions.Clear();
             _renderCache.Clear();
 
             foreach (var fi in new DirectoryInfo(_exePath).GetFiles("Data-*.csv"))
@@ -213,6 +226,39 @@ namespace TankIconMaker
                     _extra.Add(new DataFileExtra(extraName, languageName, author, gameVersion, fileVersion, fi.FullName));
                 }
             }
+
+            foreach (var fi in new DirectoryInfo(_exePath).GetFiles("GameVersion-*.xml"))
+            {
+                var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
+
+                if (parts.Length != 2)
+                {
+                    Console.WriteLine("Skipping \"{0}\" because it has the wrong number of filename parts.", fi.Name);
+                    continue;
+                }
+
+                Version gameVersion;
+                if (!Version.TryParse(parts[1], out gameVersion))
+                {
+                    Console.WriteLine("Skipping \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".", fi.Name, parts[1]);
+                    continue;
+                }
+
+                try
+                {
+                    _versions.Add(gameVersion, XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Skipping \"{0}\" because the file could not be parsed: {1}", fi.Name, e.Message);
+                    continue;
+                }
+            }
+
+            ctGameVersion.Items.Clear();
+            foreach (var key in _versions.Keys.OrderBy(v => v))
+                ctGameVersion.Items.Add(key);
+            var gis = PushPathToListTop();
         }
 
         /// <summary>
@@ -331,21 +377,23 @@ namespace TankIconMaker
             Program.Settings.SaveThreaded();
         }
 
-        private void Window_SizeChanged(object _, SizeChangedEventArgs __)
+        private void SaveSettings(object _, SizeChangedEventArgs __)
         {
             SaveSettings();
         }
 
-        private void Window_LocationChanged(object _, EventArgs __)
+        private void SaveSettings(object _, EventArgs __)
         {
             SaveSettings();
         }
 
-        private void ctMakerDropdown_SelectionChanged(object _, SelectionChangedEventArgs __)
+        private void ctMakerDropdown_SelectionChanged(object _ = null, SelectionChangedEventArgs __ = null)
         {
+            _renderCache.Clear();
             ScheduleUpdateIcons();
             var maker = (MakerBase) ctMakerDropdown.SelectedItem;
             ctMakerProperties.SelectedObject = maker;
+            ctMakerDescription.Text = maker.Description ?? "";
             Program.Settings.SelectedMakerType = maker.GetType().FullName;
             Program.Settings.SelectedMakerName = maker.Name;
             SaveSettings();
@@ -408,6 +456,30 @@ namespace TankIconMaker
             ScheduleUpdateIcons();
         }
 
+        private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
+        {
+            var gis = PushPathToListTop();
+            gis.GameVersion = args.AddedItems.OfType<Version>().FirstOrDefault().ToString();
+            SaveSettings();
+            _renderCache.Clear();
+            ScheduleUpdateIcons();
+        }
+
+        void ctGamePath_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (ctGamePath.IsKeyboardFocusWithin && ctGamePath.IsDropDownOpen && e.Key == Key.Delete)
+            {
+                // Looks rather hacky but seems to do the job...
+                e.Handled = true;
+                var index = ctGamePath.SelectedIndex;
+                Program.Settings.GameInstalls.RemoveAt(ctGamePath.SelectedIndex);
+                ctGamePath.ItemsSource = null;
+                ctGamePath.ItemsSource = Program.Settings.GameInstalls;
+                ctGamePath.SelectedIndex = Math.Min(index, Program.Settings.GameInstalls.Count - 1);
+                SaveSettings();
+            }
+        }
+
         private void ctDisplayMode_SelectionChanged(object _, SelectionChangedEventArgs __)
         {
             Program.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
@@ -422,9 +494,10 @@ namespace TankIconMaker
             if (!EnsureBackup())
                 return;
 
+            var path = GetIconDestinationPath();
             if (!_overwriteAccepted)
                 if (DlgMessage.ShowQuestion("Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL .tga files in this path will be overwritten, and there is NO UNDO for this!"
-                    .Fmt(_path), "&Yes, overwrite all files", "&Cancel") == 1)
+                    .Fmt(path), "&Yes, overwrite all files", "&Cancel") == 1)
                     return;
             _overwriteAccepted = true;
 
@@ -442,7 +515,7 @@ namespace TankIconMaker
                         if (!renders.ContainsKey(tank.SystemId))
                             renders[tank.SystemId] = maker.DrawTankInternal(tank);
                     foreach (var kvp in renders)
-                        Targa.Save(kvp.Value, Path.Combine(_path, kvp.Key + ".tga"));
+                        Targa.Save(kvp.Value, Path.Combine(path, kvp.Key + ".tga"));
                 }
                 finally
                 {
@@ -464,23 +537,25 @@ namespace TankIconMaker
             try
             {
                 IEnumerable<FileInfo> copy;
-                var current = new DirectoryInfo(_path).GetFiles("*.tga");
-                if (Directory.Exists(_pathOriginal))
+                var path = GetIconDestinationPath();
+                var pathOriginal = Path.Combine(path, "original");
+                var current = new DirectoryInfo(path).GetFiles("*.tga");
+                if (Directory.Exists(pathOriginal))
                 {
-                    var original = new DirectoryInfo(_pathOriginal).GetFiles("*.tga");
+                    var original = new DirectoryInfo(pathOriginal).GetFiles("*.tga");
                     copy = current.Except(original, CustomEqualityComparer<FileInfo>.By(di => di.Name, ignoreCase: true));
                 }
                 else
                 {
                     if (DlgMessage.ShowInfo("TankIconMaker needs to make a backup of your original icons, in case you want them back.\n\nPath: {0}\n\nProceed?"
-                        .Fmt(_pathOriginal), "&Make backup", "&Cancel") == 1)
+                        .Fmt(pathOriginal), "&Make backup", "&Cancel") == 1)
                         return false;
                     copy = current;
                 }
 
-                Directory.CreateDirectory(_pathOriginal);
+                Directory.CreateDirectory(pathOriginal);
                 foreach (var file in copy)
-                    file.CopyTo(Path.Combine(_pathOriginal, file.Name));
+                    file.CopyTo(Path.Combine(pathOriginal, file.Name));
 
                 _overwriteAccepted = true;
                 return true;
@@ -491,6 +566,60 @@ namespace TankIconMaker
                     .Fmt(e.Message, e.GetType().Name));
                 return false;
             }
+        }
+
+        private void BrowseForGameDirectory(object _, RoutedEventArgs __)
+        {
+            var dlg = new VistaFolderBrowserDialog();
+            if (Directory.Exists(ctGamePath.Text))
+                dlg.SelectedPath = ctGamePath.Text;
+            if (dlg.ShowDialog() != true)
+                return;
+            ctGamePath.Text = dlg.SelectedPath;
+        }
+
+        /// <summary>
+        /// Ensures that the selected path is in the list of game installs, moving it to the top if already there.
+        /// Also checks that the path has a valid version associated, and patches up the path/UI if necessary.
+        /// Returns the class that represents the path.
+        /// </summary>
+        private GameInstallationSettings PushPathToListTop()
+        {
+            string path = ctGamePath.Text.Replace('/', '\\');
+            if (!path.EndsWith("\\"))
+                path += "\\";
+            var gis = Program.Settings.GameInstalls.FirstOrDefault(g => g.Path.EqualsNoCase(path));
+            if (gis == null)
+            {
+                gis = new GameInstallationSettings { Path = path, GameVersion = _versions.Keys.Max().ToString() };
+                Program.Settings.GameInstalls.Insert(0, gis);
+            }
+            else if (Program.Settings.GameInstalls[0] != gis)
+            {
+                Program.Settings.GameInstalls.Remove(gis);
+                Program.Settings.GameInstalls.Insert(0, gis);
+            }
+
+            Version v;
+            if (!Version.TryParse(gis.GameVersion, out v) || !_versions.ContainsKey(v))
+                gis.GameVersion = ctGameVersion.Text = _versions.Keys.Max().ToString();
+
+            ctGamePath.Items.Refresh();
+            Program.Settings.SaveThreaded();
+
+            return gis;
+        }
+
+        private string GetIconDestinationPath()
+        {
+            var gis = PushPathToListTop();
+            return Path.Combine(gis.Path, _versions[Version.Parse(gis.GameVersion)].PathDestination);
+        }
+
+        private string GetIconSource3DPath()
+        {
+            var gis = PushPathToListTop();
+            return Path.Combine(gis.Path, _versions[Version.Parse(gis.GameVersion)].PathSource3D);
         }
     }
 }

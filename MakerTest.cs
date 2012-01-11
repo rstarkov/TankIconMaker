@@ -12,6 +12,7 @@ namespace TankIconMaker
         public override string Name { get { return "Text compare"; } }
         public override string Author { get { return "Romkyns"; } }
         public override int Version { get { return 1; } }
+        public override string Description { get { return "This is a text rendering test."; } }
 
         [Description("Only has any effect on the GDI version! Determines the anti-aliasing algorithm used.")]
         public TextAntiAliasStyle AntiAlias { get; set; }
