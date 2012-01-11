@@ -1,13 +1,14 @@
+WOT-DATA,1,"Короткие названия танков, оригинал – как в игре."
 china-Ch01_Type59,Type 59
-germany-B-1bis_captured,PzB2 740f
+germany-B-1bis_captured,PzB2 740f,не проверен
 germany-Bison_I,Bison
 germany-E-100,E-100
 germany-E-50,E-50
 germany-E-75,E-75
-germany-Ferdinand,Ferdinand
-germany-G_E,GW Typ E
-germany-G_Panther,GW Panther
-germany-G_Tiger,GW Tiger
+germany-Ferdinand,Ferdinand,не проверен
+germany-G_E,GW Typ E,не проверен
+germany-G_Panther,GW Panther,(вообще-то GWPanther)
+germany-G_Tiger,GW Tiger,не проверен
 germany-G20_Marder_II,Marder II
 germany-Grille,Grille
 germany-H39_captured,Pz38H735f
@@ -18,28 +19,28 @@ germany-JagdPzIV,JagdPzIV
 germany-JagdTiger,Jagdtiger
 germany-Lowe,Löwe
 germany-Ltraktor,LTraktor
-germany-Maus,Maus
-germany-Panther_II,Panther II
-germany-PanzerJager_I,Panzerjäger I
-germany-Pz35t,Pz35 t
-germany-Pz38_NA,Pz38 nA
-germany-Pz38t,Pz38 t
+germany-Maus,Maus,не проверен
+germany-Panther_II,Panther II,не проверен
+germany-PanzerJager_I,Panzerjäger I,не проверен
+germany-Pz35t,Pz35t
+germany-Pz38_NA,Pz38nA
+germany-Pz38t,Pz38t
 germany-PzII,PzII
-germany-PzII_J,PzII Ausf. J
+germany-PzII_J,PzII J,не проверен
 germany-PzII_Luchs,Luchs
 germany-PzIII,PzIII
 germany-PzIII_A,PzIII A
 germany-PzIII_IV,PzIII/IV
 germany-PzIV,PzIV
-germany-PzIV_Hydro,Hydraulic
+germany-PzIV_Hydro,Hydraulic,не проверен
 germany-PzV,Panther
-germany-PzV_PzIV,PzV-IV
-germany-PzV_PzIV_ausf_Alfa,PzV-IV Alpha
+germany-PzV_PzIV,PzV-IV,не проверен
+germany-PzV_PzIV_ausf_Alfa,PzV-IV Alpha,не проверен
 germany-PzVI,Tiger
 germany-PzVI_Tiger_P,Tiger P
 germany-PzVIB_Tiger_II,Tiger II
-germany-S35_captured,PzS35 739f
-germany-StugIII,StuG III
+germany-S35_captured,PzS35 739f,не проверен
+germany-StugIII,StuG III,(вообще-то StuGIII но с пробелом читабельнее)
 germany-Sturmpanzer_II,StPz II
 germany-T-15,T-15
 germany-T-25,T-25
@@ -49,35 +50,35 @@ germany-VK3001H,VK3001H
 germany-VK3001P,VK3001P
 germany-VK3002DB,VK3002DB
 germany-VK3601H,VK3601H
-germany-VK4502A,VK4502P A
-germany-VK4502P,VK4502P B
+germany-VK4502A,VK4502A
+germany-VK4502P,VK4502P
 germany-Wespe,Wespe
 usa-M10_Wolverine,Wolverine
 usa-M12,M12
 usa-M2_lt,M2 LT
 usa-M2_med,M2 MT
-usa-M22_Locust,M22 Locust
-usa-M24_Chaffee,M24 Chaffee
+usa-M22_Locust,Locust,не проверен
+usa-M24_Chaffee,Chaffee
 usa-M3_Grant,M3 Lee
 usa-M3_Stuart,M3 Stuart
 usa-M36_Slagger,Slugger
 usa-M37,M37
 usa-M4_Sherman,M4
-usa-M40M43,M40/M43
+usa-M40M43,M40/M43,не проверен
 usa-M41,M41
-usa-M46_Patton,M46 Patton
+usa-M46_Patton,Patton,не проверен
 usa-M4A2E4,M4A2E4
 usa-M4A3E8_Sherman,M4A3E8
-usa-M5_Stuart,M5 Stuart
+usa-M5_Stuart,M5 Stuart,не проверен
 usa-M6,M6
 usa-M6A2E1,M6A2E1
-usa-M7_med,M7
+usa-M7_med,M7 MT
 usa-M7_Priest,M7 Priest
-usa-MTLS-1G14,MTLS-1G14
-usa-Pershing,M26 Pershing
-usa-Ram-II,Ram-II
+usa-MTLS-1G14,MTLS-1G14,не проверен
+usa-Pershing,Pershing
+usa-Ram-II,Ram-II,не проверен
 usa-Sherman_Jumbo,M4A3E2
-usa-T1_Cunningham,Cunningham
+usa-T1_Cunningham,T1
 usa-T1_hvy,T1 HT
 usa-T14,T14
 usa-T18,T18
@@ -112,10 +113,10 @@ ussr-KV,КВ
 ussr-KV-13,КВ-13
 ussr-KV-1s,КВ-1С
 ussr-KV-220,КВ-220
-ussr-KV-220_action,КВ-220 Бета
+ussr-KV-220_action,КВ-220 Бета,не проверен
 ussr-KV-3,КВ-3
 ussr-KV-5,КВ-5
-ussr-M3_Stuart_LL,M3 Stuart
+ussr-M3_Stuart_LL,M3 Stuart,не проверен
 ussr-Matilda_II_LL,Matilda
 ussr-MS-1,МС-1
 ussr-Object_212,Об. 212
@@ -143,4 +144,4 @@ ussr-T-44,Т-44
 ussr-T-46,Т-46
 ussr-T-50,Т-50
 ussr-T-54,Т-54
-ussr-Valentine_LL,Valentine
+ussr-Valentine_LL,Valentine,не проверен

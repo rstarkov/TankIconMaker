@@ -13,6 +13,8 @@ namespace TankIconMaker
         public abstract string Author { get; }
         [Browsable(false)]
         public abstract int Version { get; }
+        [Browsable(false)]
+        public abstract string Description { get; }
 
         public virtual void Initialize() { }
 

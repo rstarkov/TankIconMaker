@@ -105,7 +105,18 @@ namespace TankIconMaker
             GameVersion = gameVersion;
             FileVersion = fileVersion;
 
-            Data = Ut.ReadCsvLines(filename).Select(lp =>
+            var lines = Ut.ReadCsvLines(filename).ToArray();
+            if (lines.Length == 0)
+                throw new Exception("Expected at least one line");
+            var header = lines[0].Item2;
+            if (header.Length < 2)
+                throw new Exception("Expected at least two columns in the first row");
+            if (header[0] != "WOT-BUILTIN-DATA")
+                throw new Exception("Expected WOT-BUILTIN-DATA on first row");
+            if (header[1] != "1")
+                throw new Exception("The second column of the first row must be \"1\" (format version)");
+
+            Data = lines.Skip(1).Select(lp =>
             {
                 try { return new TankData(lp.Item2); }
                 catch (Exception e) { throw new Exception(e.Message + " at line " + lp.Item1); }
@@ -120,6 +131,8 @@ namespace TankIconMaker
         public string Author { get; private set; }
         public Version GameVersion { get; private set; }
         public int FileVersion { get; private set; }
+        public string Description { get; private set; }
+        public string InheritsFrom { get; private set; }
 
         public IList<ExtraData> Data { get; private set; }
 
@@ -131,7 +144,22 @@ namespace TankIconMaker
             GameVersion = gameVersion;
             FileVersion = fileVersion;
 
-            Data = Ut.ReadCsvLines(filename).Select(lp =>
+            var lines = Ut.ReadCsvLines(filename).ToArray();
+            if (lines.Length == 0)
+                throw new Exception("Expected at least one line");
+            var header = lines[0].Item2;
+            if (header.Length < 2)
+                throw new Exception("Expected at least two columns in the first row");
+            if (header[0] != "WOT-DATA")
+                throw new Exception("Expected WOT-DATA on first row");
+            if (header[1] != "1")
+                throw new Exception("The second column of the first row must be \"1\" (format version)");
+            if (header.Length >= 3)
+                Description = header[2];
+            if (header.Length >= 4)
+                InheritsFrom = header[3];
+
+            Data = lines.Skip(1).Select(lp =>
             {
                 try { return new ExtraData(lp.Item2); }
                 catch (Exception e) { throw new Exception(e.Message + " at line " + lp.Item1); }
@@ -177,4 +205,15 @@ namespace TankIconMaker
         Premium,
         Special,
     }
+
+#pragma warning disable 649
+
+    class GameVersion
+    {
+        public string DisplayName;
+        public string PathDestination;
+        public string PathSource3D;
+    }
+
+#pragma warning restore 649
 }

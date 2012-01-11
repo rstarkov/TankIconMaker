@@ -12,6 +12,7 @@ namespace TankIconMaker
         public override string Name { get { return "Dark Agent (Black Spy replica)"; } }
         public override string Author { get { return "Romkyns"; } }
         public override int Version { get { return 1; } }
+        public override string Description { get { return "Recreates my favourite icons by Black_Spy in TankIconMaker. Kudos to Black_Spy for the design!"; } }
 
         [Category("Background"), DisplayName("Opacity")]
         [Description("The opacity of the colored background.")]
