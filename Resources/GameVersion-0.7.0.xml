@@ -3,4 +3,6 @@
   <DisplayName>0.7.0</DisplayName>
   <PathDestination>res\gui\maps\icons\vehicle\contour</PathDestination>
   <PathSource3D>res\gui\maps\icons\vehicle\small</PathSource3D>
+  <CheckFileName>WorldOfTanks.exe</CheckFileName>
+  <CheckFileSize>0</CheckFileSize>
 </item>
