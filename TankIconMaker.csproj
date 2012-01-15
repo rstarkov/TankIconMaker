@@ -71,6 +71,7 @@
     <Compile Include="UtGraphics.cs" />
     <Compile Include="UtMisc.cs" />
     <Compile Include="UtPreciseSize.cs" />
+    <Compile Include="ObservableSortedList.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
