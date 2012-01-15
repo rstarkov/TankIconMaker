@@ -18,7 +18,6 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
- * Check if the user really wants a directory without the wot executable
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Proper resolution of properties
@@ -604,7 +603,19 @@ namespace TankIconMaker
             if (dlg.ShowDialog() != true)
                 return;
 
-            gis = new GameInstallationSettings { Path = dlg.SelectedPath, GameVersion = _versions.Keys.Max().ToString() };
+            var best = _versions.Where(v => File.Exists(Path.Combine(dlg.SelectedPath, v.Value.CheckFileName))).ToList();
+            if (best.Count == 0)
+            {
+                if (DlgMessage.ShowWarning("This directory does not appear to contain a World Of Tanks installation. Are you sure you want to use it anyway?",
+                    "&Use anyway", "Cancel") == 1)
+                    return;
+            }
+            var version = best.Where(v => new FileInfo(Path.Combine(dlg.SelectedPath, v.Value.CheckFileName)).Length == v.Value.CheckFileSize)
+                .Select(v => v.Key)
+                .OrderByDescending(v => v)
+                .FirstOrDefault();
+
+            gis = new GameInstallationSettings { Path = dlg.SelectedPath, GameVersion = version == null ? _versions.Keys.Max().ToString() : version.ToString() };
             Program.Settings.GameInstalls.Add(gis);
             ctGamePath.SelectedItem = gis;
             Program.Settings.SaveThreaded();

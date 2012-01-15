@@ -213,6 +213,9 @@ namespace TankIconMaker
         public string DisplayName;
         public string PathDestination;
         public string PathSource3D;
+
+        public string CheckFileName;
+        public long CheckFileSize = -1;
     }
 
 #pragma warning restore 649
