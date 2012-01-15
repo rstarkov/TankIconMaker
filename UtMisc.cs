@@ -87,7 +87,7 @@ namespace TankIconMaker
             if (path == null)
                 path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{1EAC1D02-C6AC-4FA6-9A44-96258C37C812}_is1", "InstallLocation", null) as string;
             if (path == null || !Directory.Exists(path))
-                return ""; // could do a more thorough search through the Uninstall keys - not sure if the GUID is fixed or not.
+                return "C:\\"; // could do a more thorough search through the Uninstall keys - not sure if the GUID is fixed or not.
             else
                 return path;
         }

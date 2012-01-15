@@ -14,6 +14,13 @@
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
 
+        <Style TargetType="{x:Type Rectangle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type UIElement}, AncestorLevel=1}, Path=IsEnabled}" Value="False">
+                    <Setter Property="Opacity" Value="0.3"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="gridSplitterStyle" TargetType="{x:Type GridSplitter}">
             <Setter Property="TextElement.Foreground" Value="#FF204D89" />
             <Setter Property="Border.BorderBrush" Value="#FF999999" />
@@ -68,25 +75,33 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox Name="ctGamePath" Grid.Column="0" IsEditable="True" TextSearch.TextPath="Path"></ComboBox>
-                    <Button Grid.Column="1" MinWidth="25" Margin="4,0,0,0" Click="BrowseForGameDirectory">...</Button>
+                    <ComboBox Name="ctGamePath" Grid.Column="0"></ComboBox>
+                    <Button Grid.Column="1" MinWidth="25" Margin="4,0,0,0" Click="BrowseForGameDirectory">
+                        <Path Fill="Lime" Stroke="Green" Data="M 4.5,0.5 H 7.5 V 4.5 H 11.5 V 7.5 H 7.5 V 11.5 H 4.5 V 7.5 H 0.5 V 4.5 H 4.5 Z" SnapsToDevicePixels="True" />
+                    </Button>
+                    <Button Name="ctRemoveGamePath" Grid.Column="2" MinWidth="25" Margin="4,0,0,0" Click="RemoveGameDirectory">
+                        <Rectangle Width="10" Height="4" Fill="Red" Stroke="DarkRed" SnapsToDevicePixels="True"/>
+                    </Button>
                 </Grid>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=gameVersion}">_Game version:</Label>
                 <ComboBox Name="ctGameVersion"></ComboBox>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=iconMaker}">_Icon maker:</Label>
                 <ComboBox Name="ctMakerDropdown" />
-                <TextBlock Name="ctMakerDescription" Padding="0,6,0,0" TextWrapping="Wrap">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <Trigger Property="Text" Value="">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <Grid Margin="0,6,0,0"><Grid Background="#80FFFFFF">
+                    <TextBlock Name="ctMakerDescription" TextWrapping="Wrap" Padding="3,1,3,3">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid></Grid>
             </StackPanel>
             <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"/>
         </Grid>

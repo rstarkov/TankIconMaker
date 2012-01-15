@@ -18,8 +18,7 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
- * More solid background behind the maker description
- * Game versions & paths: use + and - buttons
+ * Check if the user really wants a directory without the wot executable
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Proper resolution of properties
@@ -70,6 +69,19 @@ namespace TankIconMaker
 
             GlobalStatusShow("Loading...");
 
+            BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, new Binding
+            {
+                Source = ctGamePath,
+                Path = new PropertyPath(ComboBox.SelectedIndexProperty),
+                Converter = LambdaConverter.New((int index) => index >= 0),
+            });
+            BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, new Binding
+            {
+                Source = ctGamePath,
+                Path = new PropertyPath(ComboBox.SelectedIndexProperty),
+                Converter = LambdaConverter.New((int index) => index >= 0),
+            });
+
             if (Program.Settings.LeftColumnWidth != null)
                 ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
             if (Program.Settings.NameColumnWidth != null)
@@ -77,7 +89,9 @@ namespace TankIconMaker
             if (Program.Settings.DisplayMode >= 0 && Program.Settings.DisplayMode < ctDisplayMode.Items.Count)
                 ctDisplayMode.SelectedIndex = Program.Settings.DisplayMode.Value;
             ctGamePath.ItemsSource = Program.Settings.GameInstalls;
-            ctGamePath.Text = Program.Settings.SelectedGamePath;
+            ctGamePath.DisplayMemberPath = "DisplayName";
+            ctGamePath.SelectedItem = Program.Settings.GameInstalls.FirstOrDefault(gis => gis.Path.EqualsNoCase(Program.Settings.SelectedGamePath))
+                ?? Program.Settings.GameInstalls.FirstOrDefault();
 
             ContentRendered += InitializeEverything;
         }
@@ -137,7 +151,7 @@ namespace TankIconMaker
                 .First();
 
             // Yes, this stuff is a bit WinForms'sy...
-            var gis = PushPathToListTop();
+            var gis = GetInstallationSettings(addIfMissing: true);
             ctGameVersion.Text = gis.GameVersion;
             ctMakerDropdown_SelectionChanged();
 
@@ -149,6 +163,7 @@ namespace TankIconMaker
             ctMakerProperties.PropertyChanged += ctMakerProperties_PropertyChanged;
             ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
             ctGameVersion.SelectionChanged += ctGameVersion_SelectionChanged;
+            ctGamePath.SelectionChanged += ctGamePath_SelectionChanged;
             ctGamePath.PreviewKeyDown += ctGamePath_PreviewKeyDown;
 
             // Done
@@ -258,7 +273,7 @@ namespace TankIconMaker
             ctGameVersion.Items.Clear();
             foreach (var key in _versions.Keys.OrderBy(v => v))
                 ctGameVersion.Items.Add(key);
-            var gis = PushPathToListTop();
+            GetInstallationSettings(); // fixes up the versions if necessary
         }
 
         /// <summary>
@@ -458,25 +473,30 @@ namespace TankIconMaker
 
         private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
         {
-            var gis = PushPathToListTop();
+            var gis = GetInstallationSettings();
+            if (gis == null)
+                return;
             gis.GameVersion = args.AddedItems.OfType<Version>().FirstOrDefault().ToString();
+            ctGamePath.SelectedItem = gis;
             SaveSettings();
             _renderCache.Clear();
             ScheduleUpdateIcons();
+        }
+
+        void ctGamePath_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var gis = GetInstallationSettings();
+            if (gis == null)
+                return;
+            ctGameVersion.Text = gis.GameVersion;
         }
 
         void ctGamePath_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (ctGamePath.IsKeyboardFocusWithin && ctGamePath.IsDropDownOpen && e.Key == Key.Delete)
             {
-                // Looks rather hacky but seems to do the job...
+                RemoveGameDirectory();
                 e.Handled = true;
-                var index = ctGamePath.SelectedIndex;
-                Program.Settings.GameInstalls.RemoveAt(ctGamePath.SelectedIndex);
-                ctGamePath.ItemsSource = null;
-                ctGamePath.ItemsSource = Program.Settings.GameInstalls;
-                ctGamePath.SelectedIndex = Math.Min(index, Program.Settings.GameInstalls.Count - 1);
-                SaveSettings();
             }
         }
 
@@ -491,6 +511,13 @@ namespace TankIconMaker
 
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
+            var gis = GetInstallationSettings();
+            if (gis == null)
+            {
+                DlgMessage.ShowInfo("Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save them.");
+                return;
+            }
+
             if (!EnsureBackup())
                 return;
 
@@ -571,54 +598,67 @@ namespace TankIconMaker
         private void BrowseForGameDirectory(object _, RoutedEventArgs __)
         {
             var dlg = new VistaFolderBrowserDialog();
-            if (Directory.Exists(ctGamePath.Text))
-                dlg.SelectedPath = ctGamePath.Text;
+            var gis = GetInstallationSettings();
+            if (gis != null && Directory.Exists(gis.Path))
+                dlg.SelectedPath = gis.Path;
             if (dlg.ShowDialog() != true)
                 return;
-            ctGamePath.Text = dlg.SelectedPath;
+
+            gis = new GameInstallationSettings { Path = dlg.SelectedPath, GameVersion = _versions.Keys.Max().ToString() };
+            Program.Settings.GameInstalls.Add(gis);
+            ctGamePath.SelectedItem = gis;
+            Program.Settings.SaveThreaded();
         }
 
-        /// <summary>
-        /// Ensures that the selected path is in the list of game installs, moving it to the top if already there.
-        /// Also checks that the path has a valid version associated, and patches up the path/UI if necessary.
-        /// Returns the class that represents the path.
-        /// </summary>
-        private GameInstallationSettings PushPathToListTop()
+        private void RemoveGameDirectory(object _ = null, RoutedEventArgs __ = null)
         {
-            string path = ctGamePath.Text.Replace('/', '\\');
-            if (!path.EndsWith("\\"))
-                path += "\\";
-            var gis = Program.Settings.GameInstalls.FirstOrDefault(g => g.Path.EqualsNoCase(path));
+            // Looks rather hacky but seems to do the job correctly even when called with the drop-down visible.
+            var index = ctGamePath.SelectedIndex;
+            Program.Settings.GameInstalls.RemoveAt(ctGamePath.SelectedIndex);
+            ctGamePath.ItemsSource = null;
+            ctGamePath.ItemsSource = Program.Settings.GameInstalls;
+            ctGamePath.SelectedIndex = Math.Min(index, Program.Settings.GameInstalls.Count - 1);
+            SaveSettings();
+        }
+
+        private GameInstallationSettings GetInstallationSettings(bool addIfMissing = false)
+        {
+            var gis = ctGamePath.SelectedItem as GameInstallationSettings;
             if (gis == null)
             {
-                gis = new GameInstallationSettings { Path = path, GameVersion = _versions.Keys.Max().ToString() };
-                Program.Settings.GameInstalls.Insert(0, gis);
-            }
-            else if (Program.Settings.GameInstalls[0] != gis)
-            {
-                Program.Settings.GameInstalls.Remove(gis);
-                Program.Settings.GameInstalls.Insert(0, gis);
+                if (!addIfMissing)
+                    return null;
+                gis = new GameInstallationSettings { Path = Ut.FindTanksDirectory(), GameVersion = _versions.Keys.Max().ToString() };
+                Program.Settings.GameInstalls.Add(gis);
+                ctGamePath.SelectedItem = gis;
+                ctGamePath.Items.Refresh();
+                Program.Settings.SaveThreaded();
             }
 
             Version v;
             if (!Version.TryParse(gis.GameVersion, out v) || !_versions.ContainsKey(v))
+            {
                 gis.GameVersion = ctGameVersion.Text = _versions.Keys.Max().ToString();
-
-            ctGamePath.Items.Refresh();
-            Program.Settings.SaveThreaded();
+                ctGamePath.Items.Refresh();
+                Program.Settings.SaveThreaded();
+            }
 
             return gis;
         }
 
         private string GetIconDestinationPath()
         {
-            var gis = PushPathToListTop();
+            var gis = GetInstallationSettings();
+            if (gis == null)
+                return null;
             return Path.Combine(gis.Path, _versions[Version.Parse(gis.GameVersion)].PathDestination);
         }
 
         private string GetIconSource3DPath()
         {
-            var gis = PushPathToListTop();
+            var gis = GetInstallationSettings();
+            if (gis == null)
+                return null;
             return Path.Combine(gis.Path, _versions[Version.Parse(gis.GameVersion)].PathSource3D);
         }
     }

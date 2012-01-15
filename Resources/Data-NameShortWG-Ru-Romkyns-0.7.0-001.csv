@@ -5,7 +5,7 @@ germany-Bison_I,Bison
 germany-E-100,E-100
 germany-E-50,E-50
 germany-E-75,E-75
-germany-Ferdinand,Ferdinand,не проверен
+germany-Ferdinand,Ferdinand
 germany-G_E,GW Typ E,не проверен
 germany-G_Panther,GW Panther,(вообще-то GWPanther)
 germany-G_Tiger,GW Tiger,не проверен
@@ -20,7 +20,7 @@ germany-JagdTiger,Jagdtiger
 germany-Lowe,Löwe
 germany-Ltraktor,LTraktor
 germany-Maus,Maus,не проверен
-germany-Panther_II,Panther II,не проверен
+germany-Panther_II,Panther II
 germany-PanzerJager_I,Panzerjäger I,не проверен
 germany-Pz35t,Pz35t
 germany-Pz38_NA,Pz38nA
@@ -69,7 +69,7 @@ usa-M41,M41
 usa-M46_Patton,Patton,не проверен
 usa-M4A2E4,M4A2E4
 usa-M4A3E8_Sherman,M4A3E8
-usa-M5_Stuart,M5 Stuart,не проверен
+usa-M5_Stuart,M5
 usa-M6,M6
 usa-M6A2E1,M6A2E1
 usa-M7_med,M7 MT
@@ -112,11 +112,11 @@ ussr-ISU-152,ИСУ-152
 ussr-KV,КВ
 ussr-KV-13,КВ-13
 ussr-KV-1s,КВ-1С
-ussr-KV-220,КВ-220
+ussr-KV-220,КВ-220 Т
 ussr-KV-220_action,КВ-220 Бета,не проверен
 ussr-KV-3,КВ-3
 ussr-KV-5,КВ-5
-ussr-M3_Stuart_LL,M3 Stuart,не проверен
+ussr-M3_Stuart_LL,M3,не проверен
 ussr-Matilda_II_LL,Matilda
 ussr-MS-1,МС-1
 ussr-Object_212,Об. 212
