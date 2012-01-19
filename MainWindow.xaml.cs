@@ -18,14 +18,13 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
+ * Refactor property resolution into Data.cs
+ * Implement a way to choose preferred built-in property author
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
- * Proper resolution of properties
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * Bundled properties:
- *     Short names for all tanks
  *     Override example for russian colloquial names
- *     v0.7.1 as separate files
  * "Reload data" button
  * 
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
@@ -172,11 +171,12 @@ namespace TankIconMaker
 
         private void ReloadData()
         {
-            _builtin.Clear();
-            _extra.Clear();
-            _versions.Clear();
             _renderCache.Clear();
 
+            // Read data files off disk
+            var builtin = new List<DataFileBuiltIn>();
+            var extra = new List<DataFileExtraWithInherit>();
+            var origFilenames = new Dictionary<object, string>();
             foreach (var fi in new DirectoryInfo(_exePath).GetFiles("Data-*.csv"))
             {
                 var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
@@ -220,7 +220,11 @@ namespace TankIconMaker
                 }
 
                 if (parts.Length == 5)
-                    _builtin.Add(new DataFileBuiltIn(author, gameVersion, fileVersion, fi.FullName));
+                {
+                    var df = new DataFileBuiltIn(author, gameVersion, fileVersion, fi.FullName);
+                    builtin.Add(df);
+                    origFilenames[df] = fi.Name;
+                }
                 else
                 {
                     string extraName = parts[1].Trim();
@@ -233,14 +237,144 @@ namespace TankIconMaker
                     string languageName = parts[2].Trim();
                     if (languageName.Length != 2)
                     {
-                        Console.WriteLine("Skipping \"{0}\" because its language name part in the filename is a 2 letter long language code.", fi.Name);
+                        Console.WriteLine("Skipping \"{0}\" because its language name part in the filename is not a 2 letter long language code.", fi.Name);
                         continue;
                     }
 
-                    _extra.Add(new DataFileExtra(extraName, languageName, author, gameVersion, fileVersion, fi.FullName));
+                    var df = new DataFileExtraWithInherit(extraName, languageName, author, gameVersion, fileVersion, fi.FullName);
+                    extra.Add(df);
+                    origFilenames[df] = fi.Name;
                 }
             }
 
+            // Resolve built-in data files
+            _builtin.Clear();
+            foreach (var group in builtin.GroupBy(df => new { author = df.Author, gamever = df.GameVersion }).OrderBy(g => g.Key.gamever))
+            {
+                var tanks = new Dictionary<string, TankData>();
+                // Inherit from the earlier game versions by same author
+                var earlierVer = _builtin.Where(df => df.Author == group.Key.author).OrderByDescending(df => df.GameVersion).FirstOrDefault();
+                if (earlierVer != null)
+                    foreach (var row in earlierVer.Data)
+                        tanks[row.SystemId] = row;
+                // Inherit from all the data files by this author/game version
+                foreach (var row in group.OrderBy(df => df.FileVersion).SelectMany(df => df.Data))
+                    tanks[row.SystemId] = row;
+                // Create a new data file with all the tanks
+                _builtin.Add(new DataFileBuiltIn(group.Key.author, group.Key.gamever, group.Max(df => df.FileVersion), tanks.Values));
+            }
+
+            // Make sure the explicit inheritance is resolvable, and complain if not
+            var ignore = new List<DataFileExtra>();
+            do
+            {
+                ignore.Clear();
+                foreach (var e in extra.Where(e => e.InheritsFromName != null))
+                {
+                    var p = extra.Where(df => df.Name == e.InheritsFromName).ToList();
+                    if (p.Count == 0)
+                    {
+                        Console.WriteLine("Skipping \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
+                        ignore.Add(e);
+                        continue;
+                    }
+                    if (e.InheritsFromLanguage != null)
+                    {
+                        p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
+                        if (p.Count == 0)
+                        {
+                            Console.WriteLine("Skipping \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
+                            ignore.Add(e);
+                            continue;
+                        }
+                    }
+                    p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
+                    if (p.Count == 0)
+                    {
+                        Console.WriteLine("Skipping \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
+                        ignore.Add(e);
+                        continue;
+                    }
+                }
+                extra.RemoveAll(f => ignore.Contains(f));
+            } while (ignore.Count > 0);
+
+            // Determine all the immediate parents
+            foreach (var e in extra)
+            {
+                var sameNEL = extra.Where(df => df.Name == e.Name && df.Author == e.Author && df.Language == e.Language).ToList();
+
+                // Inherit from an earlier version of this same file
+                var earlierVersionOfSameFile = sameNEL.Where(df => df.GameVersion == e.GameVersion && df.FileVersion < e.FileVersion)
+                    .MaxOrDefault(df => df.FileVersion);
+                if (earlierVersionOfSameFile != null)
+                    e.ImmediateParents.Add(earlierVersionOfSameFile);
+
+                // Inherit from the latest version of the same file for an earlier game version
+                var earlierGameVersion = sameNEL.Where(df => df.GameVersion < e.GameVersion).MaxAll(df => df.GameVersion).MaxOrDefault(df => df.FileVersion);
+                if (earlierGameVersion != null)
+                    e.ImmediateParents.Add(earlierGameVersion);
+
+                // Inherit from the explicitly specified file
+                if (e.InheritsFromName != null)
+                {
+                    var p = extra.Where(df => df.GameVersion <= e.GameVersion && df.Name == e.InheritsFromName).ToList();
+                    if (e.InheritsFromLanguage != null)
+                        p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
+                    e.ImmediateParents.Add(p.Where(df => df.Author == e.InheritsFromAuthor).FirstOrDefault() ?? p[0]);
+                }
+            }
+
+            // Compute the transitive closure
+            bool added;
+            foreach (var e in extra)
+                foreach (var p in e.ImmediateParents)
+                    p.TransitiveChildren.Add(e);
+            // Keep adding children's children until no further changes (quite a brute-force algorithm... potential bottleneck)
+            do
+            {
+                added = false;
+                foreach (var e in extra)
+                    foreach (var c1 in e.TransitiveChildren)
+                        foreach (var c2 in c1.TransitiveChildren)
+                            if (!c1.TransitiveChildren.Contains(c2))
+                            {
+                                c1.TransitiveChildren.Add(c2);
+                                added = true;
+                            }
+            } while (added);
+
+            // Detect dependency loops and remove them
+            var looped = extra.Where(e => e.TransitiveChildren.Contains(e)).ToArray();
+            foreach (var item in looped.ToArray())
+            {
+                Console.WriteLine("Skipping \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
+                extra.Remove(item);
+            }
+
+            // Get the full list of properties for every data file
+            foreach (var e in extra.OrderBy(df => df, new CustomComparer<DataFileExtraWithInherit>((df1, df2) => df1.TransitiveChildren.Contains(df2) ? -1 : df2.TransitiveChildren.Contains(df1) ? 1 : 0)))
+            {
+                var tanks = new Dictionary<string, ExtraData>();
+
+                // Inherit the properties (all the hard work is already done and the files to inherit from are in the correct order)
+                foreach (var p in e.ImmediateParents)
+                    foreach (var d in p.Result.Data)
+                        tanks[d.TankSystemId] = d;
+                foreach (var d in e.Data)
+                    tanks[d.TankSystemId] = d;
+
+                // Create a new data file with all the tanks
+                e.Result = new DataFileExtra(e.Name, e.Language, e.Author, e.GameVersion, e.FileVersion, tanks.Values);
+            }
+
+            // Keep only the latest file version of each file
+            _extra.Clear();
+            foreach (var e in extra.GroupBy(df => new { name = df.Name, language = df.Language, author = df.Author, gamever = df.GameVersion }))
+                _extra.Add(e.Single(k => k.FileVersion == e.Max(m => m.FileVersion)).Result);
+
+            // Read game versions off disk
+            _versions.Clear();
             foreach (var fi in new DirectoryInfo(_exePath).GetFiles("GameVersion-*.xml"))
             {
                 var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
@@ -269,6 +403,7 @@ namespace TankIconMaker
                 }
             }
 
+            // Refresh game versions UI (TODO: just use binding)
             ctGameVersion.Items.Clear();
             foreach (var key in _versions.Keys.OrderBy(v => v))
                 ctGameVersion.Items.Add(key);
@@ -415,9 +550,10 @@ namespace TankIconMaker
 
         private IEnumerable<Tank> EnumTanks(bool all = false)
         {
-#warning Implement property inheritance and languages
+            var gis = GetInstallationSettings();
+            var selectedVersion = Version.Parse(gis.GameVersion);
 
-            IEnumerable<TankData> alls = _builtin.First().Data;
+            IEnumerable<TankData> alls = _builtin.Where(b => b.GameVersion.ToString() == gis.GameVersion).First().Data;
             IEnumerable<TankData> selection = null;
 
             if (all || ctDisplayMode.SelectedIndex == 0) // all tanks
@@ -426,13 +562,16 @@ namespace TankIconMaker
                 selection = alls.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
                     .SelectMany(p => SelectTiers(alls.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
 
+            var extras = _extra.GroupBy(df => new { df.Name, df.Language, df.Author })
+                .Select(g => g.Where(df => df.GameVersion <= selectedVersion).MaxOrDefault(df => df.GameVersion))
+                .Where(df => df != null).ToList();
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
                 .Select(tank => new Tank(
                     tank,
-                    new[] {
-                        new KeyValuePair<string, string>(_extra[1].Name, _extra[1].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault()),
-                        new KeyValuePair<string, string>(_extra[2].Name, _extra[2].Data.Where(dp => tank.SystemId == dp.TankSystemId).Select(dp => dp.Value).FirstOrDefault())
-                    }
+                    extras.Select(df => new KeyValuePair<string, string>(
+                        key: df.Name + " - " + df.Language + " - " + df.Author,
+                        value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
+                    ))
                 )).ToList();
         }
 

@@ -91,6 +91,34 @@ namespace TankIconMaker
             else
                 return path;
         }
+
+        public static TItem MaxOrDefault<TItem, TSelector>(this IEnumerable<TItem> collection, Func<TItem, TSelector> maxOf)
+        {
+            return collection.MaxAll(maxOf).FirstOrDefault();
+        }
+
+        public static IEnumerable<TItem> MaxAll<TItem, TSelector>(this IEnumerable<TItem> collection, Func<TItem, TSelector> maxOf)
+        {
+            var comparer = Comparer<TSelector>.Default;
+            var largest = default(TSelector);
+            var result = new List<TItem>();
+            bool any = false;
+            foreach (var item in collection)
+            {
+                var current = maxOf(item);
+                var compare = comparer.Compare(current, largest);
+                if (!any || compare > 0)
+                {
+                    any = true;
+                    largest = current;
+                    result.Clear();
+                    result.Add(item);
+                }
+                else if (compare == 0)
+                    result.Add(item);
+            }
+            return result;
+        }
     }
 
     /// <summary>A crutch that enables a sensible way to bind to a dependency property with a custom conversion.</summary>

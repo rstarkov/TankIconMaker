@@ -157,7 +157,7 @@ namespace TankIconMaker
             int oldIndex = _list.IndexOf(item);
 
             // See if item should now be sorted to a different position
-            if ((oldIndex == 0 || _comparer.Compare(_list[oldIndex - 1], item) <= 0)
+            if (Count <= 1 || (oldIndex == 0 || _comparer.Compare(_list[oldIndex - 1], item) <= 0)
                 && (oldIndex == Count - 1 || _comparer.Compare(item, _list[oldIndex + 1]) <= 0))
                 return;
 

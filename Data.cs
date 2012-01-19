@@ -122,6 +122,14 @@ namespace TankIconMaker
                 catch (Exception e) { throw new Exception(e.Message + " at line " + lp.Item1); }
             }).ToList().AsReadOnly();
         }
+
+        public DataFileBuiltIn(string author, Version gameVersion, int fileVersion, IEnumerable<TankData> data)
+        {
+            Author = author;
+            GameVersion = gameVersion;
+            FileVersion = fileVersion;
+            Data = data.ToList().AsReadOnly();
+        }
     }
 
     class DataFileExtra
@@ -132,7 +140,9 @@ namespace TankIconMaker
         public Version GameVersion { get; private set; }
         public int FileVersion { get; private set; }
         public string Description { get; private set; }
-        public string InheritsFrom { get; private set; }
+        public string InheritsFromName { get; private set; }
+        public string InheritsFromAuthor { get; private set; }
+        public string InheritsFromLanguage { get; private set; }
 
         public IList<ExtraData> Data { get; private set; }
 
@@ -157,13 +167,34 @@ namespace TankIconMaker
             if (header.Length >= 3)
                 Description = header[2];
             if (header.Length >= 4)
-                InheritsFrom = header[3];
+                InheritsFromName = header[3];
+            if (header.Length >= 5)
+                InheritsFromAuthor = header[4];
+            if (header.Length >= 6)
+                InheritsFromLanguage = header[5];
+
+            if (InheritsFromName == "")
+                InheritsFromName = null;
+            if (InheritsFromAuthor == "")
+                InheritsFromAuthor = null;
+            if (InheritsFromLanguage == "")
+                InheritsFromLanguage = null;
 
             Data = lines.Skip(1).Select(lp =>
             {
                 try { return new ExtraData(lp.Item2); }
                 catch (Exception e) { throw new Exception(e.Message + " at line " + lp.Item1); }
             }).ToList().AsReadOnly();
+        }
+
+        public DataFileExtra(string name, string language, string author, Version gameVersion, int fileVersion, IEnumerable<ExtraData> data)
+        {
+            Name = name;
+            Language = language;
+            Author = author;
+            GameVersion = gameVersion;
+            FileVersion = fileVersion;
+            Data = data.ToList().AsReadOnly();
         }
     }
 
@@ -179,6 +210,16 @@ namespace TankIconMaker
             TankSystemId = fields[0];
             Value = fields[1];
         }
+    }
+
+    class DataFileExtraWithInherit : DataFileExtra
+    {
+        public List<DataFileExtraWithInherit> ImmediateParents = new List<DataFileExtraWithInherit>();
+        public HashSet<DataFileExtraWithInherit> TransitiveChildren = new HashSet<DataFileExtraWithInherit>();
+        public DataFileExtra Result;
+
+        public DataFileExtraWithInherit(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
+            : base(name, language, author, gameVersion, fileVersion, filename) { }
     }
 
     enum Country
