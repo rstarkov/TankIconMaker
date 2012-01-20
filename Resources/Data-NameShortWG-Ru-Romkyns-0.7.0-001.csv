@@ -21,7 +21,7 @@ germany-Lowe,Löwe
 germany-Ltraktor,LTraktor
 germany-Maus,*Maus*,не проверен
 germany-Panther_II,Panther II
-germany-PanzerJager_I,*Panzerjäger I*,не проверен
+germany-PanzerJager_I,PzJg I
 germany-Pz35t,Pz35t
 germany-Pz38_NA,Pz38nA
 germany-Pz38t,Pz38t
@@ -92,12 +92,12 @@ usa-T30,T30
 usa-T32,T32
 usa-T34_hvy,T34
 usa-T40,T40
-usa-T57,*T57*,не проверен
+usa-T57,T57
 usa-T82,T82
 usa-T92,*T92*,не проверен
 usa-T95,*T95*,не проверен
 ussr-A-20,А-20
-ussr-A-32,*А-32*,не проверен
+ussr-A-32,А-32
 ussr-AT-1,АТ-1
 ussr-BT-2,БТ-2
 ussr-BT-7,БТ-7
