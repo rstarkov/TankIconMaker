@@ -81,7 +81,7 @@ namespace TankIconMaker
             BackColorDestroyer = Color.FromRgb(41, 83, 160);
             BackColorArtillery = Color.FromRgb(181, 47, 47);
 
-            NameData = "NameShortWG";
+            NameData = "NameShortWG - Ru - Romkyns";
             NameColorNormal = Color.FromRgb(210, 210, 210);
             NameColorPremium = Colors.Yellow;
             NameColorSpecial = Color.FromRgb(242, 98, 103);

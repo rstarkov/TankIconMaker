@@ -215,22 +215,63 @@ namespace TankIconMaker
         public List<DataFileBuiltIn> BuiltIn = new List<DataFileBuiltIn>();
         public List<DataFileExtra> Extra = new List<DataFileExtra>();
         public Dictionary<Version, GameVersion> Versions = new Dictionary<Version, GameVersion>();
+        public List<string> Warnings = new List<string>();
 
-        private class DataFileExtraWithInherit : DataFileExtra
+        private class DataFileExtra2 : DataFileExtra
         {
-            public List<DataFileExtraWithInherit> ImmediateParents = new List<DataFileExtraWithInherit>();
-            public HashSet<DataFileExtraWithInherit> TransitiveChildren = new HashSet<DataFileExtraWithInherit>();
+            public List<DataFileExtra2> ImmediateParents = new List<DataFileExtra2>();
+            public HashSet<DataFileExtra2> TransitiveChildren = new HashSet<DataFileExtra2>();
             public DataFileExtra Result;
 
-            public DataFileExtraWithInherit(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
+            public DataFileExtra2(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
                 : base(name, language, author, gameVersion, fileVersion, filename) { }
         }
 
         public void Reload(string path)
         {
-            // Read data files off disk
+            BuiltIn.Clear();
+            Extra.Clear();
+            Versions.Clear();
+            Warnings.Clear();
+            readGameVersions(path);
+            readDataFiles(path);
+        }
+
+        private void readGameVersions(string path)
+        {
+            foreach (var fi in new DirectoryInfo(path).GetFiles("GameVersion-*.xml"))
+            {
+                var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
+
+                if (parts.Length != 2)
+                {
+                    Warnings.Add("Skipping \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
+                    continue;
+                }
+
+                Version gameVersion;
+                if (!Version.TryParse(parts[1], out gameVersion))
+                {
+                    Warnings.Add("Skipping \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, parts[1]));
+                    continue;
+                }
+
+                try
+                {
+                    Versions.Add(gameVersion, XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName));
+                }
+                catch (Exception e)
+                {
+                    Warnings.Add("Skipping \"{0}\" because the file could not be parsed: {1}".Fmt(fi.Name, e.Message));
+                    continue;
+                }
+            }
+        }
+
+        private void readDataFiles(string path)
+        {
             var builtin = new List<DataFileBuiltIn>();
-            var extra = new List<DataFileExtraWithInherit>();
+            var extra = new List<DataFileExtra2>();
             var origFilenames = new Dictionary<object, string>();
             foreach (var fi in new DirectoryInfo(path).GetFiles("Data-*.csv"))
             {
@@ -239,38 +280,38 @@ namespace TankIconMaker
 
                 if (parts.Length < 5 || parts.Length > 6)
                 {
-                    Console.WriteLine("Skipping \"{0}\" because it has the wrong number of filename parts.", fi.Name);
+                    Warnings.Add("Skipping \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
                     continue;
                 }
                 if (parts[1].EqualsNoCase("BuiltIn") && parts.Length != 5)
                 {
-                    Console.WriteLine("Skipping \"{0}\" because it has too many filename parts for a BuiltIn data file.", fi.Name);
+                    Warnings.Add("Skipping \"{0}\" because it has too many filename parts for a BuiltIn data file.".Fmt(fi.Name));
                     continue;
                 }
                 if (parts.Length == 5 && !parts[1].EqualsNoCase("BuiltIn"))
                 {
-                    Console.WriteLine("Skipping \"{0}\" because it has too few filename parts for a non-BuiltIn data file.", fi.Name);
+                    Warnings.Add("Skipping \"{0}\" because it has too few filename parts for a non-BuiltIn data file.".Fmt(fi.Name));
                     continue;
                 }
 
                 string author = partsr[2].Trim();
                 if (author.Length == 0)
                 {
-                    Console.WriteLine("Skipping \"{0}\" because it has an empty author part in the filename.", fi.Name);
+                    Warnings.Add("Skipping \"{0}\" because it has an empty author part in the filename.".Fmt(fi.Name));
                     continue;
                 }
 
                 Version gameVersion;
                 if (!Version.TryParse(partsr[1], out gameVersion))
                 {
-                    Console.WriteLine("Skipping \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".", fi.Name, partsr[1]);
+                    Warnings.Add("Skipping \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[1]));
                     continue;
                 }
 
                 int fileVersion;
                 if (!int.TryParse(partsr[0], out fileVersion))
                 {
-                    Console.WriteLine("Skipping \"{0}\" because it has an unparseable file version part in the filename: \"{1}\".", fi.Name, partsr[0]);
+                    Warnings.Add("Skipping \"{0}\" because it has an unparseable file version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[0]));
                     continue;
                 }
 
@@ -285,28 +326,33 @@ namespace TankIconMaker
                     string extraName = parts[1].Trim();
                     if (extraName.Length == 0)
                     {
-                        Console.WriteLine("Skipping \"{0}\" because it has an empty property name part in the filename.", fi.Name);
+                        Warnings.Add("Skipping \"{0}\" because it has an empty property name part in the filename.".Fmt(fi.Name));
                         continue;
                     }
 
                     string languageName = parts[2].Trim();
                     if (languageName.Length != 2)
                     {
-                        Console.WriteLine("Skipping \"{0}\" because its language name part in the filename is not a 2 letter long language code.", fi.Name);
+                        Warnings.Add("Skipping \"{0}\" because its language name part in the filename is not a 2 letter long language code.".Fmt(fi.Name));
                         continue;
                     }
 
-                    var df = new DataFileExtraWithInherit(extraName, languageName, author, gameVersion, fileVersion, fi.FullName);
+                    var df = new DataFileExtra2(extraName, languageName, author, gameVersion, fileVersion, fi.FullName);
                     extra.Add(df);
                     origFilenames[df] = fi.Name;
                 }
             }
 
-            // Resolve built-in data files
-            BuiltIn.Clear();
+            resolveBuiltIn(builtin);
+            resolveExtras(extra, origFilenames);
+        }
+
+        private void resolveBuiltIn(List<DataFileBuiltIn> builtin)
+        {
             foreach (var group in builtin.GroupBy(df => new { author = df.Author, gamever = df.GameVersion }).OrderBy(g => g.Key.gamever))
             {
                 var tanks = new Dictionary<string, TankData>();
+
                 // Inherit from the earlier game versions by same author
                 var earlierVer = BuiltIn.Where(df => df.Author == group.Key.author).OrderByDescending(df => df.GameVersion).FirstOrDefault();
                 if (earlierVer != null)
@@ -315,10 +361,14 @@ namespace TankIconMaker
                 // Inherit from all the data files by this author/game version
                 foreach (var row in group.OrderBy(df => df.FileVersion).SelectMany(df => df.Data))
                     tanks[row.SystemId] = row;
+
                 // Create a new data file with all the tanks
                 BuiltIn.Add(new DataFileBuiltIn(group.Key.author, group.Key.gamever, group.Max(df => df.FileVersion), tanks.Values));
             }
+        }
 
+        private void resolveExtras(List<DataFileExtra2> extra, Dictionary<object, string> origFilenames)
+        {
             // Make sure the explicit inheritance is resolvable, and complain if not
             var ignore = new List<DataFileExtra>();
             do
@@ -329,7 +379,7 @@ namespace TankIconMaker
                     var p = extra.Where(df => df.Name == e.InheritsFromName).ToList();
                     if (p.Count == 0)
                     {
-                        Console.WriteLine("Skipping \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
+                        Warnings.Add("Skipping \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
                         ignore.Add(e);
                         continue;
                     }
@@ -338,7 +388,7 @@ namespace TankIconMaker
                         p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
                         if (p.Count == 0)
                         {
-                            Console.WriteLine("Skipping \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
+                            Warnings.Add("Skipping \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
                             ignore.Add(e);
                             continue;
                         }
@@ -346,7 +396,7 @@ namespace TankIconMaker
                     p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
                     if (p.Count == 0)
                     {
-                        Console.WriteLine("Skipping \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
+                        Warnings.Add("Skipping \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
                         ignore.Add(e);
                         continue;
                     }
@@ -403,12 +453,12 @@ namespace TankIconMaker
             var looped = extra.Where(e => e.TransitiveChildren.Contains(e)).ToArray();
             foreach (var item in looped.ToArray())
             {
-                Console.WriteLine("Skipping \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
+                Warnings.Add("Skipping \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
                 extra.Remove(item);
             }
 
             // Get the full list of properties for every data file
-            foreach (var e in extra.OrderBy(df => df, new CustomComparer<DataFileExtraWithInherit>((df1, df2) => df1.TransitiveChildren.Contains(df2) ? -1 : df2.TransitiveChildren.Contains(df1) ? 1 : 0)))
+            foreach (var e in extra.OrderBy(df => df, new CustomComparer<DataFileExtra2>((df1, df2) => df1.TransitiveChildren.Contains(df2) ? -1 : df2.TransitiveChildren.Contains(df1) ? 1 : 0)))
             {
                 var tanks = new Dictionary<string, ExtraData>();
 
@@ -424,40 +474,8 @@ namespace TankIconMaker
             }
 
             // Keep only the latest file version of each file
-            Extra.Clear();
             foreach (var e in extra.GroupBy(df => new { name = df.Name, language = df.Language, author = df.Author, gamever = df.GameVersion }))
                 Extra.Add(e.Single(k => k.FileVersion == e.Max(m => m.FileVersion)).Result);
-
-            // Read game versions off disk
-            Versions.Clear();
-            foreach (var fi in new DirectoryInfo(path).GetFiles("GameVersion-*.xml"))
-            {
-                var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
-
-                if (parts.Length != 2)
-                {
-                    Console.WriteLine("Skipping \"{0}\" because it has the wrong number of filename parts.", fi.Name);
-                    continue;
-                }
-
-                Version gameVersion;
-                if (!Version.TryParse(parts[1], out gameVersion))
-                {
-                    Console.WriteLine("Skipping \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".", fi.Name, parts[1]);
-                    continue;
-                }
-
-                try
-                {
-                    Versions.Add(gameVersion, XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Skipping \"{0}\" because the file could not be parsed: {1}", fi.Name, e.Message);
-                    continue;
-                }
-            }
-
         }
 
     }
