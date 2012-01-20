@@ -17,7 +17,6 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
- * Implement a way to choose preferred built-in property author
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)

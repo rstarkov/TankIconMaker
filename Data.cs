@@ -91,15 +91,13 @@ namespace TankIconMaker
 
     class DataFileBuiltIn
     {
-        public string Author { get; private set; }
         public Version GameVersion { get; private set; }
         public int FileVersion { get; private set; }
 
         public IList<TankData> Data { get; private set; }
 
-        public DataFileBuiltIn(string author, Version gameVersion, int fileVersion, string filename)
+        public DataFileBuiltIn(Version gameVersion, int fileVersion, string filename)
         {
-            Author = author;
             GameVersion = gameVersion;
             FileVersion = fileVersion;
 
@@ -121,9 +119,8 @@ namespace TankIconMaker
             }).ToList().AsReadOnly();
         }
 
-        public DataFileBuiltIn(string author, Version gameVersion, int fileVersion, IEnumerable<TankData> data)
+        public DataFileBuiltIn(Version gameVersion, int fileVersion, IEnumerable<TankData> data)
         {
-            Author = author;
             GameVersion = gameVersion;
             FileVersion = fileVersion;
             Data = data.ToList().AsReadOnly();
@@ -278,26 +275,19 @@ namespace TankIconMaker
                 var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
                 var partsr = parts.Reverse().ToArray();
 
-                if (parts.Length < 5 || parts.Length > 6)
+                if (parts.Length != 4 && parts.Length != 6)
                 {
                     Warnings.Add("Skipping \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
                     continue;
                 }
-                if (parts[1].EqualsNoCase("BuiltIn") && parts.Length != 5)
+                if (parts[1].EqualsNoCase("BuiltIn") && parts.Length != 4)
                 {
                     Warnings.Add("Skipping \"{0}\" because it has too many filename parts for a BuiltIn data file.".Fmt(fi.Name));
                     continue;
                 }
-                if (parts.Length == 5 && !parts[1].EqualsNoCase("BuiltIn"))
+                if (parts.Length == 4 && !parts[1].EqualsNoCase("BuiltIn"))
                 {
                     Warnings.Add("Skipping \"{0}\" because it has too few filename parts for a non-BuiltIn data file.".Fmt(fi.Name));
-                    continue;
-                }
-
-                string author = partsr[2].Trim();
-                if (author.Length == 0)
-                {
-                    Warnings.Add("Skipping \"{0}\" because it has an empty author part in the filename.".Fmt(fi.Name));
                     continue;
                 }
 
@@ -315,14 +305,21 @@ namespace TankIconMaker
                     continue;
                 }
 
-                if (parts.Length == 5)
+                if (parts.Length == 4)
                 {
-                    var df = new DataFileBuiltIn(author, gameVersion, fileVersion, fi.FullName);
+                    var df = new DataFileBuiltIn(gameVersion, fileVersion, fi.FullName);
                     builtin.Add(df);
                     origFilenames[df] = fi.Name;
                 }
                 else
                 {
+                    string author = partsr[2].Trim();
+                    if (author.Length == 0)
+                    {
+                        Warnings.Add("Skipping \"{0}\" because it has an empty author part in the filename.".Fmt(fi.Name));
+                        continue;
+                    }
+
                     string extraName = parts[1].Trim();
                     if (extraName.Length == 0)
                     {
@@ -349,21 +346,22 @@ namespace TankIconMaker
 
         private void resolveBuiltIn(List<DataFileBuiltIn> builtin)
         {
-            foreach (var group in builtin.GroupBy(df => new { author = df.Author, gamever = df.GameVersion }).OrderBy(g => g.Key.gamever))
+            foreach (var group in builtin.GroupBy(df => new { gamever = df.GameVersion }).OrderBy(g => g.Key.gamever))
             {
                 var tanks = new Dictionary<string, TankData>();
 
-                // Inherit from the earlier game versions by same author
-                var earlierVer = BuiltIn.Where(df => df.Author == group.Key.author).OrderByDescending(df => df.GameVersion).FirstOrDefault();
+                // Inherit from the earlier game versions
+                var earlierVer = BuiltIn.OrderByDescending(df => df.GameVersion).FirstOrDefault();
                 if (earlierVer != null)
                     foreach (var row in earlierVer.Data)
                         tanks[row.SystemId] = row;
-                // Inherit from all the data files by this author/game version
+
+                // Inherit from all the file versions for this game version
                 foreach (var row in group.OrderBy(df => df.FileVersion).SelectMany(df => df.Data))
                     tanks[row.SystemId] = row;
 
                 // Create a new data file with all the tanks
-                BuiltIn.Add(new DataFileBuiltIn(group.Key.author, group.Key.gamever, group.Max(df => df.FileVersion), tanks.Values));
+                BuiltIn.Add(new DataFileBuiltIn(group.Key.gamever, group.Max(df => df.FileVersion), tanks.Values));
             }
         }
 
