@@ -115,9 +115,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
-    <ItemGroup>
-      <Resources Include="Resources\*" />
-    </ItemGroup>
+    <ItemGroup><Resources Include="Resources\*" /></ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)" />
+    <ItemGroup><Licenses Include="ThirdParty\license-*" /></ItemGroup>
+    <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
   </Target>
 </Project>
