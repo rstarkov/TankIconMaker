@@ -20,9 +20,8 @@ using RT.Util.Dialogs;
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
- * Bundled properties:
- *     Override example for russian colloquial names
  * "Reload data" button
+ * Use a drop-down listing all possible properties for NameDataSource
  * 
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
  * Good handling of exceptions due to bugs in the program (show detail and exit)
@@ -32,7 +31,6 @@ using RT.Util.Dialogs;
  * Same method to draw text with GDI (various anti-aliasing settings) and WPF (another item in the anti-alias enum)
  * Deduce the text baseline in pixel-perfect fashion.
  * 
- * Use a drop-down listing all possible properties for NameDataSource
  * In-game-like display of low/mid/high tier balance
  * Allow the maker to tell us which tanks to invalidate on a property change.
  */

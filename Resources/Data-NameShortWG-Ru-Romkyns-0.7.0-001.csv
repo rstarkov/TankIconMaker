@@ -7,8 +7,8 @@ germany-E-50,E-50
 germany-E-75,E-75
 germany-Ferdinand,Ferdinand
 germany-G_E,*GW Typ E*,не проверен
-germany-G_Panther,GW Panther,(вообще-то GWPanther)
-germany-G_Tiger,GW Tiger,(вообще-то GWTiger)
+germany-G_Panther,GWPanther
+germany-G_Tiger,GWTiger
 germany-G20_Marder_II,Marder II
 germany-Grille,Grille
 germany-H39_captured,Pz38H735f
@@ -40,9 +40,9 @@ germany-PzVI,Tiger
 germany-PzVI_Tiger_P,Tiger P
 germany-PzVIB_Tiger_II,Tiger II
 germany-S35_captured,*PzS35 739f*,не проверен
-germany-StugIII,StuG III,(вообще-то StuGIII но с пробелом читабельнее)
+germany-StugIII,StuGIII
 germany-Sturmpanzer_II,StPz II
-germany-T-15,*T-15*,не проверен
+germany-T-15,T-15
 germany-T-25,T-25
 germany-VK1602,Leopard
 germany-VK2801,VK2801
