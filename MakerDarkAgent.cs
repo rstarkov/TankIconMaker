@@ -92,7 +92,7 @@ namespace TankIconMaker
             Tier5Color = Colors.White;
             Tier10Color = Colors.Red;
 
-            Overhang = OverhangStyle.Clip;
+            Overhang = OverhangStyle.Overhang;
 
             _outline = new Pen(Brushes.Black, 1); _outline.Freeze();
             _outlineInner = new Pen(new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)), 1); _outlineInner.Freeze();
@@ -161,6 +161,19 @@ namespace TankIconMaker
                 var minmax = Ut.PreciseWidth(image, 100);
                 if (Overhang != OverhangStyle.Overhang)
                     dc.PushClip(new RectangleGeometry(new Rect(1, 2, 78, 20)));
+                else
+                {
+                    // Fade out the top and bottom couple of pixels
+                    unsafe
+                    {
+                        byte* ptr, end;
+                        int h = image.PixelHeight;
+                        ptr = (byte*) image.BackBuffer + 0 * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.25);
+                        ptr = (byte*) image.BackBuffer + 1 * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.6);
+                        ptr = (byte*) image.BackBuffer + (h - 2) * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.6);
+                        ptr = (byte*) image.BackBuffer + (h - 1) * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.25);
+                    }
+                }
                 double height = Overhang == OverhangStyle.Fit ? 20 : 24;
                 double scale = height / image.Height;
                 dc.DrawImage(image, new Rect(

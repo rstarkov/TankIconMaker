@@ -41,6 +41,11 @@ namespace TankIconMaker
                 return result;
             }
         }
+
+        public override string ToString()
+        {
+            return "Tank: " + SystemId;
+        }
     }
 
     class TankData : Tank
@@ -96,6 +101,11 @@ namespace TankIconMaker
 
         public IList<TankData> Data { get; private set; }
 
+        public override string ToString()
+        {
+            return "BuiltIn-{0}-{1}".Fmt(GameVersion, FileVersion);
+        }
+
         public DataFileBuiltIn(Version gameVersion, int fileVersion, string filename)
         {
             GameVersion = gameVersion;
@@ -140,6 +150,11 @@ namespace TankIconMaker
         public string InheritsFromLanguage { get; private set; }
 
         public IList<ExtraData> Data { get; private set; }
+
+        public override string ToString()
+        {
+            return "{0}-{1}-{2}-{3}-{4}".Fmt(Name, Language, Author, GameVersion, FileVersion);
+        }
 
         public DataFileExtra(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
         {
@@ -204,6 +219,11 @@ namespace TankIconMaker
                 throw new Exception(string.Format("Expected at least 2 fields"));
             TankSystemId = fields[0];
             Value = fields[1];
+        }
+
+        public override string ToString()
+        {
+            return "{0} = {1}".Fmt(TankSystemId, Value);
         }
     }
 
@@ -421,7 +441,8 @@ namespace TankIconMaker
                 // Inherit from the explicitly specified file
                 if (e.InheritsFromName != null)
                 {
-                    var p = extra.Where(df => df.GameVersion <= e.GameVersion && df.Name == e.InheritsFromName).ToList();
+                    var p = extra.Where(df => df.GameVersion <= e.GameVersion && df.Name == e.InheritsFromName)
+                        .OrderByDescending(df => df.GameVersion).ToList();
                     if (e.InheritsFromLanguage != null)
                         p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
                     e.ImmediateParents.Add(p.Where(df => df.Author == e.InheritsFromAuthor).FirstOrDefault() ?? p[0]);
@@ -438,11 +459,11 @@ namespace TankIconMaker
             {
                 added = false;
                 foreach (var e in extra)
-                    foreach (var c1 in e.TransitiveChildren)
+                    foreach (var c1 in e.TransitiveChildren.ToArray())
                         foreach (var c2 in c1.TransitiveChildren)
-                            if (!c1.TransitiveChildren.Contains(c2))
+                            if (!e.TransitiveChildren.Contains(c2))
                             {
-                                c1.TransitiveChildren.Add(c2);
+                                e.TransitiveChildren.Add(c2);
                                 added = true;
                             }
             } while (added);

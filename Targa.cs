@@ -71,7 +71,6 @@ namespace TankIconMaker
             var tga = new Targa(filename);
             var bitmap = new WriteableBitmap(tga.Width, tga.Height, 96, 96, PixelFormats.Bgra32, null);
             bitmap.WritePixels(new Int32Rect(0, 0, tga.Width, tga.Height), tga.Raw, tga.Width * 4, 0);
-            bitmap.Freeze();
             return bitmap;
         }
 
