@@ -262,14 +262,14 @@ namespace TankIconMaker
 
                 if (parts.Length != 2)
                 {
-                    Warnings.Add("Skipping \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
+                    Warnings.Add("Skipped \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
                     continue;
                 }
 
                 Version gameVersion;
                 if (!Version.TryParse(parts[1], out gameVersion))
                 {
-                    Warnings.Add("Skipping \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, parts[1]));
+                    Warnings.Add("Skipped \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, parts[1]));
                     continue;
                 }
 
@@ -279,7 +279,7 @@ namespace TankIconMaker
                 }
                 catch (Exception e)
                 {
-                    Warnings.Add("Skipping \"{0}\" because the file could not be parsed: {1}".Fmt(fi.Name, e.Message));
+                    Warnings.Add("Skipped \"{0}\" because the file could not be parsed: {1}".Fmt(fi.Name, e.Message));
                     continue;
                 }
             }
@@ -297,31 +297,31 @@ namespace TankIconMaker
 
                 if (parts.Length != 4 && parts.Length != 6)
                 {
-                    Warnings.Add("Skipping \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
+                    Warnings.Add("Skipped \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
                     continue;
                 }
                 if (parts[1].EqualsNoCase("BuiltIn") && parts.Length != 4)
                 {
-                    Warnings.Add("Skipping \"{0}\" because it has too many filename parts for a BuiltIn data file.".Fmt(fi.Name));
+                    Warnings.Add("Skipped \"{0}\" because it has too many filename parts for a BuiltIn data file.".Fmt(fi.Name));
                     continue;
                 }
                 if (parts.Length == 4 && !parts[1].EqualsNoCase("BuiltIn"))
                 {
-                    Warnings.Add("Skipping \"{0}\" because it has too few filename parts for a non-BuiltIn data file.".Fmt(fi.Name));
+                    Warnings.Add("Skipped \"{0}\" because it has too few filename parts for a non-BuiltIn data file.".Fmt(fi.Name));
                     continue;
                 }
 
                 Version gameVersion;
                 if (!Version.TryParse(partsr[1], out gameVersion))
                 {
-                    Warnings.Add("Skipping \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[1]));
+                    Warnings.Add("Skipped \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[1]));
                     continue;
                 }
 
                 int fileVersion;
                 if (!int.TryParse(partsr[0], out fileVersion))
                 {
-                    Warnings.Add("Skipping \"{0}\" because it has an unparseable file version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[0]));
+                    Warnings.Add("Skipped \"{0}\" because it has an unparseable file version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[0]));
                     continue;
                 }
 
@@ -336,21 +336,21 @@ namespace TankIconMaker
                     string author = partsr[2].Trim();
                     if (author.Length == 0)
                     {
-                        Warnings.Add("Skipping \"{0}\" because it has an empty author part in the filename.".Fmt(fi.Name));
+                        Warnings.Add("Skipped \"{0}\" because it has an empty author part in the filename.".Fmt(fi.Name));
                         continue;
                     }
 
                     string extraName = parts[1].Trim();
                     if (extraName.Length == 0)
                     {
-                        Warnings.Add("Skipping \"{0}\" because it has an empty property name part in the filename.".Fmt(fi.Name));
+                        Warnings.Add("Skipped \"{0}\" because it has an empty property name part in the filename.".Fmt(fi.Name));
                         continue;
                     }
 
                     string languageName = parts[2].Trim();
                     if (languageName.Length != 2)
                     {
-                        Warnings.Add("Skipping \"{0}\" because its language name part in the filename is not a 2 letter long language code.".Fmt(fi.Name));
+                        Warnings.Add("Skipped \"{0}\" because its language name part in the filename is not a 2 letter long language code.".Fmt(fi.Name));
                         continue;
                     }
 
@@ -397,7 +397,7 @@ namespace TankIconMaker
                     var p = extra.Where(df => df.Name == e.InheritsFromName).ToList();
                     if (p.Count == 0)
                     {
-                        Warnings.Add("Skipping \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
+                        Warnings.Add("Skipped \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
                         ignore.Add(e);
                         continue;
                     }
@@ -406,7 +406,7 @@ namespace TankIconMaker
                         p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
                         if (p.Count == 0)
                         {
-                            Warnings.Add("Skipping \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
+                            Warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
                             ignore.Add(e);
                             continue;
                         }
@@ -414,7 +414,7 @@ namespace TankIconMaker
                     p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
                     if (p.Count == 0)
                     {
-                        Warnings.Add("Skipping \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
+                        Warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
                         ignore.Add(e);
                         continue;
                     }
@@ -472,7 +472,7 @@ namespace TankIconMaker
             var looped = extra.Where(e => e.TransitiveChildren.Contains(e)).ToArray();
             foreach (var item in looped.ToArray())
             {
-                Warnings.Add("Skipping \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
+                Warnings.Add("Skipped \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
                 extra.Remove(item);
             }
 

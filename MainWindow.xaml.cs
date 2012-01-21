@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,13 +21,11 @@ using RT.Util.Dialogs;
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
- * "Reload data" button
  * Use a drop-down listing all possible properties for NameDataSource
  * 
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
  * Good handling of exceptions due to bugs in the program (show detail and exit)
  * Good handling of when the bare minimum data files are missing (e.g. at least one BuitlIn and at least one GameVersion)
- * Report file loading errors properly
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
  * Same method to draw text with GDI (various anti-aliasing settings) and WPF (another item in the anti-alias enum)
  * Deduce the text baseline in pixel-perfect fashion.
@@ -50,6 +49,7 @@ namespace TankIconMaker
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
         private CancellationTokenSource _cancelRender = new CancellationTokenSource();
         private Dictionary<string, BitmapSource> _renderCache = new Dictionary<string, BitmapSource>();
+        private ObservableCollection<string> _warnings = new ObservableCollection<string>();
 
         public MainWindow()
             : base(Program.Settings.MainWindow)
@@ -71,6 +71,12 @@ namespace TankIconMaker
                 Source = ctGamePath,
                 Path = new PropertyPath(ComboBox.SelectedIndexProperty),
                 Converter = LambdaConverter.New((int index) => index >= 0),
+            });
+            BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, new Binding
+            {
+                Source = _warnings,
+                Path = new PropertyPath("Count"),
+                Converter = LambdaConverter.New((int count) => count > 0 ? Visibility.Visible : Visibility.Collapsed)
             });
 
             if (Program.Settings.LeftColumnWidth != null)
@@ -113,15 +119,13 @@ namespace TankIconMaker
                     Stretch = Stretch.UniformToFill,
                 };
 
-            ReloadData();
-
             // Find all the makers
             foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(MakerBase).IsAssignableFrom(t) && !t.IsAbstract))
             {
                 var constructor = makerType.GetConstructor(new Type[0]);
                 if (constructor == null)
                 {
-                    DlgMessage.ShowWarning("Ignoring maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
+                    DlgMessage.ShowWarning("Ignored maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
                     continue;
                 }
                 var maker = (MakerBase) constructor.Invoke(new object[0]);
@@ -141,10 +145,7 @@ namespace TankIconMaker
                 .ThenBy(m => _makers.IndexOf(m))
                 .First();
 
-            // Yes, this stuff is a bit WinForms'sy...
-            var gis = GetInstallationSettings(addIfMissing: true);
-            ctGameVersion.Text = gis.GameVersion;
-            ctMakerDropdown_SelectionChanged();
+            ReloadData();
 
             // Bind the events now that all the UI is set up as desired
             Closing += (___, ____) => SaveSettings();
@@ -168,11 +169,20 @@ namespace TankIconMaker
 
             _data.Reload(_exePath);
 
+            _warnings.Clear();
+            foreach (var warning in _data.Warnings)
+                _warnings.Add(warning);
+
             // Refresh game versions UI (TODO: just use binding)
             ctGameVersion.Items.Clear();
             foreach (var key in _data.Versions.Keys.OrderBy(v => v))
                 ctGameVersion.Items.Add(key);
             GetInstallationSettings(); // fixes up the versions if necessary
+
+            // Yes, this stuff is a bit WinForms'sy...
+            var gis = GetInstallationSettings(addIfMissing: true);
+            ctGameVersion.Text = gis.GameVersion;
+            ctMakerDropdown_SelectionChanged();
         }
 
         /// <summary>
@@ -200,6 +210,10 @@ namespace TankIconMaker
         /// </summary>
         private void UpdateIcons(object _ = null, EventArgs __ = null)
         {
+            ctSave.IsEnabled = false;
+            foreach (var image in ctIconsPanel.Children.OfType<Image>())
+                image.Opacity = 0.7;
+
             _updateIconsTimer.Stop();
             _cancelRender.Cancel();
             _cancelRender = new CancellationTokenSource();
@@ -376,10 +390,14 @@ namespace TankIconMaker
 
         private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
         {
+            var added = args.AddedItems.OfType<Version>().ToList();
+            if (added.Count != 1)
+                return;
+
             var gis = GetInstallationSettings();
             if (gis == null)
                 return;
-            gis.GameVersion = args.AddedItems.OfType<Version>().FirstOrDefault().ToString();
+            gis.GameVersion = added.FirstOrDefault().ToString();
             ctGamePath.SelectedItem = gis;
             SaveSettings();
             _renderCache.Clear();
@@ -408,6 +426,17 @@ namespace TankIconMaker
             Program.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
             UpdateIcons();
             SaveSettings();
+        }
+
+        private void ctWarning_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DlgMessage.ShowWarning(string.Join("\n\n", _warnings.Select(s => "• " + s)));
+        }
+
+        private void ctReload_Click(object sender, RoutedEventArgs e)
+        {
+            ReloadData();
+            UpdateIcons();
         }
 
         bool _overwriteAccepted = false;
