@@ -125,20 +125,28 @@ namespace TankIconMaker
     class LambdaConverter<TSource, TResult> : IValueConverter
     {
         private Func<TSource, TResult> _lambda;
+        private Func<TResult, TSource> _lambdaBack;
 
-        public LambdaConverter(Func<TSource, TResult> lambda)
+        public LambdaConverter(Func<TSource, TResult> lambda, Func<TResult, TSource> lambdaBack)
         {
             _lambda = lambda;
+            _lambdaBack = lambdaBack;
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (!(value is TSource))
+                return null;
             return _lambda((TSource) value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (!(value is TResult))
+                return null;
+            if (_lambdaBack == null)
+                throw new NotImplementedException();
+            return _lambdaBack((TResult) value);
         }
     }
 
@@ -146,9 +154,9 @@ namespace TankIconMaker
     static class LambdaConverter
     {
         /// <summary>Creates a new converter using the specified lambda to perform the conversion.</summary>
-        public static LambdaConverter<TSource, TResult> New<TSource, TResult>(Func<TSource, TResult> lambda)
+        public static LambdaConverter<TSource, TResult> New<TSource, TResult>(Func<TSource, TResult> lambda, Func<TResult, TSource> lambdaBack = null)
         {
-            return new LambdaConverter<TSource, TResult>(lambda);
+            return new LambdaConverter<TSource, TResult>(lambda, lambdaBack);
         }
     }
 

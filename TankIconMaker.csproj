@@ -62,6 +62,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BitmapGdi.cs" />
+    <Compile Include="DataSourceEditor.xaml.cs">
+      <DependentUpon>DataSourceEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MakerBase.cs" />
     <Compile Include="UtColors.cs" />
     <Compile Include="MakerDarkAgent.cs" />
@@ -72,6 +75,10 @@
     <Compile Include="UtMisc.cs" />
     <Compile Include="UtPreciseSize.cs" />
     <Compile Include="ObservableSortedList.cs" />
+    <Page Include="DataSourceEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
