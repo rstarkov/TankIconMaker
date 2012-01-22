@@ -11,9 +11,9 @@
             <TextBlock Margin="0,5,0,5" Text="None" FontWeight="Bold"/>
         </DataTemplate>
         <DataTemplate x:Key="sourceTemplate">
-            <StackPanel Margin="0,5,0,5">
+            <StackPanel Margin="0,5,0,5"  ToolTip="{Binding Description}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="0,0,8,0"  ToolTip="{Binding Description}"/>
+                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="0,0,8,0"/>
                     <TextBlock Text="{Binding Language}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">

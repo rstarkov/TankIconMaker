@@ -18,7 +18,6 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
- * Description inherited from the wrong file version (0.7.0 instead of 0.7.1)
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
@@ -28,15 +27,12 @@ using RT.Util.Dialogs;
  * Good handling of when the bare minimum data files are missing (e.g. at least one BuitlIn and at least one GameVersion)
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
  * Same method to draw text with GDI (various anti-aliasing settings) and WPF (another item in the anti-alias enum)
+ * Test inheritance use-case: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  * Deduce the text baseline in pixel-perfect fashion.
  * 
+ * GameInstallationSettings should use the Version type for the game version.
  * In-game-like display of low/mid/high tier balance
  * Allow the maker to tell us which tanks to invalidate on a property change.
- */
-
-/*
- * Inheritance use-cases:
- *   Definitely: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  */
 
 namespace TankIconMaker
@@ -174,20 +170,6 @@ namespace TankIconMaker
             foreach (var warning in _data.Warnings)
                 _warnings.Add(warning);
 
-            // Update the list of available data sources
-            foreach (var item in Program.DataSources.Where(ds => !(ds is DataSourceNone)).ToArray())
-            {
-                var extra = _data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author).FirstOrDefault();
-                if (extra == null)
-                    Program.DataSources.Remove(item);
-                else
-                    item.UpdateFrom(extra);
-            }
-            foreach (var df in _data.Extra)
-                if (!Program.DataSources.Any(item => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author))
-                    Program.DataSources.Add(new DataSourceInfo(df));
-
-
             // Refresh game versions UI (TODO: just use binding)
             ctGameVersion.Items.Clear();
             foreach (var key in _data.Versions.Keys.OrderBy(v => v))
@@ -197,7 +179,29 @@ namespace TankIconMaker
             // Yes, this stuff is a bit WinForms'sy...
             var gis = GetInstallationSettings(addIfMissing: true);
             ctGameVersion.Text = gis.GameVersion;
+            UpdateDataSources(Version.Parse(gis.GameVersion));
             ctMakerDropdown_SelectionChanged();
+        }
+
+        /// <summary>
+        /// Updates the list of data sources currently available to be used in the icon maker. 
+        /// </summary>
+        private void UpdateDataSources(Version version)
+        {
+            foreach (var item in Program.DataSources.Where(ds => !(ds is DataSourceNone)).ToArray())
+            {
+                var extra = _data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
+                if (extra == null)
+                    Program.DataSources.Remove(item);
+                else
+                    item.UpdateFrom(extra);
+            }
+            foreach (var group in _data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author }))
+            {
+                var extra = group.Where(df => df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
+                if (extra != null && !Program.DataSources.Any(item => extra.Name == item.Name && extra.Language == item.Language && extra.Author == item.Author))
+                    Program.DataSources.Add(new DataSourceInfo(extra));
+            }
         }
 
         /// <summary>
@@ -415,6 +419,7 @@ namespace TankIconMaker
             gis.GameVersion = added.FirstOrDefault().ToString();
             ctGamePath.SelectedItem = gis;
             SaveSettings();
+            UpdateDataSources(Version.Parse(gis.GameVersion));
             _renderCache.Clear();
             ScheduleUpdateIcons();
         }
