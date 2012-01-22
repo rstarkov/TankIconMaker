@@ -18,6 +18,7 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
+ * Description inherited from the wrong file version (0.7.0 instead of 0.7.1)
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
@@ -174,7 +175,7 @@ namespace TankIconMaker
                 _warnings.Add(warning);
 
             // Update the list of available data sources
-            foreach (var item in Program.DataSources.ToArray())
+            foreach (var item in Program.DataSources.Where(ds => !(ds is DataSourceNone)).ToArray())
             {
                 var extra = _data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author).FirstOrDefault();
                 if (extra == null)
