@@ -197,13 +197,17 @@ namespace TankIconMaker
             }).ToList().AsReadOnly();
         }
 
-        public DataFileExtra(string name, string language, string author, Version gameVersion, int fileVersion, IEnumerable<ExtraData> data)
+        public DataFileExtra(DataFileExtra properties, IEnumerable<ExtraData> data)
         {
-            Name = name;
-            Language = language;
-            Author = author;
-            GameVersion = gameVersion;
-            FileVersion = fileVersion;
+            Name = properties.Name;
+            Language = properties.Language;
+            Author = properties.Author;
+            GameVersion = properties.GameVersion;
+            FileVersion = properties.FileVersion;
+            Description = properties.Description;
+            InheritsFromName = properties.InheritsFromName;
+            InheritsFromAuthor = properties.InheritsFromAuthor;
+            InheritsFromLanguage = properties.InheritsFromLanguage;
             Data = data.ToList().AsReadOnly();
         }
     }
@@ -489,7 +493,7 @@ namespace TankIconMaker
                     tanks[d.TankSystemId] = d;
 
                 // Create a new data file with all the tanks
-                e.Result = new DataFileExtra(e.Name, e.Language, e.Author, e.GameVersion, e.FileVersion, tanks.Values);
+                e.Result = new DataFileExtra(e, tanks.Values);
             }
 
             // Keep only the latest file version of each file

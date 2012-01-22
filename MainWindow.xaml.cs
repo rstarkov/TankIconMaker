@@ -21,7 +21,6 @@ using RT.Util.Dialogs;
  * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
- * Use a drop-down listing all possible properties for NameDataSource
  * 
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
  * Good handling of exceptions due to bugs in the program (show detail and exit)
@@ -169,9 +168,24 @@ namespace TankIconMaker
 
             _data.Reload(_exePath);
 
+            // Update the list of warnings
             _warnings.Clear();
             foreach (var warning in _data.Warnings)
                 _warnings.Add(warning);
+
+            // Update the list of available data sources
+            foreach (var item in Program.DataSources.ToArray())
+            {
+                var extra = _data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author).FirstOrDefault();
+                if (extra == null)
+                    Program.DataSources.Remove(item);
+                else
+                    item.UpdateFrom(extra);
+            }
+            foreach (var df in _data.Extra)
+                if (!Program.DataSources.Any(item => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author))
+                    Program.DataSources.Add(new DataSourceInfo(df));
+
 
             // Refresh game versions UI (TODO: just use binding)
             ctGameVersion.Items.Clear();
@@ -348,7 +362,7 @@ namespace TankIconMaker
                 .Select(tank => new Tank(
                     tank,
                     extras.Select(df => new KeyValuePair<string, string>(
-                        key: df.Name + " - " + df.Language + " - " + df.Author,
+                        key: df.Name + "/" + df.Language + "/" + df.Author,
                         value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
                     ))
                 )).ToList();
