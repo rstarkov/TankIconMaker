@@ -32,6 +32,8 @@ namespace TankIconMaker
         public static App App;
         public static Settings Settings;
         public static ObservableSortedList<DataSourceInfo> DataSources = new ObservableSortedList<DataSourceInfo>(
-            comparer: CustomComparer<DataSourceInfo>.By(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersion));
+            items: new[] { new DataSourceNone() },
+            comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceNone ? 0 : 1)
+                .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersion));
     }
 }

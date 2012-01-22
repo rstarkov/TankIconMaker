@@ -39,7 +39,20 @@ namespace TankIconMaker
         }
     }
 
-    sealed class DataSourceInfo : INotifyPropertyChanged
+    class DataSourceTemplateSelector : DataTemplateSelector
+    {
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            var element = container as FrameworkElement;
+
+            if (item is DataSourceNone)
+                return element.FindResource("noneTemplate") as DataTemplate;
+            else
+                return element.FindResource("sourceTemplate") as DataTemplate;
+        }
+    }
+
+    class DataSourceInfo : INotifyPropertyChanged
     {
         public string Name { get; private set; }
         public string Language { get; private set; }
@@ -50,6 +63,8 @@ namespace TankIconMaker
         public int FileVersion { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        protected DataSourceInfo() { }
 
         public DataSourceInfo(DataFileExtra file)
         {
@@ -84,6 +99,14 @@ namespace TankIconMaker
         public override string ToString()
         {
             return Name + "/" + Language + "/" + Author;
+        }
+    }
+
+    sealed class DataSourceNone : DataSourceInfo
+    {
+        public override string ToString()
+        {
+            return "<None>";
         }
     }
 }

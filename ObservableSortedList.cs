@@ -26,9 +26,9 @@ namespace TankIconMaker
             _comparer = comparer ?? Comparer<T>.Default;
         }
 
-        public ObservableSortedList(IEnumerable<T> items, int capacity = 4, IComparer<T> comparer = null)
+        public ObservableSortedList(IEnumerable<T> items, IComparer<T> comparer = null)
         {
-            _list = new List<T>(capacity);
+            _list = new List<T>(items);
             _comparer = comparer ?? Comparer<T>.Default;
             _list.Sort(_comparer);
             foreach (var item in _list)
