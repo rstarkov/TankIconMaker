@@ -55,7 +55,7 @@ namespace TankIconMaker
 
             _list.Insert(i, item);
             item.PropertyChanged += ItemPropertyChanged;
-            collectionChanged_Added(item);
+            collectionChanged_Added(item, i);
             propertyChanged("Count");
         }
 
@@ -133,10 +133,10 @@ namespace TankIconMaker
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        private void collectionChanged_Added(T item)
+        private void collectionChanged_Added(T item, int index)
         {
             if (CollectionChanged != null)
-                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
+                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
         }
 
         private void collectionChanged_Removed(T item, int index)
