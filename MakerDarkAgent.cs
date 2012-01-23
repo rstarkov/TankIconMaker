@@ -158,7 +158,7 @@ namespace TankIconMaker
 
             try
             {
-                var image = Targa.LoadWpf(Path.Combine(@"I:\Games\WorldOfTanks\res\gui\maps\icons\vehicle\small", tank.SystemId + ".tga"));
+                var image = tank.LoadImageOriginalWpf();
                 var minmax = Ut.PreciseWidth(image, 100);
                 if (Overhang != OverhangStyle.Overhang)
                     dc.PushClip(new RectangleGeometry(new Rect(1, 2, 78, 20)));
