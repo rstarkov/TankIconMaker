@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Media.Imaging;
 using RT.Util;
 using RT.Util.Xml;
 
@@ -17,9 +18,12 @@ namespace TankIconMaker
 
         private Dictionary<string, string> _extras;
 
+        private GameInstallationSettings _gameInstall;
+        private GameVersion _gameVersion;
+
         protected Tank() { }
 
-        public Tank(TankData tank, IEnumerable<KeyValuePair<string, string>> extras)
+        public Tank(TankData tank, IEnumerable<KeyValuePair<string, string>> extras, GameInstallationSettings gameInstall, GameVersion gameVersion)
         {
             SystemId = tank.SystemId;
             Country = tank.Country;
@@ -29,6 +33,8 @@ namespace TankIconMaker
             _extras = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (var extra in extras)
                 _extras.Add(extra.Key, extra.Value);
+            _gameInstall = gameInstall;
+            _gameVersion = gameVersion;
         }
 
         public string this[string name]
@@ -45,6 +51,26 @@ namespace TankIconMaker
         public override string ToString()
         {
             return "Tank: " + SystemId;
+        }
+
+        public WriteableBitmap LoadImage3DWpf()
+        {
+            return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
+        }
+
+        public BitmapGdi LoadImage3DGdi()
+        {
+            return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
+        }
+
+        public WriteableBitmap LoadImageOriginalWpf()
+        {
+            return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga"));
+        }
+
+        public BitmapGdi LoadImageOriginalGdi()
+        {
+            return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga"));
         }
     }
 

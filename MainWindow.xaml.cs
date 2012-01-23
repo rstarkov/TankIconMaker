@@ -18,7 +18,6 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
- * Provide a means to load the in-game images
  * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * 
@@ -369,7 +368,9 @@ namespace TankIconMaker
                     extras.Select(df => new KeyValuePair<string, string>(
                         key: df.Name + "/" + df.Language + "/" + df.Author,
                         value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
-                    ))
+                    )),
+                    gameInstall: gis,
+                    gameVersion: _data.Versions[selectedVersion]
                 )).ToList();
         }
 
