@@ -63,12 +63,12 @@ namespace TankIconMaker
             return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
         }
 
-        public WriteableBitmap LoadImageOriginalWpf()
+        public WriteableBitmap LoadImageContourWpf()
         {
             return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga"));
         }
 
-        public BitmapGdi LoadImageOriginalGdi()
+        public BitmapGdi LoadImageContourGdi()
         {
             return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga"));
         }
