@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using D = System.Drawing;
+using System.ComponentModel;
 
 namespace TankIconMaker
 {
@@ -32,10 +33,10 @@ namespace TankIconMaker
         {
             switch (style)
             {
-                case TextAntiAliasStyle.AliasedHinted: return D.Text.TextRenderingHint.SingleBitPerPixelGridFit;
-                case TextAntiAliasStyle.AntiAliased: return D.Text.TextRenderingHint.AntiAlias;
-                case TextAntiAliasStyle.AntiAliasedHinted: return D.Text.TextRenderingHint.AntiAliasGridFit;
-                case TextAntiAliasStyle.ClearTypeHinted: return D.Text.TextRenderingHint.ClearTypeGridFit;
+                case TextAntiAliasStyle.Aliased: return D.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+                case TextAntiAliasStyle.UnhintedGDI: return D.Text.TextRenderingHint.AntiAlias;
+                case TextAntiAliasStyle.AntiAliasGDI: return D.Text.TextRenderingHint.AntiAliasGridFit;
+                case TextAntiAliasStyle.ClearType: return D.Text.TextRenderingHint.ClearTypeGridFit;
                 default: throw new Exception();
             }
         }
@@ -162,10 +163,16 @@ namespace TankIconMaker
 
     enum TextAntiAliasStyle
     {
-        AliasedHinted,
-        AntiAliased,
-        AntiAliasedHinted,
-        ClearTypeHinted,
+        [Description("Aliased")]
+        Aliased,
+        [Description("Anti-aliased (unhinted)")]
+        UnhintedGDI,
+        [Description("Anti-aliased (GDI)")]
+        AntiAliasGDI,
+        [Description("Anti-aliased (WPF)")]
+        AntiAliasWPF,
+        [Description("ClearType")]
+        ClearType,
     }
 
     /// <summary>A better Int32Rect, expressly designed to represent pixel areas - hence the left/right/top/bottom/width/height are always "inclusive".</summary>

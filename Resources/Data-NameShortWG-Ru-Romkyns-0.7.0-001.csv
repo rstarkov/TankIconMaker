@@ -64,7 +64,7 @@ usa-M3_Stuart,M3 Stuart
 usa-M36_Slagger,Slugger
 usa-M37,M37
 usa-M4_Sherman,M4
-usa-M40M43,*M40/M43*,не проверен
+usa-M40M43,M40/M43
 usa-M41,M41
 usa-M46_Patton,Patton
 usa-M4A2E4,M4A2E4
@@ -81,7 +81,7 @@ usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1
 usa-T1_hvy,T1 HT
 usa-T14,T14
-usa-T18,*T18*,не проверен
+usa-T18,T18
 usa-T2_lt,T2 LT
 usa-T2_med,T2 MT
 usa-T20,T20
@@ -135,7 +135,7 @@ ussr-SU-8,СУ-8
 ussr-SU-85,СУ-85
 ussr-T_50_2,Т-50-2
 ussr-T-127,Т-127
-ussr-T-26,*Т-26*,не проверен
+ussr-T-26,Т-26
 ussr-T-28,Т-28
 ussr-T-34,T-34
 ussr-T-34-85,Т-34-85
