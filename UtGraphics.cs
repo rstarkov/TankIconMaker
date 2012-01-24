@@ -61,7 +61,9 @@ namespace TankIconMaker
             int? left = null, int? right = null, int? top = null, int? bottom = null, bool baseline = false)
         {
             var bmp = graphics.TextToBitmap(text, font, brush);
-            var size = baseline ? bmp.PreciseWidth().WithTopBottom(0, bmp.PixelHeight - 1) : bmp.PreciseSize();
+            var size = baseline
+                ? bmp.PreciseWidth().WithTopBottom(graphics.TextToBitmap("Mgy345", font, D.Brushes.White).PreciseHeight())
+                : bmp.PreciseSize();
 
             int x = (left != null && right != null) ? (left.Value + right.Value) / 2 - size.CenterHorz
                 : (left != null) ? left.Value - size.Left
@@ -199,7 +201,9 @@ namespace TankIconMaker
         public static PixelRect FromLeftRight(int left, int right) { return FromBounds(left, 0, right, 0); }
         public static PixelRect FromTopBottom(int top, int bottom) { return FromBounds(0, top, 0, bottom); }
         public PixelRect WithLeftRight(int left, int right) { return FromBounds(left, Top, right, Bottom); }
+        public PixelRect WithLeftRight(PixelRect width) { return FromBounds(width.Left, Top, width.Right, Bottom); }
         public PixelRect WithTopBottom(int top, int bottom) { return FromBounds(Left, top, Right, bottom); }
+        public PixelRect WithTopBottom(PixelRect height) { return FromBounds(Left, height.Top, Right, height.Bottom); }
         public PixelRect Shifted(int deltaX, int deltaY) { return FromMixed(Left + deltaX, Top + deltaY, Width, Height); }
     }
 }
