@@ -25,7 +25,6 @@ using RT.Util.Dialogs;
  * Good handling of exceptions due to bugs in the program (show detail and exit)
  * Good handling of when the bare minimum data files are missing (e.g. at least one BuitlIn and at least one GameVersion)
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
- * Same method to draw text with GDI (various anti-aliasing settings) and WPF (another item in the anti-alias enum)
  * Test inheritance use-case: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  * Deduce the text baseline in pixel-perfect fashion.
  * 

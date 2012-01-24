@@ -83,12 +83,12 @@ namespace TankIconMaker
         [Category("Tank image"), DisplayName("Overhang")]
         [Description("Indicates whether the tank picture should overhang above and below the background rectangle, fit strictly inside it or be clipped to its size.")]
         public OverhangStyle Overhang { get; set; }
-        public enum OverhangStyle { Overhang, Fit, Clip }
+        public enum OverhangStyle { Overhang, [Description("Fit inside frame")] Fit, [Description("Clip to frame")] Clip }
 
         [Category("Tank image"), DisplayName("Style")]
         [Description("Specifies one of the built-in image styles to use.")]
         public ImageStyle Style { get; set; }
-        public enum ImageStyle { Contour, ThreeD }
+        public enum ImageStyle { Contour, [Description("3D")] ThreeD }
 
         private Pen _outline, _outlineInner;
         private Brush _lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground;
@@ -106,9 +106,9 @@ namespace TankIconMaker
             NameColorNormal = Color.FromRgb(210, 210, 210);
             NameColorPremium = Colors.Yellow;
             NameColorSpecial = Color.FromRgb(242, 98, 103);
-            NameAntiAlias = TextAntiAliasStyle.ClearTypeHinted;
+            NameAntiAlias = TextAntiAliasStyle.ClearType;
 
-            TierAntiAlias = TextAntiAliasStyle.ClearTypeHinted;
+            TierAntiAlias = TextAntiAliasStyle.ClearType;
             Tier1Color = NameColorNormal;
             Tier5Color = Colors.White;
             Tier10Color = Colors.Red;
@@ -163,7 +163,7 @@ namespace TankIconMaker
                 g.TextRenderingHint = NameAntiAlias.ToGdi();
                 nameSize = g.DrawString(tank[NameData] ?? "", nameFont, nameBrush, right: 80 - 4, bottom: 24 - 1, baseline: true);
             });
-            nameLayer.DrawImage(nameLayer.GetOutline(NameAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
+            nameLayer.DrawImage(nameLayer.GetOutline(NameAntiAlias == TextAntiAliasStyle.Aliased ? 255 : 180));
             nameLayer = nameLayer.GetBlurred().DrawImage(nameLayer);
 
             var tierFont = new D.Font("Arial", 8.5f);
@@ -174,7 +174,7 @@ namespace TankIconMaker
                 g.TextRenderingHint = TierAntiAlias.ToGdi();
                 tierSize = g.DrawString(tank.Tier.ToString(), tierFont, tierBrush, left: 3, top: 4);
             });
-            tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.AliasedHinted ? 255 : 180));
+            tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.Aliased ? 255 : 180));
             tierLayer = tierLayer.GetBlurred().DrawImage(tierLayer);
 
             try

@@ -22,7 +22,7 @@ namespace TankIconMaker
 
         public MakerTextCompare()
         {
-            AntiAlias = TextAntiAliasStyle.AliasedHinted;
+            AntiAlias = TextAntiAliasStyle.Aliased;
             FontSize = 8.5;
             UseWPF = false;
             Text = "Matilda, medium";
