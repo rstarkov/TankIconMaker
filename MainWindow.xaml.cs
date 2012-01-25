@@ -22,7 +22,6 @@ using RT.Util.Dialogs;
  * 
  * Ensure all the graphics APIs have GDI and WPF variants
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
- * Good handling of exceptions due to bugs in the program (show detail and exit)
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
  * Test inheritance use-case: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  * 
