@@ -18,7 +18,6 @@ using RT.Util;
 using RT.Util.Dialogs;
 
 /*
- * Provide a means to load user-supplied images
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * 
  * Ensure all the graphics APIs have GDI and WPF variants
@@ -37,7 +36,6 @@ namespace TankIconMaker
 {
     partial class MainWindow : ManagedWindow
     {
-        private string _exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private List<MakerBase> _makers = new List<MakerBase>();
         private WotData _data = new WotData();
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
@@ -106,10 +104,10 @@ namespace TankIconMaker
         {
             ContentRendered -= InitializeEverything;
 
-            if (File.Exists(Path.Combine(_exePath, "background.jpg")))
+            if (File.Exists(Path.Combine(PathUtil.AppPath, "Data", "background.jpg")))
                 ctOuterGrid.Background = new ImageBrush
                 {
-                    ImageSource = new BitmapImage(new Uri(Path.Combine(_exePath, "background.jpg"))),
+                    ImageSource = new BitmapImage(new Uri(Path.Combine(PathUtil.AppPath, "Data", "background.jpg"))),
                     Stretch = Stretch.UniformToFill,
                 };
 
@@ -161,7 +159,7 @@ namespace TankIconMaker
         {
             _renderCache.Clear();
 
-            _data.Reload(_exePath);
+            _data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
 
             // Update the list of warnings
             _warnings.Clear();
@@ -337,6 +335,7 @@ namespace TankIconMaker
             _renderCache.Clear();
             ScheduleUpdateIcons();
             var maker = (MakerBase) ctMakerDropdown.SelectedItem;
+            maker.Initialize();
             ctMakerProperties.SelectedObject = maker;
             ctMakerDescription.Text = maker.Description ?? "";
             Program.Settings.SelectedMakerType = maker.GetType().FullName;
