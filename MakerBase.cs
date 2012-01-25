@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using RT.Util;
 using D = System.Drawing;
 
 namespace TankIconMaker
@@ -41,6 +43,41 @@ namespace TankIconMaker
             bitmap.Render(visual);
             bitmap.Freeze();
             return bitmap;
+        }
+
+        /// <summary>
+        /// Loads an image for this maker based on the image ID. The image must be placed into the application directory, into
+        /// a subdirectory named the same as the maker. The filename is the imageId, and the extension can be one of the
+        /// following: tga, png, jpg, bmp. For example, if a maker named "MakerDarkAgent" calls this method passing "back" as
+        /// the image ID, this method will look for "{app-path}\MakerDarkAgent\back.png" (or jpg, bmp, tga). Returns null
+        /// if the file does not exist.
+        /// </summary>
+        public WriteableBitmap LoadImageWpf(string imageId)
+        {
+            var img = LoadImageGdi(imageId);
+            return img == null ? null : img.ToWpfWriteable();
+        }
+
+        /// <summary>
+        /// Loads an image for this maker based on the image ID. The image must be placed into the application directory, into
+        /// a subdirectory named the same as the maker. The filename is the imageId, and the extension can be one of the
+        /// following: tga, png, jpg, bmp. For example, if a maker named "MakerDarkAgent" calls this method passing "back" as
+        /// the image ID, this method will look for "{app-path}\MakerDarkAgent\back.png" (or jpg, bmp, tga). Returns null
+        /// if the file does not exist.
+        /// </summary>
+        public BitmapGdi LoadImageGdi(string imageId)
+        {
+            var name = Path.Combine(PathUtil.AppPath, GetType().Name, imageId);
+            if (File.Exists(name + ".png"))
+                return new BitmapGdi(name + ".png");
+            else if (File.Exists(name + ".jpg"))
+                return new BitmapGdi(name + ".jpg");
+            else if (File.Exists(name + ".tga"))
+                return Targa.LoadGdi(name + ".tga");
+            else if (File.Exists(name + ".bmp"))
+                return new BitmapGdi(name + ".bmp");
+            else
+                return null;
         }
     }
 

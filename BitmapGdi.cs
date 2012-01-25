@@ -20,6 +20,22 @@ namespace TankIconMaker
         /// </summary>
         public BitmapGdi(int width, int height)
         {
+            init(width, height);
+        }
+
+        /// <summary>
+        /// Creates a BitmapGdi by loading an image from the specified file and copying the pixel data, converting to 32bppArgb, aka Bgra32, if necessary.
+        /// </summary>
+        public BitmapGdi(string filename)
+        {
+            var image = Image.FromFile(filename);
+            init(image.Width, image.Height);
+            using (var g = Graphics.FromImage(Bitmap))
+                g.DrawImageUnscaled(image, 0, 0);
+        }
+
+        private void init(int width, int height)
+        {
             Stride = width * Image.GetPixelFormatSize(PixelFormat.Format32bppArgb) / 8;
             int padding = Stride % 4;
             Stride += (padding == 0) ? 0 : 4 - padding;
@@ -66,9 +82,16 @@ namespace TankIconMaker
         /// <summary>Converts this bitmap to a WPF BitmapSource instance.</summary>
         public WI.BitmapSource ToWpf()
         {
+            var writable = ToWpfWriteable();
+            writable.Freeze();
+            return writable;
+        }
+
+        /// <summary>Converts this bitmap to a modifiable WPF WriteableBitmap instance.</summary>
+        public WI.WriteableBitmap ToWpfWriteable()
+        {
             var writable = new WI.WriteableBitmap(PixelWidth, PixelHeight, Bitmap.HorizontalResolution, Bitmap.VerticalResolution, W.PixelFormats.Bgra32, null);
             writable.WritePixels(new System.Windows.Int32Rect(0, 0, PixelWidth, PixelHeight), Bytes, Stride, 0);
-            writable.Freeze();
             return writable;
         }
 

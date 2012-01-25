@@ -127,7 +127,7 @@
     <ItemGroup>
       <Resources Include="Resources\*" />
     </ItemGroup>
-    <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <ItemGroup>
       <Licenses Include="ThirdParty\license-*" />
     </ItemGroup>
