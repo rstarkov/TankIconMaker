@@ -280,8 +280,26 @@ namespace TankIconMaker
             Extra.Clear();
             Versions.Clear();
             Warnings.Clear();
-            readGameVersions(path);
-            readDataFiles(path);
+
+            if (Directory.Exists(path))
+            {
+                readGameVersions(path);
+                readDataFiles(path);
+            }
+
+            // Remove versions that have no built-in data files available
+            if (BuiltIn.Any() && Versions.Any())
+            {
+                var minBuiltin = BuiltIn.Min(b => b.GameVersion);
+                foreach (var version in Versions.Keys.Where(k => k < minBuiltin).ToArray())
+                {
+                    Versions.Remove(version);
+                    Warnings.Add("Skipped version {0} because there are no built-in data files for it to use. Delete the \"Data\\GameVersion-{0}.xml\" file to get rid of this warning.".Fmt(version));
+                }
+            }
+
+            if (!BuiltIn.Any() || !Versions.Any())
+                Warnings.Add("Could not load any version data files and/or any built-in data files.");
         }
 
         private void readGameVersions(string path)
