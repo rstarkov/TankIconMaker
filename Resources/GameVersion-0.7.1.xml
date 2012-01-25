@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <item>
-  <DisplayName>0.7.1</DisplayName>
+  <DisplayName>0.7.1b</DisplayName>
   <PathDestination>res\gui\maps\icons\vehicle\contour</PathDestination>
   <PathSource3D>res\gui\maps\icons\vehicle\small</PathSource3D>
   <CheckFileName>WorldOfTanks.exe</CheckFileName>

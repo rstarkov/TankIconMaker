@@ -23,13 +23,14 @@ using RT.Util.Dialogs;
  * Ensure all the graphics APIs have GDI and WPF variants
  * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
  * Good handling of exceptions due to bugs in the program (show detail and exit)
- * Good handling of when the bare minimum data files are missing (e.g. at least one BuitlIn and at least one GameVersion)
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
  * Test inheritance use-case: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  * 
+ * ctGameVersions: use binding; use DisplayName
  * GameInstallationSettings should use the Version type for the game version.
  * In-game-like display of low/mid/high tier balance
  * Allow the maker to tell us which tanks to invalidate on a property change.
+ * Drop-down for selecting backgrounds; Reload'able
  */
 
 namespace TankIconMaker
@@ -165,6 +166,18 @@ namespace TankIconMaker
             _warnings.Clear();
             foreach (var warning in _data.Warnings)
                 _warnings.Add(warning);
+
+            // Update UI to reflect whether the bare minimum data files are available
+            var filesAvailable = _data.Versions.Any() && _data.BuiltIn.Any();
+            ctSave.IsEnabled = filesAvailable;
+            ctMakerDropdown.IsEnabled = filesAvailable;
+            ctMakerProperties.IsEnabled = filesAvailable;
+            ctGameVersion.IsEnabled = filesAvailable;
+            if (!filesAvailable)
+            {
+                DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
+                return;
+            }
 
             // Refresh game versions UI (TODO: just use binding)
             ctGameVersion.Items.Clear();
@@ -346,16 +359,19 @@ namespace TankIconMaker
         private IEnumerable<Tank> EnumTanks(bool all = false)
         {
             var gis = GetInstallationSettings();
+            if (gis == null)
+                return new Tank[0]; // this happens if there are no data files at all; just do something sensible to avoid crashing
+
             var selectedVersion = Version.Parse(gis.GameVersion);
 
-            IEnumerable<TankData> alls = _data.BuiltIn.Where(b => b.GameVersion.ToString() == gis.GameVersion).First().Data;
+            var builtin = _data.BuiltIn.Where(b => b.GameVersion <= selectedVersion).MaxOrDefault(b => b.GameVersion);
             IEnumerable<TankData> selection = null;
 
             if (all || ctDisplayMode.SelectedIndex == 0) // all tanks
-                selection = alls;
+                selection = builtin.Data;
             else if (ctDisplayMode.SelectedIndex == 1) // one of each
-                selection = alls.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
-                    .SelectMany(p => SelectTiers(alls.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
+                selection = builtin.Data.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
+                    .SelectMany(p => SelectTiers(builtin.Data.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
 
             var extras = _data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
                 .Select(g => g.Where(df => df.GameVersion <= selectedVersion).MaxOrDefault(df => df.GameVersion))
@@ -586,6 +602,9 @@ namespace TankIconMaker
 
         private GameInstallationSettings GetInstallationSettings(bool addIfMissing = false)
         {
+            if (!_data.Versions.Any())
+                return null;
+
             var gis = ctGamePath.SelectedItem as GameInstallationSettings;
             if (gis == null)
             {
