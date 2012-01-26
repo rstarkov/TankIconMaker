@@ -282,6 +282,7 @@ namespace TankIconMaker
         {
             public List<DataFileExtra2> ImmediateParents = new List<DataFileExtra2>();
             public HashSet<DataFileExtra2> TransitiveChildren = new HashSet<DataFileExtra2>();
+            public int NearestRoot;
             public DataFileExtra Result;
 
             public DataFileExtra2(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
@@ -449,97 +450,123 @@ namespace TankIconMaker
 
         private void resolveExtras(List<DataFileExtra2> extra, Dictionary<object, string> origFilenames)
         {
-            // Make sure the explicit inheritance is resolvable, and complain if not
-            var ignore = new List<DataFileExtra>();
-            do
+            while (true) // circular dependency removal requires us to iterate again if something got removed
             {
-                ignore.Clear();
-                foreach (var e in extra.Where(e => e.InheritsFromName != null))
+                // Make sure the explicit inheritance is resolvable, and complain if not
+                var ignore = new List<DataFileExtra>();
+                do
                 {
-                    var p = extra.Where(df => df.Name == e.InheritsFromName).ToList();
-                    if (p.Count == 0)
+                    ignore.Clear();
+                    foreach (var e in extra.Where(e => e.InheritsFromName != null))
                     {
-                        Warnings.Add("Skipped \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
-                        ignore.Add(e);
-                        continue;
-                    }
-                    if (e.InheritsFromLanguage != null)
-                    {
-                        p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
+                        var p = extra.Where(df => df.Name == e.InheritsFromName).ToList();
                         if (p.Count == 0)
                         {
-                            Warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
+                            Warnings.Add("Skipped \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
+                            ignore.Add(e);
+                            continue;
+                        }
+                        if (e.InheritsFromLanguage != null)
+                        {
+                            p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
+                            if (p.Count == 0)
+                            {
+                                Warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
+                                ignore.Add(e);
+                                continue;
+                            }
+                        }
+                        if (e.InheritsFromAuthor != null)
+                        {
+                            p = p.Where(df => df.Author == e.InheritsFromAuthor).ToList();
+                            if (p.Count == 0)
+                            {
+                                Warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are by author \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromAuthor));
+                                ignore.Add(e);
+                                continue;
+                            }
+                        }
+                        p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
+                        if (p.Count == 0)
+                        {
+                            Warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
                             ignore.Add(e);
                             continue;
                         }
                     }
-                    p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
-                    if (p.Count == 0)
-                    {
-                        Warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
-                        ignore.Add(e);
-                        continue;
-                    }
-                }
-                extra.RemoveAll(f => ignore.Contains(f));
-            } while (ignore.Count > 0);
+                    extra.RemoveAll(f => ignore.Contains(f));
+                } while (ignore.Count > 0);
 
-            // Determine all the immediate parents
-            foreach (var e in extra)
-            {
-                var sameNEL = extra.Where(df => df.Name == e.Name && df.Author == e.Author && df.Language == e.Language).ToList();
-
-                // Inherit from an earlier version of this same file
-                var earlierVersionOfSameFile = sameNEL.Where(df => df.GameVersion == e.GameVersion && df.FileVersion < e.FileVersion)
-                    .MaxOrDefault(df => df.FileVersion);
-                if (earlierVersionOfSameFile != null)
-                    e.ImmediateParents.Add(earlierVersionOfSameFile);
-
-                // Inherit from the latest version of the same file for an earlier game version
-                var earlierGameVersion = sameNEL.Where(df => df.GameVersion < e.GameVersion).MaxAll(df => df.GameVersion).MaxOrDefault(df => df.FileVersion);
-                if (earlierGameVersion != null)
-                    e.ImmediateParents.Add(earlierGameVersion);
-
-                // Inherit from the explicitly specified file
-                if (e.InheritsFromName != null)
+                // Determine all the immediate parents
+                foreach (var e in extra)
                 {
-                    var p = extra.Where(df => df.GameVersion <= e.GameVersion && df.Name == e.InheritsFromName)
-                        .OrderByDescending(df => df.GameVersion).ToList();
-                    if (e.InheritsFromLanguage != null)
-                        p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
-                    e.ImmediateParents.Add(p.Where(df => df.Author == e.InheritsFromAuthor).FirstOrDefault() ?? p[0]);
+                    var sameNEL = extra.Where(df => df.Name == e.Name && df.Author == e.Author && df.Language == e.Language).ToList();
+
+                    // Inherit from the explicitly specified file
+                    if (e.InheritsFromName != null)
+                    {
+                        var p = extra.Where(df => df.GameVersion <= e.GameVersion && df.Name == e.InheritsFromName)
+                            .OrderByDescending(df => df.GameVersion).AsEnumerable();
+                        if (e.InheritsFromLanguage != null)
+                            p = p.Where(df => df.Language == e.InheritsFromLanguage);
+                        e.ImmediateParents.Add(p.Where(df => df.Author == e.InheritsFromAuthor).OrderByDescending(df => df.FileVersion).First());
+                    }
+
+                    // Inherit from the latest version of the same file for an earlier game version
+                    var earlierGameVersion = sameNEL.Where(df => df.GameVersion < e.GameVersion).MaxAll(df => df.GameVersion).MaxOrDefault(df => df.FileVersion);
+                    if (earlierGameVersion != null)
+                        e.ImmediateParents.Add(earlierGameVersion);
+
+                    // Inherit from an earlier version of this same file
+                    var earlierVersionOfSameFile = sameNEL.Where(df => df.GameVersion == e.GameVersion && df.FileVersion < e.FileVersion)
+                        .MaxOrDefault(df => df.FileVersion);
+                    if (earlierVersionOfSameFile != null)
+                        e.ImmediateParents.Add(earlierVersionOfSameFile);
                 }
+
+                // Compute the transitive closure
+                bool added;
+                foreach (var e in extra)
+                    foreach (var p in e.ImmediateParents)
+                        p.TransitiveChildren.Add(e);
+                // Keep adding children's children until no further changes (quite a brute-force algorithm... potential bottleneck)
+                do
+                {
+                    added = false;
+                    foreach (var e in extra)
+                        foreach (var c1 in e.TransitiveChildren.ToArray())
+                            foreach (var c2 in c1.TransitiveChildren)
+                                if (!e.TransitiveChildren.Contains(c2))
+                                {
+                                    e.TransitiveChildren.Add(c2);
+                                    added = true;
+                                }
+                } while (added);
+
+                // Detect dependency loops and remove them
+                var looped = extra.Where(e => e.TransitiveChildren.Contains(e)).ToArray();
+                foreach (var item in looped.ToArray())
+                {
+                    Warnings.Add("Skipped \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
+                    extra.Remove(item);
+                }
+                if (looped.Length == 0)
+                    break;
+
+                // Removed some data files. Other files could depend on them, so redo the whole resolution process with the reduced set.
             }
 
-            // Compute the transitive closure
-            bool added;
+            // Compute the distance to nearest "root"
             foreach (var e in extra)
-                foreach (var p in e.ImmediateParents)
-                    p.TransitiveChildren.Add(e);
-            // Keep adding children's children until no further changes (quite a brute-force algorithm... potential bottleneck)
-            do
+                e.NearestRoot = -1;
+            while (extra.Any(e => e.NearestRoot == -1))
             {
-                added = false;
-                foreach (var e in extra)
-                    foreach (var c1 in e.TransitiveChildren.ToArray())
-                        foreach (var c2 in c1.TransitiveChildren)
-                            if (!e.TransitiveChildren.Contains(c2))
-                            {
-                                e.TransitiveChildren.Add(c2);
-                                added = true;
-                            }
-            } while (added);
-
-            // Detect dependency loops and remove them
-            var looped = extra.Where(e => e.TransitiveChildren.Contains(e)).ToArray();
-            foreach (var item in looped.ToArray())
-            {
-                Warnings.Add("Skipped \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
-                extra.Remove(item);
+                foreach (var e in extra.Where(e => e.NearestRoot == -1 && e.ImmediateParents.All(p => p.NearestRoot != -1)))
+                    e.NearestRoot = e.ImmediateParents.Any() ? e.ImmediateParents.Min(p => p.NearestRoot) + 1 : 0;
             }
 
             // Get the full list of properties for every data file
-            foreach (var e in extra.OrderBy(df => df, new CustomComparer<DataFileExtra2>((df1, df2) => df1.TransitiveChildren.Contains(df2) ? -1 : df2.TransitiveChildren.Contains(df1) ? 1 : 0)))
+            foreach (var e in extra.OrderBy(df => df.NearestRoot))
             {
                 var tanks = new Dictionary<string, ExtraData>();
 

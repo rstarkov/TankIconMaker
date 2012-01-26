@@ -20,9 +20,9 @@ using RT.Util.Dialogs;
 /*
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * 
- * Ensure all the graphics APIs have GDI and WPF variants
- * Test inheritance use-case: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
+ * Ensure all the graphics APIs have GDI and WPF variants. Documentation.
  * 
+ * Russian translation
  * ctGameVersions: use binding; use DisplayName
  * GameInstallationSettings should use the Version type for the game version.
  * In-game-like display of low/mid/high tier balance
