@@ -19,22 +19,11 @@ namespace TankIconMaker
 
         public FrameworkElement ResolveEditor(PropertyItem propertyItem)
         {
-            Binding binding = new Binding("Value")
-            {
-                Source = propertyItem,
-                Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
-                Converter = LambdaConverter.New(
-                    (string source) =>
-                    {
-                        return Program.DataSources.FirstOrDefault(d => d.ToString() == source);
-                    },
-                    (DataSourceInfo source) =>
-                    {
-                        return source.ToString();
-                    }
-                )
-            };
-            BindingOperations.SetBinding(ctCombo, ComboBox.SelectedItemProperty, binding);
+            BindingOperations.SetBinding(ctCombo, ComboBox.SelectedItemProperty, LambdaBinding.New(
+                new Binding("Value") { Source = propertyItem, Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+                (string source) => { return Program.DataSources.FirstOrDefault(d => d.ToString() == source); },
+                (DataSourceInfo source) => { return source.ToString(); }
+            ));
             return this;
         }
     }

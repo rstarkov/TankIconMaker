@@ -126,7 +126,8 @@
                 </WrapPanel>
             </ScrollViewer>
             <WrapPanel Grid.Row="2" Background="#87FFFFFF">
-                <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp" />
+                <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
+                       ToolTip="There were some problems; click this icon to see the details." />
                 <Button Name="ctReload" Margin="8" Click="ctReload_Click"><AccessText Margin="8,0">_Reload data</AccessText></Button>
                 <Button Name="ctSave" Margin="0,8" Click="ctSave_Click"><AccessText Margin="8,0">_Save...</AccessText></Button>
             </WrapPanel>

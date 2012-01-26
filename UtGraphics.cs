@@ -20,12 +20,40 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
+        public static WriteableBitmap NewBitmapWpf()
+        {
+            return new WriteableBitmap(80, 24, 96, 96, PixelFormats.Bgra32, null);
+        }
+
+        /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
+        /// <param name="draw">A method to draw into the returned image.</param>
+        public static BitmapSource NewBitmapWpf(Action<DrawingContext> draw)
+        {
+            var bmp = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Pbgra32);
+            var visual = new DrawingVisual();
+            using (var context = visual.RenderOpen())
+                draw(context);
+            bmp.Render(visual);
+            bmp.Freeze();
+            return bmp;
+        }
+
         public static BitmapGdi ToGdi(this BitmapSource bmp)
         {
             var result = new BitmapGdi(bmp.PixelWidth, bmp.PixelHeight);
             if (bmp.Format != PixelFormats.Bgra32)
                 bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
             bmp.CopyPixels(result.Bytes, result.Stride, 0);
+            return result;
+        }
+
+        public static WriteableBitmap ToWpfWriteable(this BitmapSource bmp)
+        {
+            var result = new WriteableBitmap(80, 24, 96, 96, PixelFormats.Bgra32, null);
+            if (bmp.Format != PixelFormats.Bgra32)
+                bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
+            bmp.CopyPixels(new Int32Rect(0, 0, 80, 24), result.BackBuffer, result.BackBufferStride * 23 + 80 * 4, result.BackBufferStride);
             return result;
         }
 
@@ -167,12 +195,10 @@ namespace TankIconMaker
     {
         [Description("Aliased")]
         Aliased,
+        [Description("Anti-aliased (hinted)")]
+        AntiAliasGDI,
         [Description("Anti-aliased (unhinted)")]
         UnhintedGDI,
-        [Description("Anti-aliased (GDI)")]
-        AntiAliasGDI,
-        [Description("Anti-aliased (WPF)")]
-        AntiAliasWPF,
         [Description("ClearType")]
         ClearType,
     }

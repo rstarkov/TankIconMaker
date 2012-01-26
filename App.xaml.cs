@@ -29,47 +29,24 @@ namespace TankIconMaker
                     if (exception != null)
                     {
                         errorInfo.AppendFormat("\nMessage: {0}\n", exception.Message);
-                        errorInfo.AppendLine(collapseStackTrace(exception.StackTrace));
+                        errorInfo.AppendLine(Ut.CollapseStackTrace(exception.StackTrace));
                         excp = exception.InnerException;
                     }
                 }
-                var copy = DlgMessage.ShowError("An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.",
+                bool copy = DlgMessage.ShowError("An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.",
                     "Copy report to &clipboard", "Close") == 0;
                 if (copy)
-                {
                     try
                     {
                         Clipboard.SetText(errorInfo.ToString(), TextDataFormat.UnicodeText);
                         DlgMessage.ShowInfo("Information about the error is now in your clipboard.");
                     }
                     catch { DlgMessage.ShowInfo("Sorry, couldn't even copy the error info to clipboard. Something is broken pretty badly."); }
-                }
             };
 #endif
 
             base.OnStartup(e);
             SettingsUtil.LoadSettings(out Program.Settings);
-        }
-
-        private string collapseStackTrace(string stackTrace)
-        {
-            var lines = stackTrace.Split('\n');
-            var result = new StringBuilder();
-            bool needEllipsis = false;
-            foreach (var line in lines)
-            {
-                if (line.Contains(GetType().Namespace))
-                {
-                    result.AppendLine("  " + line.Trim());
-                    needEllipsis = true;
-                }
-                else if (needEllipsis)
-                {
-                    result.AppendLine("  ...");
-                    needEllipsis = false;
-                }
-            }
-            return result.ToString();
         }
 
         protected override void OnExit(ExitEventArgs e)

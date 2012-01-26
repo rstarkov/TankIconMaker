@@ -21,7 +21,6 @@ using RT.Util.Dialogs;
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * 
  * Ensure all the graphics APIs have GDI and WPF variants
- * Good handling of exceptions in the maker: show a graphic for the failed tank; show what's wrong on click. Detect common errors like the shared resource usage exception
  * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
  * Test inheritance use-case: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  * 
@@ -40,8 +39,18 @@ namespace TankIconMaker
         private WotData _data = new WotData();
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
         private CancellationTokenSource _cancelRender = new CancellationTokenSource();
-        private Dictionary<string, BitmapSource> _renderCache = new Dictionary<string, BitmapSource>();
-        private ObservableCollection<string> _warnings = new ObservableCollection<string>();
+        private Dictionary<string, RenderResult> _renderResults = new Dictionary<string, RenderResult>();
+
+        private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
+        private ObservableCollection<string> _otherWarnings = new ObservableCollection<string>();
+
+        private sealed class RenderResult
+        {
+            /// <summary>Image rendered by the maker for a tank.</summary>
+            public BitmapSource Image;
+            /// <summary>Exception that occurred while rendering this image, or null if none.</summary>
+            public Exception Exception;
+        }
 
         public MainWindow()
             : base(Program.Settings.MainWindow)
@@ -52,24 +61,19 @@ namespace TankIconMaker
 
             GlobalStatusShow("Loading...");
 
-            BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, new Binding
-            {
-                Source = ctGamePath,
-                Path = new PropertyPath(ComboBox.SelectedIndexProperty),
-                Converter = LambdaConverter.New((int index) => index >= 0),
-            });
-            BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, new Binding
-            {
-                Source = ctGamePath,
-                Path = new PropertyPath(ComboBox.SelectedIndexProperty),
-                Converter = LambdaConverter.New((int index) => index >= 0),
-            });
-            BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, new Binding
-            {
-                Source = _warnings,
-                Path = new PropertyPath("Count"),
-                Converter = LambdaConverter.New((int count) => count > 0 ? Visibility.Visible : Visibility.Collapsed)
-            });
+            BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                (int index) => index >= 0
+            ));
+            BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                (int index) => index >= 0
+            ));
+            BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, LambdaBinding.New(
+                new Binding { Source = _dataWarnings, Path = new PropertyPath("Count") },
+                new Binding { Source = _otherWarnings, Path = new PropertyPath("Count") },
+                (int dataCount, int otherCount) => dataCount + otherCount == 0 ? Visibility.Collapsed : Visibility.Visible
+            ));
 
             if (Program.Settings.LeftColumnWidth != null)
                 ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
@@ -157,14 +161,14 @@ namespace TankIconMaker
 
         private void ReloadData()
         {
-            _renderCache.Clear();
+            _renderResults.Clear();
 
             _data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
 
             // Update the list of warnings
-            _warnings.Clear();
+            _dataWarnings.Clear();
             foreach (var warning in _data.Warnings)
-                _warnings.Add(warning);
+                _dataWarnings.Add(warning);
 
             // Update UI to reflect whether the bare minimum data files are available
             var filesAvailable = _data.Versions.Any() && _data.BuiltIn.Any();
@@ -256,36 +260,15 @@ namespace TankIconMaker
             for (int i = 0; i < tanks.Count; i++)
             {
                 if (i >= images.Count)
-                {
-                    var img = new Image
-                    {
-                        SnapsToDevicePixels = true,
-                        Margin = new Thickness { Right = 15 },
-                        Cursor = Cursors.Hand,
-                        Opacity = 0.7,
-                    };
-                    BindingOperations.SetBinding(img, Image.WidthProperty, new Binding
-                    {
-                        Source = ctZoomCheckbox,
-                        Path = new PropertyPath(CheckBox.IsCheckedProperty),
-                        Converter = LambdaConverter.New((bool check) => 80 * (check ? 5 : 1)),
-                    });
-                    BindingOperations.SetBinding(img, Image.HeightProperty, new Binding
-                    {
-                        Source = ctZoomCheckbox,
-                        Path = new PropertyPath(CheckBox.IsCheckedProperty),
-                        Converter = LambdaConverter.New((bool check) => 24 * (check ? 5 : 1)),
-                    });
-                    ctIconsPanel.Children.Add(img);
-                    images.Add(img);
-                }
+                    images.Add(CreateTankImageControl());
                 var tank = tanks[i];
                 var image = images[i];
 
-                image.ToolTip = tanks[i].SystemId + (tanks[i]["OfficialName"] == null ? "" : (" (" + tanks[i]["OfficialName"] + ")"));
-                if (_renderCache.ContainsKey(tank.SystemId))
+                image.ToolTip = tanks[i].SystemId;
+                if (_renderResults.ContainsKey(tank.SystemId))
                 {
-                    image.Source = _renderCache[tank.SystemId];
+                    image.Source = _renderResults[tank.SystemId].Image;
+                    image.Tag = _renderResults[tank.SystemId];
                     image.Opacity = 1;
                 }
                 else
@@ -294,19 +277,20 @@ namespace TankIconMaker
                         try
                         {
                             if (cancelToken.IsCancellationRequested) return;
-                            var source = maker.DrawTankInternal(tank);
+                            var render = RenderTank(maker, tank);
                             if (cancelToken.IsCancellationRequested) return;
                             Dispatcher.Invoke(new Action(() =>
                             {
                                 if (cancelToken.IsCancellationRequested) return;
-                                _renderCache[tank.SystemId] = source;
-                                image.Source = source;
+                                _renderResults[tank.SystemId] = render;
+                                image.Source = render.Image;
+                                image.Tag = render;
                                 image.Opacity = 1;
                                 if (ctIconsPanel.Children.OfType<Image>().All(c => c.Opacity == 1))
                                     UpdateIconsCompleted();
                             }));
                         }
-                        catch { } // will do something more appropriate later
+                        catch { }
                     });
             }
             foreach (var task in tasks)
@@ -323,6 +307,97 @@ namespace TankIconMaker
         private void UpdateIconsCompleted()
         {
             ctSave.IsEnabled = true;
+
+            // Update the warning messages
+            string warning = "Some of the tank icons did not render correctly; make sure you view \"All tanks\" and click each broken image for details.";
+            bool need = _renderResults.Values.Any(rr => rr.Exception != null);
+            bool have = _otherWarnings.Contains(warning);
+            if (need && !have)
+                _otherWarnings.Add(warning);
+            else if (have && !need)
+                _otherWarnings.Remove(warning);
+        }
+
+        private static RenderResult RenderTank(MakerBase maker, Tank tank)
+        {
+            var result = new RenderResult();
+            try
+            {
+                result.Image = maker.DrawTankInternal(tank);
+            }
+            catch (Exception e)
+            {
+                result.Image = Ut.NewBitmapWpf(dc =>
+                {
+                    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(180, 255, 255, 255)), null, new Rect(0.5, 1.5, 79, 21));
+                    var pen = new Pen(e is MakerUserError ? Brushes.Green : Brushes.Red, 2);
+                    dc.DrawLine(pen, new Point(1, 2), new Point(79, 21));
+                    dc.DrawLine(pen, new Point(79, 2), new Point(1, 21));
+                    dc.DrawRectangle(null, new Pen(Brushes.Black, 1), new Rect(0.5, 1.5, 79, 21));
+                });
+                result.Exception = e;
+            }
+            return result;
+        }
+
+        private Image CreateTankImageControl()
+        {
+            var img = new Image
+            {
+                SnapsToDevicePixels = true,
+                Margin = new Thickness { Right = 15 },
+                Cursor = Cursors.Hand,
+                Opacity = 0.7,
+            };
+            img.MouseLeftButtonUp += TankImage_MouseLeftButtonUp;
+            BindingOperations.SetBinding(img, Image.WidthProperty, LambdaBinding.New(
+                new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
+                (bool check) => 80.0 * (check ? 5 : 1)
+            ));
+            BindingOperations.SetBinding(img, Image.HeightProperty, LambdaBinding.New(
+                new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
+                (bool check) => 24.0 * (check ? 5 : 1)
+            ));
+            ctIconsPanel.Children.Add(img);
+            return img;
+        }
+
+        private void TankImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var image = sender as Image;
+            if (image == null)
+                return;
+            var renderResult = image.Tag as RenderResult;
+            if (renderResult == null)
+                return;
+
+            if (renderResult.Exception == null)
+                DlgMessage.ShowInfo("This image rendered without any problems.");
+
+            else if (renderResult.Exception is MakerUserError)
+                DlgMessage.ShowWarning("Could not render this image: " + renderResult.Exception.Message);
+
+            else
+            {
+                string hint = "";
+                if (renderResult.Exception is InvalidOperationException && renderResult.Exception.Message.Contains("belongs to a different thread than its parent Freezable"))
+                    hint = "Possible cause: the maker reuses a WPF drawing primitive (like Brush) for different tanks without calling Freeze() on it.\n";
+
+                string message = hint
+                    + "Exception details: {0}, {1}\n".Fmt(renderResult.Exception.GetType().Name, renderResult.Exception.Message)
+                    + Ut.CollapseStackTrace(renderResult.Exception.StackTrace);
+
+                bool copy = DlgMessage.ShowWarning("The maker threw an exception while rendering this image. This is a bug in the maker; please report it.\n\n" + message,
+                    "Copy report to &clipboard", "Close") == 0;
+
+                if (copy)
+                    try
+                    {
+                        Clipboard.SetText(message.ToString(), TextDataFormat.UnicodeText);
+                        DlgMessage.ShowInfo("Information about the error is now in your clipboard.");
+                    }
+                    catch { DlgMessage.ShowInfo("Sorry, couldn't copy the error info to clipboard for some reason."); }
+            }
         }
 
         private void SaveSettings()
@@ -344,7 +419,7 @@ namespace TankIconMaker
 
         private void ctMakerDropdown_SelectionChanged(object _ = null, SelectionChangedEventArgs __ = null)
         {
-            _renderCache.Clear();
+            _renderResults.Clear();
             ScheduleUpdateIcons();
             var maker = (MakerBase) ctMakerDropdown.SelectedItem;
             maker.Initialize();
@@ -417,7 +492,7 @@ namespace TankIconMaker
 
         private void ctMakerProperties_PropertyChanged(object _, RoutedEventArgs __)
         {
-            _renderCache.Clear();
+            _renderResults.Clear();
             ScheduleUpdateIcons();
         }
 
@@ -434,7 +509,7 @@ namespace TankIconMaker
             ctGamePath.SelectedItem = gis;
             SaveSettings();
             UpdateDataSources(Version.Parse(gis.GameVersion));
-            _renderCache.Clear();
+            _renderResults.Clear();
             ScheduleUpdateIcons();
         }
 
@@ -464,7 +539,7 @@ namespace TankIconMaker
 
         private void ctWarning_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DlgMessage.ShowWarning(string.Join("\n\n", _warnings.Select(s => "• " + s)));
+            DlgMessage.ShowWarning(string.Join("\n\n", _dataWarnings.Concat(_otherWarnings).Select(s => "• " + s)));
         }
 
         private void ctReload_Click(object sender, RoutedEventArgs e)
@@ -498,7 +573,7 @@ namespace TankIconMaker
 
             var maker = (MakerBase) ctMakerDropdown.SelectedItem;
             var tanks = EnumTanks(all: true).ToList();
-            var renders = _renderCache.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
             Task.Factory.StartNew(() =>
             {
@@ -506,9 +581,9 @@ namespace TankIconMaker
                 {
                     foreach (var tank in tanks)
                         if (!renders.ContainsKey(tank.SystemId))
-                            renders[tank.SystemId] = maker.DrawTankInternal(tank);
-                    foreach (var kvp in renders)
-                        Targa.Save(kvp.Value, Path.Combine(path, kvp.Key + ".tga"));
+                            renders[tank.SystemId] = RenderTank(maker, tank);
+                    foreach (var kvp in renders.Where(kvp => kvp.Value.Exception == null))
+                        Targa.Save(kvp.Value.Image, Path.Combine(path, kvp.Key + ".tga"));
                 }
                 finally
                 {
@@ -518,9 +593,10 @@ namespace TankIconMaker
                 Dispatcher.Invoke((Action) (() =>
                 {
                     foreach (var kvp in renders)
-                        if (!_renderCache.ContainsKey(kvp.Key))
-                            _renderCache[kvp.Key] = kvp.Value;
-                    DlgMessage.ShowInfo("Saved!\nEnjoy.");
+                        if (!_renderResults.ContainsKey(kvp.Key))
+                            _renderResults[kvp.Key] = kvp.Value;
+                    int skipped = renders.Values.Count(rr => rr.Exception != null);
+                    DlgMessage.ShowInfo("Saved!\nEnjoy." + (skipped == 0 ? "" : "\n\nNote that {0} images were skipped due to errors.").Fmt(skipped));
                 }));
             });
         }

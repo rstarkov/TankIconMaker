@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace TankIconMaker
 {
@@ -119,10 +121,34 @@ namespace TankIconMaker
             }
             return result;
         }
+
+        public static string CollapseStackTrace(string stackTrace)
+        {
+            var lines = stackTrace.Split('\n');
+            var result = new StringBuilder();
+            bool needEllipsis = true;
+            string fileroot = null;
+            try { fileroot = Path.GetDirectoryName(new StackFrame(true).GetFileName()) + @"\"; }
+            catch { }
+            foreach (var line in lines)
+            {
+                if (line.Contains(typeof(Ut).Namespace))
+                {
+                    result.AppendLine("  " + (fileroot == null ? line : line.Replace(fileroot, "")).Trim());
+                    needEllipsis = true;
+                }
+                else if (needEllipsis)
+                {
+                    result.AppendLine("  ...");
+                    needEllipsis = false;
+                }
+            }
+            return result.ToString();
+        }
     }
 
     /// <summary>A crutch that enables a sensible way to bind to a dependency property with a custom conversion.</summary>
-    class LambdaConverter<TSource, TResult> : IValueConverter
+    sealed class LambdaConverter<TSource, TResult> : IValueConverter
     {
         private Func<TSource, TResult> _lambda;
         private Func<TResult, TSource> _lambdaBack;
@@ -135,29 +161,63 @@ namespace TankIconMaker
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is TSource))
-                return null;
+            if (!targetType.IsAssignableFrom(typeof(TResult)))
+                throw new InvalidOperationException();
             return _lambda((TSource) value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is TResult))
-                return null;
             if (_lambdaBack == null)
                 throw new NotImplementedException();
+            if (!targetType.IsAssignableFrom(typeof(TSource)))
+                throw new InvalidOperationException();
             return _lambdaBack((TResult) value);
         }
     }
 
-    /// <summary>A crutch that enables a sensible way to bind to a dependency property with a custom conversion.</summary>
-    static class LambdaConverter
+    sealed class LambdaMultiConverter<T1, T2, TResult> : IMultiValueConverter
     {
-        /// <summary>Creates a new converter using the specified lambda to perform the conversion.</summary>
-        public static LambdaConverter<TSource, TResult> New<TSource, TResult>(Func<TSource, TResult> lambda, Func<TResult, TSource> lambdaBack = null)
+        private Func<T1, T2, TResult> _lambda;
+
+        public LambdaMultiConverter(Func<T1, T2, TResult> lambda)
         {
-            return new LambdaConverter<TSource, TResult>(lambda, lambdaBack);
+            _lambda = lambda;
+        }
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length != 2)
+                throw new InvalidOperationException();
+            if (!targetType.IsAssignableFrom(typeof(TResult)))
+                throw new InvalidOperationException();
+            return _lambda((T1) values[0], (T2) values[1]);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 
+    /// <summary>A crutch that enables a sensible way to bind to a dependency property with a custom conversion.</summary>
+    static class LambdaBinding
+    {
+        /// <summary>Returns the binding with a new converter, one that uses the specified lambda(s) to perform conversions.</summary>
+        public static Binding New<TSource, TResult>(Binding binding, Func<TSource, TResult> lambda, Func<TResult, TSource> lambdaBack = null)
+        {
+            binding.Converter = new LambdaConverter<TSource, TResult>(lambda, lambdaBack);
+            return binding;
+        }
+
+        /// <summary>Creates a new multi-binding consisting of two bindings, using the specified lambda for conversions.</summary>
+        public static MultiBinding New<T1, T2, TResult>(Binding b1, Binding b2, Func<T1, T2, TResult> lambda)
+        {
+            var result = new MultiBinding();
+            result.Bindings.Add(b1);
+            result.Bindings.Add(b2);
+            result.Converter = new LambdaMultiConverter<T1, T2, TResult>(lambda);
+            return result;
+        }
+    }
 }
