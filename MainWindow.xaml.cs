@@ -21,7 +21,6 @@ using RT.Util.Dialogs;
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
  * 
  * Ensure all the graphics APIs have GDI and WPF variants
- * Test-render a tank with all null properties and tell the user if this fails (and deduce which property fails)
  * Test inheritance use-case: override a few properties from someone else's data, but for new version be able to import their new file with your overrides
  * 
  * ctGameVersions: use binding; use DisplayName
@@ -29,6 +28,7 @@ using RT.Util.Dialogs;
  * In-game-like display of low/mid/high tier balance
  * Allow the maker to tell us which tanks to invalidate on a property change.
  * Drop-down for selecting backgrounds; Reload'able
+ * _otherWarnings: tag with warning type to enable reliable removal
  */
 
 namespace TankIconMaker
@@ -250,11 +250,13 @@ namespace TankIconMaker
             _cancelRender = new CancellationTokenSource();
             var cancelToken = _cancelRender.Token; // must be a local so that the task lambda captures it; _cancelRender could get reassigned before a task gets to check for cancellation of the old one
 
-            var maker = (MakerBase) ctMakerDropdown.SelectedItem;
-            maker.Initialize();
-
             var images = ctIconsPanel.Children.OfType<Image>().ToList();
             var tanks = EnumTanks().ToList();
+
+            var maker = (MakerBase) ctMakerDropdown.SelectedItem;
+            maker.Initialize();
+            if (tanks.Any())
+                TestMaker(maker, tanks[0]);
 
             var tasks = new List<Action>();
             for (int i = 0; i < tanks.Count; i++)
@@ -316,6 +318,24 @@ namespace TankIconMaker
                 _otherWarnings.Add(warning);
             else if (have && !need)
                 _otherWarnings.Remove(warning);
+        }
+
+        private void TestMaker(MakerBase maker, Tank tank)
+        {
+            // A bit of a quick hack, but should do the job
+            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains("when presented with a tank that is missing some \"extra\" properties")).FirstOrDefault());
+            tank = new Tank(tank); // make a clone without all the extra properties
+            try
+            {
+                maker.DrawTankInternal(tank);
+            }
+            catch (Exception e)
+            {
+                if (!(e is MakerUserError))
+                    _otherWarnings.Add("The maker {0} is buggy: it throws a {1} when presented with a tank that is missing some \"extra\" properties. Please report this to the developer.".Fmt(maker.GetType().Name, e.GetType().Name));
+                // The maker must not throw when properties are missing: firstly, for configurable properties the user could select "None"
+                // from the drop-down, and secondly, hard-coded properties could simply be missing altogether.
+            }
         }
 
         private static RenderResult RenderTank(MakerBase maker, Tank tank)

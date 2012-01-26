@@ -161,7 +161,7 @@ namespace TankIconMaker
             var nameLayer = Ut.NewBitmapGdi((D.Graphics g) =>
             {
                 g.TextRenderingHint = NameAntiAlias.ToGdi();
-                nameSize = g.DrawString(tank[NameData] ?? "", nameFont, nameBrush, right: 80 - 4, bottom: 24 - 3, baseline: true);
+                nameSize = g.DrawString(tank[NameData], nameFont, nameBrush, right: 80 - 4, bottom: 24 - 3, baseline: true);
             });
             nameLayer.DrawImage(nameLayer.GetOutline(NameAntiAlias == TextAntiAliasStyle.Aliased ? 255 : 180));
             nameLayer = nameLayer.GetBlurred().DrawImage(nameLayer);

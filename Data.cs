@@ -25,6 +25,7 @@ namespace TankIconMaker
 
         public Tank(TankData tank, IEnumerable<KeyValuePair<string, string>> extras, GameInstallationSettings gameInstall, GameVersion gameVersion)
         {
+            if (gameInstall == null || gameVersion == null) throw new ArgumentNullException();
             SystemId = tank.SystemId;
             Country = tank.Country;
             Tier = tank.Tier;
@@ -35,6 +36,19 @@ namespace TankIconMaker
                 _extras.Add(extra.Key, extra.Value);
             _gameInstall = gameInstall;
             _gameVersion = gameVersion;
+        }
+
+        /// <summary>Constructs a clone of the specified tank but without any extra properties, in order to test a Maker for exceptions.</summary>
+        internal Tank(Tank tank)
+        {
+            SystemId = tank.SystemId;
+            Country = tank.Country;
+            Tier = tank.Tier;
+            Class = tank.Class;
+            Category = tank.Category;
+            _extras = new Dictionary<string, string>();
+            _gameInstall = tank._gameInstall;
+            _gameVersion = tank._gameVersion;
         }
 
         public string this[string name]
