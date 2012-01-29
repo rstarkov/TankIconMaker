@@ -47,7 +47,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid Name="ctOuterGrid">
         <Grid.Background>
             <DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0,30,30" ViewportUnits="Absolute">
@@ -63,11 +63,12 @@
             <ColumnDefinition Width="300" Name="ctLeftColumn" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="0" Background="#87FFFFFF" AllowDrop="False" Margin ="0,0,8,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="8,8,8,0">
                 <Label Padding="3,0,0,0" Target="{Binding ElementName=gamePath}">Game _directory:</Label>
@@ -89,8 +90,9 @@
                 <ComboBox Name="ctGameVersion"></ComboBox>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=iconMaker}">_Icon maker:</Label>
                 <ComboBox Name="ctMakerDropdown" />
-                <Grid Margin="0,6,0,0"><Grid Background="#80FFFFFF">
-                    <TextBlock Name="ctMakerDescription" TextWrapping="Wrap" Padding="3,1,3,3">
+                <Grid Margin="0,6,0,0">
+                    <Grid Background="#80FFFFFF">
+                        <TextBlock Name="ctMakerDescription" TextWrapping="Wrap" Padding="3,1,3,3">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
@@ -100,14 +102,29 @@
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style>
-                    </TextBlock>
-                </Grid></Grid>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
             </StackPanel>
             <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Button Margin="8,0,0,8" Name="ctMakerDefaults" Click="ctMakerDefaults_Click">
+                    <AccessText Margin="8,0">_Defaults</AccessText>
+                </Button>
+                <Button Margin="8,0,0,8" Name="ctMakerLoad" Click="ctMakerLoad_Click">
+                    <AccessText Margin="8,0">_Load</AccessText>
+                </Button>
+                <Button Margin="8,0,0,8" Name="ctMakerSave" Click="ctMakerSave_Click">
+                    <AccessText Margin="8,0">Sav_e</AccessText>
+                </Button>
+                <Button Margin="8,0,0,8" Name="ctMakerSaveAs" Click="ctMakerSaveAs_Click">
+                    <AccessText Margin="8,0">Save _as...</AccessText>
+                </Button>
+            </StackPanel>
         </Grid>
 
         <GridSplitter Width="8" Style="{StaticResource gridSplitterStyle}" />
-        
+
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -128,11 +145,15 @@
             <WrapPanel Grid.Row="2" Background="#87FFFFFF">
                 <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
                        ToolTip="There were some problems; click this icon to see the details." />
-                <Button Name="ctReload" Margin="8" Click="ctReload_Click"><AccessText Margin="8,0">_Reload data</AccessText></Button>
-                <Button Name="ctSave" Margin="0,8" Click="ctSave_Click"><AccessText Margin="8,0">_Save...</AccessText></Button>
+                <Button Name="ctReload" Margin="8" Click="ctReload_Click">
+                    <AccessText Margin="8,0">_Reload data</AccessText>
+                </Button>
+                <Button Name="ctSave" Margin="0,8" Click="ctSave_Click">
+                    <AccessText Margin="8,0">_Save...</AccessText>
+                </Button>
             </WrapPanel>
         </Grid>
-        
+
         <Border Grid.ColumnSpan="2" Name="ctGlobalStatusBox" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

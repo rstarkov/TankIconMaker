@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
+using RT.Util.Xml;
 
 /*
  * Load/save sets of properties to XML files (make sure distribution is well-supported)
@@ -35,7 +36,6 @@ namespace TankIconMaker
 {
     partial class MainWindow : ManagedWindow
     {
-        private List<MakerBase> _makers = new List<MakerBase>();
         private WotData _data = new WotData();
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
         private CancellationTokenSource _cancelRender = new CancellationTokenSource();
@@ -116,6 +116,7 @@ namespace TankIconMaker
                 };
 
             // Find all the makers
+            var makers = new List<MakerBase>();
             foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(MakerBase).IsAssignableFrom(t) && !t.IsAbstract))
             {
                 var constructor = makerType.GetConstructor(new Type[0]);
@@ -124,21 +125,25 @@ namespace TankIconMaker
                     DlgMessage.ShowWarning("Ignored maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
                     continue;
                 }
-                var maker = (MakerBase) constructor.Invoke(new object[0]);
-                _makers.Add(maker);
+                makers.Add((MakerBase) constructor.Invoke(new object[0]));
             }
-
-            _makers = _makers.OrderBy(m => m.Name).ThenBy(m => m.Author).ThenBy(m => m.Version).ToList();
+            foreach (var maker in makers)
+                if (!Program.Settings.Makers.Any(m => m.GetType() == maker.GetType()))
+                    Program.Settings.Makers.Add(maker);
+            foreach (var maker in Program.Settings.Makers.ToArray())
+                if (!makers.Any(m => m.GetType() == maker.GetType()))
+                    Program.Settings.Makers.Remove(maker);
+            Program.Settings.Makers = Program.Settings.Makers.OrderBy(m => m.Name).ThenBy(m => m.Author).ToList();
 
             // Put the makers into the maker dropdown
-            foreach (var maker in _makers)
+            foreach (var maker in Program.Settings.Makers)
                 ctMakerDropdown.Items.Add(maker);
 
             // Locate the closest match for the maker that was selected last time the program was run
-            ctMakerDropdown.SelectedItem = _makers
+            ctMakerDropdown.SelectedItem = Program.Settings.Makers
                 .OrderBy(m => m.GetType().FullName == Program.Settings.SelectedMakerType ? 0 : 1)
                 .ThenBy(m => m.Name == Program.Settings.SelectedMakerName ? 0 : 1)
-                .ThenBy(m => _makers.IndexOf(m))
+                .ThenBy(m => Program.Settings.Makers.IndexOf(m))
                 .First();
 
             ReloadData();
@@ -296,7 +301,7 @@ namespace TankIconMaker
                     });
             }
             foreach (var task in tasks)
-                Task.Factory.StartNew(task, cancelToken);
+                Task.Factory.StartNew(task, cancelToken, TaskCreationOptions.None, PriorityScheduler.Lowest);
 
             // Remove unused images
             foreach (var image in images.Skip(tanks.Count))
@@ -737,6 +742,33 @@ namespace TankIconMaker
             if (gis == null)
                 return null;
             return Path.Combine(gis.Path, _data.Versions[Version.Parse(gis.GameVersion)].PathSource3D);
+        }
+
+        private void ctMakerDefaults_Click(object sender, RoutedEventArgs e)
+        {
+            var oldMaker = ctMakerDropdown.SelectedItem as MakerBase;
+            if (oldMaker == null || ctMakerDropdown.SelectedIndex < 0)
+                return; // shouldn't really happen though
+            if (DlgMessage.ShowQuestion("Are you sure you want to reset the settings for this maker to defaults?", "&Reset", "Cancel") == 1)
+                return;
+            var newMaker = (MakerBase) oldMaker.GetType().GetConstructor(new Type[0]).Invoke(new object[0]);
+            ctMakerDropdown.SelectedItem = newMaker;
+            ctMakerDropdown.Items[ctMakerDropdown.SelectedIndex] = newMaker;
+            Program.Settings.Makers[ctMakerDropdown.SelectedIndex] = newMaker;
+            Program.Settings.SaveThreaded();
+            ctMakerDropdown_SelectionChanged();
+        }
+
+        private void ctMakerLoad_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ctMakerSave_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ctMakerSaveAs_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

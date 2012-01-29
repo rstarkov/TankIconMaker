@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using RT.Util;
 
@@ -16,6 +17,8 @@ namespace TankIconMaker
         public string SelectedMakerName;
 
         public string SelectedGamePath = Ut.FindTanksDirectory();
+
+        public List<MakerBase> Makers = new List<MakerBase>();
 
         /// <summary>Settings that are specific to a game installation path.</summary>
         public ObservableSortedList<GameInstallationSettings> GameInstalls = new ObservableSortedList<GameInstallationSettings>();
