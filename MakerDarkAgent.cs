@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using RT.Util.Xml;
 using D = System.Drawing;
 
 namespace TankIconMaker
@@ -90,7 +90,9 @@ namespace TankIconMaker
         public ImageStyle Style { get; set; }
         public enum ImageStyle { Contour, [Description("3D")] ThreeD }
 
+        [XmlIgnore]
         private Pen _outline, _outlineInner;
+        [XmlIgnore]
         private Brush _lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground;
 
         public MakerDarkAgent()

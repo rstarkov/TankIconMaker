@@ -1,9 +1,8 @@
-﻿using System;
-using System.Text;
-using System.Threading;
-using System.Windows;
+﻿using System.Windows;
 using RT.Util;
-using RT.Util.Dialogs;
+using RT.Util.Xml;
+using D = System.Drawing;
+using W = System.Windows.Media;
 
 namespace TankIconMaker
 {
@@ -15,6 +14,10 @@ namespace TankIconMaker
         {
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+
+            XmlClassify.DefaultOptions = new XmlClassifyOptions()
+                .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(D.Color), new colorTypeOptions());
 
 #if !DEBUG
             Thread.CurrentThread.Name = "Main";
