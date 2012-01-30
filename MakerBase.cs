@@ -26,7 +26,7 @@ namespace TankIconMaker
 
         public override string ToString()
         {
-            return "{0} by {1} (v{2})".Fmt(Name, Author, Version);
+            return "{0} by {1}".Fmt(Name, Author);
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
- * Load/save sets of properties to XML files (make sure distribution is well-supported)
+ * Fix the unmanaged memory leak (probably in BitmapGDI)
  * 
  * Ensure all the graphics APIs have GDI and WPF variants. Documentation.
  * 
@@ -40,6 +40,8 @@ namespace TankIconMaker
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
         private CancellationTokenSource _cancelRender = new CancellationTokenSource();
         private Dictionary<string, RenderResult> _renderResults = new Dictionary<string, RenderResult>();
+        private string _makerSettingsFilename = null;
+        private bool _makerSettingsConfirmSave = false;
 
         private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
         private ObservableCollection<string> _otherWarnings = new ObservableCollection<string>();
@@ -374,6 +376,7 @@ namespace TankIconMaker
                 Cursor = Cursors.Hand,
                 Opacity = 0.7,
             };
+            img.MouseLeftButtonDown += TankImage_MouseLeftButtonDown;
             img.MouseLeftButtonUp += TankImage_MouseLeftButtonUp;
             BindingOperations.SetBinding(img, Image.WidthProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
@@ -387,8 +390,20 @@ namespace TankIconMaker
             return img;
         }
 
+        private object _lastTankImageDown;
+
+        void TankImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _lastTankImageDown = sender;
+        }
+
         private void TankImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            bool skip = _lastTankImageDown != sender;
+            _lastTankImageDown = null;
+            if (skip)
+                return;
+            
             var image = sender as Image;
             if (image == null)
                 return;
@@ -442,7 +457,7 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private void ctMakerDropdown_SelectionChanged(object _ = null, SelectionChangedEventArgs __ = null)
+        private void ctMakerDropdown_SelectionChanged(object sender = null, SelectionChangedEventArgs __ = null)
         {
             _renderResults.Clear();
             ScheduleUpdateIcons();
@@ -453,6 +468,12 @@ namespace TankIconMaker
             Program.Settings.SelectedMakerType = maker.GetType().FullName;
             Program.Settings.SelectedMakerName = maker.Name;
             SaveSettings();
+            ctMakerSave.IsEnabled = true;
+            if (sender != null)
+            {
+                _makerSettingsFilename = null;
+                _makerSettingsConfirmSave = false;
+            }
         }
 
         private IEnumerable<Tank> EnumTanks(bool all = false)
@@ -519,6 +540,7 @@ namespace TankIconMaker
         {
             _renderResults.Clear();
             ScheduleUpdateIcons();
+            ctMakerSave.IsEnabled = true;
         }
 
         private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
@@ -761,14 +783,71 @@ namespace TankIconMaker
 
         private void ctMakerLoad_Click(object sender, RoutedEventArgs e)
         {
+            var dlg = new VistaOpenFileDialog();
+            dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            dlg.FilterIndex = 0;
+            dlg.Multiselect = false;
+            dlg.CheckFileExists = true;
+            if (dlg.ShowDialog() != true)
+                return;
+
+            MakerBase newMaker;
+            try
+            {
+                var oldMaker = ctMakerDropdown.SelectedItem as MakerBase;
+                newMaker = XmlClassify.LoadObjectFromXmlFile<MakerBase>(dlg.FileName);
+            }
+            catch
+            {
+                DlgMessage.ShowWarning("Could not load the file for some reason. It might be of the wrong format.");
+                return;
+            }
+
+            //if (newMaker.GetType() != oldMaker.GetType())
+            //    if (DlgMessage.ShowQuestion("These settings are for maker \"{0}\". You currently have \"{1}\" selected. Load anyway?".Fmt(newMaker.ToString(), oldMaker.ToString()),
+            //        "&Load", "Cancel") == 1)
+            //        return;
+
+            int i = Program.Settings.Makers.Select((maker, index) => new { maker, index }).First(x => x.maker.GetType() == newMaker.GetType()).index;
+            ctMakerDropdown.SelectedItem = newMaker;
+            ctMakerDropdown.Items[i] = newMaker;
+            Program.Settings.Makers[i] = newMaker;
+            Program.Settings.SaveThreaded();
+            ctMakerDropdown_SelectionChanged();
+
+            _makerSettingsFilename = dlg.FileName;
+            _makerSettingsConfirmSave = true;
         }
 
-        private void ctMakerSave_Click(object sender, RoutedEventArgs e)
+        private void ctMakerSave_Click(object _ = null, RoutedEventArgs __ = null)
         {
+            if (_makerSettingsFilename == null)
+            {
+                ctMakerSaveAs_Click();
+                return;
+            }
+            else if (_makerSettingsConfirmSave)
+                if (DlgMessage.ShowQuestion("Save maker settings?\n\nFile: {0}".Fmt(_makerSettingsFilename), "&Save", "Cancel") == 1)
+                    return;
+            XmlClassify.SaveObjectToXmlFile(ctMakerDropdown.SelectedItem, typeof(MakerBase), _makerSettingsFilename);
+            ctMakerSave.IsEnabled = false;
+            _makerSettingsConfirmSave = false;
         }
 
-        private void ctMakerSaveAs_Click(object sender, RoutedEventArgs e)
+        private void ctMakerSaveAs_Click(object _ = null, RoutedEventArgs __ = null)
         {
+            var dlg = new VistaSaveFileDialog();
+            dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            dlg.FilterIndex = 0;
+            dlg.CheckPathExists = true;
+            if (dlg.ShowDialog() != true)
+                return;
+            _makerSettingsFilename = dlg.FileName;
+            if (_makerSettingsFilename.ToLower().EndsWith(".xml"))
+                _makerSettingsFilename = _makerSettingsFilename.Substring(0, _makerSettingsFilename.Length - 4);
+            _makerSettingsFilename = "{0} ({1}).xml".Fmt(_makerSettingsFilename, ctMakerDropdown.SelectedItem.GetType().Name);
+            _makerSettingsConfirmSave = false;
+            ctMakerSave_Click();
         }
     }
 }
