@@ -19,9 +19,11 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
- * WotData: make it read-only
  * Allow getting extra properties just by name. Update the getter comment.
  * Don't crash if a maker type is removed from the program
+ * Test the maker by returning nulls for all the image requests
+ * Allow maker to report a warning for an image
+ * "Original" maker has a bug if the image is missing
  * 
  * Russian translation
  * ctGameVersions: use binding; use DisplayName
