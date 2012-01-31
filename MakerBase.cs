@@ -47,8 +47,8 @@ namespace TankIconMaker
         /// Loads an image for this maker based on the image ID. The image must be placed into the application directory, into
         /// a subdirectory named the same as the maker. The filename is the imageId, and the extension can be one of the
         /// following: tga, png, jpg, bmp. For example, if a maker named "MakerDarkAgent" calls this method passing "background" as
-        /// the image ID, this method will look for "{app-path}\MakerDarkAgent\background.png" (or jpg, bmp, tga). Returns null
-        /// if the file does not exist.
+        /// the image ID, this method will look for "{app-path}\MakerDarkAgent\background.png" (or jpg, bmp, tga).
+        /// Returns null if the file does not exist.
         /// </summary>
         public WriteableBitmap LoadImageWpf(string imageId)
         {
@@ -60,8 +60,8 @@ namespace TankIconMaker
         /// Loads an image for this maker based on the image ID. The image must be placed into the application directory, into
         /// a subdirectory named the same as the maker. The filename is the imageId, and the extension can be one of the
         /// following: tga, png, jpg, bmp. For example, if a maker named "MakerDarkAgent" calls this method passing "background" as
-        /// the image ID, this method will look for "{app-path}\MakerDarkAgent\background.png" (or jpg, bmp, tga). Returns null
-        /// if the file does not exist.
+        /// the image ID, this method will look for "{app-path}\MakerDarkAgent\background.png" (or jpg, bmp, tga).
+        /// Returns null if the file does not exist.
         /// </summary>
         public BitmapGdi LoadImageGdi(string imageId)
         {

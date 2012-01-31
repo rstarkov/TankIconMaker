@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:rt="clr-namespace:RT.Util;assembly=RT.Util"
         Title="MainWindow"
+        TextOptions.TextFormattingMode="Display"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico"
         xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
         xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended">
