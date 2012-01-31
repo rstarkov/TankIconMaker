@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace TankIconMaker
 {
+    /// <summary>
+    /// Implements this sorely missed type of collection. May be buggy due to the comparative complexity of the interface involved
+    /// and its poor documentation (see http://stackoverflow.com/a/5883947/33080).
+    /// </summary>
     class ObservableSortedList<T> : IList<T>,
         INotifyPropertyChanged,
         INotifyCollectionChanged

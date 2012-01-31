@@ -1,9 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using D = System.Drawing;
-using System.ComponentModel;
 
 namespace TankIconMaker
 {
@@ -39,6 +39,7 @@ namespace TankIconMaker
             return bmp;
         }
 
+        /// <summary>Converts a WPF image to a GDI one.</summary>
         public static BitmapGdi ToGdi(this BitmapSource bmp)
         {
             var result = new BitmapGdi(bmp.PixelWidth, bmp.PixelHeight);
@@ -48,6 +49,7 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>Converts a GDI image to a WPF writable one. Also useful for unfreezing frozen WriteableBitmap's.</summary>
         public static WriteableBitmap ToWpfWriteable(this BitmapSource bmp)
         {
             var result = new WriteableBitmap(80, 24, 96, 96, PixelFormats.Bgra32, null);
@@ -57,6 +59,7 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>Converts this value to the System.Drawing-compatible enum type.</summary>
         public static D.Text.TextRenderingHint ToGdi(this TextAntiAliasStyle style)
         {
             switch (style)
@@ -69,6 +72,10 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>
+        /// Returns a bitmap containing the specified text drawn using the specified font and brush onto a transparent
+        /// image. The image is sized to be as small as possible without running the risk of clipping the text.
+        /// </summary>
         public static BitmapGdi TextToBitmap(this D.Graphics graphics, string text, D.Font font, D.Brush brush)
         {
             var size = graphics.MeasureString(text, font); // the default is to include any overhangs into the calculation
@@ -85,6 +92,23 @@ namespace TankIconMaker
             return bmp;
         }
 
+        /// <summary>
+        /// Possibly the slowest ever implementation of a text draw routine, but enables pixel-perfect positioning of the text.
+        /// If only the <paramref name="left"/> value is non-null, the text is left-aligned. If only the <paramref name="right"/>, it's
+        /// right-aligned. If both are null, the text is centered assuming an 80x24 image. If both are non-null, the text is centered around
+        /// the mid point of the two values. Top/bottom work the same, with the extra complication of <paramref name="baseline"/>.
+        /// </summary>
+        /// <param name="graphics">The text is drawn into this drawing object.</param>
+        /// <param name="text">The text to draw.</param>
+        /// <param name="font">The font to use.</param>
+        /// <param name="brush">The brush to use.</param>
+        /// <param name="left">X coordinate of the leftmost text pixel, or null (see summary).</param>
+        /// <param name="right">X coordinate of the rightmost text pixel, or null (see summary).</param>
+        /// <param name="top">Y coordinate of the topmost text pixel, or null (see summary and "baseline").</param>
+        /// <param name="bottom">Y coordinate of the bottommost text pixel, or null (see summary and "baseline")</param>
+        /// <param name="baseline">If false, top/bottom use the specified string's pixels exactly. If true, top/bottom will instead position the baseline consistently,
+        /// so that the top of the tallest letter or the bottom of the lowest descender is located on the specified pixel.</param>
+        /// <returns>A rectangle describing the extent of the text's pixels.</returns>
         public static PixelRect DrawString(this D.Graphics graphics, string text, D.Font font, D.Brush brush,
             int? left = null, int? right = null, int? top = null, int? bottom = null, bool baseline = false)
         {
@@ -106,16 +130,19 @@ namespace TankIconMaker
             return size.Shifted(x, y);
         }
 
+        /// <summary>A shorthand for drawing an image at coordinate 0,0.</summary>
         public static void DrawImage(this DrawingContext context, BitmapGdi bmp)
         {
             context.DrawImage(bmp.ToWpf(), new Rect(0, 0, bmp.PixelWidth, bmp.PixelHeight));
         }
 
+        /// <summary>A shorthand for drawing an image at coordinate 0,0.</summary>
         public static void DrawImage(this DrawingContext context, BitmapSource bmp)
         {
             context.DrawImage(bmp, new Rect(0, 0, bmp.Width, bmp.Height));
         }
 
+        /// <summary>A shorthand for drawing an image into a GDI image at coordinate 0,0.</summary>
         public static BitmapGdi DrawImage(this BitmapGdi target, BitmapGdi source)
         {
             using (var g = D.Graphics.FromImage(target.Bitmap))
@@ -123,6 +150,7 @@ namespace TankIconMaker
             return target;
         }
 
+        /// <summary>Returns a new image which contains a 1 pixel wide black outline of the specified image.</summary>
         public static BitmapGdi GetOutline(this BitmapGdi srcBitmap, int opacity = 255)
         {
             var tgtBitmap = Ut.NewBitmapGdi();
@@ -152,6 +180,7 @@ namespace TankIconMaker
             return tgtBitmap;
         }
 
+        /// <summary>Returns a new image which contains a version of this image with a black semitransparent blur of a hard-coded radius.</summary>
         public static BitmapGdi GetBlurred(this BitmapGdi srcBitmap)
         {
             var tgtBitmap = Ut.NewBitmapGdi();
@@ -207,13 +236,21 @@ namespace TankIconMaker
     struct PixelRect
     {
         private int _left, _width, _top, _height;
+        /// <summary>The leftmost pixel included in the rect.</summary>
         public int Left { get { return _left; } }
+        /// <summary>The topmost pixel included in the rect.</summary>
         public int Top { get { return _top; } }
+        /// <summary>The rightmost pixel included in the rect.</summary>
         public int Right { get { return _left + _width - 1; } }
+        /// <summary>The bottommost pixel included in the rect.</summary>
         public int Bottom { get { return _top + _height - 1; } }
+        /// <summary>The total number of pixels, horizontally, included in the rect.</summary>
         public int Width { get { return _width; } }
+        /// <summary>The total number of pixels, vertically, included in the rect.</summary>
         public int Height { get { return _height; } }
+        /// <summary>The X coordinate of the center pixel. If the number of pixels in the rect is even, returns the pixel to the right of center.</summary>
         public int CenterHorz { get { return _left + _width / 2; } }
+        /// <summary>The Y coordinate of the center pixel. If the number of pixels in the rect is even, returns the pixel to the bottom of center.</summary>
         public int CenterVert { get { return _top + _height / 2; } }
 
         public static PixelRect FromBounds(int left, int top, int right, int bottom)

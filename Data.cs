@@ -8,12 +8,20 @@ using RT.Util.Xml;
 
 namespace TankIconMaker
 {
+    /// <summary>
+    /// Encapsulates all the available information about a single tank. Exposes methods to retrieve standard images for this tank.
+    /// </summary>
     class Tank
     {
+        /// <summary>WoT seems to consistently identify tanks by this string, which is unique for each tank and is also used in many filenames.</summary>
         public string SystemId { get; protected set; }
+        /// <summary>Tank's country.</summary>
         public Country Country { get; protected set; }
+        /// <summary>Tank's tier.</summary>
         public int Tier { get; protected set; }
+        /// <summary>Tank's class: light/medium/heavy tank, artillery or tank destroyer.</summary>
         public Class Class { get; protected set; }
+        /// <summary>Tank's category: normal (buyable for silver), premium (buyable for gold), or special (not for sale).</summary>
         public Category Category { get; protected set; }
 
         private Dictionary<string, string> _extras;
@@ -23,6 +31,11 @@ namespace TankIconMaker
 
         protected Tank() { }
 
+        /// <summary>Creates an instance ready to pass on to a Maker.</summary>
+        /// <param name="tank">Tank data to copy into this instance.</param>
+        /// <param name="extras">All the extra properties available for this tank and this game version.</param>
+        /// <param name="gameInstall">Game install settings (to allow loading standard tank images).</param>
+        /// <param name="gameVersion">Game version info (to allow loading standard tank images).</param>
         public Tank(TankData tank, IEnumerable<KeyValuePair<string, string>> extras, GameInstallationSettings gameInstall, GameVersion gameVersion)
         {
             if (gameInstall == null || gameVersion == null) throw new ArgumentNullException();
@@ -39,7 +52,7 @@ namespace TankIconMaker
         }
 
         /// <summary>Constructs a clone of the specified tank but without any extra properties, in order to test a Maker for exceptions.</summary>
-        internal Tank(Tank tank)
+        public Tank(Tank tank)
         {
             SystemId = tank.SystemId;
             Country = tank.Country;
@@ -51,6 +64,11 @@ namespace TankIconMaker
             _gameVersion = tank._gameVersion;
         }
 
+        /// <summary>
+        /// Gets the value of an extra property. The extra property can be specified by full name ("Name/Language/Author"), which is
+        /// also what the <see cref="DataSourceEditor"/> drop-down uses. If the property with such a name doesn't exist, a null value
+        /// is returned. The maker must not crash just because some data files are missing, and hence must handle these nulls properly.
+        /// </summary>
         public string this[string name]
         {
             get
@@ -62,34 +80,44 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>For debugging.</summary>
         public override string ToString()
         {
             return "Tank: " + SystemId;
         }
 
+        /// <summary>Loads the standard 3D image for this tank and returns as a WPF image. Note that it's larger than 80x24.</summary>
         public WriteableBitmap LoadImage3DWpf()
         {
             return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
         }
 
+        /// <summary>Loads the standard 3D image for this tank and returns as a GDI image. Note that it's larger than 80x24.</summary>
         public BitmapGdi LoadImage3DGdi()
         {
             return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
         }
 
+        /// <summary>Loads the standard contour image for this tank and returns it as a WPF image.</summary>
         public WriteableBitmap LoadImageContourWpf()
         {
             return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga"));
         }
 
+        /// <summary>Loads the standard contour image for this tank and returns it as a GDI image.</summary>
         public BitmapGdi LoadImageContourGdi()
         {
             return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga"));
         }
     }
 
+    /// <summary>
+    /// Encapsulates information about a tank read from the built-in data file. This is a separate type from <see cref="Tank"/> to ensure
+    /// that it is not accidentally passed on to a maker without filling out the extra properties or linking to a game version/install.
+    /// </summary>
     class TankData : Tank
     {
+        /// <summary>Parses a CSV row from a built-in data file.</summary>
         public TankData(string[] fields)
         {
             if (fields.Length < 5)
@@ -134,18 +162,26 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>
+    /// Represents a built-in data file, including its properties and the actual data it holds.
+    /// </summary>
     class DataFileBuiltIn
     {
+        /// <summary>Which game version this data file was made for.</summary>
         public Version GameVersion { get; private set; }
+        /// <summary>The file version of this file.</summary>
         public int FileVersion { get; private set; }
 
+        /// <summary>All the data held in this data file. Note that this list is read-only.</summary>
         public IList<TankData> Data { get; private set; }
 
+        /// <summary>For debugging.</summary>
         public override string ToString()
         {
             return "BuiltIn-{0}-{1}".Fmt(GameVersion, FileVersion);
         }
 
+        /// <summary>Constructs an instance and parses the data from the specified file.</summary>
         public DataFileBuiltIn(Version gameVersion, int fileVersion, string filename)
         {
             GameVersion = gameVersion;
@@ -169,6 +205,7 @@ namespace TankIconMaker
             }).ToList().AsReadOnly();
         }
 
+        /// <summary>Constructs an instance using the specified parameters and data.</summary>
         public DataFileBuiltIn(Version gameVersion, int fileVersion, IEnumerable<TankData> data)
         {
             GameVersion = gameVersion;
@@ -177,6 +214,10 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>
+    /// Represents an "extra" property data file, including its properties and the actual data it holds.
+    /// Note: extra data files come with complex inheritance rules, documented on the project website.
+    /// </summary>
     class DataFileExtra
     {
         public string Name { get; private set; }
@@ -252,11 +293,17 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>
+    /// Represents a single value of an "extra" property.
+    /// </summary>
     class ExtraData
     {
+        /// <summary>System Id of the tank that this property is for.</summary>
         public string TankSystemId { get; private set; }
+        /// <summary>Property value; can be anything at all.</summary>
         public string Value { get; private set; }
 
+        /// <summary>Parses an "extra" property from an extra data file CSV row.</summary>
         public ExtraData(string[] fields)
         {
             if (fields.Length < 2)
@@ -265,19 +312,30 @@ namespace TankIconMaker
             Value = fields[1];
         }
 
+        /// <summary>For debugging.</summary>
         public override string ToString()
         {
             return "{0} = {1}".Fmt(TankSystemId, Value);
         }
     }
 
-    class WotData
+    /// <summary>
+    /// Encapsulates all of the World of Tanks data available to the program, and implements methods
+    /// to load the data off disk and retrieve a list of warnings indicating problems with the data.
+    /// </summary>
+    sealed class WotData
     {
+        /// <summary>Gets a list of all the built-in data files available. Each file contains all the tanks, including those inherited from earlier game version files.</summary>
         public List<DataFileBuiltIn> BuiltIn = new List<DataFileBuiltIn>();
+        /// <summary>Gets a list of all the extra property data files available. Each file contains all the properties already, including those it inherited from other files.</summary>
         public List<DataFileExtra> Extra = new List<DataFileExtra>();
+        /// <summary>Gets a dictionary of all the game version information available.</summary>
         public Dictionary<Version, GameVersion> Versions = new Dictionary<Version, GameVersion>();
+
+        /// <summary>Gets a list of warnings issued while loading the data. These can be serious and help understand why data might be missing.</summary>
         public List<string> Warnings = new List<string>();
 
+        /// <summary>Represents an "extra" data file during loading, including all the extra info required to properly resolve inheritance.</summary>
         private class DataFileExtra2 : DataFileExtra
         {
             public List<DataFileExtra2> ImmediateParents = new List<DataFileExtra2>();
@@ -289,6 +347,7 @@ namespace TankIconMaker
                 : base(name, language, author, gameVersion, fileVersion, filename) { }
         }
 
+        /// <summary>Clears all the data and performs a fresh load off disk.</summary>
         public void Reload(string path)
         {
             BuiltIn.Clear();
@@ -588,6 +647,7 @@ namespace TankIconMaker
 
     }
 
+    /// <summary>Represents one of the WoT countries.</summary>
     enum Country
     {
         USSR,
@@ -597,6 +657,7 @@ namespace TankIconMaker
         China,
     }
 
+    /// <summary>Represents one of the possible tank classes: light/medium/heavy, tank destroyer, and artillery.</summary>
     enum Class
     {
         Light,
@@ -606,22 +667,34 @@ namespace TankIconMaker
         Artillery,
     }
 
+    /// <summary>Represents one of the possible tank categories based on how (and whether) they can be bought.</summary>
     enum Category
     {
+        /// <summary>This tank can be bought for silver.</summary>
         Normal,
+        /// <summary>This tank can be bought for gold only.</summary>
         Premium,
+        /// <summary>This tank cannot be bought at all.</summary>
         Special,
     }
 
-#pragma warning disable 649
+#pragma warning disable 649 // field never assigned to: in fact it is, by XmlClassify using reflection
 
+    /// <summary>
+    /// Represents some settings for a particular game version.
+    /// </summary>
     class GameVersion
     {
+        /// <summary>How this version should be displayed in the UI. Note: not currently used.</summary>
         public string DisplayName;
+        /// <summary>Relative path to the directory containing the tank icons we're creating.</summary>
         public string PathDestination;
+        /// <summary>Relative path to the directory containing 3D tank images.</summary>
         public string PathSource3D;
 
+        /// <summary>Relative path to a file whose size can be checked to auto-guess the game version.</summary>
         public string CheckFileName;
+        /// <summary>Expected size of the <see cref="CheckFileName"/> file. A match means that this is probably the right game version.</summary>
         public long CheckFileSize = -1;
     }
 

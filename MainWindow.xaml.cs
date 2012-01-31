@@ -19,9 +19,9 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
- * Fix the unmanaged memory leak (probably in BitmapGDI)
- * 
- * Ensure all the graphics APIs have GDI and WPF variants. Documentation.
+ * WotData: make it read-only
+ * Allow getting extra properties just by name. Update the getter comment.
+ * Don't crash if a maker type is removed from the program
  * 
  * Russian translation
  * ctGameVersions: use binding; use DisplayName
@@ -91,6 +91,10 @@ namespace TankIconMaker
             ContentRendered += InitializeEverything;
         }
 
+        /// <summary>
+        /// Shows a message in large letters in an overlay in the middle of the window. Must be called on the UI thread
+        /// and won't become visible until the UI thread returns (into the dispatcher).
+        /// </summary>
         private void GlobalStatusShow(string message)
         {
             (ctGlobalStatusBox.Child as TextBlock).Text = message;
@@ -99,6 +103,9 @@ namespace TankIconMaker
             ctIconsPanel.Opacity = 0.6;
         }
 
+        /// <summary>
+        /// Hides the message shown using <see cref="GlobalStatusShow"/>.
+        /// </summary>
         private void GlobalStatusHide()
         {
             IsEnabled = true;
@@ -106,7 +113,11 @@ namespace TankIconMaker
             ctIconsPanel.Opacity = 1;
         }
 
-        void InitializeEverything(object _, EventArgs __)
+        /// <summary>
+        /// Performs most of the slow initializations. This method is only called after the UI becomes visible, to improve the
+        /// perceived start-up performance.
+        /// </summary>
+        private void InitializeEverything(object _, EventArgs __)
         {
             ContentRendered -= InitializeEverything;
 
@@ -166,6 +177,10 @@ namespace TankIconMaker
             _updateIconsTimer.Start();
         }
 
+        /// <summary>
+        /// Does a bunch of stuff necessary to reload all the data off disk and refresh the UI (except for drawing the icons:
+        /// this must be done as a separate step).
+        /// </summary>
         private void ReloadData()
         {
             _renderResults.Clear();
@@ -325,8 +340,16 @@ namespace TankIconMaker
                 _otherWarnings.Add(warning);
             else if (have && !need)
                 _otherWarnings.Remove(warning);
+
+            // Clean up all those temporary images we've just created and won't be doing again for a while.
+            // (this keeps "private bytes" when idle 10-15 MB lower)
+            GC.Collect();
         }
 
+        /// <summary>
+        /// Tests the specified maker instance for its handling of missing extra properties (and possibly other problems). Adds an
+        /// appropriate warning message if a problem is detected.
+        /// </summary>
         private void TestMaker(MakerBase maker, Tank tank)
         {
             // A bit of a quick hack, but should do the job
@@ -345,6 +368,10 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>
+        /// Turns a tank into a render result. Will handle any exceptions in the maker and draw an appropriate substitute image
+        /// to draw the user's attention to the problem.
+        /// </summary>
         private static RenderResult RenderTank(MakerBase maker, Tank tank)
         {
             var result = new RenderResult();
@@ -367,6 +394,10 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>
+        /// Creates an Image control and adds it to the scrollable tank image area. This involves a bunch of properties,
+        /// event handlers, and bindings, and is hence abstracted into a method.
+        /// </summary>
         private Image CreateTankImageControl()
         {
             var img = new Image
@@ -403,7 +434,7 @@ namespace TankIconMaker
             _lastTankImageDown = null;
             if (skip)
                 return;
-            
+
             var image = sender as Image;
             if (image == null)
                 return;
@@ -476,6 +507,11 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>
+        /// Constructs and enumerates <see cref="Tank"/> instances based on the current settings in the GUI. Will enumerate only some
+        /// of the tanks if the user chose a smaller subset in the GUI.
+        /// </summary>
+        /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
         private IEnumerable<Tank> EnumTanks(bool all = false)
         {
             var gis = GetInstallationSettings();
@@ -508,6 +544,9 @@ namespace TankIconMaker
                 )).ToList();
         }
 
+        /// <summary>
+        /// Enumerates up to three tanks with tiers as different as possible. Ideally enumerates one tier 1, one tier 5 and one tier 10 tank.
+        /// </summary>
         private IEnumerable<TankData> SelectTiers(IEnumerable<TankData> tanks)
         {
             TankData min = null;
@@ -648,6 +687,10 @@ namespace TankIconMaker
             });
         }
 
+        /// <summary>
+        /// Ensures that a backup of the original icons is available and up-to-date (even if the user has upgraded the game since
+        /// the last backup). Might prompt the user about the backup. Returns true to indicate that a backup is fine, or false otherwise.
+        /// </summary>
         private bool EnsureBackup()
         {
             try
@@ -722,6 +765,11 @@ namespace TankIconMaker
             SaveSettings();
         }
 
+        /// <summary>
+        /// A bit of a messy method to obtain the current game installation settings. Will optionally add a new item to the list
+        /// if none are currently available. Will also silently update the game version if the specified version is no longer available.
+        /// Use with care.
+        /// </summary>
         private GameInstallationSettings GetInstallationSettings(bool addIfMissing = false)
         {
             if (!_data.Versions.Any())

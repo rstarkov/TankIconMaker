@@ -12,8 +12,6 @@ namespace TankIconMaker
 {
     partial class App : Application
     {
-        public App() { Program.App = this; }
-
         protected override void OnStartup(StartupEventArgs e)
         {
             System.Windows.Forms.Application.EnableVisualStyles();
@@ -63,10 +61,21 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>
+    /// A few program-wide globals for those rare cases of truly program-global data items.
+    /// </summary>
     static class Program
     {
-        public static App App;
+        /// <summary>
+        /// Various program settings. To ensure that an application crash or a power loss does not result in lost settings,
+        /// one of the Save methods should be invoked every time changes are made; this is not automatic.
+        /// </summary>
         public static Settings Settings;
+
+        /// <summary>
+        /// Lists all the possible sources of extra properties, sorted and in an observable fashion. This is kept up-to-date
+        /// by the <see cref="MainWindow"/> and used in data binding by the <see cref="DataSourceEditor"/>.
+        /// </summary>
         public static ObservableSortedList<DataSourceInfo> DataSources = new ObservableSortedList<DataSourceInfo>(
             items: new[] { new DataSourceNone() },
             comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceNone ? 0 : 1)

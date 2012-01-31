@@ -9,6 +9,10 @@ using Microsoft.Windows.Controls.PropertyGrid.Editors;
 
 namespace TankIconMaker
 {
+    /// <summary>
+    /// Implements a drop-down editor for selecting one of the extra property files in the maker property editor.
+    /// Apply to your maker's property as follows: <c>[Editor(typeof(DataSourceEditor), typeof(DataSourceEditor))]</c>.
+    /// </summary>
     public partial class DataSourceEditor : UserControl, ITypeEditor
     {
         public DataSourceEditor()
@@ -28,6 +32,9 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>
+    /// Selects one of the two data templates: one for "no data source", and the other for all the real data sources.
+    /// </summary>
     class DataSourceTemplateSelector : DataTemplateSelector
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -41,14 +48,23 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>
+    /// Holds information about a data source (that is, an "extra" property data file).
+    /// </summary>
     class DataSourceInfo : INotifyPropertyChanged
     {
+        /// <summary>The name of the property.</summary>
         public string Name { get; private set; }
+        /// <summary>The 2-letter language code of the property; "xx" for language-less properties.</summary>
         public string Language { get; private set; }
+        /// <summary>Name of the data file's author.</summary>
         public string Author { get; private set; }
 
+        /// <summary>A short description of the property.</summary>
         public string Description { get; private set; }
+        /// <summary>Which game version was this data file made for.</summary>
         public Version GameVersion { get; private set; }
+        /// <summary>The last data file version used to construct this source.</summary>
         public int FileVersion { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -66,6 +82,11 @@ namespace TankIconMaker
             FileVersion = file.FileVersion;
         }
 
+        /// <summary>
+        /// Updates those properties that are allowed to change without treating the data source as a different source.
+        /// There can be several versions of the same data source which may differ in the property description etc. This
+        /// method is called to ensure such values are inherited from the latest version of the file.
+        /// </summary>
         public void UpdateFrom(DataFileExtra file)
         {
             if (Description != file.Description)
@@ -85,12 +106,18 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>
+        /// Returns a data file identifier string, in a format that's also used when saving maker settings to a file.
+        /// </summary>
         public override string ToString()
         {
             return Name + "/" + Language + "/" + Author;
         }
     }
 
+    /// <summary>
+    /// Represents a "no data source" value.
+    /// </summary>
     sealed class DataSourceNone : DataSourceInfo
     {
         public override string ToString()
