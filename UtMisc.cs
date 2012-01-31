@@ -28,6 +28,10 @@ namespace TankIconMaker
             return StringComparer.OrdinalIgnoreCase.Equals(string1, string2);
         }
 
+        /// <summary>
+        /// Enumerates the rows of a CSV file. Each row is represented by a tuple containing the line number and
+        /// an array of fields. Does not handle all valid CSV files: for example, multi-line field values are not supported.
+        /// </summary>
         public static IEnumerable<Tuple<int, string[]>> ReadCsvLines(string filename)
         {
             int num = 0;
@@ -49,6 +53,7 @@ namespace TankIconMaker
             return fields.Select(f => f.Contains('"') ? Regex.Replace(f, @"^ *""(.*)"" *$", "$1").Replace(@"""""", @"""") : f).ToArray();
         }
 
+        /// <summary>Returns one of the specified values based on which country this value represents.</summary>
         public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china)
         {
             switch (country)
@@ -62,6 +67,7 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>Returns one of the specified values based on which tank class this value represents.</summary>
         public static T Pick<T>(this Class class_, T light, T medium, T heavy, T destroyer, T artillery)
         {
             switch (class_)
@@ -75,6 +81,7 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>Returns one of the specified values based on which tank category this value represents.</summary>
         public static T Pick<T>(this Category class_, T normal, T premium, T special)
         {
             switch (class_)
@@ -86,6 +93,7 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>Attempts to locate the World of Tanks installation directory. Returns the root of the C: drive in case of failure.</summary>
         public static string FindTanksDirectory()
         {
             string path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{1EAC1D02-C6AC-4FA6-9A44-96258C37C812}_is1", "InstallLocation", null) as string;
@@ -97,11 +105,17 @@ namespace TankIconMaker
                 return path;
         }
 
+        /// <summary>
+        /// Returns the first item whose <paramref name="maxOf"/> selector is maximal in this collection, or null if the collection is empty.
+        /// </summary>
         public static TItem MaxOrDefault<TItem, TSelector>(this IEnumerable<TItem> collection, Func<TItem, TSelector> maxOf)
         {
             return collection.MaxAll(maxOf).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Enumerates all the items whose <paramref name="maxOf"/> selector is maximal in this collection.
+        /// </summary>
         public static IEnumerable<TItem> MaxAll<TItem, TSelector>(this IEnumerable<TItem> collection, Func<TItem, TSelector> maxOf)
         {
             var comparer = Comparer<TSelector>.Default;
@@ -125,6 +139,10 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>
+        /// Reduces the size of a stack trace by removing all lines which are outside this program's namespace and
+        /// leaving only relative source file names.
+        /// </summary>
         public static string CollapseStackTrace(string stackTrace)
         {
             var lines = stackTrace.Split('\n');
@@ -179,6 +197,7 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>A crutch that enables a sensible way to bind to several dependency properties with a custom conversion.</summary>
     sealed class LambdaMultiConverter<T1, T2, TResult> : IMultiValueConverter
     {
         private Func<T1, T2, TResult> _lambda;
@@ -224,8 +243,13 @@ namespace TankIconMaker
         }
     }
 
+    /// <summary>
+    /// Enables scheduling tasks to execute in a thread of a different priority than Normal. Only non-critical tasks
+    /// should be scheduled using this scheduler because any remaining queued tasks will be dropped on program exit.
+    /// </summary>
     public class PriorityScheduler : TaskScheduler
     {
+        // http://stackoverflow.com/a/9056702/33080
         public static PriorityScheduler AboveNormal = new PriorityScheduler(ThreadPriority.AboveNormal);
         public static PriorityScheduler BelowNormal = new PriorityScheduler(ThreadPriority.BelowNormal);
         public static PriorityScheduler Lowest = new PriorityScheduler(ThreadPriority.Lowest);

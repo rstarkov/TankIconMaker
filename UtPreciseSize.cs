@@ -5,6 +5,10 @@ namespace TankIconMaker
 {
     static partial class Ut
     {
+        /// <summary>
+        /// Given a BGRA32 bitmap data, finds the X coordinate of the leftmost pixel whose alpha channel exceeds
+        /// the specified threshold.
+        /// </summary>
         public unsafe static int PreciseLeft(byte* image, int width, int height, int stride, int alphaThreshold = 0)
         {
             byte* start = image + 3;
@@ -16,6 +20,10 @@ namespace TankIconMaker
             return width;
         }
 
+        /// <summary>
+        /// Given a BGRA32 bitmap data, finds the X coordinate of the rightmost pixel whose alpha channel exceeds
+        /// the specified threshold.
+        /// </summary>
         public unsafe static int PreciseRight(byte* image, int width, int height, int stride, int alphaThreshold = 0)
         {
             byte* start = image + (width - 1) * 4 + 3;
@@ -27,6 +35,11 @@ namespace TankIconMaker
             return -1;
         }
 
+        /// <summary>
+        /// Given a BGRA32 bitmap data, finds the Y coordinate of the topmost pixel whose alpha channel exceeds
+        /// the specified threshold. If the leftmost and/or rightmost such pixels are known, the search space can be
+        /// reduced using the <paramref name="left"/> and <paramref name="width"/> arguments.
+        /// </summary>
         public unsafe static int PreciseTop(byte* image, int width, int height, int stride, int alphaThreshold = 0, int left = 0)
         {
             byte* start = image + left * 4 + 3;
@@ -40,6 +53,11 @@ namespace TankIconMaker
             return height;
         }
 
+        /// <summary>
+        /// Given a BGRA32 bitmap data, finds the Y coordinate of the bottommost pixel whose alpha channel exceeds
+        /// the specified threshold. If the leftmost and/or rightmost such pixels are known, the search space can be
+        /// reduced using the <paramref name="left"/> and <paramref name="width"/> arguments.
+        /// </summary>
         public unsafe static int PreciseBottom(byte* image, int width, int height, int stride, int alphaThreshold = 0, int left = 0)
         {
             byte* start = image + (height - 1) * stride + left * 4 + 3;
@@ -53,6 +71,10 @@ namespace TankIconMaker
             return -1;
         }
 
+        /// <summary>
+        /// Given a BGRA32 bitmap data, finds the smallest and largest X and Y coordinates of the pixels whose alpha
+        /// channel exceeds the specified threshold.
+        /// </summary>
         public unsafe static PixelRect PreciseSize(byte* image, int width, int height, int stride, int alphaThreshold = 0)
         {
             int left = PreciseLeft(image, width, height, stride, alphaThreshold);
@@ -62,6 +84,10 @@ namespace TankIconMaker
             return PixelRect.FromBounds(left, top, right, bottom);
         }
 
+        /// <summary>
+        /// Given a BGRA32 bitmap data, finds the smallest and largest X coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The Y coordinates of the result cover the entire image.
+        /// </summary>
         public unsafe static PixelRect PreciseWidth(byte* image, int width, int height, int stride, int alphaThreshold = 0)
         {
             return PixelRect.FromLeftRight(
@@ -69,6 +95,10 @@ namespace TankIconMaker
                 PreciseRight(image, width, height, stride, alphaThreshold));
         }
 
+        /// <summary>
+        /// Given a BGRA32 bitmap data, finds the smallest and largest Y coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The X coordinates of the result cover the entire image.
+        /// </summary>
         public unsafe static PixelRect PreciseHeight(byte* image, int width, int height, int stride, int alphaThreshold = 0, int left = 0)
         {
             return PixelRect.FromTopBottom(
@@ -76,6 +106,10 @@ namespace TankIconMaker
                 PreciseBottom(image, width, height, stride, alphaThreshold, left));
         }
 
+        /// <summary>
+        /// Finds the smallest and largest X and Y coordinates of the pixels whose alpha
+        /// channel exceeds the specified threshold.
+        /// </summary>
         public unsafe static PixelRect PreciseSize(this WriteableBitmap image, int alphaThreshold = 0)
         {
             var result = PreciseSize((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold);
@@ -83,6 +117,10 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>
+        /// Finds the smallest and largest X and Y coordinates of the pixels whose alpha
+        /// channel exceeds the specified threshold.
+        /// </summary>
         public unsafe static PixelRect PreciseSize(this BitmapGdi image, int alphaThreshold = 0)
         {
             var result = PreciseSize((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold);
@@ -90,6 +128,10 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>
+        /// Finds the smallest and largest X coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The Y coordinates of the result cover the entire image.
+        /// </summary>
         public unsafe static PixelRect PreciseWidth(this WriteableBitmap image, int alphaThreshold = 0)
         {
             var result = PreciseWidth((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold);
@@ -97,6 +139,10 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>
+        /// Finds the smallest and largest X coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The Y coordinates of the result cover the entire image.
+        /// </summary>
         public unsafe static PixelRect PreciseWidth(this BitmapGdi image, int alphaThreshold = 0)
         {
             var result = PreciseWidth((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold);
@@ -104,6 +150,10 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>
+        /// Finds the smallest and largest Y coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The X coordinates of the result cover the entire image.
+        /// </summary>
         public unsafe static PixelRect PreciseHeight(this WriteableBitmap image, int alphaThreshold = 0, int left = 0)
         {
             var result = PreciseHeight((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold, left);
@@ -111,6 +161,10 @@ namespace TankIconMaker
             return result;
         }
 
+        /// <summary>
+        /// Finds the smallest and largest Y coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The X coordinates of the result cover the entire image.
+        /// </summary>
         public unsafe static PixelRect PreciseHeight(this BitmapGdi image, int alphaThreshold = 0, int left = 0)
         {
             var result = PreciseHeight((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold, left);

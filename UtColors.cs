@@ -6,6 +6,7 @@ namespace TankIconMaker
 {
     static partial class Ut
     {
+        /// <summary>Blends two colors. If the amount is 0, only the left color is present. If it's 1, only the right is present.</summary>
         public static Color BlendColors(Color left, Color right, double rightAmount)
         {
             return Color.FromArgb(
@@ -15,20 +16,40 @@ namespace TankIconMaker
                 b: (byte) Math.Round(left.B * (1 - rightAmount) + right.B * rightAmount));
         }
 
+        /// <summary>Blends two colors. If the amount is 0, only the left color is present. If it's 1, only the right is present.</summary>
+        public static D.Color BlendColors(D.Color left, D.Color right, double rightAmount)
+        {
+            return D.Color.FromArgb(
+                alpha: (byte) Math.Round(left.A * (1 - rightAmount) + right.A * rightAmount),
+                red: (byte) Math.Round(left.R * (1 - rightAmount) + right.R * rightAmount),
+                green: (byte) Math.Round(left.G * (1 - rightAmount) + right.G * rightAmount),
+                blue: (byte) Math.Round(left.B * (1 - rightAmount) + right.B * rightAmount));
+        }
+
+        /// <summary>Converts a WPF color to a GDI color.</summary>
         public static D.Color ToColorGdi(this Color color)
         {
             return D.Color.FromArgb(color.A, color.R, color.G, color.B);
         }
 
+        /// <summary>Converts a GDI color to a WPF color.</summary>
         public static Color ToColorWpf(this D.Color color)
         {
             return Color.FromArgb(color.A, color.R, color.G, color.B);
         }
 
+        /// <summary>Returns the same color but with the specified value for the alpha channel.</summary>
         public static Color WithAlpha(this Color color, int alpha)
         {
             if (alpha < 0 || alpha > 255) throw new ArgumentOutOfRangeException("alpha");
             return Color.FromArgb((byte) alpha, color.R, color.G, color.B);
+        }
+
+        /// <summary>Returns the same color but with the specified value for the alpha channel.</summary>
+        public static D.Color WithAlpha(this D.Color color, int alpha)
+        {
+            if (alpha < 0 || alpha > 255) throw new ArgumentOutOfRangeException("alpha");
+            return D.Color.FromArgb((byte) alpha, color.R, color.G, color.B);
         }
 
     }

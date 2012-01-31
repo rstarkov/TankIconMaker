@@ -6,6 +6,9 @@ using W = System.Windows.Media;
 
 namespace TankIconMaker
 {
+    /// <summary>
+    /// Gets <see cref="XmlClassify"/> to save color properties as strings of a human-editable form.
+    /// </summary>
     sealed class colorTypeOptions : XmlClassifyTypeOptions,
         IXmlClassifySubstitute<W.Color, string>,
         IXmlClassifySubstitute<D.Color, string>
