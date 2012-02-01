@@ -36,6 +36,8 @@ namespace TankIconMaker
 
         private void init(int width, int height)
         {
+            PixelWidth = width;
+            PixelHeight = height;
             Stride = width * Image.GetPixelFormatSize(PixelFormat.Format32bppArgb) / 8;
             int padding = Stride % 4;
             Stride += (padding == 0) ? 0 : 4 - padding;
@@ -44,10 +46,10 @@ namespace TankIconMaker
         }
 
         /// <summary>Gets the width of the image in pixels.</summary>
-        public int PixelWidth { get { return Bitmap.Width; } }
+        public int PixelWidth { get; private set; }
 
         /// <summary>Gets the height of the image in pixels.</summary>
-        public int PixelHeight { get { return Bitmap.Height; } }
+        public int PixelHeight { get; private set; }
 
         /// <summary>Gets the bitmap bit buffer. Writes to this array modify the image; writes to the image modify this array.</summary>
         public byte[] Bytes { get { return _bytes.Bytes; } }
