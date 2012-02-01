@@ -61,7 +61,7 @@ namespace TankIconMaker
         /// also what the <see cref="DataSourceEditor"/> drop-down uses. If the property with such a name doesn't exist, a null value
         /// is returned. The maker must not crash just because some data files are missing, and hence must handle these nulls properly.
         /// </summary>
-        public string this[string name]
+        public virtual string this[string name]
         {
             get
             {
@@ -76,7 +76,7 @@ namespace TankIconMaker
         /// Adds a warning about this tank's rendering. The user will see a big warning icon telling them to look for warnings on specific tanks,
         /// and each image with warnings will have a little warning icon shown in it.
         /// </summary>
-        public void AddWarning(string warning)
+        public virtual void AddWarning(string warning)
         {
             _addWarning(warning);
         }
@@ -91,7 +91,7 @@ namespace TankIconMaker
         /// Loads the standard 3D image for this tank and returns as a WPF image. Note that it's larger than 80x24.
         /// Returns null if the image file does not exist.
         /// </summary>
-        public WriteableBitmap LoadImage3DWpf()
+        public virtual WriteableBitmap LoadImage3DWpf()
         {
             try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga")); }
             catch (FileNotFoundException) { return null; }
@@ -102,7 +102,7 @@ namespace TankIconMaker
         /// Loads the standard 3D image for this tank and returns as a GDI image. Note that it's larger than 80x24.
         /// Returns null if the image file does not exist.
         /// </summary>
-        public BitmapGdi LoadImage3DGdi()
+        public virtual BitmapGdi LoadImage3DGdi()
         {
             try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga")); }
             catch (FileNotFoundException) { return null; }
@@ -113,7 +113,7 @@ namespace TankIconMaker
         /// Loads the standard contour image for this tank and returns it as a WPF image.
         /// Returns null if the image file does not exist.
         /// </summary>
-        public WriteableBitmap LoadImageContourWpf()
+        public virtual WriteableBitmap LoadImageContourWpf()
         {
             try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga")); }
             catch (FileNotFoundException) { return null; }
@@ -124,7 +124,7 @@ namespace TankIconMaker
         /// Loads the standard contour image for this tank and returns it as a GDI image.
         /// Returns null if the image file does not exist.
         /// </summary>
-        public BitmapGdi LoadImageContourGdi()
+        public virtual BitmapGdi LoadImageContourGdi()
         {
             try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga")); }
             catch (FileNotFoundException) { return null; }
@@ -132,14 +132,11 @@ namespace TankIconMaker
         }
     }
 
-    /// <summary>
-    /// Encapsulates information about a tank read from the built-in data file. This is a separate type from <see cref="Tank"/> to ensure
-    /// that it is not accidentally passed on to a maker without filling out the extra properties or linking to a game version/install.
-    /// </summary>
-    class TankData : Tank
+    /// <summary>Used to test makers for bugs in handling missing data.</summary>
+    class TankTest : Tank
     {
-        /// <summary>Creates a new tank data instance with the specified properties, for testing purposes.</summary>
-        public TankData(string systemId, int tier, Country country, Class class_, Category category)
+        /// <summary>Constructor.</summary>
+        public TankTest(string systemId, int tier, Country country, Class class_, Category category)
         {
             SystemId = systemId;
             Tier = tier;
@@ -148,6 +145,24 @@ namespace TankIconMaker
             Category = category;
         }
 
+        public string PropertyValue;
+        public BitmapGdi LoadedImageGdi;
+        public WriteableBitmap LoadedImageWpf;
+
+        public override string this[string name] { get { return PropertyValue; } }
+        public override BitmapGdi LoadImage3DGdi() { return LoadedImageGdi; }
+        public override WriteableBitmap LoadImage3DWpf() { return LoadedImageWpf; }
+        public override BitmapGdi LoadImageContourGdi() { return LoadedImageGdi; }
+        public override WriteableBitmap LoadImageContourWpf() { return LoadedImageWpf; }
+        public override void AddWarning(string warning) { }
+    }
+
+    /// <summary>
+    /// Encapsulates information about a tank read from the built-in data file. This is a separate type from <see cref="Tank"/> to ensure
+    /// that it is not accidentally passed on to a maker without filling out the extra properties or linking to a game version/install.
+    /// </summary>
+    class TankData : Tank
+    {
         /// <summary>Parses a CSV row from a built-in data file.</summary>
         public TankData(string[] fields)
         {

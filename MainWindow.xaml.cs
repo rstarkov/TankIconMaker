@@ -23,8 +23,6 @@ using RT.Util.Xml;
  * Re-test if all properties absent
  * Allow getting extra properties just by name. Update the getter comment.
  * Don't crash if a maker type is removed from the program
- * Test the maker by returning nulls for all the image requests
- * "Original" maker has a bug if the image is missing
  * 
  * Russian translation
  * ctGameVersions: use binding; use DisplayName
@@ -338,7 +336,7 @@ namespace TankIconMaker
                                 image.Source = renderTask.Image;
                                 image.Tag = renderTask;
                                 image.Opacity = 1;
-                                foreach (var ad in _adornerLayer.GetAdorners(image))
+                                foreach (var ad in _adornerLayer.GetAdorners(image) ?? new Adorner[0])
                                     ad.InvalidateVisual();
                                 if (ctIconsPanel.Children.OfType<Image>().All(c => c.Opacity == 1))
                                     UpdateIconsCompleted();
@@ -397,19 +395,56 @@ namespace TankIconMaker
         /// </summary>
         private void TestMaker(MakerBase maker, GameInstallationSettings gameInstall, Version gameVersion)
         {
-            // A bit of a quick hack, but should do the job
-            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains("when presented with a tank that is missing some \"extra\" properties")).FirstOrDefault());
-            var tank = new Tank(new TankData("test", 5, Country.USSR, Class.Medium, Category.Normal), null, gameInstall, _data.Versions[gameVersion], warning => { });
+            // Test missing extra properties
+            string missingExtraProperties = "when presented with a tank that is missing some \"extra\" properties"; // A bit of a quick hack, but should do the job
+            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains(missingExtraProperties)).FirstOrDefault());
             try
             {
+                var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
+                tank.LoadedImageGdi = Ut.NewBitmapGdi();
+                tank.LoadedImageWpf = Ut.NewBitmapWpf();
                 maker.DrawTankInternal(tank);
             }
             catch (Exception e)
             {
                 if (!(e is MakerUserError))
-                    _otherWarnings.Add("The maker {0} is buggy: it throws a {1} when presented with a tank that is missing some \"extra\" properties. Please report this to the developer.".Fmt(maker.GetType().Name, e.GetType().Name));
+                    _otherWarnings.Add(("The maker {0} is buggy: it throws a {1} " + missingExtraProperties + ". Please report this to the developer.").Fmt(maker.GetType().Name, e.GetType().Name));
                 // The maker must not throw when properties are missing: firstly, for configurable properties the user could select "None"
                 // from the drop-down, and secondly, hard-coded properties could simply be missing altogether.
+            }
+
+            // Test unexpected property values
+            string unexpectedProperty = "possibly due to a property value it didn't expect"; // A bit of a quick hack, but should do the job
+            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains(unexpectedProperty)).FirstOrDefault());
+            try
+            {
+                var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
+                tank.PropertyValue = "z"; // very short, so substring/indexing can fail, also not parseable as integer. Hopefully "unexpected enough".
+                tank.LoadedImageGdi = Ut.NewBitmapGdi();
+                tank.LoadedImageWpf = Ut.NewBitmapWpf();
+                maker.DrawTankInternal(tank);
+            }
+            catch (Exception e)
+            {
+                if (!(e is MakerUserError))
+                    _otherWarnings.Add(("The maker {0} is buggy: it throws a {1} " + unexpectedProperty + ". Please report this to the developer.").Fmt(maker.GetType().Name, e.GetType().Name));
+                // The maker must not throw for unexpected property values: it could issue a warning using tank.AddWarning.
+            }
+
+            // Test missing images
+            string missingImages = "when some of the standard images cannot be found"; // A bit of a quick hack, but should do the job
+            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains(missingImages)).FirstOrDefault());
+            try
+            {
+                var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
+                tank.PropertyValue = "test";
+                maker.DrawTankInternal(tank);
+            }
+            catch (Exception e)
+            {
+                if (!(e is MakerUserError))
+                    _otherWarnings.Add(("The maker {0} is buggy: it throws a {1} " + missingImages + ". Please report this to the developer.").Fmt(maker.GetType().Name, e.GetType().Name));
+                // The maker must not throw if the images are missing: it could issue a warning using tank.AddWarning though.
             }
         }
 
@@ -503,16 +538,17 @@ namespace TankIconMaker
             if (renderResult == null)
                 return;
 
-            var warnings = renderResult.WarningsCount == 0 ? "\n\n" : (string.Join("\n\n", renderResult.Warnings.Select(s => "• " + s)) + "\n\n");
+            var warnings = renderResult.WarningsCount == 0 ? "" : string.Join("\n\n", renderResult.Warnings.Select(s => "• " + s));
+            var joiner = renderResult.WarningsCount == 0 ? "" : "\n\n";
 
             if (renderResult.Exception == null && renderResult.WarningsCount == 0)
                 DlgMessage.ShowInfo("This image rendered without any problems.");
 
             else if (renderResult.Exception == null)
-                DlgMessage.ShowWarning(warnings.Trim());
+                DlgMessage.ShowWarning(warnings);
 
             else if (renderResult.Exception is MakerUserError)
-                DlgMessage.ShowWarning(warnings + "Could not render this image: " + renderResult.Exception.Message);
+                DlgMessage.ShowWarning(warnings + joiner + "Could not render this image: " + renderResult.Exception.Message);
 
             else
             {
@@ -524,7 +560,7 @@ namespace TankIconMaker
                     + "Exception details: {0}, {1}\n".Fmt(renderResult.Exception.GetType().Name, renderResult.Exception.Message)
                     + Ut.CollapseStackTrace(renderResult.Exception.StackTrace);
 
-                bool copy = DlgMessage.ShowWarning(warnings + "The maker threw an exception while rendering this image. This is a bug in the maker; please report it.\n\n" + message,
+                bool copy = DlgMessage.ShowWarning(warnings + joiner + "The maker threw an exception while rendering this image. This is a bug in the maker; please report it.\n\n" + message,
                     "Copy report to &clipboard", "Close") == 0;
 
                 if (copy)
