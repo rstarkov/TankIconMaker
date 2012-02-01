@@ -25,8 +25,8 @@ namespace TankIconMaker
         {
             BindingOperations.SetBinding(ctCombo, ComboBox.SelectedItemProperty, LambdaBinding.New(
                 new Binding("Value") { Source = propertyItem, Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
-                (string source) => { return Program.DataSources.FirstOrDefault(d => d.ToString() == source); },
-                (DataSourceInfo source) => { return source.ToString(); }
+                (ExtraPropertyId source) => { return Program.DataSources.FirstOrDefault(d => d.ToExtraPropertyId().Equals(source)); },
+                (DataSourceInfo source) => { return source.ToExtraPropertyId(); }
             ));
             return this;
         }
@@ -106,12 +106,10 @@ namespace TankIconMaker
             }
         }
 
-        /// <summary>
-        /// Returns a data file identifier string, in a format that's also used when saving maker settings to a file.
-        /// </summary>
-        public override string ToString()
+        /// <summary>Returns an "extra" property identifier matching this data file.</summary>
+        public virtual ExtraPropertyId ToExtraPropertyId()
         {
-            return Name + "/" + Language + "/" + Author;
+            return new ExtraPropertyId(Name, Language, Author);
         }
     }
 
@@ -120,9 +118,9 @@ namespace TankIconMaker
     /// </summary>
     sealed class DataSourceNone : DataSourceInfo
     {
-        public override string ToString()
+        public override ExtraPropertyId ToExtraPropertyId()
         {
-            return "<None>";
+            return ExtraPropertyId.None;
         }
     }
 }
