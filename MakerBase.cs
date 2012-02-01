@@ -101,6 +101,7 @@ namespace TankIconMaker
             using (var context = visual.RenderOpen())
                 DrawTank(tank, context);
             var bitmap = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Pbgra32);
+            RenderOptions.SetBitmapScalingMode(visual, BitmapScalingMode.HighQuality);
             bitmap.Render(visual);
             bitmap.Freeze();
             return bitmap;

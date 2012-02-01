@@ -179,9 +179,11 @@ namespace TankIconMaker
             tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.Aliased ? 255 : 180));
             tierLayer = tierLayer.GetBlurred().DrawImage(tierLayer);
 
-            try
+            var image = Style == ImageStyle.Contour ? tank.LoadImageContourWpf() : tank.LoadImage3DWpf();
+            if (image == null)
+                tank.AddWarning("The image for this tank is missing.");
+            else
             {
-                var image = Style == ImageStyle.Contour ? tank.LoadImageContourWpf() : tank.LoadImage3DWpf();
                 var minmax = Ut.PreciseWidth(image, 100);
                 if (Overhang != OverhangStyle.Overhang)
                     dc.PushClip(new RectangleGeometry(new Rect(1, 2, 78, 20)));
@@ -207,7 +209,6 @@ namespace TankIconMaker
                 if (Overhang != OverhangStyle.Overhang)
                     dc.Pop();
             }
-            catch { }
 
             dc.DrawImage(nameLayer);
             dc.DrawImage(tierLayer);

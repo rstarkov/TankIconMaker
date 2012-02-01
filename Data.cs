@@ -9,7 +9,7 @@ using RT.Util.Xml;
 namespace TankIconMaker
 {
     /// <summary>
-    /// Encapsulates all the available information about a single tank. Exposes methods to retrieve standard images for this tank.
+    /// Encapsulates all the available information about a tank to be rendered. Exposes methods to retrieve standard images for this tank.
     /// </summary>
     class Tank
     {
@@ -28,6 +28,7 @@ namespace TankIconMaker
 
         private GameInstallationSettings _gameInstall;
         private GameVersion _gameVersion;
+        private Action<string> _addWarning;
 
         protected Tank() { }
 
@@ -36,7 +37,9 @@ namespace TankIconMaker
         /// <param name="extras">All the extra properties available for this tank and this game version.</param>
         /// <param name="gameInstall">Game install settings (to allow loading standard tank images).</param>
         /// <param name="gameVersion">Game version info (to allow loading standard tank images).</param>
-        public Tank(TankData tank, IEnumerable<KeyValuePair<string, string>> extras, GameInstallationSettings gameInstall, GameVersion gameVersion)
+        /// <param name="addWarning">The method to be used to add warnings about this tank's rendering.</param>
+        public Tank(TankData tank, IEnumerable<KeyValuePair<string, string>> extras,
+            GameInstallationSettings gameInstall, GameVersion gameVersion, Action<string> addWarning)
         {
             if (gameInstall == null || gameVersion == null) throw new ArgumentNullException();
             SystemId = tank.SystemId;
@@ -45,23 +48,12 @@ namespace TankIconMaker
             Class = tank.Class;
             Category = tank.Category;
             _extras = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var extra in extras)
-                _extras.Add(extra.Key, extra.Value);
+            if (extras != null)
+                foreach (var extra in extras)
+                    _extras.Add(extra.Key, extra.Value);
             _gameInstall = gameInstall;
             _gameVersion = gameVersion;
-        }
-
-        /// <summary>Constructs a clone of the specified tank but without any extra properties, in order to test a Maker for exceptions.</summary>
-        public Tank(Tank tank)
-        {
-            SystemId = tank.SystemId;
-            Country = tank.Country;
-            Tier = tank.Tier;
-            Class = tank.Class;
-            Category = tank.Category;
-            _extras = new Dictionary<string, string>();
-            _gameInstall = tank._gameInstall;
-            _gameVersion = tank._gameVersion;
+            _addWarning = addWarning;
         }
 
         /// <summary>
@@ -78,6 +70,15 @@ namespace TankIconMaker
                     return null;
                 return result;
             }
+        }
+
+        /// <summary>
+        /// Adds a warning about this tank's rendering. The user will see a big warning icon telling them to look for warnings on specific tanks,
+        /// and each image with warnings will have a little warning icon shown in it.
+        /// </summary>
+        public void AddWarning(string warning)
+        {
+            _addWarning(warning);
         }
 
         /// <summary>For debugging.</summary>
@@ -137,6 +138,16 @@ namespace TankIconMaker
     /// </summary>
     class TankData : Tank
     {
+        /// <summary>Creates a new tank data instance with the specified properties, for testing purposes.</summary>
+        public TankData(string systemId, int tier, Country country, Class class_, Category category)
+        {
+            SystemId = systemId;
+            Tier = tier;
+            Country = country;
+            Class = class_;
+            Category = category;
+        }
+
         /// <summary>Parses a CSV row from a built-in data file.</summary>
         public TankData(string[] fields)
         {
