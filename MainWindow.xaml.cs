@@ -118,6 +118,10 @@ namespace TankIconMaker
         {
             ContentRendered -= InitializeEverything;
 
+            var mat = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
+            Program.DpiScaleX = mat.M11;
+            Program.DpiScaleY = mat.M22;
+
             if (File.Exists(Path.Combine(PathUtil.AppPath, "Data", "background.jpg")))
                 ctOuterGrid.Background = new ImageBrush
                 {
@@ -463,11 +467,11 @@ namespace TankIconMaker
             img.MouseLeftButtonUp += TankImage_MouseLeftButtonUp;
             BindingOperations.SetBinding(img, TankImageControl.WidthProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => 80.0 * (check ? 5 : 1)
+                (bool check) => 80.0 * (check ? 5 : 1) / Program.DpiScaleX
             ));
             BindingOperations.SetBinding(img, TankImageControl.HeightProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => 24.0 * (check ? 5 : 1)
+                (bool check) => 24.0 * (check ? 5 : 1) / Program.DpiScaleY
             ));
             ctIconsPanel.Children.Add(img);
             return img;
@@ -1021,7 +1025,7 @@ namespace TankIconMaker
             double cy = ActualHeight / 2;
             double scale = 0.6 * ActualHeight / 100;
 
-            dc.PushTransform(new TranslateTransform(50 * scale - 7, cy));
+            dc.PushTransform(new TranslateTransform(50 * scale - 7 / Program.DpiScaleX, cy));
             dc.PushTransform(new ScaleTransform(scale, scale));
 
             dc.DrawGeometry(Brushes.Black, null, _triangle);
