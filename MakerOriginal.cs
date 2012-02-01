@@ -15,7 +15,11 @@ namespace TankIconMaker
 
         public override void DrawTank(Tank tank, DrawingContext dc)
         {
-            dc.DrawImage(tank.LoadImageContourWpf());
+            var image = tank.LoadImageContourWpf();
+            if (image == null)
+                tank.AddWarning("Could not load the contour image for this tank.");
+            else
+                dc.DrawImage(image);
         }
     }
 }
