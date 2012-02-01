@@ -39,6 +39,11 @@ namespace TankIconMaker
         /// <summary>The last selected game install location.</summary>
         public string SelectedGamePath = Ut.FindTanksDirectory();
 
+        /// <summary>Program language (in the future), and also the default language for property values when not specified.</summary>
+        public string Language = "Ru";
+        /// <summary>If a maker requests a property by name only, this author is given preference.</summary>
+        public string DefaultPropertyAuthor = "Romkyns";
+
         /// <summary>Settings that are specific to a game installation path.</summary>
         public ObservableSortedList<GameInstallationSettings> GameInstalls = new ObservableSortedList<GameInstallationSettings>();
 

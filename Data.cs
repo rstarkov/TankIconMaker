@@ -24,7 +24,7 @@ namespace TankIconMaker
         /// <summary>Tank's category: normal (buyable for silver), premium (buyable for gold), or special (not for sale).</summary>
         public Category Category { get; protected set; }
 
-        private Dictionary<string, string> _extras;
+        private Dictionary<ExtraPropertyId, string> _extras;
 
         private GameInstallationSettings _gameInstall;
         private GameVersion _gameVersion;
@@ -38,7 +38,7 @@ namespace TankIconMaker
         /// <param name="gameInstall">Game install settings (to allow loading standard tank images).</param>
         /// <param name="gameVersion">Game version info (to allow loading standard tank images).</param>
         /// <param name="addWarning">The method to be used to add warnings about this tank's rendering.</param>
-        public Tank(TankData tank, IEnumerable<KeyValuePair<string, string>> extras,
+        public Tank(TankData tank, IEnumerable<KeyValuePair<ExtraPropertyId, string>> extras,
             GameInstallationSettings gameInstall, GameVersion gameVersion, Action<string> addWarning)
         {
             if (gameInstall == null || gameVersion == null) throw new ArgumentNullException();
@@ -47,7 +47,7 @@ namespace TankIconMaker
             Tier = tank.Tier;
             Class = tank.Class;
             Category = tank.Category;
-            _extras = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            _extras = new Dictionary<ExtraPropertyId, string>();
             if (extras != null)
                 foreach (var extra in extras)
                     _extras.Add(extra.Key, extra.Value);
@@ -57,18 +57,44 @@ namespace TankIconMaker
         }
 
         /// <summary>
-        /// Gets the value of an extra property. The extra property can be specified by full name ("Name/Language/Author"), which is
-        /// also what the <see cref="DataSourceEditor"/> drop-down uses. If the property with such a name doesn't exist, a null value
-        /// is returned. The maker must not crash just because some data files are missing, and hence must handle these nulls properly.
+        /// Gets the value of an "extra" property. This getter takes the same values that  the <see cref="DataSourceEditor"/> drop-down uses.
+        /// If the referenced property doesn't exist, a null value is returned. The maker must not crash just because some data files are missing,
+        /// and hence must handle these nulls properly.
+        /// </summary>
+        public virtual string this[ExtraPropertyId property]
+        {
+            get
+            {
+                string result;
+                if (!_extras.TryGetValue(property, out result))
+                {
+                    return null;
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value of an "extra" property by property name. This is suitable for quick hacks or development/testing. The property
+        /// will prefer the currently selected language and the author specified in <see cref="Settings"/>, but will fall back onto other
+        /// languages and authors if necessary. If no matching property can be found, a null value is returned. The maker must not crash
+        /// just because some data files are missing, and hence must handle these nulls properly.
         /// </summary>
         public virtual string this[string name]
         {
             get
             {
-                string result;
-                if (!_extras.TryGetValue(name, out result))
+                var matches = _extras.Keys.Where(k => k.Name.EqualsNoCase(name)).ToArray();
+                if (matches.Length == 0)
                     return null;
-                return result;
+                if (matches.Length == 1)
+                    return _extras[matches[0]];
+                // Otherwise need to pick one
+                var match = matches.FirstOrDefault(k => k.Language == Program.Settings.Language && k.Author.EqualsNoCase(Program.Settings.DefaultPropertyAuthor));
+                if (match != null) return _extras[match];
+                match = matches.FirstOrDefault(k => k.Language == Program.Settings.Language);
+                if (match != null) return _extras[match];
+                return _extras[matches[0]];
             }
         }
 
@@ -363,6 +389,52 @@ namespace TankIconMaker
         {
             return "{0} = {1}".Fmt(TankSystemId, Value);
         }
+    }
+
+    /// <summary>
+    /// Identifies an "extra" property. Suitable for use as dictionary keys.
+    /// </summary>
+    sealed class ExtraPropertyId : IEquatable<ExtraPropertyId>
+    {
+        public string Name { get; private set; }
+        public string Language { get; private set; }
+        public string Author { get; private set; }
+
+        public static readonly ExtraPropertyId None = new ExtraPropertyId();
+
+        public ExtraPropertyId(string name, string language, string author)
+        {
+            if (name == null || language == null || author == null)
+                throw new ArgumentNullException();
+            Name = name;
+            Language = language;
+            Author = author;
+        }
+
+        private ExtraPropertyId() { } // for XmlClassify
+
+        public override bool Equals(object obj) { return Equals(obj as ExtraPropertyId); }
+
+        public bool Equals(ExtraPropertyId other)
+        {
+            return other != null && Name == other.Name && Language == other.Language && Author == other.Author;
+        }
+
+        [XmlIgnore]
+        private int _hash = 0;
+
+        public override int GetHashCode()
+        {
+            if (_hash == 0)
+            {
+                _hash = unchecked((Name ?? "").GetHashCode() + (Language ?? "").GetHashCode() * 1049 + (Author ?? "").GetHashCode() * 5507);
+                if (_hash == 0)
+                    _hash = 1;
+            }
+            return _hash;
+        }
+
+        public override string ToString() { return Name + "/" + Language + "/" + Author; }
     }
 
     /// <summary>
@@ -745,7 +817,7 @@ namespace TankIconMaker
     /// <summary>
     /// Represents some settings for a particular game version.
     /// </summary>
-    class GameVersion
+    sealed class GameVersion
     {
         /// <summary>How this version should be displayed in the UI. Note: not currently used.</summary>
         public string DisplayName { get; private set; }

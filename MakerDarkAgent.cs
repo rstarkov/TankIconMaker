@@ -44,7 +44,7 @@ namespace TankIconMaker
         [Category("Tank name"), DisplayName("Data source")]
         [Description("Choose the name of the property that supplies the data for the bottom right location.")]
         [Editor(typeof(DataSourceEditor), typeof(DataSourceEditor))]
-        public string NameData { get; set; }
+        public ExtraPropertyId NameData { get; set; }
 
         [Category("Tank name"), DisplayName("Color: normal")]
         [Description("Used to color the name of all tanks that can be freely bought for silver in the game.")]
@@ -104,7 +104,7 @@ namespace TankIconMaker
             BackColorDestroyer = Color.FromRgb(41, 83, 160);
             BackColorArtillery = Color.FromRgb(181, 47, 47);
 
-            NameData = "NameShortWG/Ru/Romkyns";
+            NameData = new ExtraPropertyId("NameShortWG", "Ru", "Romkyns");
             NameColorNormal = Color.FromRgb(210, 210, 210);
             NameColorPremium = Colors.Yellow;
             NameColorSpecial = Color.FromRgb(242, 98, 103);

@@ -20,9 +20,9 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
- * Re-test if all properties absent
- * Allow getting extra properties just by name. Update the getter comment.
  * Don't crash if a maker type is removed from the program
+ * Stop using the buggy adorners
+ * Enforce language capitalization
  * 
  * Russian translation
  * ctGameVersions: use binding; use DisplayName
@@ -617,8 +617,10 @@ namespace TankIconMaker
         private List<RenderTask> ListRenderTasks(GameInstallationSettings gameInstall, Version gameVersion, bool all = false)
         {
             var builtin = _data.BuiltIn.Where(b => b.GameVersion <= gameVersion).MaxOrDefault(b => b.GameVersion);
-            IEnumerable<TankData> selection = null;
+            if (builtin == null)
+                return new List<RenderTask>(); // happens when there are no built-in data files
 
+            IEnumerable<TankData> selection = null;
             if (all || ctDisplayMode.SelectedIndex == 0) // all tanks
                 selection = builtin.Data;
             else if (ctDisplayMode.SelectedIndex == 1) // one of each
@@ -635,8 +637,8 @@ namespace TankIconMaker
                     task.TankSystemId = tank.SystemId;
                     task.Tank = new Tank(
                         tank,
-                        extras.Select(df => new KeyValuePair<string, string>(
-                            key: df.Name + "/" + df.Language + "/" + df.Author,
+                        extras.Select(df => new KeyValuePair<ExtraPropertyId, string>(
+                            key: new ExtraPropertyId(df.Name, df.Language, df.Author),
                             value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
                         )),
                         gameInstall: gameInstall,
@@ -683,6 +685,7 @@ namespace TankIconMaker
             _renderResults.Clear();
             ScheduleUpdateIcons();
             ctMakerSave.IsEnabled = true;
+            Program.Settings.SaveThreaded();
         }
 
         private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
