@@ -22,7 +22,6 @@ using RT.Util.Xml;
 /*
  * Don't crash if a maker type is removed from the program
  * Stop using the buggy adorners
- * Enforce language capitalization
  * 
  * Russian translation
  * ctGameVersions: use binding; use DisplayName
@@ -411,6 +410,7 @@ namespace TankIconMaker
                     _otherWarnings.Add(("The maker {0} is buggy: it throws a {1} " + missingExtraProperties + ". Please report this to the developer.").Fmt(maker.GetType().Name, e.GetType().Name));
                 // The maker must not throw when properties are missing: firstly, for configurable properties the user could select "None"
                 // from the drop-down, and secondly, hard-coded properties could simply be missing altogether.
+                // (although this could, of course, be a bug in TankIconMaker itself)
             }
 
             // Test unexpected property values
@@ -429,6 +429,7 @@ namespace TankIconMaker
                 if (!(e is MakerUserError))
                     _otherWarnings.Add(("The maker {0} is buggy: it throws a {1} " + unexpectedProperty + ". Please report this to the developer.").Fmt(maker.GetType().Name, e.GetType().Name));
                 // The maker must not throw for unexpected property values: it could issue a warning using tank.AddWarning.
+                // (although this could, of course, be a bug in TankIconMaker itself)
             }
 
             // Test missing images
@@ -445,6 +446,7 @@ namespace TankIconMaker
                 if (!(e is MakerUserError))
                     _otherWarnings.Add(("The maker {0} is buggy: it throws a {1} " + missingImages + ". Please report this to the developer.").Fmt(maker.GetType().Name, e.GetType().Name));
                 // The maker must not throw if the images are missing: it could issue a warning using tank.AddWarning though.
+                // (although this could, of course, be a bug in TankIconMaker itself)
             }
         }
 

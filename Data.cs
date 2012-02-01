@@ -66,10 +66,8 @@ namespace TankIconMaker
             get
             {
                 string result;
-                if (!_extras.TryGetValue(property, out result))
-                {
+                if (property == null || !_extras.TryGetValue(property, out result))
                     return null;
-                }
                 return result;
             }
         }
@@ -84,6 +82,8 @@ namespace TankIconMaker
         {
             get
             {
+                if (name == null)
+                    return null;
                 var matches = _extras.Keys.Where(k => k.Name.EqualsNoCase(name)).ToArray();
                 if (matches.Length == 0)
                     return null;
@@ -176,6 +176,7 @@ namespace TankIconMaker
         public WriteableBitmap LoadedImageWpf;
 
         public override string this[string name] { get { return PropertyValue; } }
+        public override string this[ExtraPropertyId property] { get { return PropertyValue; } }
         public override BitmapGdi LoadImage3DGdi() { return LoadedImageGdi; }
         public override WriteableBitmap LoadImage3DWpf() { return LoadedImageWpf; }
         public override BitmapGdi LoadImageContourGdi() { return LoadedImageGdi; }
@@ -577,9 +578,9 @@ namespace TankIconMaker
                 }
 
                 int fileVersion;
-                if (!int.TryParse(partsr[0], out fileVersion))
+                if (partsr[0].Length != 3 || !int.TryParse(partsr[0], out fileVersion))
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has an unparseable file version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[0]));
+                    _warnings.Add("Skipped \"{0}\" because it has an unparseable file version part in the filename: \"{1}\" (or it isn't exactly 3 digits long).".Fmt(fi.Name, partsr[0]));
                     continue;
                 }
 
@@ -606,9 +607,9 @@ namespace TankIconMaker
                     }
 
                     string languageName = parts[2].Trim();
-                    if (languageName.Length != 2)
+                    if (languageName != "X" && !_languages.Contains(languageName))
                     {
-                        _warnings.Add("Skipped \"{0}\" because its language name part in the filename is not a 2 letter long language code.".Fmt(fi.Name));
+                        _warnings.Add("Skipped \"{0}\" because its language name part in the filename (\"{1}\") is not a valid language code, nor \"X\" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.".Fmt(fi.Name, languageName));
                         continue;
                     }
 
@@ -781,6 +782,17 @@ namespace TankIconMaker
                 _extra.Add(e.Single(k => k.FileVersion == e.Max(m => m.FileVersion)).Result);
         }
 
+        private static readonly string[] _languages = new[] {
+            "Aa", "Ab", "Ae", "Af", "Ak", "Am", "An", "Ar", "As", "Av", "Ay", "Az", "Ba", "Be", "Bg", "Bh", "Bi", "Bm", "Bn", "Bo",
+            "Br", "Bs", "Ca", "Ce", "Ch", "Co", "Cr", "Cs", "Cu", "Cv", "Cy", "Da", "De", "Dv", "Dz", "Ee", "El", "En", "Eo", "Es", "Et",
+            "Eu", "Fa", "Ff", "Fi", "Fj", "Fo", "Fr", "Fy", "Ga", "Gd", "Gl", "Gn", "Gu", "Gv", "Ha", "He", "Hi", "Ho", "Hr", "Ht", "Hu",
+            "Hy", "Hz", "Ia", "Id", "Ie", "Ig", "Ii", "Ik", "Io", "Is", "It", "Iu", "Ja", "Jv", "Ka", "Kg", "Ki", "Kj", "Kk", "Kl", "Km", "Kn",
+            "Ko", "Kr", "Ks", "Ku", "Kv", "Kw", "Ky", "La", "Lb", "Lg", "Li", "Ln", "Lo", "Lt", "Lu", "Lv", "Mg", "Mh", "Mi", "Mk",
+            "Ml", "Mn", "Mr", "Ms", "Mt", "My", "Na", "Nb", "Nd", "Ne", "Ng", "Nl", "Nn", "No", "Nr", "Nv", "Ny", "Oc", "Oj",
+            "Om", "Or", "Os", "Pa", "Pi", "Pl", "Ps", "Pt", "Qu", "Rm", "Rn", "Ro", "Ru", "Ru", "Rw", "Sa", "Sc", "Sd", "Se", "Sg",
+            "Si", "Sk", "Sl", "Sm", "Sn", "So", "Sq", "Sr", "Ss", "St", "Su", "Sv", "Sw", "Ta", "Te", "Tg", "Th", "Ti", "Tk", "Tl", "Tn",
+            "To", "Tr", "Ts", "Tt", "Tw", "Ty", "Ug", "Uk", "Ur", "Uz", "Ve", "Vi", "Vo", "Wa", "Wo", "Xh", "Yi", "Yo", "Za", "Zh", "Zu"
+        };
     }
 
     /// <summary>Represents one of the WoT countries.</summary>

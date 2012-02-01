@@ -26,7 +26,7 @@ namespace TankIconMaker
             BindingOperations.SetBinding(ctCombo, ComboBox.SelectedItemProperty, LambdaBinding.New(
                 new Binding("Value") { Source = propertyItem, Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
                 (ExtraPropertyId source) => { return Program.DataSources.FirstOrDefault(d => d.ToExtraPropertyId().Equals(source)); },
-                (DataSourceInfo source) => { return source.ToExtraPropertyId(); }
+                (DataSourceInfo source) => { return source == null ? null : source.ToExtraPropertyId(); }
             ));
             return this;
         }
