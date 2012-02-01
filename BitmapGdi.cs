@@ -43,6 +43,7 @@ namespace TankIconMaker
             Stride += (padding == 0) ? 0 : 4 - padding;
             _bytes = new SharedPinnedByteArray(Stride * height);
             Bitmap = new Bitmap(width, height, Stride, PixelFormat.Format32bppArgb, _bytes.Address);
+            Bitmap.SetResolution(96, 96);
         }
 
         /// <summary>Gets the width of the image in pixels.</summary>

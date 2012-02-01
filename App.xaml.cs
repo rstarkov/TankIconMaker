@@ -80,5 +80,11 @@ namespace TankIconMaker
             items: new[] { new DataSourceNone() },
             comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceNone ? 0 : 1)
                 .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersion));
+
+        /// <summary>
+        /// Screen resolution at program start time, relative to the WPF's 96.0 ppi. Windows 7 won't allow this to be changed
+        /// without a log-off, so it's OK to read this once at start up and assume it doesn't change.
+        /// </summary>
+        public static double DpiScaleX, DpiScaleY;
     }
 }
