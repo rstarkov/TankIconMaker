@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using RT.Util;
+using RT.Util.Xml;
 using D = System.Drawing;
 
 namespace TankIconMaker
@@ -12,7 +13,7 @@ namespace TankIconMaker
     /// Base class for all the icon makers. To implement a new icon maker, derive from <see cref="MakerBaseGdi"/> or
     /// <see cref="MakerBaseWpf"/>, rather than this class. Make sure to read documentation on the project's website.
     /// </summary>
-    abstract class MakerBase
+    abstract class MakerBase : IXmlClassifyProcess
     {
         /// <summary>Gets a user-friendly name of this maker.</summary>
         [Browsable(false)]
@@ -77,6 +78,14 @@ namespace TankIconMaker
             else
                 return null;
         }
+
+        /// <summary>
+        /// Stores the <see cref="Version"/> of the maker as it was at the time of saving settings to XML. This may
+        /// then be used to apply transformations to the XML produced by old versions of a maker.
+        /// </summary>
+        private int SavedByVersion;
+        void IXmlClassifyProcess.BeforeXmlClassify() { SavedByVersion = Version; }
+        void IXmlClassifyProcess.AfterXmlDeclassify() { }
     }
 
     /// <summary>

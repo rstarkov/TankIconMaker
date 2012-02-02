@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -16,10 +19,6 @@ namespace TankIconMaker
         {
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-
-            XmlClassify.DefaultOptions = new XmlClassifyOptions()
-                .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(D.Color), new colorTypeOptions());
 
 #if !DEBUG
             Thread.CurrentThread.Name = "Main";
@@ -49,6 +48,25 @@ namespace TankIconMaker
                     catch { DlgMessage.ShowInfo("Sorry, couldn't even copy the error info to clipboard. Something is broken pretty badly."); }
             };
 #endif
+
+            // Configure XmlClassify
+            XmlClassify.DefaultOptions = new XmlClassifyOptions()
+                .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(List<MakerBase>), new listMakerBaseOptions());
+
+            // Find all the makers
+            var makers = new List<ConstructorInfo>();
+            foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(MakerBase).IsAssignableFrom(t) && !t.IsAbstract))
+            {
+                var constructor = makerType.GetConstructor(new Type[0]);
+                if (constructor == null)
+                    DlgMessage.ShowWarning("Ignored maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
+                else
+                    makers.Add(constructor);
+                // (the error message will only be seen by maker developers, so it's ok that it's shown before any UI appears)
+            }
+            Program.MakerConstructors = makers.AsReadOnly();
 
             base.OnStartup(e);
             SettingsUtil.LoadSettings(out Program.Settings);
@@ -86,5 +104,10 @@ namespace TankIconMaker
         /// without a log-off, so it's OK to read this once at start up and assume it doesn't change.
         /// </summary>
         public static double DpiScaleX, DpiScaleY;
+
+        /// <summary>
+        /// A list of parameterless constructors for each maker type defined in this assembly. Initialised once at startup.
+        /// </summary>
+        public static IList<ConstructorInfo> MakerConstructors;
     }
 }

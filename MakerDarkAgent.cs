@@ -17,8 +17,8 @@ namespace TankIconMaker
         // Category: Background
         [Category("Background"), DisplayName("Opacity")]
         [Description("The opacity of the colored background.")]
-        public int BackOpacity { get { return _opacity; } set { _opacity = Math.Max(0, Math.Min(255, value)); } }
-        private int _opacity;
+        public int BackOpacity { get { return _BackOpacity; } set { _BackOpacity = Math.Max(0, Math.Min(255, value)); } }
+        private int _BackOpacity;
 
         [Category("Background"), DisplayName("Color: light tank")]
         [Description("The color of the background used for light tanks.")]
