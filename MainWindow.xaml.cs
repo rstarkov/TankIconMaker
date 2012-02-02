@@ -741,6 +741,20 @@ namespace TankIconMaker
             });
         }
 
+        private void ctAbout_Click(object sender, RoutedEventArgs e)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            string version = assembly.GetName().Version.Major.ToString().PadLeft(3, '0');
+            string copyright = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).OfType<AssemblyCopyrightAttribute>().Select(c => c.Copyright).FirstOrDefault();
+            var icon = Icon as BitmapSource;
+            new DlgMessage()
+            {
+                Message = "Tank Icon Maker\nVersion " + version + "\nBy Romkyns\n\n" + copyright,
+                Caption = "Tank Icon Maker",
+                Image = icon == null ? null : icon.ToGdi().GetBitmapCopy()
+            }.Show();
+        }
+
         /// <summary>
         /// Ensures that a backup of the original icons is available and up-to-date (even if the user has upgraded the game since
         /// the last backup). Might prompt the user about the backup. Returns true to indicate that a backup is fine, or false otherwise.
