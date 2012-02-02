@@ -20,9 +20,6 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 
 /*
- * High DPI test
- * Don't crash if a maker type is removed from the program
- * 
  * Russian translation
  * ctGameVersions: use binding; use DisplayName
  * GameInstallationSettings should use the Version type for the game version.
@@ -129,24 +126,9 @@ namespace TankIconMaker
                     Stretch = Stretch.UniformToFill,
                 };
 
-            // Find all the makers
-            var makers = new List<MakerBase>();
-            foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(MakerBase).IsAssignableFrom(t) && !t.IsAbstract))
-            {
-                var constructor = makerType.GetConstructor(new Type[0]);
-                if (constructor == null)
-                {
-                    DlgMessage.ShowWarning("Ignored maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
-                    continue;
-                }
-                makers.Add((MakerBase) constructor.Invoke(new object[0]));
-            }
-            foreach (var maker in makers)
-                if (!Program.Settings.Makers.Any(m => m.GetType() == maker.GetType()))
-                    Program.Settings.Makers.Add(maker);
-            foreach (var maker in Program.Settings.Makers.ToArray())
-                if (!makers.Any(m => m.GetType() == maker.GetType()))
-                    Program.Settings.Makers.Remove(maker);
+            foreach (var constructor in Program.MakerConstructors)
+                if (!Program.Settings.Makers.Any(m => m.GetType() == constructor.DeclaringType))
+                    Program.Settings.Makers.Add((MakerBase) constructor.Invoke(new object[0]));
             Program.Settings.Makers = Program.Settings.Makers.OrderBy(m => m.Name).ThenBy(m => m.Author).ToList();
 
             // Put the makers into the maker dropdown
