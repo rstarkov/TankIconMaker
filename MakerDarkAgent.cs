@@ -108,14 +108,14 @@ namespace TankIconMaker
             NameColorNormal = Color.FromRgb(210, 210, 210);
             NameColorPremium = Colors.Yellow;
             NameColorSpecial = Color.FromRgb(242, 98, 103);
-            NameAntiAlias = TextAntiAliasStyle.ClearType;
+            NameAntiAlias = TextAntiAliasStyle.Aliased;
 
-            TierAntiAlias = TextAntiAliasStyle.ClearType;
+            TierAntiAlias = TextAntiAliasStyle.Aliased;
             Tier1Color = NameColorNormal;
-            Tier5Color = Colors.White;
-            Tier10Color = Colors.Red;
+            Tier5Color = NameColorNormal;
+            Tier10Color = NameColorNormal;
 
-            Overhang = OverhangStyle.Overhang;
+            Overhang = OverhangStyle.Clip;
             Style = ImageStyle.ThreeD;
 
             _outline = new Pen(Brushes.Black, 1); _outline.Freeze();

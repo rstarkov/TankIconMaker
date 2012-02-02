@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Tank Icon Maker")]
-[assembly: AssemblyCopyright("Copyright © The Contributors 2011")]
+[assembly: AssemblyCopyright("Copyright © The Contributors 2011-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

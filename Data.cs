@@ -141,7 +141,12 @@ namespace TankIconMaker
         /// </summary>
         public virtual WriteableBitmap LoadImageContourWpf()
         {
-            try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga")); }
+            string filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga");
+            if (!File.Exists(filename))
+                filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga");
+            if (!File.Exists(filename))
+                return null;
+            try { return Targa.LoadWpf(filename); }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
@@ -152,7 +157,12 @@ namespace TankIconMaker
         /// </summary>
         public virtual BitmapGdi LoadImageContourGdi()
         {
-            try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga")); }
+            string filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga");
+            if (!File.Exists(filename))
+                filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga");
+            if (!File.Exists(filename))
+                return null;
+            try { return Targa.LoadGdi(filename); }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
