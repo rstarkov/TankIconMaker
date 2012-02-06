@@ -45,7 +45,7 @@ namespace TankIconMaker
             var result = new BitmapGdi(bmp.PixelWidth, bmp.PixelHeight);
             if (bmp.Format != PixelFormats.Bgra32)
                 bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
-            bmp.CopyPixels(result.Bytes, result.Stride, 0);
+            bmp.CopyPixels(result.BackBytes, result.BackBufferStride, 0);
             return result;
         }
 
@@ -154,11 +154,11 @@ namespace TankIconMaker
         public static BitmapGdi GetOutline(this BitmapGdi srcBitmap, int opacity = 255)
         {
             var tgtBitmap = Ut.NewBitmapGdi();
-            var src = srcBitmap.Bytes;
-            var tgt = tgtBitmap.Bytes;
+            var src = srcBitmap.BackBytes;
+            var tgt = tgtBitmap.BackBytes;
             for (int y = 0; y < srcBitmap.PixelHeight; y++)
             {
-                int b = y * srcBitmap.Stride;
+                int b = y * srcBitmap.BackBufferStride;
                 int left = 0;
                 int cur = src[b + 0 + 3];
                 int right;
@@ -167,7 +167,7 @@ namespace TankIconMaker
                     right = x == srcBitmap.PixelWidth - 1 ? (byte) 0 : src[b + 4 + 3];
                     if (src[b + 3] == 0)
                     {
-                        if (left != 0 || right != 0 || (y > 0 && src[b - srcBitmap.Stride + 3] > 0) || ((y < srcBitmap.PixelHeight - 1) && src[b + srcBitmap.Stride + 3] > 0))
+                        if (left != 0 || right != 0 || (y > 0 && src[b - srcBitmap.BackBufferStride + 3] > 0) || ((y < srcBitmap.PixelHeight - 1) && src[b + srcBitmap.BackBufferStride + 3] > 0))
                         {
                             tgt[b] = tgt[b + 1] = tgt[b + 2] = 0;
                             tgt[b + 3] = (byte) opacity;
@@ -184,11 +184,11 @@ namespace TankIconMaker
         public static BitmapGdi GetBlurred(this BitmapGdi srcBitmap)
         {
             var tgtBitmap = Ut.NewBitmapGdi();
-            var src = srcBitmap.Bytes;
-            var tgt = tgtBitmap.Bytes;
+            var src = srcBitmap.BackBytes;
+            var tgt = tgtBitmap.BackBytes;
             for (int y = 0; y < srcBitmap.PixelHeight; y++)
             {
-                int b = y * srcBitmap.Stride;
+                int b = y * srcBitmap.BackBufferStride;
                 for (int x = 0; x < srcBitmap.PixelWidth; x++, b += 4)
                 {
                     tgt[b] = tgt[b + 1] = tgt[b + 2] = 0;
@@ -199,7 +199,7 @@ namespace TankIconMaker
             for (int iter = 0; iter < 5; iter++)
                 for (int y = 0; y < srcBitmap.PixelHeight; y++)
                 {
-                    int b = y * srcBitmap.Stride;
+                    int b = y * srcBitmap.BackBufferStride;
                     int left = 0;
                     int cur = tgt[b + 0 + 3];
                     int right;
@@ -208,8 +208,8 @@ namespace TankIconMaker
                         right = x == srcBitmap.PixelWidth - 1 ? (byte) 0 : tgt[b + 4 + 3];
                         if (tgt[b + 3] == 0)
                         {
-                            int top = y == 0 ? 0 : tgt[b - srcBitmap.Stride + 3];
-                            int bottom = y == srcBitmap.PixelHeight - 1 ? 0 : tgt[b + srcBitmap.Stride + 3];
+                            int top = y == 0 ? 0 : tgt[b - srcBitmap.BackBufferStride + 3];
+                            int bottom = y == srcBitmap.PixelHeight - 1 ? 0 : tgt[b + srcBitmap.BackBufferStride + 3];
                             tgt[b + 3] = (byte) (((left + right + top + bottom) * 6) / 40);
                         }
                         left = cur;

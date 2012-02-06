@@ -113,7 +113,7 @@ namespace TankIconMaker
                 header[17] = 32;
                 file.Write(header);
                 for (int y = 0; y < image.PixelHeight; y++)
-                    file.Write(image.Bytes, y * image.Stride, image.PixelWidth * 4);
+                    file.Write(image.BackBytes, y * image.BackBufferStride, image.PixelWidth * 4);
             }
         }
     }
