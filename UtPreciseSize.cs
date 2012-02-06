@@ -123,7 +123,7 @@ namespace TankIconMaker
         /// </summary>
         public unsafe static PixelRect PreciseSize(this BitmapGdi image, int alphaThreshold = 0)
         {
-            var result = PreciseSize((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold);
+            var result = PreciseSize((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold);
             GC.KeepAlive(image);
             return result;
         }
@@ -145,7 +145,7 @@ namespace TankIconMaker
         /// </summary>
         public unsafe static PixelRect PreciseWidth(this BitmapGdi image, int alphaThreshold = 0)
         {
-            var result = PreciseWidth((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold);
+            var result = PreciseWidth((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold);
             GC.KeepAlive(image);
             return result;
         }
@@ -167,7 +167,7 @@ namespace TankIconMaker
         /// </summary>
         public unsafe static PixelRect PreciseHeight(this BitmapGdi image, int alphaThreshold = 0, int left = 0)
         {
-            var result = PreciseHeight((byte*) image.BytesPtr, image.PixelWidth, image.PixelHeight, image.Stride, alphaThreshold, left);
+            var result = PreciseHeight((byte*) image.BackBuffer, image.PixelWidth, image.PixelHeight, image.BackBufferStride, alphaThreshold, left);
             GC.KeepAlive(image);
             return result;
         }

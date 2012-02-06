@@ -38,11 +38,11 @@ namespace TankIconMaker
         {
             PixelWidth = width;
             PixelHeight = height;
-            Stride = width * Image.GetPixelFormatSize(PixelFormat.Format32bppArgb) / 8;
-            int padding = Stride % 4;
-            Stride += (padding == 0) ? 0 : 4 - padding;
-            _bytes = new SharedPinnedByteArray(Stride * height);
-            Bitmap = new Bitmap(width, height, Stride, PixelFormat.Format32bppArgb, _bytes.Address);
+            BackBufferStride = width * Image.GetPixelFormatSize(PixelFormat.Format32bppArgb) / 8;
+            int padding = BackBufferStride % 4;
+            BackBufferStride += (padding == 0) ? 0 : 4 - padding;
+            _bytes = new SharedPinnedByteArray(BackBufferStride * height);
+            Bitmap = new Bitmap(width, height, BackBufferStride, PixelFormat.Format32bppArgb, _bytes.Address);
             Bitmap.SetResolution(96, 96);
         }
 
@@ -53,13 +53,13 @@ namespace TankIconMaker
         public int PixelHeight { get; private set; }
 
         /// <summary>Gets the bitmap bit buffer. Writes to this array modify the image; writes to the image modify this array.</summary>
-        public byte[] Bytes { get { return _bytes.Bytes; } }
+        public byte[] BackBytes { get { return _bytes.Bytes; } }
 
         /// <summary>Gets a pointer to the buffer containing the bitmap bit buffer.</summary>
-        public IntPtr BytesPtr { get { return _bytes.Address; } }
+        public IntPtr BackBuffer { get { return _bytes.Address; } }
 
         /// <summary>Gets the stride (the number of bytes to go one pixel down) of the bitmap.</summary>
-        public int Stride { get; private set; }
+        public int BackBufferStride { get; private set; }
 
         /// <summary>
         /// Gets the underlying Bitmap that this BitmapGdi wraps. USAGE WARNING:
@@ -94,7 +94,7 @@ namespace TankIconMaker
         public WI.WriteableBitmap ToWpfWriteable()
         {
             var writable = new WI.WriteableBitmap(PixelWidth, PixelHeight, Bitmap.HorizontalResolution, Bitmap.VerticalResolution, W.PixelFormats.Bgra32, null);
-            writable.WritePixels(new System.Windows.Int32Rect(0, 0, PixelWidth, PixelHeight), Bytes, Stride, 0);
+            writable.WritePixels(new System.Windows.Int32Rect(0, 0, PixelWidth, PixelHeight), BackBytes, BackBufferStride, 0);
             return writable;
         }
 
