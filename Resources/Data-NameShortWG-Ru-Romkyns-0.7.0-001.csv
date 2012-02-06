@@ -1,6 +1,6 @@
 WOT-DATA,1,"Короткие названия танков, оригинал – как в игре."
 china-Ch01_Type59,Type 59
-germany-B-1bis_captured,*PzB2 740f*,не проверен
+germany-B-1bis_captured,Pz B2
 germany-Bison_I,Bison
 germany-E-100,E-100
 germany-E-50,E-50
@@ -39,7 +39,7 @@ germany-PzV_PzIV_ausf_Alfa,*PzV-IV Alpha*,не проверен
 germany-PzVI,Tiger
 germany-PzVI_Tiger_P,Tiger P
 germany-PzVIB_Tiger_II,Tiger II
-germany-S35_captured,*PzS35 739f*,не проверен
+germany-S35_captured,*Pz S35*,не проверен
 germany-StugIII,StuGIII
 germany-Sturmpanzer_II,StPz II
 germany-T-15,T-15

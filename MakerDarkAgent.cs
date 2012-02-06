@@ -88,7 +88,7 @@ namespace TankIconMaker
         [Category("Tank image"), DisplayName("Style")]
         [Description("Specifies one of the built-in image styles to use.")]
         public ImageStyle Style { get; set; }
-        public enum ImageStyle { Contour, [Description("3D")] ThreeD }
+        public enum ImageStyle { Contour, [Description("3D")] ThreeD, None }
 
         [XmlIgnore]
         private Pen _outline, _outlineInner;
@@ -117,9 +117,6 @@ namespace TankIconMaker
 
             Overhang = OverhangStyle.Clip;
             Style = ImageStyle.ThreeD;
-
-            _outline = new Pen(Brushes.Black, 1); _outline.Freeze();
-            _outlineInner = new Pen(new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)), 1); _outlineInner.Freeze();
         }
 
         public override void Initialize()
@@ -129,6 +126,10 @@ namespace TankIconMaker
             _heavyBackground = makeBackgroundBrush(BackColorHeavy.WithAlpha(BackOpacity));
             _destroyerBackground = makeBackgroundBrush(BackColorDestroyer.WithAlpha(BackOpacity));
             _artilleryBackground = makeBackgroundBrush(BackColorArtillery.WithAlpha(BackOpacity));
+
+            double opacityScale = Math.Min(1.0, _BackOpacity / 180.0);
+            _outline = new Pen(new SolidColorBrush(Colors.Black.WithAlpha((int) (255 * opacityScale))), 1); _outline.Freeze();
+            _outlineInner = new Pen(new SolidColorBrush(Color.FromArgb((byte) (50 * opacityScale), 255, 255, 255)), 1); _outlineInner.Freeze();
         }
 
         private Brush makeBackgroundBrush(Color color)
@@ -179,35 +180,39 @@ namespace TankIconMaker
             tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.Aliased ? 255 : 180));
             tierLayer = tierLayer.GetBlurred().DrawImage(tierLayer);
 
-            var image = Style == ImageStyle.Contour ? tank.LoadImageContourWpf() : tank.LoadImage3DWpf();
-            if (image == null)
-                tank.AddWarning("The image for this tank is missing.");
-            else
+            if (Style != ImageStyle.None)
             {
-                var minmax = Ut.PreciseWidth(image, 100);
-                if (Overhang != OverhangStyle.Overhang)
-                    dc.PushClip(new RectangleGeometry(new Rect(1, 2, 78, 20)));
+                var image = Style == ImageStyle.Contour ? tank.LoadImageContourWpf() : tank.LoadImage3DWpf();
+                if (image == null)
+                    tank.AddWarning("The image for this tank is missing.");
                 else
                 {
-                    // Fade out the top and bottom couple of pixels
-                    unsafe
+                    var minmax = Ut.PreciseWidth(image, 100);
+                    if (Overhang != OverhangStyle.Overhang)
+                        dc.PushClip(new RectangleGeometry(new Rect(1, 2, 78, 20)));
+                    else if (Style == ImageStyle.ThreeD)
                     {
-                        byte* ptr, end;
-                        int h = image.PixelHeight;
-                        ptr = (byte*) image.BackBuffer + 0 * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.25);
-                        ptr = (byte*) image.BackBuffer + 1 * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.6);
-                        ptr = (byte*) image.BackBuffer + (h - 2) * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.6);
-                        ptr = (byte*) image.BackBuffer + (h - 1) * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.25);
+                        // Fade out the top and bottom couple of pixels
+                        unsafe
+                        {
+                            byte* ptr, end;
+                            int h = image.PixelHeight;
+                            ptr = (byte*) image.BackBuffer + 0 * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.25);
+                            ptr = (byte*) image.BackBuffer + 1 * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.6);
+                            ptr = (byte*) image.BackBuffer + (h - 2) * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.6);
+                            ptr = (byte*) image.BackBuffer + (h - 1) * image.BackBufferStride + 3; end = ptr + image.PixelWidth * 4; for (; ptr < end; ptr += 4) *ptr = (byte) (*ptr * 0.25);
+                        }
                     }
+
+                    double height = Overhang == OverhangStyle.Fit ? 20 : 24;
+                    double scale = height / image.Height;
+                    double x = Math.Min(Math.Max((tierSize.Right + nameSize.Left) / 2 - scale * minmax.CenterHorz, 10 - minmax.Left * scale), 79 - minmax.Right * scale);
+                    dc.DrawImage(image, new Rect(
+                        x, Overhang == OverhangStyle.Fit ? 2 : 0,
+                        image.Width * scale, height));
+                    if (Overhang != OverhangStyle.Overhang)
+                        dc.Pop();
                 }
-                double height = Overhang == OverhangStyle.Fit ? 20 : 24;
-                double scale = height / image.Height;
-                dc.DrawImage(image, new Rect(
-                    Math.Max(10 - minmax.Left * scale, (tierSize.Right + nameSize.Left) / 2 - scale * minmax.CenterHorz),
-                    Overhang == OverhangStyle.Fit ? 2 : 0,
-                    image.Width * scale, height));
-                if (Overhang != OverhangStyle.Overhang)
-                    dc.Pop();
             }
 
             dc.DrawImage(nameLayer);
