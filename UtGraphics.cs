@@ -218,6 +218,83 @@ namespace TankIconMaker
                 }
             return tgtBitmap;
         }
+
+        /// <summary>Applies a "colorize" effect to the image.</summary>
+        /// <param name="hue">The hue of the color to apply, 0..359</param>
+        /// <param name="saturation">The saturation of the color to apply, 0..1</param>
+        /// <param name="lightness">A lightness adjustment, -1..1</param>
+        /// <param name="alpha">Overall strength of the effect, 0..1. A value of 0 keeps only the original image.</param>
+        public static unsafe void Colorize(this WriteableBitmap bmp, int hue, double saturation, double lightness, double alpha)
+        {
+            Colorize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, hue, saturation, lightness, alpha);
+        }
+
+        /// <summary>Applies a "colorize" effect to the image.</summary>
+        /// <param name="hue">The hue of the color to apply, 0..359</param>
+        /// <param name="saturation">The saturation of the color to apply, 0..1</param>
+        /// <param name="lightness">A lightness adjustment, -1..1</param>
+        /// <param name="alpha">Overall strength of the effect, 0..1. A value of 0 keeps only the original image.</param>
+        public static unsafe void Colorize(this BitmapGdi bmp, int hue, double saturation, double lightness, double alpha)
+        {
+            Colorize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, hue, saturation, lightness, alpha);
+        }
+
+        /// <summary>Applies a "colorize" effect to the image.</summary>
+        /// <param name="hue">The hue of the color to apply, 0..359</param>
+        /// <param name="saturation">The saturation of the color to apply, 0..1</param>
+        /// <param name="lightness">A lightness adjustment, -1..1</param>
+        /// <param name="alpha">Overall strength of the effect, 0..1. A value of 0 keeps only the original image.</param>
+        public static unsafe void Colorize(byte* image, int width, int height, int stride, int hue, double saturation, double lightness, double alpha)
+        {
+            // http://stackoverflow.com/a/9177602/33080
+            var color = Ut.BlendColors(Color.FromRgb(128, 128, 128), ColorHSV.FromHSV(hue, 100, 100).ToColorWpf(), saturation);
+            for (int y = 0; y < height; y++)
+            {
+                byte* ptr = image + y * stride;
+                byte* end = ptr + width * 4;
+                while (ptr < end)
+                {
+                    double pixel = Math.Max(*ptr, Math.Max(*(ptr + 1), *(ptr + 2))) / 255.0;
+                    double position = lightness >= 0 ? (2 * (1 - lightness) * (pixel - 1) + 1) : 2 * (1 + lightness) * (pixel) - 1;
+                    *ptr = (byte) (*ptr * (1 - alpha) + (position < 0 ? color.B * (position + 1) : (color.B * (1 - position) + 255 * position)) * alpha);
+                    ptr++;
+                    *ptr = (byte) (*ptr * (1 - alpha) + (position < 0 ? color.G * (position + 1) : (color.G * (1 - position) + 255 * position)) * alpha);
+                    ptr++;
+                    *ptr = (byte) (*ptr * (1 - alpha) + (position < 0 ? color.R * (position + 1) : (color.R * (1 - position) + 255 * position)) * alpha);
+                    ptr += 2;
+                }
+            }
+        }
+
+        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
+        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
+        public static unsafe void Transparentize(this WriteableBitmap bmp, int opacity)
+        {
+            Transparentize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, opacity);
+        }
+
+        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
+        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
+        public static unsafe void Transparentize(this BitmapGdi bmp, int opacity)
+        {
+            Transparentize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, opacity);
+        }
+
+        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
+        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
+        public static unsafe void Transparentize(byte* image, int width, int height, int stride, int opacity)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                byte* ptr = image + y * stride + 3;
+                byte* end = ptr + width * 4;
+                while (ptr < end)
+                {
+                    *ptr = (byte) ((*ptr * opacity) / 255);
+                    ptr += 4;
+                }
+            }
+        }
     }
 
     enum TextAntiAliasStyle
