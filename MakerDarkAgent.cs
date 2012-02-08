@@ -90,6 +90,31 @@ namespace TankIconMaker
         public ImageStyle Style { get; set; }
         public enum ImageStyle { Contour, [Description("3D")] ThreeD, None }
 
+        [Category("Tank image"), DisplayName("Color: light tank")]
+        [Description("Colorization to apply to the light tank images. Make sure to crank up Alpha to see the effect.")]
+        public Color TankColorizeLight { get; set; }
+
+        [Category("Tank image"), DisplayName("Color: medium tank")]
+        [Description("Colorization to apply to the medium tank images. Make sure to crank up Alpha to see the effect.")]
+        public Color TankColorizeMedium { get; set; }
+
+        [Category("Tank image"), DisplayName("Color: heavy tank")]
+        [Description("Colorization to apply to the heavy tank images. Make sure to crank up Alpha to see the effect.")]
+        public Color TankColorizeHeavy { get; set; }
+
+        [Category("Tank image"), DisplayName("Color: destroyer")]
+        [Description("Colorization to apply to the destroyer images. Make sure to crank up Alpha to see the effect.")]
+        public Color TankColorizeDestroyer { get; set; }
+
+        [Category("Tank image"), DisplayName("Color: artillery")]
+        [Description("Colorization to apply to the artillery images. Make sure to crank up Alpha to see the effect.")]
+        public Color TankColorizeArtillery { get; set; }
+
+        [Category("Tank image"), DisplayName("Opacity")]
+        [Description("The opacity of the tank images.")]
+        public int TankOpacity { get { return _TankOpacity; } set { _TankOpacity = Math.Max(0, Math.Min(255, value)); } }
+        private int _TankOpacity;
+
         [XmlIgnore]
         private Pen _outline, _outlineInner;
         [XmlIgnore]
@@ -117,6 +142,12 @@ namespace TankIconMaker
 
             Overhang = OverhangStyle.Clip;
             Style = ImageStyle.ThreeD;
+            TankColorizeLight = Color.FromArgb(0, 128, 0, 0);
+            TankColorizeMedium = Color.FromArgb(0, 128, 0, 0);
+            TankColorizeHeavy = Color.FromArgb(0, 128, 0, 0);
+            TankColorizeDestroyer = Color.FromArgb(0, 128, 0, 0);
+            TankColorizeArtillery = Color.FromArgb(0, 128, 0, 0);
+            TankOpacity = 255;
         }
 
         public override void Initialize()
@@ -180,7 +211,7 @@ namespace TankIconMaker
             tierLayer.DrawImage(tierLayer.GetOutline(TierAntiAlias == TextAntiAliasStyle.Aliased ? 255 : 180));
             tierLayer = tierLayer.GetBlurred().DrawImage(tierLayer);
 
-            if (Style != ImageStyle.None)
+            if (Style != ImageStyle.None && TankOpacity > 0)
             {
                 var image = Style == ImageStyle.Contour ? tank.LoadImageContourWpf() : tank.LoadImage3DWpf();
                 if (image == null)
@@ -188,6 +219,12 @@ namespace TankIconMaker
                 else
                 {
                     var minmax = Ut.PreciseWidth(image, 100);
+
+                    var colorize = ColorHSV.FromColor(tank.Class.Pick(TankColorizeLight, TankColorizeMedium, TankColorizeHeavy, TankColorizeDestroyer, TankColorizeArtillery));
+                    image.Colorize(colorize.Hue, colorize.Saturation / 100.0, colorize.Value / 100.0 - 0.5, colorize.Alpha / 255.0);
+                    if (TankOpacity < 255)
+                        image.Transparentize(TankOpacity);
+
                     if (Overhang != OverhangStyle.Overhang)
                         dc.PushClip(new RectangleGeometry(new Rect(1, 2, 78, 20)));
                     else if (Style == ImageStyle.ThreeD)
