@@ -115,6 +115,10 @@ namespace TankIconMaker
         public int TankOpacity { get { return _TankOpacity; } set { _TankOpacity = Math.Max(0, Math.Min(255, value)); } }
         private int _TankOpacity;
 
+        [Category("Tank image"), DisplayName("Alignment")]
+        [Description("0 = center relative to text, 1 = center in rectangle, other positive values: left margin, other negative values: right margin.")]
+        public int TankAlignment { get; set; }
+
         [XmlIgnore]
         private Pen _outline, _outlineInner;
         [XmlIgnore]
@@ -148,6 +152,7 @@ namespace TankIconMaker
             TankColorizeDestroyer = Color.FromArgb(0, 128, 0, 0);
             TankColorizeArtillery = Color.FromArgb(0, 128, 0, 0);
             TankOpacity = 255;
+            TankAlignment = 0;
         }
 
         public override void Initialize()
@@ -243,7 +248,16 @@ namespace TankIconMaker
 
                     double height = Overhang == OverhangStyle.Fit ? 20 : 24;
                     double scale = height / image.Height;
-                    double x = Math.Min(Math.Max((tierSize.Right + nameSize.Left) / 2 - scale * minmax.CenterHorz, 10 - minmax.Left * scale), 79 - minmax.Right * scale);
+                    double x;
+                    if (TankAlignment == 0)
+                        x = Math.Min(Math.Max((tierSize.Right + nameSize.Left) / 2 - scale * minmax.CenterHorz, 10 - minmax.Left * scale), 79 - minmax.Right * scale);
+                    else if (TankAlignment == 1)
+                        x = 40 - scale * minmax.CenterHorz;
+                    else if (TankAlignment > 0)
+                        x = TankAlignment - 2 - scale * minmax.Left;
+                    else
+                        x = 80 - scale * minmax.Right + TankAlignment;
+
                     dc.DrawImage(image, new Rect(
                         x, Overhang == OverhangStyle.Fit ? 2 : 0,
                         image.Width * scale, height));
