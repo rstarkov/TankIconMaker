@@ -1,48 +1,13 @@
-WOT-DATA,1,"Короткие названия, слэнг/перевод",NameImproved,Romkyns
-china-Ch01_Type59,Тип 59
-france-Bat_Chatillon25t,Шатильон
-france-Hotchkiss_H35,Гочкисс
-france-Lorraine40t,Лорейн
-france-RenaultFT,Рено FT
-germany-Bison_I,Бизон
+WOT-DATA,1,"Короткие названия, слэнг",NameNative,Romkyns
 germany-Ferdinand,Федя
-germany-G_E,*ГВ Тип Е*
-germany-G_Panther,ГВ Пантера
-germany-G_Tiger,ГВ Тигр
-germany-Grille,Гриль
-germany-Hetzer,Хетцер
-germany-Hummel,Хуммель
-germany-Lowe,Лёва
-germany-Ltraktor,Трактор
-germany-Maus,*Маус*
-germany-Panther_II,Пантера II
-germany-PzII_Luchs,Люкс
-germany-PzV,Пантера
-germany-PzVI,Тигр
-germany-PzVI_Tiger_P,Тигр П
-germany-PzVIB_Tiger_II,Тигр II
-germany-StugIII,ШтуГ
-germany-VK1602,Леопард
+germany-PzVIB_Tiger_II,КоТэ
 germany-VK4502P,Тапок
-germany-Wespe,Веспе
-usa-M22_Locust,*Локаст*
-usa-M24_Chaffee,Чаффи
-usa-M3_Grant,M3 Ли
-usa-M3_Stuart,M3 Стюарт
-usa-M36_Slagger,Слаггер
-usa-M46_Patton,Паттон
-usa-M7_Priest,M7 Прист
-usa-Pershing,Першинг
-usa-Ram-II,Рам II
-usa-T1_hvy,T1 Хеви
-ussr-Churchill_LL,Черчилль
-ussr-Matilda_II_LL,Матильда
+usa-M4A3E8_Sherman,Мазай
+usa-M6A2E1,Утенок
+usa-T29,Чебуратор
+ussr-IS-7,Луноход
+ussr-KV-1s,КВАС
+ussr-Object_212,Валенок
 ussr-S-51,Буратино
 ussr-SU-14,Холод
-ussr-Tetrarch_LL,Тетрарх
-ussr-Valentine_LL,Валентайн
-usa-M2_lt,M2 ЛТ
-usa-M2_med,M2 СТ
-usa-M7_med,M7 СТ
-usa-T2_lt,T2 ЛТ
-usa-T2_med,T2 СТ
+ussr-T-54,Таракан
