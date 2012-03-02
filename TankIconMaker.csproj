@@ -39,9 +39,6 @@
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>ThirdParty\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="RT.Util">
-      <HintPath>ThirdParty\RT.Util.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
@@ -69,6 +66,12 @@
     </Compile>
     <Compile Include="MakerBase.cs" />
     <Compile Include="MakerOriginal.cs" />
+    <Compile Include="Translation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Translation.g.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UtColors.cs" />
     <Compile Include="MakerDarkAgent.cs" />
     <Compile Include="MakerTest.cs" />
@@ -124,6 +127,12 @@
   <ItemGroup>
     <Resource Include="Resources\Graphics\icon.ico" />
     <Resource Include="Resources\Graphics\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\main\common\Util\Util.csproj">
+      <Project>{8D0FE79C-AD8D-475C-9E6F-9CAE85365B5D}</Project>
+      <Name>Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">

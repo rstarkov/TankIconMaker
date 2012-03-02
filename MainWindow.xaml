@@ -6,7 +6,7 @@
         TextOptions.TextFormattingMode="Display"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico"
         xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
-        xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended">
+        xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended" Name="TankIconMakerWindow">
     <Window.Resources>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Key="panelBackgroundBrush">
             <LinearGradientBrush.GradientStops>
@@ -110,7 +110,7 @@
             <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"/>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <Button Margin="8,0,0,8" Name="ctMakerDefaults" Click="ctMakerDefaults_Click">
-                    <AccessText Margin="8,0">_Defaults</AccessText>
+                    <AccessText Margin="8,0">De_faults</AccessText>
                 </Button>
                 <Button Margin="8,0,0,8" Name="ctMakerLoad" Click="ctMakerLoad_Click">
                     <AccessText Margin="8,0">_Load</AccessText>

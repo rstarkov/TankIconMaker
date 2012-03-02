@@ -10,6 +10,7 @@ using RT.Util.Dialogs;
 using RT.Util.Xml;
 using D = System.Drawing;
 using W = System.Windows.Media;
+using RT.Util.Lingo;
 
 namespace TankIconMaker
 {
@@ -70,6 +71,7 @@ namespace TankIconMaker
 
             base.OnStartup(e);
             SettingsUtil.LoadSettings(out Program.Settings);
+            Program.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref Program.Settings.Lingo);
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -89,6 +91,9 @@ namespace TankIconMaker
         /// one of the Save methods should be invoked every time changes are made; this is not automatic.
         /// </summary>
         public static Settings Settings;
+
+        /// <summary>Contains the current UI translation.</summary>
+        public static Translation Translation;
 
         /// <summary>
         /// Lists all the possible sources of extra properties, sorted and in an observable fashion. This is kept up-to-date

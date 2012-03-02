@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,6 +16,7 @@ using System.Windows.Threading;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 
 /*
@@ -49,6 +49,15 @@ namespace TankIconMaker
         {
             InitializeComponent();
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
+
+#if DEBUG
+            using (var translationFileGenerator = new Lingo.TranslationFileGenerator(@"..\..\Translation.g.cs"))
+            {
+                translationFileGenerator.TranslateWindow(this, Program.Translation);
+            }
+#else
+            Lingo.TranslateWindow(this, Program.Translation);
+#endif
 
             GlobalStatusShow("Loading...");
 

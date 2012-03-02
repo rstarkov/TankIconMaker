@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using RT.Util;
+using RT.Util.Lingo;
 
 namespace TankIconMaker
 {
@@ -40,7 +41,7 @@ namespace TankIconMaker
         public string SelectedGamePath = Ut.FindTanksDirectory();
 
         /// <summary>Program language (in the future), and also the default language for property values when not specified.</summary>
-        public string Language = "Ru";
+        public Language Lingo = Language.Russian;
         /// <summary>If a maker requests a property by name only, this author is given preference.</summary>
         public string DefaultPropertyAuthor = "Romkyns";
 
