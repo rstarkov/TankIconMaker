@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,15 +16,13 @@ using System.Windows.Threading;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
+using RT.Util.Forms;
 using RT.Util.Xml;
 
 /*
- * Russian translation
  * ctGameVersions: use binding; use DisplayName
  * GameInstallationSettings should use the Version type for the game version.
- * In-game-like display of low/mid/high tier balance
  * Allow the maker to tell us which tanks to invalidate on a property change.
- * Drop-down for selecting backgrounds; Reload'able
  * _otherWarnings: tag with warning type to enable reliable removal
  */
 
