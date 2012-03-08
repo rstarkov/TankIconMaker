@@ -20,7 +20,6 @@ using RT.Util.Forms;
 using RT.Util.Xml;
 
 /*
- * GetInstallationSettings: remove addIfMissing
  * Broken IsEnabled on ctGameVersion, ctSave
  * Remove icon backup stuff
  * GameInstallationSettings should use the Version type for the game version.
@@ -122,6 +121,13 @@ namespace TankIconMaker
                 .ThenBy(m => Program.Settings.Makers.IndexOf(m))
                 .First();
 
+            // Guess the location/version of the game and add to the list of paths if it’s empty
+            if (Program.Settings.GameInstalls.Count == 0)
+            {
+                Program.Settings.GameInstalls.Add(GuessTanksLocationAndVersion());
+                Program.Settings.SaveThreaded();
+            }
+
             ctGamePath.ItemsSource = Program.Settings.GameInstalls;
             ctGamePath.DisplayMemberPath = "DisplayName";
             ctGameVersion.ItemsSource = Program.Data.Versions; // currently empty because we haven’t loaded it yet
@@ -193,8 +199,8 @@ namespace TankIconMaker
                 DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
 
             // Yes, this stuff is a bit WinForms'sy...
-            var gis = GetInstallationSettings(addIfMissing: true);
-            ctGamePath.Items.Refresh(); // it’s mostly notifiable, but 
+            var gis = GetInstallationSettings();
+            ctGamePath.Items.Refresh();
             ctGameVersion.Items.Refresh();
             if (gis != null)
             {
@@ -838,8 +844,9 @@ namespace TankIconMaker
             }
 
             Program.Settings.GameInstalls.Add(gis);
-            ctGamePath.SelectedItem = gis;
             Program.Settings.SaveThreaded();
+
+            ctGamePath.SelectedItem = gis;
         }
 
         private bool FileContains(string fileName, string content)
@@ -862,10 +869,9 @@ namespace TankIconMaker
         }
 
         /// <summary>
-        /// Returns the currently selected game installation settings. Can optionally add an auto-guessed path/version
-        /// if the list is empty. Returns null if there are no paths in the list.
+        /// Returns the currently selected game installation settings, or null iff there are no paths in the list.
         /// </summary>
-        private GameInstallationSettings GetInstallationSettings(bool addIfMissing = false)
+        private GameInstallationSettings GetInstallationSettings()
         {
             if (!Program.Data.Versions.Any())
                 return null;
@@ -873,20 +879,7 @@ namespace TankIconMaker
             if (ctGamePath.SelectedItem == null && ctGamePath.Items.Count > 0)
                 ctGamePath.SelectedIndex = 0;
 
-            var gis = ctGamePath.SelectedItem as GameInstallationSettings;
-
-            if (gis == null)
-            {
-                if (!addIfMissing)
-                    return null;
-                gis = GuessTanksLocationAndVersion();
-                Program.Settings.GameInstalls.Add(gis);
-                ctGamePath.SelectedItem = gis;
-                ctGamePath.Items.Refresh();
-                Program.Settings.SaveThreaded();
-            }
-
-            return gis;
+            return ctGamePath.SelectedItem as GameInstallationSettings;
         }
 
         /// <summary>
