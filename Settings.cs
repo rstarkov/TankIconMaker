@@ -73,26 +73,33 @@ namespace TankIconMaker
         }
         private string _path;
 
-        /// <summary>The version of the game that is located at this path.</summary>
-        public string GameVersion
+        /// <summary>The version of the game that is located at this path. Null iff there are no game versions defined at all.</summary>
+        public GameVersion GameVersion
         {
-            get { return _gameVersion; }
+            get { return Program.Data.GetVersion(_version) ?? Program.Data.GetLatestVersion(); }
             set
             {
-                _gameVersion = value;
+                if (value == null)
+                    return;
+                _version = value.Version;
                 PropertyChanged(this, new PropertyChangedEventArgs("GameVersion"));
                 PropertyChanged(this, new PropertyChangedEventArgs("DisplayName"));
             }
         }
-        private string _gameVersion;
+        private Version _version;
 
         /// <summary>The value displayed in the drop-down.</summary>
-        public string DisplayName { get { return _gameVersion + ":  " + _path; } }
+        public string DisplayName { get { return (GameVersion == null ? "" : (GameVersion.DisplayName + ":  ")) + _path; } }
+        public override string ToString() { return DisplayName; }
 
         public int CompareTo(GameInstallationSettings other)
         {
             if (other == null) return 1;
-            int result = -string.Compare(GameVersion, other.GameVersion);
+            if (_version == null && other._version == null)
+                return 0;
+            if (_version == null || other._version == null)
+                return other._version == null ? 1 : -1;
+            int result = -_version.CompareTo(other._version);
             if (result != 0)
                 return result;
             return string.Compare(Path, other.Path);

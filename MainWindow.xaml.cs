@@ -20,7 +20,9 @@ using RT.Util.Forms;
 using RT.Util.Xml;
 
 /*
- * ctGameVersions: use binding; use DisplayName
+ * GetInstallationSettings: remove addIfMissing
+ * Broken IsEnabled on ctGameVersion, ctSave
+ * Remove icon backup stuff
  * GameInstallationSettings should use the Version type for the game version.
  * Allow the maker to tell us which tanks to invalidate on a property change.
  * _otherWarnings: tag with warning type to enable reliable removal
@@ -30,7 +32,6 @@ namespace TankIconMaker
 {
     partial class MainWindow : ManagedWindow
     {
-        private WotData _data = new WotData();
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
         private CancellationTokenSource _cancelRender = new CancellationTokenSource();
         private Dictionary<string, RenderTask> _renderResults = new Dictionary<string, RenderTask>();
@@ -52,32 +53,12 @@ namespace TankIconMaker
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
 
-            BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, LambdaBinding.New(
-                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                (int index) => index >= 0
-            ));
-            BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, LambdaBinding.New(
-                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                (int index) => index >= 0
-            ));
-            BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, LambdaBinding.New(
-                new Binding { Source = _dataWarnings, Path = new PropertyPath("Count") },
-                new Binding { Source = _otherWarnings, Path = new PropertyPath("Count") },
-                (int dataCount, int otherCount) => dataCount + otherCount == 0 ? Visibility.Collapsed : Visibility.Visible
-            ));
-
             if (Program.Settings.LeftColumnWidth != null)
                 ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
             if (Program.Settings.NameColumnWidth != null)
                 ctMakerProperties.NameColumnWidth = Program.Settings.NameColumnWidth.Value;
             if (Program.Settings.DisplayMode >= 0 && Program.Settings.DisplayMode < ctDisplayMode.Items.Count)
                 ctDisplayMode.SelectedIndex = Program.Settings.DisplayMode.Value;
-            ctGamePath.ItemsSource = Program.Settings.GameInstalls;
-            ctGamePath.DisplayMemberPath = "DisplayName";
-            ctGamePath.SelectedItem = Program.Settings.GameInstalls.FirstOrDefault(gis => gis.Path.EqualsNoCase(Program.Settings.SelectedGamePath))
-                ?? Program.Settings.GameInstalls.FirstOrDefault();
-
-            _warningImage = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Graphics/warning.png"));
 
             ContentRendered += InitializeEverything;
         }
@@ -123,6 +104,8 @@ namespace TankIconMaker
                     Stretch = Stretch.UniformToFill,
                 };
 
+            _warningImage = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Graphics/warning.png"));
+
             foreach (var constructor in Program.MakerConstructors)
                 if (!Program.Settings.Makers.Any(m => m.GetType() == constructor.DeclaringType))
                     Program.Settings.Makers.Add((MakerBase) constructor.Invoke(new object[0]));
@@ -139,7 +122,35 @@ namespace TankIconMaker
                 .ThenBy(m => Program.Settings.Makers.IndexOf(m))
                 .First();
 
+            ctGamePath.ItemsSource = Program.Settings.GameInstalls;
+            ctGamePath.DisplayMemberPath = "DisplayName";
+            ctGameVersion.ItemsSource = Program.Data.Versions; // currently empty because we haven’t loaded it yet
+            ctGameVersion.DisplayMemberPath = "DisplayName";
+
             ReloadData();
+
+            // Set WPF bindings now that all the data we need is loaded
+            BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                (int index) => index >= 0
+            ));
+            BindingOperations.SetBinding(ctGamePath, ComboBox.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                (int index) => index >= 0
+            ));
+            BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                (int index) => index >= 0
+            ));
+            BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, LambdaBinding.New(
+                new Binding { Source = _dataWarnings, Path = new PropertyPath("Count") },
+                new Binding { Source = _otherWarnings, Path = new PropertyPath("Count") },
+                (int dataCount, int otherCount) => dataCount + otherCount == 0 ? Visibility.Collapsed : Visibility.Visible
+            ));
+            var selectedInstall = Program.Settings.GameInstalls.FirstOrDefault(gis => gis.Path.EqualsNoCase(Program.Settings.SelectedGamePath))
+                ?? Program.Settings.GameInstalls.FirstOrDefault();
+            ctGamePath.SelectedItem = selectedInstall;
+            ctGameVersion.SelectedItem = selectedInstall.NullOr(gis => gis.GameVersion);
 
             // Bind the events now that all the UI is set up as desired
             Closing += (___, ____) => SaveSettings();
@@ -165,36 +176,40 @@ namespace TankIconMaker
         {
             _renderResults.Clear();
 
-            _data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
+            Program.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
 
             // Update the list of warnings
             _dataWarnings.Clear();
-            foreach (var warning in _data.Warnings)
+            foreach (var warning in Program.Data.Warnings)
                 _dataWarnings.Add(warning);
 
             // Update UI to reflect whether the bare minimum data files are available
-            var filesAvailable = _data.Versions.Any() && _data.BuiltIn.Any();
+            var filesAvailable = Program.Data.Versions.Any() && Program.Data.BuiltIn.Any();
             ctSave.IsEnabled = filesAvailable;
             ctMakerDropdown.IsEnabled = filesAvailable;
             ctMakerProperties.IsEnabled = filesAvailable;
             ctGameVersion.IsEnabled = filesAvailable;
             if (!filesAvailable)
-            {
                 DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
-                return;
-            }
-
-            // Refresh game versions UI (TODO: just use binding)
-            ctGameVersion.Items.Clear();
-            foreach (var key in _data.Versions.Keys.OrderBy(v => v))
-                ctGameVersion.Items.Add(key);
-            GetInstallationSettings(); // fixes up the versions if necessary
 
             // Yes, this stuff is a bit WinForms'sy...
             var gis = GetInstallationSettings(addIfMissing: true);
-            ctGameVersion.Text = gis.GameVersion;
-            UpdateDataSources(Version.Parse(gis.GameVersion));
-            ctMakerDropdown_SelectionChanged();
+            ctGamePath.Items.Refresh(); // it’s mostly notifiable, but 
+            ctGameVersion.Items.Refresh();
+            if (gis != null)
+            {
+                ctGameVersion.SelectedItem = gis.GameVersion;
+                UpdateDataSources(gis.GameVersion.Version);
+                ctMakerDropdown_SelectionChanged();
+            }
+            else
+            {
+                ctMakerProperties.SelectedObject = null;
+                _renderResults.Clear();
+                ctIconsPanel.Children.Clear();                
+            }
+
+            UpdateIcons();
         }
 
         /// <summary>
@@ -204,13 +219,13 @@ namespace TankIconMaker
         {
             foreach (var item in Program.DataSources.Where(ds => !(ds is DataSourceNone)).ToArray())
             {
-                var extra = _data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
+                var extra = Program.Data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
                 if (extra == null)
                     Program.DataSources.Remove(item);
                 else
                     item.UpdateFrom(extra);
             }
-            foreach (var group in _data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author }))
+            foreach (var group in Program.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author }))
             {
                 var extra = group.Where(df => df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
                 if (extra != null && !Program.DataSources.Any(item => extra.Name == item.Name && extra.Language == item.Language && extra.Author == item.Author))
@@ -255,14 +270,13 @@ namespace TankIconMaker
             var gameInstall = GetInstallationSettings();
             if (gameInstall == null)
                 return; // this happens if there are no data files at all; just do something sensible to avoid crashing
-            var gameVersion = Version.Parse(gameInstall.GameVersion);
 
             var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
-            var renderTasks = ListRenderTasks(gameInstall, gameVersion);
+            var renderTasks = ListRenderTasks(gameInstall);
 
             var maker = (MakerBase) ctMakerDropdown.SelectedItem;
             maker.Initialize();
-            TestMaker(maker, gameInstall, gameVersion);
+            TestMaker(maker, gameInstall);
 
             var tasks = new List<Action>();
             for (int i = 0; i < renderTasks.Count; i++)
@@ -345,7 +359,7 @@ namespace TankIconMaker
         /// Tests the specified maker instance for its handling of missing extra properties (and possibly other problems). Adds an
         /// appropriate warning message if a problem is detected.
         /// </summary>
-        private void TestMaker(MakerBase maker, GameInstallationSettings gameInstall, Version gameVersion)
+        private void TestMaker(MakerBase maker, GameInstallationSettings gameInstall)
         {
             // Test missing extra properties
             string missingExtraProperties = "when presented with a tank that is missing some \"extra\" properties"; // A bit of a quick hack, but should do the job
@@ -553,9 +567,9 @@ namespace TankIconMaker
         /// of the tanks if the user chose a smaller subset in the GUI.
         /// </summary>
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
-        private List<RenderTask> ListRenderTasks(GameInstallationSettings gameInstall, Version gameVersion, bool all = false)
+        private List<RenderTask> ListRenderTasks(GameInstallationSettings gameInstall, bool all = false)
         {
-            var builtin = _data.BuiltIn.Where(b => b.GameVersion <= gameVersion).MaxOrDefault(b => b.GameVersion);
+            var builtin = Program.Data.BuiltIn.Where(b => b.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(b => b.GameVersion);
             if (builtin == null)
                 return new List<RenderTask>(); // happens when there are no built-in data files
 
@@ -566,8 +580,8 @@ namespace TankIconMaker
                 selection = builtin.Data.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
                     .SelectMany(p => SelectTiers(builtin.Data.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
 
-            var extras = _data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
-                .Select(g => g.Where(df => df.GameVersion <= gameVersion).MaxOrDefault(df => df.GameVersion))
+            var extras = Program.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
+                .Select(g => g.Where(df => df.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(df => df.GameVersion))
                 .Where(df => df != null).ToList();
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
                 .Select(tank =>
@@ -581,7 +595,7 @@ namespace TankIconMaker
                             value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
                         )),
                         gameInstall: gameInstall,
-                        gameVersion: _data.Versions[gameVersion],
+                        gameVersion: gameInstall.GameVersion,
                         addWarning: task.AddWarning
                     );
                     return task;
@@ -629,17 +643,17 @@ namespace TankIconMaker
 
         private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
         {
-            var added = args.AddedItems.OfType<Version>().ToList();
+            var added = args.AddedItems.OfType<GameVersion>().ToList();
             if (added.Count != 1)
                 return;
 
             var gis = GetInstallationSettings();
             if (gis == null)
                 return;
-            gis.GameVersion = added.FirstOrDefault().ToString();
+            gis.GameVersion = added.First();
             ctGamePath.SelectedItem = gis;
             SaveSettings();
-            UpdateDataSources(Version.Parse(gis.GameVersion));
+            UpdateDataSources(gis.GameVersion.Version);
             _renderResults.Clear();
             ScheduleUpdateIcons();
         }
@@ -647,11 +661,12 @@ namespace TankIconMaker
         void ctGamePath_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var gis = GetInstallationSettings();
+            ctGameVersion.SelectedItem = gis.NullOr(g => g.GameVersion);
             if (gis == null)
                 return;
-            ctGameVersion.Text = gis.GameVersion;
+            Program.Settings.SelectedGamePath = gis.Path;
             ReloadData();
-            UpdateIcons();
+            SaveSettings();
         }
 
         void ctGamePath_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -678,7 +693,6 @@ namespace TankIconMaker
         private void ctReload_Click(object sender, RoutedEventArgs e)
         {
             ReloadData();
-            UpdateIcons();
         }
 
         bool _overwriteAccepted = false;
@@ -704,9 +718,8 @@ namespace TankIconMaker
 
             GlobalStatusShow("Saving...");
 
-            var gameVersion = Version.Parse(gameInstall.GameVersion);
             var maker = (MakerBase) ctMakerDropdown.SelectedItem;
-            var renderTasks = ListRenderTasks(gameInstall, gameVersion, all: true);
+            var renderTasks = ListRenderTasks(gameInstall, all: true);
             var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
             Task.Factory.StartNew(() =>
@@ -792,31 +805,49 @@ namespace TankIconMaker
             }
         }
 
-        private void BrowseForGameDirectory(object _, RoutedEventArgs __)
+        private void AddGamePath(object _, RoutedEventArgs __)
         {
-            var dlg = new VistaFolderBrowserDialog();
-            var gis = GetInstallationSettings();
-            if (gis != null && Directory.Exists(gis.Path))
-                dlg.SelectedPath = gis.Path;
-            if (dlg.ShowDialog() != true)
-                return;
+            GameInstallationSettings gis;
 
-            var best = _data.Versions.Where(v => File.Exists(Path.Combine(dlg.SelectedPath, v.Value.CheckFileName))).ToList();
-            if (best.Count == 0)
+            // Add the very first path differently: by guessing where the game is installed
+            if (Program.Settings.GameInstalls.Count == 0)
             {
-                if (DlgMessage.ShowWarning("This directory does not appear to contain a World Of Tanks installation. Are you sure you want to use it anyway?",
-                    "&Use anyway", "Cancel") == 1)
-                    return;
+                gis = GuessTanksLocationAndVersion();
             }
-            var version = best.Where(v => new FileInfo(Path.Combine(dlg.SelectedPath, v.Value.CheckFileName)).Length == v.Value.CheckFileSize)
-                .Select(v => v.Key)
-                .OrderByDescending(v => v)
-                .FirstOrDefault();
+            else
+            {
+                var dlg = new VistaFolderBrowserDialog();
+                gis = GetInstallationSettings();
+                if (gis != null && Directory.Exists(gis.Path))
+                    dlg.SelectedPath = gis.Path;
+                if (dlg.ShowDialog() != true)
+                    return;
 
-            gis = new GameInstallationSettings { Path = dlg.SelectedPath, GameVersion = version == null ? _data.Versions.Keys.Max().ToString() : version.ToString() };
+                var best = Program.Data.Versions.Where(v => File.Exists(Path.Combine(dlg.SelectedPath, v.CheckFileName))).ToList();
+                if (best.Count == 0)
+                {
+                    if (DlgMessage.ShowWarning("This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?",
+                        "&Use anyway", "Cancel") == 1)
+                        return;
+                }
+                var version = best.Where(v => FileContains(Path.Combine(dlg.SelectedPath, v.CheckFileName), v.CheckFileContent))
+                    .OrderByDescending(v => v.Version)
+                    .FirstOrDefault();
+
+                gis = new GameInstallationSettings { Path = dlg.SelectedPath, GameVersion = version ?? Program.Data.GetLatestVersion() };
+            }
+
             Program.Settings.GameInstalls.Add(gis);
             ctGamePath.SelectedItem = gis;
             Program.Settings.SaveThreaded();
+        }
+
+        private bool FileContains(string fileName, string content)
+        {
+            foreach (var line in File.ReadLines(fileName))
+                if (line.Contains(content))
+                    return true;
+            return false;
         }
 
         private void RemoveGameDirectory(object _ = null, RoutedEventArgs __ = null)
@@ -831,31 +862,26 @@ namespace TankIconMaker
         }
 
         /// <summary>
-        /// A bit of a messy method to obtain the current game installation settings. Will optionally add a new item to the list
-        /// if none are currently available. Will also silently update the game version if the specified version is no longer available.
-        /// Use with care.
+        /// Returns the currently selected game installation settings. Can optionally add an auto-guessed path/version
+        /// if the list is empty. Returns null if there are no paths in the list.
         /// </summary>
         private GameInstallationSettings GetInstallationSettings(bool addIfMissing = false)
         {
-            if (!_data.Versions.Any())
+            if (!Program.Data.Versions.Any())
                 return null;
 
+            if (ctGamePath.SelectedItem == null && ctGamePath.Items.Count > 0)
+                ctGamePath.SelectedIndex = 0;
+
             var gis = ctGamePath.SelectedItem as GameInstallationSettings;
+
             if (gis == null)
             {
                 if (!addIfMissing)
                     return null;
-                gis = new GameInstallationSettings { Path = Ut.FindTanksDirectory(), GameVersion = _data.Versions.Keys.Max().ToString() };
+                gis = GuessTanksLocationAndVersion();
                 Program.Settings.GameInstalls.Add(gis);
                 ctGamePath.SelectedItem = gis;
-                ctGamePath.Items.Refresh();
-                Program.Settings.SaveThreaded();
-            }
-
-            Version v;
-            if (!Version.TryParse(gis.GameVersion, out v) || !_data.Versions.ContainsKey(v))
-            {
-                gis.GameVersion = ctGameVersion.Text = _data.Versions.Keys.Max().ToString();
                 ctGamePath.Items.Refresh();
                 Program.Settings.SaveThreaded();
             }
@@ -863,20 +889,27 @@ namespace TankIconMaker
             return gis;
         }
 
+        /// <summary>
+        /// Creates and returns a new instance of <see cref="GameInstallationSettings"/>, pointing to the most likely location of
+        /// the World of Tanks installation, and either the exact matching game version or the latest of the versions we support.
+        /// </summary>
+        private GameInstallationSettings GuessTanksLocationAndVersion()
+        {
+            var path = Ut.FindTanksDirectory();
+            var version = Program.Data.Versions
+                .Where(v => File.Exists(Path.Combine(path, v.CheckFileName)) && FileContains(Path.Combine(path, v.CheckFileName), v.CheckFileContent))
+                .OrderByDescending(v => v.Version)
+                .FirstOrDefault();
+
+            return new GameInstallationSettings { Path = path, GameVersion = version ?? Program.Data.GetLatestVersion() };
+        }
+
         private string GetIconDestinationPath()
         {
             var gis = GetInstallationSettings();
             if (gis == null)
                 return null;
-            return Path.Combine(gis.Path, _data.Versions[Version.Parse(gis.GameVersion)].PathDestination);
-        }
-
-        private string GetIconSource3DPath()
-        {
-            var gis = GetInstallationSettings();
-            if (gis == null)
-                return null;
-            return Path.Combine(gis.Path, _data.Versions[Version.Parse(gis.GameVersion)].PathSource3D);
+            return Path.Combine(gis.Path, gis.GameVersion.PathDestination);
         }
 
         private void ctMakerDefaults_Click(object sender, RoutedEventArgs e)
