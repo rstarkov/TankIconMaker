@@ -164,15 +164,13 @@ namespace TankIconMaker
                 return;
 
             // Find where it should be inserted 
+            _list.RemoveAt(oldIndex);
             int newIndex = _list.BinarySearch(item, _comparer);
             if (newIndex < 0)
                 newIndex = ~newIndex;
             else
                 do newIndex++; while (newIndex < _list.Count && _comparer.Compare(_list[newIndex], item) == 0);
 
-            _list.RemoveAt(oldIndex);
-            if (newIndex > oldIndex)
-                newIndex--;
             _list.Insert(newIndex, item);
             collectionChanged_Moved(item, oldIndex, newIndex);
         }
