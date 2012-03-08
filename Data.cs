@@ -141,12 +141,7 @@ namespace TankIconMaker
         /// </summary>
         public virtual WriteableBitmap LoadImageContourWpf()
         {
-            string filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga");
-            if (!File.Exists(filename))
-                filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga");
-            if (!File.Exists(filename))
-                return null;
-            try { return Targa.LoadWpf(filename); }
+            try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga")); }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
@@ -157,12 +152,7 @@ namespace TankIconMaker
         /// </summary>
         public virtual BitmapGdi LoadImageContourGdi()
         {
-            string filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, "original", SystemId + ".tga");
-            if (!File.Exists(filename))
-                filename = Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga");
-            if (!File.Exists(filename))
-                return null;
-            try { return Targa.LoadGdi(filename); }
+            try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga")); }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
@@ -471,9 +461,8 @@ namespace TankIconMaker
         /// <summary>
         /// Gets a dictionary of all the game version information available. This dictionary is read-only.
         /// </summary>
-        public IDictionary<Version, GameVersion> Versions { get { if (_versionsReadonly == null) _versionsReadonly = new ReadOnlyDictionary<Version, GameVersion>(_versions); return _versionsReadonly; } }
-        private readonly Dictionary<Version, GameVersion> _versions = new Dictionary<Version, GameVersion>();
-        private IDictionary<Version, GameVersion> _versionsReadonly;
+        public IList<GameVersion> Versions { get { return _versions.AsReadOnly(); } }
+        private readonly List<GameVersion> _versions = new List<GameVersion>();
 
         /// <summary>
         /// Gets a list of warnings issued while loading the data. These can be serious and help understand
@@ -481,6 +470,24 @@ namespace TankIconMaker
         /// </summary>
         public IList<string> Warnings { get { return _warnings.AsReadOnly(); } }
         private List<string> _warnings = new List<string>();
+
+        /// <summary>
+        /// Gets game version information for a specific game version. Returns null if there is no exact match for this version.
+        /// </summary>
+        public GameVersion GetVersion(Version version)
+        {
+            return _versions.SingleOrDefault(v => v.Version == version);
+        }
+
+        /// <summary>Gets game version information for the latest defined version. Returns null if none are defined.</summary>
+        public GameVersion GetLatestVersion()
+        {
+            GameVersion max = null;
+            foreach (var gv in _versions)
+                if (max == null || gv.Version > max.Version)
+                    max = gv;
+            return max;
+        }
 
         /// <summary>Represents an "extra" data file during loading, including all the extra info required to properly resolve inheritance.</summary>
         private class DataFileExtra2 : DataFileExtra
@@ -512,7 +519,7 @@ namespace TankIconMaker
             if (_builtIn.Any() && _versions.Any())
             {
                 var minBuiltin = _builtIn.Min(b => b.GameVersion);
-                foreach (var version in _versions.Keys.Where(k => k < minBuiltin).ToArray())
+                foreach (var version in _versions.Where(v => v.Version < minBuiltin).ToArray())
                 {
                     _versions.Remove(version);
                     _warnings.Add("Skipped version {0} because there are no built-in data files for it to use. Delete the \"Data\\GameVersion-{0}.xml\" file to get rid of this warning.".Fmt(version));
@@ -544,7 +551,9 @@ namespace TankIconMaker
 
                 try
                 {
-                    _versions.Add(gameVersion, XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName));
+                    var ver = XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName);
+                    ver.Version = gameVersion;
+                    _versions.Add(ver);
                 }
                 catch (Exception e)
                 {
@@ -841,21 +850,29 @@ namespace TankIconMaker
     /// </summary>
     sealed class GameVersion
     {
-        /// <summary>How this version should be displayed in the UI. Note: not currently used.</summary>
+        /// <summary>TankIconMaker currently only supports three-part game versions with numbers only; this is the game version in that format.</summary>
+        public Version Version { get; internal set; }
+        /// <summary>How this version should be displayed in the UI - allowing for oddities like "0.7.1b" or "0.7.1.1.1.1".</summary>
         public string DisplayName { get; private set; }
         /// <summary>Relative path to the directory containing the tank icons we're creating.</summary>
         public string PathDestination { get; private set; }
+        /// <summary>Relative path to the directory containing contour tank images.</summary>
+        public string PathSourceContour { get; private set; }
         /// <summary>Relative path to the directory containing 3D tank images.</summary>
         public string PathSource3D { get; private set; }
 
         /// <summary>Relative path to a file whose size can be checked to auto-guess the game version.</summary>
         public string CheckFileName { get; private set; }
-        /// <summary>Expected size of the <see cref="CheckFileName"/> file. A match means that this is probably the right game version.</summary>
-        public long CheckFileSize { get; private set; }
+        /// <summary>A string expected inside the <see cref="CheckFileName"/> file. A match means that this is probably the right game version.</summary>
+        public string CheckFileContent { get; private set; }
 
         private GameVersion()
         {
-            CheckFileSize = -1;
+        }
+
+        public override string ToString()
+        {
+            return DisplayName;
         }
     }
 }

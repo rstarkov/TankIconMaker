@@ -90,6 +90,9 @@ namespace TankIconMaker
         /// </summary>
         public static Settings Settings;
 
+        /// <summary>Encapsulates all the tank/game data TankIconMaker requires.</summary>
+        public static WotData Data = new WotData();
+
         /// <summary>
         /// Lists all the possible sources of extra properties, sorted and in an observable fashion. This is kept up-to-date
         /// by the <see cref="MainWindow"/> and used in data binding by the <see cref="DataSourceEditor"/>.
