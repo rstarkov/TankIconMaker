@@ -523,6 +523,15 @@ namespace TankIconMaker
             return max;
         }
 
+        /// <summary>Gets game version information for whichever version appears to be installed at the specified path (or latest version if can’t determine that).</summary>
+        public GameVersion GetGuessedVersion(string path)
+        {
+            return _versions
+                .Where(v => File.Exists(Path.Combine(path, v.CheckFileName)) && Ut.FileContains(Path.Combine(path, v.CheckFileName), v.CheckFileContent))
+                .OrderByDescending(v => v.Version)
+                .FirstOrDefault() ?? GetLatestVersion();
+        }
+
         /// <summary>Represents an "extra" data file during loading, including all the extra info required to properly resolve inheritance.</summary>
         private class DataFileExtra2 : DataFileExtra
         {

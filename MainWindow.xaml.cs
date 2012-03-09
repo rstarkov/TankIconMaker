@@ -812,7 +812,7 @@ namespace TankIconMaker
                         "&Use anyway", "Cancel") == 1)
                         return;
                 }
-                var version = best.Where(v => FileContains(Path.Combine(dlg.SelectedPath, v.CheckFileName), v.CheckFileContent))
+                var version = best.Where(v => Ut.FileContains(Path.Combine(dlg.SelectedPath, v.CheckFileName), v.CheckFileContent))
                     .OrderByDescending(v => v.Version)
                     .FirstOrDefault();
 
@@ -823,14 +823,6 @@ namespace TankIconMaker
             Program.Settings.SaveThreaded();
 
             ctGamePath.SelectedItem = gis;
-        }
-
-        private bool FileContains(string fileName, string content)
-        {
-            foreach (var line in File.ReadLines(fileName))
-                if (line.Contains(content))
-                    return true;
-            return false;
         }
 
         private void RemoveGamePath(object _ = null, RoutedEventArgs __ = null)
@@ -865,10 +857,7 @@ namespace TankIconMaker
         private GameInstallationSettings GuessTanksLocationAndVersion()
         {
             var path = Ut.FindTanksDirectory();
-            var version = Program.Data.Versions
-                .Where(v => File.Exists(Path.Combine(path, v.CheckFileName)) && FileContains(Path.Combine(path, v.CheckFileName), v.CheckFileContent))
-                .OrderByDescending(v => v.Version)
-                .FirstOrDefault();
+            var version = Program.Data.GetGuessedVersion(path);
 
             return new GameInstallationSettings { Path = path, GameVersion = version ?? Program.Data.GetLatestVersion() };
         }
