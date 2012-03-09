@@ -20,9 +20,7 @@ using RT.Util.Forms;
 using RT.Util.Xml;
 
 /*
- * Broken IsEnabled on ctGameVersion, ctSave
  * Remove icon backup stuff
- * GameInstallationSettings should use the Version type for the game version.
  * Allow the maker to tell us which tanks to invalidate on a property change.
  * _otherWarnings: tag with warning type to enable reliable removal
  */
@@ -37,6 +35,7 @@ namespace TankIconMaker
         private string _makerSettingsFilename = null;
         private bool _makerSettingsConfirmSave = false;
         private static BitmapImage _warningImage;
+        private ObservableValue<bool> _rendering = new ObservableValue<bool>(false);
 
         private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
         private ObservableCollection<string> _otherWarnings = new ObservableCollection<string>();
@@ -136,22 +135,45 @@ namespace TankIconMaker
             ReloadData();
 
             // Set WPF bindings now that all the data we need is loaded
+            BindingOperations.SetBinding(ctAddGamePath, Button.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                (int index, bool filesAvailable) => index >= 0 && filesAvailable
+            ));
             BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                (int index) => index >= 0
+                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctGamePath, ComboBox.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                (int index) => index >= 0
+                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                (int index) => index >= 0
+                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                (int index, bool filesAvailable) => index >= 0 && filesAvailable
+            ));
+            BindingOperations.SetBinding(ctMakerDropdown, ComboBox.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                (int index, bool filesAvailable) => index >= 0 && filesAvailable
+            ));
+            BindingOperations.SetBinding(ctMakerProperties, UIElement.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
+                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, LambdaBinding.New(
                 new Binding { Source = _dataWarnings, Path = new PropertyPath("Count") },
                 new Binding { Source = _otherWarnings, Path = new PropertyPath("Count") },
                 (int dataCount, int otherCount) => dataCount + otherCount == 0 ? Visibility.Collapsed : Visibility.Visible
+            ));
+            BindingOperations.SetBinding(ctSave, Button.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = _rendering, Path = new PropertyPath("Value") },
+                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                (bool rendering, bool filesAvailable) => !rendering && filesAvailable
             ));
             var selectedInstall = Program.Settings.GameInstalls.FirstOrDefault(gis => gis.Path.EqualsNoCase(Program.Settings.SelectedGamePath))
                 ?? Program.Settings.GameInstalls.FirstOrDefault();
@@ -189,15 +211,6 @@ namespace TankIconMaker
             foreach (var warning in Program.Data.Warnings)
                 _dataWarnings.Add(warning);
 
-            // Update UI to reflect whether the bare minimum data files are available
-            var filesAvailable = Program.Data.Versions.Any() && Program.Data.BuiltIn.Any();
-            ctSave.IsEnabled = filesAvailable;
-            ctMakerDropdown.IsEnabled = filesAvailable;
-            ctMakerProperties.IsEnabled = filesAvailable;
-            ctGameVersion.IsEnabled = filesAvailable;
-            if (!filesAvailable)
-                DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
-
             // Yes, this stuff is a bit WinForms'sy...
             var gis = GetInstallationSettings();
             ctGamePath.Items.Refresh();
@@ -211,9 +224,12 @@ namespace TankIconMaker
             else
             {
                 ctMakerProperties.SelectedObject = null;
-                _renderResults.Clear();
-                ctIconsPanel.Children.Clear();                
+                ctIconsPanel.Children.Clear();
             }
+
+            // Warn the user in a more obvious way
+            if (!Program.Data.FilesAvailable)
+                DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
 
             UpdateIcons();
         }
@@ -248,7 +264,7 @@ namespace TankIconMaker
         {
             _cancelRender.Cancel();
 
-            ctSave.IsEnabled = false;
+            _rendering.Value = true;
             foreach (var image in ctIconsPanel.Children.OfType<TankImageControl>())
                 image.Opacity = 0.7;
 
@@ -264,7 +280,7 @@ namespace TankIconMaker
         /// </summary>
         private void UpdateIcons(object _ = null, EventArgs __ = null)
         {
-            ctSave.IsEnabled = false;
+            _rendering.Value = true;
             foreach (var image in ctIconsPanel.Children.OfType<TankImageControl>())
                 image.Opacity = 0.7;
 
@@ -334,7 +350,7 @@ namespace TankIconMaker
         /// </summary>
         private void UpdateIconsCompleted()
         {
-            ctSave.IsEnabled = true;
+            _rendering.Value = false;
 
             // Update the warning messages
             string warning = "Some of the tank icons did not render correctly; make sure you view \"All tanks\" and click each broken image for details.";
@@ -679,7 +695,7 @@ namespace TankIconMaker
         {
             if (ctGamePath.IsKeyboardFocusWithin && ctGamePath.IsDropDownOpen && e.Key == Key.Delete)
             {
-                RemoveGameDirectory();
+                RemoveGamePath();
                 e.Handled = true;
             }
         }
@@ -857,7 +873,7 @@ namespace TankIconMaker
             return false;
         }
 
-        private void RemoveGameDirectory(object _ = null, RoutedEventArgs __ = null)
+        private void RemoveGamePath(object _ = null, RoutedEventArgs __ = null)
         {
             // Looks rather hacky but seems to do the job correctly even when called with the drop-down visible.
             var index = ctGamePath.SelectedIndex;

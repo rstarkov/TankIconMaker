@@ -22,6 +22,13 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="{x:Type Path}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type UIElement}, AncestorLevel=1}, Path=IsEnabled}" Value="False">
+                    <Setter Property="Opacity" Value="0.3"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="gridSplitterStyle" TargetType="{x:Type GridSplitter}">
             <Setter Property="TextElement.Foreground" Value="#FF204D89" />
             <Setter Property="Border.BorderBrush" Value="#FF999999" />
@@ -80,10 +87,10 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <ComboBox Name="ctGamePath" Grid.Column="0"></ComboBox>
-                    <Button Grid.Column="1" MinWidth="25" Margin="4,0,0,0" Click="AddGamePath">
+                    <Button Name="ctAddGamePath" Grid.Column="1" MinWidth="25" Margin="4,0,0,0" Click="AddGamePath">
                         <Path Fill="Lime" Stroke="Green" Data="M 4.5,0.5 H 7.5 V 4.5 H 11.5 V 7.5 H 7.5 V 11.5 H 4.5 V 7.5 H 0.5 V 4.5 H 4.5 Z" SnapsToDevicePixels="True" />
                     </Button>
-                    <Button Name="ctRemoveGamePath" Grid.Column="2" MinWidth="25" Margin="4,0,0,0" Click="RemoveGameDirectory">
+                    <Button Name="ctRemoveGamePath" Grid.Column="2" MinWidth="25" Margin="4,0,0,0" Click="RemoveGamePath">
                         <Rectangle Width="10" Height="4" Fill="Red" Stroke="DarkRed" SnapsToDevicePixels="True"/>
                     </Button>
                 </Grid>
