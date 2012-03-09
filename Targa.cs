@@ -21,37 +21,34 @@ namespace TankIconMaker
         public byte[] Raw { get; private set; }
 
         /// <summary>Constructs a Targa image by loading a .tga file.</summary>
-        public Targa(string filename)
+        public Targa(Stream file)
         {
-            using (var file = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+            var header = file.Read(18);
+            if (header[0] != 0) throw new NotSupportedException("Only images with no offset are supported");
+            if (header[1] != 0) throw new NotSupportedException("Only RGB images are supported");
+            if (header[2] != 2) throw new NotSupportedException("Only RGB images are supported");
+            if (header[8] != 0 || header[9] != 0 || header[10] != 0 || header[11] != 0)
+                throw new NotSupportedException("Only images with origin at 0,0 are supported");
+            PixelWidth = (header[13] << 8) + header[12];
+            PixelHeight = (header[15] << 8) + header[14];
+            if (PixelWidth > 2048 || PixelHeight > 2048) // an arbitrary limit; more for sanity check than anything else
+                throw new NotSupportedException("Only images up to 2048x2048 are supported");
+            if (PixelWidth == 0 || PixelHeight == 0)
+                throw new NotSupportedException("Images with a zero width or height are not supported");
+            if (header[16] != 32) throw new NotSupportedException("Only 32 bits per pixel images are supported");
+            bool upsideDown = (header[17] & 32) != 0;
+
+            Raw = file.Read(PixelWidth * PixelHeight * 4);
+
+            if (!upsideDown)
             {
-                var header = file.Read(18);
-                if (header[0] != 0) throw new NotSupportedException("Only images with no offset are supported");
-                if (header[1] != 0) throw new NotSupportedException("Only RGB images are supported");
-                if (header[2] != 2) throw new NotSupportedException("Only RGB images are supported");
-                if (header[8] != 0 || header[9] != 0 || header[10] != 0 || header[11] != 0)
-                    throw new NotSupportedException("Only images with origin at 0,0 are supported");
-                PixelWidth = (header[13] << 8) + header[12];
-                PixelHeight = (header[15] << 8) + header[14];
-                if (PixelWidth > 2048 || PixelHeight > 2048) // an arbitrary limit; more for sanity check than anything else
-                    throw new NotSupportedException("Only images up to 2048x2048 are supported");
-                if (PixelWidth == 0 || PixelHeight == 0)
-                    throw new NotSupportedException("Images with a zero width or height are not supported");
-                if (header[16] != 32) throw new NotSupportedException("Only 32 bits per pixel images are supported");
-                bool upsideDown = (header[17] & 32) != 0;
-
-                Raw = file.Read(PixelWidth * PixelHeight * 4);
-
-                if (!upsideDown)
+                var line = new byte[PixelWidth * 4];
+                int w = PixelWidth * 4;
+                for (int y = 0; y < PixelHeight / 2; y++)
                 {
-                    var line = new byte[PixelWidth * 4];
-                    int w = PixelWidth * 4;
-                    for (int y = 0; y < PixelHeight / 2; y++)
-                    {
-                        Buffer.BlockCopy(Raw, y * w, line, 0, w);
-                        Buffer.BlockCopy(Raw, (PixelHeight - 1 - y) * w, Raw, y * w, w);
-                        Buffer.BlockCopy(line, 0, Raw, (PixelHeight - 1 - y) * w, w);
-                    }
+                    Buffer.BlockCopy(Raw, y * w, line, 0, w);
+                    Buffer.BlockCopy(Raw, (PixelHeight - 1 - y) * w, Raw, y * w, w);
+                    Buffer.BlockCopy(line, 0, Raw, (PixelHeight - 1 - y) * w, w);
                 }
             }
         }
@@ -75,21 +72,35 @@ namespace TankIconMaker
         }
 
         /// <summary>A convenience method to load a .tga file directly into a WPF image.</summary>
-        public static WriteableBitmap LoadWpf(string filename)
+        public static WriteableBitmap LoadWpf(Stream file)
         {
-            var tga = new Targa(filename);
+            var tga = new Targa(file);
             var bitmap = new WriteableBitmap(tga.PixelWidth, tga.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
             bitmap.WritePixels(new Int32Rect(0, 0, tga.PixelWidth, tga.PixelHeight), tga.Raw, tga.PixelWidth * 4, 0);
             return bitmap;
         }
 
         /// <summary>A convenience method to load a .tga file directly into a GDI image.</summary>
-        public static BitmapGdi LoadGdi(string filename)
+        public static BitmapGdi LoadGdi(Stream file)
         {
-            var tga = new Targa(filename);
+            var tga = new Targa(file);
             var bitmap = new BitmapGdi(tga.PixelWidth, tga.PixelHeight);
             throw new NotImplementedException(); // just copy tga.Raw into bitmap.Bytes (or BytesPtr) taking Stride into account
             //return bitmap;
+        }
+
+        /// <summary>A convenience method to load a .tga file directly into a WPF image.</summary>
+        public static WriteableBitmap LoadWpf(string filename)
+        {
+            using (var file = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                return LoadWpf(filename);
+        }
+
+        /// <summary>A convenience method to load a .tga file directly into a GDI image.</summary>
+        public static BitmapGdi LoadGdi(string filename)
+        {
+            using (var file = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                return LoadGdi(filename);
         }
 
         /// <summary>A convenience method to save a WPF image directly to a .tga file.</summary>

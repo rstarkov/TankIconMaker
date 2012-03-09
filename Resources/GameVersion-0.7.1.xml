@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <item>
-  <DisplayName>0.7.1b</DisplayName>
-  <PathDestination>res\gui\maps\icons\vehicle\contour</PathDestination>
-  <PathSourceContour>res\gui\maps\icons\vehicle\contour</PathSourceContour>
-  <PathSource3D>res\gui\maps\icons\vehicle\small</PathSource3D>
+  <DisplayName>0.7.1.1</DisplayName>
+  <PathDestination>res_mods\0.7.1.1\gui\maps\icons\vehicle\contour</PathDestination>
+  <PathSourceContour>res\packages\gui.pkg:gui\maps\icons\vehicle\contour</PathSourceContour>
+  <PathSource3D>res\packages\gui.pkg:gui\maps\icons\vehicle\small</PathSource3D>
   <CheckFileName>WOTLauncher.cfg</CheckFileName>
   <CheckFileContent>&lt;client_ver&gt;71.141504&lt;/client_ver&gt;</CheckFileContent>
 </item>

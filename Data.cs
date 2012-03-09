@@ -119,7 +119,11 @@ namespace TankIconMaker
         /// </summary>
         public virtual WriteableBitmap LoadImage3DWpf()
         {
-            try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga")); }
+            try
+            {
+                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"))
+                    return Targa.LoadWpf(stream);
+            }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
@@ -130,7 +134,11 @@ namespace TankIconMaker
         /// </summary>
         public virtual BitmapGdi LoadImage3DGdi()
         {
-            try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga")); }
+            try
+            {
+                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"))
+                    return Targa.LoadGdi(stream);
+            }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
@@ -141,7 +149,11 @@ namespace TankIconMaker
         /// </summary>
         public virtual WriteableBitmap LoadImageContourWpf()
         {
-            try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga")); }
+            try
+            {
+                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"))
+                    return Targa.LoadWpf(stream);
+            }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
@@ -152,7 +164,11 @@ namespace TankIconMaker
         /// </summary>
         public virtual BitmapGdi LoadImageContourGdi()
         {
-            try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga")); }
+            try
+            {
+                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"))
+                    return Targa.LoadGdi(stream);
+            }
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
