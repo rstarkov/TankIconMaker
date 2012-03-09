@@ -237,6 +237,24 @@ namespace TankIconMaker
             }
             return zipfile.GetInputStream(zipfile.GetEntry(filePath));
         }
+
+        /// <summary>
+        /// Determines whether the specified file contains the specified text. The file doesn’t have to exist.
+        /// </summary>
+        public static bool FileContains(string fileName, string content)
+        {
+            if (content == null)
+                return false;
+            try
+            {
+                foreach (var line in File.ReadLines(fileName))
+                    if (line.Contains(content))
+                        return true;
+                return false;
+            }
+            catch (FileNotFoundException) { return false; }
+            catch (DirectoryNotFoundException) { return false; }
+        }
     }
 
     /// <summary>A crutch that enables a sensible way to bind to a dependency property with a custom conversion.</summary>
