@@ -34,12 +34,12 @@ germany-PzIII_IV,PzIII/IV
 germany-PzIV,PzIV
 germany-PzIV_Hydro,*Hydraulic*,не проверен
 germany-PzV,Panther
-germany-PzV_PzIV,*PzV-IV*,не проверен
-germany-PzV_PzIV_ausf_Alfa,*PzV-IV Alpha*,не проверен
+germany-PzV_PzIV,PzV/IV
+germany-PzV_PzIV_ausf_Alfa,*PzV/IV Alpha*,не проверен
 germany-PzVI,Tiger
 germany-PzVI_Tiger_P,Tiger P
 germany-PzVIB_Tiger_II,Tiger II
-germany-S35_captured,*Pz S35*,не проверен
+germany-S35_captured,Pz S35
 germany-StugIII,StuGIII
 germany-Sturmpanzer_II,StPz II
 germany-T-15,T-15
@@ -57,7 +57,7 @@ usa-M10_Wolverine,Wolverine
 usa-M12,M12
 usa-M2_lt,M2 LT
 usa-M2_med,M2 MT
-usa-M22_Locust,*Locust*,не проверен
+usa-M22_Locust,Locust
 usa-M24_Chaffee,Chaffee
 usa-M3_Grant,M3 Lee
 usa-M3_Stuart,M3 Stuart
