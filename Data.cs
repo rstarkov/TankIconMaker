@@ -380,6 +380,19 @@ namespace TankIconMaker
             InheritsFromLanguage = properties.InheritsFromLanguage;
             Data = data.ToList().AsReadOnly();
         }
+
+        protected DataFileExtra(string name, string language, string author, Version gameVersion, string inhName, string inhAuthor, string inhLanguage)
+        {
+            Name = name;
+            Language = language;
+            Author = author;
+            GameVersion = gameVersion;
+            FileVersion = 1;
+            InheritsFromName = inhName;
+            InheritsFromAuthor = inhAuthor;
+            InheritsFromLanguage = inhLanguage;
+            Data = new List<ExtraData>().AsReadOnly();
+        }
     }
 
     /// <summary>
@@ -520,6 +533,9 @@ namespace TankIconMaker
 
             public DataFileExtra2(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
                 : base(name, language, author, gameVersion, fileVersion, filename) { }
+
+            public DataFileExtra2(string name, string language, string author, Version gameVersion, string inhName, string inhAuthor, string inhLanguage)
+                : base(name, language, author, gameVersion, inhName, inhAuthor, inhLanguage) { }
         }
 
         /// <summary>Clears all the data and performs a fresh load off disk.</summary>
@@ -662,6 +678,18 @@ namespace TankIconMaker
                     origFilenames[df] = fi.Name;
                 }
             }
+
+            // Conjure up blank "extra" files for all "missing" versions
+            var versions = builtin.Select(f => f.GameVersion).Concat(extra.Select(f => f.GameVersion)).Distinct().OrderBy(v => v).ToArray();
+            foreach (var ex in extra.ToArray())
+                foreach (var ver in versions.Where(v => v > ex.GameVersion))
+                    if (!extra.Any(e => e.Name == ex.Name && e.Language == ex.Language && e.Author == ex.Author && e.GameVersion == ver))
+                    {
+                        var newextra = new DataFileExtra2(ex.Name, ex.Language, ex.Author, ver,
+                            ex.InheritsFromName, ex.InheritsFromAuthor, ex.InheritsFromLanguage);
+                        extra.Add(newextra);
+                        origFilenames[newextra] = "(none)";
+                    }
 
             resolveBuiltIn(builtin);
             resolveExtras(extra, origFilenames);
