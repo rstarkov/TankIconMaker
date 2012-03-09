@@ -36,6 +36,10 @@
     <ApplicationIcon>Resources\Graphics\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ThirdParty\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>ThirdParty\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>

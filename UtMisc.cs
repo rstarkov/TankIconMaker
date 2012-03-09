@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
 
 namespace TankIconMaker
@@ -206,6 +207,35 @@ namespace TankIconMaker
         public static TResult? NullOr<TInput, TResult>(this TInput input, FuncStruct<TInput, TResult> lambda) where TResult : struct
         {
             return input == null ? null : (TResult?) lambda(input);
+        }
+
+        /// <summary>Caches ZipFile instances for packages to save opening them for every single resource.</summary>
+        private static Dictionary<string, WeakReference> _packages = new Dictionary<string, WeakReference>();
+        private static int _zipsCreated = 0;
+
+        public static Stream OpenFileOrZip(string gamePath, string dirPath, string filename)
+        {
+            // If no semicolon then it’s a normal filesystem file
+            if (!dirPath.Contains(":"))
+                return File.Open(Path.Combine(gamePath, dirPath, filename), FileMode.Open, FileAccess.Read, FileShare.Read);
+            // Otherwise it’s a zip file
+            var parts = dirPath.Split(':');
+            var pkgPath = Path.Combine(gamePath, parts[0]);
+            var filePath = parts[1].Replace('\\', '/') + "/" + filename;
+            WeakReference reference;
+            ZipFile zipfile = null;
+            lock (_packages)
+            {
+                if (_packages.TryGetValue(pkgPath.ToLowerInvariant(), out reference))
+                    zipfile = reference.Target as ZipFile;
+                if (zipfile == null)
+                {
+                    _zipsCreated++;
+                    zipfile = new ZipFile(pkgPath);
+                    _packages[pkgPath.ToLowerInvariant()] = new WeakReference(zipfile);
+                }
+            }
+            return zipfile.GetInputStream(zipfile.GetEntry(filePath));
         }
     }
 

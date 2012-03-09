@@ -20,7 +20,6 @@ using RT.Util.Forms;
 using RT.Util.Xml;
 
 /*
- * Remove icon backup stuff
  * Allow the maker to tell us which tanks to invalidate on a property change.
  * _otherWarnings: tag with warning type to enable reliable removal
  */
@@ -343,6 +342,8 @@ namespace TankIconMaker
             // Remove unused images
             foreach (var image in images.Skip(renderTasks.Count))
                 ctIconsPanel.Children.Remove(image);
+            if (ctIconsPanel.Children.OfType<TankImageControl>().All(c => c.Opacity == 1))
+                UpdateIconsCompleted();
         }
 
         /// <summary>
@@ -728,15 +729,14 @@ namespace TankIconMaker
                 return;
             }
 
-            if (!EnsureBackup())
-                return;
+            var path = Path.Combine(gameInstall.Path, gameInstall.GameVersion.PathDestination);
 
-            var path = GetIconDestinationPath();
-            if (!_overwriteAccepted)
+            if (!_overwriteAccepted && Directory.Exists(path))
                 if (DlgMessage.ShowQuestion("Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL .tga files in this path will be overwritten, and there is NO UNDO for this!"
                     .Fmt(path), "&Yes, overwrite all files", "&Cancel") == 1)
                     return;
             _overwriteAccepted = true;
+            Directory.CreateDirectory(path);
 
             GlobalStatusShow("Saving...");
 
@@ -785,46 +785,6 @@ namespace TankIconMaker
                 Caption = "Tank Icon Maker",
                 Image = icon == null ? null : icon.ToGdi().GetBitmapCopy()
             }.Show();
-        }
-
-        /// <summary>
-        /// Ensures that a backup of the original icons is available and up-to-date (even if the user has upgraded the game since
-        /// the last backup). Might prompt the user about the backup. Returns true to indicate that a backup is fine, or false otherwise.
-        /// </summary>
-        private bool EnsureBackup()
-        {
-            try
-            {
-                IEnumerable<FileInfo> copy;
-                var path = GetIconDestinationPath();
-                var pathOriginal = Path.Combine(path, "original");
-                var current = new DirectoryInfo(path).GetFiles("*.tga");
-                if (Directory.Exists(pathOriginal))
-                {
-                    var original = new DirectoryInfo(pathOriginal).GetFiles("*.tga");
-                    copy = current.Except(original, CustomEqualityComparer<FileInfo>.By(di => di.Name, ignoreCase: true));
-                }
-                else
-                {
-                    if (DlgMessage.ShowInfo("TankIconMaker needs to make a backup of your original icons, in case you want them back.\n\nPath: {0}\n\nProceed?"
-                        .Fmt(pathOriginal), "&Make backup", "&Cancel") == 1)
-                        return false;
-                    copy = current;
-                }
-
-                Directory.CreateDirectory(pathOriginal);
-                foreach (var file in copy)
-                    file.CopyTo(Path.Combine(pathOriginal, file.Name));
-
-                _overwriteAccepted = true;
-                return true;
-            }
-            catch (Exception e)
-            {
-                DlgMessage.ShowError("Could not check / create backup of the original icons. Please tell the developer!\n\nError details: {0} ({1})."
-                    .Fmt(e.Message, e.GetType().Name));
-                return false;
-            }
         }
 
         private void AddGamePath(object _, RoutedEventArgs __)
@@ -911,14 +871,6 @@ namespace TankIconMaker
                 .FirstOrDefault();
 
             return new GameInstallationSettings { Path = path, GameVersion = version ?? Program.Data.GetLatestVersion() };
-        }
-
-        private string GetIconDestinationPath()
-        {
-            var gis = GetInstallationSettings();
-            if (gis == null)
-                return null;
-            return Path.Combine(gis.Path, gis.GameVersion.PathDestination);
         }
 
         private void ctMakerDefaults_Click(object sender, RoutedEventArgs e)
