@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using Microsoft.Win32;
 
@@ -340,5 +342,42 @@ namespace TankIconMaker
         {
             return false; // we might not want to execute task that should schedule as high or low priority inline
         }
+    }
+
+
+    /// <summary>
+    /// Encapsulates a single value which dependency properties can depend on, and which can depend on other
+    /// dependency properties.
+    /// </summary>
+    public sealed class DependencyValue<T> : DependencyObject
+    {
+        public T Value
+        {
+            get { return (T) GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
+            "Value", typeof(T), typeof(DependencyValue<T>), new PropertyMetadata(default(T)));
+    }
+
+    /// <summary>
+    /// Encapsulates a single value which dependency properties can depend on.
+    /// </summary>
+    public sealed class ObservableValue<T> : INotifyPropertyChanged
+    {
+        private T _value;
+
+        public static implicit operator T(ObservableValue<T> value) { return value._value; }
+        public ObservableValue() { }
+        public ObservableValue(T value) { _value = value; }
+
+        public T Value
+        {
+            get { return _value; }
+            set { _value = value; PropertyChanged(this, new PropertyChangedEventArgs("Value")); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
     }
 }

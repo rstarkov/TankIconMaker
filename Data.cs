@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
-using RT.Util.Collections;
 using RT.Util.Xml;
 
 namespace TankIconMaker
@@ -442,7 +442,7 @@ namespace TankIconMaker
     /// Encapsulates all of the World of Tanks data available to the program, and implements methods
     /// to load the data off disk and retrieve a list of warnings indicating problems with the data.
     /// </summary>
-    sealed class WotData
+    sealed class WotData : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets a list of all the built-in data files available. Each file contains all the tanks, including those
@@ -463,6 +463,11 @@ namespace TankIconMaker
         /// </summary>
         public IList<GameVersion> Versions { get { return _versions.AsReadOnly(); } }
         private readonly List<GameVersion> _versions = new List<GameVersion>();
+
+        /// <summary>
+        /// Gets a value indicating whether the bare minimum of files are available.
+        /// </summary>
+        public bool FilesAvailable { get; private set; }
 
         /// <summary>
         /// Gets a list of warnings issued while loading the data. These can be serious and help understand
@@ -526,7 +531,11 @@ namespace TankIconMaker
                 }
             }
 
-            if (!_builtIn.Any() || !_versions.Any())
+            FilesAvailable = _builtIn.Any() && _versions.Any();
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs("FilesAvailable"));
+
+            if (!FilesAvailable)
                 _warnings.Add("Could not load any version data files and/or any built-in data files.");
         }
 
@@ -812,6 +821,8 @@ namespace TankIconMaker
             "Si", "Sk", "Sl", "Sm", "Sn", "So", "Sq", "Sr", "Ss", "St", "Su", "Sv", "Sw", "Ta", "Te", "Tg", "Th", "Ti", "Tk", "Tl", "Tn",
             "To", "Tr", "Ts", "Tt", "Tw", "Ty", "Ug", "Uk", "Ur", "Uz", "Ve", "Vi", "Vo", "Wa", "Wo", "Xh", "Yi", "Yo", "Za", "Zh", "Zu"
         };
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     /// <summary>Represents one of the WoT countries.</summary>
