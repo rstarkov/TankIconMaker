@@ -1,12 +1,12 @@
 WOT-DATA,1,"Короткие названия, перевод",NameImproved,Romkyns
 china-Ch01_Type59,Тип 59
-france-Bat_Chatillon25t,Шатийон
+france-Bat_Chatillon25t,БатШат
 france-Hotchkiss_H35,Гочкисс
 france-Lorraine40t,Лорейн
 france-RenaultFT,Рено FT
 germany-Bison_I,Бизон
 germany-Ferdinand,Фердинанд
-germany-G_E,*ГВ Тип Е*
+germany-G_E,ГВ Тип Е
 germany-G_Panther,ГВ Пантера
 germany-G_Tiger,ГВ Тигр
 germany-Grille,Гриль
@@ -14,7 +14,7 @@ germany-Hetzer,Хетцер
 germany-Hummel,Хуммель
 germany-Lowe,Лёва
 germany-Ltraktor,Трактор
-germany-Maus,*Маус*
+germany-Maus,Маус
 germany-Panther_II,Пантера II
 germany-PzII_Luchs,Люкс
 germany-PzV,Пантера
@@ -43,3 +43,4 @@ ussr-Churchill_LL,Черчилль
 ussr-Matilda_II_LL,Матильда
 ussr-Tetrarch_LL,Тетрарх
 ussr-Valentine_LL,Валентайн
+usa-T28_Prototype,T28 прото
