@@ -6,7 +6,7 @@ germany-E-100,E-100
 germany-E-50,E-50
 germany-E-75,E-75
 germany-Ferdinand,Ferdinand
-germany-G_E,*GW Typ E*,не проверен
+germany-G_E,GwTyp E
 germany-G_Panther,GWPanther
 germany-G_Tiger,GWTiger
 germany-G20_Marder_II,Marder II
@@ -19,7 +19,7 @@ germany-JagdPzIV,JagdPzIV
 germany-JagdTiger,Jagdtiger
 germany-Lowe,Löwe
 germany-Ltraktor,LTraktor
-germany-Maus,*Maus*,не проверен
+germany-Maus,Maus
 germany-Panther_II,Panther II
 germany-PanzerJager_I,PzJg I
 germany-Pz35t,Pz35t
@@ -113,7 +113,7 @@ ussr-KV,КВ
 ussr-KV-13,КВ-13
 ussr-KV-1s,КВ-1С
 ussr-KV-220,КВ-220 Т
-ussr-KV-220_action,*КВ-220 Бета*,не проверен
+ussr-KV-220_action,*КВ-220 A*,не проверен
 ussr-KV-3,КВ-3
 ussr-KV-5,КВ-5
 ussr-M3_Stuart_LL,*M3*,не проверен
@@ -166,12 +166,12 @@ france-RenaultFT,FT-17
 ussr-Tetrarch_LL,Tetrarch
 france-_105_leFH18B2,*leFH18 B2*,не проверен
 france-FCM_36Pak40,*FCM 36*,не проверен
-usa-M103,*M103*,не проверен
-usa-M18_Hellcat,*M18*,не проверен
+usa-M103,M103
+usa-M18_Hellcat,M18
 usa-M8A1,M8A1
-usa-T110,*T110*,не проверен
-usa-T25_2,*T25-2*,не проверен
-usa-T28_Prototype,*T28*,не проверен
+usa-T110,T110E5
+usa-T25_2,T25/2
+usa-T28_Prototype,T28Prot.
 usa-T30,T30
 usa-T34_hvy,T34
 usa-T49,T49
