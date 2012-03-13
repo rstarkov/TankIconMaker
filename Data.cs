@@ -381,13 +381,14 @@ namespace TankIconMaker
             Data = data.ToList().AsReadOnly();
         }
 
-        protected DataFileExtra(string name, string language, string author, Version gameVersion, string inhName, string inhAuthor, string inhLanguage)
+        protected DataFileExtra(string name, string language, string author, Version gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
         {
             Name = name;
             Language = language;
             Author = author;
             GameVersion = gameVersion;
             FileVersion = 1;
+            Description = description;
             InheritsFromName = inhName;
             InheritsFromAuthor = inhAuthor;
             InheritsFromLanguage = inhLanguage;
@@ -543,8 +544,8 @@ namespace TankIconMaker
             public DataFileExtra2(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
                 : base(name, language, author, gameVersion, fileVersion, filename) { }
 
-            public DataFileExtra2(string name, string language, string author, Version gameVersion, string inhName, string inhAuthor, string inhLanguage)
-                : base(name, language, author, gameVersion, inhName, inhAuthor, inhLanguage) { }
+            public DataFileExtra2(string name, string language, string author, Version gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
+                : base(name, language, author, gameVersion, description, inhName, inhAuthor, inhLanguage) { }
         }
 
         /// <summary>Clears all the data and performs a fresh load off disk.</summary>
@@ -694,7 +695,7 @@ namespace TankIconMaker
                 foreach (var ver in versions.Where(v => v > ex.GameVersion))
                     if (!extra.Any(e => e.Name == ex.Name && e.Language == ex.Language && e.Author == ex.Author && e.GameVersion == ver))
                     {
-                        var newextra = new DataFileExtra2(ex.Name, ex.Language, ex.Author, ver,
+                        var newextra = new DataFileExtra2(ex.Name, ex.Language, ex.Author, ver, ex.Description,
                             ex.InheritsFromName, ex.InheritsFromAuthor, ex.InheritsFromLanguage);
                         extra.Add(newextra);
                         origFilenames[newextra] = "(none)";
