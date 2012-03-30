@@ -4,6 +4,7 @@
         xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
         xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
         xmlns:src="clr-namespace:TankIconMaker"
+        xmlns:wpfc="clr-namespace:WpfCrutches"
         Title="Tank Icon Maker"
         TextOptions.TextFormattingMode="Display"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
@@ -122,8 +123,8 @@
                 <Label Padding="3,0,0,0" Target="{Binding ElementName=ctLayersTree}">Layers:</Label>
             </StackPanel>
             <DockPanel Name="ctLeftBottomPane" Grid.Row="1">
-                <src:TreeViewWithItem x:Name="ctLayersTree" DockPanel.Dock="Top" MinHeight="60" Margin="8,0,8,0" PreviewMouseRightButtonDown="ctLayersTree_PreviewMouseRightButtonDown">
-                    <src:TreeViewWithItem.Resources>
+                <wpfc:TreeViewWithItem x:Name="ctLayersTree" DockPanel.Dock="Top" MinHeight="60" Margin="8,0,8,0" PreviewMouseRightButtonDown="ctLayersTree_PreviewMouseRightButtonDown">
+                    <wpfc:TreeViewWithItem.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#B8DBFF"></SolidColorBrush>
                         <HierarchicalDataTemplate DataType = "{x:Type src:LayerBase}" ItemsSource = "{Binding Effects}">
                             <StackPanel Orientation="Horizontal">
@@ -135,16 +136,16 @@
                         <DataTemplate DataType = "{x:Type src:EffectBase}">
                             <TextBlock Text="{Binding Path=TypeName}"/>
                         </DataTemplate>
-                    </src:TreeViewWithItem.Resources>
-                    <src:TreeViewWithItem.InputBindings>
+                    </wpfc:TreeViewWithItem.Resources>
+                    <wpfc:TreeViewWithItem.InputBindings>
                         <KeyBinding Command="src:TankLayerCommands.AddLayer" Key="Insert" />
                         <KeyBinding Command="src:TankLayerCommands.AddEffect" Modifiers="Alt" Key="Insert" />
                         <KeyBinding Command="src:TankLayerCommands.Modify" Key="F2" />
                         <KeyBinding Command="src:TankLayerCommands.Delete" Key="Delete" />
                         <KeyBinding Command="src:TankLayerCommands.MoveUp" Modifiers="Ctrl" Key="Up" />
                         <KeyBinding Command="src:TankLayerCommands.MoveDown" Modifiers="Ctrl" Key="Down" />
-                    </src:TreeViewWithItem.InputBindings>
-                    <src:TreeViewWithItem.ContextMenu>
+                    </wpfc:TreeViewWithItem.InputBindings>
+                    <wpfc:TreeViewWithItem.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Add _layer..." Command="src:TankLayerCommands.AddLayer" InputGestureText="Insert" />
                             <MenuItem Header="Add _effect..." Command="src:TankLayerCommands.AddEffect" InputGestureText="Alt+Insert" />
@@ -154,8 +155,8 @@
                             <MenuItem Header="Move _up" Command="src:TankLayerCommands.MoveUp" InputGestureText="Ctrl+↑" />
                             <MenuItem Header="Move _down" Command="src:TankLayerCommands.MoveDown" InputGestureText="Ctrl+↓" />
                         </ContextMenu>
-                    </src:TreeViewWithItem.ContextMenu>
-                </src:TreeViewWithItem>
+                    </wpfc:TreeViewWithItem.ContextMenu>
+                </wpfc:TreeViewWithItem>
                 <!--<Grid Margin="0,6,0,0">
                     <Grid Background="#80FFFFFF">
                         <TextBlock Name="ctLayerDescription" TextWrapping="Wrap" Padding="3,1,3,3">
