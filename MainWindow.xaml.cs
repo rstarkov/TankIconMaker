@@ -18,6 +18,7 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Forms;
 using RT.Util.Xml;
+using WpfCrutches;
 
 /*
  * Use a WPF MessageBox (avoid WinForms interop startup cost)
@@ -999,7 +1000,7 @@ namespace TankIconMaker
         private void ctLayersTree_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             // ARGH: WPF does not select the item right-clicked on, nor does it make it easy to make this happen.
-            var item = Ut.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject);
+            var item = WpfUtil.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject);
 
             if (item != null)
             {

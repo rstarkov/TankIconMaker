@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using RT.Util.Xml;
-using System.Windows.Controls;
+using WpfCrutches;
 
 
 /// Shift layer by x pixels

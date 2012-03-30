@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.Windows.Controls.PropertyGrid;
 using Microsoft.Windows.Controls.PropertyGrid.Editors;
+using WpfCrutches;
 
 namespace TankIconMaker
 {

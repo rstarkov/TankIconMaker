@@ -1,14 +1,15 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using RT.Util.Xml;
-using D = System.Drawing;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using RT.Util.Xml;
+using WpfCrutches;
+using D = System.Drawing;
 
 /// A linked "duplicate" layer (before or after effects)
 
