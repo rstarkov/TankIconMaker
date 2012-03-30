@@ -1,5 +1,5 @@
 WOT-BUILTIN-DATA,1
-china-Ch01_Type59,china,8,medium,premium
+china-Ch01_Type59,china,8,medium,special
 germany-B-1bis_captured,germany,4,heavy,premium
 germany-Bison_I,germany,2,artillery,normal
 germany-E-100,germany,10,heavy,normal
@@ -112,7 +112,7 @@ ussr-ISU-152,ussr,8,destroyer,normal
 ussr-KV,ussr,5,heavy,normal
 ussr-KV-13,ussr,7,medium,normal
 ussr-KV-1s,ussr,6,heavy,normal
-ussr-KV-220,ussr,5,heavy,premium
+ussr-KV-220,ussr,5,heavy,special
 ussr-KV-220_action,ussr,5,heavy,special
 ussr-KV-3,ussr,6,heavy,normal
 ussr-KV-5,ussr,8,heavy,premium

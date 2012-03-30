@@ -94,7 +94,7 @@ usa-T34_hvy,T34
 usa-T40,T40
 usa-T57,T57
 usa-T82,T82
-usa-T92,*T92*,не проверен
+usa-T92,T92
 usa-T95,T95
 ussr-A-20,А-20
 ussr-A-32,А-32
@@ -116,7 +116,7 @@ ussr-KV-220,КВ-220 Т
 ussr-KV-220_action,*КВ-220 A*,не проверен
 ussr-KV-3,КВ-3
 ussr-KV-5,КВ-5
-ussr-M3_Stuart_LL,*M3*,не проверен
+ussr-M3_Stuart_LL,M3 Stuart,"(да, точно такой же)"
 ussr-Matilda_II_LL,Matilda
 ussr-MS-1,МС-1
 ussr-Object_212,Об. 212
