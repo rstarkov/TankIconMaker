@@ -2,11 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
+        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+        xmlns:src="clr-namespace:TankIconMaker"
         Title="Tank Icon Maker"
         TextOptions.TextFormattingMode="Display"
-        Icon="/TankIconMaker;component/Resources/Graphics/icon.ico"
-        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
-        xmlns:my="clr-namespace:Microsoft.Windows.Controls.Chromes;assembly=WPFToolkit.Extended">
+        Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
     <Window.Resources>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Key="panelBackgroundBrush">
             <LinearGradientBrush.GradientStops>
@@ -72,14 +72,14 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Background="#87FFFFFF" AllowDrop="False" Margin ="0,0,8,0">
+        <Grid Name="ctLeftPane" Grid.Column="0" Background="#87FFFFFF" AllowDrop="False" Margin ="0,0,8,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="8,8,8,0">
-                <Label Padding="3,0,0,0" Target="{Binding ElementName=gamePath}">Game _directory:</Label>
+                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctGamePath}">Game _directory:</Label>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -94,13 +94,71 @@
                         <Rectangle Width="10" Height="4" Fill="Red" Stroke="DarkRed" SnapsToDevicePixels="True"/>
                     </Button>
                 </Grid>
-                <Label Padding="3,6,0,0" Target="{Binding ElementName=gameVersion}">_Game version:</Label>
+                <Label Padding="3,6,0,0" Target="{Binding ElementName=ctGameVersion}">_Game version:</Label>
                 <ComboBox Name="ctGameVersion"></ComboBox>
-                <Label Padding="3,6,0,0" Target="{Binding ElementName=iconMaker}">_Icon maker:</Label>
-                <ComboBox Name="ctMakerDropdown" />
-                <Grid Margin="0,6,0,0">
+                <Label Padding="3,6,0,0" Target="{Binding ElementName=ctStyleDropdown}">_Icon style:</Label>
+                <ComboBox Name="ctStyleDropdown" />
+                <DockPanel Margin="0,8,0,0">
+                    <Button Margin="0,0,0,0" Name="ctStyleNew">
+                        <AccessText Margin="6,0">_New</AccessText>
+                    </Button>
+                    <Button Margin="6,0,0,0" Name="ctStyleDelete">
+                        <AccessText Margin="6,0">_Delete</AccessText>
+                    </Button>
+                    <Button Margin="6,0,0,0" Name="ctStyleRename">
+                        <AccessText Margin="6,0">_Rename</AccessText>
+                    </Button>
+                    <Button Margin="6,0,0,0" Name="ctStyleMore" HorizontalAlignment="Right" Click="ctStyleMore_Click">
+                        <AccessText Margin="6,0,1,0">More ▾</AccessText>
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="_Import"/>
+                                <MenuItem Header="_Export"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                </DockPanel>
+                <Border Margin="0,5,0,5"></Border>
+                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctLayersTree}">Layers:</Label>
+            </StackPanel>
+            <DockPanel Name="ctLeftBottomPane" Grid.Row="1">
+                <src:TreeViewWithItem x:Name="ctLayersTree" DockPanel.Dock="Top" MinHeight="60" Margin="8,0,8,0" PreviewMouseRightButtonDown="ctLayersTree_PreviewMouseRightButtonDown">
+                    <src:TreeViewWithItem.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#B8DBFF"></SolidColorBrush>
+                        <HierarchicalDataTemplate DataType = "{x:Type src:LayerBase}" ItemsSource = "{Binding Effects}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=Name}"/>
+                                <TextBlock Text=" – "/>
+                                <TextBlock Text="{Binding Path=TypeName}"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType = "{x:Type src:EffectBase}">
+                            <TextBlock Text="{Binding Path=TypeName}"/>
+                        </DataTemplate>
+                    </src:TreeViewWithItem.Resources>
+                    <src:TreeViewWithItem.InputBindings>
+                        <KeyBinding Command="src:TankLayerCommands.AddLayer" Key="Insert" />
+                        <KeyBinding Command="src:TankLayerCommands.AddEffect" Modifiers="Alt" Key="Insert" />
+                        <KeyBinding Command="src:TankLayerCommands.Modify" Key="F2" />
+                        <KeyBinding Command="src:TankLayerCommands.Delete" Key="Delete" />
+                        <KeyBinding Command="src:TankLayerCommands.MoveUp" Modifiers="Ctrl" Key="Up" />
+                        <KeyBinding Command="src:TankLayerCommands.MoveDown" Modifiers="Ctrl" Key="Down" />
+                    </src:TreeViewWithItem.InputBindings>
+                    <src:TreeViewWithItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Add _layer..." Command="src:TankLayerCommands.AddLayer" InputGestureText="Insert" />
+                            <MenuItem Header="Add _effect..." Command="src:TankLayerCommands.AddEffect" InputGestureText="Alt+Insert" />
+                            <Separator/>
+                            <MenuItem Header="_Modify" Command="src:TankLayerCommands.Modify" InputGestureText="F2" />
+                            <MenuItem Header="_Delete" Command="src:TankLayerCommands.Delete" InputGestureText="Delete" />
+                            <MenuItem Header="Move _up" Command="src:TankLayerCommands.MoveUp" InputGestureText="Ctrl+↑" />
+                            <MenuItem Header="Move _down" Command="src:TankLayerCommands.MoveDown" InputGestureText="Ctrl+↓" />
+                        </ContextMenu>
+                    </src:TreeViewWithItem.ContextMenu>
+                </src:TreeViewWithItem>
+                <!--<Grid Margin="0,6,0,0">
                     <Grid Background="#80FFFFFF">
-                        <TextBlock Name="ctMakerDescription" TextWrapping="Wrap" Padding="3,1,3,3">
+                        <TextBlock Name="ctLayerDescription" TextWrapping="Wrap" Padding="3,1,3,3">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
@@ -112,23 +170,9 @@
                         </TextBlock.Style>
                         </TextBlock>
                     </Grid>
-                </Grid>
-            </StackPanel>
-            <extToolkit:PropertyGrid Margin="8" Name="ctMakerProperties" Grid.Row="1" NameColumnWidth="150"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <Button Margin="8,0,0,8" Name="ctMakerDefaults" Click="ctMakerDefaults_Click">
-                    <AccessText Margin="8,0">_Defaults</AccessText>
-                </Button>
-                <Button Margin="8,0,0,8" Name="ctMakerLoad" Click="ctMakerLoad_Click">
-                    <AccessText Margin="8,0">_Load</AccessText>
-                </Button>
-                <Button Margin="8,0,0,8" Name="ctMakerSave" Click="ctMakerSave_Click">
-                    <AccessText Margin="8,0">Sav_e</AccessText>
-                </Button>
-                <Button Margin="8,0,0,8" Name="ctMakerSaveAs" Click="ctMakerSaveAs_Click">
-                    <AccessText Margin="8,0">Save _as...</AccessText>
-                </Button>
-            </StackPanel>
+                </Grid>-->
+                <extToolkit:PropertyGrid Margin="8" Name="ctLayerProperties" NameColumnWidth="150"/>
+            </DockPanel>
         </Grid>
 
         <GridSplitter Width="8" Style="{StaticResource gridSplitterStyle}" />
@@ -165,7 +209,8 @@
             </DockPanel>
         </Grid>
 
-        <Border Grid.ColumnSpan="2" Name="ctGlobalStatusBox" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C">
+        <Border Grid.ColumnSpan="2" Name="ctGlobalStatusBox" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C"
+                Visibility="Collapsed">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#D25F5F5F" Offset="1" />

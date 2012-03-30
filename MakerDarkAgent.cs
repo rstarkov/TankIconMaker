@@ -14,32 +14,6 @@ namespace TankIconMaker
         public override int Version { get { return 1; } }
         public override string Description { get { return "Recreates my favourite icons by Black_Spy in TankIconMaker. Kudos to Black_Spy for the design!"; } }
 
-        // Category: Background
-        [Category("Background"), DisplayName("Opacity")]
-        [Description("The opacity of the colored background.")]
-        public int BackOpacity { get { return _BackOpacity; } set { _BackOpacity = Math.Max(0, Math.Min(255, value)); } }
-        private int _BackOpacity;
-
-        [Category("Background"), DisplayName("Color: light tank")]
-        [Description("The color of the background used for light tanks.")]
-        public Color BackColorLight { get; set; }
-
-        [Category("Background"), DisplayName("Color: medium tank")]
-        [Description("The color of the background used for medium tanks.")]
-        public Color BackColorMedium { get; set; }
-
-        [Category("Background"), DisplayName("Color: heavy tank")]
-        [Description("The color of the background used for heavy tanks.")]
-        public Color BackColorHeavy { get; set; }
-
-        [Category("Background"), DisplayName("Color: destroyer")]
-        [Description("The color of the background used for destroyers.")]
-        public Color BackColorDestroyer { get; set; }
-
-        [Category("Background"), DisplayName("Color: artillery")]
-        [Description("The color of the background used for artillery.")]
-        public Color BackColorArtillery { get; set; }
-
         // Category: Tank name
         [Category("Tank name"), DisplayName("Data source")]
         [Description("Choose the name of the property that supplies the data for the bottom right location.")]
@@ -119,20 +93,8 @@ namespace TankIconMaker
         [Description("0 = center relative to text, 1 = center in rectangle, other positive values: left margin, other negative values: right margin.")]
         public int TankAlignment { get; set; }
 
-        [XmlIgnore]
-        private Pen _outline, _outlineInner;
-        [XmlIgnore]
-        private Brush _lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground;
-
         public MakerDarkAgent()
         {
-            BackOpacity = 180;
-            BackColorLight = Color.FromRgb(35, 140, 35);
-            BackColorMedium = Color.FromRgb(150, 127, 37);
-            BackColorHeavy = Color.FromRgb(99, 99, 99);
-            BackColorDestroyer = Color.FromRgb(41, 83, 160);
-            BackColorArtillery = Color.FromRgb(181, 47, 47);
-
             NameData = new ExtraPropertyId("NameShortWG", "Ru", "Romkyns");
             NameColorNormal = Color.FromRgb(210, 210, 210);
             NameColorPremium = Colors.Yellow;
@@ -155,44 +117,8 @@ namespace TankIconMaker
             TankAlignment = 0;
         }
 
-        public override void Initialize()
-        {
-            _lightBackground = makeBackgroundBrush(BackColorLight.WithAlpha(BackOpacity));
-            _mediumBackground = makeBackgroundBrush(BackColorMedium.WithAlpha(BackOpacity));
-            _heavyBackground = makeBackgroundBrush(BackColorHeavy.WithAlpha(BackOpacity));
-            _destroyerBackground = makeBackgroundBrush(BackColorDestroyer.WithAlpha(BackOpacity));
-            _artilleryBackground = makeBackgroundBrush(BackColorArtillery.WithAlpha(BackOpacity));
-
-            double opacityScale = Math.Min(1.0, _BackOpacity / 180.0);
-            _outline = new Pen(new SolidColorBrush(Colors.Black.WithAlpha((int) (255 * opacityScale))), 1); _outline.Freeze();
-            _outlineInner = new Pen(new SolidColorBrush(Color.FromArgb((byte) (50 * opacityScale), 255, 255, 255)), 1); _outlineInner.Freeze();
-        }
-
-        private Brush makeBackgroundBrush(Color color)
-        {
-            var hsv = ColorHSV.FromColor(color);
-            var result = new LinearGradientBrush
-            {
-                GradientStops = new GradientStopCollection
-                {
-                    new GradientStop(hsv.ToColorWpf(), 0.1),
-                    new GradientStop(hsv.ScaleValue(0.56).ToColorWpf(), 0.49),
-                    new GradientStop(hsv.ScaleValue(0.39).ToColorWpf(), 0.51),
-                    new GradientStop(hsv.ScaleValue(0.56).ToColorWpf(), 0.9),
-                },
-                StartPoint = new Point(0, 0),
-                EndPoint = new Point(0, 1),
-            };
-            result.Freeze();
-            return result;
-        }
-
         public override void DrawTank(Tank tank, DrawingContext dc)
         {
-            dc.DrawRectangle(tank.Class.Pick(_lightBackground, _mediumBackground, _heavyBackground, _destroyerBackground, _artilleryBackground),
-                _outline, new Rect(0.5, 1.5, 79, 21));
-            dc.DrawRectangle(null, _outlineInner, new Rect(1.5, 2.5, 77, 19));
-
             PixelRect nameSize = new PixelRect(), tierSize = new PixelRect();
 
             var nameFont = new D.Font("Arial", 8.5f);

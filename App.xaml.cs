@@ -53,23 +53,41 @@ namespace TankIconMaker
             XmlClassify.DefaultOptions = new XmlClassifyOptions()
                 .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
                 .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(List<MakerBase>), new listMakerBaseOptions());
+                .AddTypeOptions(typeof(List<LayerBase>), new listLayerBaseOptions());
 
-            // Find all the makers
-            var makers = new List<ConstructorInfo>();
-            foreach (var makerType in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(MakerBase).IsAssignableFrom(t) && !t.IsAbstract))
-            {
-                var constructor = makerType.GetConstructor(new Type[0]);
-                if (constructor == null)
-                    DlgMessage.ShowWarning("Ignored maker type \"{0}\" because it does not have a public parameterless constructor.".Fmt(makerType));
-                else
-                    makers.Add(constructor);
-                // (the error message will only be seen by maker developers, so it's ok that it's shown before any UI appears)
-            }
-            Program.MakerConstructors = makers.AsReadOnly();
+            // Find all the layer and effect types in the assembly
+            Program.LayerTypes = findTypes<LayerBase>("layer");
+            Program.EffectTypes = findTypes<EffectBase>("effect");
 
             base.OnStartup(e);
             SettingsUtil.LoadSettings(out Program.Settings);
+        }
+
+        private static IList<TypeInfo<T>> findTypes<T>(string name) where T : IHasTypeNameDescription
+        {
+            var infos = new List<TypeInfo<T>>();
+            foreach (var type in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(T).IsAssignableFrom(t) && !t.IsAbstract))
+            {
+                var constructor = type.GetConstructor(new Type[0]);
+                if (constructor == null)
+                {
+                    // (the error message will only be seen by maker developers, so it's ok that it's shown before any UI appears)
+                    DlgMessage.ShowWarning("Ignored {1} type \"{0}\" because it does not have a public parameterless constructor.".Fmt(type, name));
+                }
+                else
+                {
+                    var obj = (T) constructor.Invoke(new object[0]);
+                    infos.Add(new TypeInfo<T>
+                    {
+                        Type = type,
+                        Constructor = () => (T) constructor.Invoke(new object[0]),
+                        Name = obj.TypeName,
+                        Description = obj.TypeDescription,
+                    });
+                }
+            }
+            infos.Sort(CustomComparer<TypeInfo<T>>.By(ti => ti.Name));
+            return infos.AsReadOnly();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -108,9 +126,9 @@ namespace TankIconMaker
         /// </summary>
         public static double DpiScaleX, DpiScaleY;
 
-        /// <summary>
-        /// A list of parameterless constructors for each maker type defined in this assembly. Initialised once at startup.
-        /// </summary>
-        public static IList<ConstructorInfo> MakerConstructors;
+        /// <summary>A list of info classes for each layer type defined in this assembly. Initialised once at startup.</summary>
+        public static IList<TypeInfo<LayerBase>> LayerTypes;
+        /// <summary>A list of info classes for each effect type defined in this assembly. Initialised once at startup.</summary>
+        public static IList<TypeInfo<EffectBase>> EffectTypes;
     }
 }
