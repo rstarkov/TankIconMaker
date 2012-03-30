@@ -40,6 +40,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ThirdParty\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>ThirdParty\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
@@ -67,15 +68,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddWindow.xaml.cs">
+      <DependentUpon>AddWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BitmapGdi.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MakerBase.cs" />
-    <Compile Include="MakerOriginal.cs" />
+    <Compile Include="Effect.cs" />
+    <Compile Include="Effects\ShiftEffect.cs" />
+    <Compile Include="Layers\LayerBackgroundDarkAgent.cs" />
+    <Compile Include="Layers\LayerImage.cs" />
+    <Compile Include="Layer.cs" />
+    <Compile Include="Layers\LayerText.cs" />
+    <Compile Include="CompositeCollection.cs" />
+    <Compile Include="RenameWindow.xaml.cs">
+      <DependentUpon>RenameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Style.cs" />
+    <Compile Include="TreeViewWithItem.cs" />
     <Compile Include="UtColors.cs" />
-    <Compile Include="MakerDarkAgent.cs" />
-    <Compile Include="MakerTest.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Targa.cs" />
     <Compile Include="UtGraphics.cs" />
@@ -83,6 +95,10 @@
     <Compile Include="UtPreciseSize.cs" />
     <Compile Include="ObservableSortedList.cs" />
     <Compile Include="UtSerialize.cs" />
+    <Page Include="AddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DataSourceEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +116,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RenameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -129,6 +149,7 @@
     <Resource Include="Resources\Graphics\icon.ico" />
     <Resource Include="Resources\Graphics\warning.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>

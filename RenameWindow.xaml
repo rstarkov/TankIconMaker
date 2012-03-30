@@ -1,0 +1,30 @@
+﻿<rtf:ManagedWindow x:Class="TankIconMaker.RenameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
+        xmlns:src="clr-namespace:TankIconMaker"
+        x:ClassModifier="internal"
+        Title="Rename layer" ShowInTaskbar="False" ResizeMode="NoResize"
+        SizeToContent="Height" Width="350"
+        TextOptions.TextFormattingMode="Display"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Name="lblName"  Padding="3,0,0,3" Target="{Binding ElementName=ctName}">Layer _name:</Label>
+        <TextBox Grid.Row="1" Name="ctName" Margin="0,0,0,8" />
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
+            <Button Margin="4,0" IsDefault="True" Click="ok">
+                <AccessText Margin="16,2">_OK</AccessText>
+            </Button>
+            <Button Margin="4,0" IsCancel="True">
+                <AccessText Margin="16,2">_Cancel</AccessText>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</rtf:ManagedWindow>

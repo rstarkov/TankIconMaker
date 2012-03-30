@@ -19,6 +19,10 @@ namespace TankIconMaker
         /// application, all the other MainWindow-specific settings are stored directly in <see cref="Settings"/> for simplicity.
         /// </summary>
         public ManagedWindow.Settings MainWindow = new ManagedWindow.Settings();
+        /// <summary>AddWindow-related settings</summary>
+        public ManagedWindow.Settings AddWindow = new ManagedWindow.Settings();
+        /// <summary>RenameWindow-related settings</summary>
+        public ManagedWindow.Settings RenameWindow = new ManagedWindow.Settings();
         /// <summary>The width of the sidebar in the main window; null to use the width set at design time.</summary>
         public double? LeftColumnWidth = null;
         /// <summary>The width of the name column in the maker property editor; null to use the width set at design time.</summary>
@@ -26,16 +30,11 @@ namespace TankIconMaker
         /// <summary>The last used index of the display mode dropdown.</summary>
         public int? DisplayMode = null;
 
-        /// <summary>The type name of the last used maker.</summary>
-        public string SelectedMakerType;
-        /// <summary>The user-friendly name of the last used maker - fallback if finding it by type should fail.</summary>
-        public string SelectedMakerName;
+        /// <summary>The name and author of the last used maker.</summary>
+        public string SelectedStyleNameAndAuthor;
 
-        /// <summary>
-        /// A list of all the available makers and their settings. This list is here only to keep the settings; the actual list of
-        /// available makers is constructed during startup using reflection.
-        /// </summary>
-        public List<MakerBase> Makers = new List<MakerBase>();
+        /// <summary>A list of all the available user styles. Built-in styles are not stored in the settings file.</summary>
+        public ObservableSortedList<Style> Styles = new ObservableSortedList<Style>();
 
         /// <summary>The last selected game install location.</summary>
         public string SelectedGamePath = Ut.FindTanksDirectory();

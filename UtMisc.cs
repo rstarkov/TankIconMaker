@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Data;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
+using System.Windows.Media;
 
 namespace TankIconMaker
 {
@@ -255,6 +256,13 @@ namespace TankIconMaker
             catch (FileNotFoundException) { return false; }
             catch (DirectoryNotFoundException) { return false; }
         }
+
+        public static T VisualUpwardSearch<T>(DependencyObject source) where T : DependencyObject
+        {
+            while (source != null && !(source is T))
+                source = VisualTreeHelper.GetParent(source);
+            return (T) source;
+        }
     }
 
     /// <summary>A crutch that enables a sensible way to bind to a dependency property with a custom conversion.</summary>
@@ -392,6 +400,19 @@ namespace TankIconMaker
         }
     }
 
+    sealed class TypeInfo<T>
+    {
+        public Type Type;
+        public Func<T> Constructor;
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
+    interface IHasTypeNameDescription
+    {
+        string TypeName { get; }
+        string TypeDescription { get; }
+    }
 
     /// <summary>
     /// Encapsulates a single value which dependency properties can depend on, and which can depend on other

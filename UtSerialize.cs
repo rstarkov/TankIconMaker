@@ -50,10 +50,10 @@ namespace TankIconMaker
     }
 
     /// <summary>
-    /// Filters lists of <see cref="MakerBase"/> objects before XmlClassify attempts to decode them, removing all
-    /// entries pertaining to maker types that no longer exist in the assembly and hence can't possibly be instantiated.
+    /// Filters lists of <see cref="LayerBase"/> objects before XmlClassify attempts to decode them, removing all
+    /// entries pertaining to layer types that no longer exist in the assembly and hence can't possibly be instantiated.
     /// </summary>
-    sealed class listMakerBaseOptions : XmlClassifyTypeOptions, IXmlClassifyProcessXml
+    sealed class listLayerBaseOptions : XmlClassifyTypeOptions, IXmlClassifyProcessXml
     {
         public void XmlPreprocess(XElement xml)
         {
@@ -62,7 +62,7 @@ namespace TankIconMaker
                 var type = item.Attribute("type");
                 if (type == null)
                     item.Remove();
-                else if (!Program.MakerConstructors.Any(c => c.DeclaringType.Name == type.Value || c.DeclaringType.FullName == type.Value))
+                else if (!Program.LayerTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
                     item.Remove();
             }
         }
