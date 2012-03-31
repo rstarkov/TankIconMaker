@@ -85,6 +85,7 @@
       <DependentUpon>RenameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Style.cs" />
+    <Compile Include="OldFiles.cs" />
     <Compile Include="UtColors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Targa.cs" />
@@ -152,7 +153,6 @@
     <Resource Include="Resources\Graphics\icon.ico" />
     <Resource Include="Resources\Graphics\warning.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
