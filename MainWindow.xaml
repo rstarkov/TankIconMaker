@@ -100,21 +100,23 @@
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=ctStyleDropdown}">_Icon style:</Label>
                 <ComboBox Name="ctStyleDropdown" />
                 <DockPanel Margin="0,8,0,0">
-                    <Button Margin="0,0,0,0" Name="ctStyleNew">
+                    <Button Margin="0,0,0,0" Name="ctStyleNew" Click="ctStyleNew_Click">
                         <AccessText Margin="6,0">_New</AccessText>
                     </Button>
-                    <Button Margin="6,0,0,0" Name="ctStyleDelete">
+                    <Button Margin="6,0,0,0" Name="ctStyleDelete" Click="ctStyleDelete_Click">
                         <AccessText Margin="6,0">_Delete</AccessText>
                     </Button>
-                    <Button Margin="6,0,0,0" Name="ctStyleRename">
+                    <Button Margin="6,0,0,0" Name="ctStyleRename" Click="ctStyleRename_Click">
                         <AccessText Margin="6,0">_Rename</AccessText>
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleMore" HorizontalAlignment="Right" Click="ctStyleMore_Click">
                         <AccessText Margin="6,0,1,0">More ▾</AccessText>
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="_Import"/>
-                                <MenuItem Header="_Export"/>
+                                <MenuItem Header="_Duplicate" Name="ctStyleDuplicate" Click="ctStyleDuplicate_Click"/>
+                                <Separator/>
+                                <MenuItem Header="_Import" Name="ctStyleImport" Click="ctStyleImport_Click"/>
+                                <MenuItem Header="_Export" Name="ctStyleExport" Click="ctStyleExport_Click"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
