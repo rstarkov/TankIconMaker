@@ -1,5 +1,23 @@
 WOT-DATA,1,"Полные названия танков, оригинал – как в игре."
 china-Ch01_Type59,Type 59
+france-AMX_12t,AMX 12t
+france-AMX_13_75,AMX 13 75
+france-AMX_13_90,AMX 13 90
+france-AMX_50_100,AMX 50 100
+france-AMX_50_120,AMX 50 120
+france-AMX_M4_1945,AMX M4 (1945)
+france-AMX38,AMX 38
+france-AMX40,AMX 40
+france-ARL_44,ARL 44
+france-B1,B1
+france-Bat_Chatillon25t,Bat Chatillon 25t
+france-BDR_G1B,BDR G1 B
+france-D1,D1
+france-D2,D2
+france-F10_AMX_50B,AMX 50B
+france-Hotchkiss_H35,Hotchkiss H35
+france-Lorraine40t,Lorraine 40t
+france-RenaultFT,RenaultFT
 germany-B-1bis_captured,PzKpfw B2 740 (f)
 germany-Bison_I,Sturmpanzer I Bison
 germany-E-100,E-100
@@ -54,7 +72,9 @@ germany-VK4502A,VK 4502 (P) Ausf. A
 germany-VK4502P,VK 4502 (P) Ausf. B
 germany-Wespe,Wespe
 usa-M10_Wolverine,M10 Wolverine
+usa-M103,M103
 usa-M12,M12
+usa-M18_Hellcat,M18 Hellcat
 usa-M2_lt,M2 Light Tank
 usa-M2_med,M2 Medium Tank
 usa-M22_Locust,M22 Locust
@@ -74,24 +94,31 @@ usa-M6,M6
 usa-M6A2E1,M6A2E1
 usa-M7_med,M7
 usa-M7_Priest,M7 Priest
+usa-M8A1,M8A1
 usa-MTLS-1G14,MTLS-1G14
 usa-Pershing,M26 Pershing
 usa-Ram-II,Ram-II
 usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1 Cunningham
 usa-T1_hvy,T1 heavy
+usa-T110,T110
 usa-T14,T14
 usa-T18,T18
 usa-T2_lt,T2 Light Tank
 usa-T2_med,T2 Medium Tank
 usa-T20,T20
+usa-T25_2,T25-2
 usa-T25_AT,T25 AT
 usa-T28,T28
+usa-T28_Prototype,T28 Prototype
 usa-T29,T29
+usa-T30,T30
 usa-T30,T30
 usa-T32,T32
 usa-T34_hvy,T34
+usa-T34_hvy,T34
 usa-T40,T40
+usa-T49,T49
 usa-T57,T57
 usa-T82,T82
 usa-T92,T92
@@ -144,34 +171,5 @@ ussr-T-44,Т-44
 ussr-T-46,Т-46
 ussr-T-50,Т-50
 ussr-T-54,Т-54
-ussr-Valentine_LL,Valentine
-france-AMX_12t,AMX 12t
-france-AMX_13_75,AMX 13 75
-france-AMX_13_90,AMX 13 90
-france-AMX_50_100,AMX 50 100
-france-AMX_50_120,AMX 50 120
-france-AMX_M4_1945,AMX M4 (1945)
-france-AMX38,AMX 38
-france-AMX40,AMX 40
-france-ARL_44,ARL 44
-france-B1,B1
-france-Bat_Chatillon25t,Bat Chatillon 25t
-france-BDR_G1B,BDR G1 B
-france-D1,D1
-france-D2,D2
-france-F10_AMX_50B,AMX 50B
-france-Hotchkiss_H35,Hotchkiss H35
-france-Lorraine40t,Lorraine 40t
-france-RenaultFT,RenaultFT
 ussr-Tetrarch_LL,MkVII Tetrarch
-france-_105_leFH18B2,10.5сm leFH18 B2
-france-FCM_36Pak40,FCM 36 Pak 40
-usa-M103,M103
-usa-M18_Hellcat,M18 Hellcat
-usa-M8A1,M8A1
-usa-T110,T110
-usa-T25_2,T25-2
-usa-T28_Prototype,T28 Prototype
-usa-T30,T30
-usa-T34_hvy,T34
-usa-T49,T49
+ussr-Valentine_LL,Valentine

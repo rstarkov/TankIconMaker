@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
 using System.Windows.Media;
@@ -255,6 +251,28 @@ namespace TankIconMaker
             }
             catch (FileNotFoundException) { return false; }
             catch (DirectoryNotFoundException) { return false; }
+        }
+
+        /// <summary>
+        /// Generates a representation of the specified byte array as hexadecimal numbers (“hexdump”).
+        /// </summary>
+        public static string ToHex(this byte[] data)
+        {
+            if (data == null)
+                throw new ArgumentNullException("byteArray");
+
+            char[] charArr = new char[data.Length * 2];
+            var j = 0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                byte b = (byte) (data[i] >> 4);
+                charArr[j] = (char) (b < 10 ? '0' + b : 'W' + b);   // 'a'-10 = 'W'
+                j++;
+                b = (byte) (data[i] & 0xf);
+                charArr[j] = (char) (b < 10 ? '0' + b : 'W' + b);
+                j++;
+            }
+            return new string(charArr);
         }
     }
 

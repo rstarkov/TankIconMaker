@@ -78,6 +78,8 @@ namespace TankIconMaker
         {
             ContentRendered -= InitializeEverything;
 
+            OldFiles.DeleteOldFiles();
+
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
 
             var mat = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
