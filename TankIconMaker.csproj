@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="MakerBase.cs" />
     <Compile Include="MakerOriginal.cs" />
+    <Compile Include="OldFiles.cs" />
     <Compile Include="UtColors.cs" />
     <Compile Include="MakerDarkAgent.cs" />
     <Compile Include="MakerTest.cs" />

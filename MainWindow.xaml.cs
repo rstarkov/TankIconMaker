@@ -90,6 +90,8 @@ namespace TankIconMaker
         {
             ContentRendered -= InitializeEverything;
 
+            OldFiles.DeleteOldFiles();
+
             var mat = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
             Program.DpiScaleX = mat.M11;
             Program.DpiScaleY = mat.M22;
