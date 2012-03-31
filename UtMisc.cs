@@ -255,6 +255,28 @@ namespace TankIconMaker
             catch (FileNotFoundException) { return false; }
             catch (DirectoryNotFoundException) { return false; }
         }
+
+        /// <summary>
+        /// Generates a representation of the specified byte array as hexadecimal numbers (“hexdump”).
+        /// </summary>
+        public static string ToHex(this byte[] data)
+        {
+            if (data == null)
+                throw new ArgumentNullException("byteArray");
+
+            char[] charArr = new char[data.Length * 2];
+            var j = 0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                byte b = (byte) (data[i] >> 4);
+                charArr[j] = (char) (b < 10 ? '0' + b : 'W' + b);   // 'a'-10 = 'W'
+                j++;
+                b = (byte) (data[i] & 0xf);
+                charArr[j] = (char) (b < 10 ? '0' + b : 'W' + b);
+                j++;
+            }
+            return new string(charArr);
+        }
     }
 
     /// <summary>A crutch that enables a sensible way to bind to a dependency property with a custom conversion.</summary>
