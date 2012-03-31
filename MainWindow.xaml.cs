@@ -21,6 +21,7 @@ using RT.Util.Xml;
 using WpfCrutches;
 
 /*
+ * Initial size of the dialogs is too large. Center in owner by default
  * Use a WPF MessageBox (avoid WinForms interop startup cost)
  * Allow the maker to tell us which tanks to invalidate on a property change.
  * _otherWarnings: tag with warning type to enable reliable removal
@@ -117,8 +118,8 @@ namespace TankIconMaker
 
             // Locate the closest match for the maker that was selected last time the program was run
             ctStyleDropdown.SelectedItem = styles.OfType<Style>()
-                .OrderBy(s => s.ToString() == Program.Settings.SelectedStyleNameAndAuthor)
-                .ThenBy(s => Program.Settings.Styles.IndexOf(s))
+                .OrderBy(s => s.ToString() == Program.Settings.SelectedStyleNameAndAuthor ? 0 : 1)
+                .ThenBy(s => styles.IndexOf(s))
                 .FirstOrDefault();
 
             // Guess the location/version of the game and add to the list of paths if it’s empty
@@ -1177,6 +1178,36 @@ namespace TankIconMaker
             _renderResults.Clear();
             ScheduleUpdateIcons();
             SaveSettings();
+        }
+
+        private void ctStyleNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ctStyleDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ctStyleRename_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ctStyleDuplicate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ctStyleImport_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ctStyleExport_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
