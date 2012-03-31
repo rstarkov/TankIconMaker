@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using RT.Util;
 using RT.Util.Forms;
+using WpfCrutches;
 
 namespace TankIconMaker
 {

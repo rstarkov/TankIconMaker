@@ -18,6 +18,7 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Forms;
 using RT.Util.Xml;
+using WpfCrutches;
 
 /*
  * Allow the maker to tell us which tanks to invalidate on a property change.

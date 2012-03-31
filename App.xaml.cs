@@ -8,6 +8,7 @@ using System.Windows;
 using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Xml;
+using WpfCrutches;
 using D = System.Drawing;
 using W = System.Windows.Media;
 
