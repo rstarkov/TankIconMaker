@@ -42,10 +42,18 @@ namespace TankIconMaker
         [EditorBrowsable(EditorBrowsableState.Never)]
         public abstract BitmapSource ApplyInternal(Tank tank, BitmapSource layer);
 
+        [XmlIgnore]
         public TreeViewItem TreeViewItem { get; set; }
 
         protected void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
+
+        public EffectBase Clone()
+        {
+            var result = MemberwiseClone() as EffectBase;
+            result.PropertyChanged = (_, __) => { };
+            return result;
+        }
     }
 
     abstract class EffectBaseWpf : EffectBase

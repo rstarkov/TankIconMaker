@@ -86,12 +86,20 @@ namespace TankIconMaker
             Program.DpiScaleX = mat.M11;
             Program.DpiScaleY = mat.M22;
 
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdAddLayer));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdAddEffect, (_, a) => { a.CanExecute = cmdAddEffect_IsAvailable(); }));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.Modify, cmdLayerRename, (_, a) => { a.CanExecute = cmdLayerRename_IsAvailable(); }));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.Delete, cmdLayerDelete, (_, a) => { a.CanExecute = cmdLayerDelete_IsAvailable(); }));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveUp, cmdLayerMoveUp, (_, a) => { a.CanExecute = cmdLayerMoveUp_IsAvailable(); }));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveDown, cmdLayerMoveDown, (_, a) => { a.CanExecute = cmdLayerMoveDown_IsAvailable(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdLayer_AddLayer));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = cmdLayer_AddEffect_IsAvailable(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.Rename, cmdLayer_Rename, (_, a) => { a.CanExecute = cmdLayer_Rename_IsAvailable(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.Delete, cmdLayer_Delete, (_, a) => { a.CanExecute = cmdLayer_Delete_IsAvailable(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveUp, cmdLayer_MoveUp, (_, a) => { a.CanExecute = cmdLayer_MoveUp_IsAvailable(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveDown, cmdLayer_MoveDown, (_, a) => { a.CanExecute = cmdLayer_MoveDown_IsAvailable(); }));
+
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Add, cmdStyle_Add));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Delete, cmdStyle_Delete, (_, a) => { a.CanExecute = cmdStyle_NonBuiltInStyleSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeName, cmdStyle_ChangeName, (_, a) => { a.CanExecute = cmdStyle_NonBuiltInStyleSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeAuthor, cmdStyle_ChangeAuthor, (_, a) => { a.CanExecute = cmdStyle_NonBuiltInStyleSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Duplicate, cmdStyle_Duplicate, (_, a) => { a.CanExecute = ctStyleDropdown.SelectedItem is Style; }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Import, cmdStyle_Import));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Export, cmdStyle_Export, (_, a) => { a.CanExecute = ctStyleDropdown.SelectedItem is Style; }));
 
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
@@ -117,6 +125,7 @@ namespace TankIconMaker
             styles.AddCollection(GetBuiltInStyles());
             styles.AddCollection(Program.Settings.Styles);
             ctStyleDropdown.ItemsSource = styles;
+            ctStyleDropdown.DisplayMemberPath = "Display";
 
             // Locate the closest match for the maker that was selected last time the program was run
             ctStyleDropdown.SelectedItem = styles.OfType<Style>()
@@ -202,6 +211,8 @@ namespace TankIconMaker
             ctGamePath.SelectionChanged += ctGamePath_SelectionChanged;
             ctGamePath.PreviewKeyDown += ctGamePath_PreviewKeyDown;
 
+            CommandManager.InvalidateRequerySuggested();
+
             // Done
             GlobalStatusHide();
             _updateIconsTimer.Start();
@@ -222,28 +233,6 @@ namespace TankIconMaker
             style.Layers.Add(new LayerBackgroundDarkAgent { Name = "Back" });
             style.Layers.Add(new LayerTankImage { Name = "Image" });
             style.Layers[0].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            style.Layers[1].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
             result.Add(style);
 
             return result;
@@ -1012,7 +1001,7 @@ namespace TankIconMaker
             }
         }
 
-        private void cmdAddLayer(object sender, ExecutedRoutedEventArgs e)
+        private void cmdLayer_AddLayer(object sender, ExecutedRoutedEventArgs e)
         {
             var newLayer = AddWindow.ShowAddLayer(this);
             if (newLayer == null)
@@ -1033,12 +1022,12 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private bool cmdAddEffect_IsAvailable()
+        private bool cmdLayer_AddEffect_IsAvailable()
         {
             return ctLayersTree.SelectedItem is LayerBase || ctLayersTree.SelectedItem is EffectBase;
         }
 
-        private void cmdAddEffect(object sender, ExecutedRoutedEventArgs e)
+        private void cmdLayer_AddEffect(object sender, ExecutedRoutedEventArgs e)
         {
             var newEffect = AddWindow.ShowAddEffect(this);
             if (newEffect == null)
@@ -1065,27 +1054,27 @@ namespace TankIconMaker
             }), DispatcherPriority.Background);
         }
 
-        private bool cmdLayerRename_IsAvailable()
+        private bool cmdLayer_Rename_IsAvailable()
         {
             return ctLayersTree.SelectedItem is LayerBase;
         }
 
-        private void cmdLayerRename(object sender, ExecutedRoutedEventArgs e)
+        private void cmdLayer_Rename(object sender, ExecutedRoutedEventArgs e)
         {
             var layer = ctLayersTree.SelectedItem as LayerBase;
-            var newName = RenameWindow.ShowRename(this, layer.Name);
+            var newName = PromptWindow.ShowPrompt(this, layer.Name, "Rename layer", "Layer _name:");
             if (newName == null)
                 return;
             layer.Name = newName;
             SaveSettings();
         }
 
-        private bool cmdLayerDelete_IsAvailable()
+        private bool cmdLayer_Delete_IsAvailable()
         {
             return ctLayersTree.SelectedItem is LayerBase || ctLayersTree.SelectedItem is EffectBase;
         }
 
-        private void cmdLayerDelete(object sender, ExecutedRoutedEventArgs e)
+        private void cmdLayer_Delete(object sender, ExecutedRoutedEventArgs e)
         {
             if (DlgMessage.ShowQuestion("Delete the selected layer/effect?", "&Delete", "&Cancel") == 1)
                 return;
@@ -1127,22 +1116,22 @@ namespace TankIconMaker
             }
         }
 
-        private bool cmdLayerMoveUp_IsAvailable()
+        private bool cmdLayer_MoveUp_IsAvailable()
         {
             return moveEffectOrLayer_IsAvailable((index, count) => index > 0);
         }
 
-        private void cmdLayerMoveUp(object sender, ExecutedRoutedEventArgs e)
+        private void cmdLayer_MoveUp(object sender, ExecutedRoutedEventArgs e)
         {
             moveEffectOrLayer(-1);
         }
 
-        private bool cmdLayerMoveDown_IsAvailable()
+        private bool cmdLayer_MoveDown_IsAvailable()
         {
             return moveEffectOrLayer_IsAvailable((index, count) => index < count - 1);
         }
 
-        private void cmdLayerMoveDown(object sender, ExecutedRoutedEventArgs e)
+        private void cmdLayer_MoveDown(object sender, ExecutedRoutedEventArgs e)
         {
             moveEffectOrLayer(1);
         }
@@ -1182,34 +1171,82 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private void ctStyleNew_Click(object sender, RoutedEventArgs e)
+        private void cmdStyle_Add(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var name = PromptWindow.ShowPrompt(this, "New style", "Create style", "New style _name:");
+            if (name == null)
+                return;
+            var style = new Style();
+            style.Name = name;
+            style.Author = "me";
+            style.Layers.Add(new LayerTankImage { Name = "Tank image" });
+            Program.Settings.Styles.Add(style);
+            ctStyleDropdown.SelectedItem = style;
+            SaveSettings();
         }
 
-        private void ctStyleDelete_Click(object sender, RoutedEventArgs e)
+        private bool cmdStyle_NonBuiltInStyleSelected()
         {
-
+            var style = ctStyleDropdown.SelectedItem as Style;
+            if (style == null) return false;
+            return !style.BuiltIn;
         }
 
-        private void ctStyleRename_Click(object sender, RoutedEventArgs e)
+        private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var style = ctStyleDropdown.SelectedItem as Style;
+            if (DlgMessage.ShowQuestion("Delete this style?\r\n\r\n" + style.Name, "&Delete", "&Cancel") == 1)
+                return;
+            if (ctStyleDropdown.SelectedIndex < ctStyleDropdown.Items.Count - 1)
+                ctStyleDropdown.SelectedIndex++;
+            else
+                ctStyleDropdown.SelectedIndex--;
+            Program.Settings.Styles.Remove(style);
+            SaveSettings();
         }
 
-        private void ctStyleDuplicate_Click(object sender, RoutedEventArgs e)
+        private void cmdStyle_ChangeName(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var style = ctStyleDropdown.SelectedItem as Style;
+            var name = PromptWindow.ShowPrompt(this, style.Name, "Change style name", "New style _name:");
+            if (name == null)
+                return;
+            style.Name = name;
+            SaveSettings();
         }
 
-        private void ctStyleImport_Click(object sender, RoutedEventArgs e)
+        private void cmdStyle_ChangeAuthor(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var style = ctStyleDropdown.SelectedItem as Style;
+            var author = PromptWindow.ShowPrompt(this, style.Author, "Change style author", "New style _author:");
+            if (author == null)
+                return;
+            style.Author = author;
+            SaveSettings();
         }
 
-        private void ctStyleExport_Click(object sender, RoutedEventArgs e)
+        private void cmdStyle_Duplicate(object sender, ExecutedRoutedEventArgs e)
         {
+            var style = ctStyleDropdown.SelectedItem as Style;
+            var name = PromptWindow.ShowPrompt(this, style.Name + " (copy)", "Duplicate style", "New style _name:");
+            if (name == null)
+                return;
+            style = style.Clone();
+            style.BuiltIn = false;
+            style.Name = name;
+            Program.Settings.Styles.Add(style);
+            ctStyleDropdown.SelectedItem = style;
+            SaveSettings();
+        }
 
+        private void cmdStyle_Import(object sender, ExecutedRoutedEventArgs e)
+        {
+            DlgMessage.ShowWarning("Sorry, not done yet...");
+        }
+
+        private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
+        {
+            DlgMessage.ShowWarning("Sorry, not done yet...");
         }
     }
 
@@ -1217,10 +1254,21 @@ namespace TankIconMaker
     {
         public static RoutedCommand AddLayer = new RoutedCommand();
         public static RoutedCommand AddEffect = new RoutedCommand();
-        public static RoutedCommand Modify = new RoutedCommand();
+        public static RoutedCommand Rename = new RoutedCommand();
         public static RoutedCommand Delete = new RoutedCommand();
         public static RoutedCommand MoveUp = new RoutedCommand();
         public static RoutedCommand MoveDown = new RoutedCommand();
+    }
+
+    static class TankStyleCommands
+    {
+        public static RoutedCommand Add = new RoutedCommand();
+        public static RoutedCommand Delete = new RoutedCommand();
+        public static RoutedCommand ChangeName = new RoutedCommand();
+        public static RoutedCommand ChangeAuthor = new RoutedCommand();
+        public static RoutedCommand Duplicate = new RoutedCommand();
+        public static RoutedCommand Import = new RoutedCommand();
+        public static RoutedCommand Export = new RoutedCommand();
     }
 
     /// <summary>
