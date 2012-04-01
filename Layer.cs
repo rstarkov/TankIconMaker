@@ -64,10 +64,22 @@ namespace TankIconMaker
                 effect.Layer = this;
         }
 
+        [XmlIgnore]
         public TreeViewItem TreeViewItem { get; set; }
 
         protected void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
+
+        public LayerBase Clone()
+        {
+            var result = MemberwiseClone() as LayerBase;
+            result.PropertyChanged = (_, __) => { };
+            result.Effects = new ObservableCollection<EffectBase>();
+            result.Effects.CollectionChanged += updateEffectLayer;
+            foreach (var e in Effects)
+                result.Effects.Add(e.Clone());
+            return result;
+        }
     }
 
     abstract class LayerBaseWpf : LayerBase

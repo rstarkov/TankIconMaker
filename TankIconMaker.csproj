@@ -81,8 +81,8 @@
     <Compile Include="Layers\LayerImage.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="Layers\LayerText.cs" />
-    <Compile Include="RenameWindow.xaml.cs">
-      <DependentUpon>RenameWindow.xaml</DependentUpon>
+    <Compile Include="PromptWindow.xaml.cs">
+      <DependentUpon>PromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Style.cs" />
     <Compile Include="OldFiles.cs" />
@@ -120,7 +120,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RenameWindow.xaml">
+    <Page Include="PromptWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

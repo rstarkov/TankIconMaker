@@ -1,24 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RT.Util.Xml;
-using System.ComponentModel;
-using System.Windows.Media;
-using D = System.Drawing;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Media;
+using RT.Util.Xml;
+using D = System.Drawing;
 
 namespace TankIconMaker
 {
     sealed class Style : INotifyPropertyChanged, IComparable<Style>
     {
         /// <summary>The name of the style (chosen by the artist).</summary>
-        public string Name { get { return _Name; } set { _Name = value; PropertyChanged(this, new PropertyChangedEventArgs("Name")); } }
+        public string Name { get { return _Name; } set { _Name = value; NotifyPropertyChanged("Name"); NotifyPropertyChanged("Display"); } }
         private string _Name;
 
         /// <summary>The name of the author of this style.</summary>
-        public string Author { get { return _Author; } set { _Author = value; PropertyChanged(this, new PropertyChangedEventArgs("Author")); } }
+        public string Author { get { return _Author; } set { _Author = value; NotifyPropertyChanged("Author"); NotifyPropertyChanged("Display"); } }
         private string _Author;
+
+        public string Display { get { return "{2}{0} (by {1})".Fmt(Name, Author, BuiltIn ? "[built-in] " : ""); } }
 
         /// <summary>A list of layers that this style is made up of.</summary>
         public ObservableCollection<LayerBase> Layers = new ObservableCollection<LayerBase>();
@@ -27,6 +27,7 @@ namespace TankIconMaker
         [XmlIgnore]
         public bool BuiltIn { get; set; }
 
+        private void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
 
         public int CompareTo(Style other)
@@ -41,7 +42,15 @@ namespace TankIconMaker
 
         public override string ToString()
         {
-            return "{0} (by {1}{2})".Fmt(Name, Author, BuiltIn ? "; built-in" : "");
+            return Display;
+        }
+
+        public Style Clone()
+        {
+            var result = MemberwiseClone() as Style;
+            result.PropertyChanged = (_, __) => { };
+            result.Layers = new ObservableCollection<LayerBase>(Layers.Select(l => l.Clone()));
+            return result;
         }
     }
 

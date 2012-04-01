@@ -3,9 +3,9 @@ using RT.Util.Forms;
 
 namespace TankIconMaker
 {
-    partial class RenameWindow : ManagedWindow
+    partial class PromptWindow : ManagedWindow
     {
-        public RenameWindow()
+        public PromptWindow()
             : base(Program.Settings.RenameWindow)
         {
             InitializeComponent();
@@ -16,9 +16,11 @@ namespace TankIconMaker
             DialogResult = true;
         }
 
-        public static string ShowRename(Window owner, string name)
+        public static string ShowPrompt(Window owner, string name, string title, string label)
         {
-            var wnd = new RenameWindow { Owner = owner };
+            var wnd = new PromptWindow { Owner = owner };
+            wnd.Title = title;
+            wnd.lblName.Content = label;
             wnd.ctName.Text = name;
             wnd.ctName.Focus();
 
