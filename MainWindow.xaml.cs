@@ -1001,12 +1001,50 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>
+        /// Gets the currently selected style or, if it’s built-in, duplicates it first, selects the duplicate,
+        /// and returns that.
+        /// </summary>
+        private Style GetEditableStyle()
+        {
+            var style = ctStyleDropdown.SelectedItem as Style;
+            if (style.BuiltIn)
+            {
+                // Remember what was expanded and selected
+                var layer = ctLayersTree.SelectedItem as LayerBase;
+                var effect = ctLayersTree.SelectedItem as EffectBase;
+                int selectedLayerIndex = layer == null && effect == null ? -1 : style.Layers.IndexOf(layer ?? effect.Layer);
+                int selectedEffectIndex = effect == null ? -1 : effect.Layer.Effects.IndexOf(effect);
+                var expandedIndexes = style.Layers.Select((l, i) => l.TreeViewItem.IsExpanded ? i : -1).Where(i => i >= 0).ToArray();
+                // Duplicate
+                style = style.Clone();
+                style.BuiltIn = false;
+                style.Name = style.Name + " (copy)";
+                Program.Settings.Styles.Add(style);
+                ctStyleDropdown.SelectedItem = style;
+                SaveSettings();
+                // Re-select/expand
+                foreach (var i in expandedIndexes)
+                    style.Layers[i].TreeViewItem.IsExpanded = true;
+                layer = selectedLayerIndex < 0 ? null : style.Layers[selectedLayerIndex];
+                effect = selectedEffectIndex < 0 ? null : layer.Effects[selectedEffectIndex];
+                var tvi = effect != null ? effect.TreeViewItem : layer != null ? layer.TreeViewItem : null;
+                if (tvi != null)
+                {
+                    tvi.IsSelected = true;
+                    tvi.BringIntoView();
+                    tvi.Focus();
+                }
+            }
+            return style;
+        }
+
         private void cmdLayer_AddLayer(object sender, ExecutedRoutedEventArgs e)
         {
             var newLayer = AddWindow.ShowAddLayer(this);
             if (newLayer == null)
                 return;
-            var style = ctStyleDropdown.SelectedItem as Style;
+            var style = GetEditableStyle();
             var curLayer = ctLayersTree.SelectedItem as LayerBase;
             var curEffect = ctLayersTree.SelectedItem as EffectBase;
             if (curEffect != null)
@@ -1032,7 +1070,7 @@ namespace TankIconMaker
             var newEffect = AddWindow.ShowAddEffect(this);
             if (newEffect == null)
                 return;
-            var style = ctStyleDropdown.SelectedItem as Style;
+            var style = GetEditableStyle();
             var curLayer = ctLayersTree.SelectedItem as LayerBase;
             var curEffect = ctLayersTree.SelectedItem as EffectBase;
             if (curLayer != null)
@@ -1065,6 +1103,8 @@ namespace TankIconMaker
             var newName = PromptWindow.ShowPrompt(this, layer.Name, "Rename layer", "Layer _name:");
             if (newName == null)
                 return;
+            var style = GetEditableStyle();
+            layer = ctLayersTree.SelectedItem as LayerBase;
             layer.Name = newName;
             SaveSettings();
         }
@@ -1078,7 +1118,7 @@ namespace TankIconMaker
         {
             if (DlgMessage.ShowQuestion("Delete the selected layer/effect?", "&Delete", "&Cancel") == 1)
                 return;
-            var style = ctStyleDropdown.SelectedItem as Style;
+            var style = GetEditableStyle();
             var layer = ctLayersTree.SelectedItem as LayerBase;
             var effect = ctLayersTree.SelectedItem as EffectBase;
             if (layer != null)
@@ -1151,7 +1191,7 @@ namespace TankIconMaker
 
         private void moveEffectOrLayer(int direction)
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
+            var style = GetEditableStyle();
             var layer = ctLayersTree.SelectedItem as LayerBase;
             var effect = ctLayersTree.SelectedItem as EffectBase;
             if (layer != null)
