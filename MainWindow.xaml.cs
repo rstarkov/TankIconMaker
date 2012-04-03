@@ -17,7 +17,6 @@ using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Forms;
-using RT.Util.Xml;
 using WpfCrutches;
 
 /*
@@ -205,12 +204,14 @@ namespace TankIconMaker
             this.SizeChanged += SaveSettings;
             this.LocationChanged += SaveSettings;
             ctStyleDropdown.SelectionChanged += ctStyleDropdown_SelectionChanged;
-            ctLayerProperties.PropertyChanged += ctLayerProperties_PropertyChanged;
+            ctLayerProperties.PropertyValueChanged += ctLayerProperties_PropertyValueChanged;
             ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
             ctGameVersion.SelectionChanged += ctGameVersion_SelectionChanged;
             ctGamePath.SelectionChanged += ctGamePath_SelectionChanged;
             ctGamePath.PreviewKeyDown += ctGamePath_PreviewKeyDown;
+            ctLayersTree.SelectedItemChanged += (_, e) => { ctLayerProperties.SelectedObject = e.NewValue; };
 
+            // Refresh all the commands because otherwise WPF doesn’t realise the states have changed.
             CommandManager.InvalidateRequerySuggested();
 
             // Done
@@ -540,20 +541,6 @@ namespace TankIconMaker
             return img;
         }
 
-        private void RebuildLayersTree()
-        {
-            var style = (Style) ctStyleDropdown.SelectedItem;
-            ctLayersTree.ItemsSource = style.Layers;
-            //ctLayersTree.Items.Clear();
-            //foreach (var layer in style.Layers)
-            //{
-            //    var ti = new TreeViewItem();
-            //    ti.Header = string.IsNullOrWhiteSpace(layer.Name) ? layer.Description : layer.Name;
-            //    ti.ItemsSource = layer.Effects;
-            //    ctLayersTree.Items.Add(ti);
-            //}
-        }
-
         private object _lastTankImageDown;
 
         void TankImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -634,7 +621,14 @@ namespace TankIconMaker
             var style = (Style) ctStyleDropdown.SelectedItem;
             Program.Settings.SelectedStyleNameAndAuthor = style.ToString();
             SaveSettings();
-            RebuildLayersTree();
+            ctLayersTree.ItemsSource = style.Layers;
+            if (style.Layers.Count > 0)
+            {
+                style.Layers[0].TreeViewItem.IsSelected = true;
+                ctLayerProperties.SelectedObject = style.Layers[0];
+            }
+            else
+                ctLayerProperties.SelectedObject = null;
         }
 
         /// <summary>
@@ -708,13 +702,6 @@ namespace TankIconMaker
                 yield return max;
         }
 
-        private void ctLayerProperties_PropertyChanged(object _, RoutedEventArgs __)
-        {
-            _renderResults.Clear();
-            ScheduleUpdateIcons();
-            Program.Settings.SaveThreaded();
-        }
-
         private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
         {
             var added = args.AddedItems.OfType<GameVersion>().ToList();
@@ -732,7 +719,7 @@ namespace TankIconMaker
             ScheduleUpdateIcons();
         }
 
-        void ctGamePath_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ctGamePath_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var gis = GetInstallationSettings();
             ctGameVersion.SelectedItem = gis.NullOr(g => g.GameVersion);
@@ -743,13 +730,20 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        void ctGamePath_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void ctGamePath_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (ctGamePath.IsKeyboardFocusWithin && ctGamePath.IsDropDownOpen && e.Key == Key.Delete)
             {
                 RemoveGamePath();
                 e.Handled = true;
             }
+        }
+
+        private void ctLayerProperties_PropertyValueChanged(object sender, Xceed.Wpf.Toolkit.PropertyGrid.PropertyValueChangedEventArgs e)
+        {
+            _renderResults.Clear();
+            ScheduleUpdateIcons();
+            Program.Settings.SaveThreaded();
         }
 
         private void ctDisplayMode_SelectionChanged(object _, SelectionChangedEventArgs __)
@@ -912,75 +906,6 @@ namespace TankIconMaker
 
             return new GameInstallationSettings { Path = path, GameVersion = version ?? Program.Data.GetLatestVersion() };
         }
-
-        //private void ctMakerLoad_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var dlg = new VistaOpenFileDialog();
-        //    dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
-        //    dlg.FilterIndex = 0;
-        //    dlg.Multiselect = false;
-        //    dlg.CheckFileExists = true;
-        //    if (dlg.ShowDialog() != true)
-        //        return;
-
-        //    MakerBase newMaker;
-        //    try
-        //    {
-        //        var oldMaker = ctStyleDropdown.SelectedItem as MakerBase;
-        //        newMaker = XmlClassify.LoadObjectFromXmlFile<MakerBase>(dlg.FileName);
-        //    }
-        //    catch
-        //    {
-        //        DlgMessage.ShowWarning("Could not load the file for some reason. It might be of the wrong format.");
-        //        return;
-        //    }
-
-        //    //if (newMaker.GetType() != oldMaker.GetType())
-        //    //    if (DlgMessage.ShowQuestion("These settings are for maker \"{0}\". You currently have \"{1}\" selected. Load anyway?".Fmt(newMaker.ToString(), oldMaker.ToString()),
-        //    //        "&Load", "Cancel") == 1)
-        //    //        return;
-
-        //    int i = Program.Settings.Makers.Select((maker, index) => new { maker, index }).First(x => x.maker.GetType() == newMaker.GetType()).index;
-        //    ctStyleDropdown.SelectedItem = newMaker;
-        //    ctStyleDropdown.Items[i] = newMaker;
-        //    Program.Settings.Makers[i] = newMaker;
-        //    Program.Settings.SaveThreaded();
-        //    ctStyleDropdown_SelectionChanged();
-
-        //    _makerSettingsFilename = dlg.FileName;
-        //    _makerSettingsConfirmSave = true;
-        //}
-
-        //private void ctMakerSave_Click(object _ = null, RoutedEventArgs __ = null)
-        //{
-        //    if (_makerSettingsFilename == null)
-        //    {
-        //        ctMakerSaveAs_Click();
-        //        return;
-        //    }
-        //    else if (_makerSettingsConfirmSave)
-        //        if (DlgMessage.ShowQuestion("Save maker settings?\n\nFile: {0}".Fmt(_makerSettingsFilename), "&Save", "Cancel") == 1)
-        //            return;
-        //    XmlClassify.SaveObjectToXmlFile(ctStyleDropdown.SelectedItem, typeof(MakerBase), _makerSettingsFilename);
-        //    ctMakerSave.IsEnabled = false;
-        //    _makerSettingsConfirmSave = false;
-        //}
-
-        //private void ctMakerSaveAs_Click(object _ = null, RoutedEventArgs __ = null)
-        //{
-        //    var dlg = new VistaSaveFileDialog();
-        //    dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
-        //    dlg.FilterIndex = 0;
-        //    dlg.CheckPathExists = true;
-        //    if (dlg.ShowDialog() != true)
-        //        return;
-        //    _makerSettingsFilename = dlg.FileName;
-        //    if (_makerSettingsFilename.ToLower().EndsWith(".xml"))
-        //        _makerSettingsFilename = _makerSettingsFilename.Substring(0, _makerSettingsFilename.Length - 4);
-        //    _makerSettingsFilename = "{0} ({1}).xml".Fmt(_makerSettingsFilename, ctStyleDropdown.SelectedItem.GetType().Name);
-        //    _makerSettingsConfirmSave = false;
-        //    ctMakerSave_Click();
-        //}
 
         private void ctStyleMore_Click(object sender, RoutedEventArgs e)
         {
@@ -1282,11 +1207,75 @@ namespace TankIconMaker
         private void cmdStyle_Import(object sender, ExecutedRoutedEventArgs e)
         {
             DlgMessage.ShowWarning("Sorry, not done yet...");
+            //var dlg = new VistaOpenFileDialog();
+            //dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            //dlg.FilterIndex = 0;
+            //dlg.Multiselect = false;
+            //dlg.CheckFileExists = true;
+            //if (dlg.ShowDialog() != true)
+            //    return;
+
+            //MakerBase newMaker;
+            //try
+            //{
+            //    var oldMaker = ctStyleDropdown.SelectedItem as MakerBase;
+            //    newMaker = XmlClassify.LoadObjectFromXmlFile<MakerBase>(dlg.FileName);
+            //}
+            //catch
+            //{
+            //    DlgMessage.ShowWarning("Could not load the file for some reason. It might be of the wrong format.");
+            //    return;
+            //}
+
+            ////if (newMaker.GetType() != oldMaker.GetType())
+            ////    if (DlgMessage.ShowQuestion("These settings are for maker \"{0}\". You currently have \"{1}\" selected. Load anyway?".Fmt(newMaker.ToString(), oldMaker.ToString()),
+            ////        "&Load", "Cancel") == 1)
+            ////        return;
+
+            //int i = Program.Settings.Makers.Select((maker, index) => new { maker, index }).First(x => x.maker.GetType() == newMaker.GetType()).index;
+            //ctStyleDropdown.SelectedItem = newMaker;
+            //ctStyleDropdown.Items[i] = newMaker;
+            //Program.Settings.Makers[i] = newMaker;
+            //Program.Settings.SaveThreaded();
+            //ctStyleDropdown_SelectionChanged();
+
+            //_makerSettingsFilename = dlg.FileName;
+            //_makerSettingsConfirmSave = true;
         }
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
             DlgMessage.ShowWarning("Sorry, not done yet...");
+            //private void ctMakerSave_Click(object _ = null, RoutedEventArgs __ = null)
+            //{
+            //    if (_makerSettingsFilename == null)
+            //    {
+            //        ctMakerSaveAs_Click();
+            //        return;
+            //    }
+            //    else if (_makerSettingsConfirmSave)
+            //        if (DlgMessage.ShowQuestion("Save maker settings?\n\nFile: {0}".Fmt(_makerSettingsFilename), "&Save", "Cancel") == 1)
+            //            return;
+            //    XmlClassify.SaveObjectToXmlFile(ctStyleDropdown.SelectedItem, typeof(MakerBase), _makerSettingsFilename);
+            //    ctMakerSave.IsEnabled = false;
+            //    _makerSettingsConfirmSave = false;
+            //}
+
+            //private void ctMakerSaveAs_Click(object _ = null, RoutedEventArgs __ = null)
+            //{
+            //    var dlg = new VistaSaveFileDialog();
+            //    dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            //    dlg.FilterIndex = 0;
+            //    dlg.CheckPathExists = true;
+            //    if (dlg.ShowDialog() != true)
+            //        return;
+            //    _makerSettingsFilename = dlg.FileName;
+            //    if (_makerSettingsFilename.ToLower().EndsWith(".xml"))
+            //        _makerSettingsFilename = _makerSettingsFilename.Substring(0, _makerSettingsFilename.Length - 4);
+            //    _makerSettingsFilename = "{0} ({1}).xml".Fmt(_makerSettingsFilename, ctStyleDropdown.SelectedItem.GetType().Name);
+            //    _makerSettingsConfirmSave = false;
+            //    ctMakerSave_Click();
+            //}
         }
     }
 

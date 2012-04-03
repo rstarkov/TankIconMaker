@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
-        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:src="clr-namespace:TankIconMaker"
         xmlns:wpfc="clr-namespace:WpfCrutches"
         Title="Tank Icon Maker"
@@ -158,22 +158,7 @@
                         </ContextMenu>
                     </wpfc:TreeViewWithItem.ContextMenu>
                 </wpfc:TreeViewWithItem>
-                <!--<Grid Margin="0,6,0,0">
-                    <Grid Background="#80FFFFFF">
-                        <TextBlock Name="ctLayerDescription" TextWrapping="Wrap" Padding="3,1,3,3">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                        </TextBlock>
-                    </Grid>
-                </Grid>-->
-                <extToolkit:PropertyGrid Margin="8" Name="ctLayerProperties" NameColumnWidth="150"/>
+                <xctk:PropertyGrid Margin="8" Name="ctLayerProperties" NameColumnWidth="150"/>
             </DockPanel>
         </Grid>
 
