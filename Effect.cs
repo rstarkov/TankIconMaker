@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using RT.Util.Xml;
@@ -42,7 +38,7 @@ namespace TankIconMaker
         [EditorBrowsable(EditorBrowsableState.Never)]
         public abstract BitmapSource ApplyInternal(Tank tank, BitmapSource layer);
 
-        [XmlIgnore]
+        [XmlIgnore, Browsable(false)]
         public TreeViewItem TreeViewItem { get; set; }
 
         protected void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }

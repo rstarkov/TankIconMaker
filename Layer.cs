@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -27,9 +25,11 @@ namespace TankIconMaker
         [Browsable(false)]
         public abstract int Version { get; }
 
+        [Browsable(false)]
         public string Name { get { return _Name; } set { _Name = value; NotifyPropertyChanged("Name"); } }
         private string _Name;
 
+        [Browsable(false)]
         public ObservableCollection<EffectBase> Effects { get; set; }
 
         public LayerBase()
@@ -64,7 +64,7 @@ namespace TankIconMaker
                 effect.Layer = this;
         }
 
-        [XmlIgnore]
+        [XmlIgnore, Browsable(false)]
         public TreeViewItem TreeViewItem { get; set; }
 
         protected void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }

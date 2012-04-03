@@ -4,9 +4,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.Windows.Controls.PropertyGrid;
-using Microsoft.Windows.Controls.PropertyGrid.Editors;
 using WpfCrutches;
+using Xceed.Wpf.Toolkit.PropertyGrid;
+using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace TankIconMaker
 {
