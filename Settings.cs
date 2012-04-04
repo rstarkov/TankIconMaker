@@ -12,7 +12,7 @@ namespace TankIconMaker
     /// whenever they are missing from the settings XML file. Background saves are supported efficiently via
     /// <see cref="SaveThreaded"/>, which is designed to be callable efficiently multiple times in a row.
     /// </summary>
-    [Settings("TankIconMaker", SettingsKind.UserSpecific)]
+    [Settings("TankIconMaker2", SettingsKind.UserSpecific)]
     sealed class Settings : SettingsThreadedBase
     {
         /// <summary>
