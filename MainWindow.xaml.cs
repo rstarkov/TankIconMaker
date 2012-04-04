@@ -18,11 +18,12 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Forms;
 using WpfCrutches;
+using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
  * Initial size of the dialogs is too large. Center in owner by default
+ * Import/export
  * Use a WPF MessageBox (avoid WinForms interop startup cost)
- * Allow the maker to tell us which tanks to invalidate on a property change.
  * _otherWarnings: tag with warning type to enable reliable removal
  */
 
@@ -121,7 +122,8 @@ namespace TankIconMaker
 
             // Compose the built-in styles and user styles and put them into the UI
             var styles = new CompositeCollection<Style>();
-            styles.AddCollection(GetBuiltInStyles());
+            RecreateBuiltInStyles();
+            styles.AddCollection(_builtinStyles);
             styles.AddCollection(Program.Settings.Styles);
             ctStyleDropdown.ItemsSource = styles;
             ctStyleDropdown.DisplayMemberPath = "Display";
@@ -219,24 +221,23 @@ namespace TankIconMaker
             _updateIconsTimer.Start();
         }
 
-        private ObservableSortedList<Style> GetBuiltInStyles()
+        private ObservableSortedList<Style> _builtinStyles = new ObservableSortedList<Style>();
+        private void RecreateBuiltInStyles()
         {
-            var result = new ObservableSortedList<Style>();
+            _builtinStyles.Clear();
             Style style;
 
             // Original
             style = new Style { Name = "Original", Author = "Wargaming.net", BuiltIn = true };
             style.Layers.Add(new LayerTankImage { Name = "Image" });
-            result.Add(style);
+            _builtinStyles.Add(style);
 
             // DarkAgent
             style = new Style { Name = "DarkAgent", Author = "Black_Spy", BuiltIn = true };
             style.Layers.Add(new LayerBackgroundDarkAgent { Name = "Back" });
             style.Layers.Add(new LayerTankImage { Name = "Image" });
             style.Layers[0].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
-            result.Add(style);
-
-            return result;
+            _builtinStyles.Add(style);
         }
 
         /// <summary>
@@ -739,8 +740,14 @@ namespace TankIconMaker
             }
         }
 
-        private void ctLayerProperties_PropertyValueChanged(object sender, Xceed.Wpf.Toolkit.PropertyGrid.PropertyValueChangedEventArgs e)
+        private void ctLayerProperties_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
+            var style = ctStyleDropdown.SelectedItem as Style;
+            if (style.BuiltIn)
+            {
+                GetEditableStyle(); // duplicate the style
+                RecreateBuiltInStyles();
+            }
             _renderResults.Clear();
             ScheduleUpdateIcons();
             Program.Settings.SaveThreaded();
@@ -951,15 +958,17 @@ namespace TankIconMaker
                 // Re-select/expand
                 foreach (var i in expandedIndexes)
                     style.Layers[i].TreeViewItem.IsExpanded = true;
-                layer = selectedLayerIndex < 0 ? null : style.Layers[selectedLayerIndex];
-                effect = selectedEffectIndex < 0 ? null : layer.Effects[selectedEffectIndex];
-                var tvi = effect != null ? effect.TreeViewItem : layer != null ? layer.TreeViewItem : null;
-                if (tvi != null)
+                Dispatcher.Invoke((Action) delegate // must let the TreeView think about this before we can set IsSelected
                 {
-                    tvi.IsSelected = true;
-                    tvi.BringIntoView();
-                    tvi.Focus();
-                }
+                    layer = selectedLayerIndex < 0 ? null : style.Layers[selectedLayerIndex];
+                    effect = selectedEffectIndex < 0 ? null : layer.Effects[selectedEffectIndex];
+                    var tvi = effect != null ? effect.TreeViewItem : layer != null ? layer.TreeViewItem : null;
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                        tvi.BringIntoView();
+                    }
+                }, DispatcherPriority.Background);
             }
             return style;
         }
