@@ -77,10 +77,10 @@
     </Compile>
     <Compile Include="Effect.cs" />
     <Compile Include="Effects\ShiftEffect.cs" />
-    <Compile Include="Layers\LayerBackgroundDarkAgent.cs" />
-    <Compile Include="Layers\LayerImage.cs" />
+    <Compile Include="Layers\BkgDarkAgentLayer.cs" />
+    <Compile Include="Layers\ImageLayer.cs" />
     <Compile Include="Layer.cs" />
-    <Compile Include="Layers\LayerText.cs" />
+    <Compile Include="Layers\TextLayer.cs" />
     <Compile Include="PromptWindow.xaml.cs">
       <DependentUpon>PromptWindow.xaml</DependentUpon>
     </Compile>

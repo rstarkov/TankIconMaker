@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using RT.Util.Forms;
 
 namespace TankIconMaker
@@ -9,6 +10,10 @@ namespace TankIconMaker
             : base(Program.Settings.AddWindow)
         {
             InitializeComponent();
+            ContentRendered += delegate
+            {
+                ((ListBoxItem) ctList.ItemContainerGenerator.ContainerFromIndex(0)).Focus();
+            };
         }
 
         private void add(object sender, RoutedEventArgs e)
@@ -25,7 +30,6 @@ namespace TankIconMaker
             wnd.lblList.Content = "Layer _type:";
             wnd.ctList.ItemsSource = Program.LayerTypes;
             wnd.ctList.SelectedIndex = 0;
-            wnd.ctName.Focus();
 
             if (wnd.ShowDialog() != true)
                 return null;
@@ -35,8 +39,6 @@ namespace TankIconMaker
                 return null;
             var result = item.Constructor();
             result.Name = wnd.ctName.Text;
-            if (result.Name == "")
-                result.Name = "New layer";
             return result;
         }
 
@@ -49,7 +51,6 @@ namespace TankIconMaker
             wnd.lblList.Content = "Effect _type:";
             wnd.ctList.ItemsSource = Program.EffectTypes;
             wnd.ctList.SelectedIndex = 0;
-            wnd.ctList.Focus();
 
             if (wnd.ShowDialog() != true)
                 return null;

@@ -129,8 +129,8 @@
                         <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#B8DBFF"></SolidColorBrush>
                         <HierarchicalDataTemplate DataType = "{x:Type src:LayerBase}" ItemsSource = "{Binding Effects}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Path=Name}"/>
-                                <TextBlock Text=" – "/>
+                                <TextBlock Text="{Binding Path=Name}" Visibility="{Binding Path=NameVisibility}"/>
+                                <TextBlock Text=" – " Visibility="{Binding Path=NameVisibility}"/>
                                 <TextBlock Text="{Binding Path=TypeName}"/>
                             </StackPanel>
                         </HierarchicalDataTemplate>

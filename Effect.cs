@@ -9,10 +9,12 @@ using WpfCrutches;
 /// Position layer (perfect size with tunable alpha threshold)
 /// Position between other layers
 /// Colorize
+/// Colorize by tier
 /// Opacity multiplier
 /// Outline
 /// Shadow
 /// Blur
+/// Clip
 
 namespace TankIconMaker
 {

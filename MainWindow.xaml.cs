@@ -17,12 +17,18 @@ using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Forms;
+using TankIconMaker.Effects;
+using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * Delete effects whose type is no longer in the assembly
+ * Hide/show layer/effect toggle
  * Initial size of the dialogs is too large. Center in owner by default
  * Import/export
+ * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
+ * Image scaling sharpness
  * Use a WPF MessageBox (avoid WinForms interop startup cost)
  * _otherWarnings: tag with warning type to enable reliable removal
  */
@@ -229,14 +235,14 @@ namespace TankIconMaker
 
             // Original
             style = new Style { Name = "Original", Author = "Wargaming.net", BuiltIn = true };
-            style.Layers.Add(new LayerTankImage { Name = "Image" });
+            style.Layers.Add(new TankImageLayer { Name = "Image" });
             _builtinStyles.Add(style);
 
             // DarkAgent
             style = new Style { Name = "DarkAgent", Author = "Black_Spy", BuiltIn = true };
-            style.Layers.Add(new LayerBackgroundDarkAgent { Name = "Back" });
-            style.Layers.Add(new LayerTankImage { Name = "Image" });
-            style.Layers[0].Effects.Add(new Effects.ShiftEffect { ShiftX = 30 });
+            style.Layers.Add(new BkgDarkAgentLayer { Name = "Back" });
+            style.Layers.Add(new TankImageLayer { Name = "Image" });
+            style.Layers[0].Effects.Add(new ShiftEffect { ShiftX = 30 });
             _builtinStyles.Add(style);
         }
 
@@ -1153,7 +1159,7 @@ namespace TankIconMaker
             var style = new Style();
             style.Name = name;
             style.Author = "me";
-            style.Layers.Add(new LayerTankImage { Name = "Tank image" });
+            style.Layers.Add(new TankImageLayer { Name = "Tank image" });
             Program.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
             SaveSettings();
