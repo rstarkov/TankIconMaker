@@ -145,16 +145,20 @@
                         <KeyBinding Command="src:TankLayerCommands.Delete" Key="Delete" />
                         <KeyBinding Command="src:TankLayerCommands.MoveUp" Modifiers="Ctrl" Key="Up" />
                         <KeyBinding Command="src:TankLayerCommands.MoveDown" Modifiers="Ctrl" Key="Down" />
+                        <KeyBinding Command="src:TankLayerCommands.ToggleVisibility" Key="F3" />
                     </wpfc:TreeViewWithItem.InputBindings>
                     <wpfc:TreeViewWithItem.ContextMenu>
                         <ContextMenu>
+                            <!-- Used letters: DELMOUV -->
                             <MenuItem Header="Add _layer..." Command="src:TankLayerCommands.AddLayer" InputGestureText="Insert" />
                             <MenuItem Header="Add _effect..." Command="src:TankLayerCommands.AddEffect" InputGestureText="Alt+Insert" />
                             <Separator/>
                             <MenuItem Header="_Modify" Command="src:TankLayerCommands.Rename" InputGestureText="F2" />
                             <MenuItem Header="_Delete" Command="src:TankLayerCommands.Delete" InputGestureText="Delete" />
                             <MenuItem Header="Move _up" Command="src:TankLayerCommands.MoveUp" InputGestureText="Ctrl+↑" />
-                            <MenuItem Header="Move _down" Command="src:TankLayerCommands.MoveDown" InputGestureText="Ctrl+↓" />
+                            <MenuItem Header="Move d_own" Command="src:TankLayerCommands.MoveDown" InputGestureText="Ctrl+↓" />
+                            <Separator/>
+                            <MenuItem Header="Toggle _visibility" Command="src:TankLayerCommands.ToggleVisibility" InputGestureText="F3" />
                         </ContextMenu>
                     </wpfc:TreeViewWithItem.ContextMenu>
                 </wpfc:TreeViewWithItem>

@@ -36,10 +36,15 @@ namespace TankIconMaker
         [Browsable(false)]
         public ObservableCollection<EffectBase> Effects { get; set; }
 
+        [Category("General")]
+        [Description("Allows you to hide this layer without deleting it.")]
+        public bool Visible { get; set; }
+
         public LayerBase()
         {
             Effects = new ObservableCollection<EffectBase>();
             Effects.CollectionChanged += updateEffectLayer;
+            Visible = true;
         }
 
         private void updateEffectLayer(object sender, NotifyCollectionChangedEventArgs e)
@@ -54,7 +59,7 @@ namespace TankIconMaker
 
         /// <summary>Used internally to draw the layer. Hidden from IntelliSense to avoid confusion.</summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public abstract BitmapSource DrawInternal(Tank tank);
+        public abstract WriteableBitmap DrawInternal(Tank tank);
 
         /// <summary>
         /// Stores the <see cref="Version"/> of the maker as it was at the time of saving settings to XML. This may
@@ -66,6 +71,8 @@ namespace TankIconMaker
         {
             foreach (var effect in Effects)
                 effect.Layer = this;
+            Effects.CollectionChanged -= updateEffectLayer;
+            Effects.CollectionChanged += updateEffectLayer;
         }
 
         [XmlIgnore, Browsable(false)]
@@ -79,7 +86,7 @@ namespace TankIconMaker
             var result = MemberwiseClone() as LayerBase;
             result.PropertyChanged = (_, __) => { };
             result.Effects = new ObservableCollection<EffectBase>();
-            result.Effects.CollectionChanged += updateEffectLayer;
+            result.Effects.CollectionChanged += result.updateEffectLayer;
             foreach (var e in Effects)
                 result.Effects.Add(e.Clone());
             return result;
@@ -98,7 +105,7 @@ namespace TankIconMaker
 
         /// <summary>Used internally to draw a tank. Hidden from IntelliSense to avoid confusion.</summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override BitmapSource DrawInternal(Tank tank)
+        public override WriteableBitmap DrawInternal(Tank tank)
         {
             var visual = new DrawingVisual();
             using (var context = visual.RenderOpen())
@@ -107,7 +114,7 @@ namespace TankIconMaker
             RenderOptions.SetBitmapScalingMode(visual, BitmapScalingMode.HighQuality);
             bitmap.Render(visual);
             bitmap.Freeze();
-            return bitmap;
+            return bitmap.ToWpfWriteable();
         }
     }
 
@@ -122,12 +129,12 @@ namespace TankIconMaker
 
         /// <summary>Used internally to draw a tank. Hidden from IntelliSense to avoid confusion.</summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override BitmapSource DrawInternal(Tank tank)
+        public override WriteableBitmap DrawInternal(Tank tank)
         {
             var result = Ut.NewBitmapGdi();
             using (var g = D.Graphics.FromImage(result.Bitmap))
                 Draw(tank, g);
-            return result.ToWpf();
+            return result.ToWpfWriteable();
         }
     }
 

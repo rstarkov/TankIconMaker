@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using RT.Util.Xml;
@@ -31,14 +32,27 @@ namespace TankIconMaker
         public abstract int Version { get; }
 
         /// <summary>Keeps track of the layer that this effect belongs to. This value is kept up-to-date automatically.</summary>
-        [XmlIgnore]
+        [Browsable(false), XmlIgnore]
         public LayerBase Layer;
 
-        public double Mix { get; set; }
+        //[Category("General")]
+        //[Description("At 100, only the final result is visible. At 0, the effect is disabled. Intermediate values blend the ")]
+        //public double Mix { get { return _Mix; } set { _Mix = Math.Min(100, Math.Max(0, value)); } }
+        //private double _Mix = 100;
+#warning TODO: decide whether to keep the "Mix".
+
+        [Category("General")]
+        [Description("Allows you to hide this effect without deleting it.")]
+        public bool Visible { get; set; }
+
+        public EffectBase()
+        {
+            Visible = true;
+        }
 
         /// <summary>Used internally to apply the effect. Hidden from IntelliSense to avoid confusion.</summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public abstract BitmapSource ApplyInternal(Tank tank, BitmapSource layer);
+        public abstract WriteableBitmap ApplyInternal(Tank tank, WriteableBitmap layer);
 
         [XmlIgnore, Browsable(false)]
         public TreeViewItem TreeViewItem { get; set; }
@@ -56,9 +70,9 @@ namespace TankIconMaker
 
     abstract class EffectBaseWpf : EffectBase
     {
-        public abstract BitmapSource Apply(Tank tank, BitmapSource layer);
+        public abstract WriteableBitmap Apply(Tank tank, WriteableBitmap layer);
 
-        public override BitmapSource ApplyInternal(Tank tank, BitmapSource layer)
+        public override WriteableBitmap ApplyInternal(Tank tank, WriteableBitmap layer)
         {
             return Apply(tank, layer);
         }
@@ -68,7 +82,7 @@ namespace TankIconMaker
     {
         public abstract BitmapGdi Apply(Tank tank, BitmapGdi layer);
 
-        public override BitmapSource ApplyInternal(Tank tank, BitmapSource layer)
+        public override WriteableBitmap ApplyInternal(Tank tank, WriteableBitmap layer)
         {
             return Apply(tank, layer.ToGdi()).ToWpfWriteable();
         }

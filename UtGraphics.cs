@@ -49,7 +49,7 @@ namespace TankIconMaker
             return result;
         }
 
-        /// <summary>Converts a GDI image to a WPF writable one. Also useful for unfreezing frozen WriteableBitmap's.</summary>
+        /// <summary>Converts a WPF image source to a WPF writable one. Also useful for unfreezing frozen WriteableBitmap's.</summary>
         public static WriteableBitmap ToWpfWriteable(this BitmapSource bmp)
         {
             var result = new WriteableBitmap(80, 24, 96, 96, PixelFormats.Bgra32, null);
@@ -292,6 +292,40 @@ namespace TankIconMaker
                 {
                     *ptr = (byte) ((*ptr * opacity) / 255);
                     ptr += 4;
+                }
+            }
+        }
+
+        public static unsafe WriteableBitmap BlendImages(WriteableBitmap imgLeft, WriteableBitmap imgRight, double rightAmount)
+        {
+            if (imgLeft.PixelWidth != imgRight.PixelWidth || imgLeft.PixelHeight != imgRight.PixelHeight)
+                throw new ArgumentException();
+            var result = new WriteableBitmap(imgLeft.PixelWidth, imgLeft.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
+            BlendImages(
+                (byte*) imgLeft.BackBuffer, imgLeft.BackBufferStride,
+                (byte*) imgRight.BackBuffer, imgRight.BackBufferStride,
+                (byte*) result.BackBuffer, result.BackBufferStride, result.PixelWidth, result.PixelHeight, rightAmount);
+            return result;
+        }
+
+        public static unsafe void BlendImages(byte* imgLeft, int strideLeft, byte* imgRight, int strideRight, byte* imgResult, int strideResult, int width, int height, double rightAmount)
+        {
+            var leftAmount = 1 - rightAmount;
+            for (int y = 0; y < height; y++)
+            {
+                byte* ptrLeft = imgLeft + y * strideLeft;
+                byte* ptrRight = imgRight + y * strideLeft;
+                byte* ptrResult = imgResult + y * strideLeft;
+                byte* endResult = ptrResult + width * 4;
+                for (; ptrResult < endResult; ptrLeft += 4, ptrRight += 4, ptrResult += 4)
+                {
+                    double rightRatio = blendRightRatio(*(ptrLeft + 3), *(ptrRight + 3), rightAmount);
+                    double leftRatio = 1 - rightRatio;
+
+                    *(ptrResult + 0) = (byte) (*(ptrLeft + 0) * leftRatio + *(ptrRight + 0) * rightRatio);
+                    *(ptrResult + 1) = (byte) (*(ptrLeft + 1) * leftRatio + *(ptrRight + 1) * rightRatio);
+                    *(ptrResult + 2) = (byte) (*(ptrLeft + 2) * leftRatio + *(ptrRight + 2) * rightRatio);
+                    *(ptrResult + 3) = (byte) (*(ptrLeft + 3) * leftAmount + *(ptrRight + 3) * rightAmount);
                 }
             }
         }

@@ -16,14 +16,14 @@ namespace TankIconMaker.Effects
         public int ShiftX { get; set; }
         public int ShiftY { get; set; }
 
-        public override BitmapSource Apply(Tank tank, BitmapSource layer)
+        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
         {
             if (ShiftX == 0 && ShiftY == 0)
                 return layer;
             return Ut.NewBitmapWpf(dc =>
             {
                 dc.DrawImage(layer, new Rect(ShiftX, ShiftY, layer.PixelWidth, layer.PixelHeight));
-            });
+            }).ToWpfWriteable();
         }
     }
 }
