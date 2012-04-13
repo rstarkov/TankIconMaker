@@ -71,4 +71,27 @@ namespace TankIconMaker
         {
         }
     }
+
+    /// <summary>
+    /// Filters lists of <see cref="EffectBase"/> objects before XmlClassify attempts to decode them, removing all
+    /// entries pertaining to layer types that no longer exist in the assembly and hence can't possibly be instantiated.
+    /// </summary>
+    sealed class listEffectBaseOptions : XmlClassifyTypeOptions, IXmlClassifyProcessXml
+    {
+        public void XmlPreprocess(XElement xml)
+        {
+            foreach (var item in xml.Nodes().OfType<XElement>().Where(e => e.Name == "item").ToArray())
+            {
+                var type = item.Attribute("type");
+                if (type == null)
+                    item.Remove();
+                else if (!Program.EffectTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
+                    item.Remove();
+            }
+        }
+
+        public void XmlPostprocess(XElement xml)
+        {
+        }
+    }
 }

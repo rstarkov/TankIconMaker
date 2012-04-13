@@ -55,7 +55,8 @@ namespace TankIconMaker
             XmlClassify.DefaultOptions = new XmlClassifyOptions()
                 .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
                 .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions());
+                .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
+                .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
 
             // Find all the layer and effect types in the assembly
             Program.LayerTypes = findTypes<LayerBase>("layer");

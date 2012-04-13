@@ -9,21 +9,34 @@ namespace TankIconMaker
         /// <summary>Blends two colors. If the amount is 0, only the left color is present. If it's 1, only the right is present.</summary>
         public static Color BlendColors(Color left, Color right, double rightAmount)
         {
+            double rightRatio = blendRightRatio(left.A, right.A, rightAmount);
             return Color.FromArgb(
                 a: (byte) Math.Round(left.A * (1 - rightAmount) + right.A * rightAmount),
-                r: (byte) Math.Round(left.R * (1 - rightAmount) + right.R * rightAmount),
-                g: (byte) Math.Round(left.G * (1 - rightAmount) + right.G * rightAmount),
-                b: (byte) Math.Round(left.B * (1 - rightAmount) + right.B * rightAmount));
+                r: (byte) Math.Round(left.R * (1 - rightRatio) + right.R * rightRatio),
+                g: (byte) Math.Round(left.G * (1 - rightRatio) + right.G * rightRatio),
+                b: (byte) Math.Round(left.B * (1 - rightRatio) + right.B * rightRatio));
         }
 
         /// <summary>Blends two colors. If the amount is 0, only the left color is present. If it's 1, only the right is present.</summary>
         public static D.Color BlendColors(D.Color left, D.Color right, double rightAmount)
         {
+            double rightRatio = blendRightRatio(left.A, right.A, rightAmount);
             return D.Color.FromArgb(
                 alpha: (byte) Math.Round(left.A * (1 - rightAmount) + right.A * rightAmount),
-                red: (byte) Math.Round(left.R * (1 - rightAmount) + right.R * rightAmount),
-                green: (byte) Math.Round(left.G * (1 - rightAmount) + right.G * rightAmount),
-                blue: (byte) Math.Round(left.B * (1 - rightAmount) + right.B * rightAmount));
+                red: (byte) Math.Round(left.R * (1 - rightRatio) + right.R * rightRatio),
+                green: (byte) Math.Round(left.G * (1 - rightRatio) + right.G * rightRatio),
+                blue: (byte) Math.Round(left.B * (1 - rightRatio) + right.B * rightRatio));
+        }
+
+        /// <summary>Calculates the blend ratio for blending colors with arbitrary alpha values.</summary>
+        private static double blendRightRatio(byte leftAlpha, byte rightAlpha, double rightAmount)
+        {
+            if (leftAlpha < rightAlpha)
+                return 1.0 - 2.0 * leftAlpha / (double) (leftAlpha + rightAlpha) * (1.0 - rightAmount);
+            else if (rightAlpha < leftAlpha)
+                return 2.0 * rightAlpha / (double) (leftAlpha + rightAlpha) * rightAmount;
+            else
+                return 0.5;
         }
 
         /// <summary>Converts a WPF color to a GDI color.</summary>

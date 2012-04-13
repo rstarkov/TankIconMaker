@@ -23,8 +23,7 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Delete effects whose type is no longer in the assembly
- * Hide/show layer/effect toggle
+ * Something insane is happening on PropertyGrid.SelectedObject change; lots of CPU, megabytes of RAM allocations, thousands of GC handles.
  * Initial size of the dialogs is too large. Center in owner by default
  * Import/export
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
@@ -93,11 +92,12 @@ namespace TankIconMaker
             Program.DpiScaleY = mat.M22;
 
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdLayer_AddLayer));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = cmdLayer_AddEffect_IsAvailable(); }));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.Rename, cmdLayer_Rename, (_, a) => { a.CanExecute = cmdLayer_Rename_IsAvailable(); }));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.Delete, cmdLayer_Delete, (_, a) => { a.CanExecute = cmdLayer_Delete_IsAvailable(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.Rename, cmdLayer_Rename, (_, a) => { a.CanExecute = isLayerSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.Delete, cmdLayer_Delete, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveUp, cmdLayer_MoveUp, (_, a) => { a.CanExecute = cmdLayer_MoveUp_IsAvailable(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveDown, cmdLayer_MoveDown, (_, a) => { a.CanExecute = cmdLayer_MoveDown_IsAvailable(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.ToggleVisibility, cmdLayer_ToggleVisibility, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
 
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Add, cmdStyle_Add));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Delete, cmdStyle_Delete, (_, a) => { a.CanExecute = cmdStyle_NonBuiltInStyleSelected(); }));
@@ -501,8 +501,22 @@ namespace TankIconMaker
             {
                 renderTask.Image = Ut.NewBitmapWpf(dc =>
                 {
-                    foreach (var layer in style.Layers)
-                        dc.DrawImage(layer.DrawInternal(renderTask.Tank));
+                    foreach (var layer in style.Layers.Where(l => l.Visible))
+                    {
+                        var img = layer.DrawInternal(renderTask.Tank);
+#warning TODO: decide whether to keep the "Mix".
+                        //foreach (var effect in layer.Effects.Where(e => e.Visible && e.Mix > 0))
+                        //{
+                        //    var imgEffect = effect.ApplyInternal(renderTask.Tank, imgLayer);
+                        //    if (effect.Mix >= 100)
+                        //        imgLayer = imgEffect;
+                        //    else
+                        //        imgLayer = Ut.BlendImages(imgLayer, imgEffect, effect.Mix / 100);
+                        //}
+                        foreach (var effect in layer.Effects.Where(e => e.Visible))
+                            img = effect.ApplyInternal(renderTask.Tank, img);
+                        dc.DrawImage(img);
+                    }
                 });
             }
             catch (Exception e)
@@ -1000,9 +1014,14 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private bool cmdLayer_AddEffect_IsAvailable()
+        private bool isLayerOrEffectSelected()
         {
             return ctLayersTree.SelectedItem is LayerBase || ctLayersTree.SelectedItem is EffectBase;
+        }
+
+        private bool isLayerSelected()
+        {
+            return ctLayersTree.SelectedItem is LayerBase;
         }
 
         private void cmdLayer_AddEffect(object sender, ExecutedRoutedEventArgs e)
@@ -1032,11 +1051,6 @@ namespace TankIconMaker
             }), DispatcherPriority.Background);
         }
 
-        private bool cmdLayer_Rename_IsAvailable()
-        {
-            return ctLayersTree.SelectedItem is LayerBase;
-        }
-
         private void cmdLayer_Rename(object sender, ExecutedRoutedEventArgs e)
         {
             var layer = ctLayersTree.SelectedItem as LayerBase;
@@ -1047,11 +1061,6 @@ namespace TankIconMaker
             layer = ctLayersTree.SelectedItem as LayerBase;
             layer.Name = newName;
             SaveSettings();
-        }
-
-        private bool cmdLayer_Delete_IsAvailable()
-        {
-            return ctLayersTree.SelectedItem is LayerBase || ctLayersTree.SelectedItem is EffectBase;
         }
 
         private void cmdLayer_Delete(object sender, ExecutedRoutedEventArgs e)
@@ -1148,6 +1157,19 @@ namespace TankIconMaker
             }
             _renderResults.Clear();
             ScheduleUpdateIcons();
+            SaveSettings();
+        }
+
+        private void cmdLayer_ToggleVisibility(object sender, ExecutedRoutedEventArgs e)
+        {
+            var layer = ctLayersTree.SelectedItem as LayerBase;
+            var effect = ctLayersTree.SelectedItem as EffectBase;
+            if (layer != null)
+                layer.Visible = !layer.Visible;
+            if (effect != null)
+                effect.Visible = !effect.Visible;
+            _renderResults.Clear();
+            UpdateIcons();
             SaveSettings();
         }
 
@@ -1302,6 +1324,7 @@ namespace TankIconMaker
         public static RoutedCommand Delete = new RoutedCommand();
         public static RoutedCommand MoveUp = new RoutedCommand();
         public static RoutedCommand MoveDown = new RoutedCommand();
+        public static RoutedCommand ToggleVisibility = new RoutedCommand();
     }
 
     static class TankStyleCommands
