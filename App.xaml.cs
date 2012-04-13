@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -54,7 +55,7 @@ namespace TankIconMaker
             XmlClassify.DefaultOptions = new XmlClassifyOptions()
                 .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
                 .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(List<LayerBase>), new listLayerBaseOptions());
+                .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions());
 
             // Find all the layer and effect types in the assembly
             Program.LayerTypes = findTypes<LayerBase>("layer");

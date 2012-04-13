@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -26,8 +27,11 @@ namespace TankIconMaker
         public abstract int Version { get; }
 
         [Browsable(false)]
-        public string Name { get { return _Name; } set { _Name = value; NotifyPropertyChanged("Name"); } }
+        public string Name { get { return _Name; } set { _Name = value; NotifyPropertyChanged("Name"); NotifyPropertyChanged("NameVisibility"); } }
         private string _Name;
+
+        [Browsable(false)]
+        public Visibility NameVisibility { get { return string.IsNullOrEmpty(Name) ? Visibility.Collapsed : Visibility.Visible; } }
 
         [Browsable(false)]
         public ObservableCollection<EffectBase> Effects { get; set; }

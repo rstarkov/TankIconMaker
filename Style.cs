@@ -70,41 +70,55 @@ namespace TankIconMaker
         Country,
         [Description("Normal / premium / special")]
         Category,
+        [Description("Single color")]
+        Single,
     }
 
     class ConfigColors
     {
-        [DisplayName("Color by")]
+        [DisplayName("By")]
         public ColorBy ColorBy { get; set; }
 
-        [Category("By class"), DisplayName("Light tank")]
+        [DisplayName("Class: Light tank")]
         public Color ClassLight { get; set; }
-        [Category("By class"), DisplayName("Medium tank")]
+        [DisplayName("Class: Medium tank")]
         public Color ClassMedium { get; set; }
-        [Category("By class"), DisplayName("Heavy tank")]
+        [DisplayName("Class: Heavy tank")]
         public Color ClassHeavy { get; set; }
-        [Category("By class"), DisplayName("Destroyer")]
+        [DisplayName("Class: Destroyer")]
         public Color ClassDestroyer { get; set; }
-        [Category("By class"), DisplayName("Artillery")]
+        [DisplayName("Class: Artillery")]
         public Color ClassArtillery { get; set; }
 
-        [Category("By country"), DisplayName("USSR")]
+        [DisplayName("Country: USSR")]
         public Color CountryUSSR { get; set; }
-        [Category("By country"), DisplayName("Germany")]
+        [DisplayName("Country: Germany")]
         public Color CountryGermany { get; set; }
-        [Category("By country"), DisplayName("USA")]
+        [DisplayName("Country: USA")]
         public Color CountryUSA { get; set; }
-        [Category("By country"), DisplayName("France")]
+        [DisplayName("Country: France")]
         public Color CountryFrance { get; set; }
-        [Category("By country"), DisplayName("China")]
+        [DisplayName("Country: China")]
         public Color CountryChina { get; set; }
 
-        [Category("By category"), DisplayName("Normal")]
+        [DisplayName("Categ.: Normal")]
         public Color CategNormal { get; set; }
-        [Category("By category"), DisplayName("Premium")]
+        [DisplayName("Categ.: Premium")]
         public Color CategPremium { get; set; }
-        [Category("By category"), DisplayName("Special")]
+        [DisplayName("Categ.: Special")]
         public Color CategSpecial { get; set; }
+
+        [DisplayName("Single color")]
+        public Color Single { get; set; }
+
+        public ConfigColors()
+        {
+            ColorBy = TankIconMaker.ColorBy.Single;
+            ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
+                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina
+                = CategNormal = CategPremium = CategSpecial
+                = Single = Colors.White;
+        }
 
         public Color GetColorWpf(Tank tank)
         {
@@ -113,6 +127,7 @@ namespace TankIconMaker
                 case ColorBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
                 case ColorBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
                 case ColorBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
+                case ColorBy.Single: return Single;
                 default: throw new Exception();
             }
         }

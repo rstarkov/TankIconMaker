@@ -22,7 +22,7 @@
         <Label Grid.Row="0" Name="lblName"  Padding="3,0,0,3" Target="{Binding ElementName=ctName}">Layer _name:</Label>
         <TextBox Grid.Row="1" Name="ctName" />
         <Label Grid.Row="2" Name="lblList" Padding="3,8,0,3" Target="{Binding ElementName=ctList}">_Type:</Label>
-        <ListBox Grid.Row="3" Name="ctList">
+        <ListBox Grid.Row="3" Name="ctList" MouseDoubleClick="add">
             <ListBox.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#B8DBFF"></SolidColorBrush>
             </ListBox.Resources>

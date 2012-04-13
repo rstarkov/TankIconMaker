@@ -60,14 +60,14 @@ namespace TankIconMaker
         }
 
         /// <summary>Converts this value to the System.Drawing-compatible enum type.</summary>
-        public static D.Text.TextRenderingHint ToGdi(this TextAntiAliasStyle style)
+        public static D.Text.TextRenderingHint ToGdi(this TextSmoothingStyle style)
         {
             switch (style)
             {
-                case TextAntiAliasStyle.Aliased: return D.Text.TextRenderingHint.SingleBitPerPixelGridFit;
-                case TextAntiAliasStyle.UnhintedGDI: return D.Text.TextRenderingHint.AntiAlias;
-                case TextAntiAliasStyle.AntiAliasGDI: return D.Text.TextRenderingHint.AntiAliasGridFit;
-                case TextAntiAliasStyle.ClearType: return D.Text.TextRenderingHint.ClearTypeGridFit;
+                case TextSmoothingStyle.Aliased: return D.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+                case TextSmoothingStyle.UnhintedGDI: return D.Text.TextRenderingHint.AntiAlias;
+                case TextSmoothingStyle.AntiAliasGDI: return D.Text.TextRenderingHint.AntiAliasGridFit;
+                case TextSmoothingStyle.ClearType: return D.Text.TextRenderingHint.ClearTypeGridFit;
                 default: throw new Exception();
             }
         }
@@ -297,7 +297,7 @@ namespace TankIconMaker
         }
     }
 
-    enum TextAntiAliasStyle
+    enum TextSmoothingStyle
     {
         [Description("Aliased")]
         Aliased,

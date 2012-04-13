@@ -9,18 +9,18 @@ using System.Windows.Media.Imaging;
 using RT.Util.Xml;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-namespace TankIconMaker
+namespace TankIconMaker.Layers
 {
-    class LayerBackgroundDarkAgent : LayerBaseWpf
+    class BkgDarkAgentLayer : LayerBaseWpf
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Background: Dark Agent"; } }
+        public override string TypeName { get { return "Background / Dark Agent"; } }
         public override string TypeDescription { get { return "Draws a background using a glassy style inspired by Black_Spy’s icon set."; } }
 
         [ExpandableObject]
         public ConfigColors BackColors { get; set; }
 
-        public LayerBackgroundDarkAgent()
+        public BkgDarkAgentLayer()
         {
             BackColors = new ConfigColors();
             BackColors.ColorBy = ColorBy.Class;

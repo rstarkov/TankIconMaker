@@ -6,14 +6,14 @@ using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows;
 
-namespace TankIconMaker
+namespace TankIconMaker.Layers
 {
     public enum ImageStyle { Contour, [Description("3D")] ThreeD }
 
-    class LayerTankImage : LayerBaseWpf
+    class TankImageLayer : LayerBaseWpf
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Tank Image"; } }
+        public override string TypeName { get { return "Image / Tank"; } }
         public override string TypeDescription { get { return "Draws a tank in one of several styles."; } }
 
         public ImageStyle Style { get; set; }
