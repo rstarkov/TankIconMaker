@@ -43,7 +43,8 @@ namespace TankIconMaker
 
         [Category("General")]
         [Description("Allows you to hide this effect without deleting it.")]
-        public bool Visible { get; set; }
+        public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
+        private bool _Visible;
 
         public EffectBase()
         {
