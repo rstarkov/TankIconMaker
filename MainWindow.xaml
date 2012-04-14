@@ -129,13 +129,53 @@
                         <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#B8DBFF"></SolidColorBrush>
                         <HierarchicalDataTemplate DataType = "{x:Type src:LayerBase}" ItemsSource = "{Binding Effects}">
                             <StackPanel Orientation="Horizontal">
+                                <Path Margin="1,0,4,0" Data="M 9.5,0 L 11.7,6.9 L 19.0,6.9 L 13.1,11.2 L 15.4,18.1 L 9.5,13.8 L 3.6,18.1 L 5.9,11.2 L 0.0,6.9 L 7.3,6.9 Z" SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Path.LayoutTransform>
+                                        <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>
+                                    </Path.LayoutTransform>
+                                    <Path.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=Header.Visible}" Value="True">
+                                                    <Setter Property="Path.Fill" Value="Yellow"/>
+                                                    <Setter Property="Path.Stroke" Value="Brown"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=Header.Visible}" Value="False">
+                                                    <Setter Property="Path.Fill" Value="#eeeeee"/>
+                                                    <Setter Property="Path.Stroke" Value="#999999"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
                                 <TextBlock Text="{Binding Path=Name}" Visibility="{Binding Path=NameVisibility}"/>
                                 <TextBlock Text=" – " Visibility="{Binding Path=NameVisibility}"/>
-                                <TextBlock Text="{Binding Path=TypeName}"/>
+                                <TextBlock Text="{Binding Path=TypeName}" Margin="0,0,4,0"/>
                             </StackPanel>
                         </HierarchicalDataTemplate>
                         <DataTemplate DataType = "{x:Type src:EffectBase}">
-                            <TextBlock Text="{Binding Path=TypeName}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Path Margin="1,0,4,0" Data="M 9.5,0 L 11.7,6.9 L 19.0,6.9 L 13.1,11.2 L 15.4,18.1 L 9.5,13.8 L 3.6,18.1 L 5.9,11.2 L 0.0,6.9 L 7.3,6.9 Z" SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Path.LayoutTransform>
+                                        <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>
+                                    </Path.LayoutTransform>
+                                    <Path.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=Header.Visible}" Value="True">
+                                                    <Setter Property="Path.Fill" Value="#F6D8F8"/>
+                                                    <Setter Property="Path.Stroke" Value="#7A1881"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=Header.Visible}" Value="False">
+                                                    <Setter Property="Path.Fill" Value="#eeeeee"/>
+                                                    <Setter Property="Path.Stroke" Value="#999999"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <TextBlock Text="{Binding Path=TypeName}" Margin="0,0,4,0"/>
+                            </StackPanel>
                         </DataTemplate>
                     </wpfc:TreeViewWithItem.Resources>
                     <wpfc:TreeViewWithItem.InputBindings>
