@@ -17,15 +17,13 @@ using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Forms;
+using RT.Util.Xml;
 using TankIconMaker.Effects;
 using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Something insane is happening on PropertyGrid.SelectedObject change; lots of CPU, megabytes of RAM allocations, thousands of GC handles.
- * Initial size of the dialogs is too large. Center in owner by default
- * Import/export
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
  * Image scaling sharpness
  * Use a WPF MessageBox (avoid WinForms interop startup cost)
@@ -37,6 +35,7 @@ namespace TankIconMaker
     partial class MainWindow : ManagedWindow
     {
         private DispatcherTimer _updateIconsTimer = new DispatcherTimer(DispatcherPriority.Background);
+        private DispatcherTimer _updatePropertiesTimer = new DispatcherTimer(DispatcherPriority.Background);
         private CancellationTokenSource _cancelRender = new CancellationTokenSource();
         private Dictionary<string, RenderTask> _renderResults = new Dictionary<string, RenderTask>();
         private static BitmapImage _warningImage;
@@ -217,7 +216,9 @@ namespace TankIconMaker
             ctGameVersion.SelectionChanged += ctGameVersion_SelectionChanged;
             ctGamePath.SelectionChanged += ctGamePath_SelectionChanged;
             ctGamePath.PreviewKeyDown += ctGamePath_PreviewKeyDown;
-            ctLayersTree.SelectedItemChanged += (_, e) => { ctLayerProperties.SelectedObject = e.NewValue; };
+            ctLayersTree.SelectedItemChanged += (_, e) => { _updatePropertiesTimer.Stop(); _updatePropertiesTimer.Start(); };
+            _updatePropertiesTimer.Tick += (_, __) => { _updatePropertiesTimer.Stop(); ctLayerProperties.SelectedObject = ctLayersTree.SelectedItem; };
+            _updatePropertiesTimer.Interval = TimeSpan.FromMilliseconds(200);
 
             // Refresh all the commands because otherwise WPF doesn’t realise the states have changed.
             CommandManager.InvalidateRequerySuggested();
@@ -1043,12 +1044,12 @@ namespace TankIconMaker
             _renderResults.Clear();
             ScheduleUpdateIcons(); // schedule immediately so that they go semi-transparent instantly; then force the update later
             SaveSettings();
-            Dispatcher.BeginInvoke((Action) (() =>
+            Dispatcher.BeginInvoke((Action) delegate
             {
                 newEffect.TreeViewItem.IsSelected = true;
                 newEffect.TreeViewItem.BringIntoView();
                 UpdateIcons();
-            }), DispatcherPriority.Background);
+            }, DispatcherPriority.Background);
         }
 
         private void cmdLayer_Rename(object sender, ExecutedRoutedEventArgs e)
@@ -1243,76 +1244,44 @@ namespace TankIconMaker
 
         private void cmdStyle_Import(object sender, ExecutedRoutedEventArgs e)
         {
-            DlgMessage.ShowWarning("Sorry, not done yet...");
-            //var dlg = new VistaOpenFileDialog();
-            //dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
-            //dlg.FilterIndex = 0;
-            //dlg.Multiselect = false;
-            //dlg.CheckFileExists = true;
-            //if (dlg.ShowDialog() != true)
-            //    return;
+            var dlg = new VistaOpenFileDialog();
+            dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            dlg.FilterIndex = 0;
+            dlg.Multiselect = false;
+            dlg.CheckFileExists = true;
+            if (dlg.ShowDialog() != true)
+                return;
 
-            //MakerBase newMaker;
-            //try
-            //{
-            //    var oldMaker = ctStyleDropdown.SelectedItem as MakerBase;
-            //    newMaker = XmlClassify.LoadObjectFromXmlFile<MakerBase>(dlg.FileName);
-            //}
-            //catch
-            //{
-            //    DlgMessage.ShowWarning("Could not load the file for some reason. It might be of the wrong format.");
-            //    return;
-            //}
+            Style style;
+            try
+            {
+                style = XmlClassify.LoadObjectFromXmlFile<Style>(dlg.FileName);
+            }
+            catch
+            {
+                DlgMessage.ShowWarning("Could not load the file for some reason. It might be of the wrong format.");
+                return;
+            }
 
-            ////if (newMaker.GetType() != oldMaker.GetType())
-            ////    if (DlgMessage.ShowQuestion("These settings are for maker \"{0}\". You currently have \"{1}\" selected. Load anyway?".Fmt(newMaker.ToString(), oldMaker.ToString()),
-            ////        "&Load", "Cancel") == 1)
-            ////        return;
-
-            //int i = Program.Settings.Makers.Select((maker, index) => new { maker, index }).First(x => x.maker.GetType() == newMaker.GetType()).index;
-            //ctStyleDropdown.SelectedItem = newMaker;
-            //ctStyleDropdown.Items[i] = newMaker;
-            //Program.Settings.Makers[i] = newMaker;
-            //Program.Settings.SaveThreaded();
-            //ctStyleDropdown_SelectionChanged();
-
-            //_makerSettingsFilename = dlg.FileName;
-            //_makerSettingsConfirmSave = true;
+            Program.Settings.Styles.Add(style);
+            ctStyleDropdown.SelectedItem = style;
+            Program.Settings.SaveThreaded();
         }
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
-            DlgMessage.ShowWarning("Sorry, not done yet...");
-            //private void ctMakerSave_Click(object _ = null, RoutedEventArgs __ = null)
-            //{
-            //    if (_makerSettingsFilename == null)
-            //    {
-            //        ctMakerSaveAs_Click();
-            //        return;
-            //    }
-            //    else if (_makerSettingsConfirmSave)
-            //        if (DlgMessage.ShowQuestion("Save maker settings?\n\nFile: {0}".Fmt(_makerSettingsFilename), "&Save", "Cancel") == 1)
-            //            return;
-            //    XmlClassify.SaveObjectToXmlFile(ctStyleDropdown.SelectedItem, typeof(MakerBase), _makerSettingsFilename);
-            //    ctMakerSave.IsEnabled = false;
-            //    _makerSettingsConfirmSave = false;
-            //}
+            var dlg = new VistaSaveFileDialog();
+            dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            dlg.FilterIndex = 0;
+            dlg.CheckPathExists = true;
+            if (dlg.ShowDialog() != true)
+                return;
 
-            //private void ctMakerSaveAs_Click(object _ = null, RoutedEventArgs __ = null)
-            //{
-            //    var dlg = new VistaSaveFileDialog();
-            //    dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
-            //    dlg.FilterIndex = 0;
-            //    dlg.CheckPathExists = true;
-            //    if (dlg.ShowDialog() != true)
-            //        return;
-            //    _makerSettingsFilename = dlg.FileName;
-            //    if (_makerSettingsFilename.ToLower().EndsWith(".xml"))
-            //        _makerSettingsFilename = _makerSettingsFilename.Substring(0, _makerSettingsFilename.Length - 4);
-            //    _makerSettingsFilename = "{0} ({1}).xml".Fmt(_makerSettingsFilename, ctStyleDropdown.SelectedItem.GetType().Name);
-            //    _makerSettingsConfirmSave = false;
-            //    ctMakerSave_Click();
-            //}
+            var filename = dlg.FileName;
+            if (!filename.ToLower().EndsWith(".xml"))
+                filename += ".xml";
+            XmlClassify.SaveObjectToXmlFile(ctStyleDropdown.SelectedItem, typeof(Style), filename);
+            DlgMessage.ShowInfo("The style has been exported.");
         }
     }
 

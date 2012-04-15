@@ -107,7 +107,10 @@
                         <AccessText Margin="6,0">_Delete</AccessText>
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleMore" HorizontalAlignment="Right" Click="ctStyleMore_Click">
-                        <AccessText Margin="6,0,1,0">More ▾</AccessText>
+                        <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                            <AccessText Margin="6,0">_More</AccessText>
+                            <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Change _name" Command="src:TankStyleCommands.ChangeName"/>
