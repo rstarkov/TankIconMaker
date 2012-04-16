@@ -7,7 +7,6 @@ using WpfCrutches;
 
 /// Position layer (perfect size with tunable alpha threshold)
 /// Position between other layers
-/// Outline
 /// Clip
 
 namespace TankIconMaker

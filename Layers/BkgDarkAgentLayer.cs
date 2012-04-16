@@ -17,18 +17,20 @@ namespace TankIconMaker.Layers
         public override string TypeName { get { return "Background / Dark Agent"; } }
         public override string TypeDescription { get { return "Draws a background using a glassy style inspired by Black_Spy’s icon set."; } }
 
+        [Category("Settings")]
+        [Description("Background color.")]
         [ExpandableObject]
-        public ConfigColors BackColors { get; set; }
+        public ColorScheme BackColor { get; set; }
 
         public BkgDarkAgentLayer()
         {
-            BackColors = new ConfigColors();
-            BackColors.ColorBy = ColorBy.Class;
-            BackColors.ClassLight = Color.FromArgb(180, 35, 140, 35);
-            BackColors.ClassMedium = Color.FromArgb(180, 150, 127, 37);
-            BackColors.ClassHeavy = Color.FromArgb(180, 99, 99, 99);
-            BackColors.ClassDestroyer = Color.FromArgb(180, 41, 83, 160);
-            BackColors.ClassArtillery = Color.FromArgb(180, 181, 47, 47);
+            BackColor = new ColorScheme(Colors.White);
+            BackColor.ColorBy = ColorBy.Class;
+            BackColor.ClassLight = Color.FromArgb(180, 35, 140, 35);
+            BackColor.ClassMedium = Color.FromArgb(180, 150, 127, 37);
+            BackColor.ClassHeavy = Color.FromArgb(180, 99, 99, 99);
+            BackColor.ClassDestroyer = Color.FromArgb(180, 41, 83, 160);
+            BackColor.ClassArtillery = Color.FromArgb(180, 181, 47, 47);
         }
 
         public override void Draw(Tank tank, DrawingContext dc)
@@ -36,7 +38,7 @@ namespace TankIconMaker.Layers
             var outline = new Pen(new SolidColorBrush(Colors.Black), 1);
             var outlineInner = new Pen(new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)), 1);
 
-            var hsv = ColorHSV.FromColor(BackColors.GetColorWpf(tank));
+            var hsv = ColorHSV.FromColor(BackColor.GetColorWpf(tank));
             var brush = new LinearGradientBrush
             {
                 GradientStops = new GradientStopCollection

@@ -64,7 +64,6 @@ namespace TankIconMaker
             if (alpha < 0 || alpha > 255) throw new ArgumentOutOfRangeException("alpha");
             return D.Color.FromArgb((byte) alpha, color.R, color.G, color.B);
         }
-
     }
 
     /// <summary>Adapted from Paint.NET and thus exactly compatible in the RGB/HSV conversion (apart from hue 360, which must be 0 instead)</summary>

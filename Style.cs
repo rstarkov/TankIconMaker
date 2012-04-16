@@ -76,7 +76,7 @@ namespace TankIconMaker
         Single,
     }
 
-    class ConfigColors
+    class ColorScheme
     {
         [DisplayName("By")]
         public ColorBy ColorBy { get; set; }
@@ -120,14 +120,19 @@ namespace TankIconMaker
         [DisplayName("Single color")]
         public Color Single { get; set; }
 
-        public ConfigColors()
+        public ColorScheme()
+            : this(Colors.White)
+        {
+        }
+
+        public ColorScheme(Color color)
         {
             ColorBy = TankIconMaker.ColorBy.Single;
             ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
                 = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina
                 = CategNormal = CategPremium = CategSpecial
                 = Tier1 = Tier5 = Tier10
-                = Single = Colors.White;
+                = Single = color;
         }
 
         public Color GetColorWpf(Tank tank)
