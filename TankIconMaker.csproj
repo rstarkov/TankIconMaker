@@ -157,6 +157,10 @@
     <Resource Include="Resources\Graphics\icon.ico" />
     <Resource Include="Resources\Graphics\warning.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BuiltInStyles\Black_Spy 4.0.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\Original.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
