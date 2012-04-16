@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
 using System.Windows;
+using System.ComponentModel;
 
 namespace TankIconMaker.Effects
 {
@@ -13,7 +14,11 @@ namespace TankIconMaker.Effects
         public override string TypeName { get { return "Shift"; } }
         public override string TypeDescription { get { return "Shifts the layer by a specified number of pixels."; } }
 
+        [Category("Shift"), DisplayName("X pixels")]
+        [Description("Amount of horizontal shift in pixels.")]
         public int ShiftX { get; set; }
+        [Category("Shift"), DisplayName("Y pixels")]
+        [Description("Amount of vertical shift in pixels.")]
         public int ShiftY { get; set; }
 
         public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)

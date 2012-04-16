@@ -16,6 +16,8 @@ namespace TankIconMaker.Layers
         public override string TypeName { get { return "Image / Tank"; } }
         public override string TypeDescription { get { return "Draws a tank in one of several styles."; } }
 
+        [Category("Image")]
+        [Description("Chooses one of the standard tank image styles.")]
         public ImageStyle Style { get; set; }
 
         public override void Draw(Tank tank, DrawingContext dc)
