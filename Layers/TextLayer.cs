@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
@@ -26,10 +27,10 @@ namespace TankIconMaker.Layers
         [Category("Font"), DisplayName("Italic")]
         [Description("Makes the text italic.")]
         public bool FontItalic { get; set; }
-        [Category("Font"), DisplayName("Colors")]
-        [Description("Makes the text italic.")]
+        [Category("Font")]
+        [Description("Specifies the text color.")]
         [ExpandableObject]
-        public ConfigColors Colors { get; set; }
+        public ColorScheme FontColor { get; set; }
 
         [Category("Position")]
         [Description("X coordinate of the leftmost text pixel. Ignored if \"Left Anchor\" is false.")]
@@ -74,14 +75,14 @@ namespace TankIconMaker.Layers
             Right = 80 - 3;
             Bottom = 24 - 3;
             Baseline = false;
-            Colors = new ConfigColors();
+            FontColor = new ColorScheme(Colors.White);
         }
 
         public override void Draw(Tank tank, Graphics dc)
         {
             var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
             dc.TextRenderingHint = FontSmoothing.ToGdi();
-            dc.DrawString(GetText(tank), new Font(FontFamily, (float) FontSize, style), new SolidBrush(Colors.GetColorGdi(tank)),
+            dc.DrawString(GetText(tank), new Font(FontFamily, (float) FontSize, style), new SolidBrush(FontColor.GetColorGdi(tank)),
                 LeftAnchor ? (int?) Left : null, RightAnchor ? (int?) Right : null, TopAnchor ? (int?) Top : null, BottomAnchor ? (int?) Bottom : null,
                 Baseline);
         }

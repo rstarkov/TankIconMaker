@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using RT.Util.Xml;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace TankIconMaker.Effects
 {
@@ -23,7 +24,8 @@ namespace TankIconMaker.Effects
         private double _Spread = 5;
         [Category("Shadow")]
         [Description("Shadow color. Use bright colors for glow. Adjust the Alpha channel to control final shadow transparency.")]
-        public Color Color { get; set; }
+        [ExpandableObject]
+        public ColorScheme Color { get; set; }
         [Category("Shadow"), DisplayName("Shift: X")]
         [Description("Amount of horizontal shift in pixels.")]
         public int ShiftX { get; set; }
@@ -36,7 +38,7 @@ namespace TankIconMaker.Effects
 
         public ShadowEffect()
         {
-            Color = Colors.Black;
+            Color = new ColorScheme(Colors.Black);
         }
 
         public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
@@ -47,10 +49,11 @@ namespace TankIconMaker.Effects
                         _blur = new GaussianBlur(Radius);
 
             var shadow = layer.Clone();
-            shadow.SetColor(Color);
+            var color = Color.GetColorWpf(tank);
+            shadow.SetColor(color);
             shadow = _blur.Blur(shadow, BlurEdgeMode.Transparent);
             shadow.ScaleOpacity(Spread, OpacityStyle.Additive);
-            shadow.Transparentize(Color.A);
+            shadow.Transparentize(color.A);
             return Ut.NewBitmapWpf(dc =>
             {
                 dc.DrawImage(shadow, new Rect(ShiftX, ShiftY, shadow.PixelWidth, shadow.PixelHeight));
