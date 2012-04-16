@@ -27,12 +27,6 @@ namespace TankIconMaker
         [Browsable(false), XmlIgnore]
         public LayerBase Layer;
 
-        //[Category("General")]
-        //[Description("At 100, only the final result is visible. At 0, the effect is disabled. Intermediate values blend the ")]
-        //public double Mix { get { return _Mix; } set { _Mix = Math.Min(100, Math.Max(0, value)); } }
-        //private double _Mix = 100;
-#warning TODO: decide whether to keep the "Mix".
-
         [Category("General")]
         [Description("Allows you to hide this effect without deleting it.")]
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }

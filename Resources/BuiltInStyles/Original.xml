@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <Name>Original</Name>
+  <Author>Wargaming.net</Author>
+  <Layers>
+    <item type="TankIconMaker.Layers.TankImageLayer">
+      <Name></Name>
+      <Visible>True</Visible>
+      <SavedByVersion>1</SavedByVersion>
+      <Effects />
+      <Style>Contour</Style>
+    </item>
+  </Layers>
+</item>

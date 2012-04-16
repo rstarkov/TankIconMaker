@@ -13,18 +13,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Xml.Linq;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Forms;
 using RT.Util.Xml;
-using TankIconMaker.Effects;
 using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Proper demo styles
  * Text layer: just one, so that it’s changeable like ColorScheme
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
  * Image scaling sharpness
@@ -234,19 +233,21 @@ namespace TankIconMaker
         private void RecreateBuiltInStyles()
         {
             _builtinStyles.Clear();
-            Style style;
 
-            // Original
-            style = new Style { Name = "Original", Author = "Wargaming.net", BuiltIn = true };
-            style.Layers.Add(new TankImageLayer { Name = "Image" });
-            _builtinStyles.Add(style);
-
-            // DarkAgent
-            style = new Style { Name = "DarkAgent", Author = "Black_Spy", BuiltIn = true };
-            style.Layers.Add(new BkgDarkAgentLayer { Name = "Back" });
-            style.Layers.Add(new TankImageLayer { Name = "Image" });
-            style.Layers[0].Effects.Add(new ShiftEffect { ShiftX = 30 });
-            _builtinStyles.Add(style);
+            var assy = Assembly.GetExecutingAssembly();
+            foreach (var resourceName in assy.GetManifestResourceNames().Where(n => n.Contains(".BuiltInStyles.")))
+            {
+                try
+                {
+                    XDocument doc;
+                    using (var stream = assy.GetManifestResourceStream(resourceName))
+                        doc = XDocument.Load(stream);
+                    var style = XmlClassify.ObjectFromXElement<Style>(doc.Root);
+                    style.BuiltIn = true;
+                    _builtinStyles.Add(style);
+                }
+                catch { } // should not happen, but if it does, pretend the style doesn’t exist.
+            }
         }
 
         /// <summary>
@@ -507,15 +508,6 @@ namespace TankIconMaker
                     foreach (var layer in style.Layers.Where(l => l.Visible))
                     {
                         var img = layer.DrawInternal(renderTask.Tank);
-#warning TODO: decide whether to keep the "Mix".
-                        //foreach (var effect in layer.Effects.Where(e => e.Visible && e.Mix > 0))
-                        //{
-                        //    var imgEffect = effect.ApplyInternal(renderTask.Tank, imgLayer);
-                        //    if (effect.Mix >= 100)
-                        //        imgLayer = imgEffect;
-                        //    else
-                        //        imgLayer = Ut.BlendImages(imgLayer, imgEffect, effect.Mix / 100);
-                        //}
                         foreach (var effect in layer.Effects.Where(e => e.Visible))
                             img = effect.ApplyInternal(renderTask.Tank, img);
                         dc.DrawImage(img);
@@ -1165,6 +1157,7 @@ namespace TankIconMaker
 
         private void cmdLayer_ToggleVisibility(object sender, ExecutedRoutedEventArgs e)
         {
+            var style = GetEditableStyle();
             var layer = ctLayersTree.SelectedItem as LayerBase;
             var effect = ctLayersTree.SelectedItem as EffectBase;
             if (layer != null)
@@ -1258,6 +1251,7 @@ namespace TankIconMaker
             try
             {
                 style = XmlClassify.LoadObjectFromXmlFile<Style>(dlg.FileName);
+                style.BuiltIn = false;
             }
             catch
             {
