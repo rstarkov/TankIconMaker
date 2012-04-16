@@ -76,6 +76,10 @@
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Effect.cs" />
+    <Compile Include="Effects\ColorizeEffect.cs" />
+    <Compile Include="Effects\GaussianBlurEffect.cs" />
+    <Compile Include="Effects\ShadowEffect.cs" />
+    <Compile Include="Effects\OpacityEffect.cs" />
     <Compile Include="Effects\ShiftEffect.cs" />
     <Compile Include="Layers\BkgDarkAgentLayer.cs" />
     <Compile Include="Layers\ImageLayer.cs" />

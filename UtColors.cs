@@ -36,7 +36,7 @@ namespace TankIconMaker
             else if (rightAlpha < leftAlpha)
                 return 2.0 * rightAlpha / (double) (leftAlpha + rightAlpha) * rightAmount;
             else
-                return 0.5;
+                return rightAmount;
         }
 
         /// <summary>Converts a WPF color to a GDI color.</summary>

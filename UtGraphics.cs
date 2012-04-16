@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Linq;
 using D = System.Drawing;
 
 namespace TankIconMaker
@@ -296,6 +297,124 @@ namespace TankIconMaker
             }
         }
 
+        public static unsafe void ScaleOpacity(this WriteableBitmap bmp, double adjustment, OpacityStyle style)
+        {
+            ScaleOpacity((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, adjustment, style);
+        }
+
+        public static unsafe void ScaleOpacity(this BitmapGdi bmp, double adjustment, OpacityStyle style)
+        {
+            ScaleOpacity((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, adjustment, style);
+        }
+
+        public static unsafe void ScaleOpacity(byte* image, int width, int height, int stride, double adjustment, OpacityStyle style)
+        {
+            if (adjustment == 0)
+                return;
+            if (style == OpacityStyle.Auto)
+                style = adjustment > 0 ? OpacityStyle.Additive : OpacityStyle.MoveEndpoint;
+
+            var lut = new byte[256];
+            for (int x = 0; x < 256; x++)
+                switch (style)
+                {
+                    case OpacityStyle.MoveEndpoint:
+                        if (adjustment < 0)
+                            lut[x] = (byte) (x / (1.0 + -adjustment));
+                        else
+                            lut[x] = (byte) (255 - (255 - x) / (1.0 + adjustment));
+                        break;
+                    case OpacityStyle.MoveMidpoint:
+                        lut[x] = (byte) (Math.Pow(x / 255.0, adjustment < 0 ? (1 - adjustment) : (1 / (1 + adjustment))) * 255);
+                        break;
+                    case OpacityStyle.Additive:
+                        if (adjustment < 0)
+                            lut[x] = (byte) Math.Max(0, 255 - (255 - x) * (1.0 - adjustment));
+                        else
+                            lut[x] = (byte) Math.Min(255, x * (1.0 + adjustment));
+                        break;
+                    default:
+                        throw new Exception();
+                }
+
+            for (int y = 0; y < height; y++)
+            {
+                byte* ptr = image + y * stride + 3;
+                byte* end = ptr + width * 4;
+                while (ptr < end)
+                {
+                    *ptr = lut[*ptr];
+                    ptr += 4;
+                }
+            }
+        }
+
+        public static unsafe void SetColor(this WriteableBitmap bmp, Color color)
+        {
+            SetColor((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, color);
+        }
+
+        public static unsafe void SetColor(this BitmapGdi bmp, Color color)
+        {
+            SetColor((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, color);
+        }
+
+        public static unsafe void SetColor(byte* image, int width, int height, int stride, Color color)
+        {
+            byte r = color.R;
+            byte g = color.G;
+            byte b = color.B;
+            for (int y = 0; y < height; y++)
+            {
+                byte* ptr = image + y * stride;
+                byte* end = ptr + width * 4;
+                while (ptr < end)
+                {
+                    *ptr++ = b;
+                    *ptr++ = g;
+                    *ptr++ = r;
+                    ptr++;
+                }
+            }
+        }
+
+        public static unsafe void PreMultiply(byte* image, int width, int height, int stride)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                byte* ptr = image + y * stride;
+                byte* end = ptr + width * 4;
+                while (ptr < end)
+                {
+                    byte alpha = ptr[3];
+                    ptr[0] = (byte) ((ptr[0] * alpha) / 255);
+                    ptr[1] = (byte) ((ptr[1] * alpha) / 255);
+                    ptr[2] = (byte) ((ptr[2] * alpha) / 255);
+                    ptr += 4;
+                }
+            }
+        }
+
+        public static unsafe void UnPreMultiply(byte* image, int width, int height, int stride)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                byte* ptr = image + y * stride;
+                byte* end = ptr + width * 4;
+                while (ptr < end)
+                {
+                    byte alpha = ptr[3];
+                    if (alpha > 0)
+                    {
+                        ptr[0] = (byte) ((ptr[0] * 255) / alpha);
+                        ptr[1] = (byte) ((ptr[1] * 255) / alpha);
+                        ptr[2] = (byte) ((ptr[2] * 255) / alpha);
+                    }
+                    ptr += 4;
+                }
+            }
+        }
+
         public static unsafe WriteableBitmap BlendImages(WriteableBitmap imgLeft, WriteableBitmap imgRight, double rightAmount)
         {
             if (imgLeft.PixelWidth != imgRight.PixelWidth || imgLeft.PixelHeight != imgRight.PixelHeight)
@@ -379,5 +498,190 @@ namespace TankIconMaker
         public PixelRect WithTopBottom(int top, int bottom) { return FromBounds(Left, top, Right, bottom); }
         public PixelRect WithTopBottom(PixelRect height) { return FromBounds(Left, height.Top, Right, height.Bottom); }
         public PixelRect Shifted(int deltaX, int deltaY) { return FromMixed(Left + deltaX, Top + deltaY, Width, Height); }
+    }
+
+    enum OpacityStyle { Auto, [Description("Move endpoint")] MoveEndpoint, [Description("Move midpoint")] MoveMidpoint, Additive }
+    enum BlurEdgeMode { Transparent, Same, Wrap }
+
+    class GaussianBlur
+    {
+        private int _radius;
+        private int[] _kernel;
+        private int _kernelSum;
+
+        public double Radius { get; private set; }
+
+        public GaussianBlur(double radius)
+        {
+            Radius = radius;
+            _radius = (int) Math.Ceiling(radius);
+
+            // Compute the kernel by sampling the gaussian
+            int len = _radius * 2 + 1;
+            double[] kernel = new double[len];
+            double sigma = radius / 3;
+            double sigma22 = 2 * sigma * sigma;
+            double sigmaPi2 = 2 * Math.PI * sigma;
+            double sqrtSigmaPi2 = (double) Math.Sqrt(sigmaPi2);
+            double radius2 = radius * radius;
+            double total = 0;
+            int index = 0;
+            for (int x = -_radius; x <= _radius; x++)
+            {
+                double distance = x * x;
+                if (distance > radius2)
+                    kernel[index] = 0;
+                else
+                    kernel[index] = Math.Exp(-distance / sigma22) / sqrtSigmaPi2;
+                total += kernel[index];
+                index++;
+            }
+
+            // Convert to integers
+            _kernel = new int[len];
+            _kernelSum = 0;
+            double scale = 2147483647.0 / (255 * total * len); // scale so that the integer total can never overflow
+            scale /= 5; // there will be rounding errors; make sure we don’t overflow even then
+            for (int i = 0; i < len; i++)
+            {
+                _kernel[i] = (int) (kernel[i] * scale);
+                _kernelSum += _kernel[i];
+            }
+        }
+
+        public unsafe WriteableBitmap Blur(WriteableBitmap image, BlurEdgeMode edgeMode)
+        {
+            var sourceAndResult = image.Clone();
+            var temp = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
+            Blur((byte*) sourceAndResult.BackBuffer, (byte*) temp.BackBuffer,
+                sourceAndResult.BackBufferStride, temp.BackBufferStride,
+                image.PixelWidth, image.PixelHeight, edgeMode);
+            GC.KeepAlive(temp);
+            return sourceAndResult;
+        }
+
+        public unsafe WriteableBitmap BlurHorizontal(WriteableBitmap image, BlurEdgeMode edgeMode)
+        {
+            var source = image.Clone();
+            var result = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
+            BlurHorizontal((byte*) source.BackBuffer, (byte*) result.BackBuffer,
+                source.BackBufferStride, result.BackBufferStride,
+                image.PixelWidth, image.PixelHeight, edgeMode);
+            GC.KeepAlive(source);
+            return result;
+        }
+
+        public unsafe WriteableBitmap BlurVertical(WriteableBitmap image, BlurEdgeMode edgeMode)
+        {
+            var source = image.Clone();
+            var result = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
+            BlurHorizontal((byte*) source.BackBuffer, (byte*) result.BackBuffer,
+                source.BackBufferStride, result.BackBufferStride,
+                image.PixelWidth, image.PixelHeight, edgeMode);
+            GC.KeepAlive(source);
+            return result;
+        }
+
+        private unsafe void Blur(byte* imgSourceAndResult, byte* imgTemp, int strideSource, int strideTemp, int width, int height, BlurEdgeMode edgeMode)
+        {
+            Ut.PreMultiply(imgSourceAndResult, width, height, strideSource);
+            horizontal(imgSourceAndResult, imgTemp, strideSource, strideTemp, width, height, edgeMode);
+            vertical(imgTemp, imgSourceAndResult, strideSource, strideTemp, width, height, edgeMode);
+            Ut.UnPreMultiply(imgSourceAndResult, width, height, strideTemp);
+        }
+
+        private unsafe void BlurHorizontal(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
+        {
+            Ut.PreMultiply(imgSource, width, height, strideSource);
+            horizontal(imgSource, imgResult, strideSource, strideResult, width, height, edgeMode);
+            Ut.UnPreMultiply(imgResult, width, height, strideResult);
+        }
+
+        private unsafe void BlurVertical(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
+        {
+            Ut.PreMultiply(imgSource, width, height, strideSource);
+            vertical(imgSource, imgResult, strideSource, strideResult, width, height, edgeMode);
+            Ut.UnPreMultiply(imgResult, width, height, strideResult);
+        }
+
+        private unsafe void horizontal(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                byte* rowSource = imgSource + y * strideSource;
+                byte* rowResult = imgResult + y * strideResult;
+                for (int x = 0; x < width; x++)
+                {
+                    int rSum = 0, gSum = 0, bSum = 0, aSum = 0;
+                    for (int k = 0, xSrc = x - _kernel.Length / 2; k < _kernel.Length; k++, xSrc++)
+                    {
+                        int xRead = xSrc;
+                        if (xRead < 0 || xRead >= width)
+                            switch (edgeMode)
+                            {
+                                case BlurEdgeMode.Transparent:
+                                    continue;
+                                case BlurEdgeMode.Same:
+                                    xRead = xRead < 0 ? 0 : width - 1;
+                                    break;
+                                case BlurEdgeMode.Wrap:
+                                    xRead = Ut.ModPositive(xRead, width);
+                                    break;
+                            }
+                        xRead <<= 2; // * 4
+                        bSum += _kernel[k] * rowSource[xRead + 0];
+                        gSum += _kernel[k] * rowSource[xRead + 1];
+                        rSum += _kernel[k] * rowSource[xRead + 2];
+                        aSum += _kernel[k] * rowSource[xRead + 3];
+                    }
+
+                    int xWrite = x << 2; // * 4
+                    rowResult[xWrite + 0] = (byte) (bSum / _kernelSum);
+                    rowResult[xWrite + 1] = (byte) (gSum / _kernelSum);
+                    rowResult[xWrite + 2] = (byte) (rSum / _kernelSum);
+                    rowResult[xWrite + 3] = (byte) (aSum / _kernelSum);
+                }
+            }
+        }
+
+        private unsafe void vertical(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                byte* colSource = imgSource + x * 4;
+                byte* colResult = imgResult + x * 4;
+                for (int y = 0; y < height; y++)
+                {
+                    int rSum = 0, gSum = 0, bSum = 0, aSum = 0;
+                    for (int k = 0, ySrc = y - _kernel.Length / 2; k < _kernel.Length; k++, ySrc++)
+                    {
+                        int yRead = ySrc;
+                        if (yRead < 0 || yRead >= height)
+                            switch (edgeMode)
+                            {
+                                case BlurEdgeMode.Transparent:
+                                    continue;
+                                case BlurEdgeMode.Same:
+                                    yRead = yRead < 0 ? 0 : height - 1;
+                                    break;
+                                case BlurEdgeMode.Wrap:
+                                    yRead = Ut.ModPositive(yRead, height);
+                                    break;
+                            }
+                        yRead *= strideSource;
+                        bSum += _kernel[k] * colSource[yRead + 0];
+                        gSum += _kernel[k] * colSource[yRead + 1];
+                        rSum += _kernel[k] * colSource[yRead + 2];
+                        aSum += _kernel[k] * colSource[yRead + 3];
+                    }
+
+                    int yWrite = y * strideResult;
+                    colResult[yWrite + 0] = (byte) (bSum / _kernelSum);
+                    colResult[yWrite + 1] = (byte) (gSum / _kernelSum);
+                    colResult[yWrite + 2] = (byte) (rSum / _kernelSum);
+                    colResult[yWrite + 3] = (byte) (aSum / _kernelSum);
+                }
+            }
+        }
     }
 }

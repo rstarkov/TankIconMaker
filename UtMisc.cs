@@ -206,6 +206,12 @@ namespace TankIconMaker
             return input == null ? null : (TResult?) lambda(input);
         }
 
+        public static int ModPositive(int value, int modulus)
+        {
+            int result = value % modulus;
+            return result >= 0 ? result : (result + modulus);
+        }
+
         /// <summary>Caches ZipFile instances for packages to save opening them for every single resource.</summary>
         private static Dictionary<string, WeakReference> _packages = new Dictionary<string, WeakReference>();
         private static int _zipsCreated = 0;

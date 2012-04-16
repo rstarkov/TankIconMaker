@@ -70,6 +70,8 @@ namespace TankIconMaker
         Country,
         [Description("Normal / premium / special")]
         Category,
+        [Description("Tier (1 / 5 / 10)")]
+        Tier,
         [Description("Single color")]
         Single,
     }
@@ -108,6 +110,13 @@ namespace TankIconMaker
         [DisplayName("Categ.: Special")]
         public Color CategSpecial { get; set; }
 
+        [DisplayName("Tier:  1")]
+        public Color Tier1 { get; set; }
+        [DisplayName("Tier:  5")]
+        public Color Tier5 { get; set; }
+        [DisplayName("Tier: 10")]
+        public Color Tier10 { get; set; }
+
         [DisplayName("Single color")]
         public Color Single { get; set; }
 
@@ -117,6 +126,7 @@ namespace TankIconMaker
             ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
                 = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina
                 = CategNormal = CategPremium = CategSpecial
+                = Tier1 = Tier5 = Tier10
                 = Single = Colors.White;
         }
 
@@ -127,6 +137,7 @@ namespace TankIconMaker
                 case ColorBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
                 case ColorBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
                 case ColorBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
+                case ColorBy.Tier: return tank.Tier <= 5 ? Ut.BlendColors(Tier1, Tier5, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5, Tier10, (tank.Tier - 5) / 5.0);
                 case ColorBy.Single: return Single;
                 default: throw new Exception();
             }
