@@ -214,7 +214,6 @@ namespace TankIconMaker
 
         /// <summary>Caches ZipFile instances for packages to save opening them for every single resource.</summary>
         private static Dictionary<string, WeakReference> _packages = new Dictionary<string, WeakReference>();
-        private static int _zipsCreated = 0;
 
         public static Stream OpenFileOrZip(string gamePath, string dirPath, string filename)
         {
@@ -233,12 +232,14 @@ namespace TankIconMaker
                     zipfile = reference.Target as ZipFile;
                 if (zipfile == null)
                 {
-                    _zipsCreated++;
                     zipfile = new ZipFile(pkgPath);
                     _packages[pkgPath.ToLowerInvariant()] = new WeakReference(zipfile);
                 }
             }
-            return zipfile.GetInputStream(zipfile.GetEntry(filePath));
+            var entry = zipfile.GetEntry(filePath);
+            if (entry == null)
+                throw new FileNotFoundException("File not found in zip archive.", filePath);
+            return zipfile.GetInputStream(entry);
         }
 
         /// <summary>

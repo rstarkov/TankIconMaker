@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <item>
-  <Name>Black_Spy 4.0</Name>
-  <Author>Black_Spy</Author>
+  <Name>Dark Agent</Name>
+  <Author>romkyns</Author>
   <Layers>
     <item type="TankIconMaker.Layers.BkgDarkAgentLayer">
       <Name refid="0"></Name>
@@ -40,7 +40,7 @@
           <ShiftY>0</ShiftY>
         </item>
       </Effects>
-      <Style>ThreeD</Style>
+      <Style>Contour</Style>
     </item>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Tier</Name>
@@ -102,7 +102,7 @@
           <ShiftY>0</ShiftY>
         </item>
       </Effects>
-      <FontSmoothing>Aliased</FontSmoothing>
+      <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Arial</FontFamily>
       <FontSize>8.5</FontSize>
       <FontBold>False</FontBold>
@@ -121,11 +121,11 @@
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
-        <Single>#D2D2D2</Single>
-        <By>Single</By>
+        <Single>#FFFFFF</Single>
+        <By>Tier</By>
         <Tier1>#FFFFFF</Tier1>
         <Tier5>#FFFFFF</Tier5>
-        <Tier10>#FFFFFF</Tier10>
+        <Tier10>#FF0000</Tier10>
       </FontColor>
       <Left>3</Left>
       <Right>77</Right>
@@ -203,7 +203,7 @@
           <ShiftY>0</ShiftY>
         </item>
       </Effects>
-      <FontSmoothing>Aliased</FontSmoothing>
+      <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Arial</FontFamily>
       <FontSize>8.5</FontSize>
       <FontBold>False</FontBold>
@@ -238,7 +238,7 @@
       <BottomAnchor>True</BottomAnchor>
       <Baseline>True</Baseline>
       <Property>
-        <Name>NameShortWG</Name>
+        <Name>NameNative</Name>
         <Language>Ru</Language>
         <Author>Romkyns</Author>
       </Property>

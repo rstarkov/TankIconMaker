@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <Name>Current</Name>
+  <Author>you</Author>
+  <Layers>
+    <item type="TankIconMaker.Layers.CurrentImageLayer">
+      <Name></Name>
+      <Visible>True</Visible>
+      <SavedByVersion>1</SavedByVersion>
+      <Effects />
+    </item>
+  </Layers>
+</item>

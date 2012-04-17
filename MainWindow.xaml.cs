@@ -24,7 +24,10 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * GetEditableStyle breakage when changing color By
  * Text layer: just one, so that it’s changeable like ColorScheme
+ * "none" in sources no longer needed
+ * double-check right-alignment with cleartype ON. threshold?
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
  * Image scaling sharpness
  * Use a WPF MessageBox (avoid WinForms interop startup cost)

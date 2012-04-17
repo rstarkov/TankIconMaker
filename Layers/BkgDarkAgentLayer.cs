@@ -20,12 +20,12 @@ namespace TankIconMaker.Layers
         [Category("Settings")]
         [Description("Background color.")]
         [ExpandableObject]
-        public ColorScheme BackColor { get; set; }
+        public ColorSelector BackColor { get; set; }
 
         public BkgDarkAgentLayer()
         {
-            BackColor = new ColorScheme(Colors.White);
-            BackColor.ColorBy = ColorBy.Class;
+            BackColor = new ColorSelector(Colors.White);
+            BackColor.By = SelectColorBy.Class;
             BackColor.ClassLight = Color.FromArgb(180, 35, 140, 35);
             BackColor.ClassMedium = Color.FromArgb(180, 150, 127, 37);
             BackColor.ClassHeavy = Color.FromArgb(180, 99, 99, 99);

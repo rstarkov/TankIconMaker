@@ -72,6 +72,7 @@
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BitmapGdi.cs" />
+    <Compile Include="Selector.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>
     </Compile>
@@ -160,6 +161,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\BuiltInStyles\Black_Spy 4.0.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Original.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\Current.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">

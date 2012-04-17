@@ -172,6 +172,28 @@ namespace TankIconMaker
             catch (FileNotFoundException) { return null; }
             catch (DirectoryNotFoundException) { return null; }
         }
+
+        /// <summary>
+        /// Loads the currently saved icon image for this tank and returns it as a WPF image.
+        /// Returns null if the image file does not exist.
+        /// </summary>
+        public virtual WriteableBitmap LoadImageCurrentWpf()
+        {
+            try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga")); }
+            catch (FileNotFoundException) { return null; }
+            catch (DirectoryNotFoundException) { return null; }
+        }
+
+        /// <summary>
+        /// Loads the currently saved icon image for this tank and returns it as a GDI image.
+        /// Returns null if the image file does not exist.
+        /// </summary>
+        public virtual BitmapGdi LoadImageCurrentGdi()
+        {
+            try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga")); }
+            catch (FileNotFoundException) { return null; }
+            catch (DirectoryNotFoundException) { return null; }
+        }
     }
 
     /// <summary>Used to test makers for bugs in handling missing data.</summary>

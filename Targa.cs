@@ -83,17 +83,14 @@ namespace TankIconMaker
         /// <summary>A convenience method to load a .tga file directly into a GDI image.</summary>
         public static BitmapGdi LoadGdi(Stream file)
         {
-            var tga = new Targa(file);
-            var bitmap = new BitmapGdi(tga.PixelWidth, tga.PixelHeight);
-            throw new NotImplementedException(); // just copy tga.Raw into bitmap.Bytes (or BytesPtr) taking Stride into account
-            //return bitmap;
+            return LoadWpf(file).ToGdi(); // can be made faster if turns out to be a bottleneck
         }
 
         /// <summary>A convenience method to load a .tga file directly into a WPF image.</summary>
         public static WriteableBitmap LoadWpf(string filename)
         {
             using (var file = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
-                return LoadWpf(filename);
+                return LoadWpf(file);
         }
 
         /// <summary>A convenience method to load a .tga file directly into a GDI image.</summary>
