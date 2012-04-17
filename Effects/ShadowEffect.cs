@@ -25,7 +25,7 @@ namespace TankIconMaker.Effects
         [Category("Shadow")]
         [Description("Shadow color. Use bright colors for glow. Adjust the Alpha channel to control final shadow transparency.")]
         [ExpandableObject]
-        public ColorScheme Color { get; set; }
+        public ColorSelector Color { get; set; }
         [Category("Shadow"), DisplayName("Shift: X")]
         [Description("Amount of horizontal shift in pixels.")]
         public int ShiftX { get; set; }
@@ -38,7 +38,7 @@ namespace TankIconMaker.Effects
 
         public ShadowEffect()
         {
-            Color = new ColorScheme(Colors.Black);
+            Color = new ColorSelector(Colors.Black);
         }
 
         public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)

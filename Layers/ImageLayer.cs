@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using System.Windows.Media;
+﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
 
 namespace TankIconMaker.Layers
 {
@@ -29,6 +25,24 @@ namespace TankIconMaker.Layers
                 return;
             }
             dc.DrawImage(image, new Rect(0, 0, image.Width / image.Height * 24.0, 24));
+        }
+    }
+
+    class CurrentImageLayer : LayerBaseWpf
+    {
+        public override int Version { get { return 1; } }
+        public override string TypeName { get { return "Image / Current"; } }
+        public override string TypeDescription { get { return "Draws the icon that’s currently saved in the output directory."; } }
+
+        public override void Draw(Tank tank, DrawingContext dc)
+        {
+            var image = tank.LoadImageCurrentWpf();
+            if (image == null)
+            {
+                tank.AddWarning("There is no current image for this tank.");
+                return;
+            }
+            dc.DrawImage(image);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace TankIconMaker.Layers
         [Category("Font")]
         [Description("Specifies the text color.")]
         [ExpandableObject]
-        public ColorScheme FontColor { get; set; }
+        public ColorSelector FontColor { get; set; }
 
         [Category("Position")]
         [Description("X coordinate of the leftmost text pixel. Ignored if \"Left Anchor\" is false.")]
@@ -75,7 +75,7 @@ namespace TankIconMaker.Layers
             Right = 80 - 3;
             Bottom = 24 - 3;
             Baseline = false;
-            FontColor = new ColorScheme(Colors.White);
+            FontColor = new ColorSelector(Colors.White);
         }
 
         public override void Draw(Tank tank, Graphics dc)

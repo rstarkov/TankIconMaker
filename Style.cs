@@ -2,9 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Media;
 using RT.Util.Xml;
-using D = System.Drawing;
 
 namespace TankIconMaker
 {
@@ -60,97 +58,5 @@ namespace TankIconMaker
     class StyleUserError : Exception
     {
         public StyleUserError(string message) : base(message) { }
-    }
-
-    enum ColorBy
-    {
-        [Description("Artillery / Destroyer / Light / ...")]
-        Class,
-        [Description("USSR / Germany / USA / ...")]
-        Country,
-        [Description("Normal / premium / special")]
-        Category,
-        [Description("Tier (1 / 5 / 10)")]
-        Tier,
-        [Description("Single color")]
-        Single,
-    }
-
-    class ColorScheme
-    {
-        [DisplayName("By")]
-        public ColorBy ColorBy { get; set; }
-
-        [DisplayName("Class: Light tank")]
-        public Color ClassLight { get; set; }
-        [DisplayName("Class: Medium tank")]
-        public Color ClassMedium { get; set; }
-        [DisplayName("Class: Heavy tank")]
-        public Color ClassHeavy { get; set; }
-        [DisplayName("Class: Destroyer")]
-        public Color ClassDestroyer { get; set; }
-        [DisplayName("Class: Artillery")]
-        public Color ClassArtillery { get; set; }
-
-        [DisplayName("Country: USSR")]
-        public Color CountryUSSR { get; set; }
-        [DisplayName("Country: Germany")]
-        public Color CountryGermany { get; set; }
-        [DisplayName("Country: USA")]
-        public Color CountryUSA { get; set; }
-        [DisplayName("Country: France")]
-        public Color CountryFrance { get; set; }
-        [DisplayName("Country: China")]
-        public Color CountryChina { get; set; }
-
-        [DisplayName("Categ.: Normal")]
-        public Color CategNormal { get; set; }
-        [DisplayName("Categ.: Premium")]
-        public Color CategPremium { get; set; }
-        [DisplayName("Categ.: Special")]
-        public Color CategSpecial { get; set; }
-
-        [DisplayName("Tier:  1")]
-        public Color Tier1 { get; set; }
-        [DisplayName("Tier:  5")]
-        public Color Tier5 { get; set; }
-        [DisplayName("Tier: 10")]
-        public Color Tier10 { get; set; }
-
-        [DisplayName("Single color")]
-        public Color Single { get; set; }
-
-        public ColorScheme()
-            : this(Colors.White)
-        {
-        }
-
-        public ColorScheme(Color color)
-        {
-            ColorBy = TankIconMaker.ColorBy.Single;
-            ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
-                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina
-                = CategNormal = CategPremium = CategSpecial
-                = Tier1 = Tier5 = Tier10
-                = Single = color;
-        }
-
-        public Color GetColorWpf(Tank tank)
-        {
-            switch (ColorBy)
-            {
-                case ColorBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
-                case ColorBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
-                case ColorBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
-                case ColorBy.Tier: return tank.Tier <= 5 ? Ut.BlendColors(Tier1, Tier5, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5, Tier10, (tank.Tier - 5) / 5.0);
-                case ColorBy.Single: return Single;
-                default: throw new Exception();
-            }
-        }
-
-        public D.Color GetColorGdi(Tank tank)
-        {
-            return GetColorWpf(tank).ToColorGdi();
-        }
     }
 }

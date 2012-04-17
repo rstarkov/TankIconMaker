@@ -14,18 +14,18 @@ namespace TankIconMaker.Effects
         [Category("Colorize")]
         [Description("Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.")]
         [ExpandableObject]
-        public ColorScheme Color { get; set; }
+        public ColorSelector Color { get; set; }
 
         public ColorizeEffect()
         {
-            Color = new ColorScheme(Colors.White);
+            Color = new ColorSelector(Colors.White);
         }
 
         public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
         {
             var color = ColorHSV.FromColor(Color.GetColorWpf(tank));
             var result = layer.Clone();
-            result.Colorize(color.Hue, color.Saturation / 100.0, color.Value / 100 - 0.5, color.Alpha / 255.0);
+            result.Colorize(color.Hue, color.Saturation / 100.0, color.Value / 100.0 - 0.5, color.Alpha / 255.0);
             return result;
         }
     }
