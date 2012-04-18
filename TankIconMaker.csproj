@@ -72,6 +72,7 @@
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BitmapGdi.cs" />
+    <Compile Include="Effects\PixelOutlineEffect.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>

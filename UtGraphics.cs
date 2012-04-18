@@ -152,11 +152,12 @@ namespace TankIconMaker
         }
 
         /// <summary>Returns a new image which contains a 1 pixel wide black outline of the specified image.</summary>
-        public static BitmapGdi GetOutline(this BitmapGdi srcBitmap, int opacity = 255)
+        public static unsafe WriteableBitmap GetOutline(this WriteableBitmap srcBitmap, Color color)
         {
-            var tgtBitmap = Ut.NewBitmapGdi();
-            var src = srcBitmap.BackBytes;
-            var tgt = tgtBitmap.BackBytes;
+            var tgtBitmap = Ut.NewBitmapWpf();
+            var src = (byte*) srcBitmap.BackBuffer;
+            var tgt = (byte*) tgtBitmap.BackBuffer;
+            byte cr = color.R, cg = color.G, cb = color.B, ca = color.A;
             for (int y = 0; y < srcBitmap.PixelHeight; y++)
             {
                 int b = y * srcBitmap.BackBufferStride;
@@ -170,53 +171,16 @@ namespace TankIconMaker
                     {
                         if (left != 0 || right != 0 || (y > 0 && src[b - srcBitmap.BackBufferStride + 3] > 0) || ((y < srcBitmap.PixelHeight - 1) && src[b + srcBitmap.BackBufferStride + 3] > 0))
                         {
-                            tgt[b] = tgt[b + 1] = tgt[b + 2] = 0;
-                            tgt[b + 3] = (byte) opacity;
+                            tgt[b] = cb;
+                            tgt[b + 1] = cg;
+                            tgt[b + 2] = cr;
+                            tgt[b + 3] = ca;
                         }
                     }
                     left = cur;
                     cur = right;
                 }
             }
-            return tgtBitmap;
-        }
-
-        /// <summary>Returns a new image which contains a version of this image with a black semitransparent blur of a hard-coded radius.</summary>
-        public static BitmapGdi GetBlurred(this BitmapGdi srcBitmap)
-        {
-            var tgtBitmap = Ut.NewBitmapGdi();
-            var src = srcBitmap.BackBytes;
-            var tgt = tgtBitmap.BackBytes;
-            for (int y = 0; y < srcBitmap.PixelHeight; y++)
-            {
-                int b = y * srcBitmap.BackBufferStride;
-                for (int x = 0; x < srcBitmap.PixelWidth; x++, b += 4)
-                {
-                    tgt[b] = tgt[b + 1] = tgt[b + 2] = 0;
-                    tgt[b + 3] = src[b + 3];
-                }
-            }
-
-            for (int iter = 0; iter < 5; iter++)
-                for (int y = 0; y < srcBitmap.PixelHeight; y++)
-                {
-                    int b = y * srcBitmap.BackBufferStride;
-                    int left = 0;
-                    int cur = tgt[b + 0 + 3];
-                    int right;
-                    for (int x = 0; x < srcBitmap.PixelWidth; x++, b += 4)
-                    {
-                        right = x == srcBitmap.PixelWidth - 1 ? (byte) 0 : tgt[b + 4 + 3];
-                        if (tgt[b + 3] == 0)
-                        {
-                            int top = y == 0 ? 0 : tgt[b - srcBitmap.BackBufferStride + 3];
-                            int bottom = y == srcBitmap.PixelHeight - 1 ? 0 : tgt[b + srcBitmap.BackBufferStride + 3];
-                            tgt[b + 3] = (byte) (((left + right + top + bottom) * 6) / 40);
-                        }
-                        left = cur;
-                        cur = right;
-                    }
-                }
             return tgtBitmap;
         }
 
