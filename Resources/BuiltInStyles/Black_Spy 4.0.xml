@@ -47,10 +47,8 @@
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
-        <item type="TankIconMaker.Effects.ShadowEffect">
+        <item type="TankIconMaker.Effects.PixelOutlineEffect">
           <Visible>True</Visible>
-          <Radius>1.5</Radius>
-          <Spread>50</Spread>
           <Color>
             <ClassLight>#000000</ClassLight>
             <ClassMedium>#000000</ClassMedium>
@@ -71,8 +69,6 @@
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
           </Color>
-          <ShiftX>0</ShiftX>
-          <ShiftY>0</ShiftY>
         </item>
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Visible>True</Visible>
@@ -148,10 +144,8 @@
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
-        <item type="TankIconMaker.Effects.ShadowEffect">
+        <item type="TankIconMaker.Effects.PixelOutlineEffect">
           <Visible>True</Visible>
-          <Radius>1.5</Radius>
-          <Spread>50</Spread>
           <Color>
             <ClassLight>#000000</ClassLight>
             <ClassMedium>#000000</ClassMedium>
@@ -172,8 +166,6 @@
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
           </Color>
-          <ShiftX>0</ShiftX>
-          <ShiftY>0</ShiftY>
         </item>
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Visible>True</Visible>
