@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
 using System.Windows.Media;
+using RT.Util;
 
 namespace TankIconMaker
 {
@@ -240,6 +241,31 @@ namespace TankIconMaker
             if (entry == null)
                 throw new FileNotFoundException("File not found in zip archive.", filePath);
             return zipfile.GetInputStream(entry);
+        }
+
+        public static string MakeRelativePath(string path)
+        {
+            try
+            {
+                if (PathUtil.IsSubpathOfOrSame(path, PathUtil.AppPath))
+                    return PathUtil.ToggleRelative(PathUtil.AppPath, path);
+            }
+            catch { }
+            if (Program.LastGameInstallSettings == null)
+                return path;
+            try
+            {
+                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods)))
+                    return PathUtil.ToggleRelative(Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods), path);
+            }
+            catch { }
+            try
+            {
+                if (PathUtil.IsSubpathOfOrSame(path, Program.LastGameInstallSettings.Path))
+                    return PathUtil.ToggleRelative(Program.LastGameInstallSettings.Path, path);
+            }
+            catch { }
+            return path;
         }
 
         /// <summary>

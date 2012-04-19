@@ -37,7 +37,7 @@ namespace TankIconMaker
             dlg.CheckFileExists = false;
             if (dlg.ShowDialog() != true)
                 return;
-            textbox.Text = dlg.FileName;
+            textbox.Text = Ut.MakeRelativePath(dlg.FileName);
             _expression.UpdateSource();
         }
     }

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
-using System.IO;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using System.Windows.Media.Imaging;
+using RT.Util;
 
 namespace TankIconMaker.Layers
 {
@@ -67,16 +67,17 @@ namespace TankIconMaker.Layers
             var filename = ImageFile.GetValue(tank);
             if (string.IsNullOrWhiteSpace(filename))
                 return;
-            if (!File.Exists(filename))
-            {
-                tank.AddWarning("The image {0} could not be found.".Fmt(filename));
-                return;
-            }
 
-            var image = loadImage(filename);
+            var image = loadImage(PathUtil.AppPathCombine(filename));
+            if (image == null && Program.LastGameInstallSettings != null)
+            {
+                image = loadImage(Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods, filename));
+                if (image == null)
+                    image = loadImage(Path.Combine(Program.LastGameInstallSettings.Path, filename));
+            }
             if (image == null)
             {
-                tank.AddWarning("There is no current image for this tank.");
+                tank.AddWarning("The image {0} could not be found.".Fmt(filename));
                 return;
             }
             image.Freeze();

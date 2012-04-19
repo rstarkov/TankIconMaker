@@ -1,4 +1,4 @@
-﻿<rtf:ManagedWindow x:Class="TankIconMaker.MainWindow"
+﻿<rtf:ManagedWindow x:Class="TankIconMaker.MainWindow" x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
