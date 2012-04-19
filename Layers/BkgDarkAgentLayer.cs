@@ -19,7 +19,6 @@ namespace TankIconMaker.Layers
 
         [Category("Settings")]
         [Description("Background color.")]
-        [ExpandableObject]
         public ColorSelector BackColor { get; set; }
 
         public BkgDarkAgentLayer()

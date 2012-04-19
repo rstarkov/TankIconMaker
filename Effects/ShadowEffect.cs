@@ -24,7 +24,6 @@ namespace TankIconMaker.Effects
         private double _Spread = 5;
         [Category("Shadow")]
         [Description("Shadow color. Use bright colors for glow. Adjust the Alpha channel to control final shadow transparency.")]
-        [ExpandableObject]
         public ColorSelector Color { get; set; }
         [Category("Shadow"), DisplayName("Shift: X")]
         [Description("Amount of horizontal shift in pixels.")]

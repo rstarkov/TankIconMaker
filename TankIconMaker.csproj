@@ -72,6 +72,9 @@
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BitmapGdi.cs" />
+    <Compile Include="FilenameEditor.xaml.cs">
+      <DependentUpon>FilenameEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Effects\PixelOutlineEffect.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
@@ -108,6 +111,10 @@
     <Page Include="AddWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilenameEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="DataSourceEditor.xaml">
       <SubType>Designer</SubType>

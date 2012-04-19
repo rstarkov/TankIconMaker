@@ -24,6 +24,7 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * Generic image cache for image layers (both tank image and generic)
  * GetEditableStyle breakage when changing color By
  * Text layer: just one, so that it’s changeable like ColorScheme
  * "none" in sources no longer needed
@@ -154,6 +155,11 @@ namespace TankIconMaker
             ctGamePath.DisplayMemberPath = "DisplayName";
             ctGameVersion.ItemsSource = Program.Data.Versions; // currently empty because we haven’t loaded it yet
             ctGameVersion.DisplayMemberPath = "DisplayName";
+
+            ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ColorSelector), ExpandableObject = true });
+            ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ValueSelector<>), ExpandableObject = true });
+            ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(Filename), EditorType = typeof(FilenameEditor) });
+            ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ExtraPropertyId), EditorType = typeof(DataSourceEditor) });
 
             ReloadData();
 

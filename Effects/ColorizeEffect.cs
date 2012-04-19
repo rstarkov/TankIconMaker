@@ -13,7 +13,6 @@ namespace TankIconMaker.Effects
 
         [Category("Colorize")]
         [Description("Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.")]
-        [ExpandableObject]
         public ColorSelector Color { get; set; }
 
         public ColorizeEffect()
