@@ -918,12 +918,12 @@ namespace TankIconMaker
         private GameInstallationSettings GetInstallationSettings()
         {
             if (!Program.Data.Versions.Any())
-                return null;
+                return Program.LastGameInstallSettings = null;
 
             if (ctGamePath.SelectedItem == null && ctGamePath.Items.Count > 0)
                 ctGamePath.SelectedIndex = 0;
 
-            return ctGamePath.SelectedItem as GameInstallationSettings;
+            return Program.LastGameInstallSettings = ctGamePath.SelectedItem as GameInstallationSettings;
         }
 
         /// <summary>

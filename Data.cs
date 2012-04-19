@@ -941,11 +941,14 @@ namespace TankIconMaker
         public Version Version { get; internal set; }
         /// <summary>How this version should be displayed in the UI - allowing for oddities like "0.7.1b" or "0.7.1.1.1.1".</summary>
         public string DisplayName { get; private set; }
+
+        /// <summary>Relative path to the root directory containing modding-related files for this specific version.</summary>
+        public string PathMods { get; private set; }
         /// <summary>Relative path to the directory containing the tank icons we're creating.</summary>
         public string PathDestination { get; private set; }
-        /// <summary>Relative path to the directory containing contour tank images.</summary>
+        /// <summary>Relative path to the directory containing contour tank images. May refer to a zip file with a colon separating the path within the zip.</summary>
         public string PathSourceContour { get; private set; }
-        /// <summary>Relative path to the directory containing 3D tank images.</summary>
+        /// <summary>Relative path to the directory containing 3D tank images. May refer to a zip file with a colon separating the path within the zip.</summary>
         public string PathSource3D { get; private set; }
 
         /// <summary>Relative path to a file whose size can be checked to auto-guess the game version.</summary>
