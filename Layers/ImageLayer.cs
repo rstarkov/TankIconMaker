@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
+using System.IO;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using System.Windows.Media.Imaging;
 
 namespace TankIconMaker.Layers
 {
     public enum ImageStyle { Contour, [Description("3D")] ThreeD }
 
-    class TankImageLayer : LayerBaseWpf
+    sealed class TankImageLayer : LayerBaseWpf
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Image / Tank"; } }
@@ -28,7 +31,7 @@ namespace TankIconMaker.Layers
         }
     }
 
-    class CurrentImageLayer : LayerBaseWpf
+    sealed class CurrentImageLayer : LayerBaseWpf
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Image / Current"; } }
@@ -43,6 +46,55 @@ namespace TankIconMaker.Layers
                 return;
             }
             dc.DrawImage(image);
+        }
+    }
+
+    sealed class CustomImageLayer : LayerBaseWpf
+    {
+        public override int Version { get { return 1; } }
+        public override string TypeName { get { return "Image / Custom"; } }
+        public override string TypeDescription { get { return "Draws an arbitrary, user-supplied image."; } }
+
+        public ValueSelector<Filename> ImageFile { get; set; }
+
+        public CustomImageLayer()
+        {
+            ImageFile = new ValueSelector<Filename>("");
+        }
+
+        public override void Draw(Tank tank, DrawingContext dc)
+        {
+            var filename = ImageFile.GetValue(tank);
+            if (string.IsNullOrWhiteSpace(filename))
+                return;
+            if (!File.Exists(filename))
+            {
+                tank.AddWarning("The image {0} could not be found.".Fmt(filename));
+                return;
+            }
+
+            var image = loadImage(filename);
+            if (image == null)
+            {
+                tank.AddWarning("There is no current image for this tank.");
+                return;
+            }
+            image.Freeze();
+            dc.DrawImage(image);
+        }
+
+        private BitmapSource loadImage(string filename)
+        {
+            try
+            {
+                if (filename.ToLowerInvariant().EndsWith(".tga"))
+                    return Targa.LoadWpf(filename);
+                else
+                    using (var f = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                        return BitmapDecoder.Create(f, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0];
+            }
+            catch (FileNotFoundException) { return null; }
+            catch (DirectoryNotFoundException) { return null; }
         }
     }
 }

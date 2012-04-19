@@ -29,7 +29,6 @@ namespace TankIconMaker.Layers
         public bool FontItalic { get; set; }
         [Category("Font")]
         [Description("Specifies the text color.")]
-        [ExpandableObject]
         public ColorSelector FontColor { get; set; }
 
         [Category("Position")]
@@ -96,7 +95,6 @@ namespace TankIconMaker.Layers
 
         [Category("Text source"), DisplayName("Property")]
         [Description("Choose the name of the property that supplies the data for the bottom right location.")]
-        [Editor(typeof(DataSourceEditor), typeof(DataSourceEditor))]
         public ExtraPropertyId Property { get; set; }
 
         [Category("Text source"), DisplayName("Show tier")]

@@ -13,7 +13,7 @@ namespace TankIconMaker
         Country,
         [Description("Normal / premium / special")]
         Category,
-        [Description("Single color")]
+        [Description("Single value")]
         Single,
     }
 
