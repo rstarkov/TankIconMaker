@@ -7,8 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <DataTemplate x:Key="noneTemplate">
-            <TextBlock Margin="0,5,0,5" Text="None" FontWeight="Bold"/>
+        <DataTemplate x:Key="tierArabicTemplate">
+            <TextBlock Margin="0,5,0,5" Text="Tier (Arabic)" FontWeight="Bold"/>
+        </DataTemplate>
+        <DataTemplate x:Key="tierRomanTemplate">
+            <TextBlock Margin="0,5,0,5" Text="Tier (Roman)" FontWeight="Bold"/>
         </DataTemplate>
         <DataTemplate x:Key="sourceTemplate">
             <StackPanel Margin="0,5,0,5"  ToolTip="{Binding Description}">

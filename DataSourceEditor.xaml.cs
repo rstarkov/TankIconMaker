@@ -42,8 +42,10 @@ namespace TankIconMaker
         {
             var element = container as FrameworkElement;
 
-            if (item is DataSourceNone)
-                return element.FindResource("noneTemplate") as DataTemplate;
+            if (item is DataSourceTierArabic)
+                return element.FindResource("tierArabicTemplate") as DataTemplate;
+            else if (item is DataSourceTierRoman)
+                return element.FindResource("tierRomanTemplate") as DataTemplate;
             else
                 return element.FindResource("sourceTemplate") as DataTemplate;
         }
@@ -114,14 +116,21 @@ namespace TankIconMaker
         }
     }
 
-    /// <summary>
-    /// Represents a "no data source" value.
-    /// </summary>
-    sealed class DataSourceNone : DataSourceInfo
+    /// <summary>Represents a "tier" data source value using arabic numerals.</summary>
+    sealed class DataSourceTierArabic : DataSourceInfo
     {
         public override ExtraPropertyId ToExtraPropertyId()
         {
-            return ExtraPropertyId.None;
+            return ExtraPropertyId.TierArabic;
+        }
+    }
+
+    /// <summary>Represents a "tier" data source value using roman numerals.</summary>
+    sealed class DataSourceTierRoman : DataSourceInfo
+    {
+        public override ExtraPropertyId ToExtraPropertyId()
+        {
+            return ExtraPropertyId.TierRoman;
         }
     }
 }

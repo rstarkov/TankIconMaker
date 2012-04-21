@@ -65,6 +65,10 @@ namespace TankIconMaker
         {
             get
             {
+                if (property.Equals(ExtraPropertyId.TierArabic))
+                    return Tier.ToString();
+                else if (property.Equals(ExtraPropertyId.TierRoman))
+                    return Ut.RomanNumerals[Tier].ToString();
                 string result;
                 if (property == null || !_extras.TryGetValue(property, out result))
                     return null;
@@ -388,7 +392,8 @@ namespace TankIconMaker
         public string Language { get; private set; }
         public string Author { get; private set; }
 
-        public static readonly ExtraPropertyId None = new ExtraPropertyId();
+        public static readonly ExtraPropertyId TierArabic = new ExtraPropertyId { Name = "Tier (Arabic)", Author = "(built-in)" };
+        public static readonly ExtraPropertyId TierRoman = new ExtraPropertyId { Name = "Tier (Roman)", Author = "(built-in)" };
 
         public ExtraPropertyId(string name, string language, string author)
         {

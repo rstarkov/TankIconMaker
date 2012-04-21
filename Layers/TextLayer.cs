@@ -97,10 +97,6 @@ namespace TankIconMaker.Layers
         [Description("Choose the name of the property that supplies the data for the bottom right location.")]
         public ExtraPropertyId Property { get; set; }
 
-        [Category("Text source"), DisplayName("Show tier")]
-        [Description("Overrides the property selection and shows the tank’s tier instead.")]
-        public bool ShowTier { get; set; }
-
         public PropertyTextLayer()
         {
             Property = new ExtraPropertyId("NameShortWG", "Ru", "Romkyns");
@@ -108,7 +104,7 @@ namespace TankIconMaker.Layers
 
         protected override string GetText(Tank tank)
         {
-            return ShowTier ? tank.Tier.ToString() : tank[Property];
+            return tank[Property];
         }
     }
 

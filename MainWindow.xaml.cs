@@ -24,9 +24,6 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * "none" in sources no longer needed
- * Remove "ShowTier" from text layer; make it a special kind of Source
- * 
  * Resize effect
  * GetEditableStyle breakage when changing color By
  * double-check right-alignment with cleartype ON. threshold?
@@ -305,7 +302,7 @@ namespace TankIconMaker
         /// </summary>
         private void UpdateDataSources(Version version)
         {
-            foreach (var item in Program.DataSources.Where(ds => !(ds is DataSourceNone)).ToArray())
+            foreach (var item in Program.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
             {
                 var extra = Program.Data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
                 if (extra == null)
