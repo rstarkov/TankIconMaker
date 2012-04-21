@@ -24,7 +24,7 @@ namespace TankIconMaker.Layers
         public BkgDarkAgentLayer()
         {
             BackColor = new ColorSelector(Colors.White);
-            BackColor.By = SelectColorBy.Class;
+            BackColor.By = SelectBy.Class;
             BackColor.ClassLight = Color.FromArgb(180, 35, 140, 35);
             BackColor.ClassMedium = Color.FromArgb(180, 150, 127, 37);
             BackColor.ClassHeavy = Color.FromArgb(180, 99, 99, 99);

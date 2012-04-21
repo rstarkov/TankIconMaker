@@ -24,10 +24,11 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * "none" in sources no longer needed
+ * Remove "ShowTier" from text layer; make it a special kind of Source
+ * 
  * Resize effect
  * GetEditableStyle breakage when changing color By
- * Text layer: just one, so that it’s changeable like ColorScheme
- * "none" in sources no longer needed
  * double-check right-alignment with cleartype ON. threshold?
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
  * Image scaling sharpness

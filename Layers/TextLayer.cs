@@ -112,106 +112,53 @@ namespace TankIconMaker.Layers
         }
     }
 
-    sealed class CountryTextLayer : TextLayer
+    sealed class CustomTextLayer : TextLayer
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Text / By Country"; } }
-        public override string TypeDescription { get { return "Draws a fixed string based on the tank’s country using configurable font and color."; } }
+        public override string TypeName { get { return "Text / Custom"; } }
+        public override string TypeDescription { get { return "Draws a fixed string based on a specified property of a tank."; } }
 
-        [Category("Text source"), DisplayName("USSR")]
-        [Description("The string to be displayed for tanks whose country is USSR.")]
-        public string TextUSSR { get; set; }
-        [Category("Text source"), DisplayName("Germany")]
-        [Description("The string to be displayed for tanks whose country is Germany.")]
-        public string TextGermany { get; set; }
-        [Category("Text source"), DisplayName("USA")]
-        [Description("The string to be displayed for tanks whose country is USA.")]
-        public string TextUSA { get; set; }
-        [Category("Text source"), DisplayName("France")]
-        [Description("The string to be displayed for tanks whose country is France.")]
-        public string TextFrance { get; set; }
-        [Category("Text source"), DisplayName("China")]
-        [Description("The string to be displayed for tanks whose country is China.")]
-        public string TextChina { get; set; }
+        [Category("Text source")]
+        [Description("The string to be displayed.")]
+        public ValueSelector<string> Text { get; set; }
 
-        public CountryTextLayer()
+        public CustomTextLayer()
         {
-            TextUSSR = "СССР";
-            TextGermany = "Deutschland";
-            TextUSA = "USA";
-            TextFrance = "France";
-            TextChina = "中国";
+            Text = new ValueSelector<string>();
+
+            Text.Single = "Example";
+
+            Text.CountryUSSR = "СССР";
+            Text.CountryGermany = "Deutschland";
+            Text.CountryUSA = "USA";
+            Text.CountryFrance = "France";
+            Text.CountryChina = "中国";
+
+            Text.ClassLight = "LT";
+            Text.ClassMedium = "MT";
+            Text.ClassHeavy = "HT";
+            Text.ClassDestroyer = "D";
+            Text.ClassArtillery = "A";
+
+            Text.CategNormal = "•";
+            Text.CategPremium = "♦";
+            Text.CategSpecial = "∞";
+
+            Text.Tier1 = "I";
+            Text.Tier2 = "II";
+            Text.Tier3 = "III";
+            Text.Tier4 = "IV";
+            Text.Tier5 = "V";
+            Text.Tier6 = "VI";
+            Text.Tier7 = "VII";
+            Text.Tier8 = "VIII";
+            Text.Tier9 = "IX";
+            Text.Tier10 = "X";
         }
 
         protected override string GetText(Tank tank)
         {
-            return tank.Country.Pick(TextUSSR, TextGermany, TextUSA, TextFrance, TextChina);
-        }
-    }
-
-    sealed class ClassTextLayer : TextLayer
-    {
-        public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Text / By Class"; } }
-        public override string TypeDescription { get { return "Draws a fixed string based on the tank’s class (artillery, destoryer, etc) using configurable font and color."; } }
-
-        [Category("Text source"), DisplayName("Light tank")]
-        [Description("The string to be displayed for tanks whose class is Light Tank.")]
-        public string TextLight { get; set; }
-        [Category("Text source"), DisplayName("Medium tank")]
-        [Description("The string to be displayed for tanks whose class is Medium Tank.")]
-        public string TextMedium { get; set; }
-        [Category("Text source"), DisplayName("Heavy tank")]
-        [Description("The string to be displayed for tanks whose class is Heavy Tank.")]
-        public string TextHeavy { get; set; }
-        [Category("Text source"), DisplayName("Destroyer")]
-        [Description("The string to be displayed for tanks whose class is Destroyer.")]
-        public string TextDestroyer { get; set; }
-        [Category("Text source"), DisplayName("Artillery")]
-        [Description("The string to be displayed for tanks whose class is Artillery.")]
-        public string TextArtillery { get; set; }
-
-        public ClassTextLayer()
-        {
-            TextLight = "LT";
-            TextMedium = "MT";
-            TextHeavy = "HT";
-            TextDestroyer = "D";
-            TextArtillery = "A";
-        }
-
-        protected override string GetText(Tank tank)
-        {
-            return tank.Class.Pick(TextLight, TextMedium, TextHeavy, TextDestroyer, TextArtillery);
-        }
-    }
-
-    sealed class CategoryTextLayer : TextLayer
-    {
-        public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Text / By Category"; } }
-        public override string TypeDescription { get { return "Draws a fixed string based on the tank’s category (normal, premium, special) using configurable font and color."; } }
-
-        [Category("Text source"), DisplayName("Normal")]
-        [Description("The string to be displayed for tanks whose category is Normal.")]
-        public string TextNormal { get; set; }
-        [Category("Text source"), DisplayName("Premium")]
-        [Description("The string to be displayed for tanks whose category is Premium.")]
-        public string TextPremium { get; set; }
-        [Category("Text source"), DisplayName("Special")]
-        [Description("The string to be displayed for tanks whose category is Special.")]
-        public string TextSpecial { get; set; }
-
-        public CategoryTextLayer()
-        {
-            TextNormal = "•";
-            TextPremium = "♦";
-            TextSpecial = "∞";
-        }
-
-        protected override string GetText(Tank tank)
-        {
-            return tank.Category.Pick(TextNormal, TextPremium, TextSpecial);
+            return Text.GetValue(tank);
         }
     }
 }

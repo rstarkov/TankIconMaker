@@ -5,7 +5,7 @@ using D = System.Drawing;
 
 namespace TankIconMaker
 {
-    enum SelectValueBy
+    enum SelectBy
     {
         [Description("Artillery / Destroyer / Light / ...")]
         Class,
@@ -13,21 +13,9 @@ namespace TankIconMaker
         Country,
         [Description("Normal / premium / special")]
         Category,
-        [Description("Single value")]
-        Single,
-    }
-
-    enum SelectColorBy
-    {
-        [Description("Artillery / Destroyer / Light / ...")]
-        Class,
-        [Description("USSR / Germany / USA / ...")]
-        Country,
-        [Description("Normal / premium / special")]
-        Category,
-        [Description("Tier (1 / 5 / 10)")]
+        [Description("Tier (1 .. 10)")]
         Tier,
-        [Description("Single color")]
+        [Description("Single value")]
         Single,
     }
 
@@ -82,7 +70,28 @@ namespace TankIconMaker
     sealed class ValueSelector<T> : SelectorBase<T>
     {
         [DisplayName("By")]
-        public SelectValueBy By { get; set; }
+        public SelectBy By { get; set; }
+
+        [DisplayName("Tier:  1")]
+        public T Tier1 { get; set; }
+        [DisplayName("Tier:  2")]
+        public T Tier2 { get; set; }
+        [DisplayName("Tier:  3")]
+        public T Tier3 { get; set; }
+        [DisplayName("Tier:  4")]
+        public T Tier4 { get; set; }
+        [DisplayName("Tier:  5")]
+        public T Tier5 { get; set; }
+        [DisplayName("Tier:  6")]
+        public T Tier6 { get; set; }
+        [DisplayName("Tier:  7")]
+        public T Tier7 { get; set; }
+        [DisplayName("Tier:  8")]
+        public T Tier8 { get; set; }
+        [DisplayName("Tier:  9")]
+        public T Tier9 { get; set; }
+        [DisplayName("Tier: 10")]
+        public T Tier10 { get; set; }
 
         public ValueSelector()
             : this(default(T))
@@ -91,17 +100,33 @@ namespace TankIconMaker
 
         public ValueSelector(T value)
         {
-            By = SelectValueBy.Single;
+            By = SelectBy.Single;
+            Tier1 = Tier2 = Tier3 = Tier4 = Tier5 = Tier6 = Tier7 = Tier8 = Tier9 = Tier10 = value;
         }
 
         public T GetValue(Tank tank)
         {
             switch (By)
             {
-                case SelectValueBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
-                case SelectValueBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
-                case SelectValueBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
-                case SelectValueBy.Single: return Single;
+                case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
+                case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
+                case SelectBy.Tier:
+                    switch (tank.Tier)
+                    {
+                        case 1: return Tier1;
+                        case 2: return Tier2;
+                        case 3: return Tier3;
+                        case 4: return Tier4;
+                        case 5: return Tier5;
+                        case 6: return Tier6;
+                        case 7: return Tier7;
+                        case 8: return Tier8;
+                        case 9: return Tier9;
+                        case 10: return Tier10;
+                        default: throw new Exception();
+                    }
+                case SelectBy.Single: return Single;
                 default: throw new Exception();
             }
         }
@@ -110,7 +135,7 @@ namespace TankIconMaker
     sealed class ColorSelector : SelectorBase<Color>
     {
         [DisplayName("By")]
-        public SelectColorBy By { get; set; }
+        public SelectBy By { get; set; }
 
         [DisplayName("Tier:  1")]
         public Color Tier1 { get; set; }
@@ -127,7 +152,7 @@ namespace TankIconMaker
         public ColorSelector(Color color)
             : base(color)
         {
-            By = SelectColorBy.Single;
+            By = SelectBy.Single;
             Tier1 = Tier5 = Tier10 = color;
         }
 
@@ -135,11 +160,11 @@ namespace TankIconMaker
         {
             switch (By)
             {
-                case SelectColorBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
-                case SelectColorBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
-                case SelectColorBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
-                case SelectColorBy.Tier: return tank.Tier <= 5 ? Ut.BlendColors(Tier1, Tier5, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5, Tier10, (tank.Tier - 5) / 5.0);
-                case SelectColorBy.Single: return Single;
+                case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
+                case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
+                case SelectBy.Tier: return tank.Tier <= 5 ? Ut.BlendColors(Tier1, Tier5, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5, Tier10, (tank.Tier - 5) / 5.0);
+                case SelectBy.Single: return Single;
                 default: throw new Exception();
             }
         }
