@@ -21,7 +21,7 @@ namespace TankIconMaker.Layers
 
         public override void Draw(Tank tank, DrawingContext dc)
         {
-            var image = Style == ImageStyle.Contour ? tank.LoadImageContourWpf() : tank.LoadImage3DWpf();
+            var image = Style == ImageStyle.Contour ? tank.GetImageContour() : tank.GetImage3D();
             if (image == null)
             {
                 tank.AddWarning("The image for this tank is missing.");
@@ -39,7 +39,7 @@ namespace TankIconMaker.Layers
 
         public override void Draw(Tank tank, DrawingContext dc)
         {
-            var image = tank.LoadImageCurrentWpf();
+            var image = tank.GetImageCurrent();
             if (image == null)
             {
                 tank.AddWarning("There is no current image for this tank.");
@@ -68,12 +68,12 @@ namespace TankIconMaker.Layers
             if (string.IsNullOrWhiteSpace(filename))
                 return;
 
-            var image = loadImage(PathUtil.AppPathCombine(filename));
+            var image = ImageCache.GetImage(PathUtil.AppPathCombine(filename));
             if (image == null && Program.LastGameInstallSettings != null)
             {
-                image = loadImage(Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods, filename));
+                image = ImageCache.GetImage(Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods, filename));
                 if (image == null)
-                    image = loadImage(Path.Combine(Program.LastGameInstallSettings.Path, filename));
+                    image = ImageCache.GetImage(Path.Combine(Program.LastGameInstallSettings.Path, filename));
             }
             if (image == null)
             {
@@ -82,20 +82,6 @@ namespace TankIconMaker.Layers
             }
             image.Freeze();
             dc.DrawImage(image);
-        }
-
-        private BitmapSource loadImage(string filename)
-        {
-            try
-            {
-                if (filename.ToLowerInvariant().EndsWith(".tga"))
-                    return Targa.LoadWpf(filename);
-                else
-                    using (var f = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
-                        return BitmapDecoder.Create(f, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0];
-            }
-            catch (FileNotFoundException) { return null; }
-            catch (DirectoryNotFoundException) { return null; }
         }
     }
 }

@@ -113,86 +113,23 @@ namespace TankIconMaker
             return "Tank: " + SystemId;
         }
 
-        /// <summary>
-        /// Loads the standard 3D image for this tank and returns as a WPF image. Note that it's larger than 80x24.
-        /// Returns null if the image file does not exist.
-        /// </summary>
-        public virtual WriteableBitmap LoadImage3DWpf()
+        /// <summary>Gets the standard 3D image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
+        public virtual BitmapSource GetImage3D()
         {
-            try
-            {
-                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"))
-                    return Targa.LoadWpf(stream);
-            }
-            catch (FileNotFoundException) { return null; }
-            catch (DirectoryNotFoundException) { return null; }
+            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
         }
 
-        /// <summary>
-        /// Loads the standard 3D image for this tank and returns as a GDI image. Note that it's larger than 80x24.
-        /// Returns null if the image file does not exist.
-        /// </summary>
-        public virtual BitmapGdi LoadImage3DGdi()
+        /// <summary>Gets the standard contour image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
+        public virtual BitmapSource GetImageContour()
         {
-            try
-            {
-                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"))
-                    return Targa.LoadGdi(stream);
-            }
-            catch (FileNotFoundException) { return null; }
-            catch (DirectoryNotFoundException) { return null; }
+            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"));
         }
 
-        /// <summary>
-        /// Loads the standard contour image for this tank and returns it as a WPF image.
-        /// Returns null if the image file does not exist.
-        /// </summary>
-        public virtual WriteableBitmap LoadImageContourWpf()
+        /// <summary>Gets the currently saved icon image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
+        public virtual BitmapSource GetImageCurrent()
         {
-            try
-            {
-                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"))
-                    return Targa.LoadWpf(stream);
-            }
-            catch (FileNotFoundException) { return null; }
-            catch (DirectoryNotFoundException) { return null; }
-        }
-
-        /// <summary>
-        /// Loads the standard contour image for this tank and returns it as a GDI image.
-        /// Returns null if the image file does not exist.
-        /// </summary>
-        public virtual BitmapGdi LoadImageContourGdi()
-        {
-            try
-            {
-                using (var stream = Ut.OpenFileOrZip(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"))
-                    return Targa.LoadGdi(stream);
-            }
-            catch (FileNotFoundException) { return null; }
-            catch (DirectoryNotFoundException) { return null; }
-        }
-
-        /// <summary>
-        /// Loads the currently saved icon image for this tank and returns it as a WPF image.
-        /// Returns null if the image file does not exist.
-        /// </summary>
-        public virtual WriteableBitmap LoadImageCurrentWpf()
-        {
-            try { return Targa.LoadWpf(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga")); }
-            catch (FileNotFoundException) { return null; }
-            catch (DirectoryNotFoundException) { return null; }
-        }
-
-        /// <summary>
-        /// Loads the currently saved icon image for this tank and returns it as a GDI image.
-        /// Returns null if the image file does not exist.
-        /// </summary>
-        public virtual BitmapGdi LoadImageCurrentGdi()
-        {
-            try { return Targa.LoadGdi(Path.Combine(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga")); }
-            catch (FileNotFoundException) { return null; }
-            catch (DirectoryNotFoundException) { return null; }
+            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga"))
+                ?? GetImageContour();
         }
     }
 
@@ -210,15 +147,13 @@ namespace TankIconMaker
         }
 
         public string PropertyValue;
-        public BitmapGdi LoadedImageGdi;
-        public WriteableBitmap LoadedImageWpf;
+        public BitmapSource LoadedImage;
 
         public override string this[string name] { get { return PropertyValue; } }
         public override string this[ExtraPropertyId property] { get { return PropertyValue; } }
-        public override BitmapGdi LoadImage3DGdi() { return LoadedImageGdi; }
-        public override WriteableBitmap LoadImage3DWpf() { return LoadedImageWpf; }
-        public override BitmapGdi LoadImageContourGdi() { return LoadedImageGdi; }
-        public override WriteableBitmap LoadImageContourWpf() { return LoadedImageWpf; }
+        public override BitmapSource GetImage3D() { return LoadedImage; }
+        public override BitmapSource GetImageContour() { return LoadedImage; }
+        public override BitmapSource GetImageCurrent() { return LoadedImage; }
         public override void AddWarning(string warning) { }
     }
 
