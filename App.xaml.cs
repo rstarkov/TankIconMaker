@@ -122,8 +122,8 @@ namespace TankIconMaker
         /// by the <see cref="MainWindow"/> and used in data binding by the <see cref="DataSourceEditor"/>.
         /// </summary>
         public static ObservableSortedList<DataSourceInfo> DataSources = new ObservableSortedList<DataSourceInfo>(
-            items: new[] { new DataSourceNone() },
-            comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceNone ? 0 : 1)
+            items: new DataSourceInfo[] { new DataSourceTierArabic(), new DataSourceTierRoman() },
+            comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceTierArabic ? 0 : ds is DataSourceTierRoman ? 1 : 2)
                 .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersion));
 
         /// <summary>

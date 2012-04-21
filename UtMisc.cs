@@ -8,15 +8,17 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
-using System.Windows.Media;
 using RT.Util;
 
 namespace TankIconMaker
 {
     static partial class Ut
     {
+        public static readonly string[] RomanNumerals = new[] { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" };
+
         /// <summary>Shorthand for string.Format, with a more natural ordering (since formatting is typically an afterthought).</summary>
         public static string Fmt(this string formatString, params object[] args)
         {

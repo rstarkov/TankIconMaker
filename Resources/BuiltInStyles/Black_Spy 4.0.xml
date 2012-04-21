@@ -133,11 +133,10 @@
       <BottomAnchor>False</BottomAnchor>
       <Baseline>False</Baseline>
       <Property>
-        <Name>NameShortWG</Name>
-        <Language>Ru</Language>
-        <Author>Romkyns</Author>
+        <Name>Tier (Arabic)</Name>
+        <Language null="1" />
+        <Author>(built-in)</Author>
       </Property>
-      <ShowTier>True</ShowTier>
     </item>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Name</Name>
@@ -234,7 +233,6 @@
         <Language>Ru</Language>
         <Author>Romkyns</Author>
       </Property>
-      <ShowTier>False</ShowTier>
     </item>
   </Layers>
 </item>
