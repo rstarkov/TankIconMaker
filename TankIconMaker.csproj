@@ -76,6 +76,7 @@
       <DependentUpon>FilenameEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Effects\PixelOutlineEffect.cs" />
+    <Compile Include="Cache.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>

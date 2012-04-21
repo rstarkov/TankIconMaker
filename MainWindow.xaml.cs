@@ -24,7 +24,7 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Generic image cache for image layers (both tank image and generic)
+ * Resize effect
  * GetEditableStyle breakage when changing color By
  * Text layer: just one, so that it’s changeable like ColorScheme
  * "none" in sources no longer needed
@@ -104,9 +104,9 @@ namespace TankIconMaker
             CommandBindings.Add(new CommandBinding(TankLayerCommands.ToggleVisibility, cmdLayer_ToggleVisibility, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
 
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Add, cmdStyle_Add));
-            CommandBindings.Add(new CommandBinding(TankStyleCommands.Delete, cmdStyle_Delete, (_, a) => { a.CanExecute = cmdStyle_NonBuiltInStyleSelected(); }));
-            CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeName, cmdStyle_ChangeName, (_, a) => { a.CanExecute = cmdStyle_NonBuiltInStyleSelected(); }));
-            CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeAuthor, cmdStyle_ChangeAuthor, (_, a) => { a.CanExecute = cmdStyle_NonBuiltInStyleSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Delete, cmdStyle_Delete, (_, a) => { a.CanExecute = cmdStyle_UserStyleSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeName, cmdStyle_ChangeName, (_, a) => { a.CanExecute = cmdStyle_UserStyleSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeAuthor, cmdStyle_ChangeAuthor, (_, a) => { a.CanExecute = cmdStyle_UserStyleSelected(); }));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Duplicate, cmdStyle_Duplicate, (_, a) => { a.CanExecute = ctStyleDropdown.SelectedItem is Style; }));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Import, cmdStyle_Import));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Export, cmdStyle_Export, (_, a) => { a.CanExecute = ctStyleDropdown.SelectedItem is Style; }));
@@ -252,7 +252,7 @@ namespace TankIconMaker
                     using (var stream = assy.GetManifestResourceStream(resourceName))
                         doc = XDocument.Load(stream);
                     var style = XmlClassify.ObjectFromXElement<Style>(doc.Root);
-                    style.BuiltIn = true;
+                    style.Kind = style.Name == "Original" ? StyleKind.Original : style.Name == "Current" ? StyleKind.Current : StyleKind.BuiltIn;
                     _builtinStyles.Add(style);
                 }
                 catch { } // should not happen, but if it does, pretend the style doesn’t exist.
@@ -266,6 +266,8 @@ namespace TankIconMaker
         private void ReloadData()
         {
             _renderResults.Clear();
+            ZipCache.Clear();
+            ImageCache.Clear();
 
             Program.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
 
@@ -454,8 +456,7 @@ namespace TankIconMaker
             try
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
-                tank.LoadedImageGdi = Ut.NewBitmapGdi();
-                tank.LoadedImageWpf = Ut.NewBitmapWpf();
+                tank.LoadedImage = Ut.NewBitmapWpf();
                 layer.DrawInternal(tank);
             }
             catch (Exception e)
@@ -474,8 +475,7 @@ namespace TankIconMaker
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
                 tank.PropertyValue = "z"; // very short, so substring/indexing can fail, also not parseable as integer. Hopefully "unexpected enough".
-                tank.LoadedImageGdi = Ut.NewBitmapGdi();
-                tank.LoadedImageWpf = Ut.NewBitmapWpf();
+                tank.LoadedImage = Ut.NewBitmapWpf();
                 layer.DrawInternal(tank);
             }
             catch (Exception e)
@@ -767,7 +767,7 @@ namespace TankIconMaker
         private void ctLayerProperties_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
             var style = ctStyleDropdown.SelectedItem as Style;
-            if (style.BuiltIn)
+            if (style.Kind != StyleKind.User)
             {
                 GetEditableStyle(); // duplicate the style
                 RecreateBuiltInStyles();
@@ -964,7 +964,7 @@ namespace TankIconMaker
         private Style GetEditableStyle()
         {
             var style = ctStyleDropdown.SelectedItem as Style;
-            if (style.BuiltIn)
+            if (style.Kind != StyleKind.User)
             {
                 // Remember what was expanded and selected
                 var layer = ctLayersTree.SelectedItem as LayerBase;
@@ -974,7 +974,7 @@ namespace TankIconMaker
                 var expandedIndexes = style.Layers.Select((l, i) => l.TreeViewItem.IsExpanded ? i : -1).Where(i => i >= 0).ToArray();
                 // Duplicate
                 style = style.Clone();
-                style.BuiltIn = false;
+                style.Kind = StyleKind.User;
                 style.Name = style.Name + " (copy)";
                 Program.Settings.Styles.Add(style);
                 ctStyleDropdown.SelectedItem = style;
@@ -1192,11 +1192,11 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private bool cmdStyle_NonBuiltInStyleSelected()
+        private bool cmdStyle_UserStyleSelected()
         {
             var style = ctStyleDropdown.SelectedItem as Style;
             if (style == null) return false;
-            return !style.BuiltIn;
+            return style.Kind == StyleKind.User;
         }
 
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
@@ -1239,7 +1239,7 @@ namespace TankIconMaker
             if (name == null)
                 return;
             style = style.Clone();
-            style.BuiltIn = false;
+            style.Kind = StyleKind.User;
             style.Name = name;
             Program.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
@@ -1260,7 +1260,7 @@ namespace TankIconMaker
             try
             {
                 style = XmlClassify.LoadObjectFromXmlFile<Style>(dlg.FileName);
-                style.BuiltIn = false;
+                style.Kind = StyleKind.User;
             }
             catch
             {

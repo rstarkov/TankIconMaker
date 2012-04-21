@@ -213,36 +213,6 @@ namespace TankIconMaker
             return result >= 0 ? result : (result + modulus);
         }
 
-        /// <summary>Caches ZipFile instances for packages to save opening them for every single resource.</summary>
-        private static Dictionary<string, WeakReference> _packages = new Dictionary<string, WeakReference>();
-
-        public static Stream OpenFileOrZip(string gamePath, string dirPath, string filename)
-        {
-            // If no semicolon then it’s a normal filesystem file
-            if (!dirPath.Contains(":"))
-                return File.Open(Path.Combine(gamePath, dirPath, filename), FileMode.Open, FileAccess.Read, FileShare.Read);
-            // Otherwise it’s a zip file
-            var parts = dirPath.Split(':');
-            var pkgPath = Path.Combine(gamePath, parts[0]);
-            var filePath = parts[1].Replace('\\', '/') + "/" + filename;
-            WeakReference reference;
-            ZipFile zipfile = null;
-            lock (_packages)
-            {
-                if (_packages.TryGetValue(pkgPath.ToLowerInvariant(), out reference))
-                    zipfile = reference.Target as ZipFile;
-                if (zipfile == null)
-                {
-                    zipfile = new ZipFile(pkgPath);
-                    _packages[pkgPath.ToLowerInvariant()] = new WeakReference(zipfile);
-                }
-            }
-            var entry = zipfile.GetEntry(filePath);
-            if (entry == null)
-                throw new FileNotFoundException("File not found in zip archive.", filePath);
-            return zipfile.GetInputStream(entry);
-        }
-
         public static string MakeRelativePath(string path)
         {
             try
@@ -382,4 +352,48 @@ namespace TankIconMaker
         string TypeName { get; }
         string TypeDescription { get; }
     }
+
+    /// <summary>
+    /// Encapsulates a file name which may refer to a file inside a container file, or just to a file directly. The parts
+    /// are separated with a "::". Helps avoid issues with Path.Combine complaining about invalid filenames.
+    /// </summary>
+    struct CompositeFilename
+    {
+        /// <summary>Container file path, or null if none.</summary>
+        public string Container { get; private set; }
+        /// <summary>Referenced file path.</summary>
+        public string File { get; private set; }
+
+        public override string ToString() { return Container + "::" + File; }
+
+        public CompositeFilename(params string[] path)
+            : this()
+        {
+            var builder = new StringBuilder(256);
+            Container = null;
+            foreach (var part in path)
+            {
+                if (part.Contains("::"))
+                {
+                    var parts = part.Split(new[] { "::" }, StringSplitOptions.None);
+                    if (Container != null || parts.Length > 2)
+                        throw new ArgumentException("Multiple \"::\" separators are not allowed.");
+                    if (builder.Length > 0)
+                        builder.Append('\\');
+                    builder.Append(parts[0]);
+                    Container = builder.ToString();
+                    builder.Clear();
+                    builder.Append(parts[1]);
+                }
+                else
+                {
+                    if (builder.Length > 0)
+                        builder.Append('\\');
+                    builder.Append(part);
+                }
+            }
+            File = builder.ToString();
+        }
+    }
+
 }
