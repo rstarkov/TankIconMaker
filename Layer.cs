@@ -10,10 +10,6 @@ using RT.Util.Xml;
 using WpfCrutches;
 using D = System.Drawing;
 
-/// Image layer by tank properties
-/// A linked "duplicate" layer (before or after effects)
-/// How to "merge" two layers into one so that effects like "shadow" can apply to the merged result
-
 namespace TankIconMaker
 {
     abstract class LayerBase : IHasTreeViewItem, IHasTypeNameDescription, IXmlClassifyProcess, INotifyPropertyChanged

@@ -256,7 +256,7 @@ namespace TankIconMaker
             if (extension == ".tga")
                 Image = Targa.LoadWpf(file);
             else
-                Image = BitmapDecoder.Create(file, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0];
+                Image = BitmapDecoder.Create(file, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0].ToWpfWriteable();
             Image.Freeze();
         }
 

@@ -27,7 +27,7 @@ namespace TankIconMaker.Layers
         [Category("Font"), DisplayName("Italic")]
         [Description("Makes the text italic.")]
         public bool FontItalic { get; set; }
-        [Category("Font")]
+        [Category("Font"), DisplayName("Color")]
         [Description("Specifies the text color.")]
         public ColorSelector FontColor { get; set; }
 

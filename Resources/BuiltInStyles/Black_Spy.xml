@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <item>
-  <Name>Black_Spy 4.0</Name>
+  <Name>Black_Spy</Name>
   <Author>Black_Spy</Author>
   <Layers>
     <item type="TankIconMaker.Layers.BkgDarkAgentLayer">
@@ -38,6 +38,29 @@
           <Visible>True</Visible>
           <ShiftX>3</ShiftX>
           <ShiftY>0</ShiftY>
+        </item>
+        <item type="TankIconMaker.Effects.ColorizeEffect">
+          <Visible>False</Visible>
+          <Color>
+            <ClassLight>#00FFFFFF</ClassLight>
+            <ClassMedium>#00FFFFFF</ClassMedium>
+            <ClassHeavy>#00FFFFFF</ClassHeavy>
+            <ClassDestroyer>#42172D6B</ClassDestroyer>
+            <ClassArtillery>#42912325</ClassArtillery>
+            <CountryUSSR>#FFFFFF</CountryUSSR>
+            <CountryGermany>#FFFFFF</CountryGermany>
+            <CountryUSA>#FFFFFF</CountryUSA>
+            <CountryFrance>#FFFFFF</CountryFrance>
+            <CountryChina>#FFFFFF</CountryChina>
+            <CategNormal>#FFFFFF</CategNormal>
+            <CategPremium>#FFFFFF</CategPremium>
+            <CategSpecial>#FFFFFF</CategSpecial>
+            <Single>#FFFFFF</Single>
+            <By>Class</By>
+            <Tier1>#FFFFFF</Tier1>
+            <Tier5>#FFFFFF</Tier5>
+            <Tier10>#FFFFFF</Tier10>
+          </Color>
         </item>
       </Effects>
       <Style>ThreeD</Style>
@@ -233,6 +256,118 @@
         <Language>Ru</Language>
         <Author>Romkyns</Author>
       </Property>
+    </item>
+    <item type="TankIconMaker.Layers.CustomImageLayer">
+      <Name>Class</Name>
+      <Visible>False</Visible>
+      <SavedByVersion>1</SavedByVersion>
+      <Effects>
+        <item type="TankIconMaker.Effects.ShiftEffect">
+          <Visible>True</Visible>
+          <ShiftX>69</ShiftX>
+          <ShiftY>2</ShiftY>
+        </item>
+        <item type="TankIconMaker.Effects.ColorizeEffect">
+          <Visible>True</Visible>
+          <Color>
+            <ClassLight>#FFFFFF</ClassLight>
+            <ClassMedium>#FFFFFF</ClassMedium>
+            <ClassHeavy>#FFFFFF</ClassHeavy>
+            <ClassDestroyer>#2749C6</ClassDestroyer>
+            <ClassArtillery>#932C30</ClassArtillery>
+            <CountryUSSR>#FFFFFF</CountryUSSR>
+            <CountryGermany>#FFFFFF</CountryGermany>
+            <CountryUSA>#FFFFFF</CountryUSA>
+            <CountryFrance>#FFFFFF</CountryFrance>
+            <CountryChina>#FFFFFF</CountryChina>
+            <CategNormal>#FFFFFF</CategNormal>
+            <CategPremium>#FFFFFF</CategPremium>
+            <CategSpecial>#FFFFFF</CategSpecial>
+            <Single>#EAEAEA</Single>
+            <By>Single</By>
+            <Tier1>#FFFFFF</Tier1>
+            <Tier5>#FFFFFF</Tier5>
+            <Tier10>#FFFFFF</Tier10>
+          </Color>
+        </item>
+        <item type="TankIconMaker.Effects.PixelOutlineEffect">
+          <Visible>True</Visible>
+          <Color>
+            <ClassLight>#000000</ClassLight>
+            <ClassMedium>#000000</ClassMedium>
+            <ClassHeavy>#000000</ClassHeavy>
+            <ClassDestroyer>#000000</ClassDestroyer>
+            <ClassArtillery>#000000</ClassArtillery>
+            <CountryUSSR>#000000</CountryUSSR>
+            <CountryGermany>#000000</CountryGermany>
+            <CountryUSA>#000000</CountryUSA>
+            <CountryFrance>#000000</CountryFrance>
+            <CountryChina>#000000</CountryChina>
+            <CategNormal>#000000</CategNormal>
+            <CategPremium>#000000</CategPremium>
+            <CategSpecial>#000000</CategSpecial>
+            <Single>#000000</Single>
+            <By>Single</By>
+            <Tier1>#000000</Tier1>
+            <Tier5>#000000</Tier5>
+            <Tier10>#000000</Tier10>
+          </Color>
+        </item>
+        <item type="TankIconMaker.Effects.ShadowEffect">
+          <Visible>True</Visible>
+          <Radius>3.5</Radius>
+          <Spread>0.5</Spread>
+          <Color>
+            <ClassLight>#000000</ClassLight>
+            <ClassMedium>#000000</ClassMedium>
+            <ClassHeavy>#000000</ClassHeavy>
+            <ClassDestroyer>#000000</ClassDestroyer>
+            <ClassArtillery>#000000</ClassArtillery>
+            <CountryUSSR>#000000</CountryUSSR>
+            <CountryGermany>#000000</CountryGermany>
+            <CountryUSA>#000000</CountryUSA>
+            <CountryFrance>#000000</CountryFrance>
+            <CountryChina>#000000</CountryChina>
+            <CategNormal>#000000</CategNormal>
+            <CategPremium>#000000</CategPremium>
+            <CategSpecial>#000000</CategSpecial>
+            <Single>#000000</Single>
+            <By>Single</By>
+            <Tier1>#000000</Tier1>
+            <Tier5>#000000</Tier5>
+            <Tier10>#000000</Tier10>
+          </Color>
+          <ShiftX>0</ShiftX>
+          <ShiftY>0</ShiftY>
+        </item>
+      </Effects>
+      <ImageFile>
+        <ClassLight>Images\class1-Light.png</ClassLight>
+        <ClassMedium>Images\class1-Medium.png</ClassMedium>
+        <ClassHeavy>Images\class1-Heavy.png</ClassHeavy>
+        <ClassDestroyer>Images\class1-Destroyer.png</ClassDestroyer>
+        <ClassArtillery>Images\class1-Artillery.png</ClassArtillery>
+        <CountryUSSR>Images\flag1-USSR.png</CountryUSSR>
+        <CountryGermany>Images\flag1-Germany.png</CountryGermany>
+        <CountryUSA>Images\flag1-USA.png</CountryUSA>
+        <CountryFrance>Images\flag1-France.png</CountryFrance>
+        <CountryChina>Images\flag1-China.png</CountryChina>
+        <CategNormal></CategNormal>
+        <CategPremium></CategPremium>
+        <CategSpecial></CategSpecial>
+        <Single></Single>
+        <By>Class</By>
+        <Tier1></Tier1>
+        <Tier2></Tier2>
+        <Tier3></Tier3>
+        <Tier4></Tier4>
+        <Tier5></Tier5>
+        <Tier6></Tier6>
+        <Tier7></Tier7>
+        <Tier8></Tier8>
+        <Tier9></Tier9>
+        <Tier10></Tier10>
+      </ImageFile>
     </item>
   </Layers>
 </item>

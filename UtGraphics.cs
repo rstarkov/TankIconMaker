@@ -53,10 +53,10 @@ namespace TankIconMaker
         /// <summary>Converts a WPF image source to a WPF writable one. Also useful for unfreezing frozen WriteableBitmap's.</summary>
         public static WriteableBitmap ToWpfWriteable(this BitmapSource bmp)
         {
-            var result = new WriteableBitmap(80, 24, 96, 96, PixelFormats.Bgra32, null);
+            var result = new WriteableBitmap(bmp.PixelWidth, bmp.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
             if (bmp.Format != PixelFormats.Bgra32)
                 bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
-            bmp.CopyPixels(new Int32Rect(0, 0, 80, 24), result.BackBuffer, result.BackBufferStride * 23 + 80 * 4, result.BackBufferStride);
+            bmp.CopyPixels(new Int32Rect(0, 0, bmp.PixelWidth, bmp.PixelHeight), result.BackBuffer, result.BackBufferStride * (bmp.PixelHeight - 1) + bmp.PixelWidth * 4, result.BackBufferStride);
             return result;
         }
 

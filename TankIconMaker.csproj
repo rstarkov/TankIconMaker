@@ -168,7 +168,7 @@
     <Resource Include="Resources\Graphics\warning.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\BuiltInStyles\Black_Spy 4.0.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\Black_Spy.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Original.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Current.xml" />
@@ -177,11 +177,11 @@
   <Target Name="AfterBuild">
     <ItemGroup>
       <Resources Include="Resources\*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
-    <ItemGroup>
+      <Images Include="Resources\Images\*" />
       <Licenses Include="ThirdParty\license-*" />
     </ItemGroup>
+    <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
+    <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
   </Target>
 </Project>
