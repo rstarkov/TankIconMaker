@@ -24,6 +24,7 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * Support for both 0.7.3 CT and 0.7.3
  * Colorize method: set RGB
  * Effect: Position (perfect size with tunable alpha threshold)
  * Effect: Resize

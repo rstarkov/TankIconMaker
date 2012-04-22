@@ -1,4 +1,4 @@
-WOT-BUILTIN-DATA,1
+WOT-BUILTIN-DATA,1,,,
 china-Ch01_Type59,china,8,medium,special
 france-AMX_12t,france,5,light,normal
 france-AMX_13_75,france,6,light,normal
@@ -50,7 +50,7 @@ germany-PzIII,germany,4,medium,normal
 germany-PzIII_A,germany,3,light,normal
 germany-PzIII_IV,germany,5,medium,normal
 germany-PzIV,germany,5,medium,normal
-germany-PzIV_Hydro,germany,5,medium,premium
+germany-PzIV_Hydro,germany,5,medium,special
 germany-PzV,germany,7,medium,normal
 germany-PzV_PzIV,germany,6,medium,premium
 germany-PzV_PzIV_ausf_Alfa,germany,6,medium,special

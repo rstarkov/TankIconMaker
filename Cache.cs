@@ -235,14 +235,14 @@ namespace TankIconMaker
         /// <summary>Retrieves an image that isn't stored inside a zip file.</summary>
         public static BitmapSource GetImage(string path)
         {
-            return _cache.GetEntry("::" + path,
+            return _cache.GetEntry(":" + path,
                 () => (ImageEntry) new FileImageEntry(path)).Image;
         }
 
         /// <summary>Retrieves an image which may optionally be stored inside a zip file.</summary>
         public static BitmapSource GetImage(CompositeFilename path)
         {
-            return _cache.GetEntry(path.Container + "::" + path.File,
+            return _cache.GetEntry(path.Container + ":" + path.File,
                 () => path.Container == null ? (ImageEntry) new FileImageEntry(path.File) : new ZipImageEntry(path)).Image;
         }
     }

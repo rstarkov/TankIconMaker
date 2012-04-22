@@ -357,7 +357,7 @@ namespace TankIconMaker
 
     /// <summary>
     /// Encapsulates a file name which may refer to a file inside a container file, or just to a file directly. The parts
-    /// are separated with a "::". Helps avoid issues with Path.Combine complaining about invalid filenames.
+    /// are separated with a ":". Helps avoid issues with Path.Combine complaining about invalid filenames.
     /// </summary>
     struct CompositeFilename
     {
@@ -366,7 +366,7 @@ namespace TankIconMaker
         /// <summary>Referenced file path.</summary>
         public string File { get; private set; }
 
-        public override string ToString() { return Container + "::" + File; }
+        public override string ToString() { return Container + ":" + File; }
 
         public CompositeFilename(params string[] path)
             : this()
@@ -375,11 +375,13 @@ namespace TankIconMaker
             Container = null;
             foreach (var part in path)
             {
-                if (part.Contains("::"))
+                var parts = Regex.Split(part, @"(?<=..):");
+                if (parts.Length > 2)
+                    throw new ArgumentException("Multiple \":\" separators are not allowed.");
+                else if (parts.Length == 2)
                 {
-                    var parts = part.Split(new[] { "::" }, StringSplitOptions.None);
-                    if (Container != null || parts.Length > 2)
-                        throw new ArgumentException("Multiple \"::\" separators are not allowed.");
+                    if (Container != null)
+                        throw new ArgumentException("Multiple \":\" separators are not allowed.");
                     if (builder.Length > 0)
                         builder.Append('\\');
                     builder.Append(parts[0]);
