@@ -5,6 +5,7 @@ using Ookii.Dialogs.Wpf;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
+using RT.Util.Xml;
 
 namespace TankIconMaker
 {
@@ -48,5 +49,11 @@ namespace TankIconMaker
         public static implicit operator Filename(string value) { return new Filename { _name = value }; }
         public static implicit operator string(Filename value) { return value._name; }
         public override string ToString() { return this; }
+    }
+
+    class filenameTypeOptions : XmlClassifyTypeOptions, IXmlClassifySubstitute<Filename, string>
+    {
+        public Filename FromSubstitute(string instance) { return instance; }
+        public string ToSubstitute(Filename instance) { return instance; }
     }
 }

@@ -5,10 +5,6 @@ using System.Windows.Media.Imaging;
 using RT.Util.Xml;
 using WpfCrutches;
 
-/// Position layer (perfect size with tunable alpha threshold)
-/// Position between other layers
-/// Clip
-
 namespace TankIconMaker
 {
     abstract class EffectBase : IHasTreeViewItem, IHasTypeNameDescription, INotifyPropertyChanged

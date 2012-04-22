@@ -24,11 +24,16 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Resize effect
- * GetEditableStyle breakage when changing color By
- * double-check right-alignment with cleartype ON. threshold?
+ * Colorize method: set RGB
+ * Effect: Position (perfect size with tunable alpha threshold)
+ * Effect: Resize
+ * Effect: Position between other layers
+ * Effect: Clip
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
  * Image scaling sharpness
+ * Effect: Duplicate another effect / all effects of another layer
+ * Layer: "duplicate" (before or after effects)
+ * How to "merge" two layers into one so that effects like "shadow" can apply to the merged result
  * Use a WPF MessageBox (avoid WinForms interop startup cost)
  * _otherWarnings: tag with warning type to enable reliable removal
  */
