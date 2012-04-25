@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows.Media.Imaging;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace TankIconMaker.Effects
 {

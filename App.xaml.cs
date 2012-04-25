@@ -55,6 +55,7 @@ namespace TankIconMaker
             XmlClassify.DefaultOptions = new XmlClassifyOptions()
                 .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
                 .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(Version), new versionTypeOptions())
                 .AddTypeOptions(typeof(Filename), new filenameTypeOptions())
                 .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
                 .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());

@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using RT.Util.Xml;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace TankIconMaker.Effects
 {

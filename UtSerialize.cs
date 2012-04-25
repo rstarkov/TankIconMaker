@@ -49,6 +49,20 @@ namespace TankIconMaker
         }
     }
 
+    sealed class versionTypeOptions : XmlClassifyTypeOptions, IXmlClassifySubstitute<Version, string>
+    {
+        public Version FromSubstitute(string instance)
+        {
+            return Version.Parse(instance);
+        }
+
+        public string ToSubstitute(Version instance)
+        {
+            return instance.ToString();
+        }
+    }
+
+
     /// <summary>
     /// Filters lists of <see cref="LayerBase"/> objects before XmlClassify attempts to decode them, removing all
     /// entries pertaining to layer types that no longer exist in the assembly and hence can't possibly be instantiated.

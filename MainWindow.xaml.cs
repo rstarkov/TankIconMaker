@@ -25,6 +25,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
  * Support for both 0.7.3 CT and 0.7.3
+ * Image layer: rename to Built-in, add 3D large, 3D small, country(filter), type(filter)
  * Colorize method: set RGB
  * Effect: Position (perfect size with tunable alpha threshold)
  * Effect: Resize
@@ -306,7 +307,7 @@ namespace TankIconMaker
         /// <summary>
         /// Updates the list of data sources currently available to be used in the icon maker. 
         /// </summary>
-        private void UpdateDataSources(Version version)
+        private void UpdateDataSources(VersionId version)
         {
             foreach (var item in Program.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
             {

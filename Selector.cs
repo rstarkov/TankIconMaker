@@ -7,11 +7,11 @@ namespace TankIconMaker
 {
     enum SelectBy
     {
-        [Description("Artillery / Destroyer / Light / ...")]
+        [Description("Artillery • Destroyer • Light • etc")]
         Class,
-        [Description("USSR / Germany / USA / ...")]
+        [Description("USSR • Germany • USA • etc")]
         Country,
-        [Description("Normal / premium / special")]
+        [Description("Normal • premium • special")]
         Category,
         [Description("Tier (1 .. 10)")]
         Tier,
