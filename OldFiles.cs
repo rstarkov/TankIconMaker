@@ -53,6 +53,7 @@ namespace TankIconMaker
         {
             "Data\\background.jpg",
             "Data\\Data-BuiltIn-0.7.2-001.csv",
+            "Data\\Data-BuiltIn-0.7.3-001.csv",
             "Data\\Data-NameFullWG-En-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameFullWG-Ru-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameImproved-Ru-Romkyns-0.0.0-001.csv",
@@ -60,6 +61,8 @@ namespace TankIconMaker
             "Data\\Data-NameShortWG-Ru-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameSlang-Ru-Romkyns-0.0.0-001.csv",
             "Data\\GameVersion-0.7.2.xml",
+            "Data\\GameVersion-0.7.3.xml",
+            "Data\\GameVersion-0.7.3.CommonTest.xml",
         };
 
         public static void DeleteOldFiles()

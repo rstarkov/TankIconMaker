@@ -471,7 +471,7 @@ namespace TankIconMaker
         /// <summary>
         /// Gets game version information for a specific game version. Returns null if there is no exact match for this version.
         /// </summary>
-        public GameVersion GetVersion(Version version)
+        public GameVersion GetVersion(VersionId version)
         {
             return _versions.SingleOrDefault(v => v.Version == version);
         }
@@ -549,7 +549,7 @@ namespace TankIconMaker
             {
                 var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
 
-                if (parts.Length != 2)
+                if (parts.Length != 2 && parts.Length != 3)
                 {
                     _warnings.Add("Skipped \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
                     continue;
@@ -565,7 +565,7 @@ namespace TankIconMaker
                 try
                 {
                     var ver = XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName);
-                    ver.Version = gameVersion;
+                    ver.Version = new VersionId(gameVersion, parts.Length < 3 ? "" : parts[2]);
                     _versions.Add(ver);
                 }
                 catch (Exception e)
@@ -872,13 +872,61 @@ namespace TankIconMaker
         Special,
     }
 
+    /// <summary>Encapsulates a version identifier, allowing for a comparable part (like 0.7.3) and a unique part (like "test").</summary>
+    class VersionId : IComparable<VersionId>, IComparable<Version>
+    {
+        public Version Numeric { get; private set; }
+        public string Textual { get; private set; }
+        public override string ToString() { return Numeric + " " + Textual; }
+
+        /// <summary>Constructor. For XmlClassify.</summary>
+        private VersionId() { }
+
+        /// <summary>Constructor.</summary>
+        public VersionId(Version numeric, string textual)
+        {
+            Numeric = numeric;
+            Textual = textual;
+        }
+
+        public int CompareTo(VersionId other)
+        {
+            if (other == null)
+                throw new ArgumentNullException();
+            int result = this.Numeric.CompareTo(other.Numeric);
+            if (result != 0)
+                return result;
+            return this.Textual.CompareTo(other.Textual);
+        }
+
+        public int CompareTo(Version other)
+        {
+            if (other == null)
+                throw new ArgumentNullException();
+            return this.Numeric.CompareTo(other);
+        }
+
+        public static bool operator >(VersionId a, Version b) { return a.Numeric.CompareTo(b) > 0; }
+        public static bool operator <(VersionId a, Version b) { return a.Numeric.CompareTo(b) < 0; }
+        public static bool operator >=(VersionId a, Version b) { return a.Numeric.CompareTo(b) >= 0; }
+        public static bool operator <=(VersionId a, Version b) { return a.Numeric.CompareTo(b) <= 0; }
+        public static bool operator >=(Version a, VersionId b) { return a.CompareTo(b.Numeric) >= 0; }
+        public static bool operator <=(Version a, VersionId b) { return a.CompareTo(b.Numeric) <= 0; }
+        public static bool operator >(VersionId a, VersionId b) { return a.CompareTo(b) > 0; }
+        public static bool operator <(VersionId a, VersionId b) { return a.CompareTo(b) < 0; }
+        public static bool operator >=(VersionId a, VersionId b) { return a.CompareTo(b) >= 0; }
+        public static bool operator <=(VersionId a, VersionId b) { return a.CompareTo(b) <= 0; }
+        public static bool operator ==(VersionId a, VersionId b) { return (a == (object) null) == (b == (object) null) && (a == (object) null || (a.Numeric == b.Numeric && a.Textual == b.Textual)); }
+        public static bool operator !=(VersionId a, VersionId b) { return !(a == b); }
+    }
+
     /// <summary>
     /// Represents some settings for a particular game version.
     /// </summary>
     sealed class GameVersion
     {
         /// <summary>TankIconMaker currently only supports three-part game versions with numbers only; this is the game version in that format.</summary>
-        public Version Version { get; internal set; }
+        public VersionId Version { get; internal set; }
         /// <summary>How this version should be displayed in the UI - allowing for oddities like "0.7.1b" or "0.7.1.1.1.1".</summary>
         public string DisplayName { get; private set; }
 
@@ -896,13 +944,10 @@ namespace TankIconMaker
         /// <summary>A string expected inside the <see cref="CheckFileName"/> file. A match means that this is probably the right game version.</summary>
         public string CheckFileContent { get; private set; }
 
-        private GameVersion()
-        {
-        }
+        /// <summary>Constructor, for use by XmlClassify.</summary>
+        private GameVersion() { }
 
-        public override string ToString()
-        {
-            return DisplayName;
-        }
+        /// <summary>Returns the display name of this game version.</summary>
+        public override string ToString() { return DisplayName; }
     }
 }

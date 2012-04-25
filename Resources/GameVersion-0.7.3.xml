@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <item>
-  <DisplayName>0.7.3 Test</DisplayName>
-  <PathMods>res_mods\0.7.3 Common Test</PathMods>
-  <PathDestination>res_mods\0.7.3 Common Test\gui\maps\icons\vehicle\contour</PathDestination>
+  <DisplayName>0.7.3</DisplayName>
+  <PathMods>res_mods\0.7.3</PathMods>
+  <PathDestination>res_mods\0.7.3\gui\maps\icons\vehicle\contour</PathDestination>
   <PathSourceContour>res\packages\gui.pkg:gui\maps\icons\vehicle\contour</PathSourceContour>
   <PathSource3D>res\packages\gui.pkg:gui\maps\icons\vehicle\small</PathSource3D>
   <CheckFileName>WOTLauncher.cfg</CheckFileName>

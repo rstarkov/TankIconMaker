@@ -86,7 +86,7 @@ namespace TankIconMaker
                 PropertyChanged(this, new PropertyChangedEventArgs("DisplayName"));
             }
         }
-        private Version _version;
+        private VersionId _version;
 
         /// <summary>The value displayed in the drop-down.</summary>
         public string DisplayName { get { return (GameVersion == null ? "" : (GameVersion.DisplayName + ":  ")) + _path; } }

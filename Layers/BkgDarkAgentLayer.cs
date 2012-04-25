@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using RT.Util.Xml;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace TankIconMaker.Layers
 {
