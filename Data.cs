@@ -117,23 +117,31 @@ namespace TankIconMaker
             return "Tank: " + SystemId;
         }
 
-        /// <summary>Gets the standard 3D image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
-        public virtual BitmapSource GetImage3D()
+        /// <summary>Gets a built-in image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
+        public virtual BitmapSource GetImageBuiltIn(ImageBuiltInStyle style)
         {
-            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
-        }
-
-        /// <summary>Gets the standard contour image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
-        public virtual BitmapSource GetImageContour()
-        {
-            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"));
+            switch (style)
+            {
+                case ImageBuiltInStyle.Contour:
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"));
+                case ImageBuiltInStyle.ThreeD:
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
+                case ImageBuiltInStyle.ThreeDLarge:
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3DLarge, SystemId + ".tga"));
+                case ImageBuiltInStyle.Country:
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceCountry[Country]));
+                case ImageBuiltInStyle.Class:
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceClass[Class]));
+                default:
+                    throw new Exception("9174876");
+            }
         }
 
         /// <summary>Gets the currently saved icon image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
         public virtual BitmapSource GetImageCurrent()
         {
             return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga"))
-                ?? GetImageContour();
+                ?? GetImageBuiltIn(ImageBuiltInStyle.Contour);
         }
     }
 
@@ -155,8 +163,7 @@ namespace TankIconMaker
 
         public override string this[string name] { get { return PropertyValue; } }
         public override string this[ExtraPropertyId property] { get { return PropertyValue; } }
-        public override BitmapSource GetImage3D() { return LoadedImage; }
-        public override BitmapSource GetImageContour() { return LoadedImage; }
+        public override BitmapSource GetImageBuiltIn(ImageBuiltInStyle style) { return LoadedImage; }
         public override BitmapSource GetImageCurrent() { return LoadedImage; }
         public override void AddWarning(string warning) { }
     }
@@ -872,6 +879,8 @@ namespace TankIconMaker
         Special,
     }
 
+    public enum ImageBuiltInStyle { Contour, [Description("3D")] ThreeD, [Description("3D (large)")] ThreeDLarge, Country, Class }
+
     /// <summary>Encapsulates a version identifier, allowing for a comparable part (like 0.7.3) and a unique part (like "test").</summary>
     class VersionId : IComparable<VersionId>, IComparable<Version>
     {
@@ -885,6 +894,8 @@ namespace TankIconMaker
         /// <summary>Constructor.</summary>
         public VersionId(Version numeric, string textual)
         {
+            if (numeric == null || textual == null)
+                throw new ArgumentNullException();
             Numeric = numeric;
             Textual = textual;
         }
@@ -906,6 +917,20 @@ namespace TankIconMaker
             return this.Numeric.CompareTo(other);
         }
 
+        public override bool Equals(object obj)
+        {
+            var other = obj as VersionId;
+            return obj != null && Numeric == other.Numeric && Textual == other.Textual;
+        }
+
+        public override int GetHashCode()
+        {
+            int result = 47;
+            result = result * 17 + Numeric.GetHashCode();
+            result = result * 17 + Textual.GetHashCode();
+            return result;
+        }
+
         public static bool operator >(VersionId a, Version b) { return a.Numeric.CompareTo(b) > 0; }
         public static bool operator <(VersionId a, Version b) { return a.Numeric.CompareTo(b) < 0; }
         public static bool operator >=(VersionId a, Version b) { return a.Numeric.CompareTo(b) >= 0; }
@@ -916,7 +941,7 @@ namespace TankIconMaker
         public static bool operator <(VersionId a, VersionId b) { return a.CompareTo(b) < 0; }
         public static bool operator >=(VersionId a, VersionId b) { return a.CompareTo(b) >= 0; }
         public static bool operator <=(VersionId a, VersionId b) { return a.CompareTo(b) <= 0; }
-        public static bool operator ==(VersionId a, VersionId b) { return (a == (object) null) == (b == (object) null) && (a == (object) null || (a.Numeric == b.Numeric && a.Textual == b.Textual)); }
+        public static bool operator ==(VersionId a, VersionId b) { return (a == (object) null && b == (object) null) || (a != (object) null && a.Equals(b)); }
         public static bool operator !=(VersionId a, VersionId b) { return !(a == b); }
     }
 
@@ -925,8 +950,10 @@ namespace TankIconMaker
     /// </summary>
     sealed class GameVersion
     {
-        /// <summary>TankIconMaker currently only supports three-part game versions with numbers only; this is the game version in that format.</summary>
+        /// <summary>The version of the game that this applies to. This property is deduced from file name, rather than its content.</summary>
+        [XmlIgnore]
         public VersionId Version { get; internal set; }
+
         /// <summary>How this version should be displayed in the UI - allowing for oddities like "0.7.1b" or "0.7.1.1.1.1".</summary>
         public string DisplayName { get; private set; }
 
@@ -938,6 +965,10 @@ namespace TankIconMaker
         public string PathSourceContour { get; private set; }
         /// <summary>Relative path to the directory containing 3D tank images. May refer to a zip file with a colon separating the path within the zip.</summary>
         public string PathSource3D { get; private set; }
+        /// <summary>Relative path to the directory containing 3D (large) tank images. May refer to a zip file with a colon separating the path within the zip.</summary>
+        public string PathSource3DLarge { get; private set; }
+        public Dictionary<Country, string> PathSourceCountry { get; private set; }
+        public Dictionary<Class, string> PathSourceClass { get; private set; }
 
         /// <summary>Relative path to a file whose size can be checked to auto-guess the game version.</summary>
         public string CheckFileName { get; private set; }
@@ -945,7 +976,11 @@ namespace TankIconMaker
         public string CheckFileContent { get; private set; }
 
         /// <summary>Constructor, for use by XmlClassify.</summary>
-        private GameVersion() { }
+        private GameVersion()
+        {
+            PathSourceCountry = new Dictionary<Country, string>();
+            PathSourceClass = new Dictionary<Class, string>();
+        }
 
         /// <summary>Returns the display name of this game version.</summary>
         public override string ToString() { return DisplayName; }
