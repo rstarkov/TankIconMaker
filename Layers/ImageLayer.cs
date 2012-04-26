@@ -6,21 +6,19 @@ using RT.Util;
 
 namespace TankIconMaker.Layers
 {
-    public enum ImageStyle { Contour, [Description("3D")] ThreeD }
-
     sealed class TankImageLayer : LayerBaseWpf
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Image / Tank"; } }
-        public override string TypeDescription { get { return "Draws a tank in one of several styles."; } }
+        public override string TypeName { get { return "Image / Built-in"; } }
+        public override string TypeDescription { get { return "Draws one of the several types of built-in images for this tank."; } }
 
         [Category("Image")]
         [Description("Chooses one of the standard tank image styles.")]
-        public ImageStyle Style { get; set; }
+        public ImageBuiltInStyle Style { get; set; }
 
         public override void Draw(Tank tank, DrawingContext dc)
         {
-            var image = Style == ImageStyle.Contour ? tank.GetImageContour() : tank.GetImage3D();
+            var image = tank.GetImageBuiltIn(Style);
             if (image == null)
             {
                 tank.AddWarning("The image for this tank is missing.");

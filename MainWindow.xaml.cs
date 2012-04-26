@@ -24,8 +24,6 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Support for both 0.7.3 CT and 0.7.3
- * Image layer: rename to Built-in, add 3D large, 3D small, country(filter), type(filter)
  * Colorize method: set RGB
  * Effect: Position (perfect size with tunable alpha threshold)
  * Effect: Resize
