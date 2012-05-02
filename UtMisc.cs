@@ -279,6 +279,54 @@ namespace TankIconMaker
             }
             return new string(charArr);
         }
+
+        /// <summary>Copies <paramref name="len"/> bytes from one location to another. Works fastest if <paramref name="len"/> is divisible by 16.</summary>
+        public static unsafe void MemCpy(byte* dest, byte* src, int len)
+        {
+            if (len >= 16)
+            {
+                do
+                {
+                    *(long*) dest = *(long*) src;
+                    *(long*) (dest + 8) = *(long*) (src + 8);
+                    dest += 16;
+                    src += 16;
+                }
+                while ((len -= 16) >= 16);
+            }
+            if (len > 0)
+            {
+                if ((len & 8) != 0)
+                {
+                    *(long*) dest = *(long*) src;
+                    dest += 8;
+                    src += 8;
+                }
+                if ((len & 4) != 0)
+                {
+                    *(int*) dest = *(int*) src;
+                    dest += 4;
+                    src += 4;
+                }
+                if ((len & 2) != 0)
+                {
+                    *(short*) dest = *(short*) src;
+                    dest += 2;
+                    src += 2;
+                }
+                if ((len & 1) != 0)
+                    *dest = *src;
+            }
+        }
+
+        /// <summary>Copies <paramref name="len"/> bytes from one location to another. Works fastest if <paramref name="len"/> is divisible by 16.</summary>
+        public static unsafe void MemCpy(byte[] dest, byte* src, int len)
+        {
+            if (len > dest.Length)
+                throw new ArgumentOutOfRangeException("len");
+            fixed (byte* destPtr = dest)
+                MemCpy(destPtr, src, len);
+        }
     }
 
     /// <summary>

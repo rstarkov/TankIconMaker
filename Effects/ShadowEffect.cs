@@ -7,7 +7,7 @@ using RT.Util.Xml;
 
 namespace TankIconMaker.Effects
 {
-    class ShadowEffect : EffectBaseWpf
+    class ShadowEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Shadow"; } }
@@ -39,7 +39,7 @@ namespace TankIconMaker.Effects
             Color = new ColorSelector(Colors.Black);
         }
 
-        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
+        public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             if (_blur == null || _blur.Radius != Radius)
                 lock (this)

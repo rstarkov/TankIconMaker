@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace TankIconMaker.Effects
 {
-    class PixelOutlineEffect : EffectBaseWpf
+    class PixelOutlineEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Outline"; } }
@@ -19,13 +19,13 @@ namespace TankIconMaker.Effects
             Color = new ColorSelector(Colors.Black);
         }
 
-        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
+        public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            return Ut.NewBitmapWpf(dc =>
-            {
-                dc.DrawImage(layer);
-                dc.DrawImage(layer.GetOutline(Color.GetColorWpf(tank)));
-            }).ToWpfWriteable();
+            layer = layer.AsWritable();
+            var outline = new BitmapRam(layer.Width, layer.Height);
+            layer.GetOutline(outline, Color.GetColorWpf(tank));
+            layer.DrawImage(outline);
+            return layer;
         }
     }
 }
