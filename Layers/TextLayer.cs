@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace TankIconMaker.Layers
 {
-    abstract class TextLayer : LayerBaseGdi
+    abstract class TextLayer : LayerBase
     {
         [Category("Font"), DisplayName("Smoothing")]
         [Description("Determines how the tank name should be anti-aliased.")]
@@ -71,7 +71,7 @@ namespace TankIconMaker.Layers
             FontColor = new ColorSelector(Colors.White);
         }
 
-        public override void Draw(Tank tank, Graphics dc)
+        public override BitmapBase Draw(Tank tank)
         {
             var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
             dc.TextRenderingHint = FontSmoothing.ToGdi();

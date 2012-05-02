@@ -3,7 +3,7 @@ using System.Windows.Media.Imaging;
 
 namespace TankIconMaker.Effects
 {
-    class OpacityEffect : EffectBaseWpf
+    class OpacityEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Opacity"; } }
@@ -22,7 +22,7 @@ namespace TankIconMaker.Effects
             Style = OpacityStyle.Auto;
         }
 
-        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
+        public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             var result = layer.Clone();
             result.ScaleOpacity(Opacity, Style);

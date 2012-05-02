@@ -71,7 +71,7 @@
     <Compile Include="AddWindow.xaml.cs">
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BitmapGdi.cs" />
+    <Compile Include="Bitmap.cs" />
     <Compile Include="FilenameEditor.xaml.cs">
       <DependentUpon>FilenameEditor.xaml</DependentUpon>
     </Compile>

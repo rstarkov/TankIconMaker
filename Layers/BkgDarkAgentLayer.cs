@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace TankIconMaker.Layers
 {
-    class BkgDarkAgentLayer : LayerBaseWpf
+    class BkgDarkAgentLayer : LayerBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Background / Dark Agent"; } }
@@ -25,7 +25,7 @@ namespace TankIconMaker.Layers
             BackColor.ClassArtillery = Color.FromArgb(180, 181, 47, 47);
         }
 
-        public override void Draw(Tank tank, DrawingContext dc)
+        public override BitmapBase Draw(Tank tank)
         {
             var outline = new Pen(new SolidColorBrush(Colors.Black), 1);
             var outlineInner = new Pen(new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)), 1);
@@ -44,8 +44,11 @@ namespace TankIconMaker.Layers
                 EndPoint = new Point(0, 1),
             };
 
-            dc.DrawRectangle(brush, outline, new Rect(0.5, 1.5, 79, 21));
-            dc.DrawRectangle(null, outlineInner, new Rect(1.5, 2.5, 77, 19));
+            return Ut.NewBitmapWpf(dc =>
+            {
+                dc.DrawRectangle(brush, outline, new Rect(0.5, 1.5, 79, 21));
+                dc.DrawRectangle(null, outlineInner, new Rect(1.5, 2.5, 77, 19));
+            }).ToBitmapRam();
         }
     }
 
