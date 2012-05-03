@@ -28,6 +28,7 @@ namespace TankIconMaker
             new oldFile("Data\\Data-BuiltIn-0.7.1-001.csv", 745, "dd2a659389e63227e44328f727b6a2901ce68e921cf15a1cc084b9d61f7ef822"),
             new oldFile("Data\\Data-BuiltIn-0.7.1-001.csv", 6007, "abb845a99208c132e40c5a8c8036ad6e45acc849fd42d3995be228771a74443b"),
             new oldFile("Data\\Data-BuiltIn-0.7.2-001.csv", 406, "4d98414a5109eb4952b8ac8f7cd0b834455f330bd929ab1958ca4fbdf4dfa555"),
+            new oldFile("Data\\Data-BuiltIn-0.7.2-001.csv", 6247, "4de8695c3993280a1a59c9ad969b4d442da4491cdfead0887c414421e2c61491"),
             new oldFile("Data\\Data-NameFullWG-En-Romkyns-0.7.0-001.csv", 3346, "6563eee7572e76d533ba437c2da48e3a18da5def765b90a0289518768b403cbd"),
             new oldFile("Data\\Data-NameFullWG-Ru-Romkyns-0.7.0-001.csv", 3484, "6f9fee97c99ace5a9cd387888fc5a2080b9047b59b947d236e29abd4c465214f"),
             new oldFile("Data\\Data-NameFullWG-Ru-Romkyns-0.7.1-001.csv", 3971, "7143789c0acb6e062c2617521f0d4c5b4b53a62544365b4d818275b03318fd33"),
@@ -47,12 +48,12 @@ namespace TankIconMaker
             new oldFile("Data\\GameVersion-0.7.1.xml", 326, "3b82b009159f234c86239a930b902d975a7ba11c0c065bc0dda44364972c7d42"),
             new oldFile("Data\\GameVersion-0.7.1.xml", 494, "92ddd672a4316aa1dd8c61a154175600f539b23c0c28fb4896c355ebcf09f3f6"),
             new oldFile("Data\\GameVersion-0.7.2.xml", 502, "bf45aeed4422e0f0af5d8c9305f72a832209486fedd0a3a62ed23da82505437a"),
+            new oldFile("Data\\GameVersion-0.7.2.xml", 526, "deee99d7dac1967830e716d0a2f60ad63de65ca1cea883a71f0d348e5b8aebf2"),
         };
 
         static string[] _currentFiles = new[]
         {
             "Data\\background.jpg",
-            "Data\\Data-BuiltIn-0.7.2-001.csv",
             "Data\\Data-BuiltIn-0.7.3-001.csv",
             "Data\\Data-NameFullWG-En-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameFullWG-Ru-Romkyns-0.0.0-001.csv",
@@ -60,9 +61,7 @@ namespace TankIconMaker
             "Data\\Data-NameNative-Ru-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameShortWG-Ru-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameSlang-Ru-Romkyns-0.0.0-001.csv",
-            "Data\\GameVersion-0.7.2.xml",
             "Data\\GameVersion-0.7.3.xml",
-            "Data\\GameVersion-0.7.3.CommonTest.xml",
         };
 
         public static void DeleteOldFiles()
