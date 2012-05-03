@@ -253,9 +253,9 @@ namespace TankIconMaker
         protected void LoadImage(Stream file, string extension)
         {
             if (extension == ".tga")
-                Image = Targa.LoadWpf(file);
+                Image = Targa.Load(file);
             else
-                Image = BitmapDecoder.Create(file, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0].ToWpfWriteable();
+                Image = BitmapDecoder.Create(file, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0].ToBitmapRam();
             Image.MarkReadOnly();
         }
 

@@ -46,17 +46,14 @@ namespace TankIconMaker.Effects
                     if (_blur == null || _blur.Radius != Radius)
                         _blur = new GaussianBlur(Radius);
 
-            var shadow = layer.Clone();
+            BitmapBase shadow = layer.ToBitmapRam();
             var color = Color.GetColorWpf(tank);
-            shadow.SetColor(color);
-            shadow = _blur.Blur(shadow, BlurEdgeMode.Transparent);
+            shadow.ReplaceColor(color);
+            shadow.Blur(_blur, BlurEdgeMode.Transparent);
             shadow.ScaleOpacity(Spread, OpacityStyle.Additive);
             shadow.Transparentize(color.A);
-            return Ut.NewBitmapWpf(dc =>
-            {
-                dc.DrawImage(shadow, new Rect(ShiftX, ShiftY, shadow.PixelWidth, shadow.PixelHeight));
-                dc.DrawImage(layer);
-            }).ToWpfWriteable();
+            layer.DrawImageBelow(shadow);
+            return layer;
         }
     }
 }

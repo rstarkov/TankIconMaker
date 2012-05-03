@@ -23,7 +23,7 @@ namespace TankIconMaker
 
         /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
         /// <param name="draw">A method to draw into the returned image.</param>
-        public static BitmapSource NewBitmapWpf(Action<DrawingContext> draw)
+        public static BitmapWpf NewBitmapWpf(Action<DrawingContext> draw)
         {
             var bmp = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Pbgra32);
             var visual = new DrawingVisual();
@@ -31,12 +31,26 @@ namespace TankIconMaker
                 draw(context);
             bmp.Render(visual);
             bmp.Freeze();
-            return bmp;
+            return bmp.ToBitmapWpf();
         }
 
         public static BitmapRam ToBitmapRam(this BitmapSource src)
         {
             var result = new BitmapRam(src.PixelWidth, src.PixelHeight);
+            result.CopyPixelsFrom(src);
+            return result;
+        }
+
+        public static BitmapWpf ToBitmapWpf(this BitmapSource src)
+        {
+            var result = new BitmapWpf(src.PixelWidth, src.PixelHeight);
+            result.CopyPixelsFrom(src);
+            return result;
+        }
+
+        public static BitmapGdi ToBitmapGdi(this BitmapSource src)
+        {
+            var result = new BitmapGdi(src.PixelWidth, src.PixelHeight);
             result.CopyPixelsFrom(src);
             return result;
         }
@@ -130,117 +144,6 @@ namespace TankIconMaker
             using (var g = D.Graphics.FromImage(target.Bitmap))
                 g.DrawImageUnscaled(source.Bitmap, 0, 0);
             return target;
-        }
-
-        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
-        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
-        public static unsafe void Transparentize(this WriteableBitmap bmp, int opacity)
-        {
-            Transparentize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, opacity);
-        }
-
-        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
-        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
-        public static unsafe void Transparentize(this BitmapGdi bmp, int opacity)
-        {
-            Transparentize((byte*) bmp.BackBuffer, bmp.Width, bmp.Height, bmp.Stride, opacity);
-        }
-
-        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
-        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
-        public static unsafe void Transparentize(byte* image, int width, int height, int stride, int opacity)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride + 3;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    *ptr = (byte) ((*ptr * opacity) / 255);
-                    ptr += 4;
-                }
-            }
-        }
-
-        public static unsafe void ScaleOpacity(this WriteableBitmap bmp, double adjustment, OpacityStyle style)
-        {
-            ScaleOpacity((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, adjustment, style);
-        }
-
-        public static unsafe void ScaleOpacity(this BitmapGdi bmp, double adjustment, OpacityStyle style)
-        {
-            ScaleOpacity((byte*) bmp.BackBuffer, bmp.Width, bmp.Height, bmp.Stride, adjustment, style);
-        }
-
-        public static unsafe void ScaleOpacity(byte* image, int width, int height, int stride, double adjustment, OpacityStyle style)
-        {
-            if (adjustment == 0)
-                return;
-            if (style == OpacityStyle.Auto)
-                style = adjustment > 0 ? OpacityStyle.Additive : OpacityStyle.MoveEndpoint;
-
-            var lut = new byte[256];
-            for (int x = 0; x < 256; x++)
-                switch (style)
-                {
-                    case OpacityStyle.MoveEndpoint:
-                        if (adjustment < 0)
-                            lut[x] = (byte) (x / (1.0 + -adjustment));
-                        else
-                            lut[x] = (byte) (255 - (255 - x) / (1.0 + adjustment));
-                        break;
-                    case OpacityStyle.MoveMidpoint:
-                        lut[x] = (byte) (Math.Pow(x / 255.0, adjustment < 0 ? (1 - adjustment) : (1 / (1 + adjustment))) * 255);
-                        break;
-                    case OpacityStyle.Additive:
-                        if (adjustment < 0)
-                            lut[x] = (byte) Math.Max(0, 255 - (255 - x) * (1.0 - adjustment));
-                        else
-                            lut[x] = (byte) Math.Min(255, x * (1.0 + adjustment));
-                        break;
-                    default:
-                        throw new Exception();
-                }
-
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride + 3;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    *ptr = lut[*ptr];
-                    ptr += 4;
-                }
-            }
-        }
-
-        public static unsafe void SetColor(this WriteableBitmap bmp, Color color)
-        {
-            SetColor((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, color);
-        }
-
-        public static unsafe void SetColor(this BitmapGdi bmp, Color color)
-        {
-            SetColor((byte*) bmp.BackBuffer, bmp.Width, bmp.Height, bmp.Stride, color);
-        }
-
-        public static unsafe void SetColor(byte* image, int width, int height, int stride, Color color)
-        {
-            byte r = color.R;
-            byte g = color.G;
-            byte b = color.B;
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    *ptr++ = b;
-                    *ptr++ = g;
-                    *ptr++ = r;
-                    ptr++;
-                }
-            }
         }
 
         public static unsafe WriteableBitmap BlendImages(WriteableBitmap imgLeft, WriteableBitmap imgRight, double rightAmount)
@@ -377,62 +280,7 @@ namespace TankIconMaker
             }
         }
 
-        public unsafe BitmapBase Blur(BitmapBase image, BlurEdgeMode edgeMode)
-        {
-            var sourceAndResult = image.Clone();
-            var temp = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
-            Blur((byte*) sourceAndResult.BackBuffer, (byte*) temp.BackBuffer,
-                sourceAndResult.BackBufferStride, temp.BackBufferStride,
-                image.PixelWidth, image.PixelHeight, edgeMode);
-            GC.KeepAlive(temp);
-            return sourceAndResult;
-        }
-
-        public unsafe WriteableBitmap BlurHorizontal(WriteableBitmap image, BlurEdgeMode edgeMode)
-        {
-            var source = image.Clone();
-            var result = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
-            BlurHorizontal((byte*) source.BackBuffer, (byte*) result.BackBuffer,
-                source.BackBufferStride, result.BackBufferStride,
-                image.PixelWidth, image.PixelHeight, edgeMode);
-            GC.KeepAlive(source);
-            return result;
-        }
-
-        public unsafe WriteableBitmap BlurVertical(WriteableBitmap image, BlurEdgeMode edgeMode)
-        {
-            var source = image.Clone();
-            var result = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
-            BlurHorizontal((byte*) source.BackBuffer, (byte*) result.BackBuffer,
-                source.BackBufferStride, result.BackBufferStride,
-                image.PixelWidth, image.PixelHeight, edgeMode);
-            GC.KeepAlive(source);
-            return result;
-        }
-
-        private unsafe void Blur(BitmapBase srcAndDest, BitmapBase temp, BlurEdgeMode edgeMode)
-        {
-            srcAndDest.PreMultiply();
-            horizontal(srcAndDest, temp, edgeMode);
-            vertical(temp, srcAndDest, edgeMode);
-            srcAndDest.UnPreMultiply();
-        }
-
-        private unsafe void BlurHorizontal(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
-        {
-            src.PreMultiply();
-            horizontal(src, dest, edgeMode);
-            dest.UnPreMultiply();
-        }
-
-        private unsafe void BlurVertical(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
-        {
-            src.PreMultiply();
-            vertical(src, dest, edgeMode);
-            dest.UnPreMultiply();
-        }
-
-        private unsafe void horizontal(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
+        internal unsafe void Horizontal(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
         {
             for (int y = 0; y < src.Height; y++)
             {
@@ -472,7 +320,7 @@ namespace TankIconMaker
             }
         }
 
-        private unsafe void vertical(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
+        internal unsafe void Vertical(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
         {
             for (int x = 0; x < src.Width; x++)
             {

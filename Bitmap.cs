@@ -133,7 +133,7 @@ namespace TankIconMaker
 
         public bool IsReadOnly { get; private set; }
 
-        public void MarkReadOnly()
+        public virtual void MarkReadOnly()
         {
             IsReadOnly = true;
         }
@@ -166,7 +166,7 @@ namespace TankIconMaker
         public void CopyPixelsFrom(byte[] srcData, int srcWidth, int srcHeight, int srcStride, bool upsideDown = false)
         {
             fixed (byte* srcDataPtr = srcData)
-                CopyPixelsFrom(srcData, srcWidth, srcHeight, srcStride, upsideDown);
+                CopyPixelsFrom(srcDataPtr, srcWidth, srcHeight, srcStride, upsideDown);
         }
 
         public void CopyPixelsFrom(BitmapBase source)
@@ -309,6 +309,38 @@ namespace TankIconMaker
             }
         }
 
+        public void DrawImageBelow(BitmapBase image, int destX = 0, int destY = 0)
+        {
+            DrawImageBelow(image, destX, destY, 0, 0, image.Width, image.Height);
+        }
+
+        public void DrawImageBelow(BitmapBase image, int destX, int destY, int srcX, int srcY, int width, int height)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReplaceColor(Color color)
+        {
+            using (UseWrite())
+            {
+                byte r = color.R;
+                byte g = color.G;
+                byte b = color.B;
+                for (int y = 0; y < Height; y++)
+                {
+                    byte* ptr = Data + y * Stride;
+                    byte* end = ptr + Width * 4;
+                    while (ptr < end)
+                    {
+                        *ptr++ = b;
+                        *ptr++ = g;
+                        *ptr++ = r;
+                        ptr++;
+                    }
+                }
+            }
+        }
+
         /// <summary>Applies a "colorize" effect to this image.</summary>
         /// <param name="hue">The hue of the color to apply, 0..359</param>
         /// <param name="saturation">The saturation of the color to apply, 0..1</param>
@@ -376,6 +408,102 @@ namespace TankIconMaker
                         ptr += 4;
                     }
                 }
+        }
+
+        public void Blur(GaussianBlur blur, BlurEdgeMode edgeMode)
+        {
+            var temp = new BitmapRam(Width, Height);
+            using (UseWrite())
+            using (temp.UseWrite())
+            {
+                PreMultiply();
+                blur.Horizontal(this, temp, edgeMode);
+                blur.Vertical(temp, this, edgeMode);
+                UnPreMultiply();
+            }
+        }
+
+        public void Blur(GaussianBlur blur, BlurEdgeMode edgeMode, bool horz, bool vert)
+        {
+            if (!horz && !vert)
+                return;
+            if (horz && vert)
+            {
+                Blur(blur, edgeMode);
+                return;
+            }
+            var temp = ToBitmapRam();
+            using (temp.UseWrite())
+            using (UseWrite())
+            {
+                temp.PreMultiply();
+                if (horz)
+                    blur.Horizontal(temp, this, edgeMode);
+                else
+                    blur.Vertical(temp, this, edgeMode);
+                UnPreMultiply();
+            }
+        }
+
+        public void ScaleOpacity(double adjustment, OpacityStyle style)
+        {
+            if (adjustment == 0)
+                return;
+            if (style == OpacityStyle.Auto)
+                style = adjustment > 0 ? OpacityStyle.Additive : OpacityStyle.MoveEndpoint;
+
+            var lut = new byte[256];
+            for (int x = 0; x < 256; x++)
+                switch (style)
+                {
+                    case OpacityStyle.MoveEndpoint:
+                        if (adjustment < 0)
+                            lut[x] = (byte) (x / (1.0 + -adjustment));
+                        else
+                            lut[x] = (byte) (255 - (255 - x) / (1.0 + adjustment));
+                        break;
+                    case OpacityStyle.MoveMidpoint:
+                        lut[x] = (byte) (Math.Pow(x / 255.0, adjustment < 0 ? (1 - adjustment) : (1 / (1 + adjustment))) * 255);
+                        break;
+                    case OpacityStyle.Additive:
+                        if (adjustment < 0)
+                            lut[x] = (byte) Math.Max(0, 255 - (255 - x) * (1.0 - adjustment));
+                        else
+                            lut[x] = (byte) Math.Min(255, x * (1.0 + adjustment));
+                        break;
+                    default:
+                        throw new Exception();
+                }
+
+            using (UseWrite())
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    byte* ptr = Data + y * Stride + 3;
+                    byte* end = ptr + Width * 4;
+                    while (ptr < end)
+                    {
+                        *ptr = lut[*ptr];
+                        ptr += 4;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
+        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
+        public void Transparentize(int opacity)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                byte* ptr = Data + y * Stride + 3;
+                byte* end = ptr + Width * 4;
+                while (ptr < end)
+                {
+                    *ptr = (byte) ((*ptr * opacity) / 255);
+                    ptr += 4;
+                }
+            }
         }
 
         /// <summary>Returns a new image which contains a 1 pixel wide black outline of the specified image.</summary>
@@ -621,6 +749,14 @@ namespace TankIconMaker
             Width = width;
             Height = height;
             Stride = _bitmap.BackBufferStride;
+        }
+
+        public WriteableBitmap UnderlyingImage { get { return _bitmap; } }
+
+        public override void MarkReadOnly()
+        {
+            base.MarkReadOnly();
+            _bitmap.Freeze();
         }
 
         protected override IntPtr Acquire()

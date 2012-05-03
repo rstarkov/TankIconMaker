@@ -33,7 +33,8 @@ namespace TankIconMaker.Effects
                 lock (this)
                     if (_blur == null || _blur.Radius != Radius)
                         _blur = new GaussianBlur(Radius);
-            return _blur.Blur(layer, Edge);
+            layer.Blur(_blur, Edge);
+            return layer;
         }
     }
 }

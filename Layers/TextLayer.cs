@@ -73,11 +73,14 @@ namespace TankIconMaker.Layers
 
         public override BitmapBase Draw(Tank tank)
         {
-            var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
-            dc.TextRenderingHint = FontSmoothing.ToGdi();
-            dc.DrawString(GetText(tank), new Font(FontFamily, (float) FontSize, style), new SolidBrush(FontColor.GetColorGdi(tank)),
-                LeftAnchor ? (int?) Left : null, RightAnchor ? (int?) Right : null, TopAnchor ? (int?) Top : null, BottomAnchor ? (int?) Bottom : null,
-                Baseline);
+            return Ut.NewBitmapGdi(dc =>
+            {
+                var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
+                dc.TextRenderingHint = FontSmoothing.ToGdi();
+                dc.DrawString(GetText(tank), new Font(FontFamily, (float) FontSize, style), new SolidBrush(FontColor.GetColorGdi(tank)),
+                    LeftAnchor ? (int?) Left : null, RightAnchor ? (int?) Right : null, TopAnchor ? (int?) Top : null, BottomAnchor ? (int?) Bottom : null,
+                    Baseline);
+            });
         }
     }
 
