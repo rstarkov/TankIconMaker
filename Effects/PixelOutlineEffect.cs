@@ -21,7 +21,6 @@ namespace TankIconMaker.Effects
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            layer = layer.AsWritable();
             var outline = new BitmapRam(layer.Width, layer.Height);
             layer.GetOutline(outline, Color.GetColorWpf(tank));
             layer.DrawImage(outline);

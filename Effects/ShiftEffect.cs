@@ -21,10 +21,9 @@ namespace TankIconMaker.Effects
         {
             if (ShiftX == 0 && ShiftY == 0)
                 return layer;
-            return Ut.NewBitmapWpf(dc =>
-            {
-                dc.DrawImage(layer, new Rect(ShiftX, ShiftY, layer.PixelWidth, layer.PixelHeight));
-            }).ToWpfWriteable();
+            var result = new BitmapRam(layer.Width, layer.Height);
+            result.DrawImage(layer, ShiftX, ShiftY);
+            return result;
         }
     }
 }

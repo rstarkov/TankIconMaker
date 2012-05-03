@@ -24,7 +24,7 @@ namespace TankIconMaker.Layers
                 tank.AddWarning("The image for this tank is missing.");
                 return null;
             }
-            dc.DrawImage(image, new Rect(0, 0, image.Width / image.Height * 24.0, 24));
+            return image;
         }
     }
 
@@ -42,7 +42,7 @@ namespace TankIconMaker.Layers
                 tank.AddWarning("There is no current image for this tank.");
                 return null;
             }
-            dc.DrawImage(image);
+            return image;
         }
     }
 
@@ -77,8 +77,7 @@ namespace TankIconMaker.Layers
                 tank.AddWarning("The image {0} could not be found.".Fmt(filename));
                 return null;
             }
-            image.Freeze();
-            dc.DrawImage(image);
+            return image;
         }
     }
 }

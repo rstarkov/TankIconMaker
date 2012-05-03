@@ -24,9 +24,8 @@ namespace TankIconMaker.Effects
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            var result = layer.Clone();
-            result.ScaleOpacity(Opacity, Style);
-            return result;
+            layer.ScaleOpacity(Opacity, Style);
+            return layer;
         }
     }
 }
