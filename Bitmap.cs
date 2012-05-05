@@ -138,35 +138,45 @@ namespace TankIconMaker
             IsReadOnly = true;
         }
 
-        public void CopyPixelsFrom(byte* srcData, int srcWidth, int srcHeight, int srcStride, bool upsideDown = false)
+        public void CopyPixelsFrom(byte* srcData, int srcWidth, int srcHeight, int srcStride, bool flipVertical = false)
         {
             using (this.UseWrite())
             {
+                if (srcWidth <= 0 || srcHeight <= 0)
+                    return;
                 int copyBytes = srcWidth <= this.Width ? Math.Min(srcStride, this.Stride) : (this.Width * 4);
-                if (!upsideDown)
+                if (!flipVertical)
                 {
-                    byte* dest = srcData;
-                    byte* src = this.Data;
+                    byte* dest = this.Data;
+                    byte* src = srcData;
                     byte* srcDataEnd = srcData + srcWidth * srcHeight * 4;
                     do
                     {
                         Ut.MemCpy(dest, src, copyBytes);
-                        dest += srcStride;
-                        src += this.Stride;
+                        dest += this.Stride;
+                        src += srcStride;
                     }
-                    while (dest < srcDataEnd && src < this.DataEnd);
+                    while (dest < this.DataEnd && src < srcDataEnd);
                 }
                 else
                 {
-                    throw new NotImplementedException();
+                    byte* dest = this.Data;
+                    byte* src = srcData + srcWidth * srcHeight * 4;
+                    do
+                    {
+                        src -= srcStride;
+                        Ut.MemCpy(dest, src, copyBytes);
+                        dest += this.Stride;
+                    }
+                    while (dest < this.DataEnd && src > srcData);
                 }
             }
         }
 
-        public void CopyPixelsFrom(byte[] srcData, int srcWidth, int srcHeight, int srcStride, bool upsideDown = false)
+        public void CopyPixelsFrom(byte[] srcData, int srcWidth, int srcHeight, int srcStride, bool flipVertical = false)
         {
             fixed (byte* srcDataPtr = srcData)
-                CopyPixelsFrom(srcDataPtr, srcWidth, srcHeight, srcStride, upsideDown);
+                CopyPixelsFrom(srcDataPtr, srcWidth, srcHeight, srcStride, flipVertical);
         }
 
         public void CopyPixelsFrom(BitmapBase source)
@@ -177,10 +187,13 @@ namespace TankIconMaker
 
         public void CopyPixelsFrom(BitmapSource source)
         {
-            if (source.Format != PixelFormats.Bgra32)
-                source = new FormatConvertedBitmap(source, PixelFormats.Bgra32, null, 0);
-            source.CopyPixels(new Int32Rect(0, 0, Math.Min(Width, source.PixelWidth), Math.Min(Height, source.PixelHeight)),
-                (IntPtr) Data, Stride * Height, Stride);
+            using (UseWrite())
+            {
+                if (source.Format != PixelFormats.Bgra32)
+                    source = new FormatConvertedBitmap(source, PixelFormats.Bgra32, null, 0);
+                source.CopyPixels(new Int32Rect(0, 0, Math.Min(Width, source.PixelWidth), Math.Min(Height, source.PixelHeight)),
+                    (IntPtr) Data, Stride * Height, Stride);
+            }
         }
 
         public BitmapBase AsWritable()
@@ -216,12 +229,12 @@ namespace TankIconMaker
 
         public abstract BitmapBase ToBitmapSame();
 
-        public void DrawImage(BitmapBase image, int destX = 0, int destY = 0)
+        public void DrawImage(BitmapBase image, int destX = 0, int destY = 0, bool below = false)
         {
-            DrawImage(image, destX, destY, 0, 0, image.Width, image.Height);
+            DrawImage(image, destX, destY, 0, 0, image.Width, image.Height, below);
         }
 
-        public void DrawImage(BitmapBase image, int destX, int destY, int srcX, int srcY, int width, int height)
+        public void DrawImage(BitmapBase image, int destX, int destY, int srcX, int srcY, int width, int height, bool below)
         {
             using (UseWrite())
             using (image.UseRead())
@@ -272,51 +285,42 @@ namespace TankIconMaker
 
                 for (int y = 0; y < height; y++, dest += Stride, src += image.Stride)
                 {
-                    byte* d = dest;
-                    byte* s = src;
-                    byte* e = d + width * 4;
+                    byte* tgt = dest;
+                    byte* btm = below ? src : dest;
+                    byte* top = below ? dest : src;
+                    byte* end = tgt + width * 4;
                     do
                     {
-                        byte sa = *(s + 3);
-                        byte da = *(d + 3);
-                        if (sa == 255 || da == 0)
-                        {
-                            *(int*) d = *(int*) s;
-                        }
-                        else if (da == 255)
+                        byte topA = *(top + 3);
+                        byte btmA = *(btm + 3);
+                        if (topA == 255 || btmA == 0)
+                            *(int*) tgt = *(int*) top;
+                        else if (topA == 0)
+                            *(int*) tgt = *(int*) btm;
+                        else if (btmA == 255)
                         {
                             // green
-                            *(d + 1) = (byte) ((*(s + 1) * sa + *(d + 1) * (255 - sa)) >> 8);
+                            *(tgt + 1) = (byte) ((*(top + 1) * topA + *(btm + 1) * (255 - topA)) >> 8);
                             // red and blue
-                            *(uint*) d = (*(uint*) d & 0xFF00FF00u) | (((((*(uint*) s) & 0x00FF00FFu) * sa + ((*(uint*) d) & 0x00FF00FFu) * (uint) (255 - sa)) >> 8) & 0x00FF00FFu);
-                            // leave alpha untouched, it's already 255
+                            *(uint*) tgt = (*(uint*) tgt & 0xFF00FF00u) | (((((*(uint*) top) & 0x00FF00FFu) * topA + ((*(uint*) btm) & 0x00FF00FFu) * (uint) (255 - topA)) >> 8) & 0x00FF00FFu);
+                            // alpha (only needed when "below" is true)
+                            *(tgt + 3) = 255;
                         }
-                        else if (sa != 0)
+                        else // topA and btmA both >0 and <255
                         {
-                            // alpha
-                            *(d + 3) = (byte) (da + (((255 - da) * sa) >> 8));
-                            byte oa = (byte) (*(d + 3) * 255);
-                            // rgb
-                            *(d + 0) = (byte) ((*(s + 0) * sa + ((*(d + 0) * da * (255 - sa)) >> 8)) / oa);
-                            *(d + 1) = (byte) ((*(s + 1) * sa + ((*(d + 1) * da * (255 - sa)) >> 8)) / oa);
-                            *(d + 2) = (byte) ((*(s + 2) * sa + ((*(d + 2) * da * (255 - sa)) >> 8)) / oa);
+                            byte tgtAA = *(tgt + 3) = (byte) (topA + (btmA * (255 - topA) >> 8));
+                            int btmAA = btmA * (255 - topA) / 255;
+                            *(tgt + 0) = (byte) ((*(top + 0) * topA + *(btm + 0) * btmAA) / tgtAA);
+                            *(tgt + 1) = (byte) ((*(top + 1) * topA + *(btm + 1) * btmAA) / tgtAA);
+                            *(tgt + 2) = (byte) ((*(top + 2) * topA + *(btm + 2) * btmAA) / tgtAA);
                         }
-                        d += 4;
-                        s += 4;
+                        tgt += 4;
+                        btm += 4;
+                        top += 4;
                     }
-                    while (d < e);
+                    while (tgt < end);
                 }
             }
-        }
-
-        public void DrawImageBelow(BitmapBase image, int destX = 0, int destY = 0)
-        {
-            DrawImageBelow(image, destX, destY, 0, 0, image.Width, image.Height);
-        }
-
-        public void DrawImageBelow(BitmapBase image, int destX, int destY, int srcX, int srcY, int width, int height)
-        {
-            throw new NotImplementedException();
         }
 
         public void ReplaceColor(Color color)
@@ -494,14 +498,17 @@ namespace TankIconMaker
         /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
         public void Transparentize(int opacity)
         {
-            for (int y = 0; y < Height; y++)
+            using (UseWrite())
             {
-                byte* ptr = Data + y * Stride + 3;
-                byte* end = ptr + Width * 4;
-                while (ptr < end)
+                for (int y = 0; y < Height; y++)
                 {
-                    *ptr = (byte) ((*ptr * opacity) / 255);
-                    ptr += 4;
+                    byte* ptr = Data + y * Stride + 3;
+                    byte* end = ptr + Width * 4;
+                    while (ptr < end)
+                    {
+                        *ptr = (byte) ((*ptr * opacity) / 255);
+                        ptr += 4;
+                    }
                 }
             }
         }

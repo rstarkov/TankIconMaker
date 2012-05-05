@@ -52,7 +52,7 @@ namespace TankIconMaker.Effects
             shadow.Blur(_blur, BlurEdgeMode.Transparent);
             shadow.ScaleOpacity(Spread, OpacityStyle.Additive);
             shadow.Transparentize(color.A);
-            layer.DrawImageBelow(shadow);
+            layer.DrawImage(shadow, below: true);
             return layer;
         }
     }

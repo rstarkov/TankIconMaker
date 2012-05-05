@@ -34,7 +34,7 @@ namespace TankIconMaker
             var raw = file.Read(width * height * 4);
 
             var result = new BitmapRam(width, height);
-            result.CopyPixelsFrom(raw, width, height, width, !rightWayUp);
+            result.CopyPixelsFrom(raw, width, height, width * 4, !rightWayUp);
             return result;
         }
 

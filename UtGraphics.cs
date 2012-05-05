@@ -23,7 +23,7 @@ namespace TankIconMaker
 
         /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
         /// <param name="draw">A method to draw into the returned image.</param>
-        public static BitmapWpf NewBitmapWpf(Action<DrawingContext> draw)
+        public static BitmapSource NewBitmapWpf(Action<DrawingContext> draw)
         {
             var bmp = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Pbgra32);
             var visual = new DrawingVisual();
@@ -31,7 +31,7 @@ namespace TankIconMaker
                 draw(context);
             bmp.Render(visual);
             bmp.Freeze();
-            return bmp.ToBitmapWpf();
+            return bmp;
         }
 
         public static BitmapRam ToBitmapRam(this BitmapSource src)

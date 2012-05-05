@@ -281,6 +281,44 @@ namespace TankIconMaker
         }
 
         /// <summary>Copies <paramref name="len"/> bytes from one location to another. Works fastest if <paramref name="len"/> is divisible by 16.</summary>
+        public static unsafe void MemSet(byte* dest, byte value, int len)
+        {
+            ushort ushort_ = (ushort) (value | (value << 8));
+            uint uint_ = (uint) (ushort_ | (ushort_ << 16));
+            ulong ulong_ = uint_ | ((ulong) uint_ << 32);
+            if (len >= 16)
+            {
+                do
+                {
+                    *(ulong*) dest = ulong_;
+                    *(ulong*) (dest + 8) = ulong_;
+                    dest += 16;
+                }
+                while ((len -= 16) >= 16);
+            }
+            if (len > 0)
+            {
+                if ((len & 8) != 0)
+                {
+                    *(ulong*) dest = ulong_;
+                    dest += 8;
+                }
+                if ((len & 4) != 0)
+                {
+                    *(uint*) dest = uint_;
+                    dest += 4;
+                }
+                if ((len & 2) != 0)
+                {
+                    *(ushort*) dest = ushort_;
+                    dest += 2;
+                }
+                if ((len & 1) != 0)
+                    *dest = value;
+            }
+        }
+
+        /// <summary>Copies <paramref name="len"/> bytes from one location to another. Works fastest if <paramref name="len"/> is divisible by 16.</summary>
         public static unsafe void MemCpy(byte* dest, byte* src, int len)
         {
             if (len >= 16)
@@ -326,6 +364,15 @@ namespace TankIconMaker
                 throw new ArgumentOutOfRangeException("len");
             fixed (byte* destPtr = dest)
                 MemCpy(destPtr, src, len);
+        }
+
+        /// <summary>Copies <paramref name="len"/> bytes from one location to another. Works fastest if <paramref name="len"/> is divisible by 16.</summary>
+        public static unsafe void MemCpy(byte* dest, byte[] src, int len)
+        {
+            if (len > src.Length)
+                throw new ArgumentOutOfRangeException("len");
+            fixed (byte* srcPtr = src)
+                MemCpy(dest, srcPtr, len);
         }
     }
 
