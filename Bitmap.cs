@@ -149,7 +149,7 @@ namespace TankIconMaker
                 {
                     byte* dest = this.Data;
                     byte* src = srcData;
-                    byte* srcDataEnd = srcData + srcWidth * srcHeight * 4;
+                    byte* srcDataEnd = srcData + srcStride * srcHeight;
                     do
                     {
                         Ut.MemCpy(dest, src, copyBytes);
@@ -161,7 +161,7 @@ namespace TankIconMaker
                 else
                 {
                     byte* dest = this.Data;
-                    byte* src = srcData + srcWidth * srcHeight * 4;
+                    byte* src = srcData + srcStride * srcHeight;
                     do
                     {
                         src -= srcStride;
@@ -513,7 +513,9 @@ namespace TankIconMaker
             }
         }
 
-        /// <summary>Returns a new image which contains a 1 pixel wide black outline of the specified image.</summary>
+        /// <summary>
+        /// Returns a new image which contains a 1 pixel wide black outline of the specified image.
+        /// </summary>
         public void GetOutline(BitmapBase result, Color color)
         {
             using (UseRead())
@@ -548,6 +550,122 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>
+        /// Finds the X coordinate of the leftmost pixel whose alpha channel exceeds the specified threshold.
+        /// </summary>
+        public int PreciseLeft(int alphaThreshold = 0)
+        {
+            using (UseRead())
+            {
+                byte* start = Data + 3;
+                byte* end = Data + Stride * (Height - 1) + Width * 4; // pointer to first byte beyond the last pixel
+                for (int x = 0; x < Width; x++, start += 4)
+                    for (byte* alpha = start; alpha < end; alpha += Stride)
+                        if (*alpha > alphaThreshold)
+                            return x;
+                return Width;
+            }
+        }
+
+        /// <summary>
+        /// Finds the X coordinate of the rightmost pixel whose alpha channel exceeds the specified threshold.
+        /// </summary>
+        public int PreciseRight(int alphaThreshold = 0)
+        {
+            using (UseRead())
+            {
+                byte* start = Data + (Width - 1) * 4 + 3;
+                byte* end = Data + Stride * (Height - 1) + Width * 4; // pointer to first byte beyond the last pixel
+                for (int x = Width - 1; x >= 0; x--, start -= 4)
+                    for (byte* alpha = start; alpha < end; alpha += Stride)
+                        if (*alpha > alphaThreshold)
+                            return x;
+                return -1;
+            }
+        }
+
+        /// <summary>
+        /// Finds the Y coordinate of the topmost pixel whose alpha channel exceeds
+        /// the specified threshold. If the leftmost and/or rightmost such pixels are known, the search space can be
+        /// reduced using the <paramref name="left"/> and <paramref name="width"/> arguments.
+        /// </summary>
+        public int PreciseTop(int alphaThreshold = 0, int left = 0, int width = -1)
+        {
+            if (width < 0)
+                width = Width;
+            using (UseRead())
+            {
+                byte* start = Data + left * 4 + 3;
+                for (int y = 0; y < Height; y++, start += Stride)
+                {
+                    byte* end = start + (width - left) * 4;
+                    for (byte* alpha = start; alpha < end; alpha += 4)
+                        if (*alpha > alphaThreshold)
+                            return y;
+                }
+                return Height;
+            }
+        }
+
+        /// <summary>
+        /// Finds the Y coordinate of the bottommost pixel whose alpha channel exceeds
+        /// the specified threshold. If the leftmost and/or rightmost such pixels are known, the search space can be
+        /// reduced using the <paramref name="left"/> and <paramref name="width"/> arguments.
+        /// </summary>
+        public int PreciseBottom(int alphaThreshold = 0, int left = 0, int width = -1)
+        {
+            if (width < 0)
+                width = Width;
+            using (UseRead())
+            {
+                byte* start = Data + (Height - 1) * Stride + left * 4 + 3;
+                for (int y = Height - 1; y >= 0; y--, start -= Stride)
+                {
+                    byte* end = start + (width - left) * 4;
+                    for (byte* alpha = start; alpha < end; alpha += 4)
+                        if (*alpha > alphaThreshold)
+                            return y;
+                }
+                return -1;
+            }
+        }
+
+        /// <summary>
+        /// Finds the smallest and largest X and Y coordinates of the pixels whose alpha channel exceeds the specified threshold.
+        /// </summary>
+        public PixelRect PreciseSize(int alphaThreshold = 0)
+        {
+            using (UseRead())
+            {
+                int left = PreciseLeft(alphaThreshold);
+                int right = PreciseRight(alphaThreshold);
+                int top = PreciseTop(alphaThreshold, left, right + 1);
+                int bottom = PreciseBottom(alphaThreshold, left, right + 1);
+                return PixelRect.FromBounds(left, top, right, bottom);
+            }
+        }
+
+        /// <summary>
+        /// Finds the smallest and largest X coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The Y coordinates of the result cover the entire image.
+        /// </summary>
+        public PixelRect PreciseWidth(int alphaThreshold = 0)
+        {
+            using (UseRead())
+                return PixelRect.FromLeftRight(PreciseLeft(alphaThreshold), PreciseRight(alphaThreshold));
+        }
+
+        /// <summary>
+        /// Finds the smallest and largest Y coordinates of the pixels whose alpha channel
+        /// exceeds the specified threshold. The X coordinates of the result cover the entire image.
+        /// </summary>
+        public PixelRect PreciseHeight(int alphaThreshold = 0, int left = 0, int width = -1)
+        {
+            if (width < 0)
+                width = Width;
+            using (UseRead())
+                return PixelRect.FromTopBottom(PreciseTop(alphaThreshold, left, width), PreciseBottom(alphaThreshold, left, width));
+        }
     }
 
     sealed unsafe class BitmapRam : BitmapBase
