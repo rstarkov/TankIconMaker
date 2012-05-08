@@ -889,7 +889,7 @@ namespace TankIconMaker
         public override string ToString() { return Numeric + " " + Textual; }
 
         /// <summary>Constructor. For XmlClassify.</summary>
-        private VersionId() { }
+        private VersionId() { Numeric = new Version(0, 0); Textual = "n/a"; }
 
         /// <summary>Constructor.</summary>
         public VersionId(Version numeric, string textual)
