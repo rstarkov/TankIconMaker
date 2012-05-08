@@ -72,6 +72,7 @@
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bitmap.cs" />
+    <Compile Include="Effects\SizePosEffect.cs" />
     <Compile Include="FilenameEditor.xaml.cs">
       <DependentUpon>FilenameEditor.xaml</DependentUpon>
     </Compile>
@@ -101,7 +102,6 @@
     <Compile Include="Targa.cs" />
     <Compile Include="UtGraphics.cs" />
     <Compile Include="UtMisc.cs" />
-    <Compile Include="UtPreciseSize.cs" />
     <Compile Include="UtSerialize.cs" />
     <Compile Include="WpfCrutches\CompositeCollection.cs" />
     <Compile Include="WpfCrutches\LambdaBinding.cs" />

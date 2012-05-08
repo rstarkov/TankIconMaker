@@ -24,6 +24,7 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * Exception 4109876
  * New resize/reposition filter which works with layers which return images bigger than 80x24
  * Image scaling sharpness
  * Overhang / clip replacement
@@ -166,7 +167,7 @@ namespace TankIconMaker
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(Filename), EditorType = typeof(FilenameEditor) });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ExtraPropertyId), EditorType = typeof(DataSourceEditor) });
 
-            ReloadData();
+            ReloadData(first: true);
 
             // Set WPF bindings now that all the data we need is loaded
             BindingOperations.SetBinding(ctAddGamePath, Button.IsEnabledProperty, LambdaBinding.New(
@@ -268,7 +269,7 @@ namespace TankIconMaker
         /// Does a bunch of stuff necessary to reload all the data off disk and refresh the UI (except for drawing the icons:
         /// this must be done as a separate step).
         /// </summary>
-        private void ReloadData()
+        private void ReloadData(bool first = false)
         {
             _renderResults.Clear();
             ZipCache.Clear();
@@ -301,7 +302,8 @@ namespace TankIconMaker
             if (!Program.Data.FilesAvailable)
                 DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
 
-            UpdateIcons();
+            if (!first)
+                UpdateIcons();
         }
 
         /// <summary>
@@ -523,6 +525,8 @@ namespace TankIconMaker
                     foreach (var layer in style.Layers.Where(l => l.Visible))
                     {
                         var img = layer.Draw(renderTask.Tank);
+                        if (img == null)
+                            continue;
                         foreach (var effect in layer.Effects.Where(e => e.Visible))
                             img = effect.Apply(renderTask.Tank, img.AsWritable());
                         result.DrawImage(img);
@@ -900,7 +904,7 @@ namespace TankIconMaker
                     .OrderByDescending(v => v.Version)
                     .FirstOrDefault();
 
-                gis = new GameInstallationSettings { Path = dlg.SelectedPath, GameVersion = version ?? Program.Data.GetLatestVersion() };
+                gis = new GameInstallationSettings(path: dlg.SelectedPath) { GameVersion = version ?? Program.Data.GetLatestVersion() };
             }
 
             Program.Settings.GameInstalls.Add(gis);
@@ -943,7 +947,7 @@ namespace TankIconMaker
             var path = Ut.FindTanksDirectory();
             var version = Program.Data.GetGuessedVersion(path);
 
-            return new GameInstallationSettings { Path = path, GameVersion = version ?? Program.Data.GetLatestVersion() };
+            return new GameInstallationSettings(path) { GameVersion = version ?? Program.Data.GetLatestVersion() };
         }
 
         private void ctStyleMore_Click(object sender, RoutedEventArgs e)

@@ -213,6 +213,10 @@ namespace TankIconMaker
         public int CenterHorz { get { return _left + _width / 2; } }
         /// <summary>The Y coordinate of the center pixel. If the number of pixels in the rect is even, returns the pixel to the bottom of center.</summary>
         public int CenterVert { get { return _top + _height / 2; } }
+        /// <summary>The X coordinate of the center pixel. If the number of pixels in the rect is even, returns a non-integer value.</summary>
+        public double CenterHorzD { get { return _left + _width / 2.0; } }
+        /// <summary>The Y coordinate of the center pixel. If the number of pixels in the rect is even, returns a non-integer value.</summary>
+        public double CenterVertD { get { return _top + _height / 2.0; } }
 
         public static PixelRect FromBounds(int left, int top, int right, int bottom)
         {
@@ -232,7 +236,7 @@ namespace TankIconMaker
     }
 
     enum OpacityStyle { Auto, [Description("Move endpoint")] MoveEndpoint, [Description("Move midpoint")] MoveMidpoint, Additive }
-    enum BlurEdgeMode { Transparent, Same, Wrap }
+    enum BlurEdgeMode { Transparent, Same, Wrap, Tile }
 
     class GaussianBlur
     {
@@ -302,6 +306,13 @@ namespace TankIconMaker
                                     break;
                                 case BlurEdgeMode.Wrap:
                                     xRead = Ut.ModPositive(xRead, src.Width);
+                                    break;
+                                case BlurEdgeMode.Tile:
+                                    if (xRead < 0)
+                                        xRead = -xRead - 1;
+                                    xRead = xRead % (2 * src.Width);
+                                    if (xRead >= src.Width)
+                                        xRead = 2 * src.Width - xRead - 1;
                                     break;
                             }
                         xRead <<= 2; // * 4
