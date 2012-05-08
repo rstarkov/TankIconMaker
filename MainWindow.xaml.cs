@@ -164,7 +164,7 @@ namespace TankIconMaker
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(Filename), EditorType = typeof(FilenameEditor) });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ExtraPropertyId), EditorType = typeof(DataSourceEditor) });
 
-            ReloadData();
+            ReloadData(first: true);
 
             // Set WPF bindings now that all the data we need is loaded
             BindingOperations.SetBinding(ctAddGamePath, Button.IsEnabledProperty, LambdaBinding.New(
@@ -266,7 +266,7 @@ namespace TankIconMaker
         /// Does a bunch of stuff necessary to reload all the data off disk and refresh the UI (except for drawing the icons:
         /// this must be done as a separate step).
         /// </summary>
-        private void ReloadData()
+        private void ReloadData(bool first = false)
         {
             _renderResults.Clear();
             ZipCache.Clear();
@@ -299,7 +299,8 @@ namespace TankIconMaker
             if (!Program.Data.FilesAvailable)
                 DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
 
-            UpdateIcons();
+            if (!first)
+                UpdateIcons();
         }
 
         /// <summary>
