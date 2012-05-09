@@ -3,10 +3,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-#warning TODO: descriptions
-#warning TODO: limit valid values
-#warning TODO: good initial values
-
 namespace TankIconMaker.Effects
 {
     enum SizeMode
@@ -86,34 +82,55 @@ namespace TankIconMaker.Effects
         public bool SizeByPixels { get; set; }
 
         [Category("Size"), DisplayName("Resize %")]
-        [Description("")]
-        public double Percentage { get; set; }
+        [Description("When Mode is \"By %\", selects the desired resize percentage.")]
+        public double Percentage { get { return _Percentage; } set { _Percentage = Math.Max(0.0, value); } }
+        private double _Percentage;
         [Category("Size"), DisplayName("Resize to width")]
-        [Description("")]
-        public int Width { get; set; }
+        [Description("When Mode is one of \"By size\" modes, selects the desired width, in pixels.")]
+        public int Width { get { return _Width; } set { _Width = Math.Max(0, value); } }
+        private int _Width;
         [Category("Size"), DisplayName("Resize to height")]
-        [Description("")]
-        public int Height { get; set; }
+        [Description("When Mode is one of \"By size\" modes, selects the desired height, in pixels.")]
+        public int Height { get { return _Height; } set { _Height = Math.Max(0, value); } }
+        private int _Height;
         [Category("Size"), DisplayName("Mode")]
-        [Description("")]
+        [Description("Selects one of several different resize modes, which determines how the image size is calculated.")]
         public SizeMode SizeMode { get; set; }
         [Category("Size"), DisplayName("Grow/shrink")]
-        [Description("")]
+        [Description("Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.")]
         public GrowShrinkMode GrowShrinkMode { get; set; }
 
         [Category("General"), DisplayName("Pixel alpha threshold")]
         [Description("When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as \"transparent\". Range 0..255.")]
-        public int PixelAlphaThreshold { get; set; }
+        public int PixelAlphaThreshold { get { return _PixelAlphaThreshold; } set { _PixelAlphaThreshold = Math.Min(255, Math.Max(0, value)); } }
+        private int _PixelAlphaThreshold;
 
         [Category("Debug"), DisplayName("Show layer borders")]
-        [Description("")]
+        [Description("If enabled, draws a rectangle to show the layer borders. These borders are used for size calculation if \"Size By Pixels\" is disabled.")]
         public bool ShowLayerBorders { get; set; }
         [Category("Debug"), DisplayName("Show pixel borders")]
-        [Description("")]
+        [Description("If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using \"Pixel alpha threshold\". These borders are used for size calculation if \"Size By Pixels\" is enabled.")]
         public bool ShowPixelBorders { get; set; }
         [Category("Debug"), DisplayName("Show target borders")]
-        [Description("")]
+        [Description("If enabled, draws a rectangle to show the selected target position for the layer. Anchored borders are drawn as solid lines, non-anchored are dotted.")]
         public bool ShowTargetBorders { get; set; }
+
+        public SizePosEffect()
+        {
+            PositionByPixels = true;
+            SizeByPixels = true;
+            PixelAlphaThreshold = 120;
+            Left = 0;
+            Top = 0;
+            Right = 79;
+            Bottom = 23;
+            LeftAnchor = TopAnchor = true;
+            Percentage = 50;
+            Width = 30;
+            Height = 18;
+            SizeMode = SizeMode.NoChange;
+            GrowShrinkMode = GrowShrinkMode.GrowAndShrink;
+        }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
@@ -128,7 +145,7 @@ namespace TankIconMaker.Effects
                 switch (SizeMode)
                 {
                     case SizeMode.ByPercentage:
-                        scaleWidth = scaleHeight = Percentage;
+                        scaleWidth = scaleHeight = Percentage / 100.0;
                         break;
                     case SizeMode.BySizeWidthOnly:
                         scaleWidth = scaleHeight = Width / (double) size.Width;
