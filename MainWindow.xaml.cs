@@ -24,13 +24,16 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * Exception 4109876
+ * New resize/reposition filter which works with layers which return images bigger than 80x24
+ * Image scaling sharpness
+ * Overhang / clip replacement
  * Colorize method: set RGB
  * Effect: Position (perfect size with tunable alpha threshold)
  * Effect: Resize
  * Effect: Position between other layers
  * Effect: Clip
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
- * Image scaling sharpness
  * Effect: Duplicate another effect / all effects of another layer
  * Layer: "duplicate" (before or after effects)
  * How to "merge" two layers into one so that effects like "shadow" can apply to the merged result
@@ -460,8 +463,8 @@ namespace TankIconMaker
             try
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
-                tank.LoadedImage = Ut.NewBitmapWpf();
-                layer.DrawInternal(tank);
+                tank.LoadedImage = new BitmapRam(80, 24);
+                layer.Draw(tank);
             }
             catch (Exception e)
             {
@@ -479,8 +482,8 @@ namespace TankIconMaker
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
                 tank.PropertyValue = "z"; // very short, so substring/indexing can fail, also not parseable as integer. Hopefully "unexpected enough".
-                tank.LoadedImage = Ut.NewBitmapWpf();
-                layer.DrawInternal(tank);
+                tank.LoadedImage = new BitmapRam(80, 24);
+                layer.Draw(tank);
             }
             catch (Exception e)
             {
@@ -497,7 +500,7 @@ namespace TankIconMaker
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
                 tank.PropertyValue = "test";
-                layer.DrawInternal(tank);
+                layer.Draw(tank);
             }
             catch (Exception e)
             {
@@ -516,16 +519,21 @@ namespace TankIconMaker
         {
             try
             {
-                renderTask.Image = Ut.NewBitmapWpf(dc =>
+                var result = new BitmapWpf(80, 24);
+                using (result.UseWrite())
                 {
                     foreach (var layer in style.Layers.Where(l => l.Visible))
                     {
-                        var img = layer.DrawInternal(renderTask.Tank);
+                        var img = layer.Draw(renderTask.Tank);
+                        if (img == null)
+                            continue;
                         foreach (var effect in layer.Effects.Where(e => e.Visible))
-                            img = effect.ApplyInternal(renderTask.Tank, img);
-                        dc.DrawImage(img);
+                            img = effect.Apply(renderTask.Tank, img.AsWritable());
+                        result.DrawImage(img);
                     }
-                });
+                }
+                result.MarkReadOnly();
+                renderTask.Image = result.UnderlyingImage;
             }
             catch (Exception e)
             {
@@ -835,7 +843,7 @@ namespace TankIconMaker
                             RenderTank(style, renderTask);
                         }
                     foreach (var kvp in renders.Where(kvp => kvp.Value.Exception == null))
-                        Targa.Save(kvp.Value.Image, Path.Combine(path, kvp.Key + ".tga"));
+                        Targa.Save(kvp.Value.Image.ToBitmapRam(), Path.Combine(path, kvp.Key + ".tga"));
                 }
                 finally
                 {
@@ -863,7 +871,7 @@ namespace TankIconMaker
             {
                 Message = "Tank Icon Maker\nVersion " + version + "\nBy Romkyns\n\n" + copyright,
                 Caption = "Tank Icon Maker",
-                Image = icon == null ? null : icon.ToGdi().GetBitmapCopy()
+                Image = icon == null ? null : icon.ToBitmapGdi().GetBitmapCopy()
             }.Show();
         }
 
@@ -896,7 +904,7 @@ namespace TankIconMaker
                     .OrderByDescending(v => v.Version)
                     .FirstOrDefault();
 
-                gis = new GameInstallationSettings { Path = dlg.SelectedPath, GameVersion = version ?? Program.Data.GetLatestVersion() };
+                gis = new GameInstallationSettings(path: dlg.SelectedPath) { GameVersion = version ?? Program.Data.GetLatestVersion() };
             }
 
             Program.Settings.GameInstalls.Add(gis);
@@ -939,7 +947,7 @@ namespace TankIconMaker
             var path = Ut.FindTanksDirectory();
             var version = Program.Data.GetGuessedVersion(path);
 
-            return new GameInstallationSettings { Path = path, GameVersion = version ?? Program.Data.GetLatestVersion() };
+            return new GameInstallationSettings(path) { GameVersion = version ?? Program.Data.GetLatestVersion() };
         }
 
         private void ctStyleMore_Click(object sender, RoutedEventArgs e)

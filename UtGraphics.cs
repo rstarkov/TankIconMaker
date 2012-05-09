@@ -22,12 +22,6 @@ namespace TankIconMaker
         }
 
         /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
-        public static WriteableBitmap NewBitmapWpf()
-        {
-            return new WriteableBitmap(80, 24, 96, 96, PixelFormats.Bgra32, null);
-        }
-
-        /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
         /// <param name="draw">A method to draw into the returned image.</param>
         public static BitmapSource NewBitmapWpf(Action<DrawingContext> draw)
         {
@@ -40,23 +34,24 @@ namespace TankIconMaker
             return bmp;
         }
 
-        /// <summary>Converts a WPF image to a GDI one.</summary>
-        public static BitmapGdi ToGdi(this BitmapSource bmp)
+        public static BitmapRam ToBitmapRam(this BitmapSource src)
         {
-            var result = new BitmapGdi(bmp.PixelWidth, bmp.PixelHeight);
-            if (bmp.Format != PixelFormats.Bgra32)
-                bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
-            bmp.CopyPixels(result.BackBytes, result.BackBufferStride, 0);
+            var result = new BitmapRam(src.PixelWidth, src.PixelHeight);
+            result.CopyPixelsFrom(src);
             return result;
         }
 
-        /// <summary>Converts a WPF image source to a WPF writable one. Also useful for unfreezing frozen WriteableBitmap's.</summary>
-        public static WriteableBitmap ToWpfWriteable(this BitmapSource bmp)
+        public static BitmapWpf ToBitmapWpf(this BitmapSource src)
         {
-            var result = new WriteableBitmap(bmp.PixelWidth, bmp.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
-            if (bmp.Format != PixelFormats.Bgra32)
-                bmp = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
-            bmp.CopyPixels(new Int32Rect(0, 0, bmp.PixelWidth, bmp.PixelHeight), result.BackBuffer, result.BackBufferStride * (bmp.PixelHeight - 1) + bmp.PixelWidth * 4, result.BackBufferStride);
+            var result = new BitmapWpf(src.PixelWidth, src.PixelHeight);
+            result.CopyPixelsFrom(src);
+            return result;
+        }
+
+        public static BitmapGdi ToBitmapGdi(this BitmapSource src)
+        {
+            var result = new BitmapGdi(src.PixelWidth, src.PixelHeight);
+            result.CopyPixelsFrom(src);
             return result;
         }
 
@@ -134,7 +129,7 @@ namespace TankIconMaker
         /// <summary>A shorthand for drawing an image at coordinate 0,0.</summary>
         public static void DrawImage(this DrawingContext context, BitmapGdi bmp)
         {
-            context.DrawImage(bmp.ToWpf(), new Rect(0, 0, bmp.PixelWidth, bmp.PixelHeight));
+            context.DrawImage(bmp.ToWpf(), new Rect(0, 0, bmp.Width, bmp.Height));
         }
 
         /// <summary>A shorthand for drawing an image at coordinate 0,0.</summary>
@@ -149,234 +144,6 @@ namespace TankIconMaker
             using (var g = D.Graphics.FromImage(target.Bitmap))
                 g.DrawImageUnscaled(source.Bitmap, 0, 0);
             return target;
-        }
-
-        /// <summary>Returns a new image which contains a 1 pixel wide black outline of the specified image.</summary>
-        public static unsafe WriteableBitmap GetOutline(this WriteableBitmap srcBitmap, Color color)
-        {
-            var tgtBitmap = Ut.NewBitmapWpf();
-            var src = (byte*) srcBitmap.BackBuffer;
-            var tgt = (byte*) tgtBitmap.BackBuffer;
-            byte cr = color.R, cg = color.G, cb = color.B, ca = color.A;
-            for (int y = 0; y < srcBitmap.PixelHeight; y++)
-            {
-                int b = y * srcBitmap.BackBufferStride;
-                int left = 0;
-                int cur = src[b + 0 + 3];
-                int right;
-                for (int x = 0; x < srcBitmap.PixelWidth; x++, b += 4)
-                {
-                    right = x == srcBitmap.PixelWidth - 1 ? (byte) 0 : src[b + 4 + 3];
-                    if (src[b + 3] == 0)
-                    {
-                        if (left != 0 || right != 0 || (y > 0 && src[b - srcBitmap.BackBufferStride + 3] > 0) || ((y < srcBitmap.PixelHeight - 1) && src[b + srcBitmap.BackBufferStride + 3] > 0))
-                        {
-                            tgt[b] = cb;
-                            tgt[b + 1] = cg;
-                            tgt[b + 2] = cr;
-                            tgt[b + 3] = ca;
-                        }
-                    }
-                    left = cur;
-                    cur = right;
-                }
-            }
-            return tgtBitmap;
-        }
-
-        /// <summary>Applies a "colorize" effect to the image.</summary>
-        /// <param name="hue">The hue of the color to apply, 0..359</param>
-        /// <param name="saturation">The saturation of the color to apply, 0..1</param>
-        /// <param name="lightness">A lightness adjustment, -1..1</param>
-        /// <param name="alpha">Overall strength of the effect, 0..1. A value of 0 keeps only the original image.</param>
-        public static unsafe void Colorize(this WriteableBitmap bmp, int hue, double saturation, double lightness, double alpha)
-        {
-            Colorize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, hue, saturation, lightness, alpha);
-        }
-
-        /// <summary>Applies a "colorize" effect to the image.</summary>
-        /// <param name="hue">The hue of the color to apply, 0..359</param>
-        /// <param name="saturation">The saturation of the color to apply, 0..1</param>
-        /// <param name="lightness">A lightness adjustment, -1..1</param>
-        /// <param name="alpha">Overall strength of the effect, 0..1. A value of 0 keeps only the original image.</param>
-        public static unsafe void Colorize(this BitmapGdi bmp, int hue, double saturation, double lightness, double alpha)
-        {
-            Colorize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, hue, saturation, lightness, alpha);
-        }
-
-        /// <summary>Applies a "colorize" effect to the image.</summary>
-        /// <param name="hue">The hue of the color to apply, 0..359</param>
-        /// <param name="saturation">The saturation of the color to apply, 0..1</param>
-        /// <param name="lightness">A lightness adjustment, -1..1</param>
-        /// <param name="alpha">Overall strength of the effect, 0..1. A value of 0 keeps only the original image.</param>
-        public static unsafe void Colorize(byte* image, int width, int height, int stride, int hue, double saturation, double lightness, double alpha)
-        {
-            // http://stackoverflow.com/a/9177602/33080
-            var color = Ut.BlendColors(Color.FromRgb(128, 128, 128), ColorHSV.FromHSV(hue, 100, 100).ToColorWpf(), saturation);
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    double pixel = Math.Max(*ptr, Math.Max(*(ptr + 1), *(ptr + 2))) / 255.0;
-                    double position = lightness >= 0 ? (2 * (1 - lightness) * (pixel - 1) + 1) : 2 * (1 + lightness) * (pixel) - 1;
-                    *ptr = (byte) (*ptr * (1 - alpha) + (position < 0 ? color.B * (position + 1) : (color.B * (1 - position) + 255 * position)) * alpha);
-                    ptr++;
-                    *ptr = (byte) (*ptr * (1 - alpha) + (position < 0 ? color.G * (position + 1) : (color.G * (1 - position) + 255 * position)) * alpha);
-                    ptr++;
-                    *ptr = (byte) (*ptr * (1 - alpha) + (position < 0 ? color.R * (position + 1) : (color.R * (1 - position) + 255 * position)) * alpha);
-                    ptr += 2;
-                }
-            }
-        }
-
-        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
-        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
-        public static unsafe void Transparentize(this WriteableBitmap bmp, int opacity)
-        {
-            Transparentize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, opacity);
-        }
-
-        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
-        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
-        public static unsafe void Transparentize(this BitmapGdi bmp, int opacity)
-        {
-            Transparentize((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, opacity);
-        }
-
-        /// <summary>Makes the whole image more transparent by adjusting the alpha channel.</summary>
-        /// <param name="opacity">The opacity to apply, 0..255. 0 makes the image completely transparent, while 255 makes no changes at all.</param>
-        public static unsafe void Transparentize(byte* image, int width, int height, int stride, int opacity)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride + 3;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    *ptr = (byte) ((*ptr * opacity) / 255);
-                    ptr += 4;
-                }
-            }
-        }
-
-        public static unsafe void ScaleOpacity(this WriteableBitmap bmp, double adjustment, OpacityStyle style)
-        {
-            ScaleOpacity((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, adjustment, style);
-        }
-
-        public static unsafe void ScaleOpacity(this BitmapGdi bmp, double adjustment, OpacityStyle style)
-        {
-            ScaleOpacity((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, adjustment, style);
-        }
-
-        public static unsafe void ScaleOpacity(byte* image, int width, int height, int stride, double adjustment, OpacityStyle style)
-        {
-            if (adjustment == 0)
-                return;
-            if (style == OpacityStyle.Auto)
-                style = adjustment > 0 ? OpacityStyle.Additive : OpacityStyle.MoveEndpoint;
-
-            var lut = new byte[256];
-            for (int x = 0; x < 256; x++)
-                switch (style)
-                {
-                    case OpacityStyle.MoveEndpoint:
-                        if (adjustment < 0)
-                            lut[x] = (byte) (x / (1.0 + -adjustment));
-                        else
-                            lut[x] = (byte) (255 - (255 - x) / (1.0 + adjustment));
-                        break;
-                    case OpacityStyle.MoveMidpoint:
-                        lut[x] = (byte) (Math.Pow(x / 255.0, adjustment < 0 ? (1 - adjustment) : (1 / (1 + adjustment))) * 255);
-                        break;
-                    case OpacityStyle.Additive:
-                        if (adjustment < 0)
-                            lut[x] = (byte) Math.Max(0, 255 - (255 - x) * (1.0 - adjustment));
-                        else
-                            lut[x] = (byte) Math.Min(255, x * (1.0 + adjustment));
-                        break;
-                    default:
-                        throw new Exception();
-                }
-
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride + 3;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    *ptr = lut[*ptr];
-                    ptr += 4;
-                }
-            }
-        }
-
-        public static unsafe void SetColor(this WriteableBitmap bmp, Color color)
-        {
-            SetColor((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, color);
-        }
-
-        public static unsafe void SetColor(this BitmapGdi bmp, Color color)
-        {
-            SetColor((byte*) bmp.BackBuffer, bmp.PixelWidth, bmp.PixelHeight, bmp.BackBufferStride, color);
-        }
-
-        public static unsafe void SetColor(byte* image, int width, int height, int stride, Color color)
-        {
-            byte r = color.R;
-            byte g = color.G;
-            byte b = color.B;
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    *ptr++ = b;
-                    *ptr++ = g;
-                    *ptr++ = r;
-                    ptr++;
-                }
-            }
-        }
-
-        public static unsafe void PreMultiply(byte* image, int width, int height, int stride)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    byte alpha = ptr[3];
-                    ptr[0] = (byte) ((ptr[0] * alpha) / 255);
-                    ptr[1] = (byte) ((ptr[1] * alpha) / 255);
-                    ptr[2] = (byte) ((ptr[2] * alpha) / 255);
-                    ptr += 4;
-                }
-            }
-        }
-
-        public static unsafe void UnPreMultiply(byte* image, int width, int height, int stride)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                byte* ptr = image + y * stride;
-                byte* end = ptr + width * 4;
-                while (ptr < end)
-                {
-                    byte alpha = ptr[3];
-                    if (alpha > 0)
-                    {
-                        ptr[0] = (byte) ((ptr[0] * 255) / alpha);
-                        ptr[1] = (byte) ((ptr[1] * 255) / alpha);
-                        ptr[2] = (byte) ((ptr[2] * 255) / alpha);
-                    }
-                    ptr += 4;
-                }
-            }
         }
 
         public static unsafe WriteableBitmap BlendImages(WriteableBitmap imgLeft, WriteableBitmap imgRight, double rightAmount)
@@ -446,6 +213,10 @@ namespace TankIconMaker
         public int CenterHorz { get { return _left + _width / 2; } }
         /// <summary>The Y coordinate of the center pixel. If the number of pixels in the rect is even, returns the pixel to the bottom of center.</summary>
         public int CenterVert { get { return _top + _height / 2; } }
+        /// <summary>The X coordinate of the center pixel. If the number of pixels in the rect is even, returns a non-integer value.</summary>
+        public double CenterHorzD { get { return _left + _width / 2.0; } }
+        /// <summary>The Y coordinate of the center pixel. If the number of pixels in the rect is even, returns a non-integer value.</summary>
+        public double CenterVertD { get { return _top + _height / 2.0; } }
 
         public static PixelRect FromBounds(int left, int top, int right, int bottom)
         {
@@ -465,7 +236,7 @@ namespace TankIconMaker
     }
 
     enum OpacityStyle { Auto, [Description("Move endpoint")] MoveEndpoint, [Description("Move midpoint")] MoveMidpoint, Additive }
-    enum BlurEdgeMode { Transparent, Same, Wrap }
+    enum BlurEdgeMode { Transparent, Same, Wrap, Tile }
 
     class GaussianBlur
     {
@@ -513,83 +284,35 @@ namespace TankIconMaker
             }
         }
 
-        public unsafe WriteableBitmap Blur(WriteableBitmap image, BlurEdgeMode edgeMode)
+        internal unsafe void Horizontal(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
         {
-            var sourceAndResult = image.Clone();
-            var temp = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
-            Blur((byte*) sourceAndResult.BackBuffer, (byte*) temp.BackBuffer,
-                sourceAndResult.BackBufferStride, temp.BackBufferStride,
-                image.PixelWidth, image.PixelHeight, edgeMode);
-            GC.KeepAlive(temp);
-            return sourceAndResult;
-        }
-
-        public unsafe WriteableBitmap BlurHorizontal(WriteableBitmap image, BlurEdgeMode edgeMode)
-        {
-            var source = image.Clone();
-            var result = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
-            BlurHorizontal((byte*) source.BackBuffer, (byte*) result.BackBuffer,
-                source.BackBufferStride, result.BackBufferStride,
-                image.PixelWidth, image.PixelHeight, edgeMode);
-            GC.KeepAlive(source);
-            return result;
-        }
-
-        public unsafe WriteableBitmap BlurVertical(WriteableBitmap image, BlurEdgeMode edgeMode)
-        {
-            var source = image.Clone();
-            var result = new WriteableBitmap(image.PixelWidth, image.PixelHeight, 96, 96, PixelFormats.Bgra32, null);
-            BlurHorizontal((byte*) source.BackBuffer, (byte*) result.BackBuffer,
-                source.BackBufferStride, result.BackBufferStride,
-                image.PixelWidth, image.PixelHeight, edgeMode);
-            GC.KeepAlive(source);
-            return result;
-        }
-
-        private unsafe void Blur(byte* imgSourceAndResult, byte* imgTemp, int strideSource, int strideTemp, int width, int height, BlurEdgeMode edgeMode)
-        {
-            Ut.PreMultiply(imgSourceAndResult, width, height, strideSource);
-            horizontal(imgSourceAndResult, imgTemp, strideSource, strideTemp, width, height, edgeMode);
-            vertical(imgTemp, imgSourceAndResult, strideSource, strideTemp, width, height, edgeMode);
-            Ut.UnPreMultiply(imgSourceAndResult, width, height, strideTemp);
-        }
-
-        private unsafe void BlurHorizontal(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
-        {
-            Ut.PreMultiply(imgSource, width, height, strideSource);
-            horizontal(imgSource, imgResult, strideSource, strideResult, width, height, edgeMode);
-            Ut.UnPreMultiply(imgResult, width, height, strideResult);
-        }
-
-        private unsafe void BlurVertical(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
-        {
-            Ut.PreMultiply(imgSource, width, height, strideSource);
-            vertical(imgSource, imgResult, strideSource, strideResult, width, height, edgeMode);
-            Ut.UnPreMultiply(imgResult, width, height, strideResult);
-        }
-
-        private unsafe void horizontal(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
-        {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < src.Height; y++)
             {
-                byte* rowSource = imgSource + y * strideSource;
-                byte* rowResult = imgResult + y * strideResult;
-                for (int x = 0; x < width; x++)
+                byte* rowSource = src.Data + y * src.Stride;
+                byte* rowResult = dest.Data + y * dest.Stride;
+                for (int x = 0; x < src.Width; x++)
                 {
                     int rSum = 0, gSum = 0, bSum = 0, aSum = 0;
                     for (int k = 0, xSrc = x - _kernel.Length / 2; k < _kernel.Length; k++, xSrc++)
                     {
                         int xRead = xSrc;
-                        if (xRead < 0 || xRead >= width)
+                        if (xRead < 0 || xRead >= src.Width)
                             switch (edgeMode)
                             {
                                 case BlurEdgeMode.Transparent:
                                     continue;
                                 case BlurEdgeMode.Same:
-                                    xRead = xRead < 0 ? 0 : width - 1;
+                                    xRead = xRead < 0 ? 0 : src.Width - 1;
                                     break;
                                 case BlurEdgeMode.Wrap:
-                                    xRead = Ut.ModPositive(xRead, width);
+                                    xRead = Ut.ModPositive(xRead, src.Width);
+                                    break;
+                                case BlurEdgeMode.Tile:
+                                    if (xRead < 0)
+                                        xRead = -xRead - 1;
+                                    xRead = xRead % (2 * src.Width);
+                                    if (xRead >= src.Width)
+                                        xRead = 2 * src.Width - xRead - 1;
                                     break;
                             }
                         xRead <<= 2; // * 4
@@ -608,38 +331,38 @@ namespace TankIconMaker
             }
         }
 
-        private unsafe void vertical(byte* imgSource, byte* imgResult, int strideSource, int strideResult, int width, int height, BlurEdgeMode edgeMode)
+        internal unsafe void Vertical(BitmapBase src, BitmapBase dest, BlurEdgeMode edgeMode)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < src.Width; x++)
             {
-                byte* colSource = imgSource + x * 4;
-                byte* colResult = imgResult + x * 4;
-                for (int y = 0; y < height; y++)
+                byte* colSource = src.Data + x * 4;
+                byte* colResult = dest.Data + x * 4;
+                for (int y = 0; y < src.Height; y++)
                 {
                     int rSum = 0, gSum = 0, bSum = 0, aSum = 0;
                     for (int k = 0, ySrc = y - _kernel.Length / 2; k < _kernel.Length; k++, ySrc++)
                     {
                         int yRead = ySrc;
-                        if (yRead < 0 || yRead >= height)
+                        if (yRead < 0 || yRead >= src.Height)
                             switch (edgeMode)
                             {
                                 case BlurEdgeMode.Transparent:
                                     continue;
                                 case BlurEdgeMode.Same:
-                                    yRead = yRead < 0 ? 0 : height - 1;
+                                    yRead = yRead < 0 ? 0 : src.Height - 1;
                                     break;
                                 case BlurEdgeMode.Wrap:
-                                    yRead = Ut.ModPositive(yRead, height);
+                                    yRead = Ut.ModPositive(yRead, src.Height);
                                     break;
                             }
-                        yRead *= strideSource;
+                        yRead *= src.Stride;
                         bSum += _kernel[k] * colSource[yRead + 0];
                         gSum += _kernel[k] * colSource[yRead + 1];
                         rSum += _kernel[k] * colSource[yRead + 2];
                         aSum += _kernel[k] * colSource[yRead + 3];
                     }
 
-                    int yWrite = y * strideResult;
+                    int yWrite = y * dest.Stride;
                     colResult[yWrite + 0] = (byte) (bSum / _kernelSum);
                     colResult[yWrite + 1] = (byte) (gSum / _kernelSum);
                     colResult[yWrite + 2] = (byte) (rSum / _kernelSum);

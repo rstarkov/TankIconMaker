@@ -60,16 +60,17 @@ namespace TankIconMaker
     /// </summary>
     sealed class GameInstallationSettings : IComparable<GameInstallationSettings>, INotifyPropertyChanged
     {
+        private GameInstallationSettings() { } // for XmlClassify
+
+        public GameInstallationSettings(string path)
+        {
+            _path = path;
+        }
+
         /// <summary>Absolute path to the root of this game installation.</summary>
         public string Path
         {
             get { return _path; }
-            set
-            {
-                _path = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Path"));
-                PropertyChanged(this, new PropertyChangedEventArgs("DisplayName"));
-            }
         }
         private string _path;
 

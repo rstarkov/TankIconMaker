@@ -5,7 +5,7 @@ using RT.Util.Xml;
 
 namespace TankIconMaker.Effects
 {
-    class GaussianBlurEffect : EffectBaseWpf
+    class GaussianBlurEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Blur: Gaussian"; } }
@@ -27,13 +27,14 @@ namespace TankIconMaker.Effects
             Edge = BlurEdgeMode.Same;
         }
 
-        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
+        public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             if (_blur == null || _blur.Radius != Radius)
                 lock (this)
                     if (_blur == null || _blur.Radius != Radius)
                         _blur = new GaussianBlur(Radius);
-            return _blur.Blur(layer, Edge);
+            layer.Blur(_blur, Edge);
+            return layer;
         }
     }
 }

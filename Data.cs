@@ -118,7 +118,7 @@ namespace TankIconMaker
         }
 
         /// <summary>Gets a built-in image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
-        public virtual BitmapSource GetImageBuiltIn(ImageBuiltInStyle style)
+        public virtual BitmapBase GetImageBuiltIn(ImageBuiltInStyle style)
         {
             switch (style)
             {
@@ -138,7 +138,7 @@ namespace TankIconMaker
         }
 
         /// <summary>Gets the currently saved icon image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
-        public virtual BitmapSource GetImageCurrent()
+        public virtual BitmapBase GetImageCurrent()
         {
             return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga"))
                 ?? GetImageBuiltIn(ImageBuiltInStyle.Contour);
@@ -159,12 +159,12 @@ namespace TankIconMaker
         }
 
         public string PropertyValue;
-        public BitmapSource LoadedImage;
+        public BitmapBase LoadedImage;
 
         public override string this[string name] { get { return PropertyValue; } }
         public override string this[ExtraPropertyId property] { get { return PropertyValue; } }
-        public override BitmapSource GetImageBuiltIn(ImageBuiltInStyle style) { return LoadedImage; }
-        public override BitmapSource GetImageCurrent() { return LoadedImage; }
+        public override BitmapBase GetImageBuiltIn(ImageBuiltInStyle style) { return LoadedImage; }
+        public override BitmapBase GetImageCurrent() { return LoadedImage; }
         public override void AddWarning(string warning) { }
     }
 
