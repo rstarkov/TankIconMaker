@@ -24,15 +24,12 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Exception 4109876
- * New resize/reposition filter which works with layers which return images bigger than 80x24
+ * Exception 4109876 / failure of acquire/release counting in Bitmap
+ * Overhang / clip replacement  * Effect: Clip
+ * Image layer for multiply-parameterised custom image
  * Image scaling sharpness
- * Overhang / clip replacement
  * Colorize method: set RGB
- * Effect: Position (perfect size with tunable alpha threshold)
- * Effect: Resize
  * Effect: Position between other layers
- * Effect: Clip
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
  * Effect: Duplicate another effect / all effects of another layer
  * Layer: "duplicate" (before or after effects)
@@ -527,7 +524,7 @@ namespace TankIconMaker
                         var img = layer.Draw(renderTask.Tank);
                         if (img == null)
                             continue;
-                        foreach (var effect in layer.Effects.Where(e => e.Visible))
+                        foreach (var effect in layer.Effects.OrderBy(l => l is Effects.SizePosEffect ? 0 : 1).Where(e => e.Visible))
                             img = effect.Apply(renderTask.Tank, img.AsWritable());
                         result.DrawImage(img);
                     }
