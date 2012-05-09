@@ -232,14 +232,14 @@ namespace TankIconMaker
         public static void Clear() { _cache.Clear(); }
 
         /// <summary>Retrieves an image that isn't stored inside a zip file.</summary>
-        public static BitmapSource GetImage(string path)
+        public static BitmapRam GetImage(string path)
         {
             return _cache.GetEntry(":" + path,
                 () => (ImageEntry) new FileImageEntry(path)).Image;
         }
 
         /// <summary>Retrieves an image which may optionally be stored inside a zip file.</summary>
-        public static BitmapSource GetImage(CompositeFilename path)
+        public static BitmapRam GetImage(CompositeFilename path)
         {
             return _cache.GetEntry(path.Container + ":" + path.File,
                 () => path.Container == null ? (ImageEntry) new FileImageEntry(path.File) : new ZipImageEntry(path)).Image;
@@ -248,20 +248,20 @@ namespace TankIconMaker
 
     abstract class ImageEntry : CacheEntry
     {
-        public BitmapSource Image;
+        public BitmapRam Image;
 
         protected void LoadImage(Stream file, string extension)
         {
             if (extension == ".tga")
-                Image = Targa.LoadWpf(file);
+                Image = Targa.Load(file);
             else
-                Image = BitmapDecoder.Create(file, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0].ToWpfWriteable();
-            Image.Freeze();
+                Image = BitmapDecoder.Create(file, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0].ToBitmapRam();
+            Image.MarkReadOnly();
         }
 
         public override long Size
         {
-            get { return 10 + (Image == null ? 0 : (Image.PixelWidth * Image.PixelHeight * 4)); } // very approximate
+            get { return 10 + (Image == null ? 0 : (Image.Width * Image.Height * 4)); } // very approximate
         }
     }
 

@@ -7,7 +7,7 @@ using RT.Util.Xml;
 
 namespace TankIconMaker.Effects
 {
-    class ShadowEffect : EffectBaseWpf
+    class ShadowEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Shadow"; } }
@@ -39,24 +39,21 @@ namespace TankIconMaker.Effects
             Color = new ColorSelector(Colors.Black);
         }
 
-        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
+        public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             if (_blur == null || _blur.Radius != Radius)
                 lock (this)
                     if (_blur == null || _blur.Radius != Radius)
                         _blur = new GaussianBlur(Radius);
 
-            var shadow = layer.Clone();
+            BitmapBase shadow = layer.ToBitmapRam();
             var color = Color.GetColorWpf(tank);
-            shadow.SetColor(color);
-            shadow = _blur.Blur(shadow, BlurEdgeMode.Transparent);
+            shadow.ReplaceColor(color);
+            shadow.Blur(_blur, BlurEdgeMode.Transparent);
             shadow.ScaleOpacity(Spread, OpacityStyle.Additive);
             shadow.Transparentize(color.A);
-            return Ut.NewBitmapWpf(dc =>
-            {
-                dc.DrawImage(shadow, new Rect(ShiftX, ShiftY, shadow.PixelWidth, shadow.PixelHeight));
-                dc.DrawImage(layer);
-            }).ToWpfWriteable();
+            layer.DrawImage(shadow, below: true);
+            return layer;
         }
     }
 }

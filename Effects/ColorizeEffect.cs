@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace TankIconMaker.Effects
 {
-    class ColorizeEffect : EffectBaseWpf
+    class ColorizeEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Colorize"; } }
@@ -19,12 +19,11 @@ namespace TankIconMaker.Effects
             Color = new ColorSelector(Colors.White);
         }
 
-        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
+        public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             var color = ColorHSV.FromColor(Color.GetColorWpf(tank));
-            var result = layer.Clone();
-            result.Colorize(color.Hue, color.Saturation / 100.0, color.Value / 100.0 - 0.5, color.Alpha / 255.0);
-            return result;
+            layer.Colorize(color.Hue, color.Saturation / 100.0, color.Value / 100.0 - 0.5, color.Alpha / 255.0);
+            return layer;
         }
     }
 }

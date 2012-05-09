@@ -32,9 +32,11 @@ namespace TankIconMaker
             Visible = true;
         }
 
-        /// <summary>Used internally to apply the effect. Hidden from IntelliSense to avoid confusion.</summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public abstract WriteableBitmap ApplyInternal(Tank tank, WriteableBitmap layer);
+        /// <summary>
+        /// Applies the effect to the specified layer. Returns the resulting image. If the layer is writable, may modify it
+        /// directly and return the same instance, instead of creating a new one.
+        /// </summary>
+        public abstract BitmapBase Apply(Tank tank, BitmapBase layer);
 
         [XmlIgnore, Browsable(false)]
         public TreeViewItem TreeViewItem { get; set; }
@@ -47,26 +49,6 @@ namespace TankIconMaker
             var result = MemberwiseClone() as EffectBase;
             result.PropertyChanged = (_, __) => { };
             return result;
-        }
-    }
-
-    abstract class EffectBaseWpf : EffectBase
-    {
-        public abstract WriteableBitmap Apply(Tank tank, WriteableBitmap layer);
-
-        public override WriteableBitmap ApplyInternal(Tank tank, WriteableBitmap layer)
-        {
-            return Apply(tank, layer);
-        }
-    }
-
-    abstract class EffectBaseGdi : EffectBase
-    {
-        public abstract BitmapGdi Apply(Tank tank, BitmapGdi layer);
-
-        public override WriteableBitmap ApplyInternal(Tank tank, WriteableBitmap layer)
-        {
-            return Apply(tank, layer.ToGdi()).ToWpfWriteable();
         }
     }
 }

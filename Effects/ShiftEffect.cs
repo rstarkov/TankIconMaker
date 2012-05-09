@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace TankIconMaker.Effects
 {
-    class ShiftEffect : EffectBaseWpf
+    class ShiftEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return "Shift"; } }
@@ -17,14 +17,13 @@ namespace TankIconMaker.Effects
         [Description("Amount of vertical shift in pixels.")]
         public int ShiftY { get; set; }
 
-        public override WriteableBitmap Apply(Tank tank, WriteableBitmap layer)
+        public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             if (ShiftX == 0 && ShiftY == 0)
                 return layer;
-            return Ut.NewBitmapWpf(dc =>
-            {
-                dc.DrawImage(layer, new Rect(ShiftX, ShiftY, layer.PixelWidth, layer.PixelHeight));
-            }).ToWpfWriteable();
+            var result = new BitmapRam(layer.Width, layer.Height);
+            result.DrawImage(layer, ShiftX, ShiftY);
+            return result;
         }
     }
 }
