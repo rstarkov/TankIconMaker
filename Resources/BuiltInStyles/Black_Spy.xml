@@ -34,10 +34,49 @@
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
-        <item type="TankIconMaker.Effects.ShiftEffect">
+        <item type="TankIconMaker.Effects.SizePosEffect">
           <Visible>True</Visible>
-          <ShiftX>3</ShiftX>
-          <ShiftY>0</ShiftY>
+          <Percentage>50</Percentage>
+          <Width>30</Width>
+          <Height>18</Height>
+          <PixelAlphaThreshold>120</PixelAlphaThreshold>
+          <PositionByPixels>True</PositionByPixels>
+          <Left>0</Left>
+          <Right>73</Right>
+          <Top>0</Top>
+          <Bottom>23</Bottom>
+          <LeftAnchor>True</LeftAnchor>
+          <RightAnchor>True</RightAnchor>
+          <TopAnchor>True</TopAnchor>
+          <BottomAnchor>True</BottomAnchor>
+          <SizeByPixels>True</SizeByPixels>
+          <SizeMode>NoChange</SizeMode>
+          <GrowShrinkMode>GrowAndShrink</GrowShrinkMode>
+          <ShowLayerBorders>False</ShowLayerBorders>
+          <ShowPixelBorders>False</ShowPixelBorders>
+          <ShowTargetBorders>False</ShowTargetBorders>
+        </item>
+        <item type="TankIconMaker.Effects.SizePosEffect">
+          <Visible>False</Visible>
+          <Percentage>20</Percentage>
+          <Width>30</Width>
+          <Height>18</Height>
+          <PixelAlphaThreshold>120</PixelAlphaThreshold>
+          <PositionByPixels>True</PositionByPixels>
+          <Left>10</Left>
+          <Right>34</Right>
+          <Top>0</Top>
+          <Bottom>23</Bottom>
+          <LeftAnchor>True</LeftAnchor>
+          <RightAnchor>True</RightAnchor>
+          <TopAnchor>True</TopAnchor>
+          <BottomAnchor>True</BottomAnchor>
+          <SizeByPixels>True</SizeByPixels>
+          <SizeMode>ByPercentage</SizeMode>
+          <GrowShrinkMode>ShrinkOnly</GrowShrinkMode>
+          <ShowLayerBorders>False</ShowLayerBorders>
+          <ShowPixelBorders>False</ShowPixelBorders>
+          <ShowTargetBorders>False</ShowTargetBorders>
         </item>
         <item type="TankIconMaker.Effects.ColorizeEffect">
           <Visible>False</Visible>
@@ -61,6 +100,19 @@
             <Tier5>#FFFFFF</Tier5>
             <Tier10>#FFFFFF</Tier10>
           </Color>
+        </item>
+        <item type="TankIconMaker.Effects.ClipEffect">
+          <Visible>True</Visible>
+          <PixelAlphaThreshold>120</PixelAlphaThreshold>
+          <ClipLeft>0</ClipLeft>
+          <ClipTop>2</ClipTop>
+          <ClipRight>0</ClipRight>
+          <ClipBottom>2</ClipBottom>
+          <FadeLeft>0</FadeLeft>
+          <FadeTop>0</FadeTop>
+          <FadeRight>0</FadeRight>
+          <FadeBottom>0</FadeBottom>
+          <Mode>ByIconBounds</Mode>
         </item>
       </Effects>
       <Style>ThreeD</Style>
@@ -262,10 +314,27 @@
       <Visible>False</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
-        <item type="TankIconMaker.Effects.ShiftEffect">
+        <item type="TankIconMaker.Effects.SizePosEffect">
           <Visible>True</Visible>
-          <ShiftX>69</ShiftX>
-          <ShiftY>2</ShiftY>
+          <Percentage>50</Percentage>
+          <Width>30</Width>
+          <Height>18</Height>
+          <PixelAlphaThreshold>120</PixelAlphaThreshold>
+          <PositionByPixels>True</PositionByPixels>
+          <Left>0</Left>
+          <Right>76</Right>
+          <Top>2</Top>
+          <Bottom>23</Bottom>
+          <LeftAnchor>False</LeftAnchor>
+          <RightAnchor>True</RightAnchor>
+          <TopAnchor>True</TopAnchor>
+          <BottomAnchor>False</BottomAnchor>
+          <SizeByPixels>True</SizeByPixels>
+          <SizeMode>NoChange</SizeMode>
+          <GrowShrinkMode>GrowAndShrink</GrowShrinkMode>
+          <ShowLayerBorders>False</ShowLayerBorders>
+          <ShowPixelBorders>False</ShowPixelBorders>
+          <ShowTargetBorders>False</ShowTargetBorders>
         </item>
         <item type="TankIconMaker.Effects.ColorizeEffect">
           <Visible>True</Visible>

@@ -24,14 +24,14 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Exception 4109876 / failure of acquire/release counting in Bitmap
- * Overhang / clip replacement  * Effect: Clip
  * Image layer for multiply-parameterised custom image
- * Image scaling sharpness
+ * Lanczos resampling; sharpen effect
+ * Improved Font selection
  * Colorize method: set RGB
  * Effect: Position between other layers
  * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
  * Effect: Duplicate another effect / all effects of another layer
+ * Effect: fade out edges
  * Layer: "duplicate" (before or after effects)
  * How to "merge" two layers into one so that effects like "shadow" can apply to the merged result
  * Use a WPF MessageBox (avoid WinForms interop startup cost)
