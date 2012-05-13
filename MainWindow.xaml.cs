@@ -24,7 +24,6 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
- * Image layer for multiply-parameterised custom image
  * Lanczos resampling; sharpen effect
  * Improved Font selection
  * Colorize method: set RGB
