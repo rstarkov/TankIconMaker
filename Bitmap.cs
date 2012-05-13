@@ -76,6 +76,8 @@ namespace TankIconMaker
         {
             if (_acquiresRead == int.MinValue) // a manual dispose followed by a manual release: tell the programmer they messed up
                 throw new ObjectDisposedException("BitmapBase");
+            if (_acquiresRead <= 0 && _acquiresWrite <= 0)
+                throw new Exception("4109876");
 
             if (write)
                 _acquiresWrite--;
@@ -89,8 +91,6 @@ namespace TankIconMaker
                 _multithreadedReading = false;
                 _thread = null;
             }
-            else if (_acquiresRead < 0 || _acquiresWrite < 0)
-                throw new Exception("4109876");
         }
 
         public BitmapReadReleaser UseRead()
@@ -106,22 +106,25 @@ namespace TankIconMaker
         public struct BitmapReadReleaser : IDisposable
         {
             private BitmapBase _bmp;
-            public BitmapReadReleaser(BitmapBase bitmap) { _bmp = bitmap; _bmp.acquire(write: false); }
-            public void Dispose() { _bmp.release(write: false); }
+            public BitmapReadReleaser(BitmapBase bitmap) { _bmp = bitmap; lock (_bmp) _bmp.acquire(write: false); }
+            public void Dispose() { lock (_bmp) _bmp.release(write: false); }
         }
 
         public struct BitmapWriteReleaser : IDisposable
         {
             private BitmapBase _bmp;
-            public BitmapWriteReleaser(BitmapBase bitmap) { _bmp = bitmap; _bmp.acquire(write: true); }
-            public void Dispose() { _bmp.release(write: true); }
+            public BitmapWriteReleaser(BitmapBase bitmap) { _bmp = bitmap; lock (_bmp) _bmp.acquire(write: true); }
+            public void Dispose() { lock (_bmp) _bmp.release(write: true); }
         }
 
         public virtual void Dispose()
         {
-            if (_acquiresRead > 0 || _acquiresWrite > 0)
-                Release();
-            _acquiresRead = int.MinValue;
+            lock (this)
+            {
+                if (_acquiresRead > 0 || _acquiresWrite > 0)
+                    Release();
+                _acquiresRead = int.MinValue;
+            }
         }
 
         ~BitmapBase()

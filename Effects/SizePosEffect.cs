@@ -47,7 +47,7 @@ namespace TankIconMaker.Effects
         public override string TypeName { get { return "Size / Position"; } }
         public override string TypeDescription { get { return "Adjusts this layer's size and/or position. This effect is always applied before any other effects."; } }
 
-        [Category("Position"), DisplayName("By pixels")]
+        [Category("Position"), DisplayName("Use pixels")]
         [Description("If checked, transparent areas on the outside of the image will be ignored in position calculations. See also \"Pixel alpha threshold\".")]
         public bool PositionByPixels { get; set; }
 
@@ -77,7 +77,7 @@ namespace TankIconMaker.Effects
         [Description("If checked, the bottommost pixel of the text is anchored at the Y coordinate specified by \"Bottom\". If \"Top Anchor\" is also checked, the text is centered between \"Top\" and \"Bottom\".")]
         public bool BottomAnchor { get; set; }
 
-        [Category("Size"), DisplayName("By pixels")]
+        [Category("Size"), DisplayName("Use pixels")]
         [Description("If checked, transparent areas on the outside of the image will be ignored in size calculations. See also \"Pixel alpha threshold\".")]
         public bool SizeByPixels { get; set; }
 
