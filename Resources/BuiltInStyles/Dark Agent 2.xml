@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <item>
-  <Name>Dark Agent</Name>
+  <Name>Dark Agent 2</Name>
   <Author>Romkyns</Author>
   <Layers>
     <item type="TankIconMaker.Layers.BkgDarkAgentLayer">
-      <Name refid="0"></Name>
+      <Name></Name>
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects />
@@ -30,28 +30,28 @@
       </BackColor>
     </item>
     <item type="TankIconMaker.Layers.TankImageLayer">
-      <Name ref="0" />
+      <Name></Name>
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Visible>True</Visible>
-          <Percentage>50</Percentage>
+          <Percentage>20</Percentage>
           <Width>30</Width>
           <Height>18</Height>
-          <PixelAlphaThreshold>180</PixelAlphaThreshold>
+          <PixelAlphaThreshold>120</PixelAlphaThreshold>
           <PositionByPixels>True</PositionByPixels>
-          <Left>12</Left>
-          <Right>79</Right>
+          <Left>10</Left>
+          <Right>34</Right>
           <Top>0</Top>
           <Bottom>23</Bottom>
-          <LeftAnchor>False</LeftAnchor>
-          <RightAnchor>False</RightAnchor>
+          <LeftAnchor>True</LeftAnchor>
+          <RightAnchor>True</RightAnchor>
           <TopAnchor>True</TopAnchor>
           <BottomAnchor>True</BottomAnchor>
           <SizeByPixels>True</SizeByPixels>
-          <SizeMode>NoChange</SizeMode>
-          <GrowShrinkMode>GrowAndShrink</GrowShrinkMode>
+          <SizeMode>ByPercentage</SizeMode>
+          <GrowShrinkMode>ShrinkOnly</GrowShrinkMode>
           <ShowLayerBorders>False</ShowLayerBorders>
           <ShowPixelBorders>False</ShowPixelBorders>
           <ShowTargetBorders>False</ShowTargetBorders>
@@ -63,24 +63,18 @@
           <ClipTop>2</ClipTop>
           <ClipRight>0</ClipRight>
           <ClipBottom>2</ClipBottom>
-          <FadeLeft>0</FadeLeft>
-          <FadeTop>0</FadeTop>
-          <FadeRight>0</FadeRight>
-          <FadeBottom>0</FadeBottom>
           <Mode>ByIconBounds</Mode>
         </item>
       </Effects>
-      <Style>Contour</Style>
+      <Style>ThreeDLarge</Style>
     </item>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Tier</Name>
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
-        <item type="TankIconMaker.Effects.ShadowEffect">
+        <item type="TankIconMaker.Effects.PixelOutlineEffect">
           <Visible>True</Visible>
-          <Radius>1.5</Radius>
-          <Spread>50</Spread>
           <Color>
             <ClassLight>#000000</ClassLight>
             <ClassMedium>#000000</ClassMedium>
@@ -101,8 +95,6 @@
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
           </Color>
-          <ShiftX>0</ShiftX>
-          <ShiftY>0</ShiftY>
         </item>
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Visible>True</Visible>
@@ -151,11 +143,11 @@
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
-        <Single>#FFFFFF</Single>
-        <By>Tier</By>
+        <Single>#D2D2D2</Single>
+        <By>Single</By>
         <Tier1>#FFFFFF</Tier1>
         <Tier5>#FFFFFF</Tier5>
-        <Tier10>#FF0000</Tier10>
+        <Tier10>#FFFFFF</Tier10>
       </FontColor>
       <Left>3</Left>
       <Right>77</Right>
@@ -177,10 +169,8 @@
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
-        <item type="TankIconMaker.Effects.ShadowEffect">
+        <item type="TankIconMaker.Effects.PixelOutlineEffect">
           <Visible>True</Visible>
-          <Radius>1.5</Radius>
-          <Spread>50</Spread>
           <Color>
             <ClassLight>#000000</ClassLight>
             <ClassMedium>#000000</ClassMedium>
@@ -201,8 +191,6 @@
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
           </Color>
-          <ShiftX>0</ShiftX>
-          <ShiftY>0</ShiftY>
         </item>
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Visible>True</Visible>

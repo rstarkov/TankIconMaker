@@ -172,6 +172,7 @@
     <EmbeddedResource Include="Resources\BuiltInStyles\Black_Spy.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Original.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent 2.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Current.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
