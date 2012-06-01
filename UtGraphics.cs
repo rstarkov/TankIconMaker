@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Linq;
 using D = System.Drawing;
 
 namespace TankIconMaker
@@ -177,6 +178,21 @@ namespace TankIconMaker
                     *(ptrResult + 2) = (byte) (*(ptrLeft + 2) * leftRatio + *(ptrRight + 2) * rightRatio);
                     *(ptrResult + 3) = (byte) (*(ptrLeft + 3) * leftAmount + *(ptrRight + 3) * rightAmount);
                 }
+            }
+        }
+
+        public static void SaveImage(BitmapSource image, string path, string extension)
+        {
+            if (extension.EqualsNoCase(".tga"))
+                Targa.Save(image.ToBitmapRam(), path);
+            else
+            {
+                var encoder = extension.EqualsNoCase(".jpg") ? new JpegBitmapEncoder()
+                    : extension.EqualsNoCase(".bmp") ? new BmpBitmapEncoder()
+                    : (BitmapEncoder) new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                using (var file = File.Open(path, FileMode.Create, FileAccess.Write, FileShare.Read))
+                    encoder.Save(file);
             }
         }
     }

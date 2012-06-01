@@ -1,47 +1,56 @@
 WOT-DATA,1,"Короткие названия, перевод",NameImproved,Romkyns
-china-Ch01_Type59,Тип 59
-france-Bat_Chatillon25t,БатШат
-france-Hotchkiss_H35,Гочкисс
-france-Lorraine40t,Лорейн
-france-RenaultFT,Рено FT
-germany-Bison_I,Бизон
-germany-Ferdinand,Фердинанд
-germany-G_E,ГВ Тип Е
-germany-G_Panther,ГВ Пантера
-germany-G_Tiger,ГВ Тигр
-germany-Grille,Гриль
-germany-Hetzer,Хетцер
-germany-Hummel,Хуммель
-germany-Lowe,Лёва
-germany-Ltraktor,Трактор
-germany-Maus,Маус
-germany-Panther_II,Пантера II
-germany-PzII_Luchs,Люкс
-germany-PzV,Пантера
-germany-PzVI,Тигр
-germany-PzVI_Tiger_P,Тигр П
-germany-PzVIB_Tiger_II,Тигр II
-germany-StugIII,ШтуГ
-germany-VK1602,Леопард
-germany-Wespe,Веспе
-usa-M2_lt,M2 ЛТ
-usa-M2_med,M2 СТ
-usa-M22_Locust,Локаст
-usa-M24_Chaffee,Чаффи
-usa-M3_Grant,M3 Ли
-usa-M3_Stuart,M3 Стюарт
-usa-M36_Slagger,Слаггер
-usa-M46_Patton,Паттон
-usa-M7_med,M7 СТ
-usa-M7_Priest,M7 Прист
-usa-Pershing,Першинг
-usa-Ram-II,Рам II
-usa-T1_hvy,T1 Хеви
-usa-T2_lt,T2 ЛТ
-usa-T2_med,T2 СТ
-usa-T28_Prototype,T28 прото
-ussr-Churchill_LL,Черчилль
-ussr-M3_Stuart_LL,M3 Стюарт
-ussr-Matilda_II_LL,Матильда
-ussr-Tetrarch_LL,Тетрарх
-ussr-Valentine_LL,Валентайн
+china-Ch01_Type59,Тип 59,,,
+france-AMX50_Foch,AMX Фош,,,
+france-Bat_Chatillon155,БатШат 155,,,
+france-Bat_Chatillon25t,БатШат 25т,,,
+france-Hotchkiss_H35,Гочкисс,,,
+france-Lorraine155_50,Лор 155 50,,,
+france-Lorraine155_51,Лор 155 51,,,
+france-Lorraine39_L_AM,Лорейн 39,,,
+france-Lorraine40t,Лорейн 40т,,,
+france-RenaultBS,Рено BS,,,
+france-RenaultFT,Рено FT,,,
+france-RenaultFT_AC,Рено FT AC,,,
+france-RenaultUE57,Рено UE57,,,
+france-Somua_Sau_40,Сомюа S40,,,
+germany-Bison_I,Бизон,,,
+germany-Ferdinand,Фердинанд,,,
+germany-G_E,ГВ Тип Е,,,
+germany-G_Panther,ГВ Пантера,,,
+germany-G_Tiger,ГВ Тигр,,,
+germany-Grille,Гриль,,,
+germany-Hetzer,Хетцер,,,
+germany-Hummel,Хуммель,,,
+germany-Lowe,Лёва,,,
+germany-Ltraktor,Трактор,,,
+germany-Maus,Маус,,,
+germany-Panther_II,Пантера II,,,
+germany-PzII_Luchs,Люкс,,,
+germany-PzV,Пантера,,,
+germany-PzVI,Тигр,,,
+germany-PzVI_Tiger_P,Тигр П,,,
+germany-PzVIB_Tiger_II,Тигр II,,,
+germany-StugIII,ШтуГ,,,
+germany-VK1602,Леопард,,,
+germany-Wespe,Веспе,,,
+usa-M2_lt,M2 ЛТ,,,
+usa-M2_med,M2 СТ,,,
+usa-M22_Locust,Локаст,,,
+usa-M24_Chaffee,Чаффи,,,
+usa-M3_Grant,M3 Ли,,,
+usa-M3_Stuart,M3 Стюарт,,,
+usa-M36_Slagger,Слаггер,,,
+usa-M46_Patton,Паттон,,,
+usa-M7_med,M7 СТ,,,
+usa-M7_Priest,M7 Прист,,,
+usa-Pershing,Першинг,,,
+usa-Ram-II,Рам II,,,
+usa-T1_hvy,T1 Хеви,,,
+usa-T2_lt,T2 ЛТ,,,
+usa-T2_med,T2 СТ,,,
+usa-T28_Prototype,T28 прото,,,
+ussr-Churchill_LL,Черчилль,,,
+ussr-M3_Stuart_LL,M3 Стюарт,,,
+ussr-Matilda_II_LL,Матильда,,,
+ussr-Tetrarch_LL,Тетрарх,,,
+ussr-Valentine_LL,Валентайн,,,

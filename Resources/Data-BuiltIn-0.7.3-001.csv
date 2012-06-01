@@ -37,7 +37,7 @@ germany-Hummel,germany,5,artillery,normal
 germany-JagdPanther,germany,7,destroyer,normal
 germany-JagdPzIV,germany,6,destroyer,normal
 germany-JagdTiger,germany,9,destroyer,normal
-germany-JagdTiger_SdKfz_185,germany,8,destroyer,normal
+germany-JagdTiger_SdKfz_185,germany,8,destroyer,premium
 germany-Lowe,germany,8,heavy,premium
 germany-Ltraktor,germany,1,light,normal
 germany-Maus,germany,10,heavy,normal
@@ -154,7 +154,7 @@ ussr-MS-1,ussr,1,light,normal
 ussr-Object_212,ussr,7,artillery,normal
 ussr-Object_261,ussr,8,artillery,normal
 ussr-Object_704,ussr,9,destroyer,normal
-ussr-Object252,ussr,8,heavy,normal
+ussr-Object252,ussr,8,heavy,premium
 ussr-S-51,ussr,6,artillery,normal
 ussr-ST_I,ussr,9,heavy,normal
 ussr-SU_85I,ussr,5,destroyer,premium
