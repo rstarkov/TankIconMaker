@@ -123,11 +123,11 @@ namespace TankIconMaker
             switch (style)
             {
                 case ImageBuiltInStyle.Contour:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + ".tga"));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + _gameVersion.TankIconExtension));
                 case ImageBuiltInStyle.ThreeD:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + ".tga"));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + _gameVersion.TankIconExtension));
                 case ImageBuiltInStyle.ThreeDLarge:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3DLarge, SystemId + ".tga"));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3DLarge, SystemId + _gameVersion.TankIconExtension));
                 case ImageBuiltInStyle.Country:
                     return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceCountry[Country]));
                 case ImageBuiltInStyle.Class:
@@ -140,7 +140,7 @@ namespace TankIconMaker
         /// <summary>Gets the currently saved icon image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
         public virtual BitmapBase GetImageCurrent()
         {
-            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathDestination, SystemId + ".tga"))
+            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathDestination, SystemId + _gameVersion.TankIconExtension))
                 ?? GetImageBuiltIn(ImageBuiltInStyle.Contour);
         }
     }
@@ -975,11 +975,15 @@ namespace TankIconMaker
         /// <summary>A string expected inside the <see cref="CheckFileName"/> file. A match means that this is probably the right game version.</summary>
         public string CheckFileContent { get; private set; }
 
+        /// <summary>Specifies whether the tank images should be loaded and saved as PNG (if true) or TGA (if false).</summary>
+        public string TankIconExtension { get; private set; }
+
         /// <summary>Constructor, for use by XmlClassify.</summary>
         private GameVersion()
         {
             PathSourceCountry = new Dictionary<Country, string>();
             PathSourceClass = new Dictionary<Class, string>();
+            TankIconExtension = ".tga"; // default, if unspecified, for compatibility with older versions
         }
 
         /// <summary>Returns the display name of this game version.</summary>

@@ -816,8 +816,8 @@ namespace TankIconMaker
             var path = Path.Combine(gameInstall.Path, gameInstall.GameVersion.PathDestination);
 
             if (!_overwriteAccepted && Directory.Exists(path))
-                if (DlgMessage.ShowQuestion("Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL .tga files in this path will be overwritten, and there is NO UNDO for this!"
-                    .Fmt(path), "&Yes, overwrite all files", "&Cancel") == 1)
+                if (DlgMessage.ShowQuestion("Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!"
+                    .Fmt(path, gameInstall.GameVersion.TankIconExtension), "&Yes, overwrite all files", "&Cancel") == 1)
                     return;
             _overwriteAccepted = true;
             Directory.CreateDirectory(path);
@@ -839,7 +839,7 @@ namespace TankIconMaker
                             RenderTank(style, renderTask);
                         }
                     foreach (var kvp in renders.Where(kvp => kvp.Value.Exception == null))
-                        Targa.Save(kvp.Value.Image.ToBitmapRam(), Path.Combine(path, kvp.Key + ".tga"));
+                        Ut.SaveImage(kvp.Value.Image, Path.Combine(path, kvp.Key + gameInstall.GameVersion.TankIconExtension), gameInstall.GameVersion.TankIconExtension);
                 }
                 finally
                 {

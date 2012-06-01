@@ -1,19 +1,29 @@
 WOT-DATA,1,"Короткие названия, улучшенные",NameShortWG,Romkyns
-france-AMX_12t,AMX 12t
-france-AMX_50_100,AMX 50 100
-france-AMX_50_120,AMX 50 120
-france-Bat_Chatillon25t,BatChât
-france-F10_AMX_50B,AMX 50B
-france-Hotchkiss_H35,Hotchkiss
-france-Lorraine40t,Lorraine
-france-RenaultFT,Renault FT
-germany-G_E,GW Typ E
-germany-G_Panther,GW Panther
-germany-G_Tiger,GW Tiger
-germany-JagdPanther,JgPanther
-germany-JagdPzIV,JgPzIV
-germany-JagdTiger,JgTiger
-germany-StugIII,StuG III
-usa-T1_Cunningham,Cunningham
-usa-T1_hvy,T1 Heavy
-usa-T28_Prototype,T28 proto
+france-AMX_12t,AMX 12t,,,
+france-AMX_13F3AM,AMX 13F3,,,
+france-AMX_50_100,AMX 50 100,,,
+france-AMX_50_120,AMX 50 120,,,
+france-AMX50_Foch,AMX Foch,,,
+france-Bat_Chatillon155,BatChât 155,,,
+france-Bat_Chatillon25t,BatChât 25t,,,
+france-F10_AMX_50B,AMX 50B,,,
+france-Hotchkiss_H35,Hotchkiss,,,
+france-Lorraine155_50,Lorr 155 50,,,
+france-Lorraine155_51,Lorr 155 51,,,
+france-Lorraine39_L_AM,Lorr 39,,,
+france-Lorraine40t,Lorr 40t,,,
+france-RenaultBS,Ren BS,,,
+france-RenaultFT,Ren FT,,,
+france-RenaultFT_AC,Ren FT AC,,,
+france-RenaultUE57,Ren UE57,,,
+germany-G_E,GW Typ E,,,
+germany-G_Panther,GW Panther,,,
+germany-G_Tiger,GW Tiger,,,
+germany-JagdPanther,JgPanther,,,
+germany-JagdPzIV,JgPzIV,,,
+germany-JagdTiger,JgTiger,,,
+germany-JagdTiger_SdKfz_185,JgTiger 8.8,,,
+germany-StugIII,StuG III,,,
+usa-T1_Cunningham,Cunningham,,,
+usa-T1_hvy,T1 Heavy,,,
+usa-T28_Prototype,T28 proto,,,
