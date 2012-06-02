@@ -1,5 +1,7 @@
 WOT-DATA,1,"Короткие названия танков, оригинал – как в игре."
 china-Ch01_Type59,Type 59,
+china-Ch02_Type62,*Type 62*,не проверен
+china-Ch03_WZ-111,*WZ-111*,не проверен
 france-_105_leFH18B2,leFH18B2,
 france-AMX_105AM,AMX 105AM,
 france-AMX_12t,AMX12t,
@@ -13,7 +15,7 @@ france-AMX_AC_Mle1948,AC Mle.48,
 france-AMX_M4_1945,AMX M4 45,
 france-AMX38,AMX 38,
 france-AMX40,AMX 40,
-france-AMX50_Foch,*AMX50 Foch*,не проверен
+france-AMX50_Foch,*AMX50Foch*,
 france-ARL_44,ARL 44,
 france-ARL_V39,ARL V39,
 france-B1,B1,
@@ -25,8 +27,8 @@ france-D2,D2,
 france-F10_AMX_50B,AMX50B,
 france-FCM_36Pak40,FCM36P40,
 france-Hotchkiss_H35,H35,
-france-Lorraine155_50,*Lorr.155 (50)*,не проверен
-france-Lorraine155_51,*Lorr.155 (51)*,не проверен
+france-Lorraine155_50,*Lor.155 50*,
+france-Lorraine155_51,*Lor.155 51*,
 france-Lorraine39_L_AM,Lorr.39LAM,
 france-Lorraine40t,Lorraine40t,
 france-RenaultBS,BS,
