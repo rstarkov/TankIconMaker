@@ -103,8 +103,11 @@
                     <Button Margin="0,0,0,0" Name="ctStyleNew" Command="src:TankStyleCommands.Add">
                         <AccessText Margin="6,0">_New</AccessText>
                     </Button>
-                    <Button Margin="6,0,0,0" Name="ctStyleDelete" Command="src:TankStyleCommands.Delete">
-                        <AccessText Margin="6,0">_Delete</AccessText>
+                    <Button Margin="6,0,0,0" Name="ctStyleImport" Command="src:TankStyleCommands.Import">
+                        <AccessText Margin="6,0">Im_port</AccessText>
+                    </Button>
+                    <Button Margin="6,0,0,0" Name="ctStyleExport" Command="src:TankStyleCommands.Export">
+                        <AccessText Margin="6,0">E_xport</AccessText>
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleMore" HorizontalAlignment="Right" Click="ctStyleMore_Click">
                         <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
@@ -115,10 +118,9 @@
                             <ContextMenu>
                                 <MenuItem Header="Change _name" Command="src:TankStyleCommands.ChangeName"/>
                                 <MenuItem Header="Change _author" Command="src:TankStyleCommands.ChangeAuthor"/>
-                                <MenuItem Header="_Duplicate" Name="ctStyleDuplicate" Command="src:TankStyleCommands.Duplicate"/>
                                 <Separator/>
-                                <MenuItem Header="_Import" Name="ctStyleImport" Command="src:TankStyleCommands.Import"/>
-                                <MenuItem Header="_Export" Name="ctStyleExport" Command="src:TankStyleCommands.Export"/>
+                                <MenuItem Header="_Duplicate" Name="ctStyleDuplicate" Command="src:TankStyleCommands.Duplicate"/>
+                                <MenuItem Header="D_elete" Name="ctStyleDelete" Command="src:TankStyleCommands.Delete"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
