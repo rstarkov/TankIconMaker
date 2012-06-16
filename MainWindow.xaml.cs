@@ -99,7 +99,7 @@ namespace TankIconMaker
 
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdLayer_AddLayer));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
-            CommandBindings.Add(new CommandBinding(TankLayerCommands.Rename, cmdLayer_Rename, (_, a) => { a.CanExecute = isLayerSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.Rename, cmdLayer_Rename, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.Delete, cmdLayer_Delete, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveUp, cmdLayer_MoveUp, (_, a) => { a.CanExecute = cmdLayer_MoveUp_IsAvailable(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveDown, cmdLayer_MoveDown, (_, a) => { a.CanExecute = cmdLayer_MoveDown_IsAvailable(); }));
@@ -1072,12 +1072,23 @@ namespace TankIconMaker
         private void cmdLayer_Rename(object sender, ExecutedRoutedEventArgs e)
         {
             var layer = ctLayersTree.SelectedItem as LayerBase;
-            var newName = PromptWindow.ShowPrompt(this, layer.Name, "Rename layer", "Layer _name:");
+            var effect = ctLayersTree.SelectedItem as EffectBase;
+            var newName = layer != null
+                ? PromptWindow.ShowPrompt(this, layer.Name, "Rename layer", "Layer _name:")
+                : PromptWindow.ShowPrompt(this, effect.Name, "Rename effect", "Effect _name:");
             if (newName == null)
                 return;
             var style = GetEditableStyle();
-            layer = ctLayersTree.SelectedItem as LayerBase;
-            layer.Name = newName;
+            if (layer != null)
+            {
+                layer = ctLayersTree.SelectedItem as LayerBase;
+                layer.Name = newName;
+            }
+            else
+            {
+                effect = ctLayersTree.SelectedItem as EffectBase;
+                effect.Name = newName;
+            }
             SaveSettings();
         }
 

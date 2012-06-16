@@ -25,8 +25,7 @@ namespace TankIconMaker
         {
             var wnd = new AddWindow { Owner = owner };
             wnd.Title = "Add layer";
-            wnd.lblName.Visibility = Visibility.Visible;
-            wnd.ctName.Visibility = Visibility.Visible;
+            wnd.lblName.Content = "Layer _name:";
             wnd.lblList.Content = "Layer _type:";
             wnd.ctList.ItemsSource = Program.LayerTypes;
             wnd.ctList.SelectedIndex = 0;
@@ -46,8 +45,7 @@ namespace TankIconMaker
         {
             var wnd = new AddWindow { Owner = owner };
             wnd.Title = "Add effect";
-            wnd.lblName.Visibility = Visibility.Collapsed;
-            wnd.ctName.Visibility = Visibility.Collapsed;
+            wnd.lblName.Content = "Effect _name:";
             wnd.lblList.Content = "Effect _type:";
             wnd.ctList.ItemsSource = Program.EffectTypes;
             wnd.ctList.SelectedIndex = 0;
@@ -58,7 +56,9 @@ namespace TankIconMaker
             var item = wnd.ctList.SelectedItem as TypeInfo<EffectBase>;
             if (item == null)
                 return null;
-            return item.Constructor();
+            var result = item.Constructor();
+            result.Name = wnd.ctName.Text;
+            return result;
         }
     }
 }
