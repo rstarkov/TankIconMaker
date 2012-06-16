@@ -1,5 +1,28 @@
-WOT-DATA,1,"Full tank names – original, like in the game."
+WOT-DATA,1,"Full tank names, original – like in the game."
 china-Ch01_Type59,Type 59
+china-Ch01_Type59_Gold,Type 59 G
+china-Ch02_Type62,Type 62
+china-Ch03_WZ-111,WZ-111
+france-_105_leFH18B2,105 leFH18B2
+france-AMX_12t,AMX 12t
+france-AMX_13_75,AMX 13 75
+france-AMX_13_90,AMX 13 90
+france-AMX_50_100,AMX 50 100
+france-AMX_50_120,AMX 50 120
+france-AMX_M4_1945,AMX M4(1945)
+france-AMX38,AMX 38
+france-AMX40,AMX 40
+france-ARL_44,ARL 44
+france-B1,B1
+france-Bat_Chatillon25t,Bat Chatillon 25 t
+france-BDR_G1B,BDR G1B
+france-D1,D1
+france-D2,D2
+france-F10_AMX_50B,AMX 50B
+france-FCM_36Pak40,FCM36 Pak40
+france-Hotchkiss_H35,Hotchkiss H35
+france-Lorraine40t,Lorraine 40 t
+france-RenaultFT,RenaultFT
 germany-B-1bis_captured,PzKpfw B2 740 (f)
 germany-Bison_I,Sturmpanzer I Bison
 germany-E-100,E-100
@@ -17,6 +40,7 @@ germany-Hummel,Hummel
 germany-JagdPanther,Jagdpanther
 germany-JagdPzIV,JagdPz IV
 germany-JagdTiger,Jagdtiger
+germany-JagdTiger_SdKfz_185,8.8 cm Pak 43 JagdTiger
 germany-Lowe,Löwe
 germany-Ltraktor,Leichttraktor
 germany-Maus,Maus
@@ -40,7 +64,7 @@ germany-PzVI,PzKpfw VI Tiger
 germany-PzVI_Tiger_P,PzKpfw VI Tiger (P)
 germany-PzVIB_Tiger_II,PzKpfw VIB Tiger II
 germany-S35_captured,PzKpfw S35 739 (f)
-germany-StugIII,StuG III
+germany-StuGIII,StuG III
 germany-Sturmpanzer_II,Sturmpanzer II
 germany-T-15,T-15
 germany-T-25,T-25
@@ -53,8 +77,11 @@ germany-VK3601H,VK 3601 (H)
 germany-VK4502A,VK 4502 (P) Ausf. A
 germany-VK4502P,VK 4502 (P) Ausf. B
 germany-Wespe,Wespe
+germany-White_Tiger,Der Weiße Tiger
 usa-M10_Wolverine,M10 Wolverine
+usa-M103,M103
 usa-M12,M12
+usa-M18_Hellcat,M18 Hellcat
 usa-M2_lt,M2 Light Tank
 usa-M2_med,M2 Medium Tank
 usa-M22_Locust,M22 Locust
@@ -74,24 +101,30 @@ usa-M6,M6
 usa-M6A2E1,M6A2E1
 usa-M7_med,M7
 usa-M7_Priest,M7 Priest
+usa-M8A1,M8A1
 usa-MTLS-1G14,MTLS-1G14
 usa-Pershing,M26 Pershing
 usa-Ram-II,Ram-II
 usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1 Cunningham
 usa-T1_hvy,T1 heavy
+usa-T110,T110E5
 usa-T14,T14
 usa-T18,T18
 usa-T2_lt,T2 Light Tank
 usa-T2_med,T2 Medium Tank
 usa-T20,T20
+usa-T23,T23
+usa-T25_2,T25/2
 usa-T25_AT,T25 AT
 usa-T28,T28
+usa-T28_Prototype,T28 Prototype
 usa-T29,T29
 usa-T30,T30
 usa-T32,T32
 usa-T34_hvy,T34
 usa-T40,T40
+usa-T49,T49
 usa-T57,T57
 usa-T82,T82
 usa-T92,T92
@@ -108,13 +141,17 @@ ussr-IS,IS
 ussr-IS-3,IS-3
 ussr-IS-4,IS-4
 ussr-IS-7,IS-7
+ussr-IS8,IS-8
 ussr-ISU-152,ISU-152
 ussr-KV,KV
+ussr-KV1,KV-1
 ussr-KV-13,KV-13
 ussr-KV-1s,KV-1S
-ussr-KV-220,KV-220
-ussr-KV-220_action,KV-220 Beta-Test
+ussr-KV2,KV-2
+ussr-KV-220,KV-220 Beta-Test
+ussr-KV-220_action,KV-220
 ussr-KV-3,KV-3
+ussr-KV4,КV-4
 ussr-KV-5,KV-5
 ussr-M3_Stuart_LL,M3 Stuart
 ussr-Matilda_II_LL,Matilda
@@ -122,7 +159,9 @@ ussr-MS-1,MS-1
 ussr-Object_212,Object 212
 ussr-Object_261,Object 261
 ussr-Object_704,Object 704
+ussr-Object252,IS-6
 ussr-S-51,S-51
+ussr-ST_I,ST-I
 ussr-SU_85I,SU-85I
 ussr-SU-100,SU-100
 ussr-SU-14,SU-14
@@ -135,6 +174,7 @@ ussr-SU-8,SU-8
 ussr-SU-85,SU-85
 ussr-T_50_2,T-50-2
 ussr-T-127,T-127
+ussr-T150,T-150
 ussr-T-26,T-26
 ussr-T-28,T-28
 ussr-T-34,T-34
@@ -144,4 +184,5 @@ ussr-T-44,T-44
 ussr-T-46,T-46
 ussr-T-50,T-50
 ussr-T-54,T-54
+ussr-Tetrarch_LL,MkVII Tetrarch
 ussr-Valentine_LL,Valentine
