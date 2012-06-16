@@ -34,10 +34,14 @@ namespace TankIconMaker
         [Description("Allows you to hide this effect without deleting it.")]
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
         private bool _Visible;
+        [Category("General"), DisplayName("Visible for")]
+        [Description("Specifies which types of tanks this layer should be visible for.")]
+        public ValueSelector<BoolWithPassthrough> VisibleFor { get; set; }
 
         public EffectBase()
         {
             Visible = true;
+            VisibleFor = new ValueSelector<BoolWithPassthrough>(BoolWithPassthrough.Yes);
         }
 
         /// <summary>

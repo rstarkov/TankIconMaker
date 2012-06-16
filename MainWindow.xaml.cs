@@ -518,7 +518,7 @@ namespace TankIconMaker
                 var result = new BitmapWpf(80, 24);
                 using (result.UseWrite())
                 {
-                    foreach (var layer in style.Layers.Where(l => l.Visible))
+                    foreach (var layer in style.Layers.Where(l => l.Visible && l.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
                     {
                         var img = layer.Draw(renderTask.Tank);
                         if (img == null)
@@ -529,7 +529,7 @@ namespace TankIconMaker
                             img = new BitmapRam(Math.Max(80, img.Width), Math.Max(24, img.Height));
                             img.DrawImage(imgOrig);
                         }
-                        foreach (var effect in layer.Effects.OrderBy(l => l is Effects.SizePosEffect ? 0 : 1).Where(e => e.Visible))
+                        foreach (var effect in layer.Effects.OrderBy(l => l is Effects.SizePosEffect ? 0 : 1).Where(e => e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
                             img = effect.Apply(renderTask.Tank, img.AsWritable());
                         result.DrawImage(img);
                     }

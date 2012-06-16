@@ -38,12 +38,16 @@ namespace TankIconMaker
         [Description("Allows you to hide this layer without deleting it.")]
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
         private bool _Visible;
+        [Category("General"), DisplayName("Visible for")]
+        [Description("Specifies which types of tanks this layer should be visible for.")]
+        public ValueSelector<BoolWithPassthrough> VisibleFor { get; set; }
 
         public LayerBase()
         {
             Effects = new ObservableCollection<EffectBase>();
             Effects.CollectionChanged += updateEffectLayer;
             Visible = true;
+            VisibleFor = new ValueSelector<BoolWithPassthrough>(BoolWithPassthrough.Yes);
         }
 
         private void updateEffectLayer(object sender, NotifyCollectionChangedEventArgs e)

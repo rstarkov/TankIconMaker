@@ -73,7 +73,7 @@ namespace TankIconMaker
 
         public SelectorBase(T value)
         {
-            By = SelectBy.Single;
+            By = By2 = By3 = By4 = SelectBy.Single;
             ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
                 = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina
                 = CategNormal = CategPremium = CategSpecial
@@ -110,6 +110,7 @@ namespace TankIconMaker
         }
 
         public ValueSelector(T value)
+            : base(value)
         {
             Tier1 = Tier2 = Tier3 = Tier4 = Tier5 = Tier6 = Tier7 = Tier8 = Tier9 = Tier10 = value;
         }
@@ -157,6 +158,8 @@ namespace TankIconMaker
             if (typeof(T) == typeof(string) && (string) (object) result == "")
                 return true;
             if (typeof(T) == typeof(Filename) && (Filename) (object) result == "")
+                return true;
+            if (typeof(T) == typeof(BoolWithPassthrough) && (BoolWithPassthrough) (object) result == BoolWithPassthrough.Passthrough)
                 return true;
             return false;
         }
