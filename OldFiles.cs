@@ -49,19 +49,23 @@ namespace TankIconMaker
             new oldFile("Data\\GameVersion-0.7.1.xml", 494, "92ddd672a4316aa1dd8c61a154175600f539b23c0c28fb4896c355ebcf09f3f6"),
             new oldFile("Data\\GameVersion-0.7.2.xml", 502, "bf45aeed4422e0f0af5d8c9305f72a832209486fedd0a3a62ed23da82505437a"),
             new oldFile("Data\\GameVersion-0.7.2.xml", 526, "deee99d7dac1967830e716d0a2f60ad63de65ca1cea883a71f0d348e5b8aebf2"),
+            new oldFile("Data\\GameVersion-0.7.4-CT.xml", 1746, "cdfb1c839cb388602f7c2dff1f40a80458283e12a0f0ac9af5a9b2f8edcf53f6"),
         };
 
         static string[] _currentFiles = new[]
         {
             "Data\\background.jpg",
             "Data\\Data-BuiltIn-0.7.3-001.csv",
+            "Data\\Data-BuiltIn-0.7.4-001.csv",
             "Data\\Data-NameFullWG-En-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameFullWG-Ru-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameImproved-Ru-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameNative-Ru-Romkyns-0.0.0-001.csv",
+            "Data\\Data-NameShortWG-En-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameShortWG-Ru-Romkyns-0.0.0-001.csv",
             "Data\\Data-NameSlang-Ru-Romkyns-0.0.0-001.csv",
             "Data\\GameVersion-0.7.3.xml",
+            "Data\\GameVersion-0.7.4.xml",
         };
 
         public static void DeleteOldFiles()
