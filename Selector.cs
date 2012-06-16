@@ -21,6 +21,19 @@ namespace TankIconMaker
 
     abstract class SelectorBase<T>
     {
+        [DisplayName("By")]
+        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) are selected according to \"By (#2)\".")]
+        public SelectBy By { get; set; }
+        [DisplayName("By (#2)")]
+        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) are selected according to \"By (#3)\".")]
+        public SelectBy By2 { get; set; }
+        [DisplayName("By (#3)")]
+        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) are selected according to \"By (#4)\".")]
+        public SelectBy By3 { get; set; }
+        [DisplayName("By (#4)")]
+        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) will remain fully transparent.")]
+        public SelectBy By4 { get; set; }
+
         [DisplayName("Class: Light tank")]
         public T ClassLight { get; set; }
         [DisplayName("Class: Medium tank")]
@@ -60,6 +73,7 @@ namespace TankIconMaker
 
         public SelectorBase(T value)
         {
+            By = SelectBy.Single;
             ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
                 = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina
                 = CategNormal = CategPremium = CategSpecial
@@ -69,9 +83,6 @@ namespace TankIconMaker
 
     sealed class ValueSelector<T> : SelectorBase<T>
     {
-        [DisplayName("By")]
-        public SelectBy By { get; set; }
-
         [DisplayName("Tier:  1")]
         public T Tier1 { get; set; }
         [DisplayName("Tier:  2")]
@@ -100,13 +111,23 @@ namespace TankIconMaker
 
         public ValueSelector(T value)
         {
-            By = SelectBy.Single;
             Tier1 = Tier2 = Tier3 = Tier4 = Tier5 = Tier6 = Tier7 = Tier8 = Tier9 = Tier10 = value;
         }
 
         public T GetValue(Tank tank)
         {
-            switch (By)
+            var result = getValue(tank, By);
+            if (!isPassthrough(result)) return result;
+            result = getValue(tank, By2);
+            if (!isPassthrough(result)) return result;
+            result = getValue(tank, By3);
+            if (!isPassthrough(result)) return result;
+            return getValue(tank, By4);
+        }
+
+        private T getValue(Tank tank, SelectBy by)
+        {
+            switch (by)
             {
                 case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
                 case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
@@ -130,13 +151,19 @@ namespace TankIconMaker
                 default: throw new Exception();
             }
         }
+
+        private static bool isPassthrough(T result)
+        {
+            if (typeof(T) == typeof(string) && (string) (object) result == "")
+                return true;
+            if (typeof(T) == typeof(Filename) && (Filename) (object) result == "")
+                return true;
+            return false;
+        }
     }
 
     sealed class ColorSelector : SelectorBase<Color>
     {
-        [DisplayName("By")]
-        public SelectBy By { get; set; }
-
         [DisplayName("Tier:  1")]
         public Color Tier1 { get; set; }
         [DisplayName("Tier:  5")]
@@ -152,13 +179,24 @@ namespace TankIconMaker
         public ColorSelector(Color color)
             : base(color)
         {
-            By = SelectBy.Single;
             Tier1 = Tier5 = Tier10 = color;
         }
 
         public Color GetColorWpf(Tank tank)
         {
-            switch (By)
+            var passthrough = Color.FromArgb(0, 0, 0, 0);
+            var result = getColor(tank, By);
+            if (result != passthrough) return result;
+            result = getColor(tank, By2);
+            if (result != passthrough) return result;
+            result = getColor(tank, By3);
+            if (result != passthrough) return result;
+            return getColor(tank, By4);
+        }
+
+        private Color getColor(Tank tank, SelectBy by)
+        {
+            switch (by)
             {
                 case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
                 case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
