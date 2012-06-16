@@ -1,6 +1,5 @@
 WOT-BUILTIN-DATA,1,,,
 china-Ch01_Type59,china,8,medium,special
-china-Ch01_Type59_Gold,china,8,medium,special
 china-Ch02_Type62,china,6,light,special
 china-Ch03_WZ-111,china,8,heavy,special
 france-_105_leFH18B2,france,4,artillery,premium
@@ -77,7 +76,6 @@ germany-VK3601H,germany,6,medium,normal
 germany-VK4502A,germany,8,heavy,normal
 germany-VK4502P,germany,9,heavy,normal
 germany-Wespe,germany,3,artillery,normal
-germany-White_Tiger,germany,10,heavy,special
 usa-M10_Wolverine,usa,5,destroyer,normal
 usa-M103,usa,9,heavy,normal
 usa-M12,usa,6,artillery,normal
@@ -114,7 +112,6 @@ usa-T18,usa,2,destroyer,normal
 usa-T2_lt,usa,2,light,premium
 usa-T2_med,usa,2,medium,normal
 usa-T20,usa,7,medium,normal
-usa-T23,usa,8,medium,special
 usa-T25_2,usa,7,destroyer,normal
 usa-T25_AT,usa,7,destroyer,normal
 usa-T28,usa,8,destroyer,normal
