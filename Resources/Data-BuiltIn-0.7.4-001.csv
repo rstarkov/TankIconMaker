@@ -14,5 +14,8 @@ france-RenaultFT_AC,france,2,destroyer,normal
 france-RenaultUE57,france,3,destroyer,normal
 france-S_35CA,france,5,destroyer,normal
 france-Somua_Sau_40,france,4,destroyer,normal
-germany-DickerMax,germany,6,destroyer,premium
-usa-T26_E4_SuperPershing,usa,8,medium,premium
+germany-DickerMax,germany,6,destroyer,special
+germany-JagdTiger_SdKfz_185,germany,8,destroyer,premium
+usa-M4A2E4,usa,5,medium,premium
+usa-T26_E4_SuperPershing,usa,8,medium,special
+ussr-Object252,ussr,8,heavy,premium

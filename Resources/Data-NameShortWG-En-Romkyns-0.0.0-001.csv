@@ -1,26 +1,19 @@
-WOT-DATA,1,"Короткие названия танков, оригинал – как в игре."
+WOT-DATA,1,"Short tank names, original – like in the game."
 china-Ch01_Type59,Type 59
 china-Ch01_Type59_Gold,Type 59 G
 china-Ch02_Type62,Type 62
 china-Ch03_WZ-111,WZ-111
 france-_105_leFH18B2,leFH18B2
-france-AMX_105AM,AMX105AM
 france-AMX_12t,AMX12t
 france-AMX_13_75,AMX 13 75
 france-AMX_13_90,AMX 13 90
-france-AMX_13F3AM,AMX13F3AM
 france-AMX_50_100,AMX50 100
 france-AMX_50_120,AMX50 120
-france-AMX_AC_Mle1946,AC Mle.46
-france-AMX_AC_Mle1948,AC Mle.48
 france-AMX_M4_1945,AMX M4 45
 france-AMX38,AMX 38
 france-AMX40,AMX 40
-france-AMX50_Foch,AMX50Foch
 france-ARL_44,ARL 44
-france-ARL_V39,ARL V39
 france-B1,B1
-france-Bat_Chatillon155,B.Chat.155
 france-Bat_Chatillon25t,BatChat.25t
 france-BDR_G1B,BDR G1B
 france-D1,D1
@@ -28,19 +21,10 @@ france-D2,D2
 france-F10_AMX_50B,AMX50B
 france-FCM_36Pak40,FCM36P40
 france-Hotchkiss_H35,H35
-france-Lorraine155_50,Lor.155 50
-france-Lorraine155_51,Lor.155 51
-france-Lorraine39_L_AM,Lorr.39LAM
 france-Lorraine40t,Lorraine40t
-france-RenaultBS,BS
 france-RenaultFT,FT-17
-france-RenaultFT_AC,Ren.FT AC
-france-RenaultUE57,Ren.UE57
-france-S_35CA,S-35CA
-france-Somua_Sau_40,Somua S40
 germany-B-1bis_captured,Pz B2
 germany-Bison_I,Bison
-germany-DickerMax,D. Max
 germany-E-100,E-100
 germany-E-50,E-50
 germany-E-75,E-75
@@ -94,17 +78,17 @@ germany-VK4502A,VK4502A
 germany-VK4502P,VK4502P
 germany-Wespe,Wespe
 germany-White_Tiger,W.Tiger
-usa-M10_Wolverine,Wolverine
+usa-M10_Wolverine,M10
 usa-M103,M103
 usa-M12,M12
 usa-M18_Hellcat,M18
 usa-M2_lt,M2 LT
 usa-M2_med,M2 MT
-usa-M22_Locust,Locust
+usa-M22_Locust,M22
 usa-M24_Chaffee,Chaffee
 usa-M3_Grant,M3 Lee
 usa-M3_Stuart,M3 Stuart
-usa-M36_Slagger,Slugger
+usa-M36_Slagger,M36
 usa-M37,M37
 usa-M4_Sherman,M4
 usa-M40M43,M40/M43
@@ -119,7 +103,7 @@ usa-M7_med,M7 MT
 usa-M7_Priest,M7 Priest
 usa-M8A1,M8A1
 usa-MTLS-1G14,MTLS-1G14
-usa-Pershing,Pershing
+usa-Pershing,M26
 usa-Ram-II,Ram-II
 usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1
@@ -133,7 +117,6 @@ usa-T20,T20
 usa-T23,T23
 usa-T25_2,T25/2
 usa-T25_AT,T25 AT
-usa-T26_E4_SuperPershing,SuperPershing
 usa-T28,T28
 usa-T28_Prototype,T28Prot.
 usa-T29,T29
@@ -146,60 +129,60 @@ usa-T57,T57
 usa-T82,T82
 usa-T92,T92
 usa-T95,T95
-ussr-A-20,А-20
-ussr-A-32,А-32
-ussr-AT-1,АТ-1
-ussr-BT-2,БТ-2
-ussr-BT-7,БТ-7
-ussr-BT-SV,БТ-СВ
+ussr-A-20,A-20
+ussr-A-32,A-32
+ussr-AT-1,AT-1
+ussr-BT-2,BT-2
+ussr-BT-7,BT-7
+ussr-BT-SV,BT-SV
 ussr-Churchill_LL,Churchill
-ussr-GAZ-74b,СУ-85Б
-ussr-IS,ИС
-ussr-IS-3,ИС-3
-ussr-IS-4,ИС-4
-ussr-IS-7,ИС-7
-ussr-IS8,ИС-8
-ussr-ISU-152,ИСУ-152
-ussr-KV,КВ
-ussr-KV1,КВ-1
-ussr-KV-13,КВ-13
-ussr-KV-1s,КВ-1С
-ussr-KV2,КВ-2
-ussr-KV-220,КВ-220 Т
-ussr-KV-220_action,КВ-220
-ussr-KV-3,КВ-3
-ussr-KV4,КВ-4
-ussr-KV-5,КВ-5
+ussr-GAZ-74b,SU-85B
+ussr-IS,IS
+ussr-IS-3,IS-3
+ussr-IS-4,IS-4
+ussr-IS-7,IS-7
+ussr-IS8,IS-8
+ussr-ISU-152,ISU-152
+ussr-KV,KV
+ussr-KV1,KV-1
+ussr-KV-13,KV-13
+ussr-KV-1s,KV-1S
+ussr-KV2,KV-2
+ussr-KV-220,KV-220 T
+ussr-KV-220_action,KV-220
+ussr-KV-3,KV-3
+ussr-KV4,КV-4
+ussr-KV-5,KV-5
 ussr-M3_Stuart_LL,M3 Stuart
 ussr-Matilda_II_LL,Matilda
-ussr-MS-1,МС-1
-ussr-Object_212,Об. 212
-ussr-Object_261,Об. 261
-ussr-Object_704,Об. 704
-ussr-Object252,ИС-6
-ussr-S-51,С-51
-ussr-ST_I,СТ-I
-ussr-SU_85I,СУ-85И
-ussr-SU-100,СУ-100
-ussr-SU-14,СУ-14
-ussr-SU-152,СУ-152
-ussr-SU-18,СУ-18
-ussr-SU-26,СУ-26
-ussr-SU-5,СУ-5
-ussr-SU-76,СУ-76
-ussr-SU-8,СУ-8
-ussr-SU-85,СУ-85
-ussr-T_50_2,Т-50-2
-ussr-T-127,Т-127
-ussr-T150,Т-150
-ussr-T-26,Т-26
-ussr-T-28,Т-28
+ussr-MS-1,MS-1
+ussr-Object_212,Obj. 212
+ussr-Object_261,Obj. 261
+ussr-Object_704,Obj. 704
+ussr-Object252,IS-6
+ussr-S-51,S-51
+ussr-ST_I,ST-I
+ussr-SU_85I,SU-85I
+ussr-SU-100,SU-100
+ussr-SU-14,SU-14
+ussr-SU-152,SU-152
+ussr-SU-18,SU-18
+ussr-SU-26,SU-26
+ussr-SU-5,SU-5
+ussr-SU-76,SU-76
+ussr-SU-8,SU-8
+ussr-SU-85,SU-85
+ussr-T_50_2,T-50-2
+ussr-T-127,T-127
+ussr-T150,T-150
+ussr-T-26,T-26
+ussr-T-28,T-28
 ussr-T-34,T-34
-ussr-T-34-85,Т-34-85
-ussr-T-43,Т-43
-ussr-T-44,Т-44
-ussr-T-46,Т-46
-ussr-T-50,Т-50
-ussr-T-54,Т-54
+ussr-T-34-85,T-34-85
+ussr-T-43,T-43
+ussr-T-44,T-44
+ussr-T-46,T-46
+ussr-T-50,T-50
+ussr-T-54,T-54
 ussr-Tetrarch_LL,Tetrarch
 ussr-Valentine_LL,Valentine
