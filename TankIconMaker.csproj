@@ -167,6 +167,8 @@
   <ItemGroup>
     <Resource Include="Resources\Graphics\icon.ico" />
     <Resource Include="Resources\Graphics\warning.png" />
+    <Resource Include="Resources\Graphics\upvote.png" />
+    <Resource Include="Resources\Graphics\upvote-down.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\BuiltInStyles\Black_Spy.xml" />

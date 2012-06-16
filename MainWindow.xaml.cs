@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,6 +18,7 @@ using System.Xml.Linq;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
+using RT.Util.ExtensionMethods;
 using RT.Util.Forms;
 using RT.Util.Xml;
 using TankIconMaker.Layers;
@@ -658,6 +660,7 @@ namespace TankIconMaker
             _renderResults.Clear();
             ScheduleUpdateIcons();
             var style = (Style) ctStyleDropdown.SelectedItem;
+            ctUpvote.Visibility = style.Kind == StyleKind.BuiltIn ? Visibility.Visible : Visibility.Collapsed;
             Program.Settings.SelectedStyleNameAndAuthor = style.ToString();
             SaveSettings();
             ctLayersTree.ItemsSource = style.Layers;
@@ -957,6 +960,27 @@ namespace TankIconMaker
             ctStyleMore.ContextMenu.PlacementTarget = ctStyleMore;
             ctStyleMore.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             ctStyleMore.ContextMenu.IsOpen = true;
+        }
+
+        private void ctUpvote_Click(object sender, RoutedEventArgs e)
+        {
+            var style = ctStyleDropdown.SelectedItem as Style;
+            if (style.Kind != StyleKind.BuiltIn)
+            {
+                DlgMessage.ShowInfo("For security reasons, only built-in styles can be upvoted.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(style.ForumLink) || (!style.ForumLink.StartsWith("http://") && !style.ForumLink.StartsWith("https://")))
+            {
+                DlgMessage.ShowInfo("This style does not currently have an associated post on World of Tanks forums.");
+                return;
+            }
+
+            if (DlgMessage.ShowInfo("To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}"
+                .Fmt(style.Author, style.ForumLink.UrlUnescape()), "Open in browser", "Cancel") == 1)
+                return;
+
+            Process.Start(new ProcessStartInfo(style.ForumLink) { UseShellExecute = true });
         }
 
         private void ctLayersTree_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
