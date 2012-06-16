@@ -179,6 +179,8 @@
                                         </Style>
                                     </Path.Style>
                                 </Path>
+                                <TextBlock Text="{Binding Path=Name}" Visibility="{Binding Path=NameVisibility}"/>
+                                <TextBlock Text=" – " Visibility="{Binding Path=NameVisibility}"/>
                                 <TextBlock Text="{Binding Path=TypeName}" Margin="0,0,4,0"/>
                             </StackPanel>
                         </DataTemplate>

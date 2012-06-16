@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using RT.Util.Xml;
@@ -17,6 +18,13 @@ namespace TankIconMaker
         /// <summary>Specifies the version of this layer’s settings - incremented on changing layer settings backwards-incompatibly.</summary>
         [Browsable(false)]
         public abstract int Version { get; }
+
+        [Browsable(false)]
+        public string Name { get { return _Name; } set { _Name = value; NotifyPropertyChanged("Name"); NotifyPropertyChanged("NameVisibility"); } }
+        private string _Name;
+
+        [Browsable(false)]
+        public Visibility NameVisibility { get { return string.IsNullOrEmpty(Name) ? Visibility.Collapsed : Visibility.Visible; } }
 
         /// <summary>Keeps track of the layer that this effect belongs to. This value is kept up-to-date automatically.</summary>
         [Browsable(false), XmlIgnore]
