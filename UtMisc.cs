@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,8 +9,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Media;
-using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
 using RT.Util;
 
@@ -495,4 +494,11 @@ namespace TankIconMaker
         }
     }
 
+    enum BoolWithPassthrough
+    {
+        No,
+        Yes,
+        [Description("Passthrough: use next By")]
+        Passthrough,
+    }
 }
