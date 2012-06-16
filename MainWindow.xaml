@@ -9,6 +9,9 @@
         TextOptions.TextFormattingMode="Display"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
     <Window.Resources>
+        <BitmapImage x:Key="imgUpvote" UriSource="/Resources/Graphics/upvote.png" />
+        <BitmapImage x:Key="imgUpvoteDown" UriSource="/Resources/Graphics/upvote-down.png" />
+
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Key="panelBackgroundBrush">
             <LinearGradientBrush.GradientStops>
                 <GradientStop Color="#FFE5E5E5" Offset="0" />
@@ -108,6 +111,29 @@
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleExport" Command="src:TankStyleCommands.Export">
                         <AccessText Margin="6,0">E_xport</AccessText>
+                    </Button>
+                    <Button Margin="6,0,0,0" Name="ctUpvote" ToolTip="Upvote the author of this style" Click="ctUpvote_Click">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Image Name="imgUpvoteNormal" Source="{StaticResource imgUpvote}" Width="19" Height="19" />
+                                    <Image Name="imgUpvotePressed" Source="{StaticResource imgUpvoteDown}" Width="19" Height="19" Visibility="Hidden" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsMouseOver" Value="True">
+                                        <Setter Property="UIElement.Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect BlurRadius="4" Color="White" Direction="0" Opacity="0.6" RenderingBias="Performance" ShadowDepth="0" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="Button.IsPressed" Value="True">
+                                        <Setter TargetName="imgUpvoteNormal" Property="Visibility" Value="Hidden"/>
+                                        <Setter TargetName="imgUpvotePressed" Property="Visibility" Value="Visible"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleMore" HorizontalAlignment="Right" Click="ctStyleMore_Click">
                         <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">

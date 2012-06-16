@@ -36,6 +36,9 @@ namespace TankIconMaker
         /// <summary>A list of layers that this style is made up of.</summary>
         public ObservableCollection<LayerBase> Layers = new ObservableCollection<LayerBase>();
 
+        /// <summary>A link to the forum post by the original author describing this style. Only used for built-in styles.</summary>
+        public string ForumLink { get; set; }
+
         /// <summary>Determines whether this style is a built-in one. Not saved as a setting.</summary>
         [XmlIgnore]
         public StyleKind Kind { get; set; }
