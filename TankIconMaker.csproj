@@ -178,6 +178,7 @@
     <EmbeddedResource Include="Resources\BuiltInStyles\Current.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\HARDicons Colored.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\HARDicons.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\Aslain.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
