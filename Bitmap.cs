@@ -553,6 +553,46 @@ namespace TankIconMaker
             }
         }
 
+        /// <summary>Flips the image horizontally.</summary>
+        public void FlipHorz()
+        {
+            using (UseWrite())
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    uint* ptrL = (uint*) (Data + y * Stride);
+                    uint* ptrR = (uint*) (Data + y * Stride + Width * 4);
+                    while (ptrL < ptrR)
+                    {
+                        uint temp = *ptrR;
+                        *ptrR = *ptrL;
+                        *ptrL = temp;
+                        ptrL++;
+                        ptrR--;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Flips the image vertically.</summary>
+        public void FlipVert()
+        {
+            using (UseWrite())
+            {
+                int yTop = 0;
+                int yBtm = Height - 1;
+                byte* temp = stackalloc byte[Stride];
+                while (yTop < yBtm)
+                {
+                    Ut.MemCpy(temp, Data + yTop * Stride, Stride);
+                    Ut.MemCpy(Data + yTop * Stride, Data + yBtm * Stride, Stride);
+                    Ut.MemCpy(Data + yBtm * Stride, temp, Stride);
+                    yTop++;
+                    yBtm--;
+                }
+            }
+        }
+
         /// <summary>
         /// Finds the X coordinate of the leftmost pixel whose alpha channel exceeds the specified threshold.
         /// </summary>

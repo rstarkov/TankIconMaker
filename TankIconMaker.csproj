@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Bitmap.cs" />
     <Compile Include="Effects\ClipEffect.cs" />
+    <Compile Include="Effects\FlipEffect.cs" />
     <Compile Include="Effects\SizePosEffect.cs" />
     <Compile Include="FilenameEditor.xaml.cs">
       <DependentUpon>FilenameEditor.xaml</DependentUpon>
