@@ -19,6 +19,13 @@ namespace TankIconMaker.Effects
             Color = new ColorSelector(Colors.White);
         }
 
+        public override EffectBase Clone()
+        {
+            var result = (ColorizeEffect) base.Clone();
+            result.Color = Color.Clone();
+            return result;
+        }
+
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             var color = ColorHSV.FromColor(Color.GetColorWpf(tank));

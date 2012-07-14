@@ -59,6 +59,13 @@ namespace TankIconMaker.Layers
             ImageFile = new ValueSelector<Filename>("");
         }
 
+        public override LayerBase Clone()
+        {
+            var result = (CustomImageLayer) base.Clone();
+            result.ImageFile = ImageFile.Clone();
+            return result;
+        }
+
         public override BitmapBase Draw(Tank tank)
         {
             var filename = ImageFile.GetValue(tank);

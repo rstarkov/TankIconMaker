@@ -86,10 +86,11 @@ namespace TankIconMaker
         protected void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
 
-        public LayerBase Clone()
+        public virtual LayerBase Clone()
         {
             var result = MemberwiseClone() as LayerBase;
             result.PropertyChanged = (_, __) => { };
+            result.TreeViewItem = null;
             result.Effects = new ObservableCollection<EffectBase>();
             result.Effects.CollectionChanged += result.updateEffectLayer;
             foreach (var e in Effects)

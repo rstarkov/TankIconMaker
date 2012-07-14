@@ -25,6 +25,13 @@ namespace TankIconMaker.Layers
             BackColor.ClassArtillery = Color.FromArgb(180, 181, 47, 47);
         }
 
+        public override LayerBase Clone()
+        {
+            var result = (BkgDarkAgentLayer) base.Clone();
+            result.BackColor = BackColor.Clone();
+            return result;
+        }
+
         public override BitmapBase Draw(Tank tank)
         {
             var outline = new Pen(new SolidColorBrush(Colors.Black), 1);

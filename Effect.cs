@@ -56,10 +56,12 @@ namespace TankIconMaker
         protected void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
 
-        public EffectBase Clone()
+        public virtual EffectBase Clone()
         {
             var result = MemberwiseClone() as EffectBase;
+            result.Layer = null;
             result.PropertyChanged = (_, __) => { };
+            result.VisibleFor = VisibleFor.Clone();
             return result;
         }
     }
