@@ -1,19 +1,25 @@
 WOT-DATA,1,"Full tank names, original – like in the game."
 china-Ch01_Type59,Type 59
-china-Ch01_Type59_Gold,Type 59 G
 china-Ch02_Type62,Type 62
 china-Ch03_WZ-111,WZ-111
 france-_105_leFH18B2,105 leFH18B2
+france-AMX_105AM,AMX 105AM
 france-AMX_12t,AMX 12t
 france-AMX_13_75,AMX 13 75
 france-AMX_13_90,AMX 13 90
+france-AMX_13F3AM,AMX 13 F3 AM
 france-AMX_50_100,AMX 50 100
 france-AMX_50_120,AMX 50 120
+france-AMX_AC_Mle1946,AMX AC Mle.1946
+france-AMX_AC_Mle1948,AMX AC Mle. 1948
 france-AMX_M4_1945,AMX M4(1945)
 france-AMX38,AMX 38
 france-AMX40,AMX 40
+france-AMX50_Foch,AMX 50 Foch
 france-ARL_44,ARL 44
+france-ARL_V39,ARL V39
 france-B1,B1
+france-Bat_Chatillon155,Bat Chatillon 155
 france-Bat_Chatillon25t,Bat Chatillon 25 t
 france-BDR_G1B,BDR G1B
 france-D1,D1
@@ -21,10 +27,19 @@ france-D2,D2
 france-F10_AMX_50B,AMX 50B
 france-FCM_36Pak40,FCM36 Pak40
 france-Hotchkiss_H35,Hotchkiss H35
+france-Lorraine155_50,Lorraine155 50
+france-Lorraine155_51,Lorraine155 51
+france-Lorraine39_L_AM,Lorraine39 L AM
 france-Lorraine40t,Lorraine 40 t
+france-RenaultBS,RenaultBS
 france-RenaultFT,RenaultFT
+france-RenaultFT_AC,RenaultFT AC
+france-RenaultUE57,Renault UE 57
+france-S_35CA,S-35 CA
+france-Somua_Sau_40,Somua S-40
 germany-B-1bis_captured,PzKpfw B2 740 (f)
 germany-Bison_I,Sturmpanzer I Bison
+germany-DickerMax,Dicker Max
 germany-E-100,E-100
 germany-E-50,E-50
 germany-E-75,E-75
@@ -77,7 +92,6 @@ germany-VK3601H,VK 3601 (H)
 germany-VK4502A,VK 4502 (P) Ausf. A
 germany-VK4502P,VK 4502 (P) Ausf. B
 germany-Wespe,Wespe
-germany-White_Tiger,Der Weiße Tiger
 usa-M10_Wolverine,M10 Wolverine
 usa-M103,M103
 usa-M12,M12
@@ -114,9 +128,9 @@ usa-T18,T18
 usa-T2_lt,T2 Light Tank
 usa-T2_med,T2 Medium Tank
 usa-T20,T20
-usa-T23,T23
 usa-T25_2,T25/2
 usa-T25_AT,T25 AT
+usa-T26_E4_SuperPershing,T26E4 SuperPershing
 usa-T28,T28
 usa-T28_Prototype,T28 Prototype
 usa-T29,T29
@@ -151,7 +165,7 @@ ussr-KV2,KV-2
 ussr-KV-220,KV-220 Beta-Test
 ussr-KV-220_action,KV-220
 ussr-KV-3,KV-3
-ussr-KV4,КV-4
+ussr-KV4,KV-4
 ussr-KV-5,KV-5
 ussr-M3_Stuart_LL,M3 Stuart
 ussr-Matilda_II_LL,Matilda

@@ -189,6 +189,7 @@ namespace TankIconMaker
                 case "usa": Country = Country.USA; break;
                 case "china": Country = Country.China; break;
                 case "france": Country = Country.France; break;
+                case "uk": Country = Country.UK; break;
                 default: throw new Exception(string.Format("Unrecognized country: \"{0}\"", fields[1]));
             }
 
@@ -856,6 +857,7 @@ namespace TankIconMaker
         USA,
         France,
         China,
+        UK,
     }
 
     /// <summary>Represents one of the possible tank classes: light/medium/heavy, tank destroyer, and artillery.</summary>

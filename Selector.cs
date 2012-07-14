@@ -55,6 +55,8 @@ namespace TankIconMaker
         public T CountryFrance { get; set; }
         [DisplayName("Country: China")]
         public T CountryChina { get; set; }
+        [DisplayName("Country: UK")]
+        public T CountryUK { get; set; }
 
         [DisplayName("Categ.: Normal")]
         public T CategNormal { get; set; }
@@ -75,7 +77,7 @@ namespace TankIconMaker
         {
             By = By2 = By3 = By4 = SelectBy.Single;
             ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
-                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina
+                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina = CountryUK
                 = CategNormal = CategPremium = CategSpecial
                 = Single = value;
         }
@@ -131,7 +133,7 @@ namespace TankIconMaker
             switch (by)
             {
                 case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
-                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK);
                 case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
                 case SelectBy.Tier:
                     switch (tank.Tier)
@@ -202,7 +204,7 @@ namespace TankIconMaker
             switch (by)
             {
                 case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
-                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK);
                 case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
                 case SelectBy.Tier: return tank.Tier <= 5 ? Ut.BlendColors(Tier1, Tier5, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5, Tier10, (tank.Tier - 5) / 5.0);
                 case SelectBy.Single: return Single;

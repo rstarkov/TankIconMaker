@@ -1,19 +1,25 @@
 WOT-DATA,1,"Short tank names, original – like in the game."
 china-Ch01_Type59,Type 59
-china-Ch01_Type59_Gold,Type 59 G
 china-Ch02_Type62,Type 62
 china-Ch03_WZ-111,WZ-111
 france-_105_leFH18B2,leFH18B2
+france-AMX_105AM,AMX 105AM
 france-AMX_12t,AMX12t
 france-AMX_13_75,AMX 13 75
 france-AMX_13_90,AMX 13 90
+france-AMX_13F3AM,AMX13F3AM
 france-AMX_50_100,AMX50 100
 france-AMX_50_120,AMX50 120
+france-AMX_AC_Mle1946,AC Mle.1946
+france-AMX_AC_Mle1948,AC Mle.48
 france-AMX_M4_1945,AMX M4 45
 france-AMX38,AMX 38
 france-AMX40,AMX 40
+france-AMX50_Foch,AMX50Foch
 france-ARL_44,ARL 44
+france-ARL_V39,ARL V39
 france-B1,B1
+france-Bat_Chatillon155,B.Chat.155
 france-Bat_Chatillon25t,BatChat.25t
 france-BDR_G1B,BDR G1B
 france-D1,D1
@@ -21,10 +27,19 @@ france-D2,D2
 france-F10_AMX_50B,AMX50B
 france-FCM_36Pak40,FCM36P40
 france-Hotchkiss_H35,H35
+france-Lorraine155_50,Lor.155 50
+france-Lorraine155_51,Lor.155 51
+france-Lorraine39_L_AM,Lorr.39LAM
 france-Lorraine40t,Lorraine40t
+france-RenaultBS,BS
 france-RenaultFT,FT-17
+france-RenaultFT_AC,Ren.FT AC
+france-RenaultUE57,Renault UE 57
+france-S_35CA,S-35CA
+france-Somua_Sau_40,Somua S40
 germany-B-1bis_captured,Pz B2
 germany-Bison_I,Bison
+germany-DickerMax,D. Max
 germany-E-100,E-100
 germany-E-50,E-50
 germany-E-75,E-75
@@ -77,7 +92,6 @@ germany-VK3601H,VK3601H
 germany-VK4502A,VK4502A
 germany-VK4502P,VK4502P
 germany-Wespe,Wespe
-germany-White_Tiger,W.Tiger
 usa-M10_Wolverine,M10
 usa-M103,M103
 usa-M12,M12
@@ -114,9 +128,9 @@ usa-T18,T18
 usa-T2_lt,T2 LT
 usa-T2_med,T2 MT
 usa-T20,T20
-usa-T23,T23
 usa-T25_2,T25/2
 usa-T25_AT,T25 AT
+usa-T26_E4_SuperPershing,SuperPershing
 usa-T28,T28
 usa-T28_Prototype,T28Prot.
 usa-T29,T29
@@ -151,7 +165,7 @@ ussr-KV2,KV-2
 ussr-KV-220,KV-220 T
 ussr-KV-220_action,KV-220
 ussr-KV-3,KV-3
-ussr-KV4,КV-4
+ussr-KV4,KV-4
 ussr-KV-5,KV-5
 ussr-M3_Stuart_LL,M3 Stuart
 ussr-Matilda_II_LL,Matilda
