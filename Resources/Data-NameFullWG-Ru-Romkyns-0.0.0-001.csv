@@ -1,6 +1,5 @@
 WOT-DATA,1,"Полные названия танков, оригинал – как в игре."
 china-Ch01_Type59,Type 59
-china-Ch01_Type59_Gold,Type 59 G
 china-Ch02_Type62,Type 62
 china-Ch03_WZ-111,WZ-111
 france-_105_leFH18B2,105 leFH18B2
@@ -11,6 +10,7 @@ france-AMX_13_90,AMX 13 90
 france-AMX_13F3AM,AMX 13 F3 AM
 france-AMX_50_100,AMX 50 100
 france-AMX_50_120,AMX 50 120
+france-AMX_50Fosh_155,AMX-50 Foch (155)
 france-AMX_AC_Mle1946,AMX AC Mle.1946
 france-AMX_AC_Mle1948,AMX AC Mle. 1948
 france-AMX_M4_1945,AMX M4 (1945)
@@ -25,6 +25,7 @@ france-Bat_Chatillon25t,Bat Chatillon 25 t
 france-BDR_G1B,BDR G1B
 france-D1,D1
 france-D2,D2
+france-ELC_AMX,ELC AMX
 france-F10_AMX_50B,AMX 50B
 france-FCM_36Pak40,FCM36 Pak40
 france-Hotchkiss_H35,Hotchkiss H35
@@ -37,12 +38,13 @@ france-RenaultFT,RenaultFT
 france-RenaultFT_AC,RenaultFT AC
 france-RenaultUE57,Renault UE 57
 france-S_35CA,S-35 CA
-france-Somua_Sau_40,Somua S-40
+france-Somua_Sau_40,Somua SAu-40
 germany-B-1bis_captured,PzKpfw B2 740 (f)
 germany-Bison_I,Sturmpanzer I Bison
 germany-DickerMax,Dicker Max
 germany-E-100,E-100
 germany-E-50,E-50
+germany-E50_Ausf_M,E-50 Ausf.M
 germany-E-75,E-75
 germany-Ferdinand,Ferdinand
 germany-G_E,GW Typ E
@@ -54,6 +56,8 @@ germany-H39_captured,PzKpfw 38H735 (f)
 germany-Hetzer,Hetzer
 germany-Hummel,Hummel
 germany-JagdPanther,Jagdpanther
+germany-JagdPantherII,JagdPanther II
+germany-JagdPz_E100,JagdPz E-100
 germany-JagdPzIV,JagdPz IV
 germany-JagdTiger,Jagdtiger
 germany-JagdTiger_SdKfz_185,8.8 cm Pak 43 JagdTiger
@@ -93,7 +97,7 @@ germany-VK3601H,VK 3601 (H)
 germany-VK4502A,VK 4502 (P) Ausf. A
 germany-VK4502P,VK 4502 (P) Ausf. B
 germany-Wespe,Wespe
-germany-White_Tiger,Der Weiße Tiger
+uk-GB68_Matilda_Black_Prince,Matilda Black Prince
 usa-M10_Wolverine,M10 Wolverine
 usa-M103,M103
 usa-M12,M12
@@ -110,6 +114,7 @@ usa-M4_Sherman,M4 Sherman
 usa-M40M43,M40/M43
 usa-M41,M41
 usa-M46_Patton,M46 Patton
+usa-M48A1,M48A1
 usa-M4A2E4,M4A2E4
 usa-M4A3E8_Sherman,M4A3E8 Sherman
 usa-M5_Stuart,M5 Stuart
@@ -125,12 +130,13 @@ usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1 Cunningham
 usa-T1_hvy,T1 heavy
 usa-T110,T110E5
+usa-T110E3,T110E3
+usa-T110E4,T110E4
 usa-T14,T14
 usa-T18,T18
 usa-T2_lt,T2 Light Tank
 usa-T2_med,T2 Medium Tank
 usa-T20,T20
-usa-T23,T23
 usa-T25_2,T25/2
 usa-T25_AT,T25 AT
 usa-T26_E4_SuperPershing,T26E4 SuperPershing
@@ -177,6 +183,7 @@ ussr-Object_212,Объект 212
 ussr-Object_261,Объект 261
 ussr-Object_704,Объект 704
 ussr-Object252,ИС-6
+ussr-Object268,Объект 268
 ussr-S-51,С-51
 ussr-ST_I,СТ-I
 ussr-SU_85I,СУ-85И
@@ -201,5 +208,6 @@ ussr-T-44,Т-44
 ussr-T-46,Т-46
 ussr-T-50,Т-50
 ussr-T-54,Т-54
+ussr-T62A,Т-62А
 ussr-Tetrarch_LL,MkVII Tetrarch
 ussr-Valentine_LL,Valentine
