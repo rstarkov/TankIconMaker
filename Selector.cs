@@ -165,6 +165,11 @@ namespace TankIconMaker
                 return true;
             return false;
         }
+
+        public ValueSelector<T> Clone()
+        {
+            return (ValueSelector<T>) MemberwiseClone();
+        }
     }
 
     sealed class ColorSelector : SelectorBase<Color>
@@ -185,6 +190,11 @@ namespace TankIconMaker
             : base(color)
         {
             Tier1 = Tier5 = Tier10 = color;
+        }
+
+        public ColorSelector Clone()
+        {
+            return (ColorSelector) MemberwiseClone();
         }
 
         public Color GetColorWpf(Tank tank)

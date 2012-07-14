@@ -71,6 +71,13 @@ namespace TankIconMaker.Layers
             FontColor = new ColorSelector(Colors.White);
         }
 
+        public override LayerBase Clone()
+        {
+            var result = (TextLayer) base.Clone();
+            result.FontColor = FontColor.Clone();
+            return result;
+        }
+
         public override BitmapBase Draw(Tank tank)
         {
             return Ut.NewBitmapGdi(dc =>
@@ -148,6 +155,13 @@ namespace TankIconMaker.Layers
             Text.Tier8 = "VIII";
             Text.Tier9 = "IX";
             Text.Tier10 = "X";
+        }
+
+        public override LayerBase Clone()
+        {
+            var result = (CustomTextLayer) base.Clone();
+            result.Text = Text.Clone();
+            return result;
         }
 
         protected override string GetText(Tank tank)

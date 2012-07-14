@@ -39,6 +39,13 @@ namespace TankIconMaker.Effects
             Color = new ColorSelector(Colors.Black);
         }
 
+        public override EffectBase Clone()
+        {
+            var result = (ShadowEffect) base.Clone();
+            result.Color = Color.Clone();
+            return result;
+        }
+
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             if (_blur == null || _blur.Radius != Radius)
