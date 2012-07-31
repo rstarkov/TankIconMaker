@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows;
 using RT.Util;
 using RT.Util.Dialogs;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 using WpfCrutches;
 using D = System.Drawing;
@@ -66,6 +67,7 @@ namespace TankIconMaker
 
             base.OnStartup(e);
             SettingsUtil.LoadSettings(out Program.Settings);
+            Program.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref Program.Settings.Lingo);
         }
 
         private static IList<TypeInfo<T>> findTypes<T>(string name) where T : IHasTypeNameDescription
@@ -112,6 +114,9 @@ namespace TankIconMaker
         /// one of the Save methods should be invoked every time changes are made; this is not automatic.
         /// </summary>
         public static Settings Settings;
+
+        /// <summary>Contains the current UI translation.</summary>
+        public static Translation Translation;
 
         /// <summary>Encapsulates all the tank/game data TankIconMaker requires.</summary>
         public static WotData Data = new WotData();
