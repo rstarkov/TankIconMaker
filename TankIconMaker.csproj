@@ -99,6 +99,8 @@
     </Compile>
     <Compile Include="Style.cs" />
     <Compile Include="OldFiles.cs" />
+    <Compile Include="Translation.cs" />
+    <Compile Include="Translation.g.cs" />
     <Compile Include="UtColors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Targa.cs" />

@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
+using RT.Util.ExtensionMethods;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 
 namespace TankIconMaker
@@ -94,9 +96,9 @@ namespace TankIconMaker
                 if (matches.Length == 1)
                     return _extras[matches[0]];
                 // Otherwise need to pick one
-                var match = matches.FirstOrDefault(k => k.Language == Program.Settings.Language && k.Author.EqualsNoCase(Program.Settings.DefaultPropertyAuthor));
+                var match = matches.FirstOrDefault(k => k.Language.EqualsNoCase(Program.Settings.Lingo.GetIsoLanguageCode()) && k.Author.EqualsNoCase(Program.Settings.DefaultPropertyAuthor));
                 if (match != null) return _extras[match];
-                match = matches.FirstOrDefault(k => k.Language == Program.Settings.Language);
+                match = matches.FirstOrDefault(k => k.Language.EqualsNoCase(Program.Settings.Lingo.GetIsoLanguageCode()));
                 if (match != null) return _extras[match];
                 return _extras[matches[0]];
             }
@@ -647,7 +649,7 @@ namespace TankIconMaker
                     }
 
                     string languageName = parts[2].Trim();
-                    if (languageName != "X" && !_languages.Contains(languageName))
+                    if (languageName != "X" && languageName != "En" && Lingo.LanguageFromIsoCode(languageName.ToLowerInvariant()) == null)
                     {
                         _warnings.Add("Skipped \"{0}\" because its language name part in the filename (\"{1}\") is not a valid language code, nor \"X\" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.".Fmt(fi.Name, languageName));
                         continue;
@@ -833,18 +835,6 @@ namespace TankIconMaker
             foreach (var e in extra.GroupBy(df => new { name = df.Name, language = df.Language, author = df.Author, gamever = df.GameVersion }))
                 _extra.Add(e.Single(k => k.FileVersion == e.Max(m => m.FileVersion)).Result);
         }
-
-        private static readonly string[] _languages = new[] {
-            "Aa", "Ab", "Ae", "Af", "Ak", "Am", "An", "Ar", "As", "Av", "Ay", "Az", "Ba", "Be", "Bg", "Bh", "Bi", "Bm", "Bn", "Bo",
-            "Br", "Bs", "Ca", "Ce", "Ch", "Co", "Cr", "Cs", "Cu", "Cv", "Cy", "Da", "De", "Dv", "Dz", "Ee", "El", "En", "Eo", "Es", "Et",
-            "Eu", "Fa", "Ff", "Fi", "Fj", "Fo", "Fr", "Fy", "Ga", "Gd", "Gl", "Gn", "Gu", "Gv", "Ha", "He", "Hi", "Ho", "Hr", "Ht", "Hu",
-            "Hy", "Hz", "Ia", "Id", "Ie", "Ig", "Ii", "Ik", "Io", "Is", "It", "Iu", "Ja", "Jv", "Ka", "Kg", "Ki", "Kj", "Kk", "Kl", "Km", "Kn",
-            "Ko", "Kr", "Ks", "Ku", "Kv", "Kw", "Ky", "La", "Lb", "Lg", "Li", "Ln", "Lo", "Lt", "Lu", "Lv", "Mg", "Mh", "Mi", "Mk",
-            "Ml", "Mn", "Mr", "Ms", "Mt", "My", "Na", "Nb", "Nd", "Ne", "Ng", "Nl", "Nn", "No", "Nr", "Nv", "Ny", "Oc", "Oj",
-            "Om", "Or", "Os", "Pa", "Pi", "Pl", "Ps", "Pt", "Qu", "Rm", "Rn", "Ro", "Ru", "Ru", "Rw", "Sa", "Sc", "Sd", "Se", "Sg",
-            "Si", "Sk", "Sl", "Sm", "Sn", "So", "Sq", "Sr", "Ss", "St", "Su", "Sv", "Sw", "Ta", "Te", "Tg", "Th", "Ti", "Tk", "Tl", "Tn",
-            "To", "Tr", "Ts", "Tt", "Tw", "Ty", "Ug", "Uk", "Ur", "Uz", "Ve", "Vi", "Vo", "Wa", "Wo", "Xh", "Yi", "Yo", "Za", "Zh", "Zu"
-        };
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

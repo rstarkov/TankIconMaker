@@ -20,6 +20,7 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.ExtensionMethods;
 using RT.Util.Forms;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 using TankIconMaker.Layers;
 using WpfCrutches;
@@ -52,6 +53,8 @@ namespace TankIconMaker
 
         private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
         private ObservableCollection<string> _otherWarnings = new ObservableCollection<string>();
+
+        private LanguageHelperWpf<Translation> _translationHelper;
 
         public MainWindow()
             : base(Program.Settings.MainWindow)
@@ -98,6 +101,17 @@ namespace TankIconMaker
             var mat = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
             Program.DpiScaleX = mat.M11;
             Program.DpiScaleY = mat.M22;
+
+#if DEBUG
+            using (var translationFileGenerator = new Lingo.TranslationFileGenerator(@"..\..\Translation.g.cs"))
+                translationFileGenerator.TranslateWindow(this, Program.Translation);
+            Lingo.WarnOfUnusedStrings(typeof(Translation), Assembly.GetExecutingAssembly());
+#endif
+            using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
+                _translationHelper = new LanguageHelperWpf<Translation>("Tank Icon Maker", "TankIconMaker", true,
+                    Program.Settings.TranslationFormSettings, new System.Drawing.Icon(iconStream), () => Program.Settings.Lingo);
+            _translationHelper.TranslationChanged += TranslationChanged;
+            Translate();
 
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdLayer_AddLayer));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
@@ -240,6 +254,18 @@ namespace TankIconMaker
             // Done
             GlobalStatusHide();
             _updateIconsTimer.Start();
+        }
+
+        private void TranslationChanged(Translation t)
+        {
+            Program.Translation = t;
+            Program.Settings.Lingo = t.Language;
+            Translate();
+        }
+
+        private void Translate()
+        {
+            Lingo.TranslateWindow(this, Program.Translation);
         }
 
         private ObservableSortedList<Style> _builtinStyles = new ObservableSortedList<Style>();
@@ -799,6 +825,16 @@ namespace TankIconMaker
             Program.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
             UpdateIcons();
             SaveSettings();
+        }
+
+        private void ctLanguage_Click(object _, EventArgs __)
+        {
+            var menu = ctLanguage.ContextMenu;
+            menu.PlacementTarget = ctLanguage;
+            menu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            menu.Items.Clear();
+            _translationHelper.PopulateMenuItems(menu.Items);
+            menu.IsOpen = true;
         }
 
         private void ctWarning_MouseUp(object sender, MouseButtonEventArgs e)

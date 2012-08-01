@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using RT.Util;
 using RT.Util.Forms;
+using RT.Util.Lingo;
 using WpfCrutches;
 
 namespace TankIconMaker
@@ -20,10 +21,12 @@ namespace TankIconMaker
         /// application, all the other MainWindow-specific settings are stored directly in <see cref="Settings"/> for simplicity.
         /// </summary>
         public ManagedWindow.Settings MainWindow = new ManagedWindow.Settings();
-        /// <summary>AddWindow-related settings</summary>
+        /// <summary>AddWindow-related settings.</summary>
         public ManagedWindow.Settings AddWindow = new ManagedWindow.Settings();
-        /// <summary>RenameWindow-related settings</summary>
+        /// <summary>RenameWindow-related settings.</summary>
         public ManagedWindow.Settings RenameWindow = new ManagedWindow.Settings();
+        /// <summary>Translation window related settings.</summary>
+        public TranslationForm<Translation>.Settings TranslationFormSettings = new TranslationForm<Translation>.Settings();
         /// <summary>The width of the sidebar in the main window; null to use the width set at design time.</summary>
         public double? LeftColumnWidth = null;
         /// <summary>The width of the name column in the maker property editor; null to use the width set at design time.</summary>
@@ -40,8 +43,8 @@ namespace TankIconMaker
         /// <summary>The last selected game install location.</summary>
         public string SelectedGamePath = Ut.FindTanksDirectory();
 
-        /// <summary>Program language (in the future), and also the default language for property values when not specified.</summary>
-        public string Language = "Ru";
+        /// <summary>Program language, and also the default language for property values when not specified.</summary>
+        public Language Lingo = Language.EnglishUK;
         /// <summary>If a maker requests a property by name only, this author is given preference.</summary>
         public string DefaultPropertyAuthor = "Romkyns";
 
