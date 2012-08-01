@@ -189,9 +189,11 @@
       <Resources Include="Resources\*" />
       <Images Include="Resources\Images\*" />
       <Licenses Include="ThirdParty\license-*" />
+      <Translations Include="Resources\Translations\*" />
     </ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
   </Target>
 </Project>

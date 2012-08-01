@@ -104,7 +104,7 @@ namespace TankIconMaker
 
 #if DEBUG
             using (var translationFileGenerator = new Lingo.TranslationFileGenerator(@"..\..\Translation.g.cs"))
-                translationFileGenerator.TranslateWindow(this, Program.Translation);
+                translationFileGenerator.TranslateWindow(this, Program.Translation.MainWindow);
             Lingo.WarnOfUnusedStrings(typeof(Translation), Assembly.GetExecutingAssembly());
 #endif
             using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
@@ -265,7 +265,7 @@ namespace TankIconMaker
 
         private void Translate()
         {
-            Lingo.TranslateWindow(this, Program.Translation);
+            Lingo.TranslateWindow(this, Program.Translation.MainWindow);
         }
 
         private ObservableSortedList<Style> _builtinStyles = new ObservableSortedList<Style>();

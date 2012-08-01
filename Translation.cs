@@ -6,8 +6,11 @@ using RT.Util.Lingo;
 
 namespace TankIconMaker
 {
-    sealed partial class Translation : TranslationBase
+    [LingoStringClass]
+    sealed class Translation : TranslationBase
     {
         public Translation() : base(Language.EnglishUK) { }
+
+        public MainWindowTranslation MainWindow = new MainWindowTranslation();
     }
 }
