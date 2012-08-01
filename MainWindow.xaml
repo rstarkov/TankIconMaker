@@ -6,7 +6,6 @@
         xmlns:src="clr-namespace:TankIconMaker"
         xmlns:wpfc="clr-namespace:WpfCrutches"
         Title="Tank Icon Maker"
-        Name="TankIconMakerWindow"
         TextOptions.TextFormattingMode="Display"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
     <Window.Resources>
@@ -84,7 +83,7 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="8,8,8,0">
-                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctGamePath}">Game _directory:</Label>
+                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctGamePath}" Name="ctGameDirLabel">Game _directory:</Label>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -99,19 +98,19 @@
                         <Rectangle Width="10" Height="4" Fill="Red" Stroke="DarkRed" SnapsToDevicePixels="True"/>
                     </Button>
                 </Grid>
-                <Label Padding="3,6,0,0" Target="{Binding ElementName=ctGameVersion}">_Game version:</Label>
+                <Label Padding="3,6,0,0" Target="{Binding ElementName=ctGameVersion}" Name="ctGameVersionLabel">_Game version:</Label>
                 <ComboBox Name="ctGameVersion"></ComboBox>
-                <Label Padding="3,6,0,0" Target="{Binding ElementName=ctStyleDropdown}">_Icon style:</Label>
+                <Label Padding="3,6,0,0" Target="{Binding ElementName=ctStyleDropdown}" Name="ctIconStyleLabel">_Icon style:</Label>
                 <ComboBox Name="ctStyleDropdown"/>
                 <DockPanel Margin="0,8,0,0">
                     <Button Margin="0,0,0,0" Name="ctStyleNew" Command="src:TankStyleCommands.Add">
-                        <AccessText Margin="6,0">_New</AccessText>
+                        <AccessText Margin="6,0" Name="ctStyleNewLabel">_New</AccessText>
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleImport" Command="src:TankStyleCommands.Import">
-                        <AccessText Margin="6,0">Im_port</AccessText>
+                        <AccessText Margin="6,0" Name="ctStyleImportLabel">Im_port</AccessText>
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleExport" Command="src:TankStyleCommands.Export">
-                        <AccessText Margin="6,0">E_xport</AccessText>
+                        <AccessText Margin="6,0" Name="ctStyleExportLabel">E_xport</AccessText>
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctUpvote" ToolTip="Upvote the author of this style" Click="ctUpvote_Click">
                         <Button.Template>
@@ -138,7 +137,7 @@
                     </Button>
                     <Button Margin="6,0,0,0" Name="ctStyleMore" HorizontalAlignment="Right" Click="ctStyleMore_Click">
                         <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                            <AccessText Margin="6,0">_More</AccessText>
+                            <AccessText Margin="6,0" Name="ctStyleMoreLabel">_More</AccessText>
                             <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                         <Button.ContextMenu>
@@ -153,7 +152,7 @@
                     </Button>
                 </DockPanel>
                 <Border Margin="0,5,0,5"></Border>
-                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctLayersTree}">Layers:</Label>
+                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctLayersTree}" Name="ctLayersLabel">Layers:</Label>
             </StackPanel>
             <DockPanel Name="ctLeftBottomPane" Grid.Row="1">
                 <wpfc:TreeViewWithItem x:Name="ctLayersTree" DockPanel.Dock="Top" MinHeight="60" Margin="8,0,8,0" PreviewMouseRightButtonDown="ctLayersTree_PreviewMouseRightButtonDown">
@@ -256,7 +255,7 @@
                 </ComboBox>
                 <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                        <AccessText Margin="6,0">Language</AccessText>
+                        <AccessText Margin="6,0" Name="ctLanguageLabel">Language</AccessText>
                         <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button.ContextMenu>
@@ -274,13 +273,13 @@
                 <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
                        ToolTip="There were some problems; click this icon to see the details." />
                 <Button Name="ctReload" Margin="8" Click="ctReload_Click">
-                    <AccessText Margin="8,0">_Reload data</AccessText>
+                    <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>
                 <Button Name="ctSave" Margin="0,8" Click="ctSave_Click">
-                    <AccessText Margin="8,0">_Save...</AccessText>
+                    <AccessText Margin="8,0" Name="ctSaveLabel">_Save...</AccessText>
                 </Button>
                 <Button Name="ctAbout" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8" Click="ctAbout_Click">
-                    <AccessText Margin="8,0">About...</AccessText>
+                    <AccessText Margin="8,0" Name="ctAboutLabel">About...</AccessText>
                 </Button>
             </DockPanel>
         </Grid>

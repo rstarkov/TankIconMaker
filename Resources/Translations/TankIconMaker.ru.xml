@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <MainWindow>
+    <ctGameDirLabel>
+      <Translation>Папка с игрой:</Translation>
+      <Old>Game _directory:</Old>
+    </ctGameDirLabel>
+    <ctGameVersionLabel>
+      <Translation>Версия игры:</Translation>
+      <Old>_Game version:</Old>
+    </ctGameVersionLabel>
+    <ctIconStyleLabel>
+      <Translation>Стиль иконок:</Translation>
+      <Old>_Icon style:</Old>
+    </ctIconStyleLabel>
+    <ctStyleNewLabel>
+      <Translation>Создать</Translation>
+      <Old>_New</Old>
+    </ctStyleNewLabel>
+    <ctStyleImportLabel>
+      <Translation>Импорт</Translation>
+      <Old>Im_port</Old>
+    </ctStyleImportLabel>
+    <ctStyleExportLabel>
+      <Translation>Экспорт</Translation>
+      <Old>E_xport</Old>
+    </ctStyleExportLabel>
+    <ctUpvote>
+      <Translation>Плюсануть автора этого стиля</Translation>
+      <Old>Upvote the author of this style</Old>
+    </ctUpvote>
+    <ctStyleMoreLabel>
+      <Translation>Ещё</Translation>
+      <Old>_More</Old>
+    </ctStyleMoreLabel>
+    <ctLayersLabel>
+      <Translation>Слои:</Translation>
+      <Old>Layers:</Old>
+    </ctLayersLabel>
+    <ctZoomCheckbox>
+      <Translation>Увеличить</Translation>
+      <Old>_Zoom</Old>
+    </ctZoomCheckbox>
+    <ctLanguageLabel>
+      <Translation>Язык</Translation>
+      <Old>Language</Old>
+    </ctLanguageLabel>
+    <ctWarning>
+      <Translation>Обнаружены проблемы; щелкните по иконке для просмотра подробностей.</Translation>
+      <Old>There were some problems; click this icon to see the details.</Old>
+    </ctWarning>
+    <ctReloadLabel>
+      <Translation>Обновить данные</Translation>
+      <Old>_Reload data</Old>
+    </ctReloadLabel>
+    <ctSaveLabel>
+      <Translation>Сохранить...</Translation>
+      <Old>_Save...</Old>
+    </ctSaveLabel>
+    <ctAboutLabel>
+      <Translation>О программе...</Translation>
+      <Old>About...</Old>
+    </ctAboutLabel>
+  </MainWindow>
+</item>
