@@ -33,14 +33,66 @@
       <Translation>Ещё</Translation>
       <Old>_More</Old>
     </ctStyleMoreLabel>
+    <ctStyleChangeName>
+      <Translation>Изменить название</Translation>
+      <Old>Change _name</Old>
+    </ctStyleChangeName>
+    <ctStyleChangeAuthor>
+      <Translation>Изменить автора</Translation>
+      <Old>Change _author</Old>
+    </ctStyleChangeAuthor>
+    <ctStyleDuplicate>
+      <Translation>Создать копию</Translation>
+      <Old>_Duplicate</Old>
+    </ctStyleDuplicate>
+    <ctStyleDelete>
+      <Translation>Удалить</Translation>
+      <Old>D_elete</Old>
+    </ctStyleDelete>
     <ctLayersLabel>
       <Translation>Слои:</Translation>
       <Old>Layers:</Old>
     </ctLayersLabel>
+    <ctLayersAddLayer>
+      <Translation>Добавить слой...</Translation>
+      <Old>Add _layer...</Old>
+    </ctLayersAddLayer>
+    <ctLayersAddEffect>
+      <Translation>Добавить эффект...</Translation>
+      <Old>Add _effect...</Old>
+    </ctLayersAddEffect>
+    <ctLayersModify>
+      <Translation>Переименовать</Translation>
+      <Old>_Modify</Old>
+    </ctLayersModify>
+    <ctLayersDelete>
+      <Translation>Удалить</Translation>
+      <Old>_Delete</Old>
+    </ctLayersDelete>
+    <ctLayersMoveUp>
+      <Translation>Сдвинуть вверх</Translation>
+      <Old>Move _up</Old>
+    </ctLayersMoveUp>
+    <ctLayersMoveDown>
+      <Translation>Сдвинуть вниз</Translation>
+      <Old>Move d_own</Old>
+    </ctLayersMoveDown>
+    <ctLayersToggleVisibility>
+      <Translation>Вкл/выкл видимость</Translation>
+      <Old>Toggle _visibility</Old>
+    </ctLayersToggleVisibility>
     <ctZoomCheckbox>
       <Translation>Увеличить</Translation>
       <Old>_Zoom</Old>
     </ctZoomCheckbox>
+    <ctDisplayModeAll>
+      <Translation>Все танки</Translation>
+      <Old>All tanks</Old>
+    </ctDisplayModeAll>
+    <ctDisplayModeOneEach>
+      <Translation>По одному каждого типа</Translation>
+      <Old>One of each combination</Old>
+    </ctDisplayModeOneEach>
     <ctLanguageLabel>
       <Translation>Язык</Translation>
       <Old>Language</Old>
