@@ -26,6 +26,9 @@ using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
+#warning TODO: ask about unsaved translation on main window close
+#warning TODO: the Layers list is not refreshed on language change
+
 /*
  * Lanczos resampling; sharpen effect
  * Improved Font selection
@@ -102,10 +105,14 @@ namespace TankIconMaker
             Program.DpiScaleX = mat.M11;
             Program.DpiScaleY = mat.M22;
 
+            System.ComponentModel.TypeDescriptor.AddProvider(new RT.Util.Lingo.LingoTypeDescriptionProvider<Translation>(() => Program.Translation), typeof(LayerBase));
 #if DEBUG
             using (var translationFileGenerator = new Lingo.TranslationFileGenerator(@"..\..\Translation.g.cs"))
+            {
                 translationFileGenerator.TranslateWindow(this, Program.Translation.MainWindow);
-            Lingo.WarnOfUnusedStrings(typeof(Translation), Assembly.GetExecutingAssembly());
+            }
+#warning TODO: Uncomment this
+            //Lingo.WarnOfUnusedStrings(typeof(Translation), Assembly.GetExecutingAssembly());
 #endif
             using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
                 _translationHelper = new LanguageHelperWpf<Translation>("Tank Icon Maker", "TankIconMaker", true,
@@ -265,7 +272,27 @@ namespace TankIconMaker
 
         private void Translate()
         {
+            translateTypes(Program.LayerTypes);
+            translateTypes(Program.EffectTypes);
             Lingo.TranslateWindow(this, Program.Translation.MainWindow);
+            var wasSelected = ctLayerProperties.SelectedObject;
+            ctLayerProperties.SelectedObject = null;
+            ctLayerProperties.SelectedObject = wasSelected;
+        }
+
+        private static IList<TypeInfo<T>> translateTypes<T>(IList<TypeInfo<T>> types) where T : IHasTypeNameDescription
+        {
+            return types.Select(type =>
+            {
+                var obj = (T) type.Constructor();
+                return new TypeInfo<T>
+                {
+                    Type = type.Type,
+                    Constructor = type.Constructor,
+                    Name = obj.TypeName,
+                    Description = obj.TypeDescription,
+                };
+            }).ToList().AsReadOnly();
         }
 
         private ObservableSortedList<Style> _builtinStyles = new ObservableSortedList<Style>();
