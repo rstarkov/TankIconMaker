@@ -34,10 +34,10 @@ namespace TankIconMaker
 
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
         private bool _Visible;
-        public static MemberDescription VisibleTr(Translation tr) { return new MemberDescription(tr.CategoryGeneral, tr.Layer.Visible); }
+        public static MemberTr VisibleTr(Translation tr) { return new MemberTr(tr.CategoryGeneral, tr.Layer.Visible); }
 
         public ValueSelector<BoolWithPassthrough> VisibleFor { get; set; }
-        public static MemberDescription VisibleForTr(Translation tr) { return new MemberDescription(tr.CategoryGeneral, tr.Layer.VisibleFor); }
+        public static MemberTr VisibleForTr(Translation tr) { return new MemberTr(tr.CategoryGeneral, tr.Layer.VisibleFor); }
 
         public LayerBase()
         {

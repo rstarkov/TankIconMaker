@@ -12,7 +12,7 @@ namespace TankIconMaker.Layers
         public override string TypeDescription { get { return Program.Translation.BkgDarkAgentLayer.LayerDescription; } }
 
         public ColorSelector BackColor { get; set; }
-        public static MemberDescription BackColorTr(Translation tr) { return new MemberDescription(tr.CategorySettings, tr.BkgDarkAgentLayer.BackColor); }
+        public static MemberTr BackColorTr(Translation tr) { return new MemberTr(tr.CategorySettings, tr.BkgDarkAgentLayer.BackColor); }
 
         public BkgDarkAgentLayer()
         {

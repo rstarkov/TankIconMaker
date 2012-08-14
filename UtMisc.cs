@@ -495,11 +495,11 @@ namespace TankIconMaker
         }
     }
 
+    [TypeConverter(typeof(BoolWithPassthroughTranslation.Conv))]
     enum BoolWithPassthrough
     {
         No,
         Yes,
-        [Description("Passthrough: use next By")]
         Passthrough,
     }
 }

@@ -156,6 +156,20 @@
       </Description>
     </BackColor>
   </BkgDarkAgentLayer>
+  <BoolWithPassthrough>
+    <Yes>
+      <Translation>Да</Translation>
+      <Old>Yes</Old>
+    </Yes>
+    <No>
+      <Translation>Нет</Translation>
+      <Old>No</Old>
+    </No>
+    <Passthrough>
+      <Translation>Пропуск: следующий "По"</Translation>
+      <Old>Passthrough: use next By</Old>
+    </Passthrough>
+  </BoolWithPassthrough>
   <CategoryGeneral>
     <Translation>Общее</Translation>
     <Old>General</Old>
