@@ -61,11 +61,13 @@ namespace TankIconMaker
                 .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
                 .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
 
-            // Find all the layer and effect types in the assembly
+            // Find all the layer and effect types in the assembly (required before settings are loaded)
             Program.LayerTypes = findTypes<LayerBase>("layer");
             Program.EffectTypes = findTypes<EffectBase>("effect");
 
             base.OnStartup(e);
+
+            // Load all settings and the UI translation
             SettingsUtil.LoadSettings(out Program.Settings);
             Program.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref Program.Settings.Lingo);
         }
@@ -83,13 +85,12 @@ namespace TankIconMaker
                 }
                 else
                 {
-                    var obj = (T) constructor.Invoke(new object[0]);
                     infos.Add(new TypeInfo<T>
                     {
                         Type = type,
                         Constructor = () => (T) constructor.Invoke(new object[0]),
-                        Name = obj.TypeName,
-                        Description = obj.TypeDescription,
+                        Name = type.Name,
+                        Description = type.FullName,
                     });
                 }
             }

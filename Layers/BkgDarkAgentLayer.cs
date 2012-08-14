@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Layers
 {
     class BkgDarkAgentLayer : LayerBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Background / Dark Agent"; } }
-        public override string TypeDescription { get { return "Draws a background using a glassy style inspired by Black_Spy’s icon set."; } }
+        public override string TypeName { get { return Program.Translation.BkgDarkAgentLayer.LayerName; } }
+        public override string TypeDescription { get { return Program.Translation.BkgDarkAgentLayer.LayerDescription; } }
 
-        [Category("Settings")]
-        [Description("Background color.")]
         public ColorSelector BackColor { get; set; }
+        public static MemberDescription BackColorTr(Translation tr) { return new MemberDescription(tr.CategorySettings, tr.BkgDarkAgentLayer.BackColor); }
 
         public BkgDarkAgentLayer()
         {

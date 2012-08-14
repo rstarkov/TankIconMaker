@@ -114,4 +114,54 @@
       <Old>About...</Old>
     </ctAboutLabel>
   </MainWindow>
+  <Layer>
+    <Visible>
+      <DisplayName>
+        <Translation>Видимость</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Позволяет временно скрыть данынй слой, не удаляя его.</Translation>
+        <Old>Allows you to hide this layer without deleting it.</Old>
+      </Description>
+    </Visible>
+    <VisibleFor>
+      <DisplayName>
+        <Translation>Видимость для</Translation>
+        <Old>Visible for</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Позволяет скрыть данный слой для определенных типов техники.</Translation>
+        <Old>Specifies which types of tanks this layer should be visible for.</Old>
+      </Description>
+    </VisibleFor>
+  </Layer>
+  <BkgDarkAgentLayer>
+    <LayerName>
+      <Translation>Фон / Dark Agent</Translation>
+      <Old>Background / Dark Agent</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Рисует фон, используя "стеклянный" стиль, основанный на иконках от Black_Spy.</Translation>
+      <Old>Draws a background using a glassy style inspired by Black_Spy’s icon set.</Old>
+    </LayerDescription>
+    <BackColor>
+      <DisplayName>
+        <Translation>Цвет фона</Translation>
+        <Old>Background color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Определяет цвет фона.</Translation>
+        <Old>Background color.</Old>
+      </Description>
+    </BackColor>
+  </BkgDarkAgentLayer>
+  <CategoryGeneral>
+    <Translation>Общее</Translation>
+    <Old>General</Old>
+  </CategoryGeneral>
+  <CategorySettings>
+    <Translation>Настройки</Translation>
+    <Old>Settings</Old>
+  </CategorySettings>
 </item>

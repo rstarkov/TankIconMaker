@@ -4,11 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 using WpfCrutches;
-using D = System.Drawing;
 
 namespace TankIconMaker
 {
@@ -34,13 +32,12 @@ namespace TankIconMaker
         [Browsable(false)]
         public ObservableCollection<EffectBase> Effects { get; set; }
 
-        [Category("General")]
-        [Description("Allows you to hide this layer without deleting it.")]
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
         private bool _Visible;
-        [Category("General"), DisplayName("Visible for")]
-        [Description("Specifies which types of tanks this layer should be visible for.")]
+        public static MemberDescription VisibleTr(Translation tr) { return new MemberDescription(tr.CategoryGeneral, tr.Layer.Visible); }
+
         public ValueSelector<BoolWithPassthrough> VisibleFor { get; set; }
+        public static MemberDescription VisibleForTr(Translation tr) { return new MemberDescription(tr.CategoryGeneral, tr.Layer.VisibleFor); }
 
         public LayerBase()
         {
