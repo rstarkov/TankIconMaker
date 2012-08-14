@@ -107,7 +107,8 @@ namespace TankIconMaker
 
             System.ComponentModel.TypeDescriptor.AddProvider(new RT.Util.Lingo.LingoTypeDescriptionProvider<Translation>(() => Program.Translation), typeof(LayerBase));
 #if DEBUG
-            using (var translationFileGenerator = new Lingo.TranslationFileGenerator(@"..\..\Translation.g.cs"))
+            Lingo.AlsoSaveTranslationsTo = PathUtil.AppPathCombine(@"..\..\Resources\Translations");
+            using (var translationFileGenerator = new Lingo.TranslationFileGenerator(PathUtil.AppPathCombine(@"..\..\Translation.g.cs")))
             {
                 translationFileGenerator.TranslateWindow(this, Program.Translation.MainWindow);
             }

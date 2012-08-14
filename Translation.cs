@@ -1,10 +1,4 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using RT.Util.ExtensionMethods;
-using RT.Util.Lingo;
+﻿﻿using RT.Util.Lingo;
 
 namespace TankIconMaker
 {
@@ -18,6 +12,8 @@ namespace TankIconMaker
         LayerAll,
         [LingoGroup("Layer: Background / Dark Agent", "Strings used in the property grid for the Background / Dark Agent layer")]
         LayerBkgDarkAgent,
+        [LingoGroup("Value: Yes / No / Passthrough", "Strings used for the yes/no/passthrough drop-down")]
+        BoolWithPassthrough,
     }
 
     [LingoStringClass]
@@ -30,6 +26,8 @@ namespace TankIconMaker
         public LayerTranslation Layer = new LayerTranslation();
         public BkgDarkAgentLayerTranslation BkgDarkAgentLayer = new BkgDarkAgentLayerTranslation();
 
+        public BoolWithPassthroughTranslation BoolWithPassthrough = new BoolWithPassthroughTranslation();
+
         [LingoInGroup(TranslationGroup.PropertyCategory)]
         public TrString CategoryGeneral = "General";
         [LingoInGroup(TranslationGroup.PropertyCategory)]
@@ -39,8 +37,8 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerAll)]
     sealed class LayerTranslation
     {
-        public TypeDescriptorTr Visible = new TypeDescriptorTr { DisplayName = "Visible", Description = "Allows you to hide this layer without deleting it." };
-        public TypeDescriptorTr VisibleFor = new TypeDescriptorTr { DisplayName = "Visible for", Description = "Specifies which types of tanks this layer should be visible for." };
+        public MemberDescriptionTr Visible = new MemberDescriptionTr { DisplayName = "Visible", Description = "Allows you to hide this layer without deleting it." };
+        public MemberDescriptionTr VisibleFor = new MemberDescriptionTr { DisplayName = "Visible for", Description = "Specifies which types of tanks this layer should be visible for." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerBkgDarkAgent)]
@@ -49,6 +47,19 @@ namespace TankIconMaker
         public TrString LayerName = "Background / Dark Agent";
         public TrString LayerDescription = "Draws a background using a glassy style inspired by Black_Spy’s icon set.";
 
-        public TypeDescriptorTr BackColor = new TypeDescriptorTr { DisplayName = "Background color", Description = "Background color." };
+        public MemberDescriptionTr BackColor = new MemberDescriptionTr { DisplayName = "Background color", Description = "Background color." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.BoolWithPassthrough)]
+    sealed class BoolWithPassthroughTranslation
+    {
+        public TrString Yes = "Yes";
+        public TrString No = "No";
+        public TrString Passthrough = "Passthrough: use next By";
+
+        public class Conv : LingoEnumConverter<BoolWithPassthrough, BoolWithPassthroughTranslation>
+        {
+            public Conv() : base(() => Program.Translation.BoolWithPassthrough) { }
+        }
     }
 }
