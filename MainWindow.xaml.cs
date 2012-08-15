@@ -28,6 +28,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid;
 
 #warning TODO: ask about unsaved translation on main window close
 #warning TODO: the Layers list is not refreshed on language change
+#warning TODO: shortcuts in Russian
 
 /*
  * Lanczos resampling; sharpen effect

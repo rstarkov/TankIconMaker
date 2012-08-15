@@ -24,9 +24,11 @@ namespace TankIconMaker
         public static LayerBase ShowAddLayer(Window owner)
         {
             var wnd = new AddWindow { Owner = owner };
-            wnd.Title = "Add layer";
-            wnd.lblName.Content = "Layer _name:";
-            wnd.lblList.Content = "Layer _type:";
+            wnd.Title = Program.Translation.AddWindow.AddLayerTitle;
+            wnd.lblName.Content = new AccessText { Text = Program.Translation.AddWindow.LayerName };
+            wnd.lblList.Content = new AccessText { Text = Program.Translation.AddWindow.LayerType };
+            wnd.ctAddLabel.Text = Program.Translation.AddWindow.BtnAdd;
+            wnd.ctCancelLabel.Text = Program.Translation.AddWindow.BtnCancel;
             wnd.ctList.ItemsSource = Program.LayerTypes;
             wnd.ctList.SelectedIndex = 0;
 
@@ -44,9 +46,11 @@ namespace TankIconMaker
         public static EffectBase ShowAddEffect(Window owner)
         {
             var wnd = new AddWindow { Owner = owner };
-            wnd.Title = "Add effect";
-            wnd.lblName.Content = "Effect _name:";
-            wnd.lblList.Content = "Effect _type:";
+            wnd.Title = Program.Translation.AddWindow.AddEffectTitle;
+            wnd.lblName.Content = new AccessText { Text = Program.Translation.AddWindow.EffectName };
+            wnd.lblList.Content = new AccessText { Text = Program.Translation.AddWindow.EffectType };
+            wnd.ctAddLabel.Text = Program.Translation.AddWindow.BtnAdd;
+            wnd.ctCancelLabel.Text = Program.Translation.AddWindow.BtnCancel;
             wnd.ctList.ItemsSource = Program.EffectTypes;
             wnd.ctList.SelectedIndex = 0;
 

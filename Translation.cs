@@ -6,24 +6,28 @@ namespace TankIconMaker
     {
         [LingoGroup("Main window", "Strings used directly in the main window interface.")]
         MainWindow,
+        [LingoGroup("Add window", "Strings used directly in the \"Add layer\" and \"Add effect\" dialogs.")]
+        AddWindow,
         [LingoGroup("Property categories", "Strings used to group properties into categories in the property grid.")]
         PropertyCategory,
 
-        [LingoGroup("Layer: all", "Strings used in the property grid for all layers")]
+        [LingoGroup("Layer: all", "Strings used in the property grid for all layers.")]
         LayerAll,
-        [LingoGroup("Layer: Background / Dark Agent", "Strings used in the property grid for the 'Background / Dark Agent' layer")]
+        [LingoGroup("Layer: Background / Dark Agent", "Strings used in the property grid for the 'Background / Dark Agent' layer.")]
         LayerBkgDarkAgent,
-        [LingoGroup("Layer: Image / Standard", "Strings used in the property grid for the 'Image / Standard' layer")]
+        [LingoGroup("Layer: Image / Standard", "Strings used in the property grid for the 'Image / Standard' layer.")]
         LayerTankImage,
-        [LingoGroup("Layer: Image / Current", "Strings used in the property grid for the 'Image / Current' layer")]
+        [LingoGroup("Layer: Image / Current", "Strings used in the property grid for the 'Image / Current' layer.")]
         LayerCurrentImage,
-        [LingoGroup("Layer: Image / By properties", "Strings used in the property grid for the 'Image / By properties' layer")]
+        [LingoGroup("Layer: Image / By properties", "Strings used in the property grid for the 'Image / By properties' layer.")]
         LayerCustomImage,
-        [LingoGroup("Layer: Image / By filename pattern", "Strings used in the property grid for the 'Image / By filename pattern' layer")]
+        [LingoGroup("Layer: Image / By filename pattern", "Strings used in the property grid for the 'Image / By filename pattern' layer.")]
         LayerFilenamePatternImage,
 
-        [LingoGroup("Value: Yes / No / Passthrough", "Strings used for the yes/no/passthrough drop-down")]
+        [LingoGroup("Value: Yes / No / Passthrough", "Strings used for the yes/no/passthrough drop-down.")]
         BoolWithPassthrough,
+        [LingoGroup("Value: Select By", "Strings used for the \"By\" drop-down.")]
+        SelectBy,
     }
 
     [LingoStringClass]
@@ -32,6 +36,7 @@ namespace TankIconMaker
         public Translation() : base(Language.EnglishUK) { }
 
         public MainWindowTranslation MainWindow = new MainWindowTranslation();
+        public AddWindowTranslation AddWindow = new AddWindowTranslation();
 
         public LayerTranslation Layer = new LayerTranslation();
         public BkgDarkAgentLayerTranslation BkgDarkAgentLayer = new BkgDarkAgentLayerTranslation();
@@ -42,6 +47,7 @@ namespace TankIconMaker
 
         public BoolWithPassthroughTranslation BoolWithPassthrough = new BoolWithPassthroughTranslation();
         public ImageBuiltInStyleTranslation ImageBuiltInStyle = new ImageBuiltInStyleTranslation();
+        public SelectByTranslation SelectBy = new SelectByTranslation();
 
         [LingoInGroup(TranslationGroup.PropertyCategory)]
         public TrString CategoryGeneral = "General";
@@ -49,6 +55,21 @@ namespace TankIconMaker
         public TrString CategorySettings = "Settings";
         [LingoInGroup(TranslationGroup.PropertyCategory)]
         public TrString CategoryImage = "Image";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
+    sealed class AddWindowTranslation
+    {
+        public TrString AddLayerTitle = "Add layer";
+        public TrString LayerName = "Layer _name:";
+        public TrString LayerType = "Layer _type:";
+
+        public TrString AddEffectTitle = "Add effect";
+        public TrString EffectName = "Effect _name:";
+        public TrString EffectType = "Effect _type:";
+
+        public TrString BtnAdd = "_Add";
+        public TrString BtnCancel = "_Cancel";
     }
 
     #region Layer translations
@@ -138,6 +159,21 @@ namespace TankIconMaker
         public class Conv : LingoEnumConverter<ImageBuiltInStyle, ImageBuiltInStyleTranslation>
         {
             public Conv() : base(() => Program.Translation.ImageBuiltInStyle) { }
+        }
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.SelectBy)]
+    sealed class SelectByTranslation
+    {
+        public TrString Class = "Artillery • Destroyer • Light • etc";
+        public TrString Country = "USSR • Germany • USA • etc";
+        public TrString Category = "Normal • premium • special";
+        public TrString Tier = "Tier (1 .. 10)";
+        public TrString Single = "Single value";
+
+        public class Conv : LingoEnumConverter<SelectBy, SelectByTranslation>
+        {
+            public Conv() : base(() => Program.Translation.SelectBy) { }
         }
     }
 }
