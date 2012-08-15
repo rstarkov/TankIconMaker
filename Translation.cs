@@ -23,6 +23,12 @@ namespace TankIconMaker
         LayerCustomImage,
         [LingoGroup("Layer: Image / By filename pattern", "Strings used in the property grid for the 'Image / By filename pattern' layer.")]
         LayerFilenamePatternImage,
+        [LingoGroup("Layer: Text (all)", "Strings used in the property grid for all text layers.")]
+        LayerText,
+        [LingoGroup("Layer: Text / Property", "Strings used in the property grid for the 'Text / Property' layer.")]
+        LayerPropertyText,
+        [LingoGroup("Layer: Text / Custom", "Strings used in the property grid for the 'Text / Custom' layer.")]
+        LayerCustomText,
 
         [LingoGroup("Value: Yes / No / Passthrough", "Strings used for the yes/no/passthrough drop-down.")]
         BoolWithPassthrough,
@@ -44,6 +50,9 @@ namespace TankIconMaker
         public CurrentImageLayerTranslation CurrentImageLayer = new CurrentImageLayerTranslation();
         public CustomImageLayerTranslation CustomImageLayer = new CustomImageLayerTranslation();
         public FilenamePatternImageLayerTranslation FilenamePatternImageLayer = new FilenamePatternImageLayerTranslation();
+        public TextLayerTranslation TextLayer = new TextLayerTranslation();
+        public PropertyTextLayerTranslation PropertyTextLayer = new PropertyTextLayerTranslation();
+        public CustomTextLayerTranslation CustomTextLayer = new CustomTextLayerTranslation();
 
         public BoolWithPassthroughTranslation BoolWithPassthrough = new BoolWithPassthroughTranslation();
         public ImageBuiltInStyleTranslation ImageBuiltInStyle = new ImageBuiltInStyleTranslation();
@@ -55,6 +64,12 @@ namespace TankIconMaker
         public TrString CategorySettings = "Settings";
         [LingoInGroup(TranslationGroup.PropertyCategory)]
         public TrString CategoryImage = "Image";
+        [LingoInGroup(TranslationGroup.PropertyCategory)]
+        public TrString CategoryFont = "Font";
+        [LingoInGroup(TranslationGroup.PropertyCategory)]
+        public TrString CategoryPosition = "Position";
+        [LingoInGroup(TranslationGroup.PropertyCategory)]
+        public TrString CategoryTextSource = "Text source";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
@@ -130,6 +145,44 @@ namespace TankIconMaker
 
         [LingoNotes("The string \"{0}\" is replaced with the filename of the missing image. ")]
         public TrString MissingImageWarning = "The image {0} could not be found.";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.LayerText)]
+    sealed class TextLayerTranslation
+    {
+        public MemberDescriptionTr FontSmoothing = new MemberDescriptionTr { DisplayName = "Smoothing", Description = "Determines how the text should be smoothed." };
+        public MemberDescriptionTr FontFamily = new MemberDescriptionTr { DisplayName = "Family", Description = "Font family." };
+        public MemberDescriptionTr FontSize = new MemberDescriptionTr { DisplayName = "Size", Description = "Font size." };
+        public MemberDescriptionTr FontBold = new MemberDescriptionTr { DisplayName = "Bold", Description = "Makes the text bold." };
+        public MemberDescriptionTr FontItalic = new MemberDescriptionTr { DisplayName = "Italic", Description = "Makes the text italic." };
+        public MemberDescriptionTr FontColor = new MemberDescriptionTr { DisplayName = "Color", Description = "Specifies the text color." };
+        public MemberDescriptionTr Left = new MemberDescriptionTr { DisplayName = "Left", Description = "X coordinate of the leftmost text pixel. Ignored if \"Left anchor\" is false." };
+        public MemberDescriptionTr Right = new MemberDescriptionTr { DisplayName = "Right", Description = "X coordinate of the rightmost text pixel. Ignored if \"Right anchor\" is false." };
+        public MemberDescriptionTr Top = new MemberDescriptionTr { DisplayName = "Top", Description = "Y coordinate of the topmost text pixel (but see also \"Align baselines\"). Ignored if \"Top anchor\" is false." };
+        public MemberDescriptionTr Bottom = new MemberDescriptionTr { DisplayName = "Bottom", Description = "Y coordinate of the bottommost text pixel (but see also \"Align baselines\"). Ignored if \"Bottom anchor\" is false." };
+        public MemberDescriptionTr LeftAnchor = new MemberDescriptionTr { DisplayName = "Left anchor", Description = "If true, the leftmost pixel of the text is anchored at the X coordinate specified by \"Left\". If \"Right anchor\" is also true, the text is centered between \"Left\" and \"Right\"." };
+        public MemberDescriptionTr RightAnchor = new MemberDescriptionTr { DisplayName = "Right anchor", Description = "If true, the rightmost pixel of the text is anchored at the X coordinate specified by \"Right\". If \"Left anchor\" is also true, the text is centered between \"Left\" and \"Right\"." };
+        public MemberDescriptionTr TopAnchor = new MemberDescriptionTr { DisplayName = "Top anchor", Description = "If true, the topmost pixel of the text is anchored at the Y coordinate specified by \"Top\". If \"Bottom anchor\" is also true, the text is centered between \"Top\" and \"Bottom\"." };
+        public MemberDescriptionTr BottomAnchor = new MemberDescriptionTr { DisplayName = "Bottom anchor", Description = "If true, the bottommost pixel of the text is anchored at the Y coordinate specified by \"Bottom\". If \"Top anchor\" is also true, the text is centered between \"Top\" and \"Bottom\"." };
+        public MemberDescriptionTr Baseline = new MemberDescriptionTr { DisplayName = "Align baselines", Description = "Consider the words \"more\" and \"type\", top-anchored at pixel 0. If \"Align baselines\" is false, the word \"more\" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of \"more\" will actually be below pixel 0." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.LayerPropertyText)]
+    sealed class PropertyTextLayerTranslation
+    {
+        public TrString LayerName = "Text / Property";
+        public TrString LayerDescription = "Draws a specified property of a tank as text.";
+
+        public MemberDescriptionTr Property = new MemberDescriptionTr { DisplayName = "Property", Description = "Specifies the property to be used as the text source." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.LayerCustomText)]
+    sealed class CustomTextLayerTranslation
+    {
+        public TrString LayerName = "Text / Custom";
+        public TrString LayerDescription = "Draws a fixed string based on a specified property of a tank.";
+
+        public MemberDescriptionTr Text = new MemberDescriptionTr { DisplayName = "Text", Description = "The string to be displayed." };
     }
 
     #endregion

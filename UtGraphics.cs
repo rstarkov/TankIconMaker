@@ -124,6 +124,7 @@ namespace TankIconMaker
                 : 24 / 2 - size.CenterVert;
 
             graphics.DrawImageUnscaled(bmp.Bitmap, x, y);
+            GC.KeepAlive(bmp);
             return size.Shifted(x, y);
         }
 

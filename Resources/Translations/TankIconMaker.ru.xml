@@ -266,6 +266,198 @@
       <Old>The image {0} could not be found.</Old>
     </MissingImageWarning>
   </FilenamePatternImageLayer>
+  <TextLayer>
+    <FontSmoothing>
+      <DisplayName>
+        <Translation>Сглаживание</Translation>
+        <Old>Smoothing</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Определяет метод сглаживания текста.</Translation>
+        <Old>Determines how the text should be smoothed.</Old>
+      </Description>
+    </FontSmoothing>
+    <FontFamily>
+      <DisplayName>
+        <Translation>Семейство</Translation>
+        <Old>Family</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Семейство шрифта.</Translation>
+        <Old>Font family.</Old>
+      </Description>
+    </FontFamily>
+    <FontSize>
+      <DisplayName>
+        <Translation>Размер</Translation>
+        <Old>Size</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Размер шрифта.</Translation>
+        <Old>Font size.</Old>
+      </Description>
+    </FontSize>
+    <FontBold>
+      <DisplayName>
+        <Translation>Жирный</Translation>
+        <Old>Bold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Включает жирный шрифт.</Translation>
+        <Old>Makes the text bold.</Old>
+      </Description>
+    </FontBold>
+    <FontItalic>
+      <DisplayName>
+        <Translation>Курсив</Translation>
+        <Old>Italic</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Включает наклонный шрифт.</Translation>
+        <Old>Makes the text italic.</Old>
+      </Description>
+    </FontItalic>
+    <FontColor>
+      <DisplayName>
+        <Translation>Цвет</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает цвет текста.</Translation>
+        <Old>Specifies the text color.</Old>
+      </Description>
+    </FontColor>
+    <Left>
+      <DisplayName>
+        <Translation>Левый край</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-координата самого левого пикселя текста. Игнорируется если «Левый якорь» отключен.</Translation>
+        <Old>X coordinate of the leftmost text pixel. Ignored if "Left anchor" is false.</Old>
+      </Description>
+    </Left>
+    <Right>
+      <DisplayName>
+        <Translation>Правый край</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-координата самого правого пикселя текста. Игнорируется если «Правый якорь» отключен.</Translation>
+        <Old>X coordinate of the rightmost text pixel. Ignored if "Right anchor" is false.</Old>
+      </Description>
+    </Right>
+    <Top>
+      <DisplayName>
+        <Translation>Верхний край</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-координата самого верхнего пикселя текста (однако см. «По линии шрифта»). Игнорируется если «Верхний якорь» отключен.</Translation>
+        <Old>Y coordinate of the topmost text pixel (but see also "Align baselines"). Ignored if "Top anchor" is false.</Old>
+      </Description>
+    </Top>
+    <Bottom>
+      <DisplayName>
+        <Translation>Нижний край</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-координата самого нижнего пикселя текста (однако см. «По линии шрифта»). Игнорируется если «Нижний якорь» отключен.</Translation>
+        <Old>Y coordinate of the bottommost text pixel (but see also "Align baselines"). Ignored if "Bottom anchor" is false.</Old>
+      </Description>
+    </Bottom>
+    <LeftAnchor>
+      <DisplayName>
+        <Translation>Левый якорь</Translation>
+        <Old>Left anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если включен, самый левый пиксель текста размещается на X-координате, указанной в свойстве «Левый край». Если «Правый якорь» тоже включен, текст центрируется между «Левый край» и «Правый край».</Translation>
+        <Old>If true, the leftmost pixel of the text is anchored at the X coordinate specified by "Left". If "Right anchor" is also true, the text is centered between "Left" and "Right".</Old>
+      </Description>
+    </LeftAnchor>
+    <RightAnchor>
+      <DisplayName>
+        <Translation>Правый якорь</Translation>
+        <Old>Right anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если включен, самый правый пиксель текста размещается на X-координате, указанной в свойстве «Правый край». Если «Левый якорь» тоже включен, текст центрируется между «Левый край» и «Правый край».</Translation>
+        <Old>If true, the rightmost pixel of the text is anchored at the X coordinate specified by "Right". If "Left anchor" is also true, the text is centered between "Left" and "Right".</Old>
+      </Description>
+    </RightAnchor>
+    <TopAnchor>
+      <DisplayName>
+        <Translation>Верхний якорь</Translation>
+        <Old>Top anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если включен, самый верхний пиксель текста размещается на Y-координате, указанной в свойстве «Верхний край». Если «Нижний якорь» тоже включен, текст центрируется между «Верхний край» и «Нижний край».</Translation>
+        <Old>If true, the topmost pixel of the text is anchored at the Y coordinate specified by "Top". If "Bottom anchor" is also true, the text is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </TopAnchor>
+    <BottomAnchor>
+      <DisplayName>
+        <Translation>Нижний якорь</Translation>
+        <Old>Bottom anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если включен, самый нижний пиксель текста размещается на Y-координате, указанной в свойстве «Нижний край». Если «Верхний якорь» тоже включен, текст центрируется между «Верхний край» и «Нижний край».</Translation>
+        <Old>If true, the bottommost pixel of the text is anchored at the Y coordinate specified by "Bottom". If "Top anchor" is also true, the text is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </BottomAnchor>
+    <Baseline>
+      <DisplayName>
+        <Translation> По линии шрифта</Translation>
+        <Old>Align baselines</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Представьте слова «тип» и «Тип», с верхним якорем на пикселе 0. Если «По линии шрифта» включено, то «тип» будет отображаться несколько выше, чем «Тип». Если же свойство включено, то линия текста будет одинакова (при этом верхний пиксель в слове «тип» будет несколько ниже, чем 0-й пиксель).</Translation>
+        <Old>Consider the words "more" and "type", top-anchored at pixel 0. If "Align baselines" is false, the word "more" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of "more" will actually be below pixel 0.</Old>
+      </Description>
+    </Baseline>
+  </TextLayer>
+  <PropertyTextLayer>
+    <LayerName>
+      <Translation>Текст / Свойство танка</Translation>
+      <Old>Text / Property</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Отображает указанное свойство танка в виде текста.</Translation>
+      <Old>Draws a specified property of a tank as text.</Old>
+    </LayerDescription>
+    <Property>
+      <DisplayName>
+        <Translation>Свойство</Translation>
+        <Old>Property</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает свойство танка, которое будет использоваться как источник текста.</Translation>
+        <Old>Specifies the property to be used as the text source.</Old>
+      </Description>
+    </Property>
+  </PropertyTextLayer>
+  <CustomTextLayer>
+    <LayerName>
+      <Translation>Текст / Фикс. по свойству</Translation>
+      <Old>Text / Custom</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Отображает фиксированную строку, выбранную на основании указанного свойства танка.</Translation>
+      <Old>Draws a fixed string based on a specified property of a tank.</Old>
+    </LayerDescription>
+    <Text>
+      <DisplayName>
+        <Translation>Текст</Translation>
+        <Old>Text</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает строки для отображения.</Translation>
+        <Old>The string to be displayed.</Old>
+      </Description>
+    </Text>
+  </CustomTextLayer>
   <BoolWithPassthrough>
     <Yes>
       <Translation>Да</Translation>
@@ -336,4 +528,16 @@
     <Translation>Изображение</Translation>
     <Old>Image</Old>
   </CategoryImage>
+  <CategoryFont>
+    <Translation> Шрифт</Translation>
+    <Old>Font</Old>
+  </CategoryFont>
+  <CategoryPosition>
+    <Translation>Позиция</Translation>
+    <Old>Position</Old>
+  </CategoryPosition>
+  <CategoryTextSource>
+    <Translation> Источник текста</Translation>
+    <Old>Text source</Old>
+  </CategoryTextSource>
 </item>
