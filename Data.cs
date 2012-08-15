@@ -871,7 +871,16 @@ namespace TankIconMaker
         Special,
     }
 
-    public enum ImageBuiltInStyle { Contour, [Description("3D")] ThreeD, [Description("3D (large)")] ThreeDLarge, Country, Class }
+    /// <summary>Represents one of the built-in tank image styles.</summary>
+    [TypeConverter(typeof(ImageBuiltInStyleTranslation.Conv))]
+    enum ImageBuiltInStyle
+    {
+        Contour,
+        ThreeD,
+        ThreeDLarge,
+        Country,
+        Class
+    }
 
     /// <summary>Encapsulates a version identifier, allowing for a comparable part (like 0.7.3) and a unique part (like "test").</summary>
     class VersionId : IComparable<VersionId>, IComparable<Version>
