@@ -52,16 +52,16 @@ namespace TankIconMaker.Effects
         public bool PositionByPixels { get; set; }
 
         [Category("Position")]
-        [Description("X coordinate of the leftmost text pixel. Ignored if \"Left Anchor\" is false.")]
+        [Description("X coordinate of the leftmost text pixel. Ignored if \"Left Anchor\" is unchecked.")]
         public int Left { get; set; }
         [Category("Position")]
-        [Description("X coordinate of the rightmost text pixel. Ignored if \"Right Anchor\" is false.")]
+        [Description("X coordinate of the rightmost text pixel. Ignored if \"Right Anchor\" is unchecked.")]
         public int Right { get; set; }
         [Category("Position")]
-        [Description("Y coordinate of the topmost text pixel (but see also \"Align Baselines\"). Ignored if \"Top Anchor\" is false.")]
+        [Description("Y coordinate of the topmost text pixel (but see also \"Align Baselines\"). Ignored if \"Top Anchor\" is unchecked.")]
         public int Top { get; set; }
         [Category("Position")]
-        [Description("Y coordinate of the bottommost text pixel (but see also \"Align Baselines\"). Ignored if \"Bottom Anchor\" is false.")]
+        [Description("Y coordinate of the bottommost text pixel (but see also \"Align Baselines\"). Ignored if \"Bottom Anchor\" is unchecked.")]
         public int Bottom { get; set; }
 
         [Category("Position"), DisplayName("Left Anchor")]

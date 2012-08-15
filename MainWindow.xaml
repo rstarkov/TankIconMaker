@@ -152,7 +152,7 @@
                     </Button>
                 </DockPanel>
                 <Border Margin="0,5,0,5"></Border>
-                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctLayersTree}" Name="ctLayersLabel">Layers:</Label>
+                <Label Padding="3,0,0,0" Target="{Binding ElementName=ctLayersTree}" Name="ctLayersLabel">_Layers:</Label>
             </StackPanel>
             <DockPanel Name="ctLeftBottomPane" Grid.Row="1">
                 <wpfc:TreeViewWithItem x:Name="ctLayersTree" DockPanel.Dock="Top" MinHeight="60" Margin="8,0,8,0" PreviewMouseRightButtonDown="ctLayersTree_PreviewMouseRightButtonDown">
@@ -255,7 +255,7 @@
                 </ComboBox>
                 <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                        <AccessText Margin="6,0" Name="ctLanguageLabel">Language</AccessText>
+                        <AccessText Margin="6,0" Name="ctLanguageLabel">L_anguage</AccessText>
                         <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button.ContextMenu>
@@ -271,7 +271,7 @@
             </ScrollViewer>
             <DockPanel Grid.Row="2" Background="#87FFFFFF">
                 <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
-                       ToolTip="There were some problems; click this icon to see the details." />
+                       ToolTip="This icon indicates that a problem occurred. Click the icon to view details about the problem." />
                 <Button Name="ctReload" Margin="8" Click="ctReload_Click">
                     <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>
