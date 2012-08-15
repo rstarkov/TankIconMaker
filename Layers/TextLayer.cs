@@ -1,59 +1,45 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Media;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Layers
 {
     abstract class TextLayer : LayerBase
     {
-        [Category("Font"), DisplayName("Smoothing")]
-        [Description("Determines how the tank name should be anti-aliased.")]
         public TextSmoothingStyle FontSmoothing { get; set; }
-        [Category("Font"), DisplayName("Family")]
-        [Description("Font family.")]
+        public static MemberTr FontSmoothingTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontSmoothing); }
         public string FontFamily { get; set; }
-        [Category("Font"), DisplayName("Size")]
-        [Description("Font size.")]
+        public static MemberTr FontFamilyTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontFamily); }
         public double FontSize { get; set; }
-        [Category("Font"), DisplayName("Bold")]
-        [Description("Makes the text bold.")]
+        public static MemberTr FontSizeTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontSize); }
         public bool FontBold { get; set; }
-        [Category("Font"), DisplayName("Italic")]
-        [Description("Makes the text italic.")]
+        public static MemberTr FontBoldTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontBold); }
         public bool FontItalic { get; set; }
-        [Category("Font"), DisplayName("Color")]
-        [Description("Specifies the text color.")]
+        public static MemberTr FontItalicTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontItalic); }
         public ColorSelector FontColor { get; set; }
+        public static MemberTr FontColorTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontColor); }
 
-        [Category("Position")]
-        [Description("X coordinate of the leftmost text pixel. Ignored if \"Left Anchor\" is false.")]
         public int Left { get; set; }
-        [Category("Position")]
-        [Description("X coordinate of the rightmost text pixel. Ignored if \"Right Anchor\" is false.")]
+        public static MemberTr LeftTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Left); }
         public int Right { get; set; }
-        [Category("Position")]
-        [Description("Y coordinate of the topmost text pixel (but see also \"Align Baselines\"). Ignored if \"Top Anchor\" is false.")]
+        public static MemberTr RightTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Right); }
         public int Top { get; set; }
-        [Category("Position")]
-        [Description("Y coordinate of the bottommost text pixel (but see also \"Align Baselines\"). Ignored if \"Bottom Anchor\" is false.")]
+        public static MemberTr TopTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Top); }
         public int Bottom { get; set; }
+        public static MemberTr BottomTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Bottom); }
 
-        [Category("Position"), DisplayName("Left Anchor")]
-        [Description("If true, the leftmost pixel of the text is anchored at the X coordinate specified by \"Left\". If \"Right Anchor\" is also true, the text is centered between \"Left\" and \"Right\".")]
         public bool LeftAnchor { get; set; }
-        [Category("Position"), DisplayName("Right Anchor")]
-        [Description("If true, the rightmost pixel of the text is anchored at the X coordinate specified by \"Right\". If \"Left Anchor\" is also true, the text is centered between \"Left\" and \"Right\".")]
+        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.LeftAnchor); }
         public bool RightAnchor { get; set; }
-        [Category("Position"), DisplayName("Top Anchor")]
-        [Description("If true, the topmost pixel of the text is anchored at the Y coordinate specified by \"Top\". If \"Bottom Anchor\" is also true, the text is centered between \"Top\" and \"Bottom\".")]
+        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.RightAnchor); }
         public bool TopAnchor { get; set; }
-        [Category("Position"), DisplayName("Bottom Anchor")]
-        [Description("If true, the bottommost pixel of the text is anchored at the Y coordinate specified by \"Bottom\". If \"Top Anchor\" is also true, the text is centered between \"Top\" and \"Bottom\".")]
+        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.TopAnchor); }
         public bool BottomAnchor { get; set; }
+        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.BottomAnchor); }
 
-        [Category("Position"), DisplayName("Align Baselines")]
-        [Description("Consider the words \"more\" and \"type\", top-anchored at pixel 0. If \"Align Baselines\" is false, the word \"more\" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of \"more\" will actually be below pixel 0.")]
         public bool Baseline { get; set; }
+        public static MemberTr BaselineTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Baseline); }
 
         protected abstract string GetText(Tank tank);
 
@@ -94,12 +80,11 @@ namespace TankIconMaker.Layers
     sealed class PropertyTextLayer : TextLayer
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Text / Property"; } }
-        public override string TypeDescription { get { return "Draws a tank’s custom property using configurable font and color."; } }
+        public override string TypeName { get { return Program.Translation.PropertyTextLayer.LayerName; } }
+        public override string TypeDescription { get { return Program.Translation.PropertyTextLayer.LayerDescription; } }
 
-        [Category("Text source"), DisplayName("Property")]
-        [Description("Choose the name of the property that supplies the data for the bottom right location.")]
         public ExtraPropertyId Property { get; set; }
+        public static MemberTr PropertyTr(Translation tr) { return new MemberTr(tr.CategoryTextSource, tr.PropertyTextLayer.Property); }
 
         public PropertyTextLayer()
         {
@@ -115,12 +100,11 @@ namespace TankIconMaker.Layers
     sealed class CustomTextLayer : TextLayer
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Text / Custom"; } }
-        public override string TypeDescription { get { return "Draws a fixed string based on a specified property of a tank."; } }
+        public override string TypeName { get { return Program.Translation.CustomTextLayer.LayerName; } }
+        public override string TypeDescription { get { return Program.Translation.CustomTextLayer.LayerDescription; } }
 
-        [Category("Text source")]
-        [Description("The string to be displayed.")]
         public ValueSelector<string> Text { get; set; }
+        public static MemberTr TextTr(Translation tr) { return new MemberTr(tr.CategoryTextSource, tr.CustomTextLayer.Text); }
 
         public CustomTextLayer()
         {
