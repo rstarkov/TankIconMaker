@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <MainWindow>
+    <ctGameDirLabel>
+      <Translation>_Spielverzeichnis:</Translation>
+      <Old>Game _directory:</Old>
+    </ctGameDirLabel>
+    <ctGameVersionLabel>
+      <Translation>Spiel_version:</Translation>
+      <Old>_Game version:</Old>
+    </ctGameVersionLabel>
+    <ctIconStyleLabel>
+      <Translation>Symbol_design:</Translation>
+      <Old>_Icon style:</Old>
+    </ctIconStyleLabel>
+    <ctStyleNewLabel>
+      <Translation>_Neu</Translation>
+      <Old>_New</Old>
+    </ctStyleNewLabel>
+    <ctStyleImportLabel>
+      <Translation>Im_portieren</Translation>
+      <Old>Im_port</Old>
+    </ctStyleImportLabel>
+    <ctStyleExportLabel>
+      <Translation>E_xportieren</Translation>
+      <Old>E_xport</Old>
+    </ctStyleExportLabel>
+    <ctUpvote>
+      <Translation>Den Autor dieses Designs loben</Translation>
+      <Old>Upvote the author of this style</Old>
+    </ctUpvote>
+    <ctStyleMoreLabel>
+      <Translation>_Mehr</Translation>
+      <Old>_More</Old>
+    </ctStyleMoreLabel>
+    <ctStyleChangeName>
+      <Translation>_Namen ändern</Translation>
+      <Old>Change _name</Old>
+    </ctStyleChangeName>
+    <ctStyleChangeAuthor>
+      <Translation>_Autor ändern</Translation>
+      <Old>Change _author</Old>
+    </ctStyleChangeAuthor>
+    <ctStyleDuplicate>
+      <Translation>_Duplizieren</Translation>
+      <Old>_Duplicate</Old>
+    </ctStyleDuplicate>
+    <ctStyleDelete>
+      <Translation>_Löschen</Translation>
+      <Old>D_elete</Old>
+    </ctStyleDelete>
+    <ctLayersLabel>
+      <Translation>Ebenen:</Translation>
+      <Old>Layers:</Old>
+    </ctLayersLabel>
+    <ctLayersAddLayer>
+      <Translation>Ebene _hinzufügen...</Translation>
+      <Old>Add _layer...</Old>
+    </ctLayersAddLayer>
+    <ctLayersAddEffect>
+      <Translation>_Effect hinzufügen...</Translation>
+      <Old>Add _effect...</Old>
+    </ctLayersAddEffect>
+    <ctLayersModify>
+      <Translation>_Bearbeiten</Translation>
+      <Old>_Modify</Old>
+    </ctLayersModify>
+    <ctLayersDelete>
+      <Translation>_Löschen</Translation>
+      <Old>_Delete</Old>
+    </ctLayersDelete>
+    <ctLayersMoveUp>
+      <Translation>Nach _oben</Translation>
+      <Old>Move _up</Old>
+    </ctLayersMoveUp>
+    <ctLayersMoveDown>
+      <Translation>Nach _unten</Translation>
+      <Old>Move d_own</Old>
+    </ctLayersMoveDown>
+    <ctLayersToggleVisibility>
+      <Translation>Toggle _visibility</Translation>
+      <Old>Toggle _visibility</Old>
+    </ctLayersToggleVisibility>
+    <ctZoomCheckbox>
+      <Translation>_Vergrößerung</Translation>
+      <Old>_Zoom</Old>
+    </ctZoomCheckbox>
+    <ctDisplayModeAll>
+      <Translation>Alle Panzer</Translation>
+      <Old>All tanks</Old>
+    </ctDisplayModeAll>
+    <ctDisplayModeOneEach>
+      <Translation>Einer von jeder Kombination</Translation>
+      <Old>One of each combination</Old>
+    </ctDisplayModeOneEach>
+    <ctLanguageLabel>
+      <Translation>Sprache</Translation>
+      <Old>Language</Old>
+    </ctLanguageLabel>
+    <ctWarning>
+      <Translation>Es gab leider Probleme. Klicken Sie auf dieses Symbol, um Details zu sehen.</Translation>
+      <Old>There were some problems; click this icon to see the details.</Old>
+    </ctWarning>
+    <ctReloadLabel>
+      <Translation>Daten _neu laden</Translation>
+      <Old>_Reload data</Old>
+    </ctReloadLabel>
+    <ctSaveLabel>
+      <Translation>_Speichern...</Translation>
+      <Old>_Save...</Old>
+    </ctSaveLabel>
+    <ctAboutLabel>
+      <Translation>Über...</Translation>
+      <Old>About...</Old>
+    </ctAboutLabel>
+  </MainWindow>
+  <AddWindow>
+    <AddLayerTitle>
+      <Translation>Ebene hinzufügen</Translation>
+      <Old>Add layer</Old>
+    </AddLayerTitle>
+    <LayerName>
+      <Translation>_Name der Ebene:</Translation>
+      <Old>Layer _name:</Old>
+    </LayerName>
+    <LayerType>
+      <Translation>_Typ der Ebene:</Translation>
+      <Old>Layer _type:</Old>
+    </LayerType>
+    <AddEffectTitle>
+      <Translation>Effekt hinzufügen</Translation>
+      <Old>Add effect</Old>
+    </AddEffectTitle>
+    <EffectName>
+      <Translation>Effekt_name:</Translation>
+      <Old>Effect _name:</Old>
+    </EffectName>
+    <EffectType>
+      <Translation>Effekt_typ:</Translation>
+      <Old>Effect _type:</Old>
+    </EffectType>
+    <BtnAdd>
+      <Translation>_Hinzufügen</Translation>
+      <Old>_Add</Old>
+    </BtnAdd>
+    <BtnCancel>
+      <Translation>_Abbrechen</Translation>
+      <Old>_Cancel</Old>
+    </BtnCancel>
+  </AddWindow>
+  <Layer>
+    <Visible>
+      <DisplayName>
+        <Translation>Sichtbar</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Hiermit können Sie die Ebene unsichtbar machen, ohne sie zu löschen.</Translation>
+        <Old>Allows you to hide this layer without deleting it.</Old>
+      </Description>
+    </Visible>
+    <VisibleFor>
+      <DisplayName>
+        <Translation>Visible for</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Specifies which types of tanks this layer should be visible for.</Translation>
+        <Old null="1" />
+      </Description>
+    </VisibleFor>
+  </Layer>
+  <BkgDarkAgentLayer>
+    <LayerName>
+      <Translation>Hintergrund / Dark Agent</Translation>
+      <Old>Background / Dark Agent</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet einen Hintergrund mit einem glasähnlichen Design, inspiriert durch die Symbolsammlung von Black_Spy.</Translation>
+      <Old>Draws a background using a glassy style inspired by Black_Spy’s icon set.</Old>
+    </LayerDescription>
+    <BackColor>
+      <DisplayName>
+        <Translation>Hintergrundfarbe</Translation>
+        <Old>Background color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Hintergrundfarbe.</Translation>
+        <Old>Background color.</Old>
+      </Description>
+    </BackColor>
+  </BkgDarkAgentLayer>
+  <TankImageLayer>
+    <LayerName>
+      <Translation>Bild / Standard</Translation>
+      <Old>Image / Standard</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet eine der vielen Arten von Standardbildern für diesen Panzer.</Translation>
+      <Old>Draws one of the several types of standard images for this tank.</Old>
+    </LayerDescription>
+    <Style>
+      <DisplayName>
+        <Translation>Typ</Translation>
+        <Old>Type</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, welcher Standardbildtyp gezeichnet wird.</Translation>
+        <Old>Specifies which of the standard image types to draw.</Old>
+      </Description>
+    </Style>
+    <MissingImageWarning>
+      <Translation>Das Bild für diesen Panzer fehlt.</Translation>
+      <Old>The image for this tank is missing.</Old>
+    </MissingImageWarning>
+  </TankImageLayer>
+  <CurrentImageLayer>
+    <LayerName>
+      <Translation>Bild / Aktuell</Translation>
+      <Old>Image / Current</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet das Symbol, das aktuell im Ausgabeverzeichnis gespeichert ist.</Translation>
+      <Old>Draws the icon that’s currently saved in the output directory.</Old>
+    </LayerDescription>
+    <MissingImageWarning>
+      <Translation>Für diesen Panzer liegt kein aktuelles Bild vor.</Translation>
+      <Old>There is no current image for this tank.</Old>
+    </MissingImageWarning>
+  </CurrentImageLayer>
+  <CustomImageLayer>
+    <LayerName>
+      <Translation>Bild / Nach Eigenschaften</Translation>
+      <Old>Image / By properties</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet ein beliebiges benutzerdefiniertes Bild.</Translation>
+      <Old>Draws an arbitrary, user-supplied image.</Old>
+    </LayerDescription>
+    <MissingImageWarning>
+      <Translation>Das Bild {0} konnte nicht gefunden werden.</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </CustomImageLayer>
+  <FilenamePatternImageLayer>
+    <LayerName>
+      <Translation>Bild / Nach Dateinamenschablone</Translation>
+      <Old>Image / By filename pattern</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet ein benutzerdefiniertes Bild, das aus einer Datei eingelesen wird, deren Name einer Schablone entspricht, in der Platzhalter durch verschiedene Panzereigenschaften eingesetzt werden.</Translation>
+      <Old>Draws an arbitrary, user-supplied image, loaded from a file whose name is generated by substituting various tank properties into placeholders.</Old>
+    </LayerDescription>
+    <Pattern>
+      <DisplayName>
+        <Translation>Schablone</Translation>
+        <Old>Pattern</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Dateinamenschablone. Die folgenden Platzhalter sind verfügbar: {tier} (Panzerstufe), {country} (Land), {class} (Klasse), {category} (Kategorie), {id} (ID).</Translation>
+        <Old>Filename pattern. Use the following placeholders: {tier}, {country}, {class}, {category}, {id}.</Old>
+      </Description>
+    </Pattern>
+    <MissingImageWarning>
+      <Translation>Das Bild {0} konnte nicht gefunden werden.</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </FilenamePatternImageLayer>
+  <BoolWithPassthrough>
+    <Yes>
+      <Translation>Ja</Translation>
+      <Old>Yes</Old>
+    </Yes>
+    <No>
+      <Translation>Nein</Translation>
+      <Old>No</Old>
+    </No>
+    <Passthrough>
+      <Translation>Passthrough: use next By</Translation>
+      <Old null="1" />
+    </Passthrough>
+  </BoolWithPassthrough>
+  <ImageBuiltInStyle>
+    <Contour>
+      <Translation>Kontur</Translation>
+      <Old>Contour</Old>
+    </Contour>
+    <ThreeD>
+      <Translation>3D</Translation>
+      <Old>3D</Old>
+    </ThreeD>
+    <ThreeDLarge>
+      <Translation>3D (groß)</Translation>
+      <Old>3D (large)</Old>
+    </ThreeDLarge>
+    <Country>
+      <Translation>Land</Translation>
+      <Old>Country</Old>
+    </Country>
+    <Class>
+      <Translation>Klasse</Translation>
+      <Old>Class</Old>
+    </Class>
+  </ImageBuiltInStyle>
+  <SelectBy>
+    <Class>
+      <Translation>Artillerie • Zerstörer • Leicht • usw.</Translation>
+      <Old>Artillery • Destroyer • Light • etc</Old>
+    </Class>
+    <Country>
+      <Translation>UdSSR • Deutschland • USA • usw.</Translation>
+      <Old>USSR • Germany • USA • etc</Old>
+    </Country>
+    <Category>
+      <Translation>Normal • Premium • Spezial</Translation>
+      <Old>Normal • premium • special</Old>
+    </Category>
+    <Tier>
+      <Translation>Stufe (1 – 10)</Translation>
+      <Old>Tier (1 .. 10)</Old>
+    </Tier>
+    <Single>
+      <Translation>Einfacher Wert</Translation>
+      <Old>Single value</Old>
+    </Single>
+  </SelectBy>
+  <CategoryGeneral>
+    <Translation>Allgemein</Translation>
+    <Old>General</Old>
+  </CategoryGeneral>
+  <CategorySettings>
+    <Translation>Einstellungen</Translation>
+    <Old>Settings</Old>
+  </CategorySettings>
+  <CategoryImage>
+    <Translation>Bild</Translation>
+    <Old>Image</Old>
+  </CategoryImage>
+</item>
