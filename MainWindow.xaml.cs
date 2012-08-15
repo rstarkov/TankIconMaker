@@ -273,8 +273,8 @@ namespace TankIconMaker
 
         private void Translate()
         {
-            translateTypes(Program.LayerTypes);
-            translateTypes(Program.EffectTypes);
+            Program.LayerTypes = translateTypes(Program.LayerTypes);
+            Program.EffectTypes = translateTypes(Program.EffectTypes);
             Lingo.TranslateWindow(this, Program.Translation.MainWindow);
             var wasSelected = ctLayerProperties.SelectedObject;
             ctLayerProperties.SelectedObject = null;
@@ -293,7 +293,7 @@ namespace TankIconMaker
                     Name = obj.TypeName,
                     Description = obj.TypeDescription,
                 };
-            }).ToList().AsReadOnly();
+            }).OrderBy(ti => ti.Name).ToList().AsReadOnly();
         }
 
         private ObservableSortedList<Style> _builtinStyles = new ObservableSortedList<Style>();
