@@ -271,7 +271,7 @@
             </ScrollViewer>
             <DockPanel Grid.Row="2" Background="#87FFFFFF">
                 <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
-                       ToolTip="This icon indicates that a problem occurred. Click the icon to view details about the problem." />
+                       ToolTip="Indicates that a problem has occurred. Click this icon to view details of the problem." />
                 <Button Name="ctReload" Margin="8" Click="ctReload_Click">
                     <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>

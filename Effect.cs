@@ -31,11 +31,11 @@ namespace TankIconMaker
         public LayerBase Layer;
 
         [Category("General")]
-        [Description("Allows you to hide this effect without deleting it.")]
+        [Description("Allows you to hide this effect temporarily without deleting it.")]
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
         private bool _Visible;
         [Category("General"), DisplayName("Visible for")]
-        [Description("Specifies for which types of tanks to show this layer.")]
+        [Description("Allows you to hide this effect for some of the tanks, depending on their properties.")]
         public ValueSelector<BoolWithPassthrough> VisibleFor { get; set; }
 
         public EffectBase()
