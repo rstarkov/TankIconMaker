@@ -2,118 +2,86 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
+    [TypeConverter(typeof(SizeModeTranslation.Conv))]
     enum SizeMode
     {
-        [Description("No change")]
         NoChange,
-        [Description("By %")]
         ByPercentage,
-        [Description("By size: width only")]
         BySizeWidthOnly,
-        [Description("By size: height only")]
         BySizeHeightOnly,
-        //[Description("By size: smaller of w/h")]
-        //BySizeWidthHeightSmaller,
-        //[Description("By size: larger of w/h")]
-        //BySizeWidthHeightLarger,
-        [Description("By size: stretch")]
         BySizeWidthHeightStretch,
-        [Description("By pos: left/right")]
         ByPosLeftRight,
-        [Description("By pos: top/bottom")]
         ByPosTopBottom,
-        [Description("By pos: fit inside")]
         ByPosAllFit,
-        [Description("By pos: stretch")]
         ByPosAllStretch,
     }
 
+    [TypeConverter(typeof(GrowShrinkModeTranslation.Conv))]
     enum GrowShrinkMode
     {
-        [Description("Grow and shrink")]
         GrowAndShrink,
-        [Description("Grow only")]
         GrowOnly,
-        [Description("Shrink only")]
         ShrinkOnly,
     }
 
     class SizePosEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Size / Position"; } }
-        public override string TypeDescription { get { return "Adjusts this layer's size and/or position. This effect is always applied before any other effects."; } }
+        public override string TypeName { get { return Program.Translation.EffectSizePos.EffectName; } }
+        public override string TypeDescription { get { return Program.Translation.EffectSizePos.EffectDescription; } }
 
-        [Category("Position"), DisplayName("Use pixels")]
-        [Description("If checked, transparent areas on the outside of the image will be ignored in position calculations. See also \"Pixel alpha threshold\".")]
         public bool PositionByPixels { get; set; }
+        public static MemberTr PositionByPixelsTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.PositionByPixels); }
 
-        [Category("Position")]
-        [Description("X coordinate of the leftmost text pixel. Ignored if \"Left Anchor\" is unchecked.")]
         public int Left { get; set; }
-        [Category("Position")]
-        [Description("X coordinate of the rightmost text pixel. Ignored if \"Right Anchor\" is unchecked.")]
+        public static MemberTr LeftTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Left); }
         public int Right { get; set; }
-        [Category("Position")]
-        [Description("Y coordinate of the topmost text pixel (but see also \"Align Baselines\"). Ignored if \"Top Anchor\" is unchecked.")]
+        public static MemberTr RightTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Right); }
         public int Top { get; set; }
-        [Category("Position")]
-        [Description("Y coordinate of the bottommost text pixel (but see also \"Align Baselines\"). Ignored if \"Bottom Anchor\" is unchecked.")]
+        public static MemberTr TopTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Top); }
         public int Bottom { get; set; }
+        public static MemberTr BottomTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Bottom); }
 
-        [Category("Position"), DisplayName("Left Anchor")]
-        [Description("If checked, the leftmost pixel of the text is anchored at the X coordinate specified by \"Left\". If \"Right Anchor\" is also checked, the text is centered between \"Left\" and \"Right\".")]
         public bool LeftAnchor { get; set; }
-        [Category("Position"), DisplayName("Right Anchor")]
-        [Description("If checked, the rightmost pixel of the text is anchored at the X coordinate specified by \"Right\". If \"Left Anchor\" is also checked, the text is centered between \"Left\" and \"Right\".")]
+        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.LeftAnchor); }
         public bool RightAnchor { get; set; }
-        [Category("Position"), DisplayName("Top Anchor")]
-        [Description("If checked, the topmost pixel of the text is anchored at the Y coordinate specified by \"Top\". If \"Bottom Anchor\" is also checked, the text is centered between \"Top\" and \"Bottom\".")]
+        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.RightAnchor); }
         public bool TopAnchor { get; set; }
-        [Category("Position"), DisplayName("Bottom Anchor")]
-        [Description("If checked, the bottommost pixel of the text is anchored at the Y coordinate specified by \"Bottom\". If \"Top Anchor\" is also checked, the text is centered between \"Top\" and \"Bottom\".")]
+        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.TopAnchor); }
         public bool BottomAnchor { get; set; }
+        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.BottomAnchor); }
 
-        [Category("Size"), DisplayName("Use pixels")]
-        [Description("If checked, transparent areas on the outside of the image will be ignored in size calculations. See also \"Pixel alpha threshold\".")]
         public bool SizeByPixels { get; set; }
+        public static MemberTr SizeByPixelsTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.SizeByPixels); }
 
-        [Category("Size"), DisplayName("Resize %")]
-        [Description("When Mode is \"By %\", selects the desired resize percentage.")]
         public double Percentage { get { return _Percentage; } set { _Percentage = Math.Max(0.0, value); } }
         private double _Percentage;
-        [Category("Size"), DisplayName("Resize to width")]
-        [Description("When Mode is one of \"By size\" modes, selects the desired width, in pixels.")]
+        public static MemberTr PercentageTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.Percentage); }
         public int Width { get { return _Width; } set { _Width = Math.Max(0, value); } }
         private int _Width;
-        [Category("Size"), DisplayName("Resize to height")]
-        [Description("When Mode is one of \"By size\" modes, selects the desired height, in pixels.")]
+        public static MemberTr WidthTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.Width); }
         public int Height { get { return _Height; } set { _Height = Math.Max(0, value); } }
         private int _Height;
-        [Category("Size"), DisplayName("Mode")]
-        [Description("Selects one of several different resize modes, which determines how the image size is calculated.")]
+        public static MemberTr HeightTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.Height); }
         public SizeMode SizeMode { get; set; }
-        [Category("Size"), DisplayName("Grow/shrink")]
-        [Description("Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.")]
+        public static MemberTr SizeModeTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.SizeMode); }
         public GrowShrinkMode GrowShrinkMode { get; set; }
+        public static MemberTr GrowShrinkModeTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.GrowShrinkMode); }
 
-        [Category("General"), DisplayName("Pixel alpha threshold")]
-        [Description("When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as \"transparent\". Range 0..255.")]
         public int PixelAlphaThreshold { get { return _PixelAlphaThreshold; } set { _PixelAlphaThreshold = Math.Min(255, Math.Max(0, value)); } }
         private int _PixelAlphaThreshold;
+        public static MemberTr PixelAlphaThresholdTr(Translation tr) { return new MemberTr(Program.Translation.CategoryGeneral, Program.Translation.EffectSizePos.PixelAlphaThreshold); }
 
-        [Category("Debug"), DisplayName("Show layer borders")]
-        [Description("If enabled, draws a rectangle to show the layer borders. These borders are used for size calculation if \"Size By Pixels\" is disabled.")]
         public bool ShowLayerBorders { get; set; }
-        [Category("Debug"), DisplayName("Show pixel borders")]
-        [Description("If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using \"Pixel alpha threshold\". These borders are used for size calculation if \"Size By Pixels\" is enabled.")]
+        public static MemberTr ShowLayerBordersTr(Translation tr) { return new MemberTr(Program.Translation.CategoryDebug, Program.Translation.EffectSizePos.ShowLayerBorders); }
         public bool ShowPixelBorders { get; set; }
-        [Category("Debug"), DisplayName("Show target borders")]
-        [Description("If enabled, draws a rectangle to show the selected target position for the layer. Anchored borders are drawn as solid lines, non-anchored are dotted.")]
+        public static MemberTr ShowPixelBordersTr(Translation tr) { return new MemberTr(Program.Translation.CategoryDebug, Program.Translation.EffectSizePos.ShowPixelBorders); }
         public bool ShowTargetBorders { get; set; }
+        public static MemberTr ShowTargetBordersTr(Translation tr) { return new MemberTr(Program.Translation.CategoryDebug, Program.Translation.EffectSizePos.ShowTargetBorders); }
 
         public SizePosEffect()
         {

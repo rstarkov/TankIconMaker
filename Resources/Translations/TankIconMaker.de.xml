@@ -148,8 +148,8 @@
       <Old>_Cancel</Old>
     </BtnCancel>
   </AddWindow>
-  <Layer>
-    <Visible>
+  <LayerAndEffect>
+    <LayerVisible>
       <DisplayName>
         <Translation>Sichtbar</Translation>
         <Old>Visible</Old>
@@ -158,8 +158,8 @@
         <Translation>Hiermit können Sie die Ebene unsichtbar machen, ohne sie zu löschen.</Translation>
         <Old>Allows you to hide this layer without deleting it.</Old>
       </Description>
-    </Visible>
-    <VisibleFor>
+    </LayerVisible>
+    <LayerVisibleFor>
       <DisplayName>
         <Translation>Sichtbar für</Translation>
         <Old>Visible for</Old>
@@ -168,8 +168,8 @@
         <Translation>Gibt an, für welche Panzerarten diese Ebene sichtbar sein soll.</Translation>
         <Old>Specifies for which types of tanks to show this layer.</Old>
       </Description>
-    </VisibleFor>
-  </Layer>
+    </LayerVisibleFor>
+  </LayerAndEffect>
   <BkgDarkAgentLayer>
     <LayerName>
       <Translation>Hintergrund / Dark Agent</Translation>

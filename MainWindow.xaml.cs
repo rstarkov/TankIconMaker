@@ -29,6 +29,9 @@ using Xceed.Wpf.Toolkit.PropertyGrid;
 #warning TODO: ask about unsaved translation on main window close
 #warning TODO: the Layers list is not refreshed on language change
 #warning TODO: shortcuts in Russian
+#warning TODO: postbuild check for enums
+#warning TODO: property sources that select language based on current translation (use in all built-in styles)
+
 
 /*
  * Lanczos resampling; sharpen effect
@@ -107,6 +110,7 @@ namespace TankIconMaker
             Program.DpiScaleY = mat.M22;
 
             System.ComponentModel.TypeDescriptor.AddProvider(new RT.Util.Lingo.LingoTypeDescriptionProvider<Translation>(() => Program.Translation), typeof(LayerBase));
+            System.ComponentModel.TypeDescriptor.AddProvider(new RT.Util.Lingo.LingoTypeDescriptionProvider<Translation>(() => Program.Translation), typeof(EffectBase));
 #if DEBUG
             Lingo.AlsoSaveTranslationsTo = PathUtil.AppPathCombine(@"..\..\Resources\Translations");
             using (var translationFileGenerator = new Lingo.TranslationFileGenerator(PathUtil.AppPathCombine(@"..\..\Translation.g.cs")))

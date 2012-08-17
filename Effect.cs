@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 using WpfCrutches;
 
@@ -30,13 +30,12 @@ namespace TankIconMaker
         [Browsable(false), XmlIgnore]
         public LayerBase Layer;
 
-        [Category("General")]
-        [Description("Allows you to hide this effect temporarily without deleting it.")]
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
         private bool _Visible;
-        [Category("General"), DisplayName("Visible for")]
-        [Description("Allows you to hide this effect for some of the tanks, depending on their properties.")]
+        public static MemberTr VisibleTr(Translation tr) { return new MemberTr(tr.CategoryGeneral, tr.LayerAndEffect.EffectVisible); }
+
         public ValueSelector<BoolWithPassthrough> VisibleFor { get; set; }
+        public static MemberTr VisibleForTr(Translation tr) { return new MemberTr(tr.CategoryGeneral, tr.LayerAndEffect.EffectVisibleFor); }
 
         public EffectBase()
         {
