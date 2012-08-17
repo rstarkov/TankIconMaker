@@ -1,21 +1,18 @@
-﻿using System.ComponentModel;
-using System.Windows;
-using System.Windows.Media.Imaging;
+﻿using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
     class ShiftEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Shift"; } }
-        public override string TypeDescription { get { return "Shifts the layer by a specified number of pixels."; } }
+        public override string TypeName { get { return Program.Translation.EffectShift.EffectName; } }
+        public override string TypeDescription { get { return Program.Translation.EffectShift.EffectDescription; } }
 
-        [Category("Shift"), DisplayName("X pixels")]
-        [Description("Amount of horizontal shift in pixels.")]
         public int ShiftX { get; set; }
-        [Category("Shift"), DisplayName("Y pixels")]
-        [Description("Amount of vertical shift in pixels.")]
+        public static MemberTr ShiftXTr(Translation tr) { return new MemberTr(Program.Translation.CategoryShift, Program.Translation.EffectShift.ShiftX); }
+
         public int ShiftY { get; set; }
+        public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(Program.Translation.CategoryShift, Program.Translation.EffectShift.ShiftY); }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {

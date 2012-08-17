@@ -198,15 +198,12 @@ namespace TankIconMaker
         }
     }
 
+    [TypeConverter(typeof(TextSmoothingStyleTranslation.Conv))]
     enum TextSmoothingStyle
     {
-        [Description("Aliased")]
         Aliased,
-        [Description("Anti-aliased (hinted)")]
         AntiAliasGDI,
-        [Description("Anti-aliased (unhinted)")]
         UnhintedGDI,
-        [Description("ClearType")]
         ClearType,
     }
 
@@ -252,8 +249,23 @@ namespace TankIconMaker
         public PixelRect Shifted(int deltaX, int deltaY) { return FromMixed(Left + deltaX, Top + deltaY, Width, Height); }
     }
 
-    enum OpacityStyle { Auto, [Description("Move endpoint")] MoveEndpoint, [Description("Move midpoint")] MoveMidpoint, Additive }
-    enum BlurEdgeMode { Transparent, Same, Wrap, Tile }
+    [TypeConverter(typeof(OpacityStyleTranslation.Conv))]
+    enum OpacityStyle
+    {
+        Auto,
+        MoveEndpoint,
+        MoveMidpoint,
+        Additive
+    }
+
+    [TypeConverter(typeof(BlurEdgeModeTranslation.Conv))]
+    enum BlurEdgeMode
+    {
+        Transparent,
+        Same,
+        Mirror,
+        Wrap,
+    }
 
     class GaussianBlur
     {
@@ -324,7 +336,7 @@ namespace TankIconMaker
                                 case BlurEdgeMode.Wrap:
                                     xRead = Ut.ModPositive(xRead, src.Width);
                                     break;
-                                case BlurEdgeMode.Tile:
+                                case BlurEdgeMode.Mirror:
                                     if (xRead < 0)
                                         xRead = -xRead - 1;
                                     xRead = xRead % (2 * src.Width);
@@ -370,6 +382,13 @@ namespace TankIconMaker
                                     break;
                                 case BlurEdgeMode.Wrap:
                                     yRead = Ut.ModPositive(yRead, src.Height);
+                                    break;
+                                case BlurEdgeMode.Mirror:
+                                    if (yRead < 0)
+                                        yRead = -yRead - 1;
+                                    yRead = yRead % (2 * src.Height);
+                                    if (yRead >= src.Height)
+                                        yRead = 2 * src.Height - yRead - 1;
                                     break;
                             }
                         yRead *= src.Stride;

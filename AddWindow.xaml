@@ -5,7 +5,7 @@
         xmlns:src="clr-namespace:TankIconMaker"
         x:ClassModifier="internal"
         Title="Add" ShowInTaskbar="False"
-        MinWidth="250" MinHeight="250" Height="335" Width="268"
+        MinWidth="250" MinHeight="250" Height="390" Width="268"
         TextOptions.TextFormattingMode="Display"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">

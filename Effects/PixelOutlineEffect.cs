@@ -1,18 +1,16 @@
-﻿using System.ComponentModel;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
     class PixelOutlineEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Outline"; } }
-        public override string TypeDescription { get { return "Adds a 1 pixel outline around the image. Not suitable for layers with soft outlines."; } }
+        public override string TypeName { get { return Program.Translation.EffectPixelOutline.EffectName; } }
+        public override string TypeDescription { get { return Program.Translation.EffectPixelOutline.EffectDescription; } }
 
-        [Category("Outline")]
-        [Description("Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.")]
         public ColorSelector Color { get; set; }
+        public static MemberTr ColorTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectPixelOutline.Color); }
 
         public PixelOutlineEffect()
         {
