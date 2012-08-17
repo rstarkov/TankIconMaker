@@ -2,7 +2,7 @@
 <item>
   <MainWindow>
     <ctGameDirLabel>
-      <Translation>_Spielverzeichnis:</Translation>
+      <Translation>Spielver_zeichnis:</Translation>
       <Old>Game _directory:</Old>
     </ctGameDirLabel>
     <ctGameVersionLabel>
@@ -82,7 +82,7 @@
       <Old>Toggle _visibility</Old>
     </ctLayersToggleVisibility>
     <ctZoomCheckbox>
-      <Translation>_Vergrößerung</Translation>
+      <Translation>Ver_größerung</Translation>
       <Old>_Zoom</Old>
     </ctZoomCheckbox>
     <ctDisplayModeAll>
@@ -102,7 +102,7 @@
       <Old>This icon indicates that a problem occurred. Click the icon to view details about the problem.</Old>
     </ctWarning>
     <ctReloadLabel>
-      <Translation>Daten _neu laden</Translation>
+      <Translation>Daten neu _laden</Translation>
       <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctSaveLabel>
@@ -110,7 +110,7 @@
       <Old>_Save...</Old>
     </ctSaveLabel>
     <ctAboutLabel>
-      <Translation>Über...</Translation>
+      <Translation>Ü_ber...</Translation>
       <Old>About...</Old>
     </ctAboutLabel>
   </MainWindow>
