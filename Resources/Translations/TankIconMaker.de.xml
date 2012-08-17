@@ -2,7 +2,7 @@
 <item>
   <MainWindow>
     <ctGameDirLabel>
-      <Translation>_Spielverzeichnis:</Translation>
+      <Translation>Spielver_zeichnis:</Translation>
       <Old>Game _directory:</Old>
     </ctGameDirLabel>
     <ctGameVersionLabel>
@@ -58,7 +58,7 @@
       <Old>Add _layer...</Old>
     </ctLayersAddLayer>
     <ctLayersAddEffect>
-      <Translation>_Effect hinzufügen...</Translation>
+      <Translation>_Effekt hinzufügen...</Translation>
       <Old>Add _effect...</Old>
     </ctLayersAddEffect>
     <ctLayersModify>
@@ -78,11 +78,11 @@
       <Old>Move d_own</Old>
     </ctLayersMoveDown>
     <ctLayersToggleVisibility>
-      <Translation>Toggle _visibility</Translation>
+      <Translation>_Sichtbar/unsichtbar umschalten</Translation>
       <Old>Toggle _visibility</Old>
     </ctLayersToggleVisibility>
     <ctZoomCheckbox>
-      <Translation>_Vergrößerung</Translation>
+      <Translation>Ver_größerung</Translation>
       <Old>_Zoom</Old>
     </ctZoomCheckbox>
     <ctDisplayModeAll>
@@ -102,7 +102,7 @@
       <Old>This icon indicates that a problem occurred. Click the icon to view details about the problem.</Old>
     </ctWarning>
     <ctReloadLabel>
-      <Translation>Daten _neu laden</Translation>
+      <Translation>Daten neu _laden</Translation>
       <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctSaveLabel>
@@ -110,7 +110,7 @@
       <Old>_Save...</Old>
     </ctSaveLabel>
     <ctAboutLabel>
-      <Translation>Über...</Translation>
+      <Translation>Ü_ber...</Translation>
       <Old>About...</Old>
     </ctAboutLabel>
   </MainWindow>
@@ -329,81 +329,81 @@
     </FontColor>
     <Left>
       <DisplayName>
-        <Translation>Linker Rand</Translation>
+        <Translation>Rand links</Translation>
         <Old>Left</Old>
       </DisplayName>
       <Description>
-        <Translation>X-Koordinate des linken Textrands. Keine Wirkung, wenn „Linker Anker“ deaktiviert ist.</Translation>
+        <Translation>X-Koordinate des linken Textrands. Keine Wirkung, wenn „Anker links“ deaktiviert ist.</Translation>
         <Old>X coordinate of the leftmost text pixel. Ignored if "Left anchor" is unchecked.</Old>
       </Description>
     </Left>
     <Right>
       <DisplayName>
-        <Translation>Rechter Rand</Translation>
+        <Translation>Rand rechts</Translation>
         <Old>Right</Old>
       </DisplayName>
       <Description>
-        <Translation>X-Koordinate des rechten Textrands. Keine Wirkung, wenn „Rechter Anker“ deaktiviert ist.</Translation>
+        <Translation>X-Koordinate des rechten Textrands. Keine Wirkung, wenn „Anker rechts“ deaktiviert ist.</Translation>
         <Old>X coordinate of the rightmost text pixel. Ignored if "Right anchor" is unchecked.</Old>
       </Description>
     </Right>
     <Top>
       <DisplayName>
-        <Translation>Oberer Rand</Translation>
+        <Translation>Rand oben</Translation>
         <Old>Top</Old>
       </DisplayName>
       <Description>
-        <Translation>Y-Koordinate des oberen Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Oberer Anker“ deaktiviert ist.</Translation>
+        <Translation>Y-Koordinate des oberen Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Anker oben“ deaktiviert ist.</Translation>
         <Old>Y coordinate of the topmost text pixel (but see also "Align baselines"). Ignored if "Top anchor" is unchecked.</Old>
       </Description>
     </Top>
     <Bottom>
       <DisplayName>
-        <Translation>Unterer Rand</Translation>
+        <Translation>Rand unten</Translation>
         <Old>Bottom</Old>
       </DisplayName>
       <Description>
-        <Translation>Y-Koordinate des unteren Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Oberer Anker“ deaktiviert ist.</Translation>
+        <Translation>Y-Koordinate des unteren Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Anker unten“ deaktiviert ist.</Translation>
         <Old>Y coordinate of the bottommost text pixel (but see also "Align baselines"). Ignored if "Bottom anchor" is unchecked.</Old>
       </Description>
     </Bottom>
     <LeftAnchor>
       <DisplayName>
-        <Translation>Links verankern</Translation>
+        <Translation>Anker links</Translation>
         <Old>Left anchor</Old>
       </DisplayName>
       <Description>
-        <Translation>Bewirkt, dass der linke Rand des Textes an der unter „Linker Rand“ angegebenen X-Koordinate verankert wird oder (falls „Rechts verankern“ auch aktiviert ist) dass der Text zwischen „Linker Rand“ und „Rechter Rand“ zentriert wird.</Translation>
+        <Translation>Bewirkt, dass der linke Rand des Textes an der unter „Rand links“ angegebenen X-Koordinate verankert wird oder (falls „Anker rechts“ auch aktiviert ist) dass der Text zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
         <Old>When checked, the leftmost pixel of the text is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the text is centered between "Left" and "Right".</Old>
       </Description>
     </LeftAnchor>
     <RightAnchor>
       <DisplayName>
-        <Translation>Rechts verankern</Translation>
+        <Translation>Anker rechts</Translation>
         <Old>Right anchor</Old>
       </DisplayName>
       <Description>
-        <Translation>Bewirkt, dass der rechte Rand des Textes an der unter „Rechter Rand“ angegebenen X-Koordinate verankert wird oder (falls „Links verankern“ auch aktiviert ist) dass der Text zwischen „Linker Rand“ und „Rechter Rand“ zentriert wird.</Translation>
+        <Translation>Bewirkt, dass der rechte Rand des Textes an der unter „Rand rechts“ angegebenen X-Koordinate verankert wird oder (falls „Anker links“ auch aktiviert ist) dass der Text zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
         <Old>When checked, the rightmost pixel of the text is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the text is centered between "Left" and "Right".</Old>
       </Description>
     </RightAnchor>
     <TopAnchor>
       <DisplayName>
-        <Translation>Oben verankern</Translation>
+        <Translation>Anker oben</Translation>
         <Old>Top anchor</Old>
       </DisplayName>
       <Description>
-        <Translation>Bewirkt, dass der obere Rand des Textes an der unter „Oberer Rand“ angegebenen Y-Koordinate verankert wird oder (falls „Unten verankern“ auch aktiviert ist) dass der Text zwischen „Oberer Rand“ und „Unterer Rand“ zentriert wird.</Translation>
+        <Translation>Bewirkt, dass der obere Rand des Textes an der unter „Rand oben“ angegebenen Y-Koordinate verankert wird oder (falls „Anker unten“ auch aktiviert ist) dass der Text zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
         <Old>When checked, the topmost pixel of the text is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
       </Description>
     </TopAnchor>
     <BottomAnchor>
       <DisplayName>
-        <Translation>Unten verankern</Translation>
+        <Translation>Anker unten</Translation>
         <Old>Bottom anchor</Old>
       </DisplayName>
       <Description>
-        <Translation>Bewirkt, dass der untere Rand des Textes an der unter „Unterer Rand“ angegebenen Y-Koordinate verankert wird oder (falls „Oben verankern“ auch aktiviert ist) dass der Text zwischen „Oberer Rand“ und „Unterer Rand“ zentriert wird.</Translation>
+        <Translation>Bewirkt, dass der untere Rand des Textes an der unter „Rand unten“ angegebenen Y-Koordinate verankert wird oder (falls „Anker oben“ auch aktiviert ist) dass der Text zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
         <Old>When checked, the bottommost pixel of the text is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
       </Description>
     </BottomAnchor>
