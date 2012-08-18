@@ -9,9 +9,9 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return Program.Translation.EffectFlip.EffectDescription; } }
 
         public bool FlipHorz { get; set; }
-        public static MemberTr FlipHorzTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectFlip.FlipHorz); }
+        public static MemberTr FlipHorzTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectFlip.FlipHorz); }
         public bool FlipVert { get; set; }
-        public static MemberTr FlipVertTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectFlip.FlipVert); }
+        public static MemberTr FlipVertTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectFlip.FlipVert); }
 
         public FlipEffect()
         {

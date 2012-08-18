@@ -24,10 +24,10 @@ namespace TankIconMaker
             {
                 switch (Kind)
                 {
-                    case StyleKind.Original: return "[original]";
-                    case StyleKind.Current: return "[current]";
-                    case StyleKind.BuiltIn: return "[built-in] {0} (by {1})".Fmt(Name, Author);
-                    case StyleKind.User: return "{0} (by {1})".Fmt(Name, Author);
+                    case StyleKind.Original: return Program.Translation.Misc.StyleDisplay_Original;
+                    case StyleKind.Current: return Program.Translation.Misc.StyleDisplay_Current;
+                    case StyleKind.BuiltIn: return Program.Translation.Misc.StyleDisplay_BuiltIn.Fmt(Name, Author);
+                    case StyleKind.User: return Program.Translation.Misc.StyleDisplay_Normal.Fmt(Name, Author);
                     default: throw new Exception("9742978");
                 }
             }
