@@ -21,6 +21,8 @@ namespace TankIconMaker
             var wnd = new PromptWindow { Owner = owner };
             wnd.Title = title;
             wnd.lblName.Content = label;
+            wnd.ctOkBtn.Text = Program.Translation.Prompt.PromptWindowOK;
+            wnd.ctCancelBtn.Text = Program.Translation.Prompt.Cancel;
             wnd.ctName.Text = name;
             wnd.ctName.Focus();
 

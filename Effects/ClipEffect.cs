@@ -19,24 +19,24 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return Program.Translation.EffectClip.EffectDescription; } }
 
         public ClipMode Mode { get; set; }
-        public static MemberTr ModeTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectClip.Mode); }
+        public static MemberTr ModeTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectClip.Mode); }
 
         public int PixelAlphaThreshold { get { return _PixelAlphaThreshold; } set { _PixelAlphaThreshold = Math.Min(255, Math.Max(0, value)); } }
         private int _PixelAlphaThreshold = 120;
-        public static MemberTr PixelAlphaThresholdTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectClip.PixelAlphaThreshold); }
+        public static MemberTr PixelAlphaThresholdTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectClip.PixelAlphaThreshold); }
 
         public int ClipLeft { get { return _ClipLeft; } set { _ClipLeft = Math.Max(0, value); } }
         public int _ClipLeft;
-        public static MemberTr ClipLeftTr(Translation tr) { return new MemberTr(Program.Translation.CategoryClip, Program.Translation.EffectClip.ClipLeft); }
+        public static MemberTr ClipLeftTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipLeft); }
         public int ClipTop { get { return _ClipTop; } set { _ClipTop = Math.Max(0, value); } }
         public int _ClipTop = 3;
-        public static MemberTr ClipTopTr(Translation tr) { return new MemberTr(Program.Translation.CategoryClip, Program.Translation.EffectClip.ClipTop); }
+        public static MemberTr ClipTopTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipTop); }
         public int ClipRight { get { return _ClipRight; } set { _ClipRight = Math.Max(0, value); } }
         public int _ClipRight;
-        public static MemberTr ClipRightTr(Translation tr) { return new MemberTr(Program.Translation.CategoryClip, Program.Translation.EffectClip.ClipRight); }
+        public static MemberTr ClipRightTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipRight); }
         public int ClipBottom { get { return _ClipBottom; } set { _ClipBottom = Math.Max(0, value); } }
         public int _ClipBottom = 3;
-        public static MemberTr ClipBottomTr(Translation tr) { return new MemberTr(Program.Translation.CategoryClip, Program.Translation.EffectClip.ClipBottom); }
+        public static MemberTr ClipBottomTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipBottom); }
 
         public ClipEffect()
         {

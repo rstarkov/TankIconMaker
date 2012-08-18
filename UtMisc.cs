@@ -42,7 +42,7 @@ namespace TankIconMaker
                 num++;
                 var fields = parseCsvLine(line);
                 if (fields == null)
-                    throw new Exception(string.Format("Couldn't parse line {0}.", num));
+                    throw new Exception(Program.Translation.Error.DataFile_CsvParse.Fmt(num));
                 yield return Tuple.Create(num, fields);
             }
         }

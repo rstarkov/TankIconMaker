@@ -516,28 +516,30 @@
       <Old>Single value</Old>
     </Single>
   </SelectBy>
-  <CategoryGeneral>
-    <Translation>Allgemein</Translation>
-    <Old>General</Old>
-  </CategoryGeneral>
-  <CategorySettings>
-    <Translation>Einstellungen</Translation>
-    <Old>Settings</Old>
-  </CategorySettings>
-  <CategoryImage>
-    <Translation>Bild</Translation>
-    <Old>Image</Old>
-  </CategoryImage>
-  <CategoryFont>
-    <Translation>Schriftart</Translation>
-    <Old>Font</Old>
-  </CategoryFont>
-  <CategoryPosition>
-    <Translation>Position</Translation>
-    <Old>Position</Old>
-  </CategoryPosition>
-  <CategoryTextSource>
-    <Translation>Textquelle</Translation>
-    <Old>Text source</Old>
-  </CategoryTextSource>
+  <Category>
+    <General>
+      <Translation>Allgemein</Translation>
+      <Old>General</Old>
+    </General>
+    <Settings>
+      <Translation>Einstellungen</Translation>
+      <Old>Settings</Old>
+    </Settings>
+    <Image>
+      <Translation>Bild</Translation>
+      <Old>Image</Old>
+    </Image>
+    <Font>
+      <Translation>Schriftart</Translation>
+      <Old>Font</Old>
+    </Font>
+    <Position>
+      <Translation>Position</Translation>
+      <Old>Position</Old>
+    </Position>
+    <TextSource>
+      <Translation>Textquelle</Translation>
+      <Old>Text source</Old>
+    </TextSource>
+  </Category>
 </item>

@@ -9,10 +9,10 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return Program.Translation.EffectShift.EffectDescription; } }
 
         public int ShiftX { get; set; }
-        public static MemberTr ShiftXTr(Translation tr) { return new MemberTr(Program.Translation.CategoryShift, Program.Translation.EffectShift.ShiftX); }
+        public static MemberTr ShiftXTr(Translation tr) { return new MemberTr(tr.Category.Shift, tr.EffectShift.ShiftX); }
 
         public int ShiftY { get; set; }
-        public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(Program.Translation.CategoryShift, Program.Translation.EffectShift.ShiftY); }
+        public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(tr.Category.Shift, tr.EffectShift.ShiftY); }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
