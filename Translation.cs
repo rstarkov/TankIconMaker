@@ -57,6 +57,9 @@ namespace TankIconMaker
         [LingoGroup("Effect: Size / Position", "Strings used in the property grid for the \"Size / Position\" effect.")]
         EffectSizePos,
 
+        [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
+        Selector,
+
         [LingoGroup("Value: Yes / No / Passthrough", "Strings used for the yes/no/passthrough drop-down.")]
         EnumBoolWithPassthrough,
         [LingoGroup("Value: built-in image style", "Strings used for the built-in image style drop-down.")]
@@ -145,7 +148,7 @@ namespace TankIconMaker
         public TrString GlobalStatus_Saving = "Saving...";
 
         public TrString Filter_FilenameEditor = "Image files|*.png;*.jpg;*.tga|All files|*.*";
-        public TrString Filter_ImportExportStyle = "Icon maker settings|*.xml|All files|*.*";
+        public TrString Filter_ImportExportStyle = "Icon styles|*.xml|All files|*.*";
 
         public TrString NameOfCopied = "{0} (copy)";
         public TrString NameOfNewStyle = "New style";
@@ -238,7 +241,7 @@ namespace TankIconMaker
         public TrString LayerName = "Image / By properties";
         public TrString LayerDescription = "Draws an image loaded from a file whose name is selected based on tank properties.";
 
-        public MemberDescriptionTr ImageFile = new MemberDescriptionTr { DisplayName = "Image file", Description = "Specifies a path to an image file. This path may be relative to the game directory or program directory." };
+        public MemberDescriptionTr ImageFile = new MemberDescriptionTr { DisplayName = "Image file", Description = "Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory." };
 
         [LingoNotes("The string \"{0}\" is replaced with the filename of the missing image. ")]
         public TrString MissingImageWarning = "The image {0} could not be found.";
@@ -568,7 +571,7 @@ namespace TankIconMaker
         public TrString Light = "Light";
         public TrString Medium = "Medium";
         public TrString Heavy = "Heavy";
-        public TrString Destroyer = "Destoryer";
+        public TrString Destroyer = "Destroyer";
         public TrString Artillery = "Artillery";
 
         public class Conv : LingoEnumConverter<Class, TankClassTranslation>
@@ -652,8 +655,9 @@ namespace TankIconMaker
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
         public TrString Cancel = "Cancel";
         public TrString PromptWindowOK = "_OK";
-        public TrString GamePathRequired = "Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save them.";
-        public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!";
+        public TrString GamePathRequired = "Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.";
+        [LingoNotes("\"{1}\" is replaced with the extension of the image files being saved.")]
+        public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!";
         public TrString OverwriteIcons_Yes = "&Yes, overwrite all files";
         public TrString GameNotFound_Prompt = "This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?";
         public TrString GameNotFound_Ignore = "&Use anyway";
@@ -687,7 +691,7 @@ namespace TankIconMaker
         public TrString CaptionError = "Error";
     }
 
-    [LingoStringClass]
+    [LingoStringClass, LingoInGroup(TranslationGroup.Selector)]
     sealed class SelectorTranslation
     {
         [LingoNotes("It is very important for the usability of these properties that this property is sorted to the top. The only way to achieve that at the moment is by prefixing it with a space...")]
