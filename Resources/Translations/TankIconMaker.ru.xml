@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <item>
+  <TranslationCredits>
+    <Translation>Перевод на русский: Romkyns</Translation>
+    <Old>English translation by Romkyns</Old>
+  </TranslationCredits>
   <MainWindow>
     <ctGameDirLabel>
       <Translation>Папка с игрой:</Translation>
@@ -257,6 +261,16 @@
       <Translation>Рисует одно из нескольких изображений, загруженных из пользовательских файлов, в зависимости от свойств танка.</Translation>
       <Old>Draws an image loaded from a file whose name is selected based on tank properties.</Old>
     </LayerDescription>
+    <ImageFile>
+      <DisplayName>
+        <Translation>Image file</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Translation>
+        <Old null="1" />
+      </Description>
+    </ImageFile>
     <MissingImageWarning>
       <Translation>Изображение не найдено: «{0}».</Translation>
       <Old>The image {0} could not be found.</Old>
@@ -1146,6 +1160,68 @@
       <Old>ClearType</Old>
     </ClearType>
   </TextSmoothingStyle>
+  <TankCountry>
+    <USSR>
+      <Translation>USSR</Translation>
+      <Old null="1" />
+    </USSR>
+    <Germany>
+      <Translation>Germany</Translation>
+      <Old null="1" />
+    </Germany>
+    <USA>
+      <Translation>USA</Translation>
+      <Old null="1" />
+    </USA>
+    <France>
+      <Translation>France</Translation>
+      <Old null="1" />
+    </France>
+    <China>
+      <Translation>China</Translation>
+      <Old null="1" />
+    </China>
+    <UK>
+      <Translation>UK</Translation>
+      <Old null="1" />
+    </UK>
+  </TankCountry>
+  <TankClass>
+    <Light>
+      <Translation>Light</Translation>
+      <Old null="1" />
+    </Light>
+    <Medium>
+      <Translation>Medium</Translation>
+      <Old null="1" />
+    </Medium>
+    <Heavy>
+      <Translation>Heavy</Translation>
+      <Old null="1" />
+    </Heavy>
+    <Destroyer>
+      <Translation>Destoryer</Translation>
+      <Old null="1" />
+    </Destroyer>
+    <Artillery>
+      <Translation>Artillery</Translation>
+      <Old null="1" />
+    </Artillery>
+  </TankClass>
+  <TankCategory>
+    <Normal>
+      <Translation>Normal</Translation>
+      <Old null="1" />
+    </Normal>
+    <Premium>
+      <Translation>Premium</Translation>
+      <Old null="1" />
+    </Premium>
+    <Special>
+      <Translation>Special</Translation>
+      <Old null="1" />
+    </Special>
+  </TankCategory>
   <Category>
     <General>
       <Translation>Общее</Translation>
@@ -1192,4 +1268,474 @@
       <Old>Shift</Old>
     </Shift>
   </Category>
+  <Selector>
+    <By>
+      <Translation> By</Translation>
+      <Old null="1" />
+    </By>
+    <ByN>
+      <Translation> By (#{0})</Translation>
+      <Old null="1" />
+    </ByN>
+    <By_Color_Description>
+      <Translation>Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) are selected according to "By (#{0})".</Translation>
+      <Old null="1" />
+    </By_Color_Description>
+    <By_Color_DescriptionLast>
+      <Translation>Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) will remain fully transparent.</Translation>
+      <Old null="1" />
+    </By_Color_DescriptionLast>
+    <By_Bool_Description>
+      <Translation>Determines which tank property the setting should be based on. Any values set to "Passthrough" are selected according to "By (#{0})".</Translation>
+      <Old null="1" />
+    </By_Bool_Description>
+    <By_Bool_DescriptionLast>
+      <Translation>Determines which tank property the setting should be based on. Any values set to "Passthrough" will be treated as "No".</Translation>
+      <Old null="1" />
+    </By_Bool_DescriptionLast>
+    <By_String_Description>
+      <Translation>Determines which tank property the text should be based on. Any blank strings are selected according to "By (#{0})".</Translation>
+      <Old null="1" />
+    </By_String_Description>
+    <By_String_DescriptionLast>
+      <Translation>Determines which tank property the text should be based on. Any blank strings will be treated as blank.</Translation>
+      <Old null="1" />
+    </By_String_DescriptionLast>
+    <By_Filename_Description>
+      <Translation>Determines which tank property the filename should be based on. Any blank filenames are selected according to "By (#{0})".</Translation>
+      <Old null="1" />
+    </By_Filename_Description>
+    <By_Filename_DescriptionLast>
+      <Translation>Determines which tank property the filename should be based on. Any blank filenames will result in no image being drawn.</Translation>
+      <Old null="1" />
+    </By_Filename_DescriptionLast>
+    <ClassLight>
+      <Translation>Class: Light tank</Translation>
+      <Old null="1" />
+    </ClassLight>
+    <ClassMedium>
+      <Translation>Class: Medium tank</Translation>
+      <Old null="1" />
+    </ClassMedium>
+    <ClassHeavy>
+      <Translation>Class: Heavy tank</Translation>
+      <Old null="1" />
+    </ClassHeavy>
+    <ClassDestroyer>
+      <Translation>Class: Destroyer</Translation>
+      <Old null="1" />
+    </ClassDestroyer>
+    <ClassArtillery>
+      <Translation>Class: Artillery</Translation>
+      <Old null="1" />
+    </ClassArtillery>
+    <CountryUSSR>
+      <Translation>Country: USSR</Translation>
+      <Old null="1" />
+    </CountryUSSR>
+    <CountryGermany>
+      <Translation>Country: Germany</Translation>
+      <Old null="1" />
+    </CountryGermany>
+    <CountryUSA>
+      <Translation>Country: USA</Translation>
+      <Old null="1" />
+    </CountryUSA>
+    <CountryFrance>
+      <Translation>Country: France</Translation>
+      <Old null="1" />
+    </CountryFrance>
+    <CountryChina>
+      <Translation>Country: China</Translation>
+      <Old null="1" />
+    </CountryChina>
+    <CountryUK>
+      <Translation>Country: UK</Translation>
+      <Old null="1" />
+    </CountryUK>
+    <CategNormal>
+      <Translation>Avail.: Normal</Translation>
+      <Old null="1" />
+    </CategNormal>
+    <CategPremium>
+      <Translation>Avail.: Premium</Translation>
+      <Old null="1" />
+    </CategPremium>
+    <CategSpecial>
+      <Translation>Avail.: Special</Translation>
+      <Old null="1" />
+    </CategSpecial>
+    <Single>
+      <Translation>Single</Translation>
+      <Old null="1" />
+    </Single>
+    <SingleDescription>
+      <Translation>When "By" is set to "Single value", specifies the value to use. Use this when the value does not need to vary by tank properties.</Translation>
+      <Old null="1" />
+    </SingleDescription>
+    <TierN>
+      <Translation>Tier: {0,2}</Translation>
+      <Old null="1" />
+    </TierN>
+  </Selector>
+  <DlgMessage>
+    <OK>
+      <Translation>&amp;ОК</Translation>
+      <Old>&amp;OK</Old>
+    </OK>
+    <CaptionInfo>
+      <Translation>Информация</Translation>
+      <Old>Information</Old>
+    </CaptionInfo>
+    <CaptionQuestion>
+      <Translation>Вопрос</Translation>
+      <Old>Question</Old>
+    </CaptionQuestion>
+    <CaptionWarning>
+      <Translation>Внимание</Translation>
+      <Old>Warning</Old>
+    </CaptionWarning>
+    <CaptionError>
+      <Translation>Ошибка</Translation>
+      <Old>Error</Old>
+    </CaptionError>
+  </DlgMessage>
+  <Prompt>
+    <RenameLayer_Title>
+      <Translation>Rename layer</Translation>
+      <Old null="1" />
+    </RenameLayer_Title>
+    <RenameLayer_Label>
+      <Translation>Layer _name:</Translation>
+      <Old null="1" />
+    </RenameLayer_Label>
+    <RenameEffect_Title>
+      <Translation>Rename effect</Translation>
+      <Old null="1" />
+    </RenameEffect_Title>
+    <RenameEffect_Label>
+      <Translation>Effect _name:</Translation>
+      <Old null="1" />
+    </RenameEffect_Label>
+    <CreateStyle_Title>
+      <Translation>Create style</Translation>
+      <Old null="1" />
+    </CreateStyle_Title>
+    <CreateStyle_Label>
+      <Translation>New style _name:</Translation>
+      <Old null="1" />
+    </CreateStyle_Label>
+    <RenameStyle_Title>
+      <Translation>Change style name</Translation>
+      <Old null="1" />
+    </RenameStyle_Title>
+    <RenameStyle_Label>
+      <Translation>New style _name:</Translation>
+      <Old null="1" />
+    </RenameStyle_Label>
+    <ChangeAuthor_Title>
+      <Translation>Change style author</Translation>
+      <Old null="1" />
+    </ChangeAuthor_Title>
+    <ChangeAuthor_Label>
+      <Translation>New style _author:</Translation>
+      <Old null="1" />
+    </ChangeAuthor_Label>
+    <DuplicateStyle_Title>
+      <Translation>Duplicate style</Translation>
+      <Old null="1" />
+    </DuplicateStyle_Title>
+    <DuplicateStyle_Label>
+      <Translation>New style _name:</Translation>
+      <Old null="1" />
+    </DuplicateStyle_Label>
+    <Cancel>
+      <Translation>Cancel</Translation>
+      <Old null="1" />
+    </Cancel>
+    <PromptWindowOK>
+      <Translation>_OK</Translation>
+      <Old null="1" />
+    </PromptWindowOK>
+    <GamePathRequired>
+      <Translation>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Translation>
+      <Old null="1" />
+    </GamePathRequired>
+    <OverwriteIcons_Prompt>
+      <Translation encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Translation>
+      <Old null="1" />
+    </OverwriteIcons_Prompt>
+    <OverwriteIcons_Yes>
+      <Translation>&amp;Yes, overwrite all files</Translation>
+      <Old null="1" />
+    </OverwriteIcons_Yes>
+    <GameNotFound_Prompt>
+      <Translation>This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?</Translation>
+      <Old null="1" />
+    </GameNotFound_Prompt>
+    <GameNotFound_Ignore>
+      <Translation>&amp;Use anyway</Translation>
+      <Old null="1" />
+    </GameNotFound_Ignore>
+    <IconsSaved>
+      <Translation encoding="c-literal">Saved!\nEnjoy.</Translation>
+      <Old null="1" />
+    </IconsSaved>
+    <IconsSaveSkipped>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Note that 1 image was skipped due to errors.</item>
+        <item>Note that {0} images were skipped due to errors.</item>
+      </Translations>
+      <Old null="1" />
+    </IconsSaveSkipped>
+    <Upvote_BuiltInOnly>
+      <Translation>For security reasons, only built-in styles can be upvoted.</Translation>
+      <Old null="1" />
+    </Upvote_BuiltInOnly>
+    <Upvote_NotAvailable>
+      <Translation>This style does not currently have an associated post on World of Tanks forums.</Translation>
+      <Old null="1" />
+    </Upvote_NotAvailable>
+    <Upvote_Prompt>
+      <Translation encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Translation>
+      <Old null="1" />
+    </Upvote_Prompt>
+    <Upvote_Open>
+      <Translation>&amp;Open in browser</Translation>
+      <Old null="1" />
+    </Upvote_Open>
+    <DeleteLayerEffect_Prompt>
+      <Translation>Delete the selected layer/effect?</Translation>
+      <Old null="1" />
+    </DeleteLayerEffect_Prompt>
+    <DeleteLayerEffect_Yes>
+      <Translation>&amp;Delete</Translation>
+      <Old null="1" />
+    </DeleteLayerEffect_Yes>
+    <DeleteStyle_Prompt>
+      <Translation encoding="c-literal">Delete this style?\r\n\r\n{0}</Translation>
+      <Old null="1" />
+    </DeleteStyle_Prompt>
+    <DeleteStyle_Yes>
+      <Translation>&amp;Delete</Translation>
+      <Old null="1" />
+    </DeleteStyle_Yes>
+    <StyleImport_Fail>
+      <Translation>Could not load the file for some reason. It might be of the wrong format.</Translation>
+      <Old null="1" />
+    </StyleImport_Fail>
+    <StyleExport_Success>
+      <Translation>The style has been exported.</Translation>
+      <Old null="1" />
+    </StyleExport_Success>
+    <ExceptionGlobal>
+      <Translation encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Translation>
+      <Old null="1" />
+    </ExceptionGlobal>
+    <ExceptionInRender>
+      <Translation>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Translation>
+      <Old null="1" />
+    </ExceptionInRender>
+    <ErrorToClipboard_Copy>
+      <Translation>Copy report to &amp;clipboard</Translation>
+      <Old null="1" />
+    </ErrorToClipboard_Copy>
+    <ErrorToClipboard_OK>
+      <Translation>OK</Translation>
+      <Old null="1" />
+    </ErrorToClipboard_OK>
+    <ErrorToClipboard_Copied>
+      <Translation>Information about the error is now in your clipboard.</Translation>
+      <Old null="1" />
+    </ErrorToClipboard_Copied>
+    <ErrorToClipboard_CopyFail>
+      <Translation>Sorry, couldn't copy the error info to clipboard for some reason.</Translation>
+      <Old null="1" />
+    </ErrorToClipboard_CopyFail>
+  </Prompt>
+  <Error>
+    <DataFile_UnrecognizedCountry>
+      <Translation>Unrecognized country: "{0}". Allowed values: {1}.</Translation>
+      <Old null="1" />
+    </DataFile_UnrecognizedCountry>
+    <DataFile_UnrecognizedClass>
+      <Translation>Unrecognized class: "{0}". Allowed values: {1}.</Translation>
+      <Old null="1" />
+    </DataFile_UnrecognizedClass>
+    <DataFile_UnrecognizedCategory>
+      <Translation>Unrecognized availability: "{0}". Allowed values: {1}.</Translation>
+      <Old null="1" />
+    </DataFile_UnrecognizedCategory>
+    <DataFile_TankTierValue>
+      <Translation>The tier field is not a whole number or outside of the 1..10 range: "{0}"</Translation>
+      <Old null="1" />
+    </DataFile_TankTierValue>
+    <DataFile_TooFewFields>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Expected at least 1 field.</item>
+        <item>Expected at least {0} fields.</item>
+      </Translations>
+      <Old null="1" />
+    </DataFile_TooFewFields>
+    <DataFile_EmptyFile>
+      <Translation>Expected at least one line.</Translation>
+      <Old null="1" />
+    </DataFile_EmptyFile>
+    <DataFile_TooFewFieldsFirstLine>
+      <Translation>Expected at least two columns in the first row.</Translation>
+      <Old null="1" />
+    </DataFile_TooFewFieldsFirstLine>
+    <DataFile_ExpectedSignature>
+      <Translation>Expected "{0}" in the first column of the first row.</Translation>
+      <Old null="1" />
+    </DataFile_ExpectedSignature>
+    <DataFile_ExpectedV1>
+      <Translation>The second column of the first row must be "1" (format version)</Translation>
+      <Old null="1" />
+    </DataFile_ExpectedV1>
+    <DataFile_LineNum>
+      <Translation>Line {0}: {1}</Translation>
+      <Old null="1" />
+    </DataFile_LineNum>
+    <DataFile_CsvParse>
+      <Translation>Couldn't parse line {0}.</Translation>
+      <Old null="1" />
+    </DataFile_CsvParse>
+    <DataDir_NoFilesAvailable>
+      <Translation>Could not load any version data files and/or any built-in data files.</Translation>
+      <Old null="1" />
+    </DataDir_NoFilesAvailable>
+    <DataDir_Skip_NoBuiltIns>
+      <Translation>Skipped version {0} because there are no built-in data files for it to use. Delete the "{1}" file to get rid of this warning.</Translation>
+      <Old null="1" />
+    </DataDir_Skip_NoBuiltIns>
+    <DataDir_Skip_WrongParts>
+      <Translation>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Translation>
+      <Old null="1" />
+    </DataDir_Skip_WrongParts>
+    <DataDir_Skip_FileError>
+      <Translation>Skipped "{0}" because the file could not be parsed: {1}</Translation>
+      <Old null="1" />
+    </DataDir_Skip_FileError>
+    <DataDir_Skip_GameVersion>
+      <Translation>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Translation>
+      <Old null="1" />
+    </DataDir_Skip_GameVersion>
+    <DataDir_Skip_FileVersion>
+      <Translation>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}" (or it isn't exactly 3 digits long).</Translation>
+      <Old null="1" />
+    </DataDir_Skip_FileVersion>
+    <DataDir_Skip_Author>
+      <Translation>Skipped "{0}" because it has an empty author part in the filename.</Translation>
+      <Old null="1" />
+    </DataDir_Skip_Author>
+    <DataDir_Skip_PropName>
+      <Translation>Skipped "{0}" because it has an empty property name part in the filename.</Translation>
+      <Old null="1" />
+    </DataDir_Skip_PropName>
+    <DataDir_Skip_Lang>
+      <Translation>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Translation>
+      <Old null="1" />
+    </DataDir_Skip_Lang>
+    <DataDir_Skip_InhNoProp>
+      <Translation>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Translation>
+      <Old null="1" />
+    </DataDir_Skip_InhNoProp>
+    <DataDir_Skip_InhNoLang>
+      <Translation>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}"</Translation>
+      <Old null="1" />
+    </DataDir_Skip_InhNoLang>
+    <DataDir_Skip_InhNoAuth>
+      <Translation>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}"</Translation>
+      <Old null="1" />
+    </DataDir_Skip_InhNoAuth>
+    <DataDir_Skip_InhNoGameVer>
+      <Translation>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Translation>
+      <Old null="1" />
+    </DataDir_Skip_InhNoGameVer>
+    <DataDir_Skip_InhCircular>
+      <Translation>Skipped "{0}" due to a circular dependency.</Translation>
+      <Old null="1" />
+    </DataDir_Skip_InhCircular>
+    <NoDataFilesWarning>
+      <Translation encoding="c-literal">Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n{0}</Translation>
+      <Old null="1" />
+    </NoDataFilesWarning>
+    <RenderWithErrors>
+      <Translation>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Translation>
+      <Old null="1" />
+    </RenderWithErrors>
+    <RenderWithWarnings>
+      <Translation>Some of the tank icons rendered with warnings; make sure you view "All tanks" and click each image with a warning icon for details.</Translation>
+      <Old null="1" />
+    </RenderWithWarnings>
+    <RenderIconOK>
+      <Translation>This icon rendered without any problems.</Translation>
+      <Old null="1" />
+    </RenderIconOK>
+    <RenderIconFail>
+      <Translation>Could not render this icon: {0}</Translation>
+      <Old null="1" />
+    </RenderIconFail>
+  </Error>
+  <Misc>
+    <ProgramVersion>
+      <Translation>Версия {0}</Translation>
+      <Old>Version {0}</Old>
+    </ProgramVersion>
+    <GlobalStatus_Loading>
+      <Translation>Загрузка...</Translation>
+      <Old>Loading...</Old>
+    </GlobalStatus_Loading>
+    <GlobalStatus_Saving>
+      <Translation>Сохранение...</Translation>
+      <Old>Saving...</Old>
+    </GlobalStatus_Saving>
+    <Filter_FilenameEditor>
+      <Translation>Image files|*.png;*.jpg;*.tga|All files|*.*</Translation>
+      <Old null="1" />
+    </Filter_FilenameEditor>
+    <Filter_ImportExportStyle>
+      <Translation>Icon maker settings|*.xml|All files|*.*</Translation>
+      <Old null="1" />
+    </Filter_ImportExportStyle>
+    <NameOfCopied>
+      <Translation>{0} (copy)</Translation>
+      <Old null="1" />
+    </NameOfCopied>
+    <NameOfNewStyle>
+      <Translation>New style</Translation>
+      <Old null="1" />
+    </NameOfNewStyle>
+    <NameOfTankImageLayer>
+      <Translation>Tank image</Translation>
+      <Old null="1" />
+    </NameOfTankImageLayer>
+    <NameOfNewStyleAuthor>
+      <Translation>я</Translation>
+      <Old>me</Old>
+    </NameOfNewStyleAuthor>
+    <StyleDisplay_Original>
+      <Translation>[оригинальные иконки]</Translation>
+      <Old>[original]</Old>
+    </StyleDisplay_Original>
+    <StyleDisplay_Current>
+      <Translation>[текущие иконки]</Translation>
+      <Old>[current]</Old>
+    </StyleDisplay_Current>
+    <StyleDisplay_BuiltIn>
+      <Translation>[встроенный] {0} (by {1})</Translation>
+      <Old>[built-in] {0} (by {1})</Old>
+    </StyleDisplay_BuiltIn>
+    <StyleDisplay_Normal>
+      <Translation>{0} (автор {1})</Translation>
+      <Old>{0} (by {1})</Old>
+    </StyleDisplay_Normal>
+  </Misc>
 </item>
