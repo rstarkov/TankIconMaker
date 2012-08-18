@@ -35,53 +35,53 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return Program.Translation.EffectSizePos.EffectDescription; } }
 
         public bool PositionByPixels { get; set; }
-        public static MemberTr PositionByPixelsTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.PositionByPixels); }
+        public static MemberTr PositionByPixelsTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.PositionByPixels); }
 
         public int Left { get; set; }
-        public static MemberTr LeftTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Left); }
+        public static MemberTr LeftTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Left); }
         public int Right { get; set; }
-        public static MemberTr RightTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Right); }
+        public static MemberTr RightTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Right); }
         public int Top { get; set; }
-        public static MemberTr TopTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Top); }
+        public static MemberTr TopTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Top); }
         public int Bottom { get; set; }
-        public static MemberTr BottomTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.Bottom); }
+        public static MemberTr BottomTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Bottom); }
 
         public bool LeftAnchor { get; set; }
-        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.LeftAnchor); }
+        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.LeftAnchor); }
         public bool RightAnchor { get; set; }
-        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.RightAnchor); }
+        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.RightAnchor); }
         public bool TopAnchor { get; set; }
-        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.TopAnchor); }
+        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.TopAnchor); }
         public bool BottomAnchor { get; set; }
-        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(Program.Translation.CategoryPosition, Program.Translation.EffectSizePos.BottomAnchor); }
+        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.BottomAnchor); }
 
         public bool SizeByPixels { get; set; }
-        public static MemberTr SizeByPixelsTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.SizeByPixels); }
+        public static MemberTr SizeByPixelsTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.SizeByPixels); }
 
         public double Percentage { get { return _Percentage; } set { _Percentage = Math.Max(0.0, value); } }
         private double _Percentage;
-        public static MemberTr PercentageTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.Percentage); }
+        public static MemberTr PercentageTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Percentage); }
         public int Width { get { return _Width; } set { _Width = Math.Max(0, value); } }
         private int _Width;
-        public static MemberTr WidthTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.Width); }
+        public static MemberTr WidthTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Width); }
         public int Height { get { return _Height; } set { _Height = Math.Max(0, value); } }
         private int _Height;
-        public static MemberTr HeightTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.Height); }
+        public static MemberTr HeightTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Height); }
         public SizeMode SizeMode { get; set; }
-        public static MemberTr SizeModeTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.SizeMode); }
+        public static MemberTr SizeModeTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.SizeMode); }
         public GrowShrinkMode GrowShrinkMode { get; set; }
-        public static MemberTr GrowShrinkModeTr(Translation tr) { return new MemberTr(Program.Translation.CategorySize, Program.Translation.EffectSizePos.GrowShrinkMode); }
+        public static MemberTr GrowShrinkModeTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.GrowShrinkMode); }
 
         public int PixelAlphaThreshold { get { return _PixelAlphaThreshold; } set { _PixelAlphaThreshold = Math.Min(255, Math.Max(0, value)); } }
         private int _PixelAlphaThreshold;
-        public static MemberTr PixelAlphaThresholdTr(Translation tr) { return new MemberTr(Program.Translation.CategoryGeneral, Program.Translation.EffectSizePos.PixelAlphaThreshold); }
+        public static MemberTr PixelAlphaThresholdTr(Translation tr) { return new MemberTr(tr.Category.General, tr.EffectSizePos.PixelAlphaThreshold); }
 
         public bool ShowLayerBorders { get; set; }
-        public static MemberTr ShowLayerBordersTr(Translation tr) { return new MemberTr(Program.Translation.CategoryDebug, Program.Translation.EffectSizePos.ShowLayerBorders); }
+        public static MemberTr ShowLayerBordersTr(Translation tr) { return new MemberTr(tr.Category.Debug, tr.EffectSizePos.ShowLayerBorders); }
         public bool ShowPixelBorders { get; set; }
-        public static MemberTr ShowPixelBordersTr(Translation tr) { return new MemberTr(Program.Translation.CategoryDebug, Program.Translation.EffectSizePos.ShowPixelBorders); }
+        public static MemberTr ShowPixelBordersTr(Translation tr) { return new MemberTr(tr.Category.Debug, tr.EffectSizePos.ShowPixelBorders); }
         public bool ShowTargetBorders { get; set; }
-        public static MemberTr ShowTargetBordersTr(Translation tr) { return new MemberTr(Program.Translation.CategoryDebug, Program.Translation.EffectSizePos.ShowTargetBorders); }
+        public static MemberTr ShowTargetBordersTr(Translation tr) { return new MemberTr(tr.Category.Debug, tr.EffectSizePos.ShowTargetBorders); }
 
         public SizePosEffect()
         {

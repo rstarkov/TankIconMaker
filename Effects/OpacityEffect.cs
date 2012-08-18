@@ -9,10 +9,10 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return Program.Translation.EffectOpacity.EffectDescription; } }
 
         public double Opacity { get; set; }
-        public static MemberTr OpacityTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectOpacity.Opacity); }
+        public static MemberTr OpacityTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectOpacity.Opacity); }
 
         public OpacityStyle Style { get; set; }
-        public static MemberTr StyleTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectOpacity.Style); }
+        public static MemberTr StyleTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectOpacity.Style); }
 
         public OpacityEffect()
         {

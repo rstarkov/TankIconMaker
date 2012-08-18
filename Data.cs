@@ -180,7 +180,7 @@ namespace TankIconMaker
         public TankData(string[] fields)
         {
             if (fields.Length < 5)
-                throw new Exception(string.Format("Expected at least 5 fields"));
+                throw new Exception(Program.Translation.Error.DataFile_TooFewFields.Fmt(Program.Translation, 5));
 
             SystemId = fields[0];
 
@@ -192,14 +192,15 @@ namespace TankIconMaker
                 case "china": Country = Country.China; break;
                 case "france": Country = Country.France; break;
                 case "uk": Country = Country.UK; break;
-                default: throw new Exception(string.Format("Unrecognized country: \"{0}\"", fields[1]));
+                default: throw new Exception(Program.Translation.Error.DataFile_UnrecognizedCountry.Fmt(fields[1],
+                    new[] { "ussr", "germany", "usa", "china", "france", "uk" }.JoinString(", ", "\"", "\"")));
             }
 
             int tier;
             if (!int.TryParse(fields[2], out tier))
-                throw new Exception(string.Format("The tier field was not a whole number: \"{0}\"", fields[2]));
+                throw new Exception(string.Format(Program.Translation.Error.DataFile_TankTierValue, fields[2]));
             if (tier < 1 || tier > 10)
-                throw new Exception("Tank tier is not in the 1..10 range");
+                throw new Exception(string.Format(Program.Translation.Error.DataFile_TankTierValue, fields[2]));
             Tier = tier;
 
             switch (fields[3])
@@ -209,7 +210,8 @@ namespace TankIconMaker
                 case "heavy": Class = Class.Heavy; break;
                 case "destroyer": Class = Class.Destroyer; break;
                 case "artillery": Class = Class.Artillery; break;
-                default: throw new Exception(string.Format("Unrecognized class: \"{0}\"", fields[3]));
+                default: throw new Exception(Program.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[3],
+                    new[] { "light", "medium", "heavy", "destroyer", "artillery" }.JoinString(", ", "\"", "\"")));
             }
 
             switch (fields[4])
@@ -217,7 +219,8 @@ namespace TankIconMaker
                 case "normal": Category = Category.Normal; break;
                 case "premium": Category = Category.Premium; break;
                 case "special": Category = Category.Special; break;
-                default: throw new Exception(string.Format("Unrecognized category: \"{0}\"", fields[4]));
+                default: throw new Exception(Program.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[4],
+                    new[] { "normal", "premium", "special" }.JoinString(", ", "\"", "\"")));
             }
         }
     }
@@ -249,19 +252,19 @@ namespace TankIconMaker
 
             var lines = Ut.ReadCsvLines(filename).ToArray();
             if (lines.Length == 0)
-                throw new Exception("Expected at least one line");
+                throw new Exception(Program.Translation.Error.DataFile_EmptyFile);
             var header = lines[0].Item2;
             if (header.Length < 2)
-                throw new Exception("Expected at least two columns in the first row");
+                throw new Exception(Program.Translation.Error.DataFile_TooFewFieldsFirstLine);
             if (header[0] != "WOT-BUILTIN-DATA")
-                throw new Exception("Expected WOT-BUILTIN-DATA on first row");
+                throw new Exception(Program.Translation.Error.DataFile_ExpectedSignature.Fmt("WOT-BUILTIN-DATA"));
             if (header[1] != "1")
-                throw new Exception("The second column of the first row must be \"1\" (format version)");
+                throw new Exception(Program.Translation.Error.DataFile_ExpectedV1);
 
             Data = lines.Skip(1).Select(lp =>
             {
                 try { return new TankData(lp.Item2); }
-                catch (Exception e) { throw new Exception(e.Message + " at line " + lp.Item1); }
+                catch (Exception e) { throw new Exception(Program.Translation.Error.DataFile_LineNum.Fmt(lp.Item1, e.Message)); }
             }).ToList().AsReadOnly();
         }
 
@@ -307,14 +310,14 @@ namespace TankIconMaker
 
             var lines = Ut.ReadCsvLines(filename).ToArray();
             if (lines.Length == 0)
-                throw new Exception("Expected at least one line");
+                throw new Exception(Program.Translation.Error.DataFile_EmptyFile);
             var header = lines[0].Item2;
             if (header.Length < 2)
-                throw new Exception("Expected at least two columns in the first row");
+                throw new Exception(Program.Translation.Error.DataFile_TooFewFieldsFirstLine);
             if (header[0] != "WOT-DATA")
-                throw new Exception("Expected WOT-DATA on first row");
+                throw new Exception(Program.Translation.Error.DataFile_ExpectedSignature.Fmt("WOT-DATA"));
             if (header[1] != "1")
-                throw new Exception("The second column of the first row must be \"1\" (format version)");
+                throw new Exception(Program.Translation.Error.DataFile_ExpectedV1);
             if (header.Length >= 3)
                 Description = header[2];
             if (header.Length >= 4)
@@ -334,7 +337,7 @@ namespace TankIconMaker
             Data = lines.Skip(1).Select(lp =>
             {
                 try { return new ExtraData(lp.Item2); }
-                catch (Exception e) { throw new Exception(e.Message + " at line " + lp.Item1); }
+                catch (Exception e) { throw new Exception(Program.Translation.Error.DataFile_LineNum.Fmt(lp.Item1, e.Message)); }
             }).ToList().AsReadOnly();
         }
 
@@ -381,7 +384,7 @@ namespace TankIconMaker
         public ExtraData(string[] fields)
         {
             if (fields.Length < 2)
-                throw new Exception(string.Format("Expected at least 2 fields"));
+                throw new Exception(Program.Translation.Error.DataFile_TooFewFields.Fmt(Program.Translation, 2));
             TankSystemId = fields[0];
             Value = fields[1];
         }
@@ -541,7 +544,7 @@ namespace TankIconMaker
                 foreach (var version in _versions.Where(v => v.Version < minBuiltin).ToArray())
                 {
                     _versions.Remove(version);
-                    _warnings.Add("Skipped version {0} because there are no built-in data files for it to use. Delete the \"Data\\GameVersion-{0}.xml\" file to get rid of this warning.".Fmt(version));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_NoBuiltIns.Fmt(version, "Data\\GameVersion-{0}.xml".Fmt(version)));
                 }
             }
 
@@ -550,7 +553,7 @@ namespace TankIconMaker
                 PropertyChanged(this, new PropertyChangedEventArgs("FilesAvailable"));
 
             if (!FilesAvailable)
-                _warnings.Add("Could not load any version data files and/or any built-in data files.");
+                _warnings.Add(Program.Translation.Error.DataDir_NoFilesAvailable);
         }
 
         private void readGameVersions(string path)
@@ -561,14 +564,14 @@ namespace TankIconMaker
 
                 if (parts.Length != 2 && parts.Length != 3)
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "2-3", parts.Length));
                     continue;
                 }
 
                 Version gameVersion;
                 if (!Version.TryParse(parts[1], out gameVersion))
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, parts[1]));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, parts[1]));
                     continue;
                 }
 
@@ -580,7 +583,7 @@ namespace TankIconMaker
                 }
                 catch (Exception e)
                 {
-                    _warnings.Add("Skipped \"{0}\" because the file could not be parsed: {1}".Fmt(fi.Name, e.Message));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
                     continue;
                 }
             }
@@ -598,31 +601,31 @@ namespace TankIconMaker
 
                 if (parts.Length != 4 && parts.Length != 6)
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has the wrong number of filename parts.".Fmt(fi.Name));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "4/6", parts.Length));
                     continue;
                 }
                 if (parts[1].EqualsNoCase("BuiltIn") && parts.Length != 4)
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has too many filename parts for a BuiltIn data file.".Fmt(fi.Name));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "4", parts.Length));
                     continue;
                 }
                 if (parts.Length == 4 && !parts[1].EqualsNoCase("BuiltIn"))
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has too few filename parts for a non-BuiltIn data file.".Fmt(fi.Name));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "6", parts.Length));
                     continue;
                 }
 
                 Version gameVersion;
                 if (!Version.TryParse(partsr[1], out gameVersion))
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".".Fmt(fi.Name, partsr[1]));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, partsr[1]));
                     continue;
                 }
 
                 int fileVersion;
                 if (partsr[0].Length != 3 || !int.TryParse(partsr[0], out fileVersion))
                 {
-                    _warnings.Add("Skipped \"{0}\" because it has an unparseable file version part in the filename: \"{1}\" (or it isn't exactly 3 digits long).".Fmt(fi.Name, partsr[0]));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_FileVersion.Fmt(fi.Name, partsr[0]));
                     continue;
                 }
 
@@ -637,21 +640,21 @@ namespace TankIconMaker
                     string author = partsr[2].Trim();
                     if (author.Length == 0)
                     {
-                        _warnings.Add("Skipped \"{0}\" because it has an empty author part in the filename.".Fmt(fi.Name));
+                        _warnings.Add(Program.Translation.Error.DataDir_Skip_Author.Fmt(fi.Name));
                         continue;
                     }
 
                     string extraName = parts[1].Trim();
                     if (extraName.Length == 0)
                     {
-                        _warnings.Add("Skipped \"{0}\" because it has an empty property name part in the filename.".Fmt(fi.Name));
+                        _warnings.Add(Program.Translation.Error.DataDir_Skip_PropName.Fmt(fi.Name));
                         continue;
                     }
 
                     string languageName = parts[2].Trim();
                     if (languageName != "X" && languageName != "En" && Lingo.LanguageFromIsoCode(languageName.ToLowerInvariant()) == null)
                     {
-                        _warnings.Add("Skipped \"{0}\" because its language name part in the filename (\"{1}\") is not a valid language code, nor \"X\" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.".Fmt(fi.Name, languageName));
+                        _warnings.Add(Program.Translation.Error.DataDir_Skip_Lang.Fmt(fi.Name, languageName));
                         continue;
                     }
 
@@ -712,7 +715,7 @@ namespace TankIconMaker
                         var p = extra.Where(df => df.Name == e.InheritsFromName).ToList();
                         if (p.Count == 0)
                         {
-                            _warnings.Add("Skipped \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).".Fmt(origFilenames[e], e.InheritsFromName));
+                            _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoProp.Fmt(origFilenames[e], e.InheritsFromName));
                             ignore.Add(e);
                             continue;
                         }
@@ -721,7 +724,7 @@ namespace TankIconMaker
                             p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
                             if (p.Count == 0)
                             {
-                                _warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
+                                _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoLang.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
                                 ignore.Add(e);
                                 continue;
                             }
@@ -731,7 +734,7 @@ namespace TankIconMaker
                             p = p.Where(df => df.Author == e.InheritsFromAuthor).ToList();
                             if (p.Count == 0)
                             {
-                                _warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are by author \"{2}\"".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromAuthor));
+                                _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoAuth.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromAuthor));
                                 ignore.Add(e);
                                 continue;
                             }
@@ -739,7 +742,7 @@ namespace TankIconMaker
                         p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
                         if (p.Count == 0)
                         {
-                            _warnings.Add("Skipped \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.".Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
+                            _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoGameVer.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
                             ignore.Add(e);
                             continue;
                         }
@@ -797,7 +800,7 @@ namespace TankIconMaker
                 var looped = extra.Where(e => e.TransitiveChildren.Contains(e)).ToArray();
                 foreach (var item in looped.ToArray())
                 {
-                    _warnings.Add("Skipped \"{0}\" due to a circular dependency.".Fmt(origFilenames[item]));
+                    _warnings.Add(Program.Translation.Error.DataDir_Skip_InhCircular.Fmt(origFilenames[item]));
                     extra.Remove(item);
                 }
                 if (looped.Length == 0)
@@ -840,6 +843,7 @@ namespace TankIconMaker
     }
 
     /// <summary>Represents one of the WoT countries.</summary>
+    [TypeConverter(typeof(TankCountryTranslation.Conv))]
     enum Country
     {
         USSR,
@@ -851,6 +855,7 @@ namespace TankIconMaker
     }
 
     /// <summary>Represents one of the possible tank classes: light/medium/heavy, tank destroyer, and artillery.</summary>
+    [TypeConverter(typeof(TankClassTranslation.Conv))]
     enum Class
     {
         Light,
@@ -860,7 +865,8 @@ namespace TankIconMaker
         Artillery,
     }
 
-    /// <summary>Represents one of the possible tank categories based on how (and whether) they can be bought.</summary>
+    /// <summary>Represents one of the possible tank availability categories based on how (and whether) they can be bought.</summary>
+    [TypeConverter(typeof(TankCategoryTranslation.Conv))]
     enum Category
     {
         /// <summary>This tank can be bought for silver.</summary>

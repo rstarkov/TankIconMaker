@@ -11,6 +11,12 @@ namespace TankIconMaker
         AddWindow,
         [LingoGroup("Property categories", "Strings used to group properties into categories in the property grid.")]
         PropertyCategory,
+        [LingoGroup("Message box defaults", "Strings used in the message boxes by default for some of the messages.")]
+        DlgMessage,
+        [LingoGroup("Errors", "Various error messages.")]
+        Errors,
+        [LingoGroup("Prompts", "Mostly modal dialog prompts and buttons.")]
+        Prompts,
 
         [LingoGroup("All layers/effects", "Strings used in the property grid for all layers and effects.")]
         LayerEffectAll,
@@ -69,12 +75,20 @@ namespace TankIconMaker
         EnumBlurEdgeMode,
         [LingoGroup("Value: text smoothing mode", "Strings used for the text smoothing (anti-aliasing) mode drop-downs.")]
         EnumTextSmoothingStyle,
+        [LingoGroup("Value: tank country", "Strings used for the tank country drop-downs.")]
+        EnumTankCountry,
+        [LingoGroup("Value: tank class", "Strings used for the tank class drop-downs.")]
+        EnumTankClass,
+        [LingoGroup("Value: tank availability", "Strings used for the tank availability drop-downs.")]
+        EnumTankCategory,
     }
 
     [LingoStringClass]
     sealed class Translation : TranslationBase
     {
         public Translation() : base(Language.EnglishUK) { }
+
+        public TrString TranslationCredits = "English translation by Romkyns"; // never shown for English
 
         public MainWindowTranslation MainWindow = new MainWindowTranslation();
         public AddWindowTranslation AddWindow = new AddWindowTranslation();
@@ -109,29 +123,58 @@ namespace TankIconMaker
         public OpacityStyleTranslation OpacityStyle = new OpacityStyleTranslation();
         public BlurEdgeModeTranslation BlurEdgeMode = new BlurEdgeModeTranslation();
         public TextSmoothingStyleTranslation TextSmoothingStyle = new TextSmoothingStyleTranslation();
+        public TankCountryTranslation TankCountry = new TankCountryTranslation();
+        public TankClassTranslation TankClass = new TankClassTranslation();
+        public TankCategoryTranslation TankCategory = new TankCategoryTranslation();
 
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryGeneral = "General";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategorySettings = "Settings";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryImage = "Image";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryFont = "Font";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryPosition = "Position";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategorySize = "Size";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryTextSource = "Text source";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryDebug = "Debug";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryClip = "Clip";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryBlur = "Blur";
-        [LingoInGroup(TranslationGroup.PropertyCategory)]
-        public TrString CategoryShift = "Shift";
+        public CategoryTranslation Category = new CategoryTranslation();
+
+        public SelectorTranslation Selector = new SelectorTranslation();
+        public DlgMessageTranslation DlgMessage = new DlgMessageTranslation();
+        public PromptTranslation Prompt = new PromptTranslation();
+        public ErrorTranslation Error = new ErrorTranslation();
+        public MiscTranslation Misc = new MiscTranslation();
+    }
+
+    [LingoStringClass]
+    sealed class MiscTranslation
+    {
+        public TrString ProgramVersion = "Version {0}";
+
+        public TrString GlobalStatus_Loading = "Loading...";
+        public TrString GlobalStatus_Saving = "Saving...";
+
+        public TrString Filter_FilenameEditor = "Image files|*.png;*.jpg;*.tga|All files|*.*";
+        public TrString Filter_ImportExportStyle = "Icon maker settings|*.xml|All files|*.*";
+
+        public TrString NameOfCopied = "{0} (copy)";
+        public TrString NameOfNewStyle = "New style";
+        public TrString NameOfTankImageLayer = "Tank image";
+        [LingoNotes("New styles have the author set to this value by default. Should fit the context of \"<style name> (by <author>)\".")]
+        public TrString NameOfNewStyleAuthor = "me";
+
+        public TrString StyleDisplay_Original = "[original]";
+        public TrString StyleDisplay_Current = "[current]";
+        [LingoNotes("\"{0}\" is the style name; \"{1}\" is the author.")]
+        public TrString StyleDisplay_BuiltIn = "[built-in] {0} (by {1})";
+        [LingoNotes("\"{0}\" is the style name; \"{1}\" is the author.")]
+        public TrString StyleDisplay_Normal = "{0} (by {1})";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.PropertyCategory)]
+    sealed class CategoryTranslation
+    {
+        public TrString General = "General";
+        public TrString Settings = "Settings";
+        public TrString Image = "Image";
+        public TrString Font = "Font";
+        public TrString Position = "Position";
+        public TrString Size = "Size";
+        public TrString TextSource = "Text source";
+        public TrString Debug = "Debug";
+        public TrString Clip = "Clip";
+        public TrString Blur = "Blur";
+        public TrString Shift = "Shift";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
@@ -194,6 +237,8 @@ namespace TankIconMaker
     {
         public TrString LayerName = "Image / By properties";
         public TrString LayerDescription = "Draws an image loaded from a file whose name is selected based on tank properties.";
+
+        public MemberDescriptionTr ImageFile = new MemberDescriptionTr { DisplayName = "Image file", Description = "Specifies a path to an image file. This path may be relative to the game directory or program directory." };
 
         [LingoNotes("The string \"{0}\" is replaced with the filename of the missing image. ")]
         public TrString MissingImageWarning = "The image {0} could not be found.";
@@ -501,5 +546,182 @@ namespace TankIconMaker
         }
     }
 
+    [LingoStringClass, LingoInGroup(TranslationGroup.EnumTankCountry)]
+    sealed class TankCountryTranslation
+    {
+        public TrString USSR = "USSR";
+        public TrString Germany = "Germany";
+        public TrString USA = "USA";
+        public TrString France = "France";
+        public TrString China = "China";
+        public TrString UK = "UK";
+
+        public class Conv : LingoEnumConverter<Country, TankCountryTranslation>
+        {
+            public Conv() : base(() => Program.Translation.TankCountry) { }
+        }
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EnumTankClass)]
+    sealed class TankClassTranslation
+    {
+        public TrString Light = "Light";
+        public TrString Medium = "Medium";
+        public TrString Heavy = "Heavy";
+        public TrString Destroyer = "Destoryer";
+        public TrString Artillery = "Artillery";
+
+        public class Conv : LingoEnumConverter<Class, TankClassTranslation>
+        {
+            public Conv() : base(() => Program.Translation.TankClass) { }
+        }
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EnumTankCategory)]
+    sealed class TankCategoryTranslation
+    {
+        public TrString Normal = "Normal";
+        public TrString Premium = "Premium";
+        public TrString Special = "Special";
+
+        public class Conv : LingoEnumConverter<Category, TankCategoryTranslation>
+        {
+            public Conv() : base(() => Program.Translation.TankCategory) { }
+        }
+    }
+
     #endregion
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.Errors)]
+    sealed class ErrorTranslation
+    {
+        public TrString DataFile_UnrecognizedCountry = "Unrecognized country: \"{0}\". Allowed values: {1}.";
+        public TrString DataFile_UnrecognizedClass = "Unrecognized class: \"{0}\". Allowed values: {1}.";
+        public TrString DataFile_UnrecognizedCategory = "Unrecognized availability: \"{0}\". Allowed values: {1}.";
+        public TrString DataFile_TankTierValue = "The tier field is not a whole number or outside of the 1..10 range: \"{0}\"";
+        public TrStringNum DataFile_TooFewFields = new TrStringNum("Expected at least 1 field.", "Expected at least {0} fields.");
+        public TrString DataFile_EmptyFile = "Expected at least one line.";
+        public TrString DataFile_TooFewFieldsFirstLine = "Expected at least two columns in the first row.";
+        public TrString DataFile_ExpectedSignature = "Expected \"{0}\" in the first column of the first row.";
+        public TrString DataFile_ExpectedV1 = "The second column of the first row must be \"1\" (format version)";
+        [LingoNotes("The string \"{0}\" is replaced with the line number where the error occurred. \"{1}\" is replaced with the error message.")]
+        public TrString DataFile_LineNum = "Line {0}: {1}";
+        public TrString DataFile_CsvParse = "Couldn't parse line {0}.";
+
+        public TrString DataDir_NoFilesAvailable = "Could not load any version data files and/or any built-in data files.";
+        public TrString DataDir_Skip_NoBuiltIns = "Skipped version {0} because there are no built-in data files for it to use. Delete the \"{1}\" file to get rid of this warning.";
+        public TrString DataDir_Skip_WrongParts = "Skipped \"{0}\" because it has the wrong number of filename parts (expected: {1}, actual {2}).";
+        [LingoNotes("The DataFile_* errors are interpolated into this string in place of \"{1}\".")]
+        public TrString DataDir_Skip_FileError = "Skipped \"{0}\" because the file could not be parsed: {1}";
+        public TrString DataDir_Skip_GameVersion = "Skipped \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".";
+        public TrString DataDir_Skip_FileVersion = "Skipped \"{0}\" because it has an unparseable file version part in the filename: \"{1}\" (or it isn't exactly 3 digits long).";
+        public TrString DataDir_Skip_Author = "Skipped \"{0}\" because it has an empty author part in the filename.";
+        public TrString DataDir_Skip_PropName = "Skipped \"{0}\" because it has an empty property name part in the filename.";
+        public TrString DataDir_Skip_Lang = "Skipped \"{0}\" because its language name part in the filename (\"{1}\") is not a valid language code, nor \"X\" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.";
+
+        public TrString DataDir_Skip_InhNoProp = "Skipped \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).";
+        public TrString DataDir_Skip_InhNoLang = "Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"";
+        public TrString DataDir_Skip_InhNoAuth = "Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are by author \"{2}\"";
+        public TrString DataDir_Skip_InhNoGameVer = "Skipped \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.";
+        public TrString DataDir_Skip_InhCircular = "Skipped \"{0}\" due to a circular dependency.";
+
+        public TrString NoDataFilesWarning = "Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n{0}";
+
+        public TrString RenderWithErrors = "Some of the tank icons did not render correctly; make sure you view \"All tanks\" and click each broken image for details.";
+        public TrString RenderWithWarnings = "Some of the tank icons rendered with warnings; make sure you view \"All tanks\" and click each image with a warning icon for details.";
+        public TrString RenderIconOK = "This icon rendered without any problems.";
+        public TrString RenderIconFail = "Could not render this icon: {0}";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
+    sealed class PromptTranslation
+    {
+        public TrString RenameLayer_Title = "Rename layer";
+        public TrString RenameLayer_Label = "Layer _name:";
+        public TrString RenameEffect_Title = "Rename effect";
+        public TrString RenameEffect_Label = "Effect _name:";
+        public TrString CreateStyle_Title = "Create style";
+        public TrString CreateStyle_Label = "New style _name:";
+        public TrString RenameStyle_Title = "Change style name";
+        public TrString RenameStyle_Label = "New style _name:";
+        public TrString ChangeAuthor_Title = "Change style author";
+        public TrString ChangeAuthor_Label = "New style _author:";
+        public TrString DuplicateStyle_Title = "Duplicate style";
+        public TrString DuplicateStyle_Label = "New style _name:";
+
+        [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
+        public TrString Cancel = "Cancel";
+        public TrString PromptWindowOK = "_OK";
+        public TrString GamePathRequired = "Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save them.";
+        public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!";
+        public TrString OverwriteIcons_Yes = "&Yes, overwrite all files";
+        public TrString GameNotFound_Prompt = "This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?";
+        public TrString GameNotFound_Ignore = "&Use anyway";
+        public TrString IconsSaved = "Saved!\nEnjoy.";
+        public TrStringNum IconsSaveSkipped = new TrStringNum("Note that 1 image was skipped due to errors.", "Note that {0} images were skipped due to errors.");
+        public TrString Upvote_BuiltInOnly = "For security reasons, only built-in styles can be upvoted.";
+        public TrString Upvote_NotAvailable = "This style does not currently have an associated post on World of Tanks forums.";
+        public TrString Upvote_Prompt = "To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}";
+        public TrString Upvote_Open = "&Open in browser";
+        public TrString DeleteLayerEffect_Prompt = "Delete the selected layer/effect?";
+        public TrString DeleteLayerEffect_Yes = "&Delete";
+        public TrString DeleteStyle_Prompt = "Delete this style?\r\n\r\n{0}";
+        public TrString DeleteStyle_Yes = "&Delete";
+        public TrString StyleImport_Fail = "Could not load the file for some reason. It might be of the wrong format.";
+        public TrString StyleExport_Success = "The style has been exported.";
+        public TrString ExceptionGlobal = "An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.";
+        public TrString ExceptionInRender = "A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.";
+        public TrString ErrorToClipboard_Copy = "Copy report to &clipboard";
+        public TrString ErrorToClipboard_OK = "OK";
+        public TrString ErrorToClipboard_Copied = "Information about the error is now in your clipboard.";
+        public TrString ErrorToClipboard_CopyFail = "Sorry, couldn't copy the error info to clipboard for some reason.";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.DlgMessage)]
+    sealed class DlgMessageTranslation
+    {
+        public TrString OK = "&OK";
+        public TrString CaptionInfo = "Information";
+        public TrString CaptionQuestion = "Question";
+        public TrString CaptionWarning = "Warning";
+        public TrString CaptionError = "Error";
+    }
+
+    [LingoStringClass]
+    sealed class SelectorTranslation
+    {
+        [LingoNotes("It is very important for the usability of these properties that this property is sorted to the top. The only way to achieve that at the moment is by prefixing it with a space...")]
+        public TrString By = " By";
+        public TrString ByN = " By (#{0})";
+        public TrString By_Color_Description = "Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) are selected according to \"By (#{0})\".";
+        public TrString By_Color_DescriptionLast = "Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) will remain fully transparent.";
+        public TrString By_Bool_Description = "Determines which tank property the setting should be based on. Any values set to \"Passthrough\" are selected according to \"By (#{0})\".";
+        public TrString By_Bool_DescriptionLast = "Determines which tank property the setting should be based on. Any values set to \"Passthrough\" will be treated as \"No\".";
+        public TrString By_String_Description = "Determines which tank property the text should be based on. Any blank strings are selected according to \"By (#{0})\".";
+        public TrString By_String_DescriptionLast = "Determines which tank property the text should be based on. Any blank strings will be treated as blank.";
+        public TrString By_Filename_Description = "Determines which tank property the filename should be based on. Any blank filenames are selected according to \"By (#{0})\".";
+        public TrString By_Filename_DescriptionLast = "Determines which tank property the filename should be based on. Any blank filenames will result in no image being drawn.";
+
+        public TrString ClassLight = "Class: Light tank";
+        public TrString ClassMedium = "Class: Medium tank";
+        public TrString ClassHeavy = "Class: Heavy tank";
+        public TrString ClassDestroyer = "Class: Destroyer";
+        public TrString ClassArtillery = "Class: Artillery";
+
+        public TrString CountryUSSR = "Country: USSR";
+        public TrString CountryGermany = "Country: Germany";
+        public TrString CountryUSA = "Country: USA";
+        public TrString CountryFrance = "Country: France";
+        public TrString CountryChina = "Country: China";
+        public TrString CountryUK = "Country: UK";
+
+        public TrString CategNormal = "Avail.: Normal";
+        public TrString CategPremium = "Avail.: Premium";
+        public TrString CategSpecial = "Avail.: Special";
+
+        public TrString Single = "Single";
+        public TrString SingleDescription = "When \"By\" is set to \"Single value\", specifies the value to use. Use this when the value does not need to vary by tank properties.";
+
+        public TrString TierN = "Tier: {0,2}";
+    }
 }

@@ -1146,48 +1146,50 @@
       <Old>ClearType</Old>
     </ClearType>
   </TextSmoothingStyle>
-  <CategoryGeneral>
-    <Translation>Общее</Translation>
-    <Old>General</Old>
-  </CategoryGeneral>
-  <CategorySettings>
-    <Translation>Настройки</Translation>
-    <Old>Settings</Old>
-  </CategorySettings>
-  <CategoryImage>
-    <Translation>Изображение</Translation>
-    <Old>Image</Old>
-  </CategoryImage>
-  <CategoryFont>
-    <Translation> Шрифт</Translation>
-    <Old>Font</Old>
-  </CategoryFont>
-  <CategoryPosition>
-    <Translation>Положение</Translation>
-    <Old>Position</Old>
-  </CategoryPosition>
-  <CategorySize>
-    <Translation>Размер</Translation>
-    <Old>Size</Old>
-  </CategorySize>
-  <CategoryTextSource>
-    <Translation> Источник текста</Translation>
-    <Old>Text source</Old>
-  </CategoryTextSource>
-  <CategoryDebug>
-    <Translation>Отладка</Translation>
-    <Old>Debug</Old>
-  </CategoryDebug>
-  <CategoryClip>
-    <Translation>Обрезка</Translation>
-    <Old>Clip</Old>
-  </CategoryClip>
-  <CategoryBlur>
-    <Translation>Размытие</Translation>
-    <Old>Blur</Old>
-  </CategoryBlur>
-  <CategoryShift>
-    <Translation>Смещение</Translation>
-    <Old>Shift</Old>
-  </CategoryShift>
+  <Category>
+    <General>
+      <Translation>Общее</Translation>
+      <Old>General</Old>
+    </General>
+    <Settings>
+      <Translation>Настройки</Translation>
+      <Old>Settings</Old>
+    </Settings>
+    <Image>
+      <Translation>Изображение</Translation>
+      <Old>Image</Old>
+    </Image>
+    <Font>
+      <Translation> Шрифт</Translation>
+      <Old>Font</Old>
+    </Font>
+    <Position>
+      <Translation>Положение</Translation>
+      <Old>Position</Old>
+    </Position>
+    <Size>
+      <Translation>Размер</Translation>
+      <Old>Size</Old>
+    </Size>
+    <TextSource>
+      <Translation> Источник текста</Translation>
+      <Old>Text source</Old>
+    </TextSource>
+    <Debug>
+      <Translation>Отладка</Translation>
+      <Old>Debug</Old>
+    </Debug>
+    <Clip>
+      <Translation>Обрезка</Translation>
+      <Old>Clip</Old>
+    </Clip>
+    <Blur>
+      <Translation>Размытие</Translation>
+      <Old>Blur</Old>
+    </Blur>
+    <Shift>
+      <Translation>Смещение</Translation>
+      <Old>Shift</Old>
+    </Shift>
+  </Category>
 </item>
