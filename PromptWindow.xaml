@@ -20,10 +20,10 @@
         <TextBox Grid.Row="1" Name="ctName" Margin="0,0,0,8" />
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
             <Button Margin="4,0" IsDefault="True" Click="ok">
-                <AccessText Margin="16,2">_OK</AccessText>
+                <AccessText Margin="16,2" Name="ctOkBtn">_OK</AccessText>
             </Button>
             <Button Margin="4,0" IsCancel="True">
-                <AccessText Margin="16,2">_Cancel</AccessText>
+                <AccessText Margin="16,2" Name="ctCancelBtn">_Cancel</AccessText>
             </Button>
         </WrapPanel>
     </Grid>

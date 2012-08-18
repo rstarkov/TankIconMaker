@@ -8,38 +8,38 @@ namespace TankIconMaker.Layers
     abstract class TextLayer : LayerBase
     {
         public TextSmoothingStyle FontSmoothing { get; set; }
-        public static MemberTr FontSmoothingTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontSmoothing); }
+        public static MemberTr FontSmoothingTr(Translation tr) { return new MemberTr(tr.Category.Font, tr.TextLayer.FontSmoothing); }
         public string FontFamily { get; set; }
-        public static MemberTr FontFamilyTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontFamily); }
+        public static MemberTr FontFamilyTr(Translation tr) { return new MemberTr(tr.Category.Font, tr.TextLayer.FontFamily); }
         public double FontSize { get; set; }
-        public static MemberTr FontSizeTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontSize); }
+        public static MemberTr FontSizeTr(Translation tr) { return new MemberTr(tr.Category.Font, tr.TextLayer.FontSize); }
         public bool FontBold { get; set; }
-        public static MemberTr FontBoldTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontBold); }
+        public static MemberTr FontBoldTr(Translation tr) { return new MemberTr(tr.Category.Font, tr.TextLayer.FontBold); }
         public bool FontItalic { get; set; }
-        public static MemberTr FontItalicTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontItalic); }
+        public static MemberTr FontItalicTr(Translation tr) { return new MemberTr(tr.Category.Font, tr.TextLayer.FontItalic); }
         public ColorSelector FontColor { get; set; }
-        public static MemberTr FontColorTr(Translation tr) { return new MemberTr(tr.CategoryFont, tr.TextLayer.FontColor); }
+        public static MemberTr FontColorTr(Translation tr) { return new MemberTr(tr.Category.Font, tr.TextLayer.FontColor); }
 
         public int Left { get; set; }
-        public static MemberTr LeftTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Left); }
+        public static MemberTr LeftTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Left); }
         public int Right { get; set; }
-        public static MemberTr RightTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Right); }
+        public static MemberTr RightTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Right); }
         public int Top { get; set; }
-        public static MemberTr TopTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Top); }
+        public static MemberTr TopTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Top); }
         public int Bottom { get; set; }
-        public static MemberTr BottomTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Bottom); }
+        public static MemberTr BottomTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Bottom); }
 
         public bool LeftAnchor { get; set; }
-        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.LeftAnchor); }
+        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.LeftAnchor); }
         public bool RightAnchor { get; set; }
-        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.RightAnchor); }
+        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.RightAnchor); }
         public bool TopAnchor { get; set; }
-        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.TopAnchor); }
+        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.TopAnchor); }
         public bool BottomAnchor { get; set; }
-        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.BottomAnchor); }
+        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.BottomAnchor); }
 
         public bool Baseline { get; set; }
-        public static MemberTr BaselineTr(Translation tr) { return new MemberTr(tr.CategoryPosition, tr.TextLayer.Baseline); }
+        public static MemberTr BaselineTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Baseline); }
 
         protected abstract string GetText(Tank tank);
 
@@ -84,7 +84,7 @@ namespace TankIconMaker.Layers
         public override string TypeDescription { get { return Program.Translation.PropertyTextLayer.LayerDescription; } }
 
         public ExtraPropertyId Property { get; set; }
-        public static MemberTr PropertyTr(Translation tr) { return new MemberTr(tr.CategoryTextSource, tr.PropertyTextLayer.Property); }
+        public static MemberTr PropertyTr(Translation tr) { return new MemberTr(tr.Category.TextSource, tr.PropertyTextLayer.Property); }
 
         public PropertyTextLayer()
         {
@@ -104,7 +104,7 @@ namespace TankIconMaker.Layers
         public override string TypeDescription { get { return Program.Translation.CustomTextLayer.LayerDescription; } }
 
         public ValueSelector<string> Text { get; set; }
-        public static MemberTr TextTr(Translation tr) { return new MemberTr(tr.CategoryTextSource, tr.CustomTextLayer.Text); }
+        public static MemberTr TextTr(Translation tr) { return new MemberTr(tr.Category.TextSource, tr.CustomTextLayer.Text); }
 
         public CustomTextLayer()
         {

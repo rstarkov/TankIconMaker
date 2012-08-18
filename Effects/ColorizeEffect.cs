@@ -10,7 +10,7 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return Program.Translation.EffectColorize.EffectDescription; } }
 
         public ColorSelector Color { get; set; }
-        public static MemberTr ColorTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectColorize.Color); }
+        public static MemberTr ColorTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectColorize.Color); }
 
         public ColorizeEffect()
         {

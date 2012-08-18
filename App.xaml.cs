@@ -40,15 +40,15 @@ namespace TankIconMaker
                         excp = exception.InnerException;
                     }
                 }
-                bool copy = DlgMessage.ShowError("An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.",
-                    "Copy report to &clipboard", "Close") == 0;
+                bool copy = DlgMessage.ShowError(Program.Translation.Prompt.ExceptionGlobal,
+                    Program.Translation.Prompt.ErrorToClipboard_Copy, Program.Translation.Prompt.ErrorToClipboard_OK) == 0;
                 if (copy)
                     try
                     {
                         Clipboard.SetText(errorInfo.ToString(), TextDataFormat.UnicodeText);
-                        DlgMessage.ShowInfo("Information about the error is now in your clipboard.");
+                        DlgMessage.ShowInfo(Program.Translation.Prompt.ErrorToClipboard_Copied);
                     }
-                    catch { DlgMessage.ShowInfo("Sorry, couldn't even copy the error info to clipboard. Something is broken pretty badly."); }
+                    catch { DlgMessage.ShowInfo(Program.Translation.Prompt.ErrorToClipboard_CopyFail); }
             };
 #endif
 

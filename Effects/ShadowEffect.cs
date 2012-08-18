@@ -13,19 +13,19 @@ namespace TankIconMaker.Effects
 
         public double Radius { get { return _Radius; } set { _Radius = Math.Max(1.0, value); } }
         private double _Radius = 3.5;
-        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectShadow.Radius); }
+        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.Radius); }
 
         public double Spread { get { return _Spread; } set { _Spread = Math.Max(0, value); } }
         private double _Spread = 5;
-        public static MemberTr SpreadTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectShadow.Spread); }
+        public static MemberTr SpreadTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.Spread); }
 
         public ColorSelector Color { get; set; }
-        public static MemberTr ColorTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectShadow.Color); }
+        public static MemberTr ColorTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.Color); }
 
         public int ShiftX { get; set; }
-        public static MemberTr ShiftXTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectShadow.ShiftX); }
+        public static MemberTr ShiftXTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.ShiftX); }
         public int ShiftY { get; set; }
-        public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(Program.Translation.CategorySettings, Program.Translation.EffectShadow.ShiftY); }
+        public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.ShiftY); }
 
         [XmlIgnore]
         private GaussianBlur _blur;

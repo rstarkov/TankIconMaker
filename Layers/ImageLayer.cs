@@ -11,7 +11,7 @@ namespace TankIconMaker.Layers
         public override string TypeDescription { get { return Program.Translation.TankImageLayer.LayerDescription; } }
 
         public ImageBuiltInStyle Style { get; set; }
-        public static MemberTr StyleTr(Translation tr) { return new MemberTr(tr.CategoryImage, tr.TankImageLayer.Style); }
+        public static MemberTr StyleTr(Translation tr) { return new MemberTr(tr.Category.Image, tr.TankImageLayer.Style); }
 
         public override BitmapBase Draw(Tank tank)
         {
@@ -50,6 +50,7 @@ namespace TankIconMaker.Layers
         public override string TypeDescription { get { return Program.Translation.CustomImageLayer.LayerDescription; } }
 
         public ValueSelector<Filename> ImageFile { get; set; }
+        public static MemberTr ImageFileTr(Translation tr) { return new MemberTr(tr.Category.Image, tr.CustomImageLayer.ImageFile); }
 
         public CustomImageLayer()
         {
@@ -92,7 +93,7 @@ namespace TankIconMaker.Layers
         public override string TypeDescription { get { return Program.Translation.FilenamePatternImageLayer.LayerDescription; } }
 
         public string Pattern { get; set; }
-        public static MemberTr PatternTr(Translation tr) { return new MemberTr(tr.CategoryImage, tr.FilenamePatternImageLayer.Pattern); }
+        public static MemberTr PatternTr(Translation tr) { return new MemberTr(tr.Category.Image, tr.FilenamePatternImageLayer.Pattern); }
 
         public FilenamePatternImageLayer()
         {
