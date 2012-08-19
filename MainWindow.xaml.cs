@@ -1364,7 +1364,7 @@ namespace TankIconMaker
         private void cmdStyle_ChangeAuthor(object sender, ExecutedRoutedEventArgs e)
         {
             var style = ctStyleDropdown.SelectedItem as Style;
-            var author = PromptWindow.ShowPrompt(this, style.Author, Program.Translation.Prompt.ChangeAuthor_Title, Program.Translation.Prompt.RenameLayer_Label);
+            var author = PromptWindow.ShowPrompt(this, style.Author, Program.Translation.Prompt.ChangeAuthor_Title, Program.Translation.Prompt.ChangeAuthor_Label);
             if (author == null)
                 return;
             style.Author = author;
