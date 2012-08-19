@@ -263,12 +263,12 @@
     </LayerDescription>
     <ImageFile>
       <DisplayName>
-        <Translation>Image file</Translation>
-        <Old null="1" />
+        <Translation>Изображение</Translation>
+        <Old>Image file</Old>
       </DisplayName>
       <Description>
-        <Translation>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Translation>
-        <Old null="1" />
+        <Translation>Указывает путь к файлу с изображением. Относительные пути разрешаются; программа ищет такие файлы сначала в директории программы, потом в папке для модов WoT текущей версии, а потом в папке установки WoT.</Translation>
+        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Old>
       </Description>
     </ImageFile>
     <MissingImageWarning>
@@ -992,8 +992,8 @@
       <Old>No</Old>
     </No>
     <Passthrough>
-      <Translation>Пропуск: следующий "По"</Translation>
-      <Old>Passthrough: use next By</Old>
+      <Translation>Пропуск: следующий "Варьировать по"</Translation>
+      <Old>Passthrough: to next "Vary by"</Old>
     </Passthrough>
   </BoolWithPassthrough>
   <ImageBuiltInStyle>
@@ -1036,7 +1036,7 @@
       <Old>Tier (1 .. 10)</Old>
     </Tier>
     <Single>
-      <Translation>Одно значение</Translation>
+      <Translation>Не варьировать</Translation>
       <Old>Single value</Old>
     </Single>
   </SelectBy>
@@ -1160,68 +1160,6 @@
       <Old>ClearType</Old>
     </ClearType>
   </TextSmoothingStyle>
-  <TankCountry>
-    <USSR>
-      <Translation>USSR</Translation>
-      <Old null="1" />
-    </USSR>
-    <Germany>
-      <Translation>Germany</Translation>
-      <Old null="1" />
-    </Germany>
-    <USA>
-      <Translation>USA</Translation>
-      <Old null="1" />
-    </USA>
-    <France>
-      <Translation>France</Translation>
-      <Old null="1" />
-    </France>
-    <China>
-      <Translation>China</Translation>
-      <Old null="1" />
-    </China>
-    <UK>
-      <Translation>UK</Translation>
-      <Old null="1" />
-    </UK>
-  </TankCountry>
-  <TankClass>
-    <Light>
-      <Translation>Light</Translation>
-      <Old null="1" />
-    </Light>
-    <Medium>
-      <Translation>Medium</Translation>
-      <Old null="1" />
-    </Medium>
-    <Heavy>
-      <Translation>Heavy</Translation>
-      <Old null="1" />
-    </Heavy>
-    <Destroyer>
-      <Translation>Destoryer</Translation>
-      <Old null="1" />
-    </Destroyer>
-    <Artillery>
-      <Translation>Artillery</Translation>
-      <Old null="1" />
-    </Artillery>
-  </TankClass>
-  <TankCategory>
-    <Normal>
-      <Translation>Normal</Translation>
-      <Old null="1" />
-    </Normal>
-    <Premium>
-      <Translation>Premium</Translation>
-      <Old null="1" />
-    </Premium>
-    <Special>
-      <Translation>Special</Translation>
-      <Old null="1" />
-    </Special>
-  </TankCategory>
   <Category>
     <General>
       <Translation>Общее</Translation>
@@ -1270,112 +1208,112 @@
   </Category>
   <Selector>
     <By>
-      <Translation> By</Translation>
-      <Old null="1" />
+      <Translation> Варьировать по</Translation>
+      <Old> Vary by</Old>
     </By>
     <ByN>
-      <Translation> By (#{0})</Translation>
-      <Old null="1" />
+      <Translation> Варьировать по (#{0})</Translation>
+      <Old> Vary by (#{0})</Old>
     </ByN>
     <By_Color_Description>
-      <Translation>Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается цвет. В случае если один из цветов является прозрачным-черным (#00000000), значения для соответствующих танков варьируются на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the color is varied. The colors for any tanks whose color is set to transparent black (#00000000) are varied according to "Vary by (#{0})" instead.</Old>
     </By_Color_Description>
     <By_Color_DescriptionLast>
-      <Translation>Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) will remain fully transparent.</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается цвет.</Translation>
+      <Old>Specifies a tank property by which the color is varied.</Old>
     </By_Color_DescriptionLast>
     <By_Bool_Description>
-      <Translation>Determines which tank property the setting should be based on. Any values set to "Passthrough" are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается значение. В случае если одно из значений указано как "Пропуск", значения для соответствующих танков варьируются на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to "Passthrough" are varied according to "Vary by (#{0})" instead.</Old>
     </By_Bool_Description>
     <By_Bool_DescriptionLast>
-      <Translation>Determines which tank property the setting should be based on. Any values set to "Passthrough" will be treated as "No".</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается значение.</Translation>
+      <Old>Specifies a tank property by which the setting is varied.</Old>
     </By_Bool_DescriptionLast>
     <By_String_Description>
-      <Translation>Determines which tank property the text should be based on. Any blank strings are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается текст. Если присутствуют пустые строки, текст для соответствующих танков варьируется на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the text is varied. The text for any tanks whose text is blank is varied according to "Vary by (#{0})" instead.</Old>
     </By_String_Description>
     <By_String_DescriptionLast>
-      <Translation>Determines which tank property the text should be based on. Any blank strings will be treated as blank.</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается текст.</Translation>
+      <Old>Specifies a tank property by which the text is varied.</Old>
     </By_String_DescriptionLast>
     <By_Filename_Description>
-      <Translation>Determines which tank property the filename should be based on. Any blank filenames are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается имя файла. Если присутствуют пустые строки, имя файла для соответствующих танков варьируется на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the filename is varied. The filename for any tanks whose filename is blank is varied according to "Vary by (#{0})" instead.</Old>
     </By_Filename_Description>
     <By_Filename_DescriptionLast>
-      <Translation>Determines which tank property the filename should be based on. Any blank filenames will result in no image being drawn.</Translation>
-      <Old null="1" />
+      <Translation>Указывает свойство танка, на основании которого выбирается имя файла.</Translation>
+      <Old>Specifies a tank property by which the filename is varied.</Old>
     </By_Filename_DescriptionLast>
     <ClassLight>
-      <Translation>Class: Light tank</Translation>
-      <Old null="1" />
+      <Translation>Класс: легкий танк</Translation>
+      <Old>Class: Light tank</Old>
     </ClassLight>
     <ClassMedium>
-      <Translation>Class: Medium tank</Translation>
-      <Old null="1" />
+      <Translation>Класс: средний танк</Translation>
+      <Old>Class: Medium tank</Old>
     </ClassMedium>
     <ClassHeavy>
-      <Translation>Class: Heavy tank</Translation>
-      <Old null="1" />
+      <Translation>Класс: тяжелый танк</Translation>
+      <Old>Class: Heavy tank</Old>
     </ClassHeavy>
     <ClassDestroyer>
-      <Translation>Class: Destroyer</Translation>
-      <Old null="1" />
+      <Translation>Класс: ПТ</Translation>
+      <Old>Class: Destroyer</Old>
     </ClassDestroyer>
     <ClassArtillery>
-      <Translation>Class: Artillery</Translation>
-      <Old null="1" />
+      <Translation>Класс: артиллерия</Translation>
+      <Old>Class: Artillery</Old>
     </ClassArtillery>
     <CountryUSSR>
-      <Translation>Country: USSR</Translation>
-      <Old null="1" />
+      <Translation>Страна: СССР</Translation>
+      <Old>Country: USSR</Old>
     </CountryUSSR>
     <CountryGermany>
-      <Translation>Country: Germany</Translation>
-      <Old null="1" />
+      <Translation>Страна: Германия</Translation>
+      <Old>Country: Germany</Old>
     </CountryGermany>
     <CountryUSA>
-      <Translation>Country: USA</Translation>
-      <Old null="1" />
+      <Translation>Страна: США</Translation>
+      <Old>Country: USA</Old>
     </CountryUSA>
     <CountryFrance>
-      <Translation>Country: France</Translation>
-      <Old null="1" />
+      <Translation>Страна: Франция</Translation>
+      <Old>Country: France</Old>
     </CountryFrance>
     <CountryChina>
-      <Translation>Country: China</Translation>
-      <Old null="1" />
+      <Translation>Страна: Китай</Translation>
+      <Old>Country: China</Old>
     </CountryChina>
     <CountryUK>
-      <Translation>Country: UK</Translation>
-      <Old null="1" />
+      <Translation>Страна: Великобритания</Translation>
+      <Old>Country: UK</Old>
     </CountryUK>
     <CategNormal>
-      <Translation>Avail.: Normal</Translation>
-      <Old null="1" />
+      <Translation>Доступ: Обычный</Translation>
+      <Old>Avail.: Normal</Old>
     </CategNormal>
     <CategPremium>
-      <Translation>Avail.: Premium</Translation>
-      <Old null="1" />
+      <Translation>Доступ: Премиумный</Translation>
+      <Old>Avail.: Premium</Old>
     </CategPremium>
     <CategSpecial>
-      <Translation>Avail.: Special</Translation>
-      <Old null="1" />
+      <Translation>Доступ: Акционный</Translation>
+      <Old>Avail.: Special</Old>
     </CategSpecial>
     <Single>
-      <Translation>Single</Translation>
-      <Old null="1" />
+      <Translation>Без вариаций</Translation>
+      <Old>Not varied</Old>
     </Single>
     <SingleDescription>
-      <Translation>When "By" is set to "Single value", specifies the value to use. Use this when the value does not need to vary by tank properties.</Translation>
-      <Old null="1" />
+      <Translation>Если значение (например, цвет) не требует вариаций по свойствам танка, выберите настройку "Не варьировать" в свойстве "Варьировать по", и укажите необходимое значение в данном свойстве.</Translation>
+      <Old>When "Vary by" is set to "No variation", specifies the value to use. Use this when the value does not need to vary by tank properties.</Old>
     </SingleDescription>
     <TierN>
-      <Translation>Tier: {0,2}</Translation>
-      <Old null="1" />
+      <Translation>Уровень: {0,2}</Translation>
+      <Old>Tier: {0,2}</Old>
     </TierN>
   </Selector>
   <DlgMessage>
@@ -1402,60 +1340,60 @@
   </DlgMessage>
   <Prompt>
     <RenameLayer_Title>
-      <Translation>Rename layer</Translation>
-      <Old null="1" />
+      <Translation>Переименовать слой</Translation>
+      <Old>Rename layer</Old>
     </RenameLayer_Title>
     <RenameLayer_Label>
-      <Translation>Layer _name:</Translation>
-      <Old null="1" />
+      <Translation>_Название слоя:</Translation>
+      <Old>Layer _name:</Old>
     </RenameLayer_Label>
     <RenameEffect_Title>
-      <Translation>Rename effect</Translation>
-      <Old null="1" />
+      <Translation>Переименовать эффект</Translation>
+      <Old>Rename effect</Old>
     </RenameEffect_Title>
     <RenameEffect_Label>
-      <Translation>Effect _name:</Translation>
-      <Old null="1" />
+      <Translation>_Название эффекта:</Translation>
+      <Old>Effect _name:</Old>
     </RenameEffect_Label>
     <CreateStyle_Title>
-      <Translation>Create style</Translation>
-      <Old null="1" />
+      <Translation>Создать стиль</Translation>
+      <Old>Create style</Old>
     </CreateStyle_Title>
     <CreateStyle_Label>
-      <Translation>New style _name:</Translation>
-      <Old null="1" />
+      <Translation>_Название нового стиля:</Translation>
+      <Old>New style _name:</Old>
     </CreateStyle_Label>
     <RenameStyle_Title>
-      <Translation>Change style name</Translation>
-      <Old null="1" />
+      <Translation>Изменить название стиля</Translation>
+      <Old>Change style name</Old>
     </RenameStyle_Title>
     <RenameStyle_Label>
-      <Translation>New style _name:</Translation>
-      <Old null="1" />
+      <Translation>Новое _название стиля:</Translation>
+      <Old>New style _name:</Old>
     </RenameStyle_Label>
     <ChangeAuthor_Title>
-      <Translation>Change style author</Translation>
-      <Old null="1" />
+      <Translation>Изменить автора стиля</Translation>
+      <Old>Change style author</Old>
     </ChangeAuthor_Title>
     <ChangeAuthor_Label>
-      <Translation>New style _author:</Translation>
-      <Old null="1" />
+      <Translation>Новый _автор стиля:</Translation>
+      <Old>New style _author:</Old>
     </ChangeAuthor_Label>
     <DuplicateStyle_Title>
-      <Translation>Duplicate style</Translation>
-      <Old null="1" />
+      <Translation>Создать копию стиля</Translation>
+      <Old>Duplicate style</Old>
     </DuplicateStyle_Title>
     <DuplicateStyle_Label>
-      <Translation>New style _name:</Translation>
-      <Old null="1" />
+      <Translation>_Название нового стиля:</Translation>
+      <Old>New style _name:</Old>
     </DuplicateStyle_Label>
     <Cancel>
-      <Translation>Cancel</Translation>
-      <Old null="1" />
+      <Translation>Отмена</Translation>
+      <Old>Cancel</Old>
     </Cancel>
     <PromptWindowOK>
-      <Translation>_OK</Translation>
-      <Old null="1" />
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
     </PromptWindowOK>
     <GamePathRequired>
       <Translation>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Translation>
@@ -1492,36 +1430,36 @@
       <Old null="1" />
     </IconsSaveSkipped>
     <Upvote_BuiltInOnly>
-      <Translation>For security reasons, only built-in styles can be upvoted.</Translation>
-      <Old null="1" />
+      <Translation>По причине безопасности, плюсануть можно только встроенные стили.</Translation>
+      <Old>For security reasons, only built-in styles can be upvoted.</Old>
     </Upvote_BuiltInOnly>
     <Upvote_NotAvailable>
-      <Translation>This style does not currently have an associated post on World of Tanks forums.</Translation>
-      <Old null="1" />
+      <Translation>У этого стиля нет соответствующей темы на форуме World of Tanks.</Translation>
+      <Old>This style does not currently have an associated post on World of Tanks forums.</Old>
     </Upvote_NotAvailable>
     <Upvote_Prompt>
-      <Translation encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Чтобы отблагодарить {0} за разработку данного стиля, пожалуйста плюсаните следующую тему на форуме World of Tanks:\r\n\r\n{1}</Translation>
+      <Old encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Old>
     </Upvote_Prompt>
     <Upvote_Open>
-      <Translation>&amp;Open in browser</Translation>
-      <Old null="1" />
+      <Translation>&amp;Открыть в браузере</Translation>
+      <Old>&amp;Open in browser</Old>
     </Upvote_Open>
     <DeleteLayerEffect_Prompt>
-      <Translation>Delete the selected layer/effect?</Translation>
-      <Old null="1" />
+      <Translation>Удалить выбранный слой/эффект?</Translation>
+      <Old>Delete the selected layer/effect?</Old>
     </DeleteLayerEffect_Prompt>
     <DeleteLayerEffect_Yes>
-      <Translation>&amp;Delete</Translation>
-      <Old null="1" />
+      <Translation>&amp;Удалить</Translation>
+      <Old>&amp;Delete</Old>
     </DeleteLayerEffect_Yes>
     <DeleteStyle_Prompt>
-      <Translation encoding="c-literal">Delete this style?\r\n\r\n{0}</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Удалить этот стиль?\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Delete this style?\r\n\r\n{0}</Old>
     </DeleteStyle_Prompt>
     <DeleteStyle_Yes>
-      <Translation>&amp;Delete</Translation>
-      <Old null="1" />
+      <Translation>&amp;Удалить</Translation>
+      <Old>&amp;Delete</Old>
     </DeleteStyle_Yes>
     <StyleImport_Fail>
       <Translation>Could not load the file for some reason. It might be of the wrong format.</Translation>
@@ -1540,20 +1478,20 @@
       <Old null="1" />
     </ExceptionInRender>
     <ErrorToClipboard_Copy>
-      <Translation>Copy report to &amp;clipboard</Translation>
-      <Old null="1" />
+      <Translation>_Копировать в буфер обмена</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
     </ErrorToClipboard_Copy>
     <ErrorToClipboard_OK>
-      <Translation>OK</Translation>
-      <Old null="1" />
+      <Translation>ОК</Translation>
+      <Old>OK</Old>
     </ErrorToClipboard_OK>
     <ErrorToClipboard_Copied>
-      <Translation>Information about the error is now in your clipboard.</Translation>
-      <Old null="1" />
+      <Translation>Информация об этой ошибке скопирована в буфер обмена.</Translation>
+      <Old>Information about the error is now in your clipboard.</Old>
     </ErrorToClipboard_Copied>
     <ErrorToClipboard_CopyFail>
-      <Translation>Sorry, couldn't copy the error info to clipboard for some reason.</Translation>
-      <Old null="1" />
+      <Translation>К сожалению попытка скопировать информацию об ошибке не удалась.</Translation>
+      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
     </ErrorToClipboard_CopyFail>
   </Prompt>
   <Error>
@@ -1698,24 +1636,24 @@
       <Old>Saving...</Old>
     </GlobalStatus_Saving>
     <Filter_FilenameEditor>
-      <Translation>Image files|*.png;*.jpg;*.tga|All files|*.*</Translation>
-      <Old null="1" />
+      <Translation>Изображения|*.png;*.jpg;*.tga|Все файлы|*.*</Translation>
+      <Old>Image files|*.png;*.jpg;*.tga|All files|*.*</Old>
     </Filter_FilenameEditor>
     <Filter_ImportExportStyle>
-      <Translation>Icon maker settings|*.xml|All files|*.*</Translation>
-      <Old null="1" />
+      <Translation>Стили иконок|*.xml|Все файлы|*.*</Translation>
+      <Old>Icon styles|*.xml|All files|*.*</Old>
     </Filter_ImportExportStyle>
     <NameOfCopied>
-      <Translation>{0} (copy)</Translation>
-      <Old null="1" />
+      <Translation>{0} (копия)</Translation>
+      <Old>{0} (copy)</Old>
     </NameOfCopied>
     <NameOfNewStyle>
-      <Translation>New style</Translation>
-      <Old null="1" />
+      <Translation>Новый стиль</Translation>
+      <Old>New style</Old>
     </NameOfNewStyle>
     <NameOfTankImageLayer>
-      <Translation>Tank image</Translation>
-      <Old null="1" />
+      <Translation>Танк</Translation>
+      <Old>Tank image</Old>
     </NameOfTankImageLayer>
     <NameOfNewStyleAuthor>
       <Translation>я</Translation>

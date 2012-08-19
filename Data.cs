@@ -843,7 +843,6 @@ namespace TankIconMaker
     }
 
     /// <summary>Represents one of the WoT countries.</summary>
-    [TypeConverter(typeof(TankCountryTranslation.Conv))]
     enum Country
     {
         USSR,
@@ -855,7 +854,6 @@ namespace TankIconMaker
     }
 
     /// <summary>Represents one of the possible tank classes: light/medium/heavy, tank destroyer, and artillery.</summary>
-    [TypeConverter(typeof(TankClassTranslation.Conv))]
     enum Class
     {
         Light,
@@ -866,7 +864,6 @@ namespace TankIconMaker
     }
 
     /// <summary>Represents one of the possible tank availability categories based on how (and whether) they can be bought.</summary>
-    [TypeConverter(typeof(TankCategoryTranslation.Conv))]
     enum Category
     {
         /// <summary>This tank can be bought for silver.</summary>

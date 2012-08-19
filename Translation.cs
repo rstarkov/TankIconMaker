@@ -126,9 +126,6 @@ namespace TankIconMaker
         public OpacityStyleTranslation OpacityStyle = new OpacityStyleTranslation();
         public BlurEdgeModeTranslation BlurEdgeMode = new BlurEdgeModeTranslation();
         public TextSmoothingStyleTranslation TextSmoothingStyle = new TextSmoothingStyleTranslation();
-        public TankCountryTranslation TankCountry = new TankCountryTranslation();
-        public TankClassTranslation TankClass = new TankClassTranslation();
-        public TankCategoryTranslation TankCategory = new TankCategoryTranslation();
 
         public CategoryTranslation Category = new CategoryTranslation();
 
@@ -424,7 +421,7 @@ namespace TankIconMaker
     {
         public TrString Yes = "Yes";
         public TrString No = "No";
-        public TrString Passthrough = "Passthrough: use next By";
+        public TrString Passthrough = "Passthrough: to next \"Vary by\"";
 
         public class Conv : LingoEnumConverter<BoolWithPassthrough, BoolWithPassthroughTranslation>
         {
@@ -549,50 +546,6 @@ namespace TankIconMaker
         }
     }
 
-    [LingoStringClass, LingoInGroup(TranslationGroup.EnumTankCountry)]
-    sealed class TankCountryTranslation
-    {
-        public TrString USSR = "USSR";
-        public TrString Germany = "Germany";
-        public TrString USA = "USA";
-        public TrString France = "France";
-        public TrString China = "China";
-        public TrString UK = "UK";
-
-        public class Conv : LingoEnumConverter<Country, TankCountryTranslation>
-        {
-            public Conv() : base(() => Program.Translation.TankCountry) { }
-        }
-    }
-
-    [LingoStringClass, LingoInGroup(TranslationGroup.EnumTankClass)]
-    sealed class TankClassTranslation
-    {
-        public TrString Light = "Light";
-        public TrString Medium = "Medium";
-        public TrString Heavy = "Heavy";
-        public TrString Destroyer = "Destroyer";
-        public TrString Artillery = "Artillery";
-
-        public class Conv : LingoEnumConverter<Class, TankClassTranslation>
-        {
-            public Conv() : base(() => Program.Translation.TankClass) { }
-        }
-    }
-
-    [LingoStringClass, LingoInGroup(TranslationGroup.EnumTankCategory)]
-    sealed class TankCategoryTranslation
-    {
-        public TrString Normal = "Normal";
-        public TrString Premium = "Premium";
-        public TrString Special = "Special";
-
-        public class Conv : LingoEnumConverter<Category, TankCategoryTranslation>
-        {
-            public Conv() : base(() => Program.Translation.TankCategory) { }
-        }
-    }
-
     #endregion
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Errors)]
@@ -695,16 +648,16 @@ namespace TankIconMaker
     sealed class SelectorTranslation
     {
         [LingoNotes("It is very important for the usability of these properties that this property is sorted to the top. The only way to achieve that at the moment is by prefixing it with a space...")]
-        public TrString By = " By";
-        public TrString ByN = " By (#{0})";
-        public TrString By_Color_Description = "Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) are selected according to \"By (#{0})\".";
-        public TrString By_Color_DescriptionLast = "Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) will remain fully transparent.";
-        public TrString By_Bool_Description = "Determines which tank property the setting should be based on. Any values set to \"Passthrough\" are selected according to \"By (#{0})\".";
-        public TrString By_Bool_DescriptionLast = "Determines which tank property the setting should be based on. Any values set to \"Passthrough\" will be treated as \"No\".";
-        public TrString By_String_Description = "Determines which tank property the text should be based on. Any blank strings are selected according to \"By (#{0})\".";
-        public TrString By_String_DescriptionLast = "Determines which tank property the text should be based on. Any blank strings will be treated as blank.";
-        public TrString By_Filename_Description = "Determines which tank property the filename should be based on. Any blank filenames are selected according to \"By (#{0})\".";
-        public TrString By_Filename_DescriptionLast = "Determines which tank property the filename should be based on. Any blank filenames will result in no image being drawn.";
+        public TrString By = " Vary by";
+        public TrString ByN = " Vary by (#{0})";
+        public TrString By_Color_Description = "Specifies a tank property by which the color is varied. The colors for any tanks whose color is set to transparent black (#00000000) are varied according to \"Vary by (#{0})\" instead.";
+        public TrString By_Color_DescriptionLast = "Specifies a tank property by which the color is varied.";
+        public TrString By_Bool_Description = "Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to \"Passthrough\" are varied according to \"Vary by (#{0})\" instead.";
+        public TrString By_Bool_DescriptionLast = "Specifies a tank property by which the setting is varied.";
+        public TrString By_String_Description = "Specifies a tank property by which the text is varied. The text for any tanks whose text is blank is varied according to \"Vary by (#{0})\" instead.";
+        public TrString By_String_DescriptionLast = "Specifies a tank property by which the text is varied.";
+        public TrString By_Filename_Description = "Specifies a tank property by which the filename is varied. The filename for any tanks whose filename is blank is varied according to \"Vary by (#{0})\" instead.";
+        public TrString By_Filename_DescriptionLast = "Specifies a tank property by which the filename is varied.";
 
         public TrString ClassLight = "Class: Light tank";
         public TrString ClassMedium = "Class: Medium tank";
@@ -723,8 +676,8 @@ namespace TankIconMaker
         public TrString CategPremium = "Avail.: Premium";
         public TrString CategSpecial = "Avail.: Special";
 
-        public TrString Single = "Single";
-        public TrString SingleDescription = "When \"By\" is set to \"Single value\", specifies the value to use. Use this when the value does not need to vary by tank properties.";
+        public TrString Single = "Not varied";
+        public TrString SingleDescription = "When \"Vary by\" is set to \"No variation\", specifies the value to use. Use this when the value does not need to vary by tank properties.";
 
         public TrString TierN = "Tier: {0,2}";
     }
