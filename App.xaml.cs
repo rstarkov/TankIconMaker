@@ -53,17 +53,18 @@ namespace TankIconMaker
         /// <summary>A list of info classes for each effect type defined in this assembly. Initialised once at startup.</summary>
         public static IList<TypeInfo<EffectBase>> EffectTypes;
 
-        protected override void OnStartup(StartupEventArgs e)
+        [STAThread]
+        static int Main(string[] args)
         {
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
 #if !DEBUG
             Thread.CurrentThread.Name = "Main";
-            AppDomain.CurrentDomain.UnhandledException += (_, args) =>
+            AppDomain.CurrentDomain.UnhandledException += (_, ea) =>
             {
                 var errorInfo = new StringBuilder("Thread: " + Thread.CurrentThread.Name);
-                var excp = args.ExceptionObject;
+                var excp = ea.ExceptionObject;
                 while (excp != null)
                 {
                     errorInfo.AppendFormat("\n\nException: {0}", excp.GetType());
@@ -75,15 +76,15 @@ namespace TankIconMaker
                         excp = exception.InnerException;
                     }
                 }
-                bool copy = DlgMessage.ShowError(Program.Translation.Prompt.ExceptionGlobal,
-                    Program.Translation.Prompt.ErrorToClipboard_Copy, Program.Translation.Prompt.ErrorToClipboard_OK) == 0;
+                bool copy = DlgMessage.ShowError(App.Translation.Prompt.ExceptionGlobal,
+                    App.Translation.Prompt.ErrorToClipboard_Copy, App.Translation.Prompt.ErrorToClipboard_OK) == 0;
                 if (copy)
                     try
                     {
                         Clipboard.SetText(errorInfo.ToString(), TextDataFormat.UnicodeText);
-                        DlgMessage.ShowInfo(Program.Translation.Prompt.ErrorToClipboard_Copied);
+                        DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_Copied);
                     }
-                    catch { DlgMessage.ShowInfo(Program.Translation.Prompt.ErrorToClipboard_CopyFail); }
+                    catch { DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_CopyFail); }
             };
 #endif
 
@@ -100,11 +101,19 @@ namespace TankIconMaker
             App.LayerTypes = findTypes<LayerBase>("layer");
             App.EffectTypes = findTypes<EffectBase>("effect");
 
-            base.OnStartup(e);
-
             // Load all settings and the UI translation
             SettingsUtil.LoadSettings(out App.Settings);
             App.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref App.Settings.Lingo);
+
+            // Run the UI
+            var app = new App();
+            app.InitializeComponent();
+            app.Run();
+
+            // Save settings upon exit, even though they should be saved on every change anyway
+            App.Settings.SaveQuiet();
+
+            return 0;
         }
 
         private static IList<TypeInfo<T>> findTypes<T>(string name) where T : IHasTypeNameDescription
@@ -131,12 +140,6 @@ namespace TankIconMaker
             }
             infos.Sort(CustomComparer<TypeInfo<T>>.By(ti => ti.Name));
             return infos.AsReadOnly();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            App.Settings.SaveQuiet();
-            base.OnExit(e);
         }
     }
 }
