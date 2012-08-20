@@ -26,7 +26,6 @@ using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
-#warning TODO: shortcuts in Russian
 #warning TODO: buggy message handling in Translation UI
 
 #warning Not updated immediately: style names; layers list
