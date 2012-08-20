@@ -1396,38 +1396,42 @@
       <Old>_OK</Old>
     </PromptWindowOK>
     <GamePathRequired>
-      <Translation>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Translation>
-      <Old null="1" />
+      <Translation>Сначала необходимо добавить путь к игре (кнопка с зеленым плюсом слева вверху).</Translation>
+      <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
     </GamePathRequired>
     <OverwriteIcons_Prompt>
-      <Translation encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Вы уверены, что хотите заменить ваши текущие иконки?\r\n\r\nПуть: {0}\r\n\r\nВнимание: ВСЕ файлы *{1} по указанному пути будут заменены без возможности восстановления!</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
     </OverwriteIcons_Prompt>
     <OverwriteIcons_Yes>
-      <Translation>&amp;Yes, overwrite all files</Translation>
-      <Old null="1" />
+      <Translation>&amp;Да, заменить иконки</Translation>
+      <Old>&amp;Yes, overwrite all files</Old>
     </OverwriteIcons_Yes>
     <GameNotFound_Prompt>
-      <Translation>This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?</Translation>
-      <Old null="1" />
+      <Translation>В указанной папке поддерживаемая версия World Of Tanks не найдена. Вы уверены, что хотите все равно добавить эту папку?</Translation>
+      <Old>This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?</Old>
     </GameNotFound_Prompt>
     <GameNotFound_Ignore>
-      <Translation>&amp;Use anyway</Translation>
-      <Old null="1" />
+      <Translation>&amp;Добавить</Translation>
+      <Old>&amp;Use anyway</Old>
     </GameNotFound_Ignore>
     <IconsSaved>
-      <Translation encoding="c-literal">Saved!\nEnjoy.</Translation>
-      <Old null="1" />
+      <Translation>Иконки сохранены!</Translation>
+      <Old encoding="c-literal">Saved!\nEnjoy.</Old>
     </IconsSaved>
     <IconsSaveSkipped>
       <IsNumber>
         <item>True</item>
       </IsNumber>
       <Translations>
+        <item>Одна иконка пропущена в связи с ошибками.</item>
+        <item>{0} иконки пропущены в связи с ошибками.</item>
+        <item>{0} иконок пропущены в связи с ошибками.</item>
+      </Translations>
+      <Old>
         <item>Note that 1 image was skipped due to errors.</item>
         <item>Note that {0} images were skipped due to errors.</item>
-      </Translations>
-      <Old null="1" />
+      </Old>
     </IconsSaveSkipped>
     <Upvote_BuiltInOnly>
       <Translation>По причине безопасности, плюсануть можно только встроенные стили.</Translation>
@@ -1462,23 +1466,23 @@
       <Old>&amp;Delete</Old>
     </DeleteStyle_Yes>
     <StyleImport_Fail>
-      <Translation>Could not load the file for some reason. It might be of the wrong format.</Translation>
-      <Old null="1" />
+      <Translation>Не удалось загрузить указанный файл. Возможно файл разрушен либо не является файлом стиля иконок.</Translation>
+      <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
     </StyleImport_Fail>
     <StyleExport_Success>
-      <Translation>The style has been exported.</Translation>
-      <Old null="1" />
+      <Translation>Стиль успешно экспортирован.</Translation>
+      <Old>The style has been exported.</Old>
     </StyleExport_Success>
     <ExceptionGlobal>
-      <Translation encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
     </ExceptionGlobal>
     <ExceptionInRender>
-      <Translation>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Translation>
-      <Old null="1" />
+      <Translation>В одном из слоев либо эффектов произошла ошибка. Пожалуйста сообщите разработчику.</Translation>
+      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
     </ExceptionInRender>
     <ErrorToClipboard_Copy>
-      <Translation>_Копировать в буфер обмена</Translation>
+      <Translation>&amp;Копировать в буфер обмена</Translation>
       <Old>Copy report to &amp;clipboard</Old>
     </ErrorToClipboard_Copy>
     <ErrorToClipboard_OK>
@@ -1496,130 +1500,134 @@
   </Prompt>
   <Error>
     <DataFile_UnrecognizedCountry>
-      <Translation>Unrecognized country: "{0}". Allowed values: {1}.</Translation>
-      <Old null="1" />
+      <Translation>Нераспознанная страна: "{0}". Допустимые значения: {1}.</Translation>
+      <Old>Unrecognized country: "{0}". Allowed values: {1}.</Old>
     </DataFile_UnrecognizedCountry>
     <DataFile_UnrecognizedClass>
-      <Translation>Unrecognized class: "{0}". Allowed values: {1}.</Translation>
-      <Old null="1" />
+      <Translation>Нераспознанный класс: "{0}". Допустимые значения: {1}.</Translation>
+      <Old>Unrecognized class: "{0}". Allowed values: {1}.</Old>
     </DataFile_UnrecognizedClass>
     <DataFile_UnrecognizedCategory>
-      <Translation>Unrecognized availability: "{0}". Allowed values: {1}.</Translation>
-      <Old null="1" />
+      <Translation>Нераспознанная доступность: "{0}". Допустимые значения: {1}.</Translation>
+      <Old>Unrecognized availability: "{0}". Allowed values: {1}.</Old>
     </DataFile_UnrecognizedCategory>
     <DataFile_TankTierValue>
-      <Translation>The tier field is not a whole number or outside of the 1..10 range: "{0}"</Translation>
-      <Old null="1" />
+      <Translation>Поле с уровнем танка не является целым числом, либо выходит за допустимые пределы (1-10): "{0}"</Translation>
+      <Old>The tier field is not a whole number or outside of the 1..10 range: "{0}"</Old>
     </DataFile_TankTierValue>
     <DataFile_TooFewFields>
       <IsNumber>
         <item>True</item>
       </IsNumber>
       <Translations>
+        <item>Требуется как минимум 1 поле.</item>
+        <item>Требуются как минимум {0} поля.</item>
+        <item>Требуется как минимум {0} полей.</item>
+      </Translations>
+      <Old>
         <item>Expected at least 1 field.</item>
         <item>Expected at least {0} fields.</item>
-      </Translations>
-      <Old null="1" />
+      </Old>
     </DataFile_TooFewFields>
     <DataFile_EmptyFile>
-      <Translation>Expected at least one line.</Translation>
-      <Old null="1" />
+      <Translation>Требуется как минимум одна строка.</Translation>
+      <Old>Expected at least one line.</Old>
     </DataFile_EmptyFile>
     <DataFile_TooFewFieldsFirstLine>
-      <Translation>Expected at least two columns in the first row.</Translation>
-      <Old null="1" />
+      <Translation>Требуются как минимум два поля в первой строке.</Translation>
+      <Old>Expected at least two columns in the first row.</Old>
     </DataFile_TooFewFieldsFirstLine>
     <DataFile_ExpectedSignature>
-      <Translation>Expected "{0}" in the first column of the first row.</Translation>
-      <Old null="1" />
+      <Translation>Требуется "{0}" в первом поле первой строки.</Translation>
+      <Old>Expected "{0}" in the first column of the first row.</Old>
     </DataFile_ExpectedSignature>
     <DataFile_ExpectedV1>
-      <Translation>The second column of the first row must be "1" (format version)</Translation>
-      <Old null="1" />
+      <Translation>Второе поле первой строки должно содержать "1" (версия формата)</Translation>
+      <Old>The second column of the first row must be "1" (format version)</Old>
     </DataFile_ExpectedV1>
     <DataFile_LineNum>
-      <Translation>Line {0}: {1}</Translation>
-      <Old null="1" />
+      <Translation>Строка {0}: {1}</Translation>
+      <Old>Line {0}: {1}</Old>
     </DataFile_LineNum>
     <DataFile_CsvParse>
-      <Translation>Couldn't parse line {0}.</Translation>
-      <Old null="1" />
+      <Translation>Не удалось прочитать строку {0}.</Translation>
+      <Old>Couldn't parse line {0}.</Old>
     </DataFile_CsvParse>
     <DataDir_NoFilesAvailable>
-      <Translation>Could not load any version data files and/or any built-in data files.</Translation>
-      <Old null="1" />
+      <Translation>Не удалось загрузить ни одного файла версии игры либо файла со встроенными свойствами.</Translation>
+      <Old>Could not load any game version data files and/or any built-in property data files.</Old>
     </DataDir_NoFilesAvailable>
     <DataDir_Skip_NoBuiltIns>
-      <Translation>Skipped version {0} because there are no built-in data files for it to use. Delete the "{1}" file to get rid of this warning.</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую версию {0} так как для нее не найден ни один файл со встроенными свойствами. Удалите файл "{1}" чтобы избавиться от этого сообщения.</Translation>
+      <Old>Skipped version {0} because there are no built-in property data files for it to use. Delete the "{1}" file to get rid of this warning.</Old>
     </DataDir_Skip_NoBuiltIns>
     <DataDir_Skip_WrongParts>
-      <Translation>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как в его имени содержится неверное количество частей (ожидалось: {1}, найдено {2}).</Translation>
+      <Old>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Old>
     </DataDir_Skip_WrongParts>
     <DataDir_Skip_FileError>
-      <Translation>Skipped "{0}" because the file could not be parsed: {1}</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как в нем содержится ошибка: {1}</Translation>
+      <Old>Skipped "{0}" because the file could not be parsed: {1}</Old>
     </DataDir_Skip_FileError>
     <DataDir_Skip_GameVersion>
-      <Translation>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как часть имени файла, указывающая версию игры, нераспознана: "{1}".</Translation>
+      <Old>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Old>
     </DataDir_Skip_GameVersion>
     <DataDir_Skip_FileVersion>
-      <Translation>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}" (or it isn't exactly 3 digits long).</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как версия файла указана в неверном формате: "{1}" (либо не состоит ровно из 3 цифр).</Translation>
+      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}" (or it isn't exactly 3 digits long).</Old>
     </DataDir_Skip_FileVersion>
     <DataDir_Skip_Author>
-      <Translation>Skipped "{0}" because it has an empty author part in the filename.</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как поле автора в имени файла является пустым.</Translation>
+      <Old>Skipped "{0}" because it has an empty author part in the filename.</Old>
     </DataDir_Skip_Author>
     <DataDir_Skip_PropName>
-      <Translation>Skipped "{0}" because it has an empty property name part in the filename.</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как поле названия свойства в имени файла является пустым.</Translation>
+      <Old>Skipped "{0}" because it has an empty property name part in the filename.</Old>
     </DataDir_Skip_PropName>
     <DataDir_Skip_Lang>
-      <Translation>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как поле языка данных ("{1}") не является кодом языка, либо "X" для файлов без определенного языка. Возможно вы имели в виду En, Ru, Zh, Es, Fr, De, Ja? Полный список кодов ISO-639-1 можно найти на Википедии.</Translation>
+      <Old>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Old>
     </DataDir_Skip_Lang>
     <DataDir_Skip_InhNoProp>
-      <Translation>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как не найдены файлы для свойства "{1}" (из которого данный файл наследует значения).</Translation>
+      <Old>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Old>
     </DataDir_Skip_InhNoProp>
     <DataDir_Skip_InhNoLang>
-      <Translation>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}"</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}" (из которого он наследует значения) имеют язык "{2}".</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}".</Old>
     </DataDir_Skip_InhNoLang>
     <DataDir_Skip_InhNoAuth>
-      <Translation>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}"</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}" (из которого он наследует значения) имеют автора "{2}".</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}".</Old>
     </DataDir_Skip_InhNoAuth>
     <DataDir_Skip_InhNoGameVer>
-      <Translation>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}"/"{2}" (из которого он наследует значения) имеет версию игры "{3}" либо ниже.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Old>
     </DataDir_Skip_InhNoGameVer>
     <DataDir_Skip_InhCircular>
-      <Translation>Skipped "{0}" due to a circular dependency.</Translation>
-      <Old null="1" />
+      <Translation>Игнорирую файл "{0}" в связи с круговой зависимостью.</Translation>
+      <Old>Skipped "{0}" due to a circular dependency.</Old>
     </DataDir_Skip_InhCircular>
     <NoDataFilesWarning>
-      <Translation encoding="c-literal">Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n{0}</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Не удалось загрузить ни одного файла версии либо файла со встроенными свойствами. Убедитесь, что эти файлы существуют по следующему пути:\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}</Old>
     </NoDataFilesWarning>
     <RenderWithErrors>
-      <Translation>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Translation>
-      <Old null="1" />
+      <Translation>Не удалось нарисовать некоторые иконки. Выберите режим «Все танки» и щелкните по иконке с ошибками для просмотра подробностей.</Translation>
+      <Old>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Old>
     </RenderWithErrors>
     <RenderWithWarnings>
-      <Translation>Some of the tank icons rendered with warnings; make sure you view "All tanks" and click each image with a warning icon for details.</Translation>
-      <Old null="1" />
+      <Translation>Не удалось нарисовать некоторые иконки. Выберите режим «Все танки» и щелкните по иконке с восклицательным знаком для просмотра подробностей.</Translation>
+      <Old>Some of the tank icons rendered with warnings; make sure you view "All tanks" and click each image with a warning icon for details.</Old>
     </RenderWithWarnings>
     <RenderIconOK>
-      <Translation>This icon rendered without any problems.</Translation>
-      <Old null="1" />
+      <Translation>Данная иконка нарисована без каких-либо проблем.</Translation>
+      <Old>This icon rendered without any problems.</Old>
     </RenderIconOK>
     <RenderIconFail>
-      <Translation>Could not render this icon: {0}</Translation>
-      <Old null="1" />
+      <Translation>Не удалось нарисовать данную иконку: {0}</Translation>
+      <Old>Could not render this icon: {0}</Old>
     </RenderIconFail>
   </Error>
   <Misc>
