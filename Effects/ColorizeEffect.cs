@@ -6,8 +6,8 @@ namespace TankIconMaker.Effects
     class ColorizeEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectColorize.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectColorize.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectColorize.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectColorize.EffectDescription; } }
 
         public ColorSelector Color { get; set; }
         public static MemberTr ColorTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectColorize.Color); }

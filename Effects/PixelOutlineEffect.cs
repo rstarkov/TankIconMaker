@@ -6,8 +6,8 @@ namespace TankIconMaker.Effects
     class PixelOutlineEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectPixelOutline.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectPixelOutline.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectPixelOutline.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectPixelOutline.EffectDescription; } }
 
         public ColorSelector Color { get; set; }
         public static MemberTr ColorTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectPixelOutline.Color); }

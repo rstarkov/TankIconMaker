@@ -32,7 +32,7 @@ namespace TankIconMaker
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new VistaOpenFileDialog();
-            dlg.Filter = Program.Translation.Misc.Filter_FilenameEditor;
+            dlg.Filter = App.Translation.Misc.Filter_FilenameEditor;
             dlg.FilterIndex = 0;
             dlg.Multiselect = false;
             dlg.CheckFileExists = false;

@@ -8,8 +8,8 @@ namespace TankIconMaker.Effects
     class ShadowEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectShadow.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectShadow.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectShadow.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectShadow.EffectDescription; } }
 
         public double Radius { get { return _Radius; } set { _Radius = Math.Max(1.0, value); } }
         private double _Radius = 3.5;

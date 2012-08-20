@@ -7,8 +7,8 @@ namespace TankIconMaker.Layers
     sealed class TankImageLayer : LayerBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.TankImageLayer.LayerName; } }
-        public override string TypeDescription { get { return Program.Translation.TankImageLayer.LayerDescription; } }
+        public override string TypeName { get { return App.Translation.TankImageLayer.LayerName; } }
+        public override string TypeDescription { get { return App.Translation.TankImageLayer.LayerDescription; } }
 
         public ImageBuiltInStyle Style { get; set; }
         public static MemberTr StyleTr(Translation tr) { return new MemberTr(tr.Category.Image, tr.TankImageLayer.Style); }
@@ -18,7 +18,7 @@ namespace TankIconMaker.Layers
             var image = tank.GetImageBuiltIn(Style);
             if (image == null)
             {
-                tank.AddWarning(Program.Translation.TankImageLayer.MissingImageWarning);
+                tank.AddWarning(App.Translation.TankImageLayer.MissingImageWarning);
                 return null;
             }
             return image;
@@ -28,15 +28,15 @@ namespace TankIconMaker.Layers
     sealed class CurrentImageLayer : LayerBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.CurrentImageLayer.LayerName; } }
-        public override string TypeDescription { get { return Program.Translation.CurrentImageLayer.LayerDescription; } }
+        public override string TypeName { get { return App.Translation.CurrentImageLayer.LayerName; } }
+        public override string TypeDescription { get { return App.Translation.CurrentImageLayer.LayerDescription; } }
 
         public override BitmapBase Draw(Tank tank)
         {
             var image = tank.GetImageCurrent();
             if (image == null)
             {
-                tank.AddWarning(Program.Translation.CurrentImageLayer.MissingImageWarning);
+                tank.AddWarning(App.Translation.CurrentImageLayer.MissingImageWarning);
                 return null;
             }
             return image;
@@ -46,8 +46,8 @@ namespace TankIconMaker.Layers
     sealed class CustomImageLayer : LayerBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.CustomImageLayer.LayerName; } }
-        public override string TypeDescription { get { return Program.Translation.CustomImageLayer.LayerDescription; } }
+        public override string TypeName { get { return App.Translation.CustomImageLayer.LayerName; } }
+        public override string TypeDescription { get { return App.Translation.CustomImageLayer.LayerDescription; } }
 
         public ValueSelector<Filename> ImageFile { get; set; }
         public static MemberTr ImageFileTr(Translation tr) { return new MemberTr(tr.Category.Image, tr.CustomImageLayer.ImageFile); }
@@ -71,15 +71,15 @@ namespace TankIconMaker.Layers
                 return null;
 
             var image = ImageCache.GetImage(PathUtil.AppPathCombine(filename));
-            if (image == null && Program.LastGameInstallSettings != null)
+            if (image == null && App.LastGameInstallSettings != null)
             {
-                image = ImageCache.GetImage(Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods, filename));
+                image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods, filename));
                 if (image == null)
-                    image = ImageCache.GetImage(Path.Combine(Program.LastGameInstallSettings.Path, filename));
+                    image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, filename));
             }
             if (image == null)
             {
-                tank.AddWarning(Program.Translation.CustomImageLayer.MissingImageWarning.Fmt(filename));
+                tank.AddWarning(App.Translation.CustomImageLayer.MissingImageWarning.Fmt(filename));
                 return null;
             }
             return image;
@@ -89,8 +89,8 @@ namespace TankIconMaker.Layers
     sealed class FilenamePatternImageLayer : LayerBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.FilenamePatternImageLayer.LayerName; } }
-        public override string TypeDescription { get { return Program.Translation.FilenamePatternImageLayer.LayerDescription; } }
+        public override string TypeName { get { return App.Translation.FilenamePatternImageLayer.LayerName; } }
+        public override string TypeDescription { get { return App.Translation.FilenamePatternImageLayer.LayerDescription; } }
 
         public string Pattern { get; set; }
         public static MemberTr PatternTr(Translation tr) { return new MemberTr(tr.Category.Image, tr.FilenamePatternImageLayer.Pattern); }
@@ -112,15 +112,15 @@ namespace TankIconMaker.Layers
                 return null;
 
             var image = ImageCache.GetImage(PathUtil.AppPathCombine(filename));
-            if (image == null && Program.LastGameInstallSettings != null)
+            if (image == null && App.LastGameInstallSettings != null)
             {
-                image = ImageCache.GetImage(Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods, filename));
+                image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods, filename));
                 if (image == null)
-                    image = ImageCache.GetImage(Path.Combine(Program.LastGameInstallSettings.Path, filename));
+                    image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, filename));
             }
             if (image == null)
             {
-                tank.AddWarning(Program.Translation.FilenamePatternImageLayer.MissingImageWarning.Fmt(filename));
+                tank.AddWarning(App.Translation.FilenamePatternImageLayer.MissingImageWarning.Fmt(filename));
                 return null;
             }
             return image;

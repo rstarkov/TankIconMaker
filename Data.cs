@@ -96,9 +96,9 @@ namespace TankIconMaker
                 if (matches.Length == 1)
                     return _extras[matches[0]];
                 // Otherwise need to pick one
-                var match = matches.FirstOrDefault(k => k.Language.EqualsNoCase(Program.Settings.Lingo.GetIsoLanguageCode()) && k.Author.EqualsNoCase(Program.Settings.DefaultPropertyAuthor));
+                var match = matches.FirstOrDefault(k => k.Language.EqualsNoCase(App.Settings.Lingo.GetIsoLanguageCode()) && k.Author.EqualsNoCase(App.Settings.DefaultPropertyAuthor));
                 if (match != null) return _extras[match];
-                match = matches.FirstOrDefault(k => k.Language.EqualsNoCase(Program.Settings.Lingo.GetIsoLanguageCode()));
+                match = matches.FirstOrDefault(k => k.Language.EqualsNoCase(App.Settings.Lingo.GetIsoLanguageCode()));
                 if (match != null) return _extras[match];
                 return _extras[matches[0]];
             }
@@ -180,7 +180,7 @@ namespace TankIconMaker
         public TankData(string[] fields)
         {
             if (fields.Length < 5)
-                throw new Exception(Program.Translation.Error.DataFile_TooFewFields.Fmt(Program.Translation, 5));
+                throw new Exception(App.Translation.Error.DataFile_TooFewFields.Fmt(App.Translation, 5));
 
             SystemId = fields[0];
 
@@ -192,15 +192,15 @@ namespace TankIconMaker
                 case "china": Country = Country.China; break;
                 case "france": Country = Country.France; break;
                 case "uk": Country = Country.UK; break;
-                default: throw new Exception(Program.Translation.Error.DataFile_UnrecognizedCountry.Fmt(fields[1],
+                default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedCountry.Fmt(fields[1],
                     new[] { "ussr", "germany", "usa", "china", "france", "uk" }.JoinString(", ", "\"", "\"")));
             }
 
             int tier;
             if (!int.TryParse(fields[2], out tier))
-                throw new Exception(string.Format(Program.Translation.Error.DataFile_TankTierValue, fields[2]));
+                throw new Exception(string.Format(App.Translation.Error.DataFile_TankTierValue, fields[2]));
             if (tier < 1 || tier > 10)
-                throw new Exception(string.Format(Program.Translation.Error.DataFile_TankTierValue, fields[2]));
+                throw new Exception(string.Format(App.Translation.Error.DataFile_TankTierValue, fields[2]));
             Tier = tier;
 
             switch (fields[3])
@@ -210,7 +210,7 @@ namespace TankIconMaker
                 case "heavy": Class = Class.Heavy; break;
                 case "destroyer": Class = Class.Destroyer; break;
                 case "artillery": Class = Class.Artillery; break;
-                default: throw new Exception(Program.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[3],
+                default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[3],
                     new[] { "light", "medium", "heavy", "destroyer", "artillery" }.JoinString(", ", "\"", "\"")));
             }
 
@@ -219,7 +219,7 @@ namespace TankIconMaker
                 case "normal": Category = Category.Normal; break;
                 case "premium": Category = Category.Premium; break;
                 case "special": Category = Category.Special; break;
-                default: throw new Exception(Program.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[4],
+                default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[4],
                     new[] { "normal", "premium", "special" }.JoinString(", ", "\"", "\"")));
             }
         }
@@ -252,19 +252,19 @@ namespace TankIconMaker
 
             var lines = Ut.ReadCsvLines(filename).ToArray();
             if (lines.Length == 0)
-                throw new Exception(Program.Translation.Error.DataFile_EmptyFile);
+                throw new Exception(App.Translation.Error.DataFile_EmptyFile);
             var header = lines[0].Item2;
             if (header.Length < 2)
-                throw new Exception(Program.Translation.Error.DataFile_TooFewFieldsFirstLine);
+                throw new Exception(App.Translation.Error.DataFile_TooFewFieldsFirstLine);
             if (header[0] != "WOT-BUILTIN-DATA")
-                throw new Exception(Program.Translation.Error.DataFile_ExpectedSignature.Fmt("WOT-BUILTIN-DATA"));
+                throw new Exception(App.Translation.Error.DataFile_ExpectedSignature.Fmt("WOT-BUILTIN-DATA"));
             if (header[1] != "1")
-                throw new Exception(Program.Translation.Error.DataFile_ExpectedV1);
+                throw new Exception(App.Translation.Error.DataFile_ExpectedV1);
 
             Data = lines.Skip(1).Select(lp =>
             {
                 try { return new TankData(lp.Item2); }
-                catch (Exception e) { throw new Exception(Program.Translation.Error.DataFile_LineNum.Fmt(lp.Item1, e.Message)); }
+                catch (Exception e) { throw new Exception(App.Translation.Error.DataFile_LineNum.Fmt(lp.Item1, e.Message)); }
             }).ToList().AsReadOnly();
         }
 
@@ -310,14 +310,14 @@ namespace TankIconMaker
 
             var lines = Ut.ReadCsvLines(filename).ToArray();
             if (lines.Length == 0)
-                throw new Exception(Program.Translation.Error.DataFile_EmptyFile);
+                throw new Exception(App.Translation.Error.DataFile_EmptyFile);
             var header = lines[0].Item2;
             if (header.Length < 2)
-                throw new Exception(Program.Translation.Error.DataFile_TooFewFieldsFirstLine);
+                throw new Exception(App.Translation.Error.DataFile_TooFewFieldsFirstLine);
             if (header[0] != "WOT-DATA")
-                throw new Exception(Program.Translation.Error.DataFile_ExpectedSignature.Fmt("WOT-DATA"));
+                throw new Exception(App.Translation.Error.DataFile_ExpectedSignature.Fmt("WOT-DATA"));
             if (header[1] != "1")
-                throw new Exception(Program.Translation.Error.DataFile_ExpectedV1);
+                throw new Exception(App.Translation.Error.DataFile_ExpectedV1);
             if (header.Length >= 3)
                 Description = header[2];
             if (header.Length >= 4)
@@ -337,7 +337,7 @@ namespace TankIconMaker
             Data = lines.Skip(1).Select(lp =>
             {
                 try { return new ExtraData(lp.Item2); }
-                catch (Exception e) { throw new Exception(Program.Translation.Error.DataFile_LineNum.Fmt(lp.Item1, e.Message)); }
+                catch (Exception e) { throw new Exception(App.Translation.Error.DataFile_LineNum.Fmt(lp.Item1, e.Message)); }
             }).ToList().AsReadOnly();
         }
 
@@ -384,7 +384,7 @@ namespace TankIconMaker
         public ExtraData(string[] fields)
         {
             if (fields.Length < 2)
-                throw new Exception(Program.Translation.Error.DataFile_TooFewFields.Fmt(Program.Translation, 2));
+                throw new Exception(App.Translation.Error.DataFile_TooFewFields.Fmt(App.Translation, 2));
             TankSystemId = fields[0];
             Value = fields[1];
         }
@@ -544,7 +544,7 @@ namespace TankIconMaker
                 foreach (var version in _versions.Where(v => v.Version < minBuiltin).ToArray())
                 {
                     _versions.Remove(version);
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_NoBuiltIns.Fmt(version, "Data\\GameVersion-{0}.xml".Fmt(version)));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_NoBuiltIns.Fmt(version, "Data\\GameVersion-{0}.xml".Fmt(version)));
                 }
             }
 
@@ -553,7 +553,7 @@ namespace TankIconMaker
                 PropertyChanged(this, new PropertyChangedEventArgs("FilesAvailable"));
 
             if (!FilesAvailable)
-                _warnings.Add(Program.Translation.Error.DataDir_NoFilesAvailable);
+                _warnings.Add(App.Translation.Error.DataDir_NoFilesAvailable);
         }
 
         private void readGameVersions(string path)
@@ -564,14 +564,14 @@ namespace TankIconMaker
 
                 if (parts.Length != 2 && parts.Length != 3)
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "2-3", parts.Length));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "2-3", parts.Length));
                     continue;
                 }
 
                 Version gameVersion;
                 if (!Version.TryParse(parts[1], out gameVersion))
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, parts[1]));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, parts[1]));
                     continue;
                 }
 
@@ -583,7 +583,7 @@ namespace TankIconMaker
                 }
                 catch (Exception e)
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
                     continue;
                 }
             }
@@ -601,31 +601,31 @@ namespace TankIconMaker
 
                 if (parts.Length != 4 && parts.Length != 6)
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "4/6", parts.Length));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "4/6", parts.Length));
                     continue;
                 }
                 if (parts[1].EqualsNoCase("BuiltIn") && parts.Length != 4)
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "4", parts.Length));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "4", parts.Length));
                     continue;
                 }
                 if (parts.Length == 4 && !parts[1].EqualsNoCase("BuiltIn"))
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "6", parts.Length));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "6", parts.Length));
                     continue;
                 }
 
                 Version gameVersion;
                 if (!Version.TryParse(partsr[1], out gameVersion))
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, partsr[1]));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, partsr[1]));
                     continue;
                 }
 
                 int fileVersion;
                 if (partsr[0].Length != 3 || !int.TryParse(partsr[0], out fileVersion))
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_FileVersion.Fmt(fi.Name, partsr[0]));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_FileVersion.Fmt(fi.Name, partsr[0]));
                     continue;
                 }
 
@@ -639,7 +639,7 @@ namespace TankIconMaker
                     }
                     catch (Exception e)
                     {
-                        _warnings.Add(Program.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
+                        _warnings.Add(App.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
                         continue;
                     }
                 }
@@ -648,21 +648,21 @@ namespace TankIconMaker
                     string author = partsr[2].Trim();
                     if (author.Length == 0)
                     {
-                        _warnings.Add(Program.Translation.Error.DataDir_Skip_Author.Fmt(fi.Name));
+                        _warnings.Add(App.Translation.Error.DataDir_Skip_Author.Fmt(fi.Name));
                         continue;
                     }
 
                     string extraName = parts[1].Trim();
                     if (extraName.Length == 0)
                     {
-                        _warnings.Add(Program.Translation.Error.DataDir_Skip_PropName.Fmt(fi.Name));
+                        _warnings.Add(App.Translation.Error.DataDir_Skip_PropName.Fmt(fi.Name));
                         continue;
                     }
 
                     string languageName = parts[2].Trim();
                     if (languageName != "X" && languageName != "En" && Lingo.LanguageFromIsoCode(languageName.ToLowerInvariant()) == null)
                     {
-                        _warnings.Add(Program.Translation.Error.DataDir_Skip_Lang.Fmt(fi.Name, languageName));
+                        _warnings.Add(App.Translation.Error.DataDir_Skip_Lang.Fmt(fi.Name, languageName));
                         continue;
                     }
 
@@ -674,7 +674,7 @@ namespace TankIconMaker
                     }
                     catch (Exception e)
                     {
-                        _warnings.Add(Program.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
+                        _warnings.Add(App.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
                         continue;
                     }
                 }
@@ -731,7 +731,7 @@ namespace TankIconMaker
                         var p = extra.Where(df => df.Name == e.InheritsFromName).ToList();
                         if (p.Count == 0)
                         {
-                            _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoProp.Fmt(origFilenames[e], e.InheritsFromName));
+                            _warnings.Add(App.Translation.Error.DataDir_Skip_InhNoProp.Fmt(origFilenames[e], e.InheritsFromName));
                             ignore.Add(e);
                             continue;
                         }
@@ -740,7 +740,7 @@ namespace TankIconMaker
                             p = p.Where(df => df.Language == e.InheritsFromLanguage).ToList();
                             if (p.Count == 0)
                             {
-                                _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoLang.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
+                                _warnings.Add(App.Translation.Error.DataDir_Skip_InhNoLang.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage));
                                 ignore.Add(e);
                                 continue;
                             }
@@ -750,7 +750,7 @@ namespace TankIconMaker
                             p = p.Where(df => df.Author == e.InheritsFromAuthor).ToList();
                             if (p.Count == 0)
                             {
-                                _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoAuth.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromAuthor));
+                                _warnings.Add(App.Translation.Error.DataDir_Skip_InhNoAuth.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromAuthor));
                                 ignore.Add(e);
                                 continue;
                             }
@@ -758,7 +758,7 @@ namespace TankIconMaker
                         p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
                         if (p.Count == 0)
                         {
-                            _warnings.Add(Program.Translation.Error.DataDir_Skip_InhNoGameVer.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
+                            _warnings.Add(App.Translation.Error.DataDir_Skip_InhNoGameVer.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
                             ignore.Add(e);
                             continue;
                         }
@@ -816,7 +816,7 @@ namespace TankIconMaker
                 var looped = extra.Where(e => e.TransitiveChildren.Contains(e)).ToArray();
                 foreach (var item in looped.ToArray())
                 {
-                    _warnings.Add(Program.Translation.Error.DataDir_Skip_InhCircular.Fmt(origFilenames[item]));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_InhCircular.Fmt(origFilenames[item]));
                     extra.Remove(item);
                 }
                 if (looped.Length == 0)

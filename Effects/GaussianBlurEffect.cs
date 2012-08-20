@@ -7,8 +7,8 @@ namespace TankIconMaker.Effects
     class GaussianBlurEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectGaussianBlur.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectGaussianBlur.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectGaussianBlur.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectGaussianBlur.EffectDescription; } }
 
         public double Radius { get { return _Radius; } set { _Radius = Math.Max(1.0, value); } }
         private double _Radius = 2.5;

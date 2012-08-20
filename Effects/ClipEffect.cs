@@ -15,8 +15,8 @@ namespace TankIconMaker.Effects
     class ClipEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectClip.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectClip.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectClip.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectClip.EffectDescription; } }
 
         public ClipMode Mode { get; set; }
         public static MemberTr ModeTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectClip.Mode); }

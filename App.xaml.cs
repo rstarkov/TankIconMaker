@@ -18,6 +18,41 @@ namespace TankIconMaker
 {
     partial class App : Application
     {
+        /// <summary>
+        /// Various program settings. To ensure that an application crash or a power loss does not result in lost settings,
+        /// one of the Save methods should be invoked every time changes are made; this is not automatic.
+        /// </summary>
+        public static Settings Settings;
+
+        /// <summary>Contains the current UI translation.</summary>
+        public static Translation Translation;
+
+        /// <summary>Encapsulates all the tank/game data TankIconMaker requires.</summary>
+        public static WotData Data = new WotData();
+
+        /// <summary>Updated by <see cref="MainWindow"/> so that components not coupled to the window can access the current install settings.</summary>
+        public static GameInstallationSettings LastGameInstallSettings;
+
+        /// <summary>
+        /// Lists all the possible sources of extra properties, sorted and in an observable fashion. This is kept up-to-date
+        /// by the <see cref="MainWindow"/> and used in data binding by the <see cref="DataSourceEditor"/>.
+        /// </summary>
+        public static ObservableSortedList<DataSourceInfo> DataSources = new ObservableSortedList<DataSourceInfo>(
+            items: new DataSourceInfo[] { new DataSourceTierArabic(), new DataSourceTierRoman() },
+            comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceTierArabic ? 0 : ds is DataSourceTierRoman ? 1 : 2)
+                .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersion));
+
+        /// <summary>
+        /// Screen resolution at program start time, relative to the WPF's 96.0 ppi. Windows 7 won't allow this to be changed
+        /// without a log-off, so it's OK to read this once at start up and assume it doesn't change.
+        /// </summary>
+        public static double DpiScaleX, DpiScaleY;
+
+        /// <summary>A list of info classes for each layer type defined in this assembly. Initialised once at startup.</summary>
+        public static IList<TypeInfo<LayerBase>> LayerTypes;
+        /// <summary>A list of info classes for each effect type defined in this assembly. Initialised once at startup.</summary>
+        public static IList<TypeInfo<EffectBase>> EffectTypes;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             System.Windows.Forms.Application.EnableVisualStyles();
@@ -62,14 +97,14 @@ namespace TankIconMaker
                 .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
 
             // Find all the layer and effect types in the assembly (required before settings are loaded)
-            Program.LayerTypes = findTypes<LayerBase>("layer");
-            Program.EffectTypes = findTypes<EffectBase>("effect");
+            App.LayerTypes = findTypes<LayerBase>("layer");
+            App.EffectTypes = findTypes<EffectBase>("effect");
 
             base.OnStartup(e);
 
             // Load all settings and the UI translation
-            SettingsUtil.LoadSettings(out Program.Settings);
-            Program.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref Program.Settings.Lingo);
+            SettingsUtil.LoadSettings(out App.Settings);
+            App.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref App.Settings.Lingo);
         }
 
         private static IList<TypeInfo<T>> findTypes<T>(string name) where T : IHasTypeNameDescription
@@ -100,49 +135,8 @@ namespace TankIconMaker
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Program.Settings.SaveQuiet();
+            App.Settings.SaveQuiet();
             base.OnExit(e);
         }
-    }
-
-    /// <summary>
-    /// A few program-wide globals for those rare cases of truly program-global data items.
-    /// </summary>
-    static class Program
-    {
-        /// <summary>
-        /// Various program settings. To ensure that an application crash or a power loss does not result in lost settings,
-        /// one of the Save methods should be invoked every time changes are made; this is not automatic.
-        /// </summary>
-        public static Settings Settings;
-
-        /// <summary>Contains the current UI translation.</summary>
-        public static Translation Translation;
-
-        /// <summary>Encapsulates all the tank/game data TankIconMaker requires.</summary>
-        public static WotData Data = new WotData();
-
-        /// <summary>Updated by <see cref="MainWindow"/> so that components not coupled to the window can access the current install settings.</summary>
-        public static GameInstallationSettings LastGameInstallSettings;
-
-        /// <summary>
-        /// Lists all the possible sources of extra properties, sorted and in an observable fashion. This is kept up-to-date
-        /// by the <see cref="MainWindow"/> and used in data binding by the <see cref="DataSourceEditor"/>.
-        /// </summary>
-        public static ObservableSortedList<DataSourceInfo> DataSources = new ObservableSortedList<DataSourceInfo>(
-            items: new DataSourceInfo[] { new DataSourceTierArabic(), new DataSourceTierRoman() },
-            comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceTierArabic ? 0 : ds is DataSourceTierRoman ? 1 : 2)
-                .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersion));
-
-        /// <summary>
-        /// Screen resolution at program start time, relative to the WPF's 96.0 ppi. Windows 7 won't allow this to be changed
-        /// without a log-off, so it's OK to read this once at start up and assume it doesn't change.
-        /// </summary>
-        public static double DpiScaleX, DpiScaleY;
-
-        /// <summary>A list of info classes for each layer type defined in this assembly. Initialised once at startup.</summary>
-        public static IList<TypeInfo<LayerBase>> LayerTypes;
-        /// <summary>A list of info classes for each effect type defined in this assembly. Initialised once at startup.</summary>
-        public static IList<TypeInfo<EffectBase>> EffectTypes;
     }
 }

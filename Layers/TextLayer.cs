@@ -80,8 +80,8 @@ namespace TankIconMaker.Layers
     sealed class PropertyTextLayer : TextLayer
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.PropertyTextLayer.LayerName; } }
-        public override string TypeDescription { get { return Program.Translation.PropertyTextLayer.LayerDescription; } }
+        public override string TypeName { get { return App.Translation.PropertyTextLayer.LayerName; } }
+        public override string TypeDescription { get { return App.Translation.PropertyTextLayer.LayerDescription; } }
 
         public ExtraPropertyId Property { get; set; }
         public static MemberTr PropertyTr(Translation tr) { return new MemberTr(tr.Category.TextSource, tr.PropertyTextLayer.Property); }
@@ -100,8 +100,8 @@ namespace TankIconMaker.Layers
     sealed class CustomTextLayer : TextLayer
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.CustomTextLayer.LayerName; } }
-        public override string TypeDescription { get { return Program.Translation.CustomTextLayer.LayerDescription; } }
+        public override string TypeName { get { return App.Translation.CustomTextLayer.LayerName; } }
+        public override string TypeDescription { get { return App.Translation.CustomTextLayer.LayerDescription; } }
 
         public ValueSelector<string> Text { get; set; }
         public static MemberTr TextTr(Translation tr) { return new MemberTr(tr.Category.TextSource, tr.CustomTextLayer.Text); }
