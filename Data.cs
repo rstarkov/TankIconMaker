@@ -631,9 +631,17 @@ namespace TankIconMaker
 
                 if (parts.Length == 4)
                 {
-                    var df = new DataFileBuiltIn(gameVersion, fileVersion, fi.FullName);
-                    builtin.Add(df);
-                    origFilenames[df] = fi.Name;
+                    try
+                    {
+                        var df = new DataFileBuiltIn(gameVersion, fileVersion, fi.FullName);
+                        builtin.Add(df);
+                        origFilenames[df] = fi.Name;
+                    }
+                    catch (Exception e)
+                    {
+                        _warnings.Add(Program.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
+                        continue;
+                    }
                 }
                 else
                 {
@@ -658,9 +666,17 @@ namespace TankIconMaker
                         continue;
                     }
 
-                    var df = new DataFileExtra2(extraName, languageName, author, gameVersion, fileVersion, fi.FullName);
-                    extra.Add(df);
-                    origFilenames[df] = fi.Name;
+                    try
+                    {
+                        var df = new DataFileExtra2(extraName, languageName, author, gameVersion, fileVersion, fi.FullName);
+                        extra.Add(df);
+                        origFilenames[df] = fi.Name;
+                    }
+                    catch (Exception e)
+                    {
+                        _warnings.Add(Program.Translation.Error.DataDir_Skip_FileError.Fmt(fi.Name, e.Message));
+                        continue;
+                    }
                 }
             }
 
