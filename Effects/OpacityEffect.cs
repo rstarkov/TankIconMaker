@@ -5,8 +5,8 @@ namespace TankIconMaker.Effects
     class OpacityEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectOpacity.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectOpacity.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectOpacity.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectOpacity.EffectDescription; } }
 
         public double Opacity { get; set; }
         public static MemberTr OpacityTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectOpacity.Opacity); }

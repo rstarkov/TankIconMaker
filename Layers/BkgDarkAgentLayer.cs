@@ -8,8 +8,8 @@ namespace TankIconMaker.Layers
     class BkgDarkAgentLayer : LayerBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.BkgDarkAgentLayer.LayerName; } }
-        public override string TypeDescription { get { return Program.Translation.BkgDarkAgentLayer.LayerDescription; } }
+        public override string TypeName { get { return App.Translation.BkgDarkAgentLayer.LayerName; } }
+        public override string TypeDescription { get { return App.Translation.BkgDarkAgentLayer.LayerDescription; } }
 
         public ColorSelector BackColor { get; set; }
         public static MemberTr BackColorTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.BkgDarkAgentLayer.BackColor); }

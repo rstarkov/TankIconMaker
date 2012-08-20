@@ -31,8 +31,8 @@ namespace TankIconMaker.Effects
     class SizePosEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectSizePos.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectSizePos.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectSizePos.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectSizePos.EffectDescription; } }
 
         public bool PositionByPixels { get; set; }
         public static MemberTr PositionByPixelsTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.PositionByPixels); }

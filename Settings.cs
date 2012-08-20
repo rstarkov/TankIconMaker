@@ -80,7 +80,7 @@ namespace TankIconMaker
         /// <summary>The version of the game that is located at this path. Null iff there are no game versions defined at all.</summary>
         public GameVersion GameVersion
         {
-            get { return Program.Data.GetVersion(_version) ?? Program.Data.GetGuessedVersion(_path); }
+            get { return App.Data.GetVersion(_version) ?? App.Data.GetGuessedVersion(_path); }
             set
             {
                 if (value == null)

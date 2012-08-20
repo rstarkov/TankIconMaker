@@ -425,7 +425,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<BoolWithPassthrough, BoolWithPassthroughTranslation>
         {
-            public Conv() : base(() => Program.Translation.BoolWithPassthrough) { }
+            public Conv() : base(() => App.Translation.BoolWithPassthrough) { }
         }
     }
 
@@ -440,7 +440,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<ImageBuiltInStyle, ImageBuiltInStyleTranslation>
         {
-            public Conv() : base(() => Program.Translation.ImageBuiltInStyle) { }
+            public Conv() : base(() => App.Translation.ImageBuiltInStyle) { }
         }
     }
 
@@ -455,7 +455,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<SelectBy, SelectByTranslation>
         {
-            public Conv() : base(() => Program.Translation.SelectBy) { }
+            public Conv() : base(() => App.Translation.SelectBy) { }
         }
     }
 
@@ -468,7 +468,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<ClipMode, ClipModeTranslation>
         {
-            public Conv() : base(() => Program.Translation.ClipMode) { }
+            public Conv() : base(() => App.Translation.ClipMode) { }
         }
     }
 
@@ -487,7 +487,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<SizeMode, SizeModeTranslation>
         {
-            public Conv() : base(() => Program.Translation.SizeMode) { }
+            public Conv() : base(() => App.Translation.SizeMode) { }
         }
     }
 
@@ -500,7 +500,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<GrowShrinkMode, GrowShrinkModeTranslation>
         {
-            public Conv() : base(() => Program.Translation.GrowShrinkMode) { }
+            public Conv() : base(() => App.Translation.GrowShrinkMode) { }
         }
     }
 
@@ -514,7 +514,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<OpacityStyle, OpacityStyleTranslation>
         {
-            public Conv() : base(() => Program.Translation.OpacityStyle) { }
+            public Conv() : base(() => App.Translation.OpacityStyle) { }
         }
     }
 
@@ -528,7 +528,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<BlurEdgeMode, BlurEdgeModeTranslation>
         {
-            public Conv() : base(() => Program.Translation.BlurEdgeMode) { }
+            public Conv() : base(() => App.Translation.BlurEdgeMode) { }
         }
     }
 
@@ -542,7 +542,7 @@ namespace TankIconMaker
 
         public class Conv : LingoEnumConverter<TextSmoothingStyle, TextSmoothingStyleTranslation>
         {
-            public Conv() : base(() => Program.Translation.TextSmoothingStyle) { }
+            public Conv() : base(() => App.Translation.TextSmoothingStyle) { }
         }
     }
 

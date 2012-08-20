@@ -5,8 +5,8 @@ namespace TankIconMaker.Effects
     class ShiftEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return Program.Translation.EffectShift.EffectName; } }
-        public override string TypeDescription { get { return Program.Translation.EffectShift.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectShift.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectShift.EffectDescription; } }
 
         public int ShiftX { get; set; }
         public static MemberTr ShiftXTr(Translation tr) { return new MemberTr(tr.Category.Shift, tr.EffectShift.ShiftX); }
