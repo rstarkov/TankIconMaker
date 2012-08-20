@@ -6,27 +6,27 @@
   </TranslationCredits>
   <MainWindow>
     <ctGameDirLabel>
-      <Translation>Папка с игрой:</Translation>
+      <Translation>_Папка с игрой:</Translation>
       <Old>Game _directory:</Old>
     </ctGameDirLabel>
     <ctGameVersionLabel>
-      <Translation>Версия игры:</Translation>
+      <Translation>_Версия игры:</Translation>
       <Old>_Game version:</Old>
     </ctGameVersionLabel>
     <ctIconStyleLabel>
-      <Translation>Стиль иконок:</Translation>
+      <Translation>Стиль _иконок:</Translation>
       <Old>_Icon style:</Old>
     </ctIconStyleLabel>
     <ctStyleNewLabel>
-      <Translation>Создать</Translation>
+      <Translation>Созд_ать</Translation>
       <Old>_New</Old>
     </ctStyleNewLabel>
     <ctStyleImportLabel>
-      <Translation>Импорт</Translation>
+      <Translation>И_мпорт</Translation>
       <Old>Im_port</Old>
     </ctStyleImportLabel>
     <ctStyleExportLabel>
-      <Translation>Экспорт</Translation>
+      <Translation>Э_кспорт</Translation>
       <Old>E_xport</Old>
     </ctStyleExportLabel>
     <ctUpvote>
@@ -34,59 +34,59 @@
       <Old>Upvote the author of this style</Old>
     </ctUpvote>
     <ctStyleMoreLabel>
-      <Translation>Ещё</Translation>
+      <Translation>_Ещё</Translation>
       <Old>_More</Old>
     </ctStyleMoreLabel>
     <ctStyleChangeName>
-      <Translation>Изменить название</Translation>
+      <Translation>Изменить _название</Translation>
       <Old>Change _name</Old>
     </ctStyleChangeName>
     <ctStyleChangeAuthor>
-      <Translation>Изменить автора</Translation>
+      <Translation>Изменить _автора</Translation>
       <Old>Change _author</Old>
     </ctStyleChangeAuthor>
     <ctStyleDuplicate>
-      <Translation>Создать копию</Translation>
+      <Translation>Создать _копию</Translation>
       <Old>_Duplicate</Old>
     </ctStyleDuplicate>
     <ctStyleDelete>
-      <Translation>Удалить</Translation>
+      <Translation>_Удалить</Translation>
       <Old>D_elete</Old>
     </ctStyleDelete>
     <ctLayersLabel>
-      <Translation>Слои:</Translation>
+      <Translation>С_лои:</Translation>
       <Old>_Layers:</Old>
     </ctLayersLabel>
     <ctLayersAddLayer>
-      <Translation>Добавить слой...</Translation>
+      <Translation>Добавить _слой...</Translation>
       <Old>Add _layer...</Old>
     </ctLayersAddLayer>
     <ctLayersAddEffect>
-      <Translation>Добавить эффект...</Translation>
+      <Translation>Добавить э_ффект...</Translation>
       <Old>Add _effect...</Old>
     </ctLayersAddEffect>
     <ctLayersModify>
-      <Translation>Переименовать</Translation>
+      <Translation>_Переименовать</Translation>
       <Old>_Modify</Old>
     </ctLayersModify>
     <ctLayersDelete>
-      <Translation>Удалить</Translation>
+      <Translation>_Удалить</Translation>
       <Old>_Delete</Old>
     </ctLayersDelete>
     <ctLayersMoveUp>
-      <Translation>Сдвинуть вверх</Translation>
+      <Translation>Сдвинуть _вверх</Translation>
       <Old>Move _up</Old>
     </ctLayersMoveUp>
     <ctLayersMoveDown>
-      <Translation>Сдвинуть вниз</Translation>
+      <Translation>Сдвинуть в_низ</Translation>
       <Old>Move d_own</Old>
     </ctLayersMoveDown>
     <ctLayersToggleVisibility>
-      <Translation>Вкл/выкл видимость</Translation>
+      <Translation>В_кл/выкл видимость</Translation>
       <Old>Toggle _visibility</Old>
     </ctLayersToggleVisibility>
     <ctZoomCheckbox>
-      <Translation>Увеличить</Translation>
+      <Translation>_Увеличить</Translation>
       <Old>_Zoom</Old>
     </ctZoomCheckbox>
     <ctDisplayModeAll>
@@ -98,7 +98,7 @@
       <Old>One of each combination</Old>
     </ctDisplayModeOneEach>
     <ctLanguageLabel>
-      <Translation>Язык</Translation>
+      <Translation>_Язык</Translation>
       <Old>L_anguage</Old>
     </ctLanguageLabel>
     <ctWarning>
@@ -106,11 +106,11 @@
       <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
     </ctWarning>
     <ctReloadLabel>
-      <Translation>Обновить данные</Translation>
+      <Translation>_Обновить данные</Translation>
       <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctSaveLabel>
-      <Translation>Сохранить...</Translation>
+      <Translation>_Сохранить...</Translation>
       <Old>_Save...</Old>
     </ctSaveLabel>
     <ctAboutLabel>
