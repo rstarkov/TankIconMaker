@@ -196,4 +196,7 @@
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>"$(TargetPath)" --post-build-check "$(SolutionDir)."</PostBuildEvent>
+  </PropertyGroup>
 </Project>
