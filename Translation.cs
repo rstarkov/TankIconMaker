@@ -564,8 +564,8 @@ namespace TankIconMaker
         public TrString DataFile_LineNum = "Line {0}: {1}";
         public TrString DataFile_CsvParse = "Couldn't parse line {0}.";
 
-        public TrString DataDir_NoFilesAvailable = "Could not load any version data files and/or any built-in data files.";
-        public TrString DataDir_Skip_NoBuiltIns = "Skipped version {0} because there are no built-in data files for it to use. Delete the \"{1}\" file to get rid of this warning.";
+        public TrString DataDir_NoFilesAvailable = "Could not load any game version data files and/or any built-in property data files.";
+        public TrString DataDir_Skip_NoBuiltIns = "Skipped version {0} because there are no built-in property data files for it to use. Delete the \"{1}\" file to get rid of this warning.";
         public TrString DataDir_Skip_WrongParts = "Skipped \"{0}\" because it has the wrong number of filename parts (expected: {1}, actual {2}).";
         [LingoNotes("The DataFile_* errors are interpolated into this string in place of \"{1}\".")]
         public TrString DataDir_Skip_FileError = "Skipped \"{0}\" because the file could not be parsed: {1}";
@@ -576,12 +576,12 @@ namespace TankIconMaker
         public TrString DataDir_Skip_Lang = "Skipped \"{0}\" because its language name part in the filename (\"{1}\") is not a valid language code, nor \"X\" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.";
 
         public TrString DataDir_Skip_InhNoProp = "Skipped \"{0}\" because there are no data files for the property \"{1}\" (from which it inherits values).";
-        public TrString DataDir_Skip_InhNoLang = "Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\"";
-        public TrString DataDir_Skip_InhNoAuth = "Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are by author \"{2}\"";
+        public TrString DataDir_Skip_InhNoLang = "Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are in language \"{2}\".";
+        public TrString DataDir_Skip_InhNoAuth = "Skipped \"{0}\" because no data files for the property \"{1}\" (from which it inherits values) are by author \"{2}\".";
         public TrString DataDir_Skip_InhNoGameVer = "Skipped \"{0}\" because no data files for the property \"{1}\"/\"{2}\" (from which it inherits values) have game version \"{3}\" or below.";
         public TrString DataDir_Skip_InhCircular = "Skipped \"{0}\" due to a circular dependency.";
 
-        public TrString NoDataFilesWarning = "Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n{0}";
+        public TrString NoDataFilesWarning = "Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}";
 
         public TrString RenderWithErrors = "Some of the tank icons did not render correctly; make sure you view \"All tanks\" and click each broken image for details.";
         public TrString RenderWithWarnings = "Some of the tank icons rendered with warnings; make sure you view \"All tanks\" and click each image with a warning icon for details.";
