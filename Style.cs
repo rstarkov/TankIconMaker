@@ -51,6 +51,13 @@ namespace TankIconMaker
         private void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
 
+        public void TranslationChanged()
+        {
+            NotifyPropertyChanged("Name");
+            NotifyPropertyChanged("Author");
+            NotifyPropertyChanged("Display");
+        }
+
         public int CompareTo(Style other)
         {
             if (other == null)
