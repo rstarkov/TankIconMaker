@@ -1676,7 +1676,7 @@
       <Old>[current]</Old>
     </StyleDisplay_Current>
     <StyleDisplay_BuiltIn>
-      <Translation>[встроенный] {0} (by {1})</Translation>
+      <Translation>[встроенный] {0} (автор {1})</Translation>
       <Old>[built-in] {0} (by {1})</Old>
     </StyleDisplay_BuiltIn>
     <StyleDisplay_Normal>

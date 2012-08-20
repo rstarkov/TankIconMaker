@@ -28,7 +28,6 @@ using Xceed.Wpf.Toolkit.PropertyGrid;
 
 #warning TODO: buggy message handling in Translation UI
 
-#warning Not updated immediately: style names; layers list
 #warning Untranslated: built-in tier (arabic/roman) properties; strings in DataSourceEditor; TestLayer warnings
 
 /*
@@ -129,7 +128,7 @@ namespace TankIconMaker
                 translationFileGenerator.TranslateWindow(this, App.Translation.MainWindow);
             }
 #warning TODO: Uncomment this
-            //Lingo.WarnOfUnusedStrings(typeof(Translation), Assembly.GetExecutingAssembly());
+            //Lingo.WarnOfUnusedStrings(typeof(Translation), Assembly.GetExecutingAssembly(), typeof(Lingo).Assembly);
 #endif
             using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
                 _translationHelper = new LanguageHelperWpf<Translation>("Tank Icon Maker", "TankIconMaker", true,
@@ -298,11 +297,18 @@ namespace TankIconMaker
                 App.Translation.DlgMessage.CaptionWarning,
                 App.Translation.DlgMessage.CaptionError);
 
-            var wasSelected = ctLayerProperties.SelectedObject;
-            ctLayerProperties.SelectedObject = null;
-            ctLayerProperties.SelectedObject = wasSelected;
+            foreach (var style in ctStyleDropdown.Items.OfType<Style>())
+                style.TranslationChanged();
+
             if (!first)
             {
+                var wasSelected = ctLayerProperties.SelectedObject;
+                ctLayerProperties.SelectedObject = null;
+                ctLayerProperties.SelectedObject = wasSelected;
+
+                ctLayersTree.ItemsSource = null;
+                ctStyleDropdown_SelectionChanged();
+
                 ReloadData();
                 UpdateIcons();
             }
