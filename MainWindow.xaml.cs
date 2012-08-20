@@ -26,9 +26,7 @@ using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
-#warning TODO: ask about unsaved translation on main window close
 #warning TODO: shortcuts in Russian
-#warning TODO: postbuild check for enums
 #warning TODO: buggy message handling in Translation UI
 
 #warning Not updated immediately: style names; layers list
@@ -71,6 +69,7 @@ namespace TankIconMaker
             InitializeComponent();
             GlobalStatusShow(App.Translation.Misc.GlobalStatus_Loading);
             ContentRendered += InitializeEverything;
+            Closing += MainWindow_Closing;
         }
 
         /// <summary>
@@ -93,6 +92,12 @@ namespace TankIconMaker
             IsEnabled = true;
             ctGlobalStatusBox.Visibility = Visibility.Collapsed;
             ctIconsPanel.Opacity = 1;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_translationHelper != null && !_translationHelper.MayExitApplication())
+                e.Cancel = true;
         }
 
         /// <summary>

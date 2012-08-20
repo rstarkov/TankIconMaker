@@ -264,7 +264,7 @@ namespace TankIconMaker
         public static string ToHex(this byte[] data)
         {
             if (data == null)
-                throw new ArgumentNullException("byteArray");
+                throw new ArgumentNullException("data");
 
             char[] charArr = new char[data.Length * 2];
             var j = 0;

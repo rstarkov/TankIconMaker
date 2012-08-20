@@ -10,6 +10,7 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Lingo;
 using RT.Util.Xml;
+using TankIconMaker.Effects;
 using WpfCrutches;
 using D = System.Drawing;
 using W = System.Windows.Media;
@@ -56,6 +57,9 @@ namespace TankIconMaker
         [STAThread]
         static int Main(string[] args)
         {
+            if (args.Length == 2 && args[0] == "--post-build-check")
+                return RT.Util.Ut.RunPostBuildChecks(args[1], Assembly.GetExecutingAssembly());
+
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
@@ -140,6 +144,22 @@ namespace TankIconMaker
             }
             infos.Sort(CustomComparer<TypeInfo<T>>.By(ti => ti.Name));
             return infos.AsReadOnly();
+        }
+
+        private static void PostBuildCheck(IPostBuildReporter rep)
+        {
+            Lingo.CheckEnumTranslation<BoolWithPassthrough, BoolWithPassthroughTranslation>(rep);
+            Lingo.CheckEnumTranslation<ImageBuiltInStyle, ImageBuiltInStyleTranslation>(rep);
+            Lingo.CheckEnumTranslation<SelectBy, SelectByTranslation>(rep);
+            Lingo.CheckEnumTranslation<ClipMode, ClipModeTranslation>(rep);
+            Lingo.CheckEnumTranslation<SizeMode, SizeModeTranslation>(rep);
+            Lingo.CheckEnumTranslation<GrowShrinkMode, GrowShrinkModeTranslation>(rep);
+            Lingo.CheckEnumTranslation<OpacityStyle, OpacityStyleTranslation>(rep);
+            Lingo.CheckEnumTranslation<BlurEdgeMode, BlurEdgeModeTranslation>(rep);
+            Lingo.CheckEnumTranslation<TextSmoothingStyle, TextSmoothingStyleTranslation>(rep);
+            XmlClassify.PostBuildStep<Settings>(rep);
+            XmlClassify.PostBuildStep<Style>(rep);
+            XmlClassify.PostBuildStep<GameVersion>(rep);
         }
     }
 }
