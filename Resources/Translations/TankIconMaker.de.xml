@@ -267,8 +267,8 @@
         <Old>Image file</Old>
       </DisplayName>
       <Description>
-        <Translation>Bestimmt einen Pfad für die Bilddatei. Dieser Pfad kann relativ sein, in welchem Falle zuerst im Programmverzeichnis, dann im versionsspezifischen WoT-Mods-Verzeichnis und schließlich im WoT-Installationsverzeichnis nach einem passenden Verzeichnis gesucht wird.</Translation>
-        <Old>Specifies a path to an image file. This path may be relative to the game directory or program directory.</Old>
+        <Translation>Bestimmt einen Pfad für die Bilddatei. Relative Pfade sind erlaubt, in welchem Falle zuerst im Programmverzeichnis, dann im versionsspezifischen WoT-Mods-Verzeichnis und schließlich im WoT-Installationsverzeichnis nach einem passenden Verzeichnis gesucht wird.</Translation>
+        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Old>
       </Description>
     </ImageFile>
     <MissingImageWarning>
@@ -992,8 +992,8 @@
       <Old>No</Old>
     </No>
     <Passthrough>
-      <Translation>Durchreichen: das nächste Kriterium verwenden</Translation>
-      <Old>Passthrough: use next By</Old>
+      <Translation>Durchreichen: zum nächsten „Unterscheiden nach“</Translation>
+      <Old>Passthrough: to next "Vary by"</Old>
     </Passthrough>
   </BoolWithPassthrough>
   <ImageBuiltInStyle>
@@ -1160,68 +1160,6 @@
       <Old>ClearType</Old>
     </ClearType>
   </TextSmoothingStyle>
-  <TankCountry>
-    <USSR>
-      <Translation>UdSSR</Translation>
-      <Old>USSR</Old>
-    </USSR>
-    <Germany>
-      <Translation>Deutschland</Translation>
-      <Old>Germany</Old>
-    </Germany>
-    <USA>
-      <Translation>USA</Translation>
-      <Old>USA</Old>
-    </USA>
-    <France>
-      <Translation>Frankreich</Translation>
-      <Old>France</Old>
-    </France>
-    <China>
-      <Translation>China</Translation>
-      <Old>China</Old>
-    </China>
-    <UK>
-      <Translation>Großbritannien</Translation>
-      <Old>UK</Old>
-    </UK>
-  </TankCountry>
-  <TankClass>
-    <Light>
-      <Translation>Leicht</Translation>
-      <Old>Light</Old>
-    </Light>
-    <Medium>
-      <Translation>Mittel</Translation>
-      <Old>Medium</Old>
-    </Medium>
-    <Heavy>
-      <Translation>Schwer</Translation>
-      <Old>Heavy</Old>
-    </Heavy>
-    <Destroyer>
-      <Translation>Panzerjäger</Translation>
-      <Old>Destoryer</Old>
-    </Destroyer>
-    <Artillery>
-      <Translation>Artillerie</Translation>
-      <Old>Artillery</Old>
-    </Artillery>
-  </TankClass>
-  <TankCategory>
-    <Normal>
-      <Translation>Normal</Translation>
-      <Old>Normal</Old>
-    </Normal>
-    <Premium>
-      <Translation>Premium</Translation>
-      <Old>Premium</Old>
-    </Premium>
-    <Special>
-      <Translation>Spezial</Translation>
-      <Old>Special</Old>
-    </Special>
-  </TankCategory>
   <Category>
     <General>
       <Translation>Allgemein</Translation>
@@ -1270,44 +1208,44 @@
   </Category>
   <Selector>
     <By>
-      <Translation> Nach</Translation>
-      <Old> By</Old>
+      <Translation> Unterscheiden nach</Translation>
+      <Old> Vary by</Old>
     </By>
     <ByN>
-      <Translation> Nach (#{0})</Translation>
-      <Old> By (#{0})</Old>
+      <Translation> Unterscheiden nach (#{0})</Translation>
+      <Old> Vary by (#{0})</Old>
     </ByN>
     <By_Color_Description>
-      <Translation>Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Farbe richten soll. Panzer, bei denen transparentes Schwarz (#00000000) ausgewählt wird, erhalten stattdessen eine Farbe gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the color is varied. The colors for any tanks whose color is set to transparent black (#00000000) are varied according to "Vary by (#{0})" instead.</Old>
     </By_Color_Description>
     <By_Color_DescriptionLast>
-      <Translation>Determines which tank property the color should be based on. Any colors that are fully transparent black (#00000000) will remain fully transparent.</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Farbe richten soll.</Translation>
+      <Old>Specifies a tank property by which the color is varied.</Old>
     </By_Color_DescriptionLast>
     <By_Bool_Description>
-      <Translation>Determines which tank property the setting should be based on. Any values set to "Passthrough" are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Einstellung richten soll. Panzer, bei denen die Einstellung „Durchreichen“ ausgewählt wird, erhalten stattdessen eine Einstellung gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to "Passthrough" are varied according to "Vary by (#{0})" instead.</Old>
     </By_Bool_Description>
     <By_Bool_DescriptionLast>
-      <Translation>Determines which tank property the setting should be based on. Any values set to "Passthrough" will be treated as "No".</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Einstellung richten soll.</Translation>
+      <Old>Specifies a tank property by which the setting is varied.</Old>
     </By_Bool_DescriptionLast>
     <By_String_Description>
-      <Translation>Determines which tank property the text should be based on. Any blank strings are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Text richten soll. Panzer, bei denen ein leerer Text ausgewählt wird, erhalten stattdessen einen Text gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the text is varied. The text for any tanks whose text is blank is varied according to "Vary by (#{0})" instead.</Old>
     </By_String_Description>
     <By_String_DescriptionLast>
-      <Translation>Determines which tank property the text should be based on. Any blank strings will be treated as blank.</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Text richten soll.</Translation>
+      <Old>Specifies a tank property by which the text is varied.</Old>
     </By_String_DescriptionLast>
     <By_Filename_Description>
-      <Translation>Determines which tank property the filename should be based on. Any blank filenames are selected according to "By (#{0})".</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Dateiname richten soll. Panzer, bei denen ein leerer Dateiname ausgewählt wird, erhalten stattdessen einen Dateinamen gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the filename is varied. The filename for any tanks whose filename is blank is varied according to "Vary by (#{0})" instead.</Old>
     </By_Filename_Description>
     <By_Filename_DescriptionLast>
-      <Translation>Determines which tank property the filename should be based on. Any blank filenames will result in no image being drawn.</Translation>
-      <Old null="1" />
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Dateiname richten soll.</Translation>
+      <Old>Specifies a tank property by which the filename is varied.</Old>
     </By_Filename_DescriptionLast>
     <ClassLight>
       <Translation>Klasse: Leichter Panzer</Translation>
@@ -1366,12 +1304,12 @@
       <Old>Avail.: Special</Old>
     </CategSpecial>
     <Single>
-      <Translation>Einfach</Translation>
-      <Old>Single</Old>
+      <Translation>Nicht unterschieden</Translation>
+      <Old>Not varied</Old>
     </Single>
     <SingleDescription>
-      <Translation>When "By" is set to "Single value", specifies the value to use. Use this when the value does not need to vary by tank properties.</Translation>
-      <Old>When "By" is set to "Single value", specifies the value to use. Use this when the value does not need to vary by tank properties.</Old>
+      <Translation>Wenn „Unterscheiden nach“ auf „nicht unterschieden“ gesetzt wird, wird ein vorgegebener Wert verwendet. Nutzen Sie diese Einstellung, wenn der Wert nicht von Panzereigenschaften abhängen soll.</Translation>
+      <Old>When "Vary by" is set to "No variation", specifies the value to use. Use this when the value does not need to vary by tank properties.</Old>
     </SingleDescription>
     <TierN>
       <Translation>Stufe: {0,2}</Translation>
@@ -1459,11 +1397,11 @@
     </PromptWindowOK>
     <GamePathRequired>
       <Translation>Bitte geben Sie zuerst ein Spielverzeichnis an (oben links, grüne Plus-Schaltfläche), in dem TankIconMaker die Symbole speichern soll.</Translation>
-      <Old null="1" />
+      <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
     </GamePathRequired>
     <OverwriteIcons_Prompt>
-      <Translation encoding="c-literal">Sollen die bisherigen Symbole überschrieben werden?\r\n\r\nPfad: {0}\r\n\r\nWarnung: ALLE {1}-Dateien in diesem Verzeichnis werden überschrieben. Diese Aktion kann NICHT rückgängig gemacht werden.</Translation>
-      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
+      <Translation encoding="c-literal">Sollen die bisherigen Symbole überschrieben werden?\r\n\r\nPfad: {0}\r\n\r\nWarnung: ALLE *.{1}-Dateien in diesem Verzeichnis werden überschrieben. Diese Aktion kann NICHT rückgängig gemacht werden.</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
     </OverwriteIcons_Prompt>
     <OverwriteIcons_Yes>
       <Translation>&amp;Ja, alle Dateien überschreiben</Translation>
@@ -1499,64 +1437,64 @@
       <Old>For security reasons, only built-in styles can be upvoted.</Old>
     </Upvote_BuiltInOnly>
     <Upvote_NotAvailable>
-      <Translation>This style does not currently have an associated post on World of Tanks forums.</Translation>
-      <Old null="1" />
+      <Translation>Zu diesem Design existiert momentan kein zugehöriges Posting in den World of Tanks-Foren.</Translation>
+      <Old>This style does not currently have an associated post on World of Tanks forums.</Old>
     </Upvote_NotAvailable>
     <Upvote_Prompt>
-      <Translation encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Um {0} für dieses Design zu danken, geben Sie eine positive Bewertung im folgenden Thema im World of Tanks-Forum:\r\n\r\n{1}</Translation>
+      <Old encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Old>
     </Upvote_Prompt>
     <Upvote_Open>
-      <Translation>&amp;Open in browser</Translation>
-      <Old null="1" />
+      <Translation>Im &amp;Browser öffnen</Translation>
+      <Old>&amp;Open in browser</Old>
     </Upvote_Open>
     <DeleteLayerEffect_Prompt>
-      <Translation>Delete the selected layer/effect?</Translation>
-      <Old null="1" />
+      <Translation>Ausgewählte Ebene oder Effekt löschen?</Translation>
+      <Old>Delete the selected layer/effect?</Old>
     </DeleteLayerEffect_Prompt>
     <DeleteLayerEffect_Yes>
-      <Translation>&amp;Delete</Translation>
-      <Old null="1" />
+      <Translation>&amp;Löschen</Translation>
+      <Old>&amp;Delete</Old>
     </DeleteLayerEffect_Yes>
     <DeleteStyle_Prompt>
-      <Translation encoding="c-literal">Delete this style?\r\n\r\n{0}</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Dieses Design löschen?\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Delete this style?\r\n\r\n{0}</Old>
     </DeleteStyle_Prompt>
     <DeleteStyle_Yes>
-      <Translation>&amp;Delete</Translation>
-      <Old null="1" />
+      <Translation>&amp;Löschen</Translation>
+      <Old>&amp;Delete</Old>
     </DeleteStyle_Yes>
     <StyleImport_Fail>
-      <Translation>Could not load the file for some reason. It might be of the wrong format.</Translation>
-      <Old null="1" />
+      <Translation>Die Datei konnte aus irgend einem Grund nicht geöffnet werden. Vielleicht ist sie im falschen Format.</Translation>
+      <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
     </StyleImport_Fail>
     <StyleExport_Success>
-      <Translation>The style has been exported.</Translation>
-      <Old null="1" />
+      <Translation>Das Design wurde exportiert.</Translation>
+      <Old>The style has been exported.</Old>
     </StyleExport_Success>
     <ExceptionGlobal>
-      <Translation encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Ein Fehler ist aufgetreten. Das ist nicht Ihr Fehler; der Programmierer hat Mist gebaut!\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
     </ExceptionGlobal>
     <ExceptionInRender>
-      <Translation>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Translation>
-      <Old null="1" />
+      <Translation>Eine Ebene oder ein Effekt hat beim Erzeugen des Bildes eine Exception ausgelöst. Es handelt sich hierbei um einen Bug im Programm; bitte berichten Sie uns davon.</Translation>
+      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
     </ExceptionInRender>
     <ErrorToClipboard_Copy>
-      <Translation>Copy report to &amp;clipboard</Translation>
-      <Old null="1" />
+      <Translation>&amp;Bericht in die Zwischenablage kopieren</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
     </ErrorToClipboard_Copy>
     <ErrorToClipboard_OK>
       <Translation>OK</Translation>
-      <Old null="1" />
+      <Old>OK</Old>
     </ErrorToClipboard_OK>
     <ErrorToClipboard_Copied>
-      <Translation>Information about the error is now in your clipboard.</Translation>
-      <Old null="1" />
+      <Translation>Informationen bezüglich des Fehlers sind jetzt in der Zwischenablage.</Translation>
+      <Old>Information about the error is now in your clipboard.</Old>
     </ErrorToClipboard_Copied>
     <ErrorToClipboard_CopyFail>
-      <Translation>Sorry, couldn't copy the error info to clipboard for some reason.</Translation>
-      <Old null="1" />
+      <Translation>Leider konnte die Fehlerinformation aus irgend welchen Gründen nicht in die Zwischenablage kopiert werden.</Translation>
+      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
     </ErrorToClipboard_CopyFail>
   </Prompt>
   <Error>
@@ -1646,32 +1584,32 @@
       <Old>Skipped "{0}" because it has an empty property name part in the filename.</Old>
     </DataDir_Skip_PropName>
     <DataDir_Skip_Lang>
-      <Translation>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Translation>
-      <Old null="1" />
+      <Translation>„{0}“ wurde übersprungen, weil der Sprach-Teil im Dateinamen („{1}“) kein gültiger Sprachcode ist („X“ ist für sprachlose Dateien erlaubt). Vielleicht meinten Sie De, En, Ru, Zh, Es, Fr, Ja? Eine vollständige Liste der Sprachcodes ist auf Wikipedia unter „ISO-639-1“ abrufbar.</Translation>
+      <Old>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Old>
     </DataDir_Skip_Lang>
     <DataDir_Skip_InhNoProp>
-      <Translation>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Translation>
-      <Old null="1" />
+      <Translation>„{0}“ wurde übersprungen, weil keine Datendatei für die Eigenschaft „{1}“ (von der es Werte erbt) vorhanden ist.</Translation>
+      <Old>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Old>
     </DataDir_Skip_InhNoProp>
     <DataDir_Skip_InhNoLang>
-      <Translation>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}"</Translation>
-      <Old null="1" />
+      <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“ (von der es Werte erbt) in der Sprache „{2}“ vorliegt.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}"</Old>
     </DataDir_Skip_InhNoLang>
     <DataDir_Skip_InhNoAuth>
-      <Translation>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}"</Translation>
-      <Old null="1" />
+      <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“ (von der es Werte erbt) vom Autor „{2}“ stammen.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}"</Old>
     </DataDir_Skip_InhNoAuth>
     <DataDir_Skip_InhNoGameVer>
-      <Translation>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Translation>
-      <Old null="1" />
+      <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“/„{2}“ (von der es Werte erbt) der Spielversion „{3}“ entsprechen.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Old>
     </DataDir_Skip_InhNoGameVer>
     <DataDir_Skip_InhCircular>
       <Translation>„{0}“ wurde wegen einer zirkulären Abhängigkeit übersprungen.</Translation>
       <Old>Skipped "{0}" due to a circular dependency.</Old>
     </DataDir_Skip_InhCircular>
     <NoDataFilesWarning>
-      <Translation encoding="c-literal">Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n{0}</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Keine Versionsdatendateien und/oder eingebaute Datendateien gefunden. Sorgen Sie dafür, dass die Dateien im folgenden Pfad vorhanden sind:\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n{0}</Old>
     </NoDataFilesWarning>
     <RenderWithErrors>
       <Translation>Einige der Panzersymbole wurden nicht korrekt erzeugt; wählen Sie die Ansicht „Alle Panzer“ und klicken Sie auf die fehlerhaften Symbole, um Details abzurufen.</Translation>
@@ -1709,7 +1647,7 @@
     </Filter_FilenameEditor>
     <Filter_ImportExportStyle>
       <Translation>Symboldesigns|*.xml|Alle Dateien|*.*</Translation>
-      <Old>Icon maker settings|*.xml|All files|*.*</Old>
+      <Old>Icon styles|*.xml|All files|*.*</Old>
     </Filter_ImportExportStyle>
     <NameOfCopied>
       <Translation>{0} (Kopie)</Translation>
