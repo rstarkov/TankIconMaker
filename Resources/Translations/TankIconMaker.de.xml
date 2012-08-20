@@ -1552,12 +1552,12 @@
       <Old>Couldn't parse line {0}.</Old>
     </DataFile_CsvParse>
     <DataDir_NoFilesAvailable>
-      <Translation>Keine Versionsdatendateien und/oder eingebauten Datendateien gefunden.</Translation>
-      <Old>Could not load any version data files and/or any built-in data files.</Old>
+      <Translation>Keine Spielversionsdatendateien und/oder eingebauten Datendateien gefunden.</Translation>
+      <Old>Could not load any game version data files and/or any built-in property data files.</Old>
     </DataDir_NoFilesAvailable>
     <DataDir_Skip_NoBuiltIns>
-      <Translation>Version {0} wurde übersprungen, weil dafür keine eingebauten Datendateien verfügbar sind. Löschen Sie die Datei „{1}“, um diese Warning zu entfernen.</Translation>
-      <Old>Skipped version {0} because there are no built-in data files for it to use. Delete the "{1}" file to get rid of this warning.</Old>
+      <Translation>Version {0} wurde übersprungen, weil dafür keine eingebauten Eigenschaftendatendateien verfügbar sind. Löschen Sie die Datei „{1}“, um diese Warnung zu entfernen.</Translation>
+      <Old>Skipped version {0} because there are no built-in property data files for it to use. Delete the "{1}" file to get rid of this warning.</Old>
     </DataDir_Skip_NoBuiltIns>
     <DataDir_Skip_WrongParts>
       <Translation>„{0}“ wurde übersprungen, weil die Anzahl der Dateinamenelemente nicht stimmt (erwartet: {1}, erhalten: {2})</Translation>
@@ -1593,11 +1593,11 @@
     </DataDir_Skip_InhNoProp>
     <DataDir_Skip_InhNoLang>
       <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“ (von der es Werte erbt) in der Sprache „{2}“ vorliegt.</Translation>
-      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}"</Old>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}".</Old>
     </DataDir_Skip_InhNoLang>
     <DataDir_Skip_InhNoAuth>
       <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“ (von der es Werte erbt) vom Autor „{2}“ stammen.</Translation>
-      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}"</Old>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}".</Old>
     </DataDir_Skip_InhNoAuth>
     <DataDir_Skip_InhNoGameVer>
       <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“/„{2}“ (von der es Werte erbt) der Spielversion „{3}“ entsprechen.</Translation>
@@ -1608,8 +1608,8 @@
       <Old>Skipped "{0}" due to a circular dependency.</Old>
     </DataDir_Skip_InhCircular>
     <NoDataFilesWarning>
-      <Translation encoding="c-literal">Keine Versionsdatendateien und/oder eingebaute Datendateien gefunden. Sorgen Sie dafür, dass die Dateien im folgenden Pfad vorhanden sind:\r\n\r\n{0}</Translation>
-      <Old encoding="c-literal">Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n{0}</Old>
+      <Translation encoding="c-literal">Keine Versionsdatendateien und/oder eingebaute Eigenschaftendatendateien gefunden. Sorgen Sie dafür, dass die Dateien im folgenden Pfad vorhanden sind:\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}</Old>
     </NoDataFilesWarning>
     <RenderWithErrors>
       <Translation>Einige der Panzersymbole wurden nicht korrekt erzeugt; wählen Sie die Ansicht „Alle Panzer“ und klicken Sie auf die fehlerhaften Symbole, um Details abzurufen.</Translation>
