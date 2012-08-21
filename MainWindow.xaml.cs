@@ -27,7 +27,6 @@ using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 #warning TODO: buggy message handling in Translation UI
-
 #warning Untranslated: built-in tier (arabic/roman) properties; strings in DataSourceEditor; TestLayer warnings
 
 /*
@@ -127,8 +126,6 @@ namespace TankIconMaker
             {
                 translationFileGenerator.TranslateWindow(this, App.Translation.MainWindow);
             }
-#warning TODO: Uncomment this
-            //Lingo.WarnOfUnusedStrings(typeof(Translation), Assembly.GetExecutingAssembly(), typeof(Lingo).Assembly);
 #endif
             using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
                 _translationHelper = new LanguageHelperWpf<Translation>("Tank Icon Maker", "TankIconMaker", true,

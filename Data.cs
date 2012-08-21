@@ -219,7 +219,7 @@ namespace TankIconMaker
                 case "normal": Category = Category.Normal; break;
                 case "premium": Category = Category.Premium; break;
                 case "special": Category = Category.Special; break;
-                default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[4],
+                default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedCategory.Fmt(fields[4],
                     new[] { "normal", "premium", "special" }.JoinString(", ", "\"", "\"")));
             }
         }
