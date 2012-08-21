@@ -26,7 +26,7 @@ namespace TankIconMaker
         public static Settings Settings;
 
         /// <summary>Contains the current UI translation.</summary>
-        public static Translation Translation;
+        public static Translation Translation = new Translation();
 
         /// <summary>Encapsulates all the tank/game data TankIconMaker requires.</summary>
         public static WotData Data = new WotData();
@@ -90,6 +90,8 @@ namespace TankIconMaker
                     }
                     catch { DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_CopyFail); }
             };
+#else
+            var dummy = App.Translation.Prompt.ExceptionGlobal; // to keep Lingo happy that the string is used
 #endif
 
             // Configure XmlClassify
@@ -148,15 +150,7 @@ namespace TankIconMaker
 
         private static void PostBuildCheck(IPostBuildReporter rep)
         {
-            Lingo.CheckEnumTranslation<BoolWithPassthrough, BoolWithPassthroughTranslation>(rep);
-            Lingo.CheckEnumTranslation<ImageBuiltInStyle, ImageBuiltInStyleTranslation>(rep);
-            Lingo.CheckEnumTranslation<SelectBy, SelectByTranslation>(rep);
-            Lingo.CheckEnumTranslation<ClipMode, ClipModeTranslation>(rep);
-            Lingo.CheckEnumTranslation<SizeMode, SizeModeTranslation>(rep);
-            Lingo.CheckEnumTranslation<GrowShrinkMode, GrowShrinkModeTranslation>(rep);
-            Lingo.CheckEnumTranslation<OpacityStyle, OpacityStyleTranslation>(rep);
-            Lingo.CheckEnumTranslation<BlurEdgeMode, BlurEdgeModeTranslation>(rep);
-            Lingo.CheckEnumTranslation<TextSmoothingStyle, TextSmoothingStyleTranslation>(rep);
+            Lingo.PostBuildStep<Translation>(rep, Assembly.GetExecutingAssembly());
             XmlClassify.PostBuildStep<Settings>(rep);
             XmlClassify.PostBuildStep<Style>(rep);
             XmlClassify.PostBuildStep<GameVersion>(rep);
