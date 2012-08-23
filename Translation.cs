@@ -1,5 +1,6 @@
 ﻿﻿using RT.Util.Lingo;
 using TankIconMaker.Effects;
+using WpfCrutches;
 
 namespace TankIconMaker
 {
@@ -86,6 +87,14 @@ namespace TankIconMaker
         EnumTankCategory,
     }
 
+    /// <summary>WPF bindings can't access fields, so here's a hack around that, because Lingo can't access properties.</summary>
+    static class WpfTranslations
+    {
+        public static string PropSource_Author { get { return App.Translation.Misc.PropSource_Author; } }
+        public static string PropSource_TierRoman { get { return App.Translation.Misc.PropSource_TierRoman; } }
+        public static string PropSource_TierArabic { get { return App.Translation.Misc.PropSource_TierArabic; } }
+    }
+
     [LingoStringClass]
     sealed class Translation : TranslationBase
     {
@@ -159,6 +168,10 @@ namespace TankIconMaker
         public TrString StyleDisplay_BuiltIn = "[built-in] {0} (by {1})";
         [LingoNotes("\"{0}\" is the style name; \"{1}\" is the author.")]
         public TrString StyleDisplay_Normal = "{0} (by {1})";
+
+        public TrString PropSource_Author = "Author:";
+        public TrString PropSource_TierRoman = "Tier (Roman)";
+        public TrString PropSource_TierArabic = "Tier (Arabic)";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.PropertyCategory)]

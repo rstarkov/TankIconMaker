@@ -1681,5 +1681,17 @@
       <Translation>{0} (von {1})</Translation>
       <Old>{0} (by {1})</Old>
     </StyleDisplay_Normal>
+    <PropSource_Author>
+      <Translation>Autor:</Translation>
+      <Old>Author:</Old>
+    </PropSource_Author>
+    <PropSource_TierRoman>
+      <Translation>Panzerstufe (römisch)</Translation>
+      <Old>Tier (Roman)</Old>
+    </PropSource_TierRoman>
+    <PropSource_TierArabic>
+      <Translation>Panzerstufe (arabisch)</Translation>
+      <Old>Tier (Arabic)</Old>
+    </PropSource_TierArabic>
   </Misc>
 </item>

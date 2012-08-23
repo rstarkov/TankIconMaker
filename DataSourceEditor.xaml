@@ -8,10 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate x:Key="tierArabicTemplate">
-            <TextBlock Margin="0,5,0,5" Text="Tier (Arabic)" FontWeight="Bold"/>
+            <TextBlock Margin="0,5,0,5" Text="{Binding Source={x:Static local:WpfTranslations.PropSource_TierArabic}}" FontWeight="Bold"/>
         </DataTemplate>
         <DataTemplate x:Key="tierRomanTemplate">
-            <TextBlock Margin="0,5,0,5" Text="Tier (Roman)" FontWeight="Bold"/>
+            <TextBlock Margin="0,5,0,5" Text="{Binding Source={x:Static local:WpfTranslations.PropSource_TierRoman}}" FontWeight="Bold"/>
         </DataTemplate>
         <DataTemplate x:Key="sourceTemplate">
             <StackPanel Margin="0,5,0,5"  ToolTip="{Binding Description}">
@@ -20,7 +20,7 @@
                     <TextBlock Text="{Binding Language}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Author:" FontWeight="Bold" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding Source={x:Static local:WpfTranslations.PropSource_Author}}" FontWeight="Bold" Margin="0,0,5,0"/>
                     <TextBlock Text="{Binding Author}"/>
                 </StackPanel>
                 <TextBlock Text="{Binding Description}"/>
