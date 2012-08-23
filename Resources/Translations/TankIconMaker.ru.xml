@@ -1683,5 +1683,17 @@
       <Translation>{0} (автор {1})</Translation>
       <Old>{0} (by {1})</Old>
     </StyleDisplay_Normal>
+    <PropSource_Author>
+      <Translation>Автор:</Translation>
+      <Old>Author:</Old>
+    </PropSource_Author>
+    <PropSource_TierRoman>
+      <Translation>Уровень (римские)</Translation>
+      <Old>Tier (Roman)</Old>
+    </PropSource_TierRoman>
+    <PropSource_TierArabic>
+      <Translation>Уровень (арабские)</Translation>
+      <Old>Tier (Arabic)</Old>
+    </PropSource_TierArabic>
   </Misc>
 </item>

@@ -26,9 +26,6 @@ using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
-#warning TODO: buggy message handling in Translation UI
-#warning Untranslated: built-in tier (arabic/roman) properties; strings in DataSourceEditor; TestLayer warnings
-
 /*
  * Automatic OldFiles generation
  * Lanczos resampling; sharpen effect
