@@ -1,0 +1,1697 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <TranslationCredits>
+    <Translation>Deutsche Übersetzung von Timwi</Translation>
+    <Old>English translation by Romkyns</Old>
+  </TranslationCredits>
+  <MainWindow>
+    <ctGameDirLabel>
+      <Translation>Spielver_zeichnis:</Translation>
+      <Old>Game _directory:</Old>
+    </ctGameDirLabel>
+    <ctGameVersionLabel>
+      <Translation>Spiel_version:</Translation>
+      <Old>_Game version:</Old>
+    </ctGameVersionLabel>
+    <ctIconStyleLabel>
+      <Translation>Symbol_design:</Translation>
+      <Old>_Icon style:</Old>
+    </ctIconStyleLabel>
+    <ctStyleNewLabel>
+      <Translation>_Neu</Translation>
+      <Old>_New</Old>
+    </ctStyleNewLabel>
+    <ctStyleImportLabel>
+      <Translation>Im_portieren</Translation>
+      <Old>Im_port</Old>
+    </ctStyleImportLabel>
+    <ctStyleExportLabel>
+      <Translation>E_xportieren</Translation>
+      <Old>E_xport</Old>
+    </ctStyleExportLabel>
+    <ctUpvote>
+      <Translation>Den Autor dieses Designs positiv bewerten</Translation>
+      <Old>Upvote the author of this style</Old>
+    </ctUpvote>
+    <ctStyleMoreLabel>
+      <Translation>_Mehr</Translation>
+      <Old>_More</Old>
+    </ctStyleMoreLabel>
+    <ctStyleChangeName>
+      <Translation>_Namen ändern</Translation>
+      <Old>Change _name</Old>
+    </ctStyleChangeName>
+    <ctStyleChangeAuthor>
+      <Translation>_Autor ändern</Translation>
+      <Old>Change _author</Old>
+    </ctStyleChangeAuthor>
+    <ctStyleDuplicate>
+      <Translation>_Duplizieren</Translation>
+      <Old>_Duplicate</Old>
+    </ctStyleDuplicate>
+    <ctStyleDelete>
+      <Translation>_Löschen</Translation>
+      <Old>D_elete</Old>
+    </ctStyleDelete>
+    <ctLayersLabel>
+      <Translation>_Ebenen:</Translation>
+      <Old>_Layers:</Old>
+    </ctLayersLabel>
+    <ctLayersAddLayer>
+      <Translation>Ebene _hinzufügen...</Translation>
+      <Old>Add _layer...</Old>
+    </ctLayersAddLayer>
+    <ctLayersAddEffect>
+      <Translation>_Effekt hinzufügen...</Translation>
+      <Old>Add _effect...</Old>
+    </ctLayersAddEffect>
+    <ctLayersModify>
+      <Translation>_Bearbeiten</Translation>
+      <Old>_Modify</Old>
+    </ctLayersModify>
+    <ctLayersDelete>
+      <Translation>_Löschen</Translation>
+      <Old>_Delete</Old>
+    </ctLayersDelete>
+    <ctLayersMoveUp>
+      <Translation>Nach _oben</Translation>
+      <Old>Move _up</Old>
+    </ctLayersMoveUp>
+    <ctLayersMoveDown>
+      <Translation>Nach _unten</Translation>
+      <Old>Move d_own</Old>
+    </ctLayersMoveDown>
+    <ctLayersToggleVisibility>
+      <Translation>_Sichtbar/unsichtbar umschalten</Translation>
+      <Old>Toggle _visibility</Old>
+    </ctLayersToggleVisibility>
+    <ctZoomCheckbox>
+      <Translation>Ver_größerung</Translation>
+      <Old>_Zoom</Old>
+    </ctZoomCheckbox>
+    <ctDisplayModeAll>
+      <Translation>Alle Panzer</Translation>
+      <Old>All tanks</Old>
+    </ctDisplayModeAll>
+    <ctDisplayModeOneEach>
+      <Translation>Einer von jeder Kombination</Translation>
+      <Old>One of each combination</Old>
+    </ctDisplayModeOneEach>
+    <ctLanguageLabel>
+      <Translation>Spr_ache</Translation>
+      <Old>L_anguage</Old>
+    </ctLanguageLabel>
+    <ctWarning>
+      <Translation>Dieses Symbol zeigt an, dass ein Problem aufgetreten ist. Klicken Sie auf das Symbol, um Details über das Problem abzurufen.</Translation>
+      <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
+    </ctWarning>
+    <ctReloadLabel>
+      <Translation>Daten neu _laden</Translation>
+      <Old>_Reload data</Old>
+    </ctReloadLabel>
+    <ctSaveLabel>
+      <Translation>_Speichern...</Translation>
+      <Old>_Save...</Old>
+    </ctSaveLabel>
+    <ctAboutLabel>
+      <Translation>Ü_ber...</Translation>
+      <Old>About...</Old>
+    </ctAboutLabel>
+  </MainWindow>
+  <AddWindow>
+    <AddLayerTitle>
+      <Translation>Ebene hinzufügen</Translation>
+      <Old>Add layer</Old>
+    </AddLayerTitle>
+    <LayerName>
+      <Translation>Ebenen_name:</Translation>
+      <Old>Layer _name:</Old>
+    </LayerName>
+    <LayerType>
+      <Translation>Ebenen_typ:</Translation>
+      <Old>Layer _type:</Old>
+    </LayerType>
+    <AddEffectTitle>
+      <Translation>Effekt hinzufügen</Translation>
+      <Old>Add effect</Old>
+    </AddEffectTitle>
+    <EffectName>
+      <Translation>Effekt_name:</Translation>
+      <Old>Effect _name:</Old>
+    </EffectName>
+    <EffectType>
+      <Translation>Effekt_typ:</Translation>
+      <Old>Effect _type:</Old>
+    </EffectType>
+    <BtnAdd>
+      <Translation>_Hinzufügen</Translation>
+      <Old>_Add</Old>
+    </BtnAdd>
+    <BtnCancel>
+      <Translation>_Abbrechen</Translation>
+      <Old>_Cancel</Old>
+    </BtnCancel>
+  </AddWindow>
+  <LayerAndEffect>
+    <LayerVisible>
+      <DisplayName>
+        <Translation>Sichtbar</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Hiermit können Sie die Ebene zeitweilig unsichtbar machen, ohne sie zu löschen.</Translation>
+        <Old>Allows you to hide this layer temporarily without deleting it.</Old>
+      </Description>
+    </LayerVisible>
+    <LayerVisibleFor>
+      <DisplayName>
+        <Translation>Sichtbar für</Translation>
+        <Old>Visible for</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Hiermit können Sie diese Ebene für manche Panzer, abhängig von ihren Eigenschaften, verbergen.</Translation>
+        <Old>Allows you to hide this layer for some of the tanks, depending on their properties.</Old>
+      </Description>
+    </LayerVisibleFor>
+    <EffectVisible>
+      <DisplayName>
+        <Translation>Sichtbar</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Hiermit können Sie den Effekt zeitweilig deaktivieren, ohne sie zu löschen.</Translation>
+        <Old>Allows you to hide this effect temporarily without deleting it.</Old>
+      </Description>
+    </EffectVisible>
+    <EffectVisibleFor>
+      <DisplayName>
+        <Translation>Sichtbar für</Translation>
+        <Old>Visible for</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Hiermit können Sie diesen Effekt für manche Panzer, abhängig von ihren Eigenschaften, deaktivieren.</Translation>
+        <Old>Allows you to hide this effect for some of the tanks, depending on their properties.</Old>
+      </Description>
+    </EffectVisibleFor>
+  </LayerAndEffect>
+  <BkgDarkAgentLayer>
+    <LayerName>
+      <Translation>Hintergrund / Dark Agent</Translation>
+      <Old>Background / Dark Agent</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet einen Hintergrund mit einem glasähnlichen Design, inspiriert durch die Symbolsammlung von Black_Spy.</Translation>
+      <Old>Draws a background using a glassy style inspired by Black_Spy’s icon set.</Old>
+    </LayerDescription>
+    <BackColor>
+      <DisplayName>
+        <Translation>Hintergrundfarbe</Translation>
+        <Old>Background color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Hintergrundfarbe.</Translation>
+        <Old>Background color.</Old>
+      </Description>
+    </BackColor>
+  </BkgDarkAgentLayer>
+  <TankImageLayer>
+    <LayerName>
+      <Translation>Bild / Standard</Translation>
+      <Old>Image / Standard</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet eine der vielen Arten von Standardbildern für diesen Panzer.</Translation>
+      <Old>Draws one of the several types of standard images for this tank.</Old>
+    </LayerDescription>
+    <Style>
+      <DisplayName>
+        <Translation>Typ</Translation>
+        <Old>Type</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, welcher Standardbildtyp gezeichnet wird.</Translation>
+        <Old>Specifies which of the standard image types to draw.</Old>
+      </Description>
+    </Style>
+    <MissingImageWarning>
+      <Translation>Das Bild für diesen Panzer fehlt.</Translation>
+      <Old>The image for this tank is missing.</Old>
+    </MissingImageWarning>
+  </TankImageLayer>
+  <CurrentImageLayer>
+    <LayerName>
+      <Translation>Bild / Aktuell</Translation>
+      <Old>Image / Current</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet das Symbol, das aktuell im Ausgabeverzeichnis gespeichert ist.</Translation>
+      <Old>Draws the icon that’s currently saved in the output directory.</Old>
+    </LayerDescription>
+    <MissingImageWarning>
+      <Translation>Für diesen Panzer liegt kein aktuelles Bild vor.</Translation>
+      <Old>There is no current image for this tank.</Old>
+    </MissingImageWarning>
+  </CurrentImageLayer>
+  <CustomImageLayer>
+    <LayerName>
+      <Translation>Bild / Nach Eigenschaften</Translation>
+      <Old>Image / By properties</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet ein Bild, das aus einer Datei eingelesen wird, deren Namen basierend auf Panzereigenschaften ausgewählt wird.</Translation>
+      <Old>Draws an image loaded from a file whose name is selected based on tank properties.</Old>
+    </LayerDescription>
+    <ImageFile>
+      <DisplayName>
+        <Translation>Bilddatei</Translation>
+        <Old>Image file</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt einen Pfad für die Bilddatei. Relative Pfade sind erlaubt, in welchem Falle zuerst im Programmverzeichnis, dann im versionsspezifischen WoT-Mods-Verzeichnis und schließlich im WoT-Installationsverzeichnis nach einem passenden Verzeichnis gesucht wird.</Translation>
+        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Old>
+      </Description>
+    </ImageFile>
+    <MissingImageWarning>
+      <Translation>Das Bild {0} konnte nicht gefunden werden.</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </CustomImageLayer>
+  <FilenamePatternImageLayer>
+    <LayerName>
+      <Translation>Bild / Nach Dateinamenschablone</Translation>
+      <Old>Image / By filename template</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet ein Bild, das aus einer Datei eingelesen wird, deren Name einer Schablone entspricht, in der Platzhalter durch verschiedene Panzereigenschaften eingesetzt werden.</Translation>
+      <Old>Draws an image loaded from a file whose name is generated by substituting various tank properties into a filename template.</Old>
+    </LayerDescription>
+    <Pattern>
+      <DisplayName>
+        <Translation>Schablone</Translation>
+        <Old>Template</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Dateinamenschablone. Die folgenden Platzhalter sind verfügbar: {tier} (Panzerstufe), {country} (Land), {class} (Klasse), {category} (Kategorie), {id} (ID).</Translation>
+        <Old>Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.</Old>
+      </Description>
+    </Pattern>
+    <MissingImageWarning>
+      <Translation>Das Bild {0} konnte nicht gefunden werden.</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </FilenamePatternImageLayer>
+  <TextLayer>
+    <FontSmoothing>
+      <DisplayName>
+        <Translation>Glättung</Translation>
+        <Old>Smoothing</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Art der Schriftartenglättung (Anti-Aliasing).</Translation>
+        <Old>Determines how to smooth the text (anti-aliasing).</Old>
+      </Description>
+    </FontSmoothing>
+    <FontFamily>
+      <DisplayName>
+        <Translation>Schriftart</Translation>
+        <Old>Family</Old>
+      </DisplayName>
+      <Description>
+        <Translation encoding="c-literal">Name der Schriftfamilie.\t</Translation>
+        <Old>Font family.</Old>
+      </Description>
+    </FontFamily>
+    <FontSize>
+      <DisplayName>
+        <Translation>Größe</Translation>
+        <Old>Size</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Schriftgröße.</Translation>
+        <Old>Font size.</Old>
+      </Description>
+    </FontSize>
+    <FontBold>
+      <DisplayName>
+        <Translation>Fett</Translation>
+        <Old>Bold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Schreibt den Text in Fettschrift.</Translation>
+        <Old>Makes the text bold.</Old>
+      </Description>
+    </FontBold>
+    <FontItalic>
+      <DisplayName>
+        <Translation>Kursiv</Translation>
+        <Old>Italic</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Schreibt den Text in Kursivschrift.</Translation>
+        <Old>Makes the text italic.</Old>
+      </Description>
+    </FontItalic>
+    <FontColor>
+      <DisplayName>
+        <Translation>Farbe</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Schriftfarbe.</Translation>
+        <Old>Specifies the text color.</Old>
+      </Description>
+    </FontColor>
+    <Left>
+      <DisplayName>
+        <Translation>Rand links</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-Koordinate des linken Textrands. Keine Wirkung, wenn „Anker links“ deaktiviert ist.</Translation>
+        <Old>X coordinate of the leftmost text pixel. Ignored if "Left anchor" is unchecked.</Old>
+      </Description>
+    </Left>
+    <Right>
+      <DisplayName>
+        <Translation>Rand rechts</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-Koordinate des rechten Textrands. Keine Wirkung, wenn „Anker rechts“ deaktiviert ist.</Translation>
+        <Old>X coordinate of the rightmost text pixel. Ignored if "Right anchor" is unchecked.</Old>
+      </Description>
+    </Right>
+    <Top>
+      <DisplayName>
+        <Translation>Rand oben</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-Koordinate des oberen Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Anker oben“ deaktiviert ist.</Translation>
+        <Old>Y coordinate of the topmost text pixel (but see also "Align baselines"). Ignored if "Top anchor" is unchecked.</Old>
+      </Description>
+    </Top>
+    <Bottom>
+      <DisplayName>
+        <Translation>Rand unten</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-Koordinate des unteren Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Anker unten“ deaktiviert ist.</Translation>
+        <Old>Y coordinate of the bottommost text pixel (but see also "Align baselines"). Ignored if "Bottom anchor" is unchecked.</Old>
+      </Description>
+    </Bottom>
+    <LeftAnchor>
+      <DisplayName>
+        <Translation>Anker links</Translation>
+        <Old>Left anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der linke Rand des Textes an der unter „Rand links“ angegebenen X-Koordinate verankert wird oder (falls „Anker rechts“ auch aktiviert ist) dass der Text zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
+        <Old>When checked, the leftmost pixel of the text is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the text is centered between "Left" and "Right".</Old>
+      </Description>
+    </LeftAnchor>
+    <RightAnchor>
+      <DisplayName>
+        <Translation>Anker rechts</Translation>
+        <Old>Right anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der rechte Rand des Textes an der unter „Rand rechts“ angegebenen X-Koordinate verankert wird oder (falls „Anker links“ auch aktiviert ist) dass der Text zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
+        <Old>When checked, the rightmost pixel of the text is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the text is centered between "Left" and "Right".</Old>
+      </Description>
+    </RightAnchor>
+    <TopAnchor>
+      <DisplayName>
+        <Translation>Anker oben</Translation>
+        <Old>Top anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der obere Rand des Textes an der unter „Rand oben“ angegebenen Y-Koordinate verankert wird oder (falls „Anker unten“ auch aktiviert ist) dass der Text zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
+        <Old>When checked, the topmost pixel of the text is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </TopAnchor>
+    <BottomAnchor>
+      <DisplayName>
+        <Translation>Anker unten</Translation>
+        <Old>Bottom anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der untere Rand des Textes an der unter „Rand unten“ angegebenen Y-Koordinate verankert wird oder (falls „Anker oben“ auch aktiviert ist) dass der Text zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
+        <Old>When checked, the bottommost pixel of the text is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </BottomAnchor>
+    <Baseline>
+      <DisplayName>
+        <Translation>Grundlinien ausrichten</Translation>
+        <Old>Align baselines</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Betrachten Sie die Wörter „neun“ und „Neun“. Angenommen, sie sind am oberen Rand bei der Y-Koordinate 0 verankert. Ohne „Grundlinien ausrichten“ würde das Wort „neun“ ein wenig höher dargestellt, sodass es an den 0. Pixel heranragt. „Grundlinien ausrichten“ bewirkt, dass die Wörter an ihrer jeweiligen Grundlinie ausgerichtet werden, wodurch das Wort „neun“ weiter unten als beim 0. Pixel erscheint.</Translation>
+        <Old>Consider the words "more" and "More", top-anchored at pixel 0. If "Align baselines" is false, the word "more" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of "more" will actually be below pixel 0.</Old>
+      </Description>
+    </Baseline>
+  </TextLayer>
+  <PropertyTextLayer>
+    <LayerName>
+      <Translation>Text / Eigenschaften</Translation>
+      <Old>Text / Property</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Stellt eine bestimmte Panzereigenschaft in Form von Text dar.</Translation>
+      <Old>Draws a specified property of a tank as text.</Old>
+    </LayerDescription>
+    <Property>
+      <DisplayName>
+        <Translation>Eigenschaft</Translation>
+        <Old>Property</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, welche Eigenschaft als Textquelle dient.</Translation>
+        <Old>Specifies the property to be used as the text source.</Old>
+      </Description>
+    </Property>
+  </PropertyTextLayer>
+  <CustomTextLayer>
+    <LayerName>
+      <Translation>Text / Benutzerdefiniert</Translation>
+      <Old>Text / Custom</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Zeichnet einen vorgegebenen Text, basierend auf einer bestimmten Panzereigenschaft.</Translation>
+      <Old>Draws a fixed string based on a specified property of a tank.</Old>
+    </LayerDescription>
+    <Text>
+      <DisplayName>
+        <Translation>Text</Translation>
+        <Old>Text</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Der darzustellende Text.</Translation>
+        <Old>The string to be displayed.</Old>
+      </Description>
+    </Text>
+  </CustomTextLayer>
+  <EffectClip>
+    <EffectName>
+      <Translation>Rand zuschneiden</Translation>
+      <Old>Clip edges</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Schneidet die angegebenen Ränder dieser Ebene zu.</Translation>
+      <Old>Clips the specified edges of this layer.</Old>
+    </EffectDescription>
+    <Mode>
+      <DisplayName>
+        <Translation>Modus</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, ob die Schnittlinie relativ zum Symbolrand, zum Rand dieser Ebene, oder zum Inhalt der Ebene (Pixelwerte) berechnet wird. Siehe auch „Transparenz-Grenzwert“.</Translation>
+        <Old>Selects whether the clip boundaries are relative to the icon edges, this layer's edges, or this layer's content (pixels). See also "Transparency threshold".</Old>
+      </Description>
+    </Mode>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>Transparenz-Grenzwert</Translation>
+        <Old>Transparency threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt (beim Zuschneiden nach Pixelwerten) den Alpha-Wert (0–255), bis zu welchem ein Pixel als „transparent“ gilt.</Translation>
+        <Old>When clipping by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ClipLeft>
+      <DisplayName>
+        <Translation>Links</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Anzahl Pixel, die vom linken Rand der Ebene weggeschnitten werden sollen.</Translation>
+        <Old>The number of pixels to clip on the left edge of the layer.</Old>
+      </Description>
+    </ClipLeft>
+    <ClipTop>
+      <DisplayName>
+        <Translation>Oben</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Anzahl Pixel, die vom oberen Rand der Ebene weggeschnitten werden sollen.</Translation>
+        <Old>The number of pixels to clip on the top edge of the layer.</Old>
+      </Description>
+    </ClipTop>
+    <ClipRight>
+      <DisplayName>
+        <Translation>Rechts</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Anzahl Pixel, die vom rechten Rand der Ebene weggeschnitten werden sollen.</Translation>
+        <Old>The number of pixels to clip on the right edge of the layer.</Old>
+      </Description>
+    </ClipRight>
+    <ClipBottom>
+      <DisplayName>
+        <Translation>Unten</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Anzahl Pixel, die vom unteren Rand der Ebene weggeschnitten werden sollen.</Translation>
+        <Old>The number of pixels to clip on the bottom edge of the layer.</Old>
+      </Description>
+    </ClipBottom>
+  </EffectClip>
+  <EffectColorize>
+    <EffectName>
+      <Translation>Färben</Translation>
+      <Old>Colorize</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Färbt die Ebene entsprechend einer der Panzereigenschaften ein.</Translation>
+      <Old>Colorizes the layer according to one of the tank properties.</Old>
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>Farbe</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die zu verwendende Farbe. Die Intensität des Effekts wird durch den Alphakanal bestimmt.</Translation>
+        <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
+      </Description>
+    </Color>
+  </EffectColorize>
+  <EffectFlip>
+    <EffectName>
+      <Translation>Spiegeln</Translation>
+      <Old>Flip</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Spiegelt die Ebene horizontal oder vertikal.</Translation>
+      <Old>Flips the layer horizontally and/or vertically.</Old>
+    </EffectDescription>
+    <FlipHorz>
+      <DisplayName>
+        <Translation>Horizontal spiegeln</Translation>
+        <Old>Flip horizontally</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Spiegelt die Ebene horizontal, d.h. vertauscht Links und Rechts.</Translation>
+        <Old>Flips the layer horizontally, that is, swapping left and right.</Old>
+      </Description>
+    </FlipHorz>
+    <FlipVert>
+      <DisplayName>
+        <Translation>Vertikal spiegeln</Translation>
+        <Old>Flip vertically</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Spiegelt die Ebene vertikal, d.h. vertauscht Oben und Unten.</Translation>
+        <Old>Flips the layer vertically, that is, swapping up and down.</Old>
+      </Description>
+    </FlipVert>
+  </EffectFlip>
+  <EffectGaussianBlur>
+    <EffectName>
+      <Translation>Weichzeichnung: Gauß</Translation>
+      <Old>Blur: Gaussian</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Reduziert die Schärfe der aktuellen Ebene unter Verwendung des Gaußschen Weichzeichners.</Translation>
+      <Old>Blurs the current layer using Gaussian blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Unschärferadius. Höhere Werte führen zu mehr Unschärfe.</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Edge>
+      <DisplayName>
+        <Translation>Rand</Translation>
+        <Old>Edge</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, wie am Rand verfahren wird: die Pixel außerhalb des Bildes als transparent annehmen; gegenüberliegende Ränder als verbunden betrachten; oder die Farben von Pixeln nahe am Rand verwenden.</Translation>
+        <Old>Specifies how to sample around the edges: assume the image beyond the edges is transparent, wrap to the other side, or use the same pixel color that touches the edge.</Old>
+      </Description>
+    </Edge>
+  </EffectGaussianBlur>
+  <EffectOpacity>
+    <EffectName>
+      <Translation>Deckkraft</Translation>
+      <Old>Opacity</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Erhöht oder verringert die Deckkraft der Ebene.</Translation>
+      <Old>Increases or decreases the layer’s opacity.</Old>
+    </EffectDescription>
+    <Opacity>
+      <DisplayName>
+        <Translation>Deckkraft</Translation>
+        <Old>Opacity</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Deckkraft-Multiplikator. Ein negativer Wert macht die Ebene durchsichtiger, ein positiver Wert weniger durchsichtig.</Translation>
+        <Old>The opacity multiplier. Negative makes a layer more transparent, positive makes it more opaque.</Old>
+      </Description>
+    </Opacity>
+    <Style>
+      <DisplayName>
+        <Translation>Verfahren</Translation>
+        <Old>Style</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Ermöglicht die Auswahl einer Kurvenfunktion zur Anpassung der Deckkraft. „Automatisch“ bedeutet „Additiv“ für das Verstärken der Deckkraft und „Endpunkt verschieben“ für das Verringern.</Translation>
+        <Old>Selects one of several different curves for adjusting the opacity. "Auto" uses "Additive" for increasing opacity and "Move endpoint" for decreasing.</Old>
+      </Description>
+    </Style>
+  </EffectOpacity>
+  <EffectPixelOutline>
+    <EffectName>
+      <Translation>Umriss</Translation>
+      <Old>Outline</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Zeichnet einen 1 Pixel breiten Umriss um das Bild. Für Ebenen mit weichen Umrissen ungeeignet.</Translation>
+      <Old>Adds a 1 pixel outline around the image. Not suitable for layers with soft outlines.</Old>
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>Farbe</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Farbe des Umrisses. Die Intensität des Effekts wird durch den Alphakanal bestimmt.</Translation>
+        <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
+      </Description>
+    </Color>
+  </EffectPixelOutline>
+  <EffectShadow>
+    <EffectName>
+      <Translation>Schatten</Translation>
+      <Old>Shadow</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Zeichnet einen von der aktuellen Ebene geworfenen Schatten.</Translation>
+      <Old>Adds a shadow as if cast by the current layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den maximalen Abstand zwischen einem schattenwerfenden Pixel und dem Rand des erzeugten Schattens.</Translation>
+        <Old>Shadow radius controls the maximum distance between a pixel producing the shadow and the edge of the resulting shadow.</Old>
+      </Description>
+    </Radius>
+    <Spread>
+      <DisplayName>
+        <Translation>Intensität</Translation>
+        <Old>Spread</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Intensität des Schattens, aber nicht dessen maximale Größe.</Translation>
+        <Old>Shadow spread controls the strength of the shadow, but does not affect its maximum size.</Old>
+      </Description>
+    </Spread>
+    <Color>
+      <DisplayName>
+        <Translation>Farbe</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Farbe des Schattens. Helle Farben erzeugen ein Leuchten. Der Alphakanal steuert die endgültige Transparenz des Schattens.</Translation>
+        <Old>Shadow color. Use bright colors for glow. Adjust the Alpha channel to control final shadow transparency.</Old>
+      </Description>
+    </Color>
+    <ShiftX>
+      <DisplayName>
+        <Translation>Verschieben: X</Translation>
+        <Old>Shift: X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Verschiebt den Schatten in horizontaler Richtung um die angegebene Anzahl Pixel.</Translation>
+        <Old>Amount of horizontal shift in pixels.</Old>
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>Verschieben: Y</Translation>
+        <Old>Shift: Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Verschiebt den Schatten in vertikaler Richtung um die angegebene Anzahl Pixel.</Translation>
+        <Old>Amount of vertical shift in pixels.</Old>
+      </Description>
+    </ShiftY>
+  </EffectShadow>
+  <EffectShift>
+    <EffectName>
+      <Translation>Verschieben</Translation>
+      <Old>Shift</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Verschiebt die Ebene um eine bestimmte Anzahl Pixel.</Translation>
+      <Old>Shifts the layer by a specified number of pixels.</Old>
+    </EffectDescription>
+    <ShiftX>
+      <DisplayName>
+        <Translation>Horizontal</Translation>
+        <Old>Horizontal</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Verschiebt die Ebene in horizontaler Richtung um die angegebene Anzahl Pixel.</Translation>
+        <Old>Horizontal shift amount, in pixels.</Old>
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>Vertikal</Translation>
+        <Old>Vertical</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Verschiebt die Ebene in vertikaler Richtung um die angegebene Anzahl Pixel.</Translation>
+        <Old>Vertical shift amount, in pixels.</Old>
+      </Description>
+    </ShiftY>
+  </EffectShift>
+  <EffectSizePos>
+    <EffectName>
+      <Translation>Größe / Position</Translation>
+      <Old>Size / Position</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Verändert die Größe und/oder Position dieser Ebene. Dieser Effekt wird immer vor allen anderen Effekten ausgeführt.</Translation>
+      <Old>Adjusts this layer's size and/or position. This effect is always applied before any other effects.</Old>
+    </EffectDescription>
+    <PositionByPixels>
+      <DisplayName>
+        <Translation>Nach Pixelwerten gehen</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der Rand der Ebene durch die sichtbaren Pixel (siehe auch „Transparenz-Grenzwert“) bestimmt wird. Ansonsten wird die Größe der gesamten Ebene verwendet.</Translation>
+        <Old>When checked, the edge of the layer is defined by the visible pixels (see also "Transparency threshold"). Otherwise the complete layer size is used.</Old>
+      </Description>
+    </PositionByPixels>
+    <Left>
+      <DisplayName>
+        <Translation>Links</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-Koordinate des linken Rands. Keine Wirkung, wenn „Anker links“ deaktiviert ist.</Translation>
+        <Old>X coordinate of the left edge. Ignored if "Left anchor" is unchecked.</Old>
+      </Description>
+    </Left>
+    <Right>
+      <DisplayName>
+        <Translation>Rand rechts</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-Koordinate des rechten Rands. Keine Wirkung, wenn „Anker rechts“ deaktiviert ist.</Translation>
+        <Old>X coordinate of the right edge. Ignored if "Right anchor" is unchecked.</Old>
+      </Description>
+    </Right>
+    <Top>
+      <DisplayName>
+        <Translation>Rand oben</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-Koordinate des oberen Rands. Keine Wirkung, wenn „Anker oben“ deaktiviert ist.</Translation>
+        <Old>Y coordinate of the top edge. Ignored if "Top anchor" is unchecked.</Old>
+      </Description>
+    </Top>
+    <Bottom>
+      <DisplayName>
+        <Translation>Rand unten</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-Koordinate des unteren Rands. Keine Wirkung, wenn „Anker unten“ deaktiviert ist.</Translation>
+        <Old>Y coordinate of the bottom edge. Ignored if "Bottom anchor" is unchecked.</Old>
+      </Description>
+    </Bottom>
+    <LeftAnchor>
+      <DisplayName>
+        <Translation>Anker links</Translation>
+        <Old>Left anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der linke Rand an der unter „Rand links“ angegebenen X-Koordinate verankert wird oder (falls „Anker rechts“ auch aktiviert ist) dass die Ebene zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
+        <Old>When checked, the left edge is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
+      </Description>
+    </LeftAnchor>
+    <RightAnchor>
+      <DisplayName>
+        <Translation>Anker rechts</Translation>
+        <Old>Right anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der rechte Rand an der unter „Rand rechts“ angegebenen X-Koordinate verankert wird oder (falls „Anker links“ auch aktiviert ist) dass die Ebene zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
+        <Old>When checked, the right edge is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
+      </Description>
+    </RightAnchor>
+    <TopAnchor>
+      <DisplayName>
+        <Translation>Anker oben</Translation>
+        <Old>Top anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der obere Rand an der unter „Rand oben“ angegebenen Y-Koordinate verankert wird oder (falls „Anker unten“ auch aktiviert ist) dass die Ebene zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
+        <Old>When checked, the top edge is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </TopAnchor>
+    <BottomAnchor>
+      <DisplayName>
+        <Translation>Anker unten</Translation>
+        <Old>Bottom anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der untere Rand an der unter „Rand unten“ angegebenen Y-Koordinate verankert wird oder (falls „Anker oben“ auch aktiviert ist) dass die Ebene zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
+        <Old>When checked, the bottom edge is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </BottomAnchor>
+    <SizeByPixels>
+      <DisplayName>
+        <Translation>Nach Pixelwerten gehen</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass transparente Bereiche am äußeren Rand der Ebene nicht in die Größenberechnung einbezogen werden. Siehe auch „Transparenz-Grenzwert“.</Translation>
+        <Old>If checked, transparent areas on the outside of the image will be ignored in size calculations. See also "Transparency threshold".</Old>
+      </Description>
+    </SizeByPixels>
+    <Percentage>
+      <DisplayName>
+        <Translation>Größe ändern (in %)</Translation>
+        <Old>Resize %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Prozentsatz der Größenänderung (im Fall, dass „Modus“ auf „Nach %“ gestellt ist).</Translation>
+        <Old>When Mode is "By %", selects the desired resize percentage.</Old>
+      </Description>
+    </Percentage>
+    <Width>
+      <DisplayName>
+        <Translation>Breite festlegen</Translation>
+        <Old>Resize to width</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die gewünschte Breite in Pixeln (im Fall, dass „Modus“ auf einen der „Nach Größe“-Modi gestellt ist).</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired width, in pixels.</Old>
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>Höhe festlegen</Translation>
+        <Old>Resize to height</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die gewünschte Höhe in Pixeln (im Fall, dass „Modus“ auf einen der „Nach Größe“-Modi gestellt ist).</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired height, in pixels.</Old>
+      </Description>
+    </Height>
+    <SizeMode>
+      <DisplayName>
+        <Translation>Modus</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, wie bei der Größenänderung die Bildgröße berechnet wird.</Translation>
+        <Old>Selects one of several different resize modes, which determines how the image size is calculated.</Old>
+      </Description>
+    </SizeMode>
+    <GrowShrinkMode>
+      <DisplayName>
+        <Translation>Vergrößern/verkleinern</Translation>
+        <Old>Grow/shrink</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, ob das Bild vergrößert und/oder verkleinert werden darf.</Translation>
+        <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
+      </Description>
+    </GrowShrinkMode>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>Transparenz-Grenzwert</Translation>
+        <Old>Transparency threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Alphawert (0–255), bis zu welchem ein Pixel als „transparent“ gilt.</Translation>
+        <Old>When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ShowLayerBorders>
+      <DisplayName>
+        <Translation>Ebenenrand darstellen</Translation>
+        <Old>Show layer borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der Rand der Ebene als Rechteck dargestellt wird. Dieser Rand gilt, wenn „Nach Pixelwerten gehen“ deaktiviert ist.</Translation>
+        <Old>If enabled, draws a rectangle to show the layer borders. These borders are used when "Use pixels" is disabled.</Old>
+      </Description>
+    </ShowLayerBorders>
+    <ShowPixelBorders>
+      <DisplayName>
+        <Translation>Pixelrand darstellen</Translation>
+        <Old>Show pixel borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass der nach Pixelwerten bestimmte Rand als Rechteck dargestellt wird. Die Empfindlichkeit wird durch den „Transparenz-Grenzwert“ bestimmt. Dieser Rand gilt, wenn „Nach Pixelwerten gehen“ aktiviert ist.</Translation>
+        <Old>If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using "Transparency threshold". These borders are used when "Use pixels" is enabled.</Old>
+      </Description>
+    </ShowPixelBorders>
+    <ShowTargetBorders>
+      <DisplayName>
+        <Translation>Zielrand darstellen</Translation>
+        <Old>Show target borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bewirkt, dass die Zielposition der Ebene als Rechteck dargestellt wird. Verankerte Ränder werden durch volle Linien dargestellt, nicht verankerte durch gestrichelte.</Translation>
+        <Old>If enabled, draws a rectangle to show the selected target position for the layer. Anchored borders are drawn as solid lines, non-anchored are dotted.</Old>
+      </Description>
+    </ShowTargetBorders>
+  </EffectSizePos>
+  <BoolWithPassthrough>
+    <Yes>
+      <Translation>Ja</Translation>
+      <Old>Yes</Old>
+    </Yes>
+    <No>
+      <Translation>Nein</Translation>
+      <Old>No</Old>
+    </No>
+    <Passthrough>
+      <Translation>Durchreichen: zum nächsten „Unterscheiden nach“</Translation>
+      <Old>Passthrough: to next "Vary by"</Old>
+    </Passthrough>
+  </BoolWithPassthrough>
+  <ImageBuiltInStyle>
+    <Contour>
+      <Translation>Kontur</Translation>
+      <Old>Contour</Old>
+    </Contour>
+    <ThreeD>
+      <Translation>3D</Translation>
+      <Old>3D</Old>
+    </ThreeD>
+    <ThreeDLarge>
+      <Translation>3D (groß)</Translation>
+      <Old>3D (large)</Old>
+    </ThreeDLarge>
+    <Country>
+      <Translation>Land</Translation>
+      <Old>Country</Old>
+    </Country>
+    <Class>
+      <Translation>Klasse</Translation>
+      <Old>Class</Old>
+    </Class>
+  </ImageBuiltInStyle>
+  <SelectBy>
+    <Class>
+      <Translation>Klasse (Artillerie • Panzerjäger • Leicht • usw.)</Translation>
+      <Old>Class (Artillery • Destroyer • Light • etc)</Old>
+    </Class>
+    <Country>
+      <Translation>Land (UdSSR • Deutschland • USA • usw.)</Translation>
+      <Old>Country (USSR • Germany • USA • etc)</Old>
+    </Country>
+    <Category>
+      <Translation>Verfügbarkeit (Normal • Premium • Spezial)</Translation>
+      <Old>Availability (normal • premium • special)</Old>
+    </Category>
+    <Tier>
+      <Translation>Stufe (1 – 10)</Translation>
+      <Old>Tier (1 .. 10)</Old>
+    </Tier>
+    <Single>
+      <Translation>Einfacher Wert</Translation>
+      <Old>Single value</Old>
+    </Single>
+  </SelectBy>
+  <ClipMode>
+    <ByPixels>
+      <Translation>Nach Pixelwerten</Translation>
+      <Old>By pixels</Old>
+    </ByPixels>
+    <ByLayerBounds>
+      <Translation>Vom Ebenenrand</Translation>
+      <Old>By layer bounds</Old>
+    </ByLayerBounds>
+    <ByIconBounds>
+      <Translation>Vom Symbolrand</Translation>
+      <Old>By icon bounds</Old>
+    </ByIconBounds>
+  </ClipMode>
+  <SizeMode>
+    <NoChange>
+      <Translation>Nicht ändern</Translation>
+      <Old>No change</Old>
+    </NoChange>
+    <ByPercentage>
+      <Translation>Nach %</Translation>
+      <Old>By %</Old>
+    </ByPercentage>
+    <BySizeWidthOnly>
+      <Translation>Nach Größe: nur Breite</Translation>
+      <Old>By size: width only</Old>
+    </BySizeWidthOnly>
+    <BySizeHeightOnly>
+      <Translation>Nach Größe: nur Höhe</Translation>
+      <Old>By size: height only</Old>
+    </BySizeHeightOnly>
+    <BySizeWidthHeightStretch>
+      <Translation>Nach Größe: strecken</Translation>
+      <Old>By size: stretch</Old>
+    </BySizeWidthHeightStretch>
+    <ByPosLeftRight>
+      <Translation>Nach Position: links/rechts</Translation>
+      <Old>By pos: left/right</Old>
+    </ByPosLeftRight>
+    <ByPosTopBottom>
+      <Translation>Nach Position: oben/unten</Translation>
+      <Old>By pos: top/bottom</Old>
+    </ByPosTopBottom>
+    <ByPosAllFit>
+      <Translation>Nach Position: einpassen</Translation>
+      <Old>By pos: fit inside</Old>
+    </ByPosAllFit>
+    <ByPosAllStretch>
+      <Translation>Nach Position: strecken</Translation>
+      <Old>By pos: stretch</Old>
+    </ByPosAllStretch>
+  </SizeMode>
+  <GrowShrinkMode>
+    <GrowAndShrink>
+      <Translation>Beides erlauben</Translation>
+      <Old>Grow and shrink</Old>
+    </GrowAndShrink>
+    <GrowOnly>
+      <Translation>Nur vergrößern</Translation>
+      <Old>Grow only</Old>
+    </GrowOnly>
+    <ShrinkOnly>
+      <Translation>Nur verkleinern</Translation>
+      <Old>Shrink only</Old>
+    </ShrinkOnly>
+  </GrowShrinkMode>
+  <OpacityStyle>
+    <Auto>
+      <Translation>Automatisch</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <MoveEndpoint>
+      <Translation>Endpunkt verschieben</Translation>
+      <Old>Move endpoint</Old>
+    </MoveEndpoint>
+    <MoveMidpoint>
+      <Translation>Mittelpunkt verschieben</Translation>
+      <Old>Move midpoint</Old>
+    </MoveMidpoint>
+    <Additive>
+      <Translation>Additiv</Translation>
+      <Old>Additive</Old>
+    </Additive>
+  </OpacityStyle>
+  <BlurEdgeMode>
+    <Transparent>
+      <Translation>Transparenz annehmen</Translation>
+      <Old>Transparent pixels</Old>
+    </Transparent>
+    <Same>
+      <Translation>Nächstgelegener Pixel</Translation>
+      <Old>Nearest pixel color</Old>
+    </Same>
+    <Mirror>
+      <Translation>Den Rand entlang spiegeln</Translation>
+      <Old>Mirror along edge</Old>
+    </Mirror>
+    <Wrap>
+      <Translation>Mit gegenüberliegendem Rand verbinden</Translation>
+      <Old>Wrap to opposite edge</Old>
+    </Wrap>
+  </BlurEdgeMode>
+  <TextSmoothingStyle>
+    <Aliased>
+      <Translation>Ohne Glättung</Translation>
+      <Old>Aliased</Old>
+    </Aliased>
+    <AntiAliasGDI>
+      <Translation>Antialiasing (mit Hinting)</Translation>
+      <Old>Anti-aliased (hinted)</Old>
+    </AntiAliasGDI>
+    <UnhintedGDI>
+      <Translation>Antialiasing (ohne Hinting)</Translation>
+      <Old>Anti-aliased (unhinted)</Old>
+    </UnhintedGDI>
+    <ClearType>
+      <Translation>Subpixel-Rendering (ClearType)</Translation>
+      <Old>ClearType</Old>
+    </ClearType>
+  </TextSmoothingStyle>
+  <Category>
+    <General>
+      <Translation>Allgemein</Translation>
+      <Old>General</Old>
+    </General>
+    <Settings>
+      <Translation>Einstellungen</Translation>
+      <Old>Settings</Old>
+    </Settings>
+    <Image>
+      <Translation>Bild</Translation>
+      <Old>Image</Old>
+    </Image>
+    <Font>
+      <Translation>Schriftart</Translation>
+      <Old>Font</Old>
+    </Font>
+    <Position>
+      <Translation>Position</Translation>
+      <Old>Position</Old>
+    </Position>
+    <Size>
+      <Translation>Größe</Translation>
+      <Old>Size</Old>
+    </Size>
+    <TextSource>
+      <Translation>Textquelle</Translation>
+      <Old>Text source</Old>
+    </TextSource>
+    <Debug>
+      <Translation>Debug</Translation>
+      <Old>Debug</Old>
+    </Debug>
+    <Clip>
+      <Translation>Zuschneiden</Translation>
+      <Old>Clip</Old>
+    </Clip>
+    <Blur>
+      <Translation>Weichzeichnen</Translation>
+      <Old>Blur</Old>
+    </Blur>
+    <Shift>
+      <Translation>Verschieben</Translation>
+      <Old>Shift</Old>
+    </Shift>
+  </Category>
+  <Selector>
+    <By>
+      <Translation> Unterscheiden nach</Translation>
+      <Old> Vary by</Old>
+    </By>
+    <ByN>
+      <Translation> Unterscheiden nach (#{0})</Translation>
+      <Old> Vary by (#{0})</Old>
+    </ByN>
+    <By_Color_Description>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Farbe richten soll. Panzer, bei denen transparentes Schwarz (#00000000) ausgewählt wird, erhalten stattdessen eine Farbe gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the color is varied. The colors for any tanks whose color is set to transparent black (#00000000) are varied according to "Vary by (#{0})" instead.</Old>
+    </By_Color_Description>
+    <By_Color_DescriptionLast>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Farbe richten soll.</Translation>
+      <Old>Specifies a tank property by which the color is varied.</Old>
+    </By_Color_DescriptionLast>
+    <By_Bool_Description>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Einstellung richten soll. Panzer, bei denen die Einstellung „Durchreichen“ ausgewählt wird, erhalten stattdessen eine Einstellung gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to "Passthrough" are varied according to "Vary by (#{0})" instead.</Old>
+    </By_Bool_Description>
+    <By_Bool_DescriptionLast>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich die Einstellung richten soll.</Translation>
+      <Old>Specifies a tank property by which the setting is varied.</Old>
+    </By_Bool_DescriptionLast>
+    <By_String_Description>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Text richten soll. Panzer, bei denen ein leerer Text ausgewählt wird, erhalten stattdessen einen Text gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the text is varied. The text for any tanks whose text is blank is varied according to "Vary by (#{0})" instead.</Old>
+    </By_String_Description>
+    <By_String_DescriptionLast>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Text richten soll.</Translation>
+      <Old>Specifies a tank property by which the text is varied.</Old>
+    </By_String_DescriptionLast>
+    <By_Filename_Description>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Dateiname richten soll. Panzer, bei denen ein leerer Dateiname ausgewählt wird, erhalten stattdessen einen Dateinamen gemäß „Unterscheiden nach (#{0})“.</Translation>
+      <Old>Specifies a tank property by which the filename is varied. The filename for any tanks whose filename is blank is varied according to "Vary by (#{0})" instead.</Old>
+    </By_Filename_Description>
+    <By_Filename_DescriptionLast>
+      <Translation>Bestimmt, nach welcher Panzereigenschaft sich der Dateiname richten soll.</Translation>
+      <Old>Specifies a tank property by which the filename is varied.</Old>
+    </By_Filename_DescriptionLast>
+    <ClassLight>
+      <Translation>Klasse: Leichter Panzer</Translation>
+      <Old>Class: Light tank</Old>
+    </ClassLight>
+    <ClassMedium>
+      <Translation>Klasse: Mittelschwerer Panzer</Translation>
+      <Old>Class: Medium tank</Old>
+    </ClassMedium>
+    <ClassHeavy>
+      <Translation>Klasse: Schwerer Panzer</Translation>
+      <Old>Class: Heavy tank</Old>
+    </ClassHeavy>
+    <ClassDestroyer>
+      <Translation>Klasse: Panzerjäger</Translation>
+      <Old>Class: Destroyer</Old>
+    </ClassDestroyer>
+    <ClassArtillery>
+      <Translation>Klasse: Artillerie</Translation>
+      <Old>Class: Artillery</Old>
+    </ClassArtillery>
+    <CountryUSSR>
+      <Translation>Land: UdSSR</Translation>
+      <Old>Country: USSR</Old>
+    </CountryUSSR>
+    <CountryGermany>
+      <Translation>Land: Deutschland</Translation>
+      <Old>Country: Germany</Old>
+    </CountryGermany>
+    <CountryUSA>
+      <Translation>Land: USA</Translation>
+      <Old>Country: USA</Old>
+    </CountryUSA>
+    <CountryFrance>
+      <Translation>Land: Frankreich</Translation>
+      <Old>Country: France</Old>
+    </CountryFrance>
+    <CountryChina>
+      <Translation>Land: China</Translation>
+      <Old>Country: China</Old>
+    </CountryChina>
+    <CountryUK>
+      <Translation>Land: Großbritannien</Translation>
+      <Old>Country: UK</Old>
+    </CountryUK>
+    <CategNormal>
+      <Translation>Verf.: Normal</Translation>
+      <Old>Avail.: Normal</Old>
+    </CategNormal>
+    <CategPremium>
+      <Translation>Verf.: Premium</Translation>
+      <Old>Avail.: Premium</Old>
+    </CategPremium>
+    <CategSpecial>
+      <Translation>Verf.: Spezial</Translation>
+      <Old>Avail.: Special</Old>
+    </CategSpecial>
+    <Single>
+      <Translation>Nicht unterschieden</Translation>
+      <Old>Not varied</Old>
+    </Single>
+    <SingleDescription>
+      <Translation>Wenn „Unterscheiden nach“ auf „nicht unterschieden“ gesetzt wird, wird ein vorgegebener Wert verwendet. Nutzen Sie diese Einstellung, wenn der Wert nicht von Panzereigenschaften abhängen soll.</Translation>
+      <Old>When "Vary by" is set to "No variation", specifies the value to use. Use this when the value does not need to vary by tank properties.</Old>
+    </SingleDescription>
+    <TierN>
+      <Translation>Stufe: {0,2}</Translation>
+      <Old>Tier: {0,2}</Old>
+    </TierN>
+  </Selector>
+  <DlgMessage>
+    <OK>
+      <Translation>&amp;OK</Translation>
+      <Old>&amp;OK</Old>
+    </OK>
+    <CaptionInfo>
+      <Translation>Hinweis</Translation>
+      <Old>Information</Old>
+    </CaptionInfo>
+    <CaptionQuestion>
+      <Translation>Frage</Translation>
+      <Old>Question</Old>
+    </CaptionQuestion>
+    <CaptionWarning>
+      <Translation>Warnung</Translation>
+      <Old>Warning</Old>
+    </CaptionWarning>
+    <CaptionError>
+      <Translation>Fehler</Translation>
+      <Old>Error</Old>
+    </CaptionError>
+  </DlgMessage>
+  <Prompt>
+    <RenameLayer_Title>
+      <Translation>Ebene umbenennen</Translation>
+      <Old>Rename layer</Old>
+    </RenameLayer_Title>
+    <RenameLayer_Label>
+      <Translation>Ebenen_name:</Translation>
+      <Old>Layer _name:</Old>
+    </RenameLayer_Label>
+    <RenameEffect_Title>
+      <Translation>Effekt umbenennen</Translation>
+      <Old>Rename effect</Old>
+    </RenameEffect_Title>
+    <RenameEffect_Label>
+      <Translation>Effekt_name:</Translation>
+      <Old>Effect _name:</Old>
+    </RenameEffect_Label>
+    <CreateStyle_Title>
+      <Translation>Design erstellen</Translation>
+      <Old>Create style</Old>
+    </CreateStyle_Title>
+    <CreateStyle_Label>
+      <Translation>_Name des neuen Designs:</Translation>
+      <Old>New style _name:</Old>
+    </CreateStyle_Label>
+    <RenameStyle_Title>
+      <Translation>Designnamen ändern</Translation>
+      <Old>Change style name</Old>
+    </RenameStyle_Title>
+    <RenameStyle_Label>
+      <Translation>Neuer Design_name:</Translation>
+      <Old>New style _name:</Old>
+    </RenameStyle_Label>
+    <ChangeAuthor_Title>
+      <Translation>Designautor ändern</Translation>
+      <Old>Change style author</Old>
+    </ChangeAuthor_Title>
+    <ChangeAuthor_Label>
+      <Translation>Neuer Design_autor:</Translation>
+      <Old>New style _author:</Old>
+    </ChangeAuthor_Label>
+    <DuplicateStyle_Title>
+      <Translation>Design duplizieren</Translation>
+      <Old>Duplicate style</Old>
+    </DuplicateStyle_Title>
+    <DuplicateStyle_Label>
+      <Translation>_Name des Duplikats:</Translation>
+      <Old>New style _name:</Old>
+    </DuplicateStyle_Label>
+    <Cancel>
+      <Translation>Abbrechen</Translation>
+      <Old>Cancel</Old>
+    </Cancel>
+    <PromptWindowOK>
+      <Translation>_OK</Translation>
+      <Old>_OK</Old>
+    </PromptWindowOK>
+    <GamePathRequired>
+      <Translation>Bitte geben Sie zuerst ein Spielverzeichnis an (oben links, grüne Plus-Schaltfläche), in dem TankIconMaker die Symbole speichern soll.</Translation>
+      <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
+    </GamePathRequired>
+    <OverwriteIcons_Prompt>
+      <Translation encoding="c-literal">Sollen die bisherigen Symbole überschrieben werden?\r\n\r\nPfad: {0}\r\n\r\nWarnung: ALLE *.{1}-Dateien in diesem Verzeichnis werden überschrieben. Diese Aktion kann NICHT rückgängig gemacht werden.</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
+    </OverwriteIcons_Prompt>
+    <OverwriteIcons_Yes>
+      <Translation>&amp;Ja, alle Dateien überschreiben</Translation>
+      <Old>&amp;Yes, overwrite all files</Old>
+    </OverwriteIcons_Yes>
+    <GameNotFound_Prompt>
+      <Translation>In diesem Verzeichnis befindet sich anscheinend keine unterstützte Version von World of Tanks. Soll das Verzeichnis dennoch verwendet werden?</Translation>
+      <Old>This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?</Old>
+    </GameNotFound_Prompt>
+    <GameNotFound_Ignore>
+      <Translation>&amp;Dennoch verwenden</Translation>
+      <Old>&amp;Use anyway</Old>
+    </GameNotFound_Ignore>
+    <IconsSaved>
+      <Translation encoding="c-literal">Gespeichert.\r\nViel Spaß!</Translation>
+      <Old encoding="c-literal">Saved!\nEnjoy.</Old>
+    </IconsSaved>
+    <IconsSaveSkipped>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Achtung: 1 Bild wurde wegen Fehlern nicht gespeichert.</item>
+        <item>Achtung: {0} Bilder wurden wegen Fehlern nicht gespeichert.</item>
+      </Translations>
+      <Old>
+        <item>Note that 1 image was skipped due to errors.</item>
+        <item>Note that {0} images were skipped due to errors.</item>
+      </Old>
+    </IconsSaveSkipped>
+    <Upvote_BuiltInOnly>
+      <Translation>Aus Sicherheitsgründen können nur eingebaute Designs bewertet werden.</Translation>
+      <Old>For security reasons, only built-in styles can be upvoted.</Old>
+    </Upvote_BuiltInOnly>
+    <Upvote_NotAvailable>
+      <Translation>Zu diesem Design existiert momentan kein zugehöriges Posting in den World of Tanks-Foren.</Translation>
+      <Old>This style does not currently have an associated post on World of Tanks forums.</Old>
+    </Upvote_NotAvailable>
+    <Upvote_Prompt>
+      <Translation encoding="c-literal">Um {0} für dieses Design zu danken, geben Sie eine positive Bewertung im folgenden Thema im World of Tanks-Forum:\r\n\r\n{1}</Translation>
+      <Old encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Old>
+    </Upvote_Prompt>
+    <Upvote_Open>
+      <Translation>Im &amp;Browser öffnen</Translation>
+      <Old>&amp;Open in browser</Old>
+    </Upvote_Open>
+    <DeleteLayerEffect_Prompt>
+      <Translation>Ausgewählte Ebene oder Effekt löschen?</Translation>
+      <Old>Delete the selected layer/effect?</Old>
+    </DeleteLayerEffect_Prompt>
+    <DeleteLayerEffect_Yes>
+      <Translation>&amp;Löschen</Translation>
+      <Old>&amp;Delete</Old>
+    </DeleteLayerEffect_Yes>
+    <DeleteStyle_Prompt>
+      <Translation encoding="c-literal">Dieses Design löschen?\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Delete this style?\r\n\r\n{0}</Old>
+    </DeleteStyle_Prompt>
+    <DeleteStyle_Yes>
+      <Translation>&amp;Löschen</Translation>
+      <Old>&amp;Delete</Old>
+    </DeleteStyle_Yes>
+    <StyleImport_Fail>
+      <Translation>Die Datei konnte aus irgend einem Grund nicht geöffnet werden. Vielleicht ist sie im falschen Format.</Translation>
+      <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
+    </StyleImport_Fail>
+    <StyleExport_Success>
+      <Translation>Das Design wurde exportiert.</Translation>
+      <Old>The style has been exported.</Old>
+    </StyleExport_Success>
+    <ExceptionGlobal>
+      <Translation encoding="c-literal">Ein Fehler ist aufgetreten. Das ist nicht Ihr Fehler; der Programmierer hat Mist gebaut!\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionGlobal>
+    <ExceptionInRender>
+      <Translation>Eine Ebene oder ein Effekt hat beim Erzeugen des Bildes eine Exception ausgelöst. Es handelt sich hierbei um einen Bug im Programm; bitte berichten Sie uns davon.</Translation>
+      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
+    </ExceptionInRender>
+    <ErrorToClipboard_Copy>
+      <Translation>&amp;Bericht in die Zwischenablage kopieren</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
+    </ErrorToClipboard_Copy>
+    <ErrorToClipboard_OK>
+      <Translation>OK</Translation>
+      <Old>OK</Old>
+    </ErrorToClipboard_OK>
+    <ErrorToClipboard_Copied>
+      <Translation>Informationen bezüglich des Fehlers sind jetzt in der Zwischenablage.</Translation>
+      <Old>Information about the error is now in your clipboard.</Old>
+    </ErrorToClipboard_Copied>
+    <ErrorToClipboard_CopyFail>
+      <Translation>Leider konnte die Fehlerinformation aus irgend welchen Gründen nicht in die Zwischenablage kopiert werden.</Translation>
+      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
+    </ErrorToClipboard_CopyFail>
+  </Prompt>
+  <Error>
+    <DataFile_UnrecognizedCountry>
+      <Translation>Land nicht erkannt: „{0}“. Erlaubte Werte: {1}.</Translation>
+      <Old>Unrecognized country: "{0}". Allowed values: {1}.</Old>
+    </DataFile_UnrecognizedCountry>
+    <DataFile_UnrecognizedClass>
+      <Translation>Klasse nicht erkannt: „{0}“. Erlaubte Werte: {1}.</Translation>
+      <Old>Unrecognized class: "{0}". Allowed values: {1}.</Old>
+    </DataFile_UnrecognizedClass>
+    <DataFile_UnrecognizedCategory>
+      <Translation>Verfügbarkeit nicht erkannt: „{0}“. Erlaubte Werte: {1}.</Translation>
+      <Old>Unrecognized availability: "{0}". Allowed values: {1}.</Old>
+    </DataFile_UnrecognizedCategory>
+    <DataFile_TankTierValue>
+      <Translation>Das Feld Panzerstufe ist keine Ganzzahl oder liegt außerhalb des Bereichs 1–10: „{0}“</Translation>
+      <Old>The tier field is not a whole number or outside of the 1..10 range: "{0}"</Old>
+    </DataFile_TankTierValue>
+    <DataFile_TooFewFields>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Mindestens 1 Feld erwartet.</item>
+        <item>Mindestens {0} Felder erwartet.</item>
+      </Translations>
+      <Old>
+        <item>Expected at least 1 field.</item>
+        <item>Expected at least {0} fields.</item>
+      </Old>
+    </DataFile_TooFewFields>
+    <DataFile_EmptyFile>
+      <Translation>Mindestens eine Zeile erwartet.</Translation>
+      <Old>Expected at least one line.</Old>
+    </DataFile_EmptyFile>
+    <DataFile_TooFewFieldsFirstLine>
+      <Translation>Mindestens zwei Spalten in der ersten Zeile erwartet.</Translation>
+      <Old>Expected at least two columns in the first row.</Old>
+    </DataFile_TooFewFieldsFirstLine>
+    <DataFile_ExpectedSignature>
+      <Translation>„{0}“ in der ersten Spalte der ersten Zeile erwartet.</Translation>
+      <Old>Expected "{0}" in the first column of the first row.</Old>
+    </DataFile_ExpectedSignature>
+    <DataFile_ExpectedV1>
+      <Translation>Die zweite Spalte der ersten Zeile muss „1“ sein (Formatversion)</Translation>
+      <Old>The second column of the first row must be "1" (format version)</Old>
+    </DataFile_ExpectedV1>
+    <DataFile_LineNum>
+      <Translation>Zeile {0}: {1}</Translation>
+      <Old>Line {0}: {1}</Old>
+    </DataFile_LineNum>
+    <DataFile_CsvParse>
+      <Translation>Die Zeile {0} konnte nicht verarbeitet werden.</Translation>
+      <Old>Couldn't parse line {0}.</Old>
+    </DataFile_CsvParse>
+    <DataDir_NoFilesAvailable>
+      <Translation>Keine Spielversionsdatendateien und/oder eingebauten Datendateien gefunden.</Translation>
+      <Old>Could not load any game version data files and/or any built-in property data files.</Old>
+    </DataDir_NoFilesAvailable>
+    <DataDir_Skip_NoBuiltIns>
+      <Translation>Version {0} wurde übersprungen, weil dafür keine eingebauten Eigenschaftendatendateien verfügbar sind. Löschen Sie die Datei „{1}“, um diese Warnung zu entfernen.</Translation>
+      <Old>Skipped version {0} because there are no built-in property data files for it to use. Delete the "{1}" file to get rid of this warning.</Old>
+    </DataDir_Skip_NoBuiltIns>
+    <DataDir_Skip_WrongParts>
+      <Translation>„{0}“ wurde übersprungen, weil die Anzahl der Dateinamenelemente nicht stimmt (erwartet: {1}, erhalten: {2})</Translation>
+      <Old>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Old>
+    </DataDir_Skip_WrongParts>
+    <DataDir_Skip_FileError>
+      <Translation>„{0}“ wurde übersprungen, weil die Datei nicht verarbeitet werden konnte: {1}</Translation>
+      <Old>Skipped "{0}" because the file could not be parsed: {1}</Old>
+    </DataDir_Skip_FileError>
+    <DataDir_Skip_GameVersion>
+      <Translation>„{0}“ wurde übersprungen, weil die Spielversion im Dateinamen nicht verarbeitet werden konnte: „{1}“.</Translation>
+      <Old>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Old>
+    </DataDir_Skip_GameVersion>
+    <DataDir_Skip_FileVersion>
+      <Translation>„{0}“ wurde übersprungen, weil die Dateiversion im Dateinamen nicht verarbeitet werden konnte: „{1}“ (sie muss genau 3 Ziffern lang sein).</Translation>
+      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}" (or it isn't exactly 3 digits long).</Old>
+    </DataDir_Skip_FileVersion>
+    <DataDir_Skip_Author>
+      <Translation>„{0}“ wurde übersprungen, weil der Autor-Teil im Dateinamen leer ist.</Translation>
+      <Old>Skipped "{0}" because it has an empty author part in the filename.</Old>
+    </DataDir_Skip_Author>
+    <DataDir_Skip_PropName>
+      <Translation>„{0}“ wurde übersprungen, weil der Eigenschaftenname-Teil im Dateinamen leer ist.</Translation>
+      <Old>Skipped "{0}" because it has an empty property name part in the filename.</Old>
+    </DataDir_Skip_PropName>
+    <DataDir_Skip_Lang>
+      <Translation>„{0}“ wurde übersprungen, weil der Sprach-Teil im Dateinamen („{1}“) kein gültiger Sprachcode ist („X“ ist für sprachlose Dateien erlaubt). Vielleicht meinten Sie De, En, Ru, Zh, Es, Fr, Ja? Eine vollständige Liste der Sprachcodes ist auf Wikipedia unter „ISO-639-1“ abrufbar.</Translation>
+      <Old>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Old>
+    </DataDir_Skip_Lang>
+    <DataDir_Skip_InhNoProp>
+      <Translation>„{0}“ wurde übersprungen, weil keine Datendatei für die Eigenschaft „{1}“ (von der es Werte erbt) vorhanden ist.</Translation>
+      <Old>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Old>
+    </DataDir_Skip_InhNoProp>
+    <DataDir_Skip_InhNoLang>
+      <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“ (von der es Werte erbt) in der Sprache „{2}“ vorliegt.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}".</Old>
+    </DataDir_Skip_InhNoLang>
+    <DataDir_Skip_InhNoAuth>
+      <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“ (von der es Werte erbt) vom Autor „{2}“ stammen.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}".</Old>
+    </DataDir_Skip_InhNoAuth>
+    <DataDir_Skip_InhNoGameVer>
+      <Translation>„{0}“ wurde übersprungen, weil keine der Datendateien für die Eigenschaft „{1}“/„{2}“ (von der es Werte erbt) der Spielversion „{3}“ entsprechen.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Old>
+    </DataDir_Skip_InhNoGameVer>
+    <DataDir_Skip_InhCircular>
+      <Translation>„{0}“ wurde wegen einer zirkulären Abhängigkeit übersprungen.</Translation>
+      <Old>Skipped "{0}" due to a circular dependency.</Old>
+    </DataDir_Skip_InhCircular>
+    <NoDataFilesWarning>
+      <Translation encoding="c-literal">Keine Versionsdatendateien und/oder eingebaute Eigenschaftendatendateien gefunden. Sorgen Sie dafür, dass die Dateien im folgenden Pfad vorhanden sind:\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}</Old>
+    </NoDataFilesWarning>
+    <RenderWithErrors>
+      <Translation>Einige der Panzersymbole wurden nicht korrekt erzeugt; wählen Sie die Ansicht „Alle Panzer“ und klicken Sie auf die fehlerhaften Symbole, um Details abzurufen.</Translation>
+      <Old>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Old>
+    </RenderWithErrors>
+    <RenderWithWarnings>
+      <Translation>Bei der Erzeugung einiger Panzersymbole wurden Warnungen ausgegeben. Wählen Sie die Ansicht „Alle Panzer“ und klicken Sie auf die Symbole mit Warnungssymbolen, um Details abzurufen.</Translation>
+      <Old>Some of the tank icons rendered with warnings; make sure you view "All tanks" and click each image with a warning icon for details.</Old>
+    </RenderWithWarnings>
+    <RenderIconOK>
+      <Translation>Bei der Erzeugung dieses Symbols sind keine Probleme aufgetreten.</Translation>
+      <Old>This icon rendered without any problems.</Old>
+    </RenderIconOK>
+    <RenderIconFail>
+      <Translation>Dieses Symbol konnte nicht erzeugt werden: {0}</Translation>
+      <Old>Could not render this icon: {0}</Old>
+    </RenderIconFail>
+  </Error>
+  <Misc>
+    <ProgramVersion>
+      <Translation>Version {0}</Translation>
+      <Old>Version {0}</Old>
+    </ProgramVersion>
+    <GlobalStatus_Loading>
+      <Translation>Laden...</Translation>
+      <Old>Loading...</Old>
+    </GlobalStatus_Loading>
+    <GlobalStatus_Saving>
+      <Translation>Speichern...</Translation>
+      <Old>Saving...</Old>
+    </GlobalStatus_Saving>
+    <Filter_FilenameEditor>
+      <Translation>Bilddateien|*.png;*.jpg;*.tga|Alle Dateien|*.*</Translation>
+      <Old>Image files|*.png;*.jpg;*.tga|All files|*.*</Old>
+    </Filter_FilenameEditor>
+    <Filter_ImportExportStyle>
+      <Translation>Symboldesigns|*.xml|Alle Dateien|*.*</Translation>
+      <Old>Icon styles|*.xml|All files|*.*</Old>
+    </Filter_ImportExportStyle>
+    <NameOfCopied>
+      <Translation>{0} (Kopie)</Translation>
+      <Old>{0} (copy)</Old>
+    </NameOfCopied>
+    <NameOfNewStyle>
+      <Translation>Neues Design</Translation>
+      <Old>New style</Old>
+    </NameOfNewStyle>
+    <NameOfTankImageLayer>
+      <Translation>Panzerbild</Translation>
+      <Old>Tank image</Old>
+    </NameOfTankImageLayer>
+    <NameOfNewStyleAuthor>
+      <Translation>mir</Translation>
+      <Old>me</Old>
+    </NameOfNewStyleAuthor>
+    <StyleDisplay_Original>
+      <Translation>[Original]</Translation>
+      <Old>[original]</Old>
+    </StyleDisplay_Original>
+    <StyleDisplay_Current>
+      <Translation>[aktuell]</Translation>
+      <Old>[current]</Old>
+    </StyleDisplay_Current>
+    <StyleDisplay_BuiltIn>
+      <Translation>[eingebaut] {0} (von {1})</Translation>
+      <Old>[built-in] {0} (by {1})</Old>
+    </StyleDisplay_BuiltIn>
+    <StyleDisplay_Normal>
+      <Translation>{0} (von {1})</Translation>
+      <Old>{0} (by {1})</Old>
+    </StyleDisplay_Normal>
+    <PropSource_Author>
+      <Translation>Autor:</Translation>
+      <Old>Author:</Old>
+    </PropSource_Author>
+    <PropSource_TierRoman>
+      <Translation>Panzerstufe (römisch)</Translation>
+      <Old>Tier (Roman)</Old>
+    </PropSource_TierRoman>
+    <PropSource_TierArabic>
+      <Translation>Panzerstufe (arabisch)</Translation>
+      <Old>Tier (Arabic)</Old>
+    </PropSource_TierArabic>
+  </Misc>
+</item>

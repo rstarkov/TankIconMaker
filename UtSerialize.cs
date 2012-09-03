@@ -76,7 +76,7 @@ namespace TankIconMaker
                 var type = item.Attribute("type");
                 if (type == null)
                     item.Remove();
-                else if (!Program.LayerTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
+                else if (!App.LayerTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
                     item.Remove();
             }
         }
@@ -99,7 +99,7 @@ namespace TankIconMaker
                 var type = item.Attribute("type");
                 if (type == null)
                     item.Remove();
-                else if (!Program.EffectTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
+                else if (!App.EffectTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
                     item.Remove();
             }
         }

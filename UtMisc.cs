@@ -42,7 +42,7 @@ namespace TankIconMaker
                 num++;
                 var fields = parseCsvLine(line);
                 if (fields == null)
-                    throw new Exception(string.Format("Couldn't parse line {0}.", num));
+                    throw new Exception(App.Translation.Error.DataFile_CsvParse.Fmt(num));
                 yield return Tuple.Create(num, fields);
             }
         }
@@ -223,18 +223,18 @@ namespace TankIconMaker
                     return PathUtil.ToggleRelative(PathUtil.AppPath, path);
             }
             catch { }
-            if (Program.LastGameInstallSettings == null)
+            if (App.LastGameInstallSettings == null)
                 return path;
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods)))
-                    return PathUtil.ToggleRelative(Path.Combine(Program.LastGameInstallSettings.Path, Program.LastGameInstallSettings.GameVersion.PathMods), path);
+                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods)))
+                    return PathUtil.ToggleRelative(Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods), path);
             }
             catch { }
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, Program.LastGameInstallSettings.Path))
-                    return PathUtil.ToggleRelative(Program.LastGameInstallSettings.Path, path);
+                if (PathUtil.IsSubpathOfOrSame(path, App.LastGameInstallSettings.Path))
+                    return PathUtil.ToggleRelative(App.LastGameInstallSettings.Path, path);
             }
             catch { }
             return path;
@@ -264,7 +264,7 @@ namespace TankIconMaker
         public static string ToHex(this byte[] data)
         {
             if (data == null)
-                throw new ArgumentNullException("byteArray");
+                throw new ArgumentNullException("data");
 
             char[] charArr = new char[data.Length * 2];
             var j = 0;
@@ -495,11 +495,11 @@ namespace TankIconMaker
         }
     }
 
+    [TypeConverter(typeof(BoolWithPassthroughTranslation.Conv))]
     enum BoolWithPassthrough
     {
         No,
         Yes,
-        [Description("Passthrough: use next By")]
         Passthrough,
     }
 }

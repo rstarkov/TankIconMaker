@@ -6,7 +6,7 @@ namespace TankIconMaker
     partial class PromptWindow : ManagedWindow
     {
         public PromptWindow()
-            : base(Program.Settings.RenameWindow)
+            : base(App.Settings.RenameWindow)
         {
             InitializeComponent();
         }
@@ -21,6 +21,8 @@ namespace TankIconMaker
             var wnd = new PromptWindow { Owner = owner };
             wnd.Title = title;
             wnd.lblName.Content = label;
+            wnd.ctOkBtn.Text = App.Translation.Prompt.PromptWindowOK;
+            wnd.ctCancelBtn.Text = App.Translation.Prompt.Cancel;
             wnd.ctName.Text = name;
             wnd.ctName.Focus();
 

@@ -64,10 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="AddWindow.xaml.cs">
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
@@ -99,6 +99,8 @@
     </Compile>
     <Compile Include="Style.cs" />
     <Compile Include="OldFiles.cs" />
+    <Compile Include="Translation.cs" />
+    <Compile Include="Translation.g.cs" />
     <Compile Include="UtColors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Targa.cs" />
@@ -187,9 +189,14 @@
       <Resources Include="Resources\*" />
       <Images Include="Resources\Images\*" />
       <Licenses Include="ThirdParty\license-*" />
+      <Translations Include="Resources\Translations\*" />
     </ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>"$(TargetPath)" --post-build-check "$(SolutionDir)."</PostBuildEvent>
+  </PropertyGroup>
 </Project>
