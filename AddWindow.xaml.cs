@@ -7,7 +7,7 @@ namespace TankIconMaker
     partial class AddWindow : ManagedWindow
     {
         public AddWindow()
-            : base(Program.Settings.AddWindow)
+            : base(App.Settings.AddWindow)
         {
             InitializeComponent();
             ContentRendered += delegate
@@ -24,10 +24,12 @@ namespace TankIconMaker
         public static LayerBase ShowAddLayer(Window owner)
         {
             var wnd = new AddWindow { Owner = owner };
-            wnd.Title = "Add layer";
-            wnd.lblName.Content = "Layer _name:";
-            wnd.lblList.Content = "Layer _type:";
-            wnd.ctList.ItemsSource = Program.LayerTypes;
+            wnd.Title = App.Translation.AddWindow.AddLayerTitle;
+            wnd.lblName.Content = new AccessText { Text = App.Translation.AddWindow.LayerName };
+            wnd.lblList.Content = new AccessText { Text = App.Translation.AddWindow.LayerType };
+            wnd.ctAddLabel.Text = App.Translation.AddWindow.BtnAdd;
+            wnd.ctCancelLabel.Text = App.Translation.AddWindow.BtnCancel;
+            wnd.ctList.ItemsSource = App.LayerTypes;
             wnd.ctList.SelectedIndex = 0;
 
             if (wnd.ShowDialog() != true)
@@ -44,10 +46,12 @@ namespace TankIconMaker
         public static EffectBase ShowAddEffect(Window owner)
         {
             var wnd = new AddWindow { Owner = owner };
-            wnd.Title = "Add effect";
-            wnd.lblName.Content = "Effect _name:";
-            wnd.lblList.Content = "Effect _type:";
-            wnd.ctList.ItemsSource = Program.EffectTypes;
+            wnd.Title = App.Translation.AddWindow.AddEffectTitle;
+            wnd.lblName.Content = new AccessText { Text = App.Translation.AddWindow.EffectName };
+            wnd.lblList.Content = new AccessText { Text = App.Translation.AddWindow.EffectType };
+            wnd.ctAddLabel.Text = App.Translation.AddWindow.BtnAdd;
+            wnd.ctCancelLabel.Text = App.Translation.AddWindow.BtnCancel;
+            wnd.ctList.ItemsSource = App.EffectTypes;
             wnd.ctList.SelectedIndex = 0;
 
             if (wnd.ShowDialog() != true)

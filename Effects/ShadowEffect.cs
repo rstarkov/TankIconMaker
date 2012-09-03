@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 
 namespace TankIconMaker.Effects
@@ -10,26 +8,24 @@ namespace TankIconMaker.Effects
     class ShadowEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Shadow"; } }
-        public override string TypeDescription { get { return "Adds a shadow as if cast by the current layer."; } }
+        public override string TypeName { get { return App.Translation.EffectShadow.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectShadow.EffectDescription; } }
 
-        [Category("Shadow")]
-        [Description("Shadow radius.")]
         public double Radius { get { return _Radius; } set { _Radius = Math.Max(1.0, value); } }
         private double _Radius = 3.5;
-        [Category("Shadow")]
-        [Description("Shadow spread controls the strength of the shadow, but does not affect its maximum size.")]
+        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.Radius); }
+
         public double Spread { get { return _Spread; } set { _Spread = Math.Max(0, value); } }
         private double _Spread = 5;
-        [Category("Shadow")]
-        [Description("Shadow color. Use bright colors for glow. Adjust the Alpha channel to control final shadow transparency.")]
+        public static MemberTr SpreadTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.Spread); }
+
         public ColorSelector Color { get; set; }
-        [Category("Shadow"), DisplayName("Shift: X")]
-        [Description("Amount of horizontal shift in pixels.")]
+        public static MemberTr ColorTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.Color); }
+
         public int ShiftX { get; set; }
-        [Category("Shadow"), DisplayName("Shift: Y")]
-        [Description("Amount of vertical shift in pixels.")]
+        public static MemberTr ShiftXTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.ShiftX); }
         public int ShiftY { get; set; }
+        public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.ShiftY); }
 
         [XmlIgnore]
         private GaussianBlur _blur;

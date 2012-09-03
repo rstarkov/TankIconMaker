@@ -24,10 +24,10 @@ namespace TankIconMaker
             {
                 switch (Kind)
                 {
-                    case StyleKind.Original: return "[original]";
-                    case StyleKind.Current: return "[current]";
-                    case StyleKind.BuiltIn: return "[built-in] {0} (by {1})".Fmt(Name, Author);
-                    case StyleKind.User: return "{0} (by {1})".Fmt(Name, Author);
+                    case StyleKind.Original: return App.Translation.Misc.StyleDisplay_Original;
+                    case StyleKind.Current: return App.Translation.Misc.StyleDisplay_Current;
+                    case StyleKind.BuiltIn: return App.Translation.Misc.StyleDisplay_BuiltIn.Fmt(Name, Author);
+                    case StyleKind.User: return App.Translation.Misc.StyleDisplay_Normal.Fmt(Name, Author);
                     default: throw new Exception("9742978");
                 }
             }
@@ -50,6 +50,13 @@ namespace TankIconMaker
 
         private void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
+
+        public void TranslationChanged()
+        {
+            NotifyPropertyChanged("Name");
+            NotifyPropertyChanged("Author");
+            NotifyPropertyChanged("Display");
+        }
 
         public int CompareTo(Style other)
         {

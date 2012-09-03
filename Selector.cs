@@ -1,72 +1,61 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Media;
+using RT.Util.Lingo;
 using D = System.Drawing;
 
 namespace TankIconMaker
 {
+    [TypeConverter(typeof(SelectByTranslation.Conv))]
     enum SelectBy
     {
-        [Description("Artillery • Destroyer • Light • etc")]
         Class,
-        [Description("USSR • Germany • USA • etc")]
         Country,
-        [Description("Normal • premium • special")]
         Category,
-        [Description("Tier (1 .. 10)")]
         Tier,
-        [Description("Single value")]
         Single,
     }
 
     abstract class SelectorBase<T>
     {
-        [DisplayName("By")]
-        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) are selected according to \"By (#2)\".")]
         public SelectBy By { get; set; }
-        [DisplayName("By (#2)")]
-        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) are selected according to \"By (#3)\".")]
         public SelectBy By2 { get; set; }
-        [DisplayName("By (#3)")]
-        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) are selected according to \"By (#4)\".")]
         public SelectBy By3 { get; set; }
-        [DisplayName("By (#4)")]
-        [Description("Determines which color set to use. Any colors that are fully transparent black (#00000000) will remain fully transparent.")]
         public SelectBy By4 { get; set; }
 
-        [DisplayName("Class: Light tank")]
         public T ClassLight { get; set; }
-        [DisplayName("Class: Medium tank")]
+        public static MemberTr ClassLightTr(Translation tr) { return new MemberTr(tr.Selector.ClassLight); }
         public T ClassMedium { get; set; }
-        [DisplayName("Class: Heavy tank")]
+        public static MemberTr ClassMediumTr(Translation tr) { return new MemberTr(tr.Selector.ClassMedium); }
         public T ClassHeavy { get; set; }
-        [DisplayName("Class: Destroyer")]
+        public static MemberTr ClassHeavyTr(Translation tr) { return new MemberTr(tr.Selector.ClassHeavy); }
         public T ClassDestroyer { get; set; }
-        [DisplayName("Class: Artillery")]
+        public static MemberTr ClassDestroyerTr(Translation tr) { return new MemberTr(tr.Selector.ClassDestroyer); }
         public T ClassArtillery { get; set; }
+        public static MemberTr ClassArtilleryTr(Translation tr) { return new MemberTr(tr.Selector.ClassArtillery); }
 
-        [DisplayName("Country: USSR")]
         public T CountryUSSR { get; set; }
-        [DisplayName("Country: Germany")]
+        public static MemberTr CountryUSSRTr(Translation tr) { return new MemberTr(tr.Selector.CountryUSSR); }
         public T CountryGermany { get; set; }
-        [DisplayName("Country: USA")]
+        public static MemberTr CountryGermanyTr(Translation tr) { return new MemberTr(tr.Selector.CountryGermany); }
         public T CountryUSA { get; set; }
-        [DisplayName("Country: France")]
+        public static MemberTr CountryUSATr(Translation tr) { return new MemberTr(tr.Selector.CountryUSA); }
         public T CountryFrance { get; set; }
-        [DisplayName("Country: China")]
+        public static MemberTr CountryFranceTr(Translation tr) { return new MemberTr(tr.Selector.CountryFrance); }
         public T CountryChina { get; set; }
-        [DisplayName("Country: UK")]
+        public static MemberTr CountryChinaTr(Translation tr) { return new MemberTr(tr.Selector.CountryChina); }
         public T CountryUK { get; set; }
+        public static MemberTr CountryUKTr(Translation tr) { return new MemberTr(tr.Selector.CountryUK); }
 
-        [DisplayName("Categ.: Normal")]
         public T CategNormal { get; set; }
-        [DisplayName("Categ.: Premium")]
+        public static MemberTr CategNormalTr(Translation tr) { return new MemberTr(tr.Selector.CategNormal); }
         public T CategPremium { get; set; }
-        [DisplayName("Categ.: Special")]
+        public static MemberTr CategPremiumTr(Translation tr) { return new MemberTr(tr.Selector.CategPremium); }
         public T CategSpecial { get; set; }
+        public static MemberTr CategSpecialTr(Translation tr) { return new MemberTr(tr.Selector.CategSpecial); }
 
-        [DisplayName("Single")]
         public T Single { get; set; }
+        public static MemberTr SingleTr(Translation tr) { return new MemberTr(tr.Selector.Single, tr.Selector.SingleDescription); }
 
         public SelectorBase()
             : this(default(T))
@@ -85,26 +74,31 @@ namespace TankIconMaker
 
     sealed class ValueSelector<T> : SelectorBase<T>
     {
-        [DisplayName("Tier:  1")]
         public T Tier1 { get; set; }
-        [DisplayName("Tier:  2")]
+        public static MemberTr Tier1Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(1)); }
         public T Tier2 { get; set; }
-        [DisplayName("Tier:  3")]
+        public static MemberTr Tier2Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(2)); }
         public T Tier3 { get; set; }
-        [DisplayName("Tier:  4")]
+        public static MemberTr Tier3Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(3)); }
         public T Tier4 { get; set; }
-        [DisplayName("Tier:  5")]
+        public static MemberTr Tier4Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(4)); }
         public T Tier5 { get; set; }
-        [DisplayName("Tier:  6")]
+        public static MemberTr Tier5Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(5)); }
         public T Tier6 { get; set; }
-        [DisplayName("Tier:  7")]
+        public static MemberTr Tier6Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(6)); }
         public T Tier7 { get; set; }
-        [DisplayName("Tier:  8")]
+        public static MemberTr Tier7Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(7)); }
         public T Tier8 { get; set; }
-        [DisplayName("Tier:  9")]
+        public static MemberTr Tier8Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(8)); }
         public T Tier9 { get; set; }
-        [DisplayName("Tier: 10")]
+        public static MemberTr Tier9Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(9)); }
         public T Tier10 { get; set; }
+        public static MemberTr Tier10Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(10)); }
+
+        public static MemberTr ByTr(Translation tr) { return new MemberTr(tr.Selector.By, getDescriptionString(tr).Fmt(2)); }
+        public static MemberTr By2Tr(Translation tr) { return new MemberTr(tr.Selector.ByN.Fmt(2), getDescriptionString(tr).Fmt(3)); }
+        public static MemberTr By3Tr(Translation tr) { return new MemberTr(tr.Selector.ByN.Fmt(3), getDescriptionString(tr).Fmt(4)); }
+        public static MemberTr By4Tr(Translation tr) { return new MemberTr(tr.Selector.ByN.Fmt(4), getDescriptionLastString(tr)); }
 
         public ValueSelector()
             : this(default(T))
@@ -166,6 +160,28 @@ namespace TankIconMaker
             return false;
         }
 
+        private static TrString getDescriptionString(Translation tr)
+        {
+            if (typeof(T) == typeof(string))
+                return tr.Selector.By_String_Description;
+            if (typeof(T) == typeof(Filename))
+                return tr.Selector.By_Filename_Description;
+            if (typeof(T) == typeof(BoolWithPassthrough))
+                return tr.Selector.By_Bool_Description;
+            throw new Exception("397fh2k3");
+        }
+
+        private static TrString getDescriptionLastString(Translation tr)
+        {
+            if (typeof(T) == typeof(string))
+                return tr.Selector.By_String_DescriptionLast;
+            if (typeof(T) == typeof(Filename))
+                return tr.Selector.By_Filename_DescriptionLast;
+            if (typeof(T) == typeof(BoolWithPassthrough))
+                return tr.Selector.By_Bool_DescriptionLast;
+            throw new Exception("397fh2k4");
+        }
+
         public ValueSelector<T> Clone()
         {
             return (ValueSelector<T>) MemberwiseClone();
@@ -174,12 +190,17 @@ namespace TankIconMaker
 
     sealed class ColorSelector : SelectorBase<Color>
     {
-        [DisplayName("Tier:  1")]
         public Color Tier1 { get; set; }
-        [DisplayName("Tier:  5")]
+        public static MemberTr Tier1Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(1)); }
         public Color Tier5 { get; set; }
-        [DisplayName("Tier: 10")]
+        public static MemberTr Tier5Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(5)); }
         public Color Tier10 { get; set; }
+        public static MemberTr Tier10Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(10)); }
+
+        public static MemberTr ByTr(Translation tr) { return new MemberTr(tr.Selector.By, tr.Selector.By_Color_Description.Fmt(2)); }
+        public static MemberTr By2Tr(Translation tr) { return new MemberTr(tr.Selector.ByN.Fmt(2), tr.Selector.By_Color_Description.Fmt(3)); }
+        public static MemberTr By3Tr(Translation tr) { return new MemberTr(tr.Selector.ByN.Fmt(3), tr.Selector.By_Color_Description.Fmt(4)); }
+        public static MemberTr By4Tr(Translation tr) { return new MemberTr(tr.Selector.ByN.Fmt(4), tr.Selector.By_Color_DescriptionLast); }
 
         public ColorSelector()
             : this(Colors.White)

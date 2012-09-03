@@ -1,0 +1,1699 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <TranslationCredits>
+    <Translation>Перевод на русский: Romkyns</Translation>
+    <Old>English translation by Romkyns</Old>
+  </TranslationCredits>
+  <MainWindow>
+    <ctGameDirLabel>
+      <Translation>_Папка с игрой:</Translation>
+      <Old>Game _directory:</Old>
+    </ctGameDirLabel>
+    <ctGameVersionLabel>
+      <Translation>_Версия игры:</Translation>
+      <Old>_Game version:</Old>
+    </ctGameVersionLabel>
+    <ctIconStyleLabel>
+      <Translation>Стиль _иконок:</Translation>
+      <Old>_Icon style:</Old>
+    </ctIconStyleLabel>
+    <ctStyleNewLabel>
+      <Translation>Созд_ать</Translation>
+      <Old>_New</Old>
+    </ctStyleNewLabel>
+    <ctStyleImportLabel>
+      <Translation>И_мпорт</Translation>
+      <Old>Im_port</Old>
+    </ctStyleImportLabel>
+    <ctStyleExportLabel>
+      <Translation>Э_кспорт</Translation>
+      <Old>E_xport</Old>
+    </ctStyleExportLabel>
+    <ctUpvote>
+      <Translation>Плюсануть автора этого стиля</Translation>
+      <Old>Upvote the author of this style</Old>
+    </ctUpvote>
+    <ctStyleMoreLabel>
+      <Translation>_Ещё</Translation>
+      <Old>_More</Old>
+    </ctStyleMoreLabel>
+    <ctStyleChangeName>
+      <Translation>Изменить _название</Translation>
+      <Old>Change _name</Old>
+    </ctStyleChangeName>
+    <ctStyleChangeAuthor>
+      <Translation>Изменить _автора</Translation>
+      <Old>Change _author</Old>
+    </ctStyleChangeAuthor>
+    <ctStyleDuplicate>
+      <Translation>Создать _копию</Translation>
+      <Old>_Duplicate</Old>
+    </ctStyleDuplicate>
+    <ctStyleDelete>
+      <Translation>_Удалить</Translation>
+      <Old>D_elete</Old>
+    </ctStyleDelete>
+    <ctLayersLabel>
+      <Translation>С_лои:</Translation>
+      <Old>_Layers:</Old>
+    </ctLayersLabel>
+    <ctLayersAddLayer>
+      <Translation>Добавить _слой...</Translation>
+      <Old>Add _layer...</Old>
+    </ctLayersAddLayer>
+    <ctLayersAddEffect>
+      <Translation>Добавить э_ффект...</Translation>
+      <Old>Add _effect...</Old>
+    </ctLayersAddEffect>
+    <ctLayersModify>
+      <Translation>_Переименовать</Translation>
+      <Old>_Modify</Old>
+    </ctLayersModify>
+    <ctLayersDelete>
+      <Translation>_Удалить</Translation>
+      <Old>_Delete</Old>
+    </ctLayersDelete>
+    <ctLayersMoveUp>
+      <Translation>Сдвинуть _вверх</Translation>
+      <Old>Move _up</Old>
+    </ctLayersMoveUp>
+    <ctLayersMoveDown>
+      <Translation>Сдвинуть в_низ</Translation>
+      <Old>Move d_own</Old>
+    </ctLayersMoveDown>
+    <ctLayersToggleVisibility>
+      <Translation>В_кл/выкл видимость</Translation>
+      <Old>Toggle _visibility</Old>
+    </ctLayersToggleVisibility>
+    <ctZoomCheckbox>
+      <Translation>_Увеличить</Translation>
+      <Old>_Zoom</Old>
+    </ctZoomCheckbox>
+    <ctDisplayModeAll>
+      <Translation>Все танки</Translation>
+      <Old>All tanks</Old>
+    </ctDisplayModeAll>
+    <ctDisplayModeOneEach>
+      <Translation>По одному каждого типа</Translation>
+      <Old>One of each combination</Old>
+    </ctDisplayModeOneEach>
+    <ctLanguageLabel>
+      <Translation>_Язык</Translation>
+      <Old>L_anguage</Old>
+    </ctLanguageLabel>
+    <ctWarning>
+      <Translation>Обнаружены проблемы; щелкните по иконке для просмотра подробностей.</Translation>
+      <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
+    </ctWarning>
+    <ctReloadLabel>
+      <Translation>_Обновить данные</Translation>
+      <Old>_Reload data</Old>
+    </ctReloadLabel>
+    <ctSaveLabel>
+      <Translation>_Сохранить...</Translation>
+      <Old>_Save...</Old>
+    </ctSaveLabel>
+    <ctAboutLabel>
+      <Translation>О программе...</Translation>
+      <Old>About...</Old>
+    </ctAboutLabel>
+  </MainWindow>
+  <AddWindow>
+    <AddLayerTitle>
+      <Translation>Добавление слоя</Translation>
+      <Old>Add layer</Old>
+    </AddLayerTitle>
+    <LayerName>
+      <Translation>_Название слоя:</Translation>
+      <Old>Layer _name:</Old>
+    </LayerName>
+    <LayerType>
+      <Translation>_Тип слоя:</Translation>
+      <Old>Layer _type:</Old>
+    </LayerType>
+    <AddEffectTitle>
+      <Translation>Добавление эффекта</Translation>
+      <Old>Add effect</Old>
+    </AddEffectTitle>
+    <EffectName>
+      <Translation>_Название эффекта:</Translation>
+      <Old>Effect _name:</Old>
+    </EffectName>
+    <EffectType>
+      <Translation>_Тип эффекта:</Translation>
+      <Old>Effect _type:</Old>
+    </EffectType>
+    <BtnAdd>
+      <Translation>_Добавить</Translation>
+      <Old>_Add</Old>
+    </BtnAdd>
+    <BtnCancel>
+      <Translation>_Отменить</Translation>
+      <Old>_Cancel</Old>
+    </BtnCancel>
+  </AddWindow>
+  <LayerAndEffect>
+    <LayerVisible>
+      <DisplayName>
+        <Translation>Видимость</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Позволяет временно скрыть данынй слой, не удаляя его.</Translation>
+        <Old>Allows you to hide this layer temporarily without deleting it.</Old>
+      </Description>
+    </LayerVisible>
+    <LayerVisibleFor>
+      <DisplayName>
+        <Translation>Видимость для</Translation>
+        <Old>Visible for</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Позволяет скрыть данный слой для определенных типов техники.</Translation>
+        <Old>Allows you to hide this layer for some of the tanks, depending on their properties.</Old>
+      </Description>
+    </LayerVisibleFor>
+    <EffectVisible>
+      <DisplayName>
+        <Translation>Видимость</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Позволяет временно скрыть данынй эффект, не удаляя его.</Translation>
+        <Old>Allows you to hide this effect temporarily without deleting it.</Old>
+      </Description>
+    </EffectVisible>
+    <EffectVisibleFor>
+      <DisplayName>
+        <Translation>Видимость для</Translation>
+        <Old>Visible for</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Позволяет скрыть данный эффект для определенных типов техники.</Translation>
+        <Old>Allows you to hide this effect for some of the tanks, depending on their properties.</Old>
+      </Description>
+    </EffectVisibleFor>
+  </LayerAndEffect>
+  <BkgDarkAgentLayer>
+    <LayerName>
+      <Translation>Фон / Dark Agent</Translation>
+      <Old>Background / Dark Agent</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Рисует фон, используя "стеклянный" стиль, основанный на иконках от Black_Spy.</Translation>
+      <Old>Draws a background using a glassy style inspired by Black_Spy’s icon set.</Old>
+    </LayerDescription>
+    <BackColor>
+      <DisplayName>
+        <Translation>Цвет фона</Translation>
+        <Old>Background color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Определяет цвет фона.</Translation>
+        <Old>Background color.</Old>
+      </Description>
+    </BackColor>
+  </BkgDarkAgentLayer>
+  <TankImageLayer>
+    <LayerName>
+      <Translation>Изображение / Стандартное</Translation>
+      <Old>Image / Standard</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Рисует один из нескольких типов стандартных изображений для этого танка.</Translation>
+      <Old>Draws one of the several types of standard images for this tank.</Old>
+    </LayerDescription>
+    <Style>
+      <DisplayName>
+        <Translation>Тип</Translation>
+        <Old>Type</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает тип стандартного изображения.</Translation>
+        <Old>Specifies which of the standard image types to draw.</Old>
+      </Description>
+    </Style>
+    <MissingImageWarning>
+      <Translation>Изображение для этого танка отсутствует.</Translation>
+      <Old>The image for this tank is missing.</Old>
+    </MissingImageWarning>
+  </TankImageLayer>
+  <CurrentImageLayer>
+    <LayerName>
+      <Translation>Изображение / Текущее</Translation>
+      <Old>Image / Current</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Рисует иконку, которая в данный момент используется в игре для этого танка.</Translation>
+      <Old>Draws the icon that’s currently saved in the output directory.</Old>
+    </LayerDescription>
+    <MissingImageWarning>
+      <Translation>Изображение для этого танка отсутствует.</Translation>
+      <Old>There is no current image for this tank.</Old>
+    </MissingImageWarning>
+  </CurrentImageLayer>
+  <CustomImageLayer>
+    <LayerName>
+      <Translation>Изображение / По свойствам</Translation>
+      <Old>Image / By properties</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Рисует одно из нескольких изображений, загруженных из пользовательских файлов, в зависимости от свойств танка.</Translation>
+      <Old>Draws an image loaded from a file whose name is selected based on tank properties.</Old>
+    </LayerDescription>
+    <ImageFile>
+      <DisplayName>
+        <Translation>Изображение</Translation>
+        <Old>Image file</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает путь к файлу с изображением. Относительные пути разрешаются; программа ищет такие файлы сначала в директории программы, потом в папке для модов WoT текущей версии, а потом в папке установки WoT.</Translation>
+        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Old>
+      </Description>
+    </ImageFile>
+    <MissingImageWarning>
+      <Translation>Изображение не найдено: «{0}».</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </CustomImageLayer>
+  <FilenamePatternImageLayer>
+    <LayerName>
+      <Translation>Изображение / По имени файла</Translation>
+      <Old>Image / By filename template</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Рисует изображение, загруженное из файла, чье имя получено в результате подстановки свойств танка в шаблон.</Translation>
+      <Old>Draws an image loaded from a file whose name is generated by substituting various tank properties into a filename template.</Old>
+    </LayerDescription>
+    <Pattern>
+      <DisplayName>
+        <Translation>Шаблон</Translation>
+        <Old>Template</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Шаблон имени файла. Следующие строки заменяются на свойства конкретного танка: {tier} (уровень), {country} (страна), {class} (класс техники), {category} (статус в магазине), {id}.</Translation>
+        <Old>Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.</Old>
+      </Description>
+    </Pattern>
+    <MissingImageWarning>
+      <Translation>Изображение не найдено: «{0}».</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </FilenamePatternImageLayer>
+  <TextLayer>
+    <FontSmoothing>
+      <DisplayName>
+        <Translation>Сглаживание</Translation>
+        <Old>Smoothing</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Определяет метод сглаживания текста.</Translation>
+        <Old>Determines how to smooth the text (anti-aliasing).</Old>
+      </Description>
+    </FontSmoothing>
+    <FontFamily>
+      <DisplayName>
+        <Translation>Семейство</Translation>
+        <Old>Family</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Семейство шрифта.</Translation>
+        <Old>Font family.</Old>
+      </Description>
+    </FontFamily>
+    <FontSize>
+      <DisplayName>
+        <Translation>Размер</Translation>
+        <Old>Size</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Размер шрифта.</Translation>
+        <Old>Font size.</Old>
+      </Description>
+    </FontSize>
+    <FontBold>
+      <DisplayName>
+        <Translation>Жирный</Translation>
+        <Old>Bold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Включает жирный шрифт.</Translation>
+        <Old>Makes the text bold.</Old>
+      </Description>
+    </FontBold>
+    <FontItalic>
+      <DisplayName>
+        <Translation>Курсив</Translation>
+        <Old>Italic</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Включает наклонный шрифт.</Translation>
+        <Old>Makes the text italic.</Old>
+      </Description>
+    </FontItalic>
+    <FontColor>
+      <DisplayName>
+        <Translation>Цвет</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает цвет текста.</Translation>
+        <Old>Specifies the text color.</Old>
+      </Description>
+    </FontColor>
+    <Left>
+      <DisplayName>
+        <Translation>Левая граница</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-координата самого левого пикселя текста. Игнорируется когда «Левая привязка» отключена.</Translation>
+        <Old>X coordinate of the leftmost text pixel. Ignored if "Left anchor" is unchecked.</Old>
+      </Description>
+    </Left>
+    <Right>
+      <DisplayName>
+        <Translation>Правая граница</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-координата самого правого пикселя текста. Игнорируется когда «Правая привязка» отключена.</Translation>
+        <Old>X coordinate of the rightmost text pixel. Ignored if "Right anchor" is unchecked.</Old>
+      </Description>
+    </Right>
+    <Top>
+      <DisplayName>
+        <Translation>Верхняя граница</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-координата самого верхнего пикселя текста (однако см. «По линии шрифта»). Игнорируется когда «Верхняя привязка» отключена.</Translation>
+        <Old>Y coordinate of the topmost text pixel (but see also "Align baselines"). Ignored if "Top anchor" is unchecked.</Old>
+      </Description>
+    </Top>
+    <Bottom>
+      <DisplayName>
+        <Translation>Нижняя граница</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-координата самого нижнего пикселя текста (однако см. «По линии шрифта»). Игнорируется когда «Нижняя привязка» отключена.</Translation>
+        <Old>Y coordinate of the bottommost text pixel (but see also "Align baselines"). Ignored if "Bottom anchor" is unchecked.</Old>
+      </Description>
+    </Bottom>
+    <LeftAnchor>
+      <DisplayName>
+        <Translation>Левая привязка</Translation>
+        <Old>Left anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, самый левый пиксель текста размещается на X-координате, указанной в свойстве «Левая граница». Если «Правая привязка» тоже включена, текст центрируется между «Левая граница» и «Правая граница».</Translation>
+        <Old>When checked, the leftmost pixel of the text is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the text is centered between "Left" and "Right".</Old>
+      </Description>
+    </LeftAnchor>
+    <RightAnchor>
+      <DisplayName>
+        <Translation>Правая привязка</Translation>
+        <Old>Right anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, самый правый пиксель текста размещается на X-координате, указанной в свойстве «Правая граница». Если «Левая привязка» тоже включена, текст центрируется между «Левая граница» и «Правая граница».</Translation>
+        <Old>When checked, the rightmost pixel of the text is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the text is centered between "Left" and "Right".</Old>
+      </Description>
+    </RightAnchor>
+    <TopAnchor>
+      <DisplayName>
+        <Translation>Верхняя привязка</Translation>
+        <Old>Top anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, самый верхний пиксель текста размещается на Y-координате, указанной в свойстве «Верхняя граница». Если «Нижняя привязка» тоже включена, текст центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
+        <Old>When checked, the topmost pixel of the text is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </TopAnchor>
+    <BottomAnchor>
+      <DisplayName>
+        <Translation>Нижняя привязка</Translation>
+        <Old>Bottom anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, самый нижний пиксель текста размещается на Y-координате, указанной в свойстве «Нижняя граница». Если «Верхняя привязка» тоже включена, текст центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
+        <Old>When checked, the bottommost pixel of the text is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </BottomAnchor>
+    <Baseline>
+      <DisplayName>
+        <Translation> По линии шрифта</Translation>
+        <Old>Align baselines</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Представьте слова «тип» и «Тип», с верхним якорем на пикселе 0. Если «По линии шрифта» включено, то «тип» будет отображаться несколько выше, чем «Тип». Если же свойство включено, то линия текста будет одинакова (при этом верхний пиксель в слове «тип» будет несколько ниже, чем 0-й пиксель).</Translation>
+        <Old>Consider the words "more" and "More", top-anchored at pixel 0. If "Align baselines" is false, the word "more" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of "more" will actually be below pixel 0.</Old>
+      </Description>
+    </Baseline>
+  </TextLayer>
+  <PropertyTextLayer>
+    <LayerName>
+      <Translation>Текст / Свойство танка</Translation>
+      <Old>Text / Property</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Отображает указанное свойство танка в виде текста.</Translation>
+      <Old>Draws a specified property of a tank as text.</Old>
+    </LayerDescription>
+    <Property>
+      <DisplayName>
+        <Translation>Свойство</Translation>
+        <Old>Property</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает свойство танка, которое будет использоваться как источник текста.</Translation>
+        <Old>Specifies the property to be used as the text source.</Old>
+      </Description>
+    </Property>
+  </PropertyTextLayer>
+  <CustomTextLayer>
+    <LayerName>
+      <Translation>Текст / Фикс. по свойству</Translation>
+      <Old>Text / Custom</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Отображает фиксированную строку, выбранную на основании указанного свойства танка.</Translation>
+      <Old>Draws a fixed string based on a specified property of a tank.</Old>
+    </LayerDescription>
+    <Text>
+      <DisplayName>
+        <Translation>Текст</Translation>
+        <Old>Text</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает строки для отображения.</Translation>
+        <Old>The string to be displayed.</Old>
+      </Description>
+    </Text>
+  </CustomTextLayer>
+  <EffectClip>
+    <EffectName>
+      <Translation>Обрезка краев</Translation>
+      <Old>Clip edges</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Обрезает слой по краям.</Translation>
+      <Old>Clips the specified edges of this layer.</Old>
+    </EffectDescription>
+    <Mode>
+      <DisplayName>
+        <Translation>Режим</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, от чего отсчитывать глубину обрезки: от краев иконки, от краев слоя, либо от краев содержимого (видимых пикселей). См. также "Порог прозрачности"</Translation>
+        <Old>Selects whether the clip boundaries are relative to the icon edges, this layer's edges, or this layer's content (pixels). See also "Transparency threshold".</Old>
+      </Description>
+    </Mode>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>Порог прозрачности</Translation>
+        <Old>Transparency threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>При обрезке по видимым пикселям, указывает максимальную величину прозрачности (альфа-канала), при которой пиксель считается невидимым.</Translation>
+        <Old>When clipping by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ClipLeft>
+      <DisplayName>
+        <Translation>Слева</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Глубина обрезки от левого края, в пикселях.</Translation>
+        <Old>The number of pixels to clip on the left edge of the layer.</Old>
+      </Description>
+    </ClipLeft>
+    <ClipTop>
+      <DisplayName>
+        <Translation>Сверху</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Глубина обрезки от верхнего края, в пикселях.</Translation>
+        <Old>The number of pixels to clip on the top edge of the layer.</Old>
+      </Description>
+    </ClipTop>
+    <ClipRight>
+      <DisplayName>
+        <Translation>Справа</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Глубина обрезки от правого края, в пикселях.</Translation>
+        <Old>The number of pixels to clip on the right edge of the layer.</Old>
+      </Description>
+    </ClipRight>
+    <ClipBottom>
+      <DisplayName>
+        <Translation>Снизу</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Глубина обрезки от нижнего края, в пикселях.</Translation>
+        <Old>The number of pixels to clip on the bottom edge of the layer.</Old>
+      </Description>
+    </ClipBottom>
+  </EffectClip>
+  <EffectColorize>
+    <EffectName>
+      <Translation>Колоризация</Translation>
+      <Old>Colorize</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Производит колоризацию слоя, придавая ему один из указанных цветов.</Translation>
+      <Old>Colorizes the layer according to one of the tank properties.</Old>
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>Цвет</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает цвет колоризации. Используйте альфа-канал (прозрачность) чтобы изменить выраженность эффекта.</Translation>
+        <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
+      </Description>
+    </Color>
+  </EffectColorize>
+  <EffectFlip>
+    <EffectName>
+      <Translation>Отражение</Translation>
+      <Old>Flip</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Отражает слой горизонтально либо вертикально.</Translation>
+      <Old>Flips the layer horizontally and/or vertically.</Old>
+    </EffectDescription>
+    <FlipHorz>
+      <DisplayName>
+        <Translation>Горизонтально</Translation>
+        <Old>Flip horizontally</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Отражает слой горизонтально, т.е. слева направо.</Translation>
+        <Old>Flips the layer horizontally, that is, swapping left and right.</Old>
+      </Description>
+    </FlipHorz>
+    <FlipVert>
+      <DisplayName>
+        <Translation>Вертикально</Translation>
+        <Old>Flip vertically</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Отражает слой вертикально, т.е. сверху вниз.</Translation>
+        <Old>Flips the layer vertically, that is, swapping up and down.</Old>
+      </Description>
+    </FlipVert>
+  </EffectFlip>
+  <EffectGaussianBlur>
+    <EffectName>
+      <Translation>Размытие: по Гауссу</Translation>
+      <Old>Blur: Gaussian</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает слой с помощью размытия по Гауссу.</Translation>
+      <Old>Blurs the current layer using Gaussian blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус размытия. Чем больше, тем сильнее размытие.</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Edge>
+      <DisplayName>
+        <Translation>Обработка краев</Translation>
+        <Old>Edge</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, как размывать края слоя, а точнее, цвет пикселей за пределами края.</Translation>
+        <Old>Specifies how to sample around the edges: assume the image beyond the edges is transparent, wrap to the other side, or use the same pixel color that touches the edge.</Old>
+      </Description>
+    </Edge>
+  </EffectGaussianBlur>
+  <EffectOpacity>
+    <EffectName>
+      <Translation>Прозрачность</Translation>
+      <Old>Opacity</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Увеличивает либо уменьшает прозрачность слоя.</Translation>
+      <Old>Increases or decreases the layer’s opacity.</Old>
+    </EffectDescription>
+    <Opacity>
+      <DisplayName>
+        <Translation>Прозрачность</Translation>
+        <Old>Opacity</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Коэффициент прозрачности. Отрицательные значения увеличивают прозрачность; положительные – уменьшают.</Translation>
+        <Old>The opacity multiplier. Negative makes a layer more transparent, positive makes it more opaque.</Old>
+      </Description>
+    </Opacity>
+    <Style>
+      <DisplayName>
+        <Translation>Метод</Translation>
+        <Old>Style</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает метод построения кривой прозрачности. "Авто" использует "Суммирующийся" режим для уменьшения прозрачности и "Сдвиг крайней точки" для увеличения.</Translation>
+        <Old>Selects one of several different curves for adjusting the opacity. "Auto" uses "Additive" for increasing opacity and "Move endpoint" for decreasing.</Old>
+      </Description>
+    </Style>
+  </EffectOpacity>
+  <EffectPixelOutline>
+    <EffectName>
+      <Translation>Контур</Translation>
+      <Old>Outline</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Добавляет контур шириной в 1 пиксель вокруг изображения. Не подходит для слоев с полупрозрачными краями.</Translation>
+      <Old>Adds a 1 pixel outline around the image. Not suitable for layers with soft outlines.</Old>
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>Цвет</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает цвет контура. Альфа-канал задает прозрачность контура.</Translation>
+        <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
+      </Description>
+    </Color>
+  </EffectPixelOutline>
+  <EffectShadow>
+    <EffectName>
+      <Translation>Тень</Translation>
+      <Old>Shadow</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Добавляет к текущему слою эффект тени либо свечения.</Translation>
+      <Old>Adds a shadow as if cast by the current layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус тени указывает максимальное расстояние от пикселя, производящего тень, до края полученной тени.</Translation>
+        <Old>Shadow radius controls the maximum distance between a pixel producing the shadow and the edge of the resulting shadow.</Old>
+      </Description>
+    </Radius>
+    <Spread>
+      <DisplayName>
+        <Translation>Распространение</Translation>
+        <Old>Spread</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Распространение тени задает выраженность тени, но не изменяет ее максимальный размер.</Translation>
+        <Old>Shadow spread controls the strength of the shadow, but does not affect its maximum size.</Old>
+      </Description>
+    </Spread>
+    <Color>
+      <DisplayName>
+        <Translation>Цвет</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Цвет тени. Используйте яркие цвета для эффекта свечения. Прозрачность (альфа-канал) задает конечную прозрачность тени.</Translation>
+        <Old>Shadow color. Use bright colors for glow. Adjust the Alpha channel to control final shadow transparency.</Old>
+      </Description>
+    </Color>
+    <ShiftX>
+      <DisplayName>
+        <Translation>Смещение: X</Translation>
+        <Old>Shift: X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Горизонтальное смещение тени, в пикселях.</Translation>
+        <Old>Amount of horizontal shift in pixels.</Old>
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>Смещение: Y</Translation>
+        <Old>Shift: Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Вертикальное смещение тени, в пикселях.</Translation>
+        <Old>Amount of vertical shift in pixels.</Old>
+      </Description>
+    </ShiftY>
+  </EffectShadow>
+  <EffectShift>
+    <EffectName>
+      <Translation>Смещение</Translation>
+      <Old>Shift</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Смещает слой на указанное количество пикселей.</Translation>
+      <Old>Shifts the layer by a specified number of pixels.</Old>
+    </EffectDescription>
+    <ShiftX>
+      <DisplayName>
+        <Translation>Горизонтальное</Translation>
+        <Old>Horizontal</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Горизонтальное смещение в пикселях.</Translation>
+        <Old>Horizontal shift amount, in pixels.</Old>
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>Вертикальное</Translation>
+        <Old>Vertical</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Вертикальное смещение в пикселях.</Translation>
+        <Old>Vertical shift amount, in pixels.</Old>
+      </Description>
+    </ShiftY>
+  </EffectShift>
+  <EffectSizePos>
+    <EffectName>
+      <Translation>Размер / Положение</Translation>
+      <Old>Size / Position</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Изменяет размер либо положение слоя. Данный эффект всегда применяется первым, вне зависимости от порядка эффектов.</Translation>
+      <Old>Adjusts this layer's size and/or position. This effect is always applied before any other effects.</Old>
+    </EffectDescription>
+    <PositionByPixels>
+      <DisplayName>
+        <Translation> По пикселям</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если опция включена, края слоя задаются видимыми пикселями (см. также «Порог прозрачности»). В противном случае используется полный размер слоя.</Translation>
+        <Old>When checked, the edge of the layer is defined by the visible pixels (see also "Transparency threshold"). Otherwise the complete layer size is used.</Old>
+      </Description>
+    </PositionByPixels>
+    <Left>
+      <DisplayName>
+        <Translation>Левая граница</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-координата левого края. Игнорируется когда «Левая привязка» отключена.</Translation>
+        <Old>X coordinate of the left edge. Ignored if "Left anchor" is unchecked.</Old>
+      </Description>
+    </Left>
+    <Right>
+      <DisplayName>
+        <Translation>Правая граница</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>X-координата правого края. Игнорируется когда «Правая привязка» отключена.</Translation>
+        <Old>X coordinate of the right edge. Ignored if "Right anchor" is unchecked.</Old>
+      </Description>
+    </Right>
+    <Top>
+      <DisplayName>
+        <Translation>Верхняя граница</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-координата верхнего края. Игнорируется когда «Верхняя привязка» отключена.</Translation>
+        <Old>Y coordinate of the top edge. Ignored if "Top anchor" is unchecked.</Old>
+      </Description>
+    </Top>
+    <Bottom>
+      <DisplayName>
+        <Translation>Нижняя граница</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Y-координата нижнего края. Игнорируется когда «Нижняя привязка» отключена.</Translation>
+        <Old>Y coordinate of the bottom edge. Ignored if "Bottom anchor" is unchecked.</Old>
+      </Description>
+    </Bottom>
+    <LeftAnchor>
+      <DisplayName>
+        <Translation>Левая привязка</Translation>
+        <Old>Left anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, левая граница размещается на X-координате, указанной в свойстве «Левая граница». Если «Правая привязка» тоже включена, слой центрируется между «Левая граница» и «Правая граница».</Translation>
+        <Old>When checked, the left edge is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
+      </Description>
+    </LeftAnchor>
+    <RightAnchor>
+      <DisplayName>
+        <Translation>Правая привязка</Translation>
+        <Old>Right anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, правая граница размещается на X-координате, указанной в свойстве «Правая граница». Если «Левая привязка» тоже включена, слой центрируется между «Левая граница» и «Правая граница».</Translation>
+        <Old>When checked, the right edge is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
+      </Description>
+    </RightAnchor>
+    <TopAnchor>
+      <DisplayName>
+        <Translation>Верхняя привязка</Translation>
+        <Old>Top anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, верхняя граница размещается на Y-координате, указанной в свойстве «Верхняя граница». Если «Нижняя привязка» тоже включена, слой центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
+        <Old>When checked, the top edge is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </TopAnchor>
+    <BottomAnchor>
+      <DisplayName>
+        <Translation>Нижняя привязка</Translation>
+        <Old>Bottom anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда включена, нижняя граница текста размещается на Y-координате, указанной в свойстве «Нижняя граница». Если «Верхняя привязка» тоже включена, слой центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
+        <Old>When checked, the bottom edge is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
+      </Description>
+    </BottomAnchor>
+    <SizeByPixels>
+      <DisplayName>
+        <Translation> По пикселям</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если опция включена, края слоя задаются видимыми пикселями (см. также «Порог прозрачности»). В противном случае используется полный размер слоя.</Translation>
+        <Old>If checked, transparent areas on the outside of the image will be ignored in size calculations. See also "Transparency threshold".</Old>
+      </Description>
+    </SizeByPixels>
+    <Percentage>
+      <DisplayName>
+        <Translation>Растянуть в %</Translation>
+        <Old>Resize %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда выбран Режим «По %», задает желаемый процент изменения размера.</Translation>
+        <Old>When Mode is "By %", selects the desired resize percentage.</Old>
+      </Description>
+    </Percentage>
+    <Width>
+      <DisplayName>
+        <Translation>Растянуть по ширине</Translation>
+        <Old>Resize to width</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда выбран один из режимов «По размеру», задает желаемую ширину, в пикселях.</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired width, in pixels.</Old>
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>Растянуть по высоте</Translation>
+        <Old>Resize to height</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда выбран один из режимов «По размеру», задает желаемую высоту, в пикселях.</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired height, in pixels.</Old>
+      </Description>
+    </Height>
+    <SizeMode>
+      <DisplayName>
+        <Translation>Режим</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает один из нескольких режимов изменения размера, который определяет, каким образом вычисляется новый размер слоя.</Translation>
+        <Old>Selects one of several different resize modes, which determines how the image size is calculated.</Old>
+      </Description>
+    </SizeMode>
+    <GrowShrinkMode>
+      <DisplayName>
+        <Translation>Увеличить/уменьшить</Translation>
+        <Old>Grow/shrink</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, разрешить ли только увеличение слоя, только уменьшение, либо и то, и другое.</Translation>
+        <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
+      </Description>
+    </GrowShrinkMode>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>Порог прозрачности</Translation>
+        <Old>Transparency threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>При использовании "По пикселям", указывает максимальную величину прозрачности (альфа-канала), при которой пиксель считается невидимым.</Translation>
+        <Old>When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ShowLayerBorders>
+      <DisplayName>
+        <Translation>Граница слоя</Translation>
+        <Old>Show layer borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Рисует прямоугольник, указывающий границы слоя. Эти границы используются для вычислений координат когда опция "По пикселям" отключена.</Translation>
+        <Old>If enabled, draws a rectangle to show the layer borders. These borders are used when "Use pixels" is disabled.</Old>
+      </Description>
+    </ShowLayerBorders>
+    <ShowPixelBorders>
+      <DisplayName>
+        <Translation>Граница пикселей</Translation>
+        <Old>Show pixel borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Рисует прямоугольник, указывающий границы видимых пикселей. Используйте «Порог прозрачности» для настройки чувствительности. Эти границы используются для вычислений координат когда опция "По пикселям" включена.</Translation>
+        <Old>If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using "Transparency threshold". These borders are used when "Use pixels" is enabled.</Old>
+      </Description>
+    </ShowPixelBorders>
+    <ShowTargetBorders>
+      <DisplayName>
+        <Translation>Цель</Translation>
+        <Old>Show target borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Отображает границы заданного положения слоя («Левая граница» и т.д.). Границы, для которых включена привязка, отображаются сплошной линией; остальные – пунктиром.</Translation>
+        <Old>If enabled, draws a rectangle to show the selected target position for the layer. Anchored borders are drawn as solid lines, non-anchored are dotted.</Old>
+      </Description>
+    </ShowTargetBorders>
+  </EffectSizePos>
+  <BoolWithPassthrough>
+    <Yes>
+      <Translation>Да</Translation>
+      <Old>Yes</Old>
+    </Yes>
+    <No>
+      <Translation>Нет</Translation>
+      <Old>No</Old>
+    </No>
+    <Passthrough>
+      <Translation>Пропуск: следующий "Варьировать по"</Translation>
+      <Old>Passthrough: to next "Vary by"</Old>
+    </Passthrough>
+  </BoolWithPassthrough>
+  <ImageBuiltInStyle>
+    <Contour>
+      <Translation>Контурная иконка</Translation>
+      <Old>Contour</Old>
+    </Contour>
+    <ThreeD>
+      <Translation>3D иконка</Translation>
+      <Old>3D</Old>
+    </ThreeD>
+    <ThreeDLarge>
+      <Translation>3D иконка (большая)</Translation>
+      <Old>3D (large)</Old>
+    </ThreeDLarge>
+    <Country>
+      <Translation>Страна</Translation>
+      <Old>Country</Old>
+    </Country>
+    <Class>
+      <Translation>Класс</Translation>
+      <Old>Class</Old>
+    </Class>
+  </ImageBuiltInStyle>
+  <SelectBy>
+    <Class>
+      <Translation>Класс (Артиллерия • ПТ • Легкий • ...)</Translation>
+      <Old>Class (Artillery • Destroyer • Light • etc)</Old>
+    </Class>
+    <Country>
+      <Translation>Страна (СССР • Германия • США • ...)</Translation>
+      <Old>Country (USSR • Germany • USA • etc)</Old>
+    </Country>
+    <Category>
+      <Translation>Доступность (премиумный • акционный • ...)</Translation>
+      <Old>Availability (normal • premium • special)</Old>
+    </Category>
+    <Tier>
+      <Translation>Уровень (1 .. 10)</Translation>
+      <Old>Tier (1 .. 10)</Old>
+    </Tier>
+    <Single>
+      <Translation>Не варьировать</Translation>
+      <Old>Single value</Old>
+    </Single>
+  </SelectBy>
+  <ClipMode>
+    <ByPixels>
+      <Translation>По пикселям</Translation>
+      <Old>By pixels</Old>
+    </ByPixels>
+    <ByLayerBounds>
+      <Translation>По границам слоя</Translation>
+      <Old>By layer bounds</Old>
+    </ByLayerBounds>
+    <ByIconBounds>
+      <Translation>По границам иконки</Translation>
+      <Old>By icon bounds</Old>
+    </ByIconBounds>
+  </ClipMode>
+  <SizeMode>
+    <NoChange>
+      <Translation>Без изменений</Translation>
+      <Old>No change</Old>
+    </NoChange>
+    <ByPercentage>
+      <Translation>По %</Translation>
+      <Old>By %</Old>
+    </ByPercentage>
+    <BySizeWidthOnly>
+      <Translation>По размеру: ширина</Translation>
+      <Old>By size: width only</Old>
+    </BySizeWidthOnly>
+    <BySizeHeightOnly>
+      <Translation>По размеру: высота</Translation>
+      <Old>By size: height only</Old>
+    </BySizeHeightOnly>
+    <BySizeWidthHeightStretch>
+      <Translation>По размеру: растянуть</Translation>
+      <Old>By size: stretch</Old>
+    </BySizeWidthHeightStretch>
+    <ByPosLeftRight>
+      <Translation>По позиции: лево/право</Translation>
+      <Old>By pos: left/right</Old>
+    </ByPosLeftRight>
+    <ByPosTopBottom>
+      <Translation>По позиции: верх/низ</Translation>
+      <Old>By pos: top/bottom</Old>
+    </ByPosTopBottom>
+    <ByPosAllFit>
+      <Translation>По позиции: вместить</Translation>
+      <Old>By pos: fit inside</Old>
+    </ByPosAllFit>
+    <ByPosAllStretch>
+      <Translation>По позиции: растянуть</Translation>
+      <Old>By pos: stretch</Old>
+    </ByPosAllStretch>
+  </SizeMode>
+  <GrowShrinkMode>
+    <GrowAndShrink>
+      <Translation>Увеличить либо уменьшить</Translation>
+      <Old>Grow and shrink</Old>
+    </GrowAndShrink>
+    <GrowOnly>
+      <Translation>Только увеличить</Translation>
+      <Old>Grow only</Old>
+    </GrowOnly>
+    <ShrinkOnly>
+      <Translation>Только уменьшить</Translation>
+      <Old>Shrink only</Old>
+    </ShrinkOnly>
+  </GrowShrinkMode>
+  <OpacityStyle>
+    <Auto>
+      <Translation>Авто</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <MoveEndpoint>
+      <Translation>Сдвиг крайней точки</Translation>
+      <Old>Move endpoint</Old>
+    </MoveEndpoint>
+    <MoveMidpoint>
+      <Translation>Сдвиг средней точки</Translation>
+      <Old>Move midpoint</Old>
+    </MoveMidpoint>
+    <Additive>
+      <Translation>Суммирующийся</Translation>
+      <Old>Additive</Old>
+    </Additive>
+  </OpacityStyle>
+  <BlurEdgeMode>
+    <Transparent>
+      <Translation>Прозрачные пиксели</Translation>
+      <Old>Transparent pixels</Old>
+    </Transparent>
+    <Same>
+      <Translation>Цвет ближайшего пикселя</Translation>
+      <Old>Nearest pixel color</Old>
+    </Same>
+    <Mirror>
+      <Translation>Отражение вдоль края</Translation>
+      <Old>Mirror along edge</Old>
+    </Mirror>
+    <Wrap>
+      <Translation>Перенос с противоположного края</Translation>
+      <Old>Wrap to opposite edge</Old>
+    </Wrap>
+  </BlurEdgeMode>
+  <TextSmoothingStyle>
+    <Aliased>
+      <Translation>Без сглаживания</Translation>
+      <Old>Aliased</Old>
+    </Aliased>
+    <AntiAliasGDI>
+      <Translation>Сглаживание (обычное)</Translation>
+      <Old>Anti-aliased (hinted)</Old>
+    </AntiAliasGDI>
+    <UnhintedGDI>
+      <Translation>Сглаживание (без хинтов)</Translation>
+      <Old>Anti-aliased (unhinted)</Old>
+    </UnhintedGDI>
+    <ClearType>
+      <Translation>ClearType</Translation>
+      <Old>ClearType</Old>
+    </ClearType>
+  </TextSmoothingStyle>
+  <Category>
+    <General>
+      <Translation>Общее</Translation>
+      <Old>General</Old>
+    </General>
+    <Settings>
+      <Translation>Настройки</Translation>
+      <Old>Settings</Old>
+    </Settings>
+    <Image>
+      <Translation>Изображение</Translation>
+      <Old>Image</Old>
+    </Image>
+    <Font>
+      <Translation> Шрифт</Translation>
+      <Old>Font</Old>
+    </Font>
+    <Position>
+      <Translation>Положение</Translation>
+      <Old>Position</Old>
+    </Position>
+    <Size>
+      <Translation>Размер</Translation>
+      <Old>Size</Old>
+    </Size>
+    <TextSource>
+      <Translation> Источник текста</Translation>
+      <Old>Text source</Old>
+    </TextSource>
+    <Debug>
+      <Translation>Отладка</Translation>
+      <Old>Debug</Old>
+    </Debug>
+    <Clip>
+      <Translation>Обрезка</Translation>
+      <Old>Clip</Old>
+    </Clip>
+    <Blur>
+      <Translation>Размытие</Translation>
+      <Old>Blur</Old>
+    </Blur>
+    <Shift>
+      <Translation>Смещение</Translation>
+      <Old>Shift</Old>
+    </Shift>
+  </Category>
+  <Selector>
+    <By>
+      <Translation> Варьировать по</Translation>
+      <Old> Vary by</Old>
+    </By>
+    <ByN>
+      <Translation> Варьировать по (#{0})</Translation>
+      <Old> Vary by (#{0})</Old>
+    </ByN>
+    <By_Color_Description>
+      <Translation>Указывает свойство танка, на основании которого выбирается цвет. В случае если один из цветов является прозрачным-черным (#00000000), значения для соответствующих танков варьируются на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the color is varied. The colors for any tanks whose color is set to transparent black (#00000000) are varied according to "Vary by (#{0})" instead.</Old>
+    </By_Color_Description>
+    <By_Color_DescriptionLast>
+      <Translation>Указывает свойство танка, на основании которого выбирается цвет.</Translation>
+      <Old>Specifies a tank property by which the color is varied.</Old>
+    </By_Color_DescriptionLast>
+    <By_Bool_Description>
+      <Translation>Указывает свойство танка, на основании которого выбирается значение. В случае если одно из значений указано как "Пропуск", значения для соответствующих танков варьируются на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to "Passthrough" are varied according to "Vary by (#{0})" instead.</Old>
+    </By_Bool_Description>
+    <By_Bool_DescriptionLast>
+      <Translation>Указывает свойство танка, на основании которого выбирается значение.</Translation>
+      <Old>Specifies a tank property by which the setting is varied.</Old>
+    </By_Bool_DescriptionLast>
+    <By_String_Description>
+      <Translation>Указывает свойство танка, на основании которого выбирается текст. Если присутствуют пустые строки, текст для соответствующих танков варьируется на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the text is varied. The text for any tanks whose text is blank is varied according to "Vary by (#{0})" instead.</Old>
+    </By_String_Description>
+    <By_String_DescriptionLast>
+      <Translation>Указывает свойство танка, на основании которого выбирается текст.</Translation>
+      <Old>Specifies a tank property by which the text is varied.</Old>
+    </By_String_DescriptionLast>
+    <By_Filename_Description>
+      <Translation>Указывает свойство танка, на основании которого выбирается имя файла. Если присутствуют пустые строки, имя файла для соответствующих танков варьируется на основании "Варьировать по (#{0})".</Translation>
+      <Old>Specifies a tank property by which the filename is varied. The filename for any tanks whose filename is blank is varied according to "Vary by (#{0})" instead.</Old>
+    </By_Filename_Description>
+    <By_Filename_DescriptionLast>
+      <Translation>Указывает свойство танка, на основании которого выбирается имя файла.</Translation>
+      <Old>Specifies a tank property by which the filename is varied.</Old>
+    </By_Filename_DescriptionLast>
+    <ClassLight>
+      <Translation>Класс: легкий танк</Translation>
+      <Old>Class: Light tank</Old>
+    </ClassLight>
+    <ClassMedium>
+      <Translation>Класс: средний танк</Translation>
+      <Old>Class: Medium tank</Old>
+    </ClassMedium>
+    <ClassHeavy>
+      <Translation>Класс: тяжелый танк</Translation>
+      <Old>Class: Heavy tank</Old>
+    </ClassHeavy>
+    <ClassDestroyer>
+      <Translation>Класс: ПТ</Translation>
+      <Old>Class: Destroyer</Old>
+    </ClassDestroyer>
+    <ClassArtillery>
+      <Translation>Класс: артиллерия</Translation>
+      <Old>Class: Artillery</Old>
+    </ClassArtillery>
+    <CountryUSSR>
+      <Translation>Страна: СССР</Translation>
+      <Old>Country: USSR</Old>
+    </CountryUSSR>
+    <CountryGermany>
+      <Translation>Страна: Германия</Translation>
+      <Old>Country: Germany</Old>
+    </CountryGermany>
+    <CountryUSA>
+      <Translation>Страна: США</Translation>
+      <Old>Country: USA</Old>
+    </CountryUSA>
+    <CountryFrance>
+      <Translation>Страна: Франция</Translation>
+      <Old>Country: France</Old>
+    </CountryFrance>
+    <CountryChina>
+      <Translation>Страна: Китай</Translation>
+      <Old>Country: China</Old>
+    </CountryChina>
+    <CountryUK>
+      <Translation>Страна: Великобритания</Translation>
+      <Old>Country: UK</Old>
+    </CountryUK>
+    <CategNormal>
+      <Translation>Доступ: Обычный</Translation>
+      <Old>Avail.: Normal</Old>
+    </CategNormal>
+    <CategPremium>
+      <Translation>Доступ: Премиумный</Translation>
+      <Old>Avail.: Premium</Old>
+    </CategPremium>
+    <CategSpecial>
+      <Translation>Доступ: Акционный</Translation>
+      <Old>Avail.: Special</Old>
+    </CategSpecial>
+    <Single>
+      <Translation>Без вариаций</Translation>
+      <Old>Not varied</Old>
+    </Single>
+    <SingleDescription>
+      <Translation>Если значение (например, цвет) не требует вариаций по свойствам танка, выберите настройку "Не варьировать" в свойстве "Варьировать по", и укажите необходимое значение в данном свойстве.</Translation>
+      <Old>When "Vary by" is set to "No variation", specifies the value to use. Use this when the value does not need to vary by tank properties.</Old>
+    </SingleDescription>
+    <TierN>
+      <Translation>Уровень: {0,2}</Translation>
+      <Old>Tier: {0,2}</Old>
+    </TierN>
+  </Selector>
+  <DlgMessage>
+    <OK>
+      <Translation>&amp;ОК</Translation>
+      <Old>&amp;OK</Old>
+    </OK>
+    <CaptionInfo>
+      <Translation>Информация</Translation>
+      <Old>Information</Old>
+    </CaptionInfo>
+    <CaptionQuestion>
+      <Translation>Вопрос</Translation>
+      <Old>Question</Old>
+    </CaptionQuestion>
+    <CaptionWarning>
+      <Translation>Внимание</Translation>
+      <Old>Warning</Old>
+    </CaptionWarning>
+    <CaptionError>
+      <Translation>Ошибка</Translation>
+      <Old>Error</Old>
+    </CaptionError>
+  </DlgMessage>
+  <Prompt>
+    <RenameLayer_Title>
+      <Translation>Переименовать слой</Translation>
+      <Old>Rename layer</Old>
+    </RenameLayer_Title>
+    <RenameLayer_Label>
+      <Translation>_Название слоя:</Translation>
+      <Old>Layer _name:</Old>
+    </RenameLayer_Label>
+    <RenameEffect_Title>
+      <Translation>Переименовать эффект</Translation>
+      <Old>Rename effect</Old>
+    </RenameEffect_Title>
+    <RenameEffect_Label>
+      <Translation>_Название эффекта:</Translation>
+      <Old>Effect _name:</Old>
+    </RenameEffect_Label>
+    <CreateStyle_Title>
+      <Translation>Создать стиль</Translation>
+      <Old>Create style</Old>
+    </CreateStyle_Title>
+    <CreateStyle_Label>
+      <Translation>_Название нового стиля:</Translation>
+      <Old>New style _name:</Old>
+    </CreateStyle_Label>
+    <RenameStyle_Title>
+      <Translation>Изменить название стиля</Translation>
+      <Old>Change style name</Old>
+    </RenameStyle_Title>
+    <RenameStyle_Label>
+      <Translation>Новое _название стиля:</Translation>
+      <Old>New style _name:</Old>
+    </RenameStyle_Label>
+    <ChangeAuthor_Title>
+      <Translation>Изменить автора стиля</Translation>
+      <Old>Change style author</Old>
+    </ChangeAuthor_Title>
+    <ChangeAuthor_Label>
+      <Translation>Новый _автор стиля:</Translation>
+      <Old>New style _author:</Old>
+    </ChangeAuthor_Label>
+    <DuplicateStyle_Title>
+      <Translation>Создать копию стиля</Translation>
+      <Old>Duplicate style</Old>
+    </DuplicateStyle_Title>
+    <DuplicateStyle_Label>
+      <Translation>_Название нового стиля:</Translation>
+      <Old>New style _name:</Old>
+    </DuplicateStyle_Label>
+    <Cancel>
+      <Translation>Отмена</Translation>
+      <Old>Cancel</Old>
+    </Cancel>
+    <PromptWindowOK>
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
+    </PromptWindowOK>
+    <GamePathRequired>
+      <Translation>Сначала необходимо добавить путь к игре (кнопка с зеленым плюсом слева вверху).</Translation>
+      <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
+    </GamePathRequired>
+    <OverwriteIcons_Prompt>
+      <Translation encoding="c-literal">Вы уверены, что хотите заменить ваши текущие иконки?\r\n\r\nПуть: {0}\r\n\r\nВнимание: ВСЕ файлы *{1} по указанному пути будут заменены без возможности восстановления!</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
+    </OverwriteIcons_Prompt>
+    <OverwriteIcons_Yes>
+      <Translation>&amp;Да, заменить иконки</Translation>
+      <Old>&amp;Yes, overwrite all files</Old>
+    </OverwriteIcons_Yes>
+    <GameNotFound_Prompt>
+      <Translation>В указанной папке поддерживаемая версия World Of Tanks не найдена. Вы уверены, что хотите все равно добавить эту папку?</Translation>
+      <Old>This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?</Old>
+    </GameNotFound_Prompt>
+    <GameNotFound_Ignore>
+      <Translation>&amp;Добавить</Translation>
+      <Old>&amp;Use anyway</Old>
+    </GameNotFound_Ignore>
+    <IconsSaved>
+      <Translation>Иконки сохранены!</Translation>
+      <Old encoding="c-literal">Saved!\nEnjoy.</Old>
+    </IconsSaved>
+    <IconsSaveSkipped>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Одна иконка пропущена в связи с ошибками.</item>
+        <item>{0} иконки пропущены в связи с ошибками.</item>
+        <item>{0} иконок пропущены в связи с ошибками.</item>
+      </Translations>
+      <Old>
+        <item>Note that 1 image was skipped due to errors.</item>
+        <item>Note that {0} images were skipped due to errors.</item>
+      </Old>
+    </IconsSaveSkipped>
+    <Upvote_BuiltInOnly>
+      <Translation>По причине безопасности, плюсануть можно только встроенные стили.</Translation>
+      <Old>For security reasons, only built-in styles can be upvoted.</Old>
+    </Upvote_BuiltInOnly>
+    <Upvote_NotAvailable>
+      <Translation>У этого стиля нет соответствующей темы на форуме World of Tanks.</Translation>
+      <Old>This style does not currently have an associated post on World of Tanks forums.</Old>
+    </Upvote_NotAvailable>
+    <Upvote_Prompt>
+      <Translation encoding="c-literal">Чтобы отблагодарить {0} за разработку данного стиля, пожалуйста плюсаните следующую тему на форуме World of Tanks:\r\n\r\n{1}</Translation>
+      <Old encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Old>
+    </Upvote_Prompt>
+    <Upvote_Open>
+      <Translation>&amp;Открыть в браузере</Translation>
+      <Old>&amp;Open in browser</Old>
+    </Upvote_Open>
+    <DeleteLayerEffect_Prompt>
+      <Translation>Удалить выбранный слой/эффект?</Translation>
+      <Old>Delete the selected layer/effect?</Old>
+    </DeleteLayerEffect_Prompt>
+    <DeleteLayerEffect_Yes>
+      <Translation>&amp;Удалить</Translation>
+      <Old>&amp;Delete</Old>
+    </DeleteLayerEffect_Yes>
+    <DeleteStyle_Prompt>
+      <Translation encoding="c-literal">Удалить этот стиль?\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Delete this style?\r\n\r\n{0}</Old>
+    </DeleteStyle_Prompt>
+    <DeleteStyle_Yes>
+      <Translation>&amp;Удалить</Translation>
+      <Old>&amp;Delete</Old>
+    </DeleteStyle_Yes>
+    <StyleImport_Fail>
+      <Translation>Не удалось загрузить указанный файл. Возможно файл разрушен либо не является файлом стиля иконок.</Translation>
+      <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
+    </StyleImport_Fail>
+    <StyleExport_Success>
+      <Translation>Стиль успешно экспортирован.</Translation>
+      <Old>The style has been exported.</Old>
+    </StyleExport_Success>
+    <ExceptionGlobal>
+      <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionGlobal>
+    <ExceptionInRender>
+      <Translation>В одном из слоев либо эффектов произошла ошибка. Пожалуйста сообщите разработчику.</Translation>
+      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
+    </ExceptionInRender>
+    <ErrorToClipboard_Copy>
+      <Translation>&amp;Копировать в буфер обмена</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
+    </ErrorToClipboard_Copy>
+    <ErrorToClipboard_OK>
+      <Translation>ОК</Translation>
+      <Old>OK</Old>
+    </ErrorToClipboard_OK>
+    <ErrorToClipboard_Copied>
+      <Translation>Информация об этой ошибке скопирована в буфер обмена.</Translation>
+      <Old>Information about the error is now in your clipboard.</Old>
+    </ErrorToClipboard_Copied>
+    <ErrorToClipboard_CopyFail>
+      <Translation>К сожалению попытка скопировать информацию об ошибке не удалась.</Translation>
+      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
+    </ErrorToClipboard_CopyFail>
+  </Prompt>
+  <Error>
+    <DataFile_UnrecognizedCountry>
+      <Translation>Нераспознанная страна: "{0}". Допустимые значения: {1}.</Translation>
+      <Old>Unrecognized country: "{0}". Allowed values: {1}.</Old>
+    </DataFile_UnrecognizedCountry>
+    <DataFile_UnrecognizedClass>
+      <Translation>Нераспознанный класс: "{0}". Допустимые значения: {1}.</Translation>
+      <Old>Unrecognized class: "{0}". Allowed values: {1}.</Old>
+    </DataFile_UnrecognizedClass>
+    <DataFile_UnrecognizedCategory>
+      <Translation>Нераспознанная доступность: "{0}". Допустимые значения: {1}.</Translation>
+      <Old>Unrecognized availability: "{0}". Allowed values: {1}.</Old>
+    </DataFile_UnrecognizedCategory>
+    <DataFile_TankTierValue>
+      <Translation>Поле с уровнем танка не является целым числом, либо выходит за допустимые пределы (1-10): "{0}"</Translation>
+      <Old>The tier field is not a whole number or outside of the 1..10 range: "{0}"</Old>
+    </DataFile_TankTierValue>
+    <DataFile_TooFewFields>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Требуется как минимум 1 поле.</item>
+        <item>Требуются как минимум {0} поля.</item>
+        <item>Требуется как минимум {0} полей.</item>
+      </Translations>
+      <Old>
+        <item>Expected at least 1 field.</item>
+        <item>Expected at least {0} fields.</item>
+      </Old>
+    </DataFile_TooFewFields>
+    <DataFile_EmptyFile>
+      <Translation>Требуется как минимум одна строка.</Translation>
+      <Old>Expected at least one line.</Old>
+    </DataFile_EmptyFile>
+    <DataFile_TooFewFieldsFirstLine>
+      <Translation>Требуются как минимум два поля в первой строке.</Translation>
+      <Old>Expected at least two columns in the first row.</Old>
+    </DataFile_TooFewFieldsFirstLine>
+    <DataFile_ExpectedSignature>
+      <Translation>Требуется "{0}" в первом поле первой строки.</Translation>
+      <Old>Expected "{0}" in the first column of the first row.</Old>
+    </DataFile_ExpectedSignature>
+    <DataFile_ExpectedV1>
+      <Translation>Второе поле первой строки должно содержать "1" (версия формата)</Translation>
+      <Old>The second column of the first row must be "1" (format version)</Old>
+    </DataFile_ExpectedV1>
+    <DataFile_LineNum>
+      <Translation>Строка {0}: {1}</Translation>
+      <Old>Line {0}: {1}</Old>
+    </DataFile_LineNum>
+    <DataFile_CsvParse>
+      <Translation>Не удалось прочитать строку {0}.</Translation>
+      <Old>Couldn't parse line {0}.</Old>
+    </DataFile_CsvParse>
+    <DataDir_NoFilesAvailable>
+      <Translation>Не удалось загрузить ни одного файла версии игры либо файла со встроенными свойствами.</Translation>
+      <Old>Could not load any game version data files and/or any built-in property data files.</Old>
+    </DataDir_NoFilesAvailable>
+    <DataDir_Skip_NoBuiltIns>
+      <Translation>Игнорирую версию {0} так как для нее не найден ни один файл со встроенными свойствами. Удалите файл "{1}" чтобы избавиться от этого сообщения.</Translation>
+      <Old>Skipped version {0} because there are no built-in property data files for it to use. Delete the "{1}" file to get rid of this warning.</Old>
+    </DataDir_Skip_NoBuiltIns>
+    <DataDir_Skip_WrongParts>
+      <Translation>Игнорирую файл "{0}" так как в его имени содержится неверное количество частей (ожидалось: {1}, найдено {2}).</Translation>
+      <Old>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Old>
+    </DataDir_Skip_WrongParts>
+    <DataDir_Skip_FileError>
+      <Translation>Игнорирую файл "{0}" так как в нем содержится ошибка: {1}</Translation>
+      <Old>Skipped "{0}" because the file could not be parsed: {1}</Old>
+    </DataDir_Skip_FileError>
+    <DataDir_Skip_GameVersion>
+      <Translation>Игнорирую файл "{0}" так как часть имени файла, указывающая версию игры, нераспознана: "{1}".</Translation>
+      <Old>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Old>
+    </DataDir_Skip_GameVersion>
+    <DataDir_Skip_FileVersion>
+      <Translation>Игнорирую файл "{0}" так как версия файла указана в неверном формате: "{1}" (либо не состоит ровно из 3 цифр).</Translation>
+      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}" (or it isn't exactly 3 digits long).</Old>
+    </DataDir_Skip_FileVersion>
+    <DataDir_Skip_Author>
+      <Translation>Игнорирую файл "{0}" так как поле автора в имени файла является пустым.</Translation>
+      <Old>Skipped "{0}" because it has an empty author part in the filename.</Old>
+    </DataDir_Skip_Author>
+    <DataDir_Skip_PropName>
+      <Translation>Игнорирую файл "{0}" так как поле названия свойства в имени файла является пустым.</Translation>
+      <Old>Skipped "{0}" because it has an empty property name part in the filename.</Old>
+    </DataDir_Skip_PropName>
+    <DataDir_Skip_Lang>
+      <Translation>Игнорирую файл "{0}" так как поле языка данных ("{1}") не является кодом языка, либо "X" для файлов без определенного языка. Возможно вы имели в виду En, Ru, Zh, Es, Fr, De, Ja? Полный список кодов ISO-639-1 можно найти на Википедии.</Translation>
+      <Old>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Old>
+    </DataDir_Skip_Lang>
+    <DataDir_Skip_InhNoProp>
+      <Translation>Игнорирую файл "{0}" так как не найдены файлы для свойства "{1}" (из которого данный файл наследует значения).</Translation>
+      <Old>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Old>
+    </DataDir_Skip_InhNoProp>
+    <DataDir_Skip_InhNoLang>
+      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}" (из которого он наследует значения) имеют язык "{2}".</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}".</Old>
+    </DataDir_Skip_InhNoLang>
+    <DataDir_Skip_InhNoAuth>
+      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}" (из которого он наследует значения) имеют автора "{2}".</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}".</Old>
+    </DataDir_Skip_InhNoAuth>
+    <DataDir_Skip_InhNoGameVer>
+      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}"/"{2}" (из которого он наследует значения) имеет версию игры "{3}" либо ниже.</Translation>
+      <Old>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Old>
+    </DataDir_Skip_InhNoGameVer>
+    <DataDir_Skip_InhCircular>
+      <Translation>Игнорирую файл "{0}" в связи с круговой зависимостью.</Translation>
+      <Old>Skipped "{0}" due to a circular dependency.</Old>
+    </DataDir_Skip_InhCircular>
+    <NoDataFilesWarning>
+      <Translation encoding="c-literal">Не удалось загрузить ни одного файла версии либо файла со встроенными свойствами. Убедитесь, что эти файлы существуют по следующему пути:\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}</Old>
+    </NoDataFilesWarning>
+    <RenderWithErrors>
+      <Translation>Не удалось нарисовать некоторые иконки. Выберите режим «Все танки» и щелкните по иконке с ошибками для просмотра подробностей.</Translation>
+      <Old>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Old>
+    </RenderWithErrors>
+    <RenderWithWarnings>
+      <Translation>Не удалось нарисовать некоторые иконки. Выберите режим «Все танки» и щелкните по иконке с восклицательным знаком для просмотра подробностей.</Translation>
+      <Old>Some of the tank icons rendered with warnings; make sure you view "All tanks" and click each image with a warning icon for details.</Old>
+    </RenderWithWarnings>
+    <RenderIconOK>
+      <Translation>Данная иконка нарисована без каких-либо проблем.</Translation>
+      <Old>This icon rendered without any problems.</Old>
+    </RenderIconOK>
+    <RenderIconFail>
+      <Translation>Не удалось нарисовать данную иконку: {0}</Translation>
+      <Old>Could not render this icon: {0}</Old>
+    </RenderIconFail>
+  </Error>
+  <Misc>
+    <ProgramVersion>
+      <Translation>Версия {0}</Translation>
+      <Old>Version {0}</Old>
+    </ProgramVersion>
+    <GlobalStatus_Loading>
+      <Translation>Загрузка...</Translation>
+      <Old>Loading...</Old>
+    </GlobalStatus_Loading>
+    <GlobalStatus_Saving>
+      <Translation>Сохранение...</Translation>
+      <Old>Saving...</Old>
+    </GlobalStatus_Saving>
+    <Filter_FilenameEditor>
+      <Translation>Изображения|*.png;*.jpg;*.tga|Все файлы|*.*</Translation>
+      <Old>Image files|*.png;*.jpg;*.tga|All files|*.*</Old>
+    </Filter_FilenameEditor>
+    <Filter_ImportExportStyle>
+      <Translation>Стили иконок|*.xml|Все файлы|*.*</Translation>
+      <Old>Icon styles|*.xml|All files|*.*</Old>
+    </Filter_ImportExportStyle>
+    <NameOfCopied>
+      <Translation>{0} (копия)</Translation>
+      <Old>{0} (copy)</Old>
+    </NameOfCopied>
+    <NameOfNewStyle>
+      <Translation>Новый стиль</Translation>
+      <Old>New style</Old>
+    </NameOfNewStyle>
+    <NameOfTankImageLayer>
+      <Translation>Танк</Translation>
+      <Old>Tank image</Old>
+    </NameOfTankImageLayer>
+    <NameOfNewStyleAuthor>
+      <Translation>я</Translation>
+      <Old>me</Old>
+    </NameOfNewStyleAuthor>
+    <StyleDisplay_Original>
+      <Translation>[оригинальные иконки]</Translation>
+      <Old>[original]</Old>
+    </StyleDisplay_Original>
+    <StyleDisplay_Current>
+      <Translation>[текущие иконки]</Translation>
+      <Old>[current]</Old>
+    </StyleDisplay_Current>
+    <StyleDisplay_BuiltIn>
+      <Translation>[встроенный] {0} (автор {1})</Translation>
+      <Old>[built-in] {0} (by {1})</Old>
+    </StyleDisplay_BuiltIn>
+    <StyleDisplay_Normal>
+      <Translation>{0} (автор {1})</Translation>
+      <Old>{0} (by {1})</Old>
+    </StyleDisplay_Normal>
+    <PropSource_Author>
+      <Translation>Автор:</Translation>
+      <Old>Author:</Old>
+    </PropSource_Author>
+    <PropSource_TierRoman>
+      <Translation>Уровень (римские)</Translation>
+      <Old>Tier (Roman)</Old>
+    </PropSource_TierRoman>
+    <PropSource_TierArabic>
+      <Translation>Уровень (арабские)</Translation>
+      <Old>Tier (Arabic)</Old>
+    </PropSource_TierArabic>
+  </Misc>
+</item>

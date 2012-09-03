@@ -8,7 +8,9 @@ using System.Threading;
 using System.Windows;
 using RT.Util;
 using RT.Util.Dialogs;
+using RT.Util.Lingo;
 using RT.Util.Xml;
+using TankIconMaker.Effects;
 using WpfCrutches;
 using D = System.Drawing;
 using W = System.Windows.Media;
@@ -17,101 +19,14 @@ namespace TankIconMaker
 {
     partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            System.Windows.Forms.Application.EnableVisualStyles();
-            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-
-#if !DEBUG
-            Thread.CurrentThread.Name = "Main";
-            AppDomain.CurrentDomain.UnhandledException += (_, args) =>
-            {
-                var errorInfo = new StringBuilder("Thread: " + Thread.CurrentThread.Name);
-                var excp = args.ExceptionObject;
-                while (excp != null)
-                {
-                    errorInfo.AppendFormat("\n\nException: {0}", excp.GetType());
-                    var exception = excp as Exception;
-                    if (exception != null)
-                    {
-                        errorInfo.AppendFormat("\nMessage: {0}\n", exception.Message);
-                        errorInfo.AppendLine(Ut.CollapseStackTrace(exception.StackTrace));
-                        excp = exception.InnerException;
-                    }
-                }
-                bool copy = DlgMessage.ShowError("An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.",
-                    "Copy report to &clipboard", "Close") == 0;
-                if (copy)
-                    try
-                    {
-                        Clipboard.SetText(errorInfo.ToString(), TextDataFormat.UnicodeText);
-                        DlgMessage.ShowInfo("Information about the error is now in your clipboard.");
-                    }
-                    catch { DlgMessage.ShowInfo("Sorry, couldn't even copy the error info to clipboard. Something is broken pretty badly."); }
-            };
-#endif
-
-            // Configure XmlClassify
-            XmlClassify.DefaultOptions = new XmlClassifyOptions()
-                .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(Version), new versionTypeOptions())
-                .AddTypeOptions(typeof(Filename), new filenameTypeOptions())
-                .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
-                .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
-
-            // Find all the layer and effect types in the assembly
-            Program.LayerTypes = findTypes<LayerBase>("layer");
-            Program.EffectTypes = findTypes<EffectBase>("effect");
-
-            base.OnStartup(e);
-            SettingsUtil.LoadSettings(out Program.Settings);
-        }
-
-        private static IList<TypeInfo<T>> findTypes<T>(string name) where T : IHasTypeNameDescription
-        {
-            var infos = new List<TypeInfo<T>>();
-            foreach (var type in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(T).IsAssignableFrom(t) && !t.IsAbstract))
-            {
-                var constructor = type.GetConstructor(new Type[0]);
-                if (constructor == null)
-                {
-                    // (the error message will only be seen by maker developers, so it's ok that it's shown before any UI appears)
-                    DlgMessage.ShowWarning("Ignored {1} type \"{0}\" because it does not have a public parameterless constructor.".Fmt(type, name));
-                }
-                else
-                {
-                    var obj = (T) constructor.Invoke(new object[0]);
-                    infos.Add(new TypeInfo<T>
-                    {
-                        Type = type,
-                        Constructor = () => (T) constructor.Invoke(new object[0]),
-                        Name = obj.TypeName,
-                        Description = obj.TypeDescription,
-                    });
-                }
-            }
-            infos.Sort(CustomComparer<TypeInfo<T>>.By(ti => ti.Name));
-            return infos.AsReadOnly();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            Program.Settings.SaveQuiet();
-            base.OnExit(e);
-        }
-    }
-
-    /// <summary>
-    /// A few program-wide globals for those rare cases of truly program-global data items.
-    /// </summary>
-    static class Program
-    {
         /// <summary>
         /// Various program settings. To ensure that an application crash or a power loss does not result in lost settings,
         /// one of the Save methods should be invoked every time changes are made; this is not automatic.
         /// </summary>
         public static Settings Settings;
+
+        /// <summary>Contains the current UI translation.</summary>
+        public static Translation Translation = new Translation();
 
         /// <summary>Encapsulates all the tank/game data TankIconMaker requires.</summary>
         public static WotData Data = new WotData();
@@ -138,5 +53,107 @@ namespace TankIconMaker
         public static IList<TypeInfo<LayerBase>> LayerTypes;
         /// <summary>A list of info classes for each effect type defined in this assembly. Initialised once at startup.</summary>
         public static IList<TypeInfo<EffectBase>> EffectTypes;
+
+        [STAThread]
+        static int Main(string[] args)
+        {
+            if (args.Length == 2 && args[0] == "--post-build-check")
+                return RT.Util.Ut.RunPostBuildChecks(args[1], Assembly.GetExecutingAssembly());
+
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+
+#if !DEBUG
+            Thread.CurrentThread.Name = "Main";
+            AppDomain.CurrentDomain.UnhandledException += (_, ea) =>
+            {
+                var errorInfo = new StringBuilder("Thread: " + Thread.CurrentThread.Name);
+                var excp = ea.ExceptionObject;
+                while (excp != null)
+                {
+                    errorInfo.AppendFormat("\n\nException: {0}", excp.GetType());
+                    var exception = excp as Exception;
+                    if (exception != null)
+                    {
+                        errorInfo.AppendFormat("\nMessage: {0}\n", exception.Message);
+                        errorInfo.AppendLine(Ut.CollapseStackTrace(exception.StackTrace));
+                        excp = exception.InnerException;
+                    }
+                }
+                bool copy = DlgMessage.ShowError(App.Translation.Prompt.ExceptionGlobal,
+                    App.Translation.Prompt.ErrorToClipboard_Copy, App.Translation.Prompt.ErrorToClipboard_OK) == 0;
+                if (copy)
+                    try
+                    {
+                        Clipboard.SetText(errorInfo.ToString(), TextDataFormat.UnicodeText);
+                        DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_Copied);
+                    }
+                    catch { DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_CopyFail); }
+            };
+#else
+            var dummy = App.Translation.Prompt.ExceptionGlobal; // to keep Lingo happy that the string is used
+#endif
+
+            // Configure XmlClassify
+            XmlClassify.DefaultOptions = new XmlClassifyOptions()
+                .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(Version), new versionTypeOptions())
+                .AddTypeOptions(typeof(Filename), new filenameTypeOptions())
+                .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
+                .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
+
+            // Find all the layer and effect types in the assembly (required before settings are loaded)
+            App.LayerTypes = findTypes<LayerBase>("layer");
+            App.EffectTypes = findTypes<EffectBase>("effect");
+
+            // Load all settings and the UI translation
+            SettingsUtil.LoadSettings(out App.Settings);
+            App.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref App.Settings.Lingo);
+
+            // Run the UI
+            var app = new App();
+            app.InitializeComponent();
+            app.Run();
+
+            // Save settings upon exit, even though they should be saved on every change anyway
+            App.Settings.SaveQuiet();
+
+            return 0;
+        }
+
+        private static IList<TypeInfo<T>> findTypes<T>(string name) where T : IHasTypeNameDescription
+        {
+            var infos = new List<TypeInfo<T>>();
+            foreach (var type in Assembly.GetEntryAssembly().GetTypes().Where(t => typeof(T).IsAssignableFrom(t) && !t.IsAbstract))
+            {
+                var constructor = type.GetConstructor(new Type[0]);
+                if (constructor == null)
+                {
+                    // (the error message will only be seen by maker developers, so it's ok that it's shown before any UI appears)
+                    DlgMessage.ShowWarning("Ignored {1} type \"{0}\" because it does not have a public parameterless constructor.".Fmt(type, name));
+                }
+                else
+                {
+                    infos.Add(new TypeInfo<T>
+                    {
+                        Type = type,
+                        Constructor = () => (T) constructor.Invoke(new object[0]),
+                        Name = type.Name,
+                        Description = type.FullName,
+                    });
+                }
+            }
+            infos.Sort(CustomComparer<TypeInfo<T>>.By(ti => ti.Name));
+            return infos.AsReadOnly();
+        }
+
+        private static void PostBuildCheck(IPostBuildReporter rep)
+        {
+            Lingo.PostBuildStep<Translation>(rep, Assembly.GetExecutingAssembly());
+            XmlClassify.PostBuildStep<Settings>(rep);
+            XmlClassify.PostBuildStep<Style>(rep);
+            XmlClassify.PostBuildStep<GameVersion>(rep);
+        }
     }
 }

@@ -1,20 +1,18 @@
-﻿using System.ComponentModel;
-using System.Windows.Media.Imaging;
+﻿using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
     class OpacityEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Opacity"; } }
-        public override string TypeDescription { get { return "Increases or decreases the layer’s opacity."; } }
+        public override string TypeName { get { return App.Translation.EffectOpacity.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectOpacity.EffectDescription; } }
 
-        [Category("Opacity")]
-        [Description("The opacity multiplier. Negative makes a layer more transparent, positive makes it more opaque.")]
         public double Opacity { get; set; }
-        [Category("Opacity")]
-        [Description("Selects one of several different curves for adjusting the opacity. \"Auto\" uses \"Additive\" for increasing opacity and \"Move endpoint\" for decreasing.")]
+        public static MemberTr OpacityTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectOpacity.Opacity); }
+
         public OpacityStyle Style { get; set; }
+        public static MemberTr StyleTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectOpacity.Style); }
 
         public OpacityEffect()
         {

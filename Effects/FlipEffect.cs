@@ -1,23 +1,17 @@
-﻿using System.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
     class FlipEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Flip"; } }
-        public override string TypeDescription { get { return "Flips the layer horizontally and/or vertically."; } }
+        public override string TypeName { get { return App.Translation.EffectFlip.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectFlip.EffectDescription; } }
 
-        [DisplayName("Flip horizontally")]
-        [Description("Flips the layer horizontally, that is, swapping left and right.")]
         public bool FlipHorz { get; set; }
-        [DisplayName("Flip vertically")]
-        [Description("Flips the layer vertically, that is, swapping up and down.")]
+        public static MemberTr FlipHorzTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectFlip.FlipHorz); }
         public bool FlipVert { get; set; }
+        public static MemberTr FlipVertTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectFlip.FlipVert); }
 
         public FlipEffect()
         {

@@ -20,12 +20,14 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.ExtensionMethods;
 using RT.Util.Forms;
+using RT.Util.Lingo;
 using RT.Util.Xml;
 using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 /*
+ * Automatic OldFiles generation
  * Lanczos resampling; sharpen effect
  * Improved Font selection
  * Colorize method: set RGB
@@ -53,12 +55,15 @@ namespace TankIconMaker
         private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
         private ObservableCollection<string> _otherWarnings = new ObservableCollection<string>();
 
+        private LanguageHelperWpf<Translation> _translationHelper;
+
         public MainWindow()
-            : base(Program.Settings.MainWindow)
+            : base(App.Settings.MainWindow)
         {
             InitializeComponent();
-            GlobalStatusShow("Loading...");
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Loading);
             ContentRendered += InitializeEverything;
+            Closing += MainWindow_Closing;
         }
 
         /// <summary>
@@ -83,6 +88,12 @@ namespace TankIconMaker
             ctIconsPanel.Opacity = 1;
         }
 
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_translationHelper != null && !_translationHelper.MayExitApplication())
+                e.Cancel = true;
+        }
+
         /// <summary>
         /// Performs most of the slow initializations. This method is only called after the UI becomes visible, to improve the
         /// perceived start-up performance.
@@ -96,8 +107,28 @@ namespace TankIconMaker
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
 
             var mat = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
-            Program.DpiScaleX = mat.M11;
-            Program.DpiScaleY = mat.M22;
+            App.DpiScaleX = mat.M11;
+            App.DpiScaleY = mat.M22;
+
+            var lingoTypeDescProvider = new LingoTypeDescriptionProvider<Translation>(() => App.Translation);
+            System.ComponentModel.TypeDescriptor.AddProvider(lingoTypeDescProvider, typeof(LayerBase));
+            System.ComponentModel.TypeDescriptor.AddProvider(lingoTypeDescProvider, typeof(EffectBase));
+            System.ComponentModel.TypeDescriptor.AddProvider(lingoTypeDescProvider, typeof(SelectorBase<string>));
+            System.ComponentModel.TypeDescriptor.AddProvider(lingoTypeDescProvider, typeof(SelectorBase<BoolWithPassthrough>));
+            System.ComponentModel.TypeDescriptor.AddProvider(lingoTypeDescProvider, typeof(SelectorBase<Color>));
+            System.ComponentModel.TypeDescriptor.AddProvider(lingoTypeDescProvider, typeof(SelectorBase<Filename>));
+#if DEBUG
+            Lingo.AlsoSaveTranslationsTo = PathUtil.AppPathCombine(@"..\..\Resources\Translations");
+            using (var translationFileGenerator = new Lingo.TranslationFileGenerator(PathUtil.AppPathCombine(@"..\..\Translation.g.cs")))
+            {
+                translationFileGenerator.TranslateWindow(this, App.Translation.MainWindow);
+            }
+#endif
+            using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
+                _translationHelper = new LanguageHelperWpf<Translation>("Tank Icon Maker", "TankIconMaker", true,
+                    App.Settings.TranslationFormSettings, new System.Drawing.Icon(iconStream), () => App.Settings.Lingo);
+            _translationHelper.TranslationChanged += TranslationChanged;
+            Translate(first: true);
 
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdLayer_AddLayer));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
@@ -118,12 +149,12 @@ namespace TankIconMaker
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
 
-            if (Program.Settings.LeftColumnWidth != null)
-                ctLeftColumn.Width = new GridLength(Program.Settings.LeftColumnWidth.Value);
-            if (Program.Settings.NameColumnWidth != null)
-                ctLayerProperties.NameColumnWidth = Program.Settings.NameColumnWidth.Value;
-            if (Program.Settings.DisplayMode >= 0 && Program.Settings.DisplayMode < ctDisplayMode.Items.Count)
-                ctDisplayMode.SelectedIndex = Program.Settings.DisplayMode.Value;
+            if (App.Settings.LeftColumnWidth != null)
+                ctLeftColumn.Width = new GridLength(App.Settings.LeftColumnWidth.Value);
+            if (App.Settings.NameColumnWidth != null)
+                ctLayerProperties.NameColumnWidth = App.Settings.NameColumnWidth.Value;
+            if (App.Settings.DisplayMode >= 0 && App.Settings.DisplayMode < ctDisplayMode.Items.Count)
+                ctDisplayMode.SelectedIndex = App.Settings.DisplayMode.Value;
 
             if (File.Exists(Path.Combine(PathUtil.AppPath, "Data", "background.jpg")))
                 ctOuterGrid.Background = new ImageBrush
@@ -138,26 +169,26 @@ namespace TankIconMaker
             var styles = new CompositeCollection<Style>();
             RecreateBuiltInStyles();
             styles.AddCollection(_builtinStyles);
-            styles.AddCollection(Program.Settings.Styles);
+            styles.AddCollection(App.Settings.Styles);
             ctStyleDropdown.ItemsSource = styles;
             ctStyleDropdown.DisplayMemberPath = "Display";
 
             // Locate the closest match for the maker that was selected last time the program was run
             ctStyleDropdown.SelectedItem = styles.OfType<Style>()
-                .OrderBy(s => s.ToString() == Program.Settings.SelectedStyleNameAndAuthor ? 0 : 1)
+                .OrderBy(s => s.ToString() == App.Settings.SelectedStyleNameAndAuthor ? 0 : 1)
                 .ThenBy(s => styles.IndexOf(s))
                 .FirstOrDefault();
 
             // Guess the location/version of the game and add to the list of paths if it’s empty
-            if (Program.Settings.GameInstalls.Count == 0)
+            if (App.Settings.GameInstalls.Count == 0)
             {
-                Program.Settings.GameInstalls.Add(GuessTanksLocationAndVersion());
-                Program.Settings.SaveThreaded();
+                App.Settings.GameInstalls.Add(GuessTanksLocationAndVersion());
+                App.Settings.SaveThreaded();
             }
 
-            ctGamePath.ItemsSource = Program.Settings.GameInstalls;
+            ctGamePath.ItemsSource = App.Settings.GameInstalls;
             ctGamePath.DisplayMemberPath = "DisplayName";
-            ctGameVersion.ItemsSource = Program.Data.Versions; // currently empty because we haven’t loaded it yet
+            ctGameVersion.ItemsSource = App.Data.Versions; // currently empty because we haven’t loaded it yet
             ctGameVersion.DisplayMemberPath = "DisplayName";
 
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ColorSelector), ExpandableObject = true });
@@ -170,32 +201,32 @@ namespace TankIconMaker
             // Set WPF bindings now that all the data we need is loaded
             BindingOperations.SetBinding(ctAddGamePath, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
                 (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
                 (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctGamePath, ComboBox.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
                 (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
                 (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctStyleDropdown, ComboBox.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
                 (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctLayerProperties, UIElement.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
                 (int index, bool filesAvailable) => index >= 0 && filesAvailable
             ));
             BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, LambdaBinding.New(
@@ -205,15 +236,15 @@ namespace TankIconMaker
             ));
             BindingOperations.SetBinding(ctSave, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = _rendering, Path = new PropertyPath("Value") },
-                new Binding { Source = Program.Data, Path = new PropertyPath("FilesAvailable") },
+                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
                 (bool rendering, bool filesAvailable) => !rendering && filesAvailable
             ));
             BindingOperations.SetBinding(ctLayersTree, TreeView.MaxHeightProperty, LambdaBinding.New(
                 new Binding { Source = ctLeftBottomPane, Path = new PropertyPath(Grid.ActualHeightProperty) },
                 (double paneHeight) => paneHeight * 0.4
             ));
-            var selectedInstall = Program.Settings.GameInstalls.FirstOrDefault(gis => gis.Path.EqualsNoCase(Program.Settings.SelectedGamePath))
-                ?? Program.Settings.GameInstalls.FirstOrDefault();
+            var selectedInstall = App.Settings.GameInstalls.FirstOrDefault(gis => gis.Path.EqualsNoCase(App.Settings.SelectedGamePath))
+                ?? App.Settings.GameInstalls.FirstOrDefault();
             ctGamePath.SelectedItem = selectedInstall;
             ctGameVersion.SelectedItem = selectedInstall.NullOr(gis => gis.GameVersion);
 
@@ -240,6 +271,56 @@ namespace TankIconMaker
             // Done
             GlobalStatusHide();
             _updateIconsTimer.Start();
+        }
+
+        private void TranslationChanged(Translation t)
+        {
+            App.Translation = t;
+            App.Settings.Lingo = t.Language;
+            Translate();
+        }
+
+        private void Translate(bool first = false)
+        {
+            App.LayerTypes = translateTypes(App.LayerTypes);
+            App.EffectTypes = translateTypes(App.EffectTypes);
+            Lingo.TranslateWindow(this, App.Translation.MainWindow);
+            DlgMessage.Translate(App.Translation.DlgMessage.OK,
+                App.Translation.DlgMessage.CaptionInfo,
+                App.Translation.DlgMessage.CaptionQuestion,
+                App.Translation.DlgMessage.CaptionWarning,
+                App.Translation.DlgMessage.CaptionError);
+
+            foreach (var style in ctStyleDropdown.Items.OfType<Style>())
+                style.TranslationChanged();
+
+            if (!first)
+            {
+                var wasSelected = ctLayerProperties.SelectedObject;
+                ctLayerProperties.SelectedObject = null;
+                ctLayerProperties.SelectedObject = wasSelected;
+
+                ctLayersTree.ItemsSource = null;
+                ctStyleDropdown_SelectionChanged();
+
+                ReloadData();
+                UpdateIcons();
+            }
+        }
+
+        private static IList<TypeInfo<T>> translateTypes<T>(IList<TypeInfo<T>> types) where T : IHasTypeNameDescription
+        {
+            return types.Select(type =>
+            {
+                var obj = (T) type.Constructor();
+                return new TypeInfo<T>
+                {
+                    Type = type.Type,
+                    Constructor = type.Constructor,
+                    Name = obj.TypeName,
+                    Description = obj.TypeDescription,
+                };
+            }).OrderBy(ti => ti.Name).ToList().AsReadOnly();
         }
 
         private ObservableSortedList<Style> _builtinStyles = new ObservableSortedList<Style>();
@@ -273,11 +354,11 @@ namespace TankIconMaker
             ZipCache.Clear();
             ImageCache.Clear();
 
-            Program.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
+            App.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
 
             // Update the list of warnings
             _dataWarnings.Clear();
-            foreach (var warning in Program.Data.Warnings)
+            foreach (var warning in App.Data.Warnings)
                 _dataWarnings.Add(warning);
 
             // Yes, this stuff is a bit WinForms'sy...
@@ -297,8 +378,8 @@ namespace TankIconMaker
             }
 
             // Warn the user in a more obvious way
-            if (!Program.Data.FilesAvailable)
-                DlgMessage.ShowWarning("Found no version files and/or no built-in data files. Make sure the files are available under the following path:\n\n" + Path.Combine(PathUtil.AppPath, "Data"));
+            if (!App.Data.FilesAvailable)
+                DlgMessage.ShowWarning(App.Translation.Error.NoDataFilesWarning.Fmt(Path.Combine(PathUtil.AppPath, "Data")));
 
             if (!first)
                 UpdateIcons();
@@ -309,19 +390,19 @@ namespace TankIconMaker
         /// </summary>
         private void UpdateDataSources(VersionId version)
         {
-            foreach (var item in Program.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
+            foreach (var item in App.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
             {
-                var extra = Program.Data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
+                var extra = App.Data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
                 if (extra == null)
-                    Program.DataSources.Remove(item);
+                    App.DataSources.Remove(item);
                 else
                     item.UpdateFrom(extra);
             }
-            foreach (var group in Program.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author }))
+            foreach (var group in App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author }))
             {
                 var extra = group.Where(df => df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
-                if (extra != null && !Program.DataSources.Any(item => extra.Name == item.Name && extra.Language == item.Language && extra.Author == item.Author))
-                    Program.DataSources.Add(new DataSourceInfo(extra));
+                if (extra != null && !App.DataSources.Any(item => extra.Name == item.Name && extra.Language == item.Language && extra.Author == item.Author))
+                    App.DataSources.Add(new DataSourceInfo(extra));
             }
         }
 
@@ -425,7 +506,7 @@ namespace TankIconMaker
             _rendering.Value = false;
 
             // Update the warning messages
-            string warning = "Some of the tank icons did not render correctly; make sure you view \"All tanks\" and click each broken image for details.";
+            string warning = App.Translation.Error.RenderWithErrors;
             bool need = _renderResults.Values.Any(rr => rr.Exception != null);
             bool have = _otherWarnings.Contains(warning);
             if (need && !have)
@@ -435,7 +516,7 @@ namespace TankIconMaker
 
             if (!need)
             {
-                warning = "Some of the tank icons rendered with warnings; make sure you view \"All tanks\" and click each image with a warning icon for details.";
+                warning = App.Translation.Error.RenderWithWarnings;
                 need = _renderResults.Values.Any(rr => rr.WarningsCount > 0);
                 have = _otherWarnings.Contains(warning);
                 if (need && !have)
@@ -572,11 +653,11 @@ namespace TankIconMaker
             img.MouseLeftButtonUp += TankImage_MouseLeftButtonUp;
             BindingOperations.SetBinding(img, TankImageControl.WidthProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => 80.0 * (check ? 5 : 1) / Program.DpiScaleX
+                (bool check) => 80.0 * (check ? 5 : 1) / App.DpiScaleX
             ));
             BindingOperations.SetBinding(img, TankImageControl.HeightProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => 24.0 * (check ? 5 : 1) / Program.DpiScaleY
+                (bool check) => 24.0 * (check ? 5 : 1) / App.DpiScaleY
             ));
             ctIconsPanel.Children.Add(img);
             return img;
@@ -607,13 +688,13 @@ namespace TankIconMaker
             var joiner = renderResult.WarningsCount == 0 ? "" : "\n\n";
 
             if (renderResult.Exception == null && renderResult.WarningsCount == 0)
-                DlgMessage.ShowInfo("This image rendered without any problems.");
+                DlgMessage.ShowInfo(App.Translation.Error.RenderIconOK);
 
             else if (renderResult.Exception == null)
                 DlgMessage.ShowWarning(warnings);
 
             else if (renderResult.Exception is StyleUserError)
-                DlgMessage.ShowWarning(warnings + joiner + "Could not render this image: " + renderResult.Exception.Message);
+                DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.RenderIconFail.Fmt(renderResult.Exception.Message));
 
             else
             {
@@ -625,24 +706,24 @@ namespace TankIconMaker
                     + "Exception details: {0}, {1}\n".Fmt(renderResult.Exception.GetType().Name, renderResult.Exception.Message)
                     + Ut.CollapseStackTrace(renderResult.Exception.StackTrace);
 
-                bool copy = DlgMessage.ShowWarning(warnings + joiner + "The maker threw an exception while rendering this image. This is a bug in the maker; please report it.\n\n" + message,
-                    "Copy report to &clipboard", "Close") == 0;
+                bool copy = DlgMessage.ShowWarning(warnings + joiner + App.Translation.Prompt.ExceptionInRender + "\n\n" + message,
+                    App.Translation.Prompt.ErrorToClipboard_Copy, App.Translation.Prompt.ErrorToClipboard_OK) == 0;
 
                 if (copy)
                     try
                     {
                         Clipboard.SetText(message.ToString(), TextDataFormat.UnicodeText);
-                        DlgMessage.ShowInfo("Information about the error is now in your clipboard.");
+                        DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_Copied);
                     }
-                    catch { DlgMessage.ShowInfo("Sorry, couldn't copy the error info to clipboard for some reason."); }
+                    catch { DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_CopyFail); }
             }
         }
 
         private void SaveSettings()
         {
-            Program.Settings.LeftColumnWidth = ctLeftColumn.Width.Value;
-            Program.Settings.NameColumnWidth = ctLayerProperties.NameColumnWidth;
-            Program.Settings.SaveThreaded();
+            App.Settings.LeftColumnWidth = ctLeftColumn.Width.Value;
+            App.Settings.NameColumnWidth = ctLayerProperties.NameColumnWidth;
+            App.Settings.SaveThreaded();
         }
 
         private void SaveSettings(object _, SizeChangedEventArgs __)
@@ -661,7 +742,7 @@ namespace TankIconMaker
             ScheduleUpdateIcons();
             var style = (Style) ctStyleDropdown.SelectedItem;
             ctUpvote.Visibility = style.Kind == StyleKind.BuiltIn ? Visibility.Visible : Visibility.Collapsed;
-            Program.Settings.SelectedStyleNameAndAuthor = style.ToString();
+            App.Settings.SelectedStyleNameAndAuthor = style.ToString();
             SaveSettings();
             ctLayersTree.ItemsSource = style.Layers;
             if (style.Layers.Count > 0)
@@ -680,7 +761,7 @@ namespace TankIconMaker
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
         private List<RenderTask> ListRenderTasks(GameInstallationSettings gameInstall, bool all = false)
         {
-            var builtin = Program.Data.BuiltIn.Where(b => b.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(b => b.GameVersion);
+            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(b => b.GameVersion);
             if (builtin == null)
                 return new List<RenderTask>(); // happens when there are no built-in data files
 
@@ -691,7 +772,7 @@ namespace TankIconMaker
                 selection = builtin.Data.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
                     .SelectMany(p => SelectTiers(builtin.Data.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
 
-            var extras = Program.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
+            var extras = App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
                 .Select(g => g.Where(df => df.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(df => df.GameVersion))
                 .Where(df => df != null).ToList();
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
@@ -716,7 +797,7 @@ namespace TankIconMaker
         /// <summary>
         /// Enumerates up to three tanks with tiers as different as possible. Ideally enumerates one tier 1, one tier 5 and one tier 10 tank.
         /// </summary>
-        private IEnumerable<TankData> SelectTiers(IEnumerable<TankData> tanks)
+        private static IEnumerable<TankData> SelectTiers(IEnumerable<TankData> tanks)
         {
             TankData min = null;
             TankData mid = null;
@@ -767,7 +848,7 @@ namespace TankIconMaker
             ctGameVersion.SelectedItem = gis.NullOr(g => g.GameVersion);
             if (gis == null)
                 return;
-            Program.Settings.SelectedGamePath = gis.Path;
+            App.Settings.SelectedGamePath = gis.Path;
             ReloadData();
             SaveSettings();
         }
@@ -791,14 +872,24 @@ namespace TankIconMaker
             }
             _renderResults.Clear();
             ScheduleUpdateIcons();
-            Program.Settings.SaveThreaded();
+            App.Settings.SaveThreaded();
         }
 
         private void ctDisplayMode_SelectionChanged(object _, SelectionChangedEventArgs __)
         {
-            Program.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
+            App.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
             UpdateIcons();
             SaveSettings();
+        }
+
+        private void ctLanguage_Click(object _, EventArgs __)
+        {
+            var menu = ctLanguage.ContextMenu;
+            menu.PlacementTarget = ctLanguage;
+            menu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            menu.Items.Clear();
+            _translationHelper.PopulateMenuItems(menu.Items);
+            menu.IsOpen = true;
         }
 
         private void ctWarning_MouseUp(object sender, MouseButtonEventArgs e)
@@ -818,20 +909,20 @@ namespace TankIconMaker
             var gameInstall = GetInstallationSettings();
             if (gameInstall == null)
             {
-                DlgMessage.ShowInfo("Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save them.");
+                DlgMessage.ShowInfo(App.Translation.Prompt.GamePathRequired);
                 return;
             }
 
             var path = Path.Combine(gameInstall.Path, gameInstall.GameVersion.PathDestination);
 
             if (!_overwriteAccepted && Directory.Exists(path))
-                if (DlgMessage.ShowQuestion("Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!"
-                    .Fmt(path, gameInstall.GameVersion.TankIconExtension), "&Yes, overwrite all files", "&Cancel") == 1)
+                if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
+                    .Fmt(path, gameInstall.GameVersion.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
                     return;
             _overwriteAccepted = true;
             Directory.CreateDirectory(path);
 
-            GlobalStatusShow("Saving...");
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
             var style = (Style) ctStyleDropdown.SelectedItem;
             var renderTasks = ListRenderTasks(gameInstall, all: true);
@@ -861,7 +952,9 @@ namespace TankIconMaker
                         if (!_renderResults.ContainsKey(kvp.Key))
                             _renderResults[kvp.Key] = kvp.Value;
                     int skipped = renders.Values.Count(rr => rr.Exception != null);
-                    DlgMessage.ShowInfo("Saved!\nEnjoy." + (skipped == 0 ? "" : "\n\nNote that {0} images were skipped due to errors.").Fmt(skipped));
+                    DlgMessage.ShowInfo(App.Translation.Prompt.IconsSaved +
+                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped)))
+                    );
                 }));
             });
         }
@@ -874,7 +967,8 @@ namespace TankIconMaker
             var icon = Icon as BitmapSource;
             new DlgMessage()
             {
-                Message = "Tank Icon Maker\nVersion " + version + "\nBy Romkyns\n\n" + copyright,
+                Message = "Tank Icon Maker\n" + App.Translation.Misc.ProgramVersion.Fmt(version) + "\nBy Romkyns\n\n" + copyright
+                    + (App.Translation.Language == RT.Util.Lingo.Language.EnglishUK ? "" : ("\n\n" + App.Translation.TranslationCredits)),
                 Caption = "Tank Icon Maker",
                 Image = icon == null ? null : icon.ToBitmapGdi().GetBitmapCopy()
             }.Show();
@@ -885,7 +979,7 @@ namespace TankIconMaker
             GameInstallationSettings gis;
 
             // Add the very first path differently: by guessing where the game is installed
-            if (Program.Settings.GameInstalls.Count == 0)
+            if (App.Settings.GameInstalls.Count == 0)
             {
                 gis = GuessTanksLocationAndVersion();
             }
@@ -898,22 +992,22 @@ namespace TankIconMaker
                 if (dlg.ShowDialog() != true)
                     return;
 
-                var best = Program.Data.Versions.Where(v => File.Exists(Path.Combine(dlg.SelectedPath, v.CheckFileName))).ToList();
+                var best = App.Data.Versions.Where(v => File.Exists(Path.Combine(dlg.SelectedPath, v.CheckFileName))).ToList();
                 if (best.Count == 0)
                 {
-                    if (DlgMessage.ShowWarning("This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?",
-                        "&Use anyway", "Cancel") == 1)
+                    if (DlgMessage.ShowWarning(App.Translation.Prompt.GameNotFound_Prompt,
+                        App.Translation.Prompt.GameNotFound_Ignore, App.Translation.Prompt.Cancel) == 1)
                         return;
                 }
                 var version = best.Where(v => Ut.FileContains(Path.Combine(dlg.SelectedPath, v.CheckFileName), v.CheckFileContent))
                     .OrderByDescending(v => v.Version)
                     .FirstOrDefault();
 
-                gis = new GameInstallationSettings(path: dlg.SelectedPath) { GameVersion = version ?? Program.Data.GetLatestVersion() };
+                gis = new GameInstallationSettings(path: dlg.SelectedPath) { GameVersion = version ?? App.Data.GetLatestVersion() };
             }
 
-            Program.Settings.GameInstalls.Add(gis);
-            Program.Settings.SaveThreaded();
+            App.Settings.GameInstalls.Add(gis);
+            App.Settings.SaveThreaded();
 
             ctGamePath.SelectedItem = gis;
         }
@@ -922,10 +1016,10 @@ namespace TankIconMaker
         {
             // Looks rather hacky but seems to do the job correctly even when called with the drop-down visible.
             var index = ctGamePath.SelectedIndex;
-            Program.Settings.GameInstalls.RemoveAt(ctGamePath.SelectedIndex);
+            App.Settings.GameInstalls.RemoveAt(ctGamePath.SelectedIndex);
             ctGamePath.ItemsSource = null;
-            ctGamePath.ItemsSource = Program.Settings.GameInstalls;
-            ctGamePath.SelectedIndex = Math.Min(index, Program.Settings.GameInstalls.Count - 1);
+            ctGamePath.ItemsSource = App.Settings.GameInstalls;
+            ctGamePath.SelectedIndex = Math.Min(index, App.Settings.GameInstalls.Count - 1);
             SaveSettings();
         }
 
@@ -934,13 +1028,13 @@ namespace TankIconMaker
         /// </summary>
         private GameInstallationSettings GetInstallationSettings()
         {
-            if (!Program.Data.Versions.Any())
-                return Program.LastGameInstallSettings = null;
+            if (!App.Data.Versions.Any())
+                return App.LastGameInstallSettings = null;
 
             if (ctGamePath.SelectedItem == null && ctGamePath.Items.Count > 0)
                 ctGamePath.SelectedIndex = 0;
 
-            return Program.LastGameInstallSettings = ctGamePath.SelectedItem as GameInstallationSettings;
+            return App.LastGameInstallSettings = ctGamePath.SelectedItem as GameInstallationSettings;
         }
 
         /// <summary>
@@ -950,9 +1044,9 @@ namespace TankIconMaker
         private GameInstallationSettings GuessTanksLocationAndVersion()
         {
             var path = Ut.FindTanksDirectory();
-            var version = Program.Data.GetGuessedVersion(path);
+            var version = App.Data.GetGuessedVersion(path);
 
-            return new GameInstallationSettings(path) { GameVersion = version ?? Program.Data.GetLatestVersion() };
+            return new GameInstallationSettings(path) { GameVersion = version ?? App.Data.GetLatestVersion() };
         }
 
         private void ctStyleMore_Click(object sender, RoutedEventArgs e)
@@ -967,17 +1061,17 @@ namespace TankIconMaker
             var style = ctStyleDropdown.SelectedItem as Style;
             if (style.Kind != StyleKind.BuiltIn)
             {
-                DlgMessage.ShowInfo("For security reasons, only built-in styles can be upvoted.");
+                DlgMessage.ShowInfo(App.Translation.Prompt.Upvote_BuiltInOnly);
                 return;
             }
             if (string.IsNullOrWhiteSpace(style.ForumLink) || (!style.ForumLink.StartsWith("http://") && !style.ForumLink.StartsWith("https://")))
             {
-                DlgMessage.ShowInfo("This style does not currently have an associated post on World of Tanks forums.");
+                DlgMessage.ShowInfo(App.Translation.Prompt.Upvote_NotAvailable);
                 return;
             }
 
-            if (DlgMessage.ShowInfo("To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}"
-                .Fmt(style.Author, style.ForumLink.UrlUnescape()), "Open in browser", "Cancel") == 1)
+            if (DlgMessage.ShowInfo(App.Translation.Prompt.Upvote_Prompt
+                .Fmt(style.Author, style.ForumLink.UrlUnescape()), App.Translation.Prompt.Upvote_Open, App.Translation.Prompt.Cancel) == 1)
                 return;
 
             Process.Start(new ProcessStartInfo(style.ForumLink) { UseShellExecute = true });
@@ -1013,8 +1107,8 @@ namespace TankIconMaker
                 // Duplicate
                 style = style.Clone();
                 style.Kind = StyleKind.User;
-                style.Name = style.Name + " (copy)";
-                Program.Settings.Styles.Add(style);
+                style.Name = App.Translation.Misc.NameOfCopied.Fmt(style.Name);
+                App.Settings.Styles.Add(style);
                 ctStyleDropdown.SelectedItem = style;
                 SaveSettings();
                 // Re-select/expand
@@ -1098,8 +1192,8 @@ namespace TankIconMaker
             var layer = ctLayersTree.SelectedItem as LayerBase;
             var effect = ctLayersTree.SelectedItem as EffectBase;
             var newName = layer != null
-                ? PromptWindow.ShowPrompt(this, layer.Name, "Rename layer", "Layer _name:")
-                : PromptWindow.ShowPrompt(this, effect.Name, "Rename effect", "Effect _name:");
+                ? PromptWindow.ShowPrompt(this, layer.Name, App.Translation.Prompt.RenameLayer_Title, App.Translation.Prompt.RenameLayer_Label)
+                : PromptWindow.ShowPrompt(this, effect.Name, App.Translation.Prompt.RenameEffect_Title, App.Translation.Prompt.RenameEffect_Label);
             if (newName == null)
                 return;
             var style = GetEditableStyle();
@@ -1118,7 +1212,7 @@ namespace TankIconMaker
 
         private void cmdLayer_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            if (DlgMessage.ShowQuestion("Delete the selected layer/effect?", "&Delete", "&Cancel") == 1)
+            if (DlgMessage.ShowQuestion(App.Translation.Prompt.DeleteLayerEffect_Prompt, App.Translation.Prompt.DeleteLayerEffect_Yes, App.Translation.Prompt.Cancel) == 1)
                 return;
             var style = GetEditableStyle();
             var layer = ctLayersTree.SelectedItem as LayerBase;
@@ -1229,14 +1323,14 @@ namespace TankIconMaker
 
         private void cmdStyle_Add(object sender, ExecutedRoutedEventArgs e)
         {
-            var name = PromptWindow.ShowPrompt(this, "New style", "Create style", "New style _name:");
+            var name = PromptWindow.ShowPrompt(this, App.Translation.Misc.NameOfNewStyle, App.Translation.Prompt.CreateStyle_Title, App.Translation.Prompt.CreateStyle_Label);
             if (name == null)
                 return;
             var style = new Style();
             style.Name = name;
-            style.Author = "me";
-            style.Layers.Add(new TankImageLayer { Name = "Tank image" });
-            Program.Settings.Styles.Add(style);
+            style.Author = App.Translation.Misc.NameOfNewStyleAuthor;
+            style.Layers.Add(new TankImageLayer { Name = App.Translation.Misc.NameOfTankImageLayer });
+            App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
             SaveSettings();
         }
@@ -1251,20 +1345,20 @@ namespace TankIconMaker
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
             var style = ctStyleDropdown.SelectedItem as Style;
-            if (DlgMessage.ShowQuestion("Delete this style?\r\n\r\n" + style.Name, "&Delete", "&Cancel") == 1)
+            if (DlgMessage.ShowQuestion(App.Translation.Prompt.DeleteStyle_Prompt.Fmt(style.Name), App.Translation.Prompt.DeleteStyle_Yes, App.Translation.Prompt.Cancel) == 1)
                 return;
             if (ctStyleDropdown.SelectedIndex < ctStyleDropdown.Items.Count - 1)
                 ctStyleDropdown.SelectedIndex++;
             else
                 ctStyleDropdown.SelectedIndex--;
-            Program.Settings.Styles.Remove(style);
+            App.Settings.Styles.Remove(style);
             SaveSettings();
         }
 
         private void cmdStyle_ChangeName(object sender, ExecutedRoutedEventArgs e)
         {
             var style = ctStyleDropdown.SelectedItem as Style;
-            var name = PromptWindow.ShowPrompt(this, style.Name, "Change style name", "New style _name:");
+            var name = PromptWindow.ShowPrompt(this, style.Name, App.Translation.Prompt.RenameStyle_Title, App.Translation.Prompt.RenameStyle_Label);
             if (name == null)
                 return;
             style.Name = name;
@@ -1274,7 +1368,7 @@ namespace TankIconMaker
         private void cmdStyle_ChangeAuthor(object sender, ExecutedRoutedEventArgs e)
         {
             var style = ctStyleDropdown.SelectedItem as Style;
-            var author = PromptWindow.ShowPrompt(this, style.Author, "Change style author", "New style _author:");
+            var author = PromptWindow.ShowPrompt(this, style.Author, App.Translation.Prompt.ChangeAuthor_Title, App.Translation.Prompt.ChangeAuthor_Label);
             if (author == null)
                 return;
             style.Author = author;
@@ -1284,13 +1378,14 @@ namespace TankIconMaker
         private void cmdStyle_Duplicate(object sender, ExecutedRoutedEventArgs e)
         {
             var style = ctStyleDropdown.SelectedItem as Style;
-            var name = PromptWindow.ShowPrompt(this, style.Name + " (copy)", "Duplicate style", "New style _name:");
+            var name = PromptWindow.ShowPrompt(this, App.Translation.Misc.NameOfCopied.Fmt(style.Name),
+                App.Translation.Prompt.DuplicateStyle_Title, App.Translation.Prompt.DuplicateStyle_Label);
             if (name == null)
                 return;
             style = style.Clone();
             style.Kind = StyleKind.User;
             style.Name = name;
-            Program.Settings.Styles.Add(style);
+            App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
             SaveSettings();
         }
@@ -1298,7 +1393,7 @@ namespace TankIconMaker
         private void cmdStyle_Import(object sender, ExecutedRoutedEventArgs e)
         {
             var dlg = new VistaOpenFileDialog();
-            dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
             dlg.FilterIndex = 0;
             dlg.Multiselect = false;
             dlg.CheckFileExists = true;
@@ -1313,19 +1408,19 @@ namespace TankIconMaker
             }
             catch
             {
-                DlgMessage.ShowWarning("Could not load the file for some reason. It might be of the wrong format.");
+                DlgMessage.ShowWarning(App.Translation.Prompt.StyleImport_Fail);
                 return;
             }
 
-            Program.Settings.Styles.Add(style);
+            App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
-            Program.Settings.SaveThreaded();
+            App.Settings.SaveThreaded();
         }
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
             var dlg = new VistaSaveFileDialog();
-            dlg.Filter = "Icon maker settings|*.xml|All files|*.*";
+            dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
             dlg.FilterIndex = 0;
             dlg.CheckPathExists = true;
             if (dlg.ShowDialog() != true)
@@ -1335,7 +1430,7 @@ namespace TankIconMaker
             if (!filename.ToLower().EndsWith(".xml"))
                 filename += ".xml";
             XmlClassify.SaveObjectToXmlFile(ctStyleDropdown.SelectedItem, typeof(Style), filename);
-            DlgMessage.ShowInfo("The style has been exported.");
+            DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
         }
     }
 
@@ -1415,7 +1510,7 @@ namespace TankIconMaker
             double cy = ActualHeight / 2;
             double scale = 0.6 * ActualHeight / 100;
 
-            dc.PushTransform(new TranslateTransform(50 * scale - 7 / Program.DpiScaleX, cy));
+            dc.PushTransform(new TranslateTransform(50 * scale - 7 / App.DpiScaleX, cy));
             dc.PushTransform(new ScaleTransform(scale, scale));
 
             dc.DrawGeometry(Brushes.Black, null, _triangle);

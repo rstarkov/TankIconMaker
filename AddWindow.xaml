@@ -5,7 +5,7 @@
         xmlns:src="clr-namespace:TankIconMaker"
         x:ClassModifier="internal"
         Title="Add" ShowInTaskbar="False"
-        MinWidth="250" MinHeight="250" Height="335" Width="268"
+        MinWidth="250" MinHeight="250" Height="390" Width="268"
         TextOptions.TextFormattingMode="Display"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
@@ -35,10 +35,10 @@
         <TextBlock Grid.Row="4" Padding="0,8,0,12" Name="ctDescription" TextWrapping="Wrap" Text="{Binding ElementName=ctList, Path=SelectedItem.Description}" />
         <WrapPanel Grid.Row="5" HorizontalAlignment="Center">
             <Button Margin="4,0" IsDefault="True" Click="add">
-                <AccessText Margin="16,2">_Add</AccessText>
+                <AccessText Margin="16,2" Name="ctAddLabel">_Add</AccessText>
             </Button>
             <Button Margin="4,0" IsCancel="True">
-                <AccessText Margin="16,2">_Cancel</AccessText>
+                <AccessText Margin="16,2" Name="ctCancelLabel">_Cancel</AccessText>
             </Button>
         </WrapPanel>
     </Grid>

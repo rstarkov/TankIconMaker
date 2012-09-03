@@ -1,49 +1,42 @@
 ﻿using System;
 using System.ComponentModel;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
+    [TypeConverter(typeof(ClipModeTranslation.Conv))]
     enum ClipMode
     {
-        [Description("By pixels")]
         ByPixels,
-        [Description("By layer bounds")]
         ByLayerBounds,
-        [Description("By icon bounds")]
         ByIconBounds,
     }
 
     class ClipEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return "Clip edges"; } }
-        public override string TypeDescription { get { return "Clips the specified edges of this layer."; } }
+        public override string TypeName { get { return App.Translation.EffectClip.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectClip.EffectDescription; } }
 
-        [Category("Clip"), DisplayName("Use pixels")]
-        [Description("If checked, clipping depth will be relative to the actual visible pixels in the image; otherwise relative to layer edges. See also \"Pixel alpha threshold\".")]
         public ClipMode Mode { get; set; }
+        public static MemberTr ModeTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectClip.Mode); }
 
-        [Category("Clip"), DisplayName("Pixel alpha threshold")]
-        [Description("When clipping by pixels, determines the maximum alpha value which is still deemed as \"transparent\". Range 0..255.")]
         public int PixelAlphaThreshold { get { return _PixelAlphaThreshold; } set { _PixelAlphaThreshold = Math.Min(255, Math.Max(0, value)); } }
         private int _PixelAlphaThreshold = 120;
+        public static MemberTr PixelAlphaThresholdTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectClip.PixelAlphaThreshold); }
 
-        [Category("Clip"), DisplayName("Left")]
-        [Description("The number of pixels to clip on the left edge of the layer.")]
         public int ClipLeft { get { return _ClipLeft; } set { _ClipLeft = Math.Max(0, value); } }
         public int _ClipLeft;
-        [Category("Clip"), DisplayName("Top")]
-        [Description("The number of pixels to clip on the left edge of the layer.")]
+        public static MemberTr ClipLeftTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipLeft); }
         public int ClipTop { get { return _ClipTop; } set { _ClipTop = Math.Max(0, value); } }
         public int _ClipTop = 3;
-        [Category("Clip"), DisplayName("Right")]
-        [Description("The number of pixels to clip on the left edge of the layer.")]
+        public static MemberTr ClipTopTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipTop); }
         public int ClipRight { get { return _ClipRight; } set { _ClipRight = Math.Max(0, value); } }
         public int _ClipRight;
-        [Category("Clip"), DisplayName("Bottom")]
-        [Description("The number of pixels to clip on the left edge of the layer.")]
+        public static MemberTr ClipRightTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipRight); }
         public int ClipBottom { get { return _ClipBottom; } set { _ClipBottom = Math.Max(0, value); } }
         public int _ClipBottom = 3;
+        public static MemberTr ClipBottomTr(Translation tr) { return new MemberTr(tr.Category.Clip, tr.EffectClip.ClipBottom); }
 
         public ClipEffect()
         {
