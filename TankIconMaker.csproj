@@ -186,7 +186,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
-      <Resources Include="Resources\*" />
+      <Resources Include="Resources\*" Exclude="Resources\*-En-*" />
       <Images Include="Resources\Images\*" />
       <Licenses Include="ThirdParty\license-*" />
       <Translations Include="Resources\Translations\*" />

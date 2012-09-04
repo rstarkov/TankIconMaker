@@ -22,6 +22,6 @@
     <item key="Artillery">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_spg.png</item>
   </PathSourceClass>
   <CheckFileName>WOTLauncher.cfg</CheckFileName>
-  <CheckFileContent>&lt;client_ver&gt;75.000&lt;/client_ver&gt;</CheckFileContent>
+  <CheckFileContent>&lt;client_ver&gt;75.1315&lt;/client_ver&gt;</CheckFileContent>
   <TankIconExtension>.png</TankIconExtension>
 </item>
