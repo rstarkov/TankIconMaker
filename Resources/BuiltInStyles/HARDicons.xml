@@ -234,9 +234,9 @@
       <BottomAnchor>True</BottomAnchor>
       <Baseline>False</Baseline>
       <Property>
-        <Name>NameShortWG</Name>
+        <Name>NameShort</Name>
         <Language>Ru</Language>
-        <Author>Romkyns</Author>
+        <Author>aboroda</Author>
       </Property>
     </item>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
