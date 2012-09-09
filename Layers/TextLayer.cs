@@ -88,7 +88,7 @@ namespace TankIconMaker.Layers
 
         public PropertyTextLayer()
         {
-            Property = new ExtraPropertyId("NameShortWG", "Ru", "Romkyns");
+            Property = new ExtraPropertyId("NameShort", "Ru", "Wargaming");
         }
 
         protected override string GetText(Tank tank)

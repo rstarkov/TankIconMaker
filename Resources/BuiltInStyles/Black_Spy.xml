@@ -305,9 +305,9 @@
       <BottomAnchor>True</BottomAnchor>
       <Baseline>True</Baseline>
       <Property>
-        <Name>NameShortWG</Name>
+        <Name>NameShort</Name>
         <Language>Ru</Language>
-        <Author>Romkyns</Author>
+        <Author>Wargaming</Author>
       </Property>
     </item>
     <item type="TankIconMaker.Layers.CustomImageLayer">
