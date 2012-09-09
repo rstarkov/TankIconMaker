@@ -65,6 +65,7 @@ germany-Lowe,germany,8,heavy,premium
 germany-Ltraktor,germany,1,light,normal
 germany-Maus,germany,10,heavy,normal
 germany-Panther_II,germany,8,medium,normal
+germany-Panther_M10,germany,7,medium,special
 germany-PanzerJager_I,germany,2,destroyer,normal
 germany-Pz35t,germany,2,light,normal
 germany-Pz38_NA,germany,4,light,normal
@@ -77,6 +78,7 @@ germany-PzIII_A,germany,3,light,normal
 germany-PzIII_IV,germany,5,medium,normal
 germany-PzIV,germany,5,medium,normal
 germany-PzIV_Hydro,germany,5,medium,special
+germany-PzIV_schmalturm,germany,6,medium,special
 germany-PzV,germany,7,medium,normal
 germany-PzV_PzIV,germany,6,medium,premium
 germany-PzV_PzIV_ausf_Alfa,germany,6,medium,special
@@ -97,7 +99,7 @@ germany-VK3601H,germany,6,medium,normal
 germany-VK4502A,germany,8,heavy,normal
 germany-VK4502P,germany,9,heavy,normal
 germany-Wespe,germany,3,artillery,normal
-uk-GB68_Matilda_Black_Prince,uk,5,medium,special
+uk-GB68_Matilda_Black_Prince,uk,5,medium,premium
 usa-M10_Wolverine,usa,5,destroyer,normal
 usa-M103,usa,9,heavy,normal
 usa-M12,usa,6,artillery,normal
@@ -183,11 +185,16 @@ ussr-Object_212,ussr,7,artillery,normal
 ussr-Object_261,ussr,8,artillery,normal
 ussr-Object_704,ussr,9,destroyer,normal
 ussr-Object252,ussr,8,heavy,premium
+ussr-Object263,ussr,10,destroyer,normal
 ussr-Object268,ussr,10,destroyer,normal
 ussr-S-51,ussr,6,artillery,normal
 ussr-ST_I,ussr,9,heavy,normal
 ussr-SU_85I,ussr,5,destroyer,special
 ussr-SU-100,ussr,6,destroyer,normal
+ussr-SU100M1,ussr,7,destroyer,normal
+ussr-SU-101,ussr,8,destroyer,normal
+ussr-SU122_44,ussr,7,destroyer,special
+ussr-SU122_54,ussr,9,destroyer,normal
 ussr-SU-14,ussr,6,artillery,normal
 ussr-SU-152,ussr,7,destroyer,normal
 ussr-SU-18,ussr,2,artillery,normal
