@@ -65,6 +65,7 @@ germany-Lowe,Löwe
 germany-Ltraktor,Leichttraktor
 germany-Maus,Maus
 germany-Panther_II,Panther II
+germany-Panther_M10,Panther-M10
 germany-PanzerJager_I,Panzerjäger I
 germany-Pz35t,PzKpfw 35 (t)
 germany-Pz38_NA,PzKpfw 38 nA
@@ -77,6 +78,7 @@ germany-PzIII_A,PzKpfw III Ausf. A
 germany-PzIII_IV,PzKpfw III/IV
 germany-PzIV,PzKpfw IV
 germany-PzIV_Hydro,PzKpfw IV Hydraulic
+germany-PzIV_schmalturm,PzKpfwIV Schmalturm
 germany-PzV,PzKpfw V Panther
 germany-PzV_PzIV,PzKpfw V-IV
 germany-PzV_PzIV_ausf_Alfa,PzKpfw V-IV Alpha
@@ -183,11 +185,16 @@ ussr-Object_212,Объект 212
 ussr-Object_261,Объект 261
 ussr-Object_704,Объект 704
 ussr-Object252,ИС-6
+ussr-Object263,Объект 263
 ussr-Object268,Объект 268
 ussr-S-51,С-51
 ussr-ST_I,СТ-I
 ussr-SU_85I,СУ-85И
 ussr-SU-100,СУ-100
+ussr-SU100M1,СУ-100М1
+ussr-SU-101,СУ-101
+ussr-SU122_44,СУ-122-44
+ussr-SU122_54,СУ-122-54
 ussr-SU-14,СУ-14
 ussr-SU-152,СУ-152
 ussr-SU-18,СУ-18
