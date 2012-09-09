@@ -399,7 +399,7 @@ namespace TankIconMaker
     /// <summary>
     /// Identifies an "extra" property. Suitable for use as dictionary keys.
     /// </summary>
-    sealed class ExtraPropertyId : IEquatable<ExtraPropertyId>
+    sealed class ExtraPropertyId : IEquatable<ExtraPropertyId>, IXmlClassifyProcess
     {
         public string Name { get; private set; }
         public string Language { get; private set; }
@@ -441,6 +441,28 @@ namespace TankIconMaker
         }
 
         public override string ToString() { return Name + "/" + Language + "/" + Author; }
+
+        void IXmlClassifyProcess.AfterXmlDeclassify()
+        {
+            if (Name == "NameShortWG" && Author == "Romkyns")
+            {
+                Name = "NameShort";
+                Author = "Wargaming";
+            }
+            else if (Name == "NameFullWG" && Author == "Romkyns")
+            {
+                Name = "NameFull";
+                Author = "Wargaming";
+            }
+            else if (Name == "NameImproved" && Author == "Romkyns")
+            {
+                Name = "NameShort";
+            }
+        }
+
+        void IXmlClassifyProcess.BeforeXmlClassify()
+        {
+        }
     }
 
     /// <summary>

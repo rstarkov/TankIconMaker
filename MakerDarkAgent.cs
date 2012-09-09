@@ -95,7 +95,7 @@ namespace TankIconMaker
 
         public MakerDarkAgent()
         {
-            NameData = new ExtraPropertyId("NameShortWG", "Ru", "Romkyns");
+            NameData = new ExtraPropertyId("NameShort", "Ru", "Wargaming");
             NameColorNormal = Color.FromRgb(210, 210, 210);
             NameColorPremium = Colors.Yellow;
             NameColorSpecial = Color.FromRgb(242, 98, 103);
