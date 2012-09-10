@@ -202,7 +202,7 @@ namespace TankIconMaker
             BindingOperations.SetBinding(ctAddGamePath, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
                 new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
-                (int index, bool filesAvailable) => index >= 0 && filesAvailable
+                (int index, bool filesAvailable) => filesAvailable
             ));
             BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },

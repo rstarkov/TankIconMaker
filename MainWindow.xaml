@@ -276,7 +276,7 @@
                     <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>
                 <Button Name="ctSave" Margin="0,8" Click="ctSave_Click">
-                    <AccessText Margin="8,0" Name="ctSaveLabel">_Save...</AccessText>
+                    <AccessText Margin="8,0" Name="ctSaveLabel">_Save</AccessText>
                 </Button>
                 <Button Name="ctAbout" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8" Click="ctAbout_Click">
                     <AccessText Margin="8,0" Name="ctAboutLabel">About...</AccessText>

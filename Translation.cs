@@ -172,6 +172,8 @@ namespace TankIconMaker
         public TrString PropSource_Author = "Author:";
         public TrString PropSource_TierRoman = "Tier (Roman)";
         public TrString PropSource_TierArabic = "Tier (Arabic)";
+
+        public TrString ExpandablePropertyDesc = "(expand to edit)";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.PropertyCategory)]
