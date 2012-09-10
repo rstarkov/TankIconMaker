@@ -70,6 +70,11 @@ namespace TankIconMaker
                 = CategNormal = CategPremium = CategSpecial
                 = Single = value;
         }
+
+        public override string ToString()
+        {
+            return App.Translation.Misc.ExpandablePropertyDesc;
+        }
     }
 
     sealed class ValueSelector<T> : SelectorBase<T>

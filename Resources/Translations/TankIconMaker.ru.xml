@@ -110,8 +110,8 @@
       <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctSaveLabel>
-      <Translation>_Сохранить...</Translation>
-      <Old>_Save...</Old>
+      <Translation>_Сохранить</Translation>
+      <Old>_Save</Old>
     </ctSaveLabel>
     <ctAboutLabel>
       <Translation>О программе...</Translation>
@@ -1695,5 +1695,9 @@
       <Translation>Уровень (арабские)</Translation>
       <Old>Tier (Arabic)</Old>
     </PropSource_TierArabic>
+    <ExpandablePropertyDesc>
+      <Translation>(можно развернуть)</Translation>
+      <Old>(expand to edit)</Old>
+    </ExpandablePropertyDesc>
   </Misc>
 </item>

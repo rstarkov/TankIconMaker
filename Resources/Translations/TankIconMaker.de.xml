@@ -110,8 +110,8 @@
       <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctSaveLabel>
-      <Translation>_Speichern...</Translation>
-      <Old>_Save...</Old>
+      <Translation>_Speichern</Translation>
+      <Old>_Save</Old>
     </ctSaveLabel>
     <ctAboutLabel>
       <Translation>Ü_ber...</Translation>
@@ -1693,5 +1693,9 @@
       <Translation>Panzerstufe (arabisch)</Translation>
       <Old>Tier (Arabic)</Old>
     </PropSource_TierArabic>
+    <ExpandablePropertyDesc>
+      <Translation>(aufklappen)</Translation>
+      <Old>(expand to edit)</Old>
+    </ExpandablePropertyDesc>
   </Misc>
 </item>
