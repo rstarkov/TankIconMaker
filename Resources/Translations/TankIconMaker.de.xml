@@ -1400,8 +1400,8 @@
       <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
     </GamePathRequired>
     <OverwriteIcons_Prompt>
-      <Translation encoding="c-literal">Sollen die bisherigen Symbole überschrieben werden?\r\n\r\nPfad: {0}\r\n\r\nWarnung: ALLE *.{1}-Dateien in diesem Verzeichnis werden überschrieben. Diese Aktion kann NICHT rückgängig gemacht werden.</Translation>
-      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
+      <Translation encoding="c-literal">Sollen die bisherigen Symbole überschrieben werden?\r\n\r\nPfad: {0}\r\n\r\nWarnung: ALLE {1}-Dateien in diesem Verzeichnis werden überschrieben. Diese Aktion kann NICHT rückgängig gemacht werden.</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
     </OverwriteIcons_Prompt>
     <OverwriteIcons_Yes>
       <Translation>&amp;Ja, alle Dateien überschreiben</Translation>
