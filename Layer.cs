@@ -88,6 +88,7 @@ namespace TankIconMaker
             var result = MemberwiseClone() as LayerBase;
             result.PropertyChanged = (_, __) => { };
             result.TreeViewItem = null;
+            result.VisibleFor = VisibleFor.Clone();
             result.Effects = new ObservableCollection<EffectBase>();
             result.Effects.CollectionChanged += result.updateEffectLayer;
             foreach (var e in Effects)
