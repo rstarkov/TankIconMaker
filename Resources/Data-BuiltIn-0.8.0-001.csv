@@ -1,6 +1,6 @@
 WOT-BUILTIN-DATA,1,,,
 china-Ch01_Type59,china,8,medium,premium
-china-Ch02_Type62,china,6,light,special
+china-Ch02_Type62,china,6,light,premium
 china-Ch03_WZ-111,china,8,heavy,special
 france-_105_leFH18B2,france,4,artillery,premium
 france-AMX_105AM,france,4,artillery,normal
@@ -39,7 +39,7 @@ france-RenaultFT_AC,france,2,destroyer,normal
 france-RenaultUE57,france,3,destroyer,normal
 france-S_35CA,france,5,destroyer,normal
 france-Somua_Sau_40,france,4,destroyer,normal
-germany-B-1bis_captured,germany,4,heavy,special
+germany-B-1bis_captured,germany,4,heavy,premium
 germany-Bison_I,germany,2,artillery,normal
 germany-DickerMax,germany,6,destroyer,premium
 germany-E-100,germany,10,heavy,normal
@@ -174,7 +174,7 @@ ussr-KV-13,ussr,7,medium,normal
 ussr-KV-1s,ussr,6,heavy,normal
 ussr-KV2,ussr,6,heavy,normal
 ussr-KV-220,ussr,5,heavy,special
-ussr-KV-220_action,ussr,5,heavy,special
+ussr-KV-220_action,ussr,5,heavy,premium
 ussr-KV-3,ussr,7,heavy,normal
 ussr-KV4,ussr,8,heavy,normal
 ussr-KV-5,ussr,8,heavy,premium
