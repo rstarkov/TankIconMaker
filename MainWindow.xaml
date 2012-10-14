@@ -7,6 +7,7 @@
         xmlns:wpfc="clr-namespace:WpfCrutches"
         Title="Tank Icon Maker"
         TextOptions.TextFormattingMode="Display"
+        Width="700" Height="500"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
     <Window.Resources>
         <BitmapImage x:Key="imgUpvote" UriSource="/Resources/Graphics/upvote.png" />
