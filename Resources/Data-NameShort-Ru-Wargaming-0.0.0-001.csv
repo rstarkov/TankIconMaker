@@ -28,6 +28,7 @@ france-D2,D2
 france-ELC_AMX,ELC AMX
 france-F10_AMX_50B,AMX50B
 france-FCM_36Pak40,FCM36P40
+france-FCM_50t,FCM 50(t)
 france-Hotchkiss_H35,H35
 france-Lorraine155_50,Lor.155 50
 france-Lorraine155_51,Lor.155 51
@@ -99,8 +100,32 @@ germany-VK3601H,VK3601H
 germany-VK4502A,VK4502A
 germany-VK4502P,VK4502P
 germany-Wespe,Wespe
+uk-GB01_Medium_Mark_I,Mk.I
+uk-GB03_Cruiser_Mk_I,Cruis.I
+uk-GB04_Valentine,Valentine
+uk-GB05_Vickers_Medium_Mk_II,Mk.II
+uk-GB06_Vickers_Medium_Mk_III,Mk.III
+uk-GB07_Matilda,Matilda
+uk-GB08_Churchill_I,Churchill I
+uk-GB09_Churchill_VII,Churchill VII
+uk-GB10_Black_Prince,Black Prince
+uk-GB11_Caernarvon,Caern.
+uk-GB12_Conqueror,Conqueror
+uk-GB13_FV215b,FV215b
+uk-GB20_Crusader,Crusader
+uk-GB21_Cromwell,Cromwell
+uk-GB22_Comet,Comet
+uk-GB23_Centurion,Centurion
+uk-GB24_Centurion_Mk3,Cent.Mk7/1
+uk-GB58_Cruiser_Mk_III,A13 Mk. I
+uk-GB59_Cruiser_Mk_IV,A13 Mk. II
+uk-GB60_Covenanter,A13
+uk-GB63_TOG_II,TOG II*
 uk-GB68_Matilda_Black_Prince,MatildaBP
-usa-M10_Wolverine,Wolverine
+uk-GB69_Cruiser_Mk_II,A10
+uk-GB70_FV4202_105,FV4202
+uk-GB71_AT_15A,AT-15A
+usa-M10_Wolverine,M10
 usa-M103,M103
 usa-M12,M12
 usa-M18_Hellcat,M18
@@ -110,7 +135,7 @@ usa-M22_Locust,M22
 usa-M24_Chaffee,Chaffee
 usa-M3_Grant,M3 Lee
 usa-M3_Stuart,M3 Stuart
-usa-M36_Slagger,Slugger
+usa-M36_Slagger,M36
 usa-M37,M37
 usa-M4_Sherman,M4
 usa-M40M43,M40/M43
@@ -126,10 +151,11 @@ usa-M7_med,M7 MT
 usa-M7_Priest,M7 Priest
 usa-M8A1,M8A1
 usa-MTLS-1G14,MTLS-1G14
-usa-Pershing,Pershing
+usa-Pershing,M26
 usa-Ram-II,Ram-II
 usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1
+usa-T1_E6,T1E6
 usa-T1_hvy,T1 HT
 usa-T110,T110E5
 usa-T110E3,T110E3

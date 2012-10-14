@@ -28,6 +28,7 @@ france-D2,D2
 france-ELC_AMX,ELC AMX
 france-F10_AMX_50B,AMX 50B
 france-FCM_36Pak40,FCM36 Pak40
+france-FCM_50t,FCM 50(t)
 france-Hotchkiss_H35,Hotchkiss H35
 france-Lorraine155_50,Lorraine155 50
 france-Lorraine155_51,Lorraine155 51
@@ -60,7 +61,7 @@ germany-JagdPantherII,Jagdpanther II
 germany-JagdPz_E100,JagdPz E-100
 germany-JagdPzIV,JagdPz IV
 germany-JagdTiger,Jagdtiger
-germany-JagdTiger_SdKfz_185,8.8 cm Pak 43 JagdTiger
+germany-JagdTiger_SdKfz_185,8.8 cm PaK 43 Jagdtiger
 germany-Lowe,Löwe
 germany-Ltraktor,Leichttraktor
 germany-Maus,Maus
@@ -78,7 +79,7 @@ germany-PzIII_A,PzKpfw III Ausf. A
 germany-PzIII_IV,PzKpfw III/IV
 germany-PzIV,PzKpfw IV
 germany-PzIV_Hydro,PzKpfw IV Hydraulic
-germany-PzIV_schmalturm,PzKpfwIV Schmalturm
+germany-PzIV_schmalturm,PzKpfw IV Schmalturm
 germany-PzV,PzKpfw V Panther
 germany-PzV_PzIV,PzKpfw V-IV
 germany-PzV_PzIV_ausf_Alfa,PzKpfw V-IV Alpha
@@ -99,7 +100,31 @@ germany-VK3601H,VK 3601 (H)
 germany-VK4502A,VK 4502 (P) Ausf. A
 germany-VK4502P,VK 4502 (P) Ausf. B
 germany-Wespe,Wespe
+uk-GB01_Medium_Mark_I,Medium Mark I
+uk-GB03_Cruiser_Mk_I,Cruiser Mk. I
+uk-GB04_Valentine,Valentine
+uk-GB05_Vickers_Medium_Mk_II,Vickers Medium Mk. II
+uk-GB06_Vickers_Medium_Mk_III,Vickers Medium Mk. III
+uk-GB07_Matilda,Matilda
+uk-GB08_Churchill_I,Churchill I
+uk-GB09_Churchill_VII,Churchill VII
+uk-GB10_Black_Prince,Black Prince
+uk-GB11_Caernarvon,Caernarvon
+uk-GB12_Conqueror,Conqueror
+uk-GB13_FV215b,FV215b
+uk-GB20_Crusader,Crusader
+uk-GB21_Cromwell,Cromwell
+uk-GB22_Comet,Comet
+uk-GB23_Centurion,Centurion Mk. I
+uk-GB24_Centurion_Mk3,Centurion Mk. 7/1
+uk-GB58_Cruiser_Mk_III,A13 Mk. I Cr. Tank Mk. III
+uk-GB59_Cruiser_Mk_IV,A13 Mk. II Cr. Tank Mk. IV
+uk-GB60_Covenanter,A13 Covenanter
+uk-GB63_TOG_II,TOG II*
 uk-GB68_Matilda_Black_Prince,Matilda Black Prince
+uk-GB69_Cruiser_Mk_II,A10 Cruiser Mk. II
+uk-GB70_FV4202_105,FV4202(105)
+uk-GB71_AT_15A,AT-15A
 usa-M10_Wolverine,M10 Wolverine
 usa-M103,M103
 usa-M12,M12
@@ -130,6 +155,7 @@ usa-Pershing,M26 Pershing
 usa-Ram-II,Ram-II
 usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1 Cunningham
+usa-T1_E6,T1E6
 usa-T1_hvy,T1 Heavy
 usa-T110,T110E5
 usa-T110E3,T110E3
