@@ -10,6 +10,7 @@ france-AMX_13_90,AMX 13 90
 france-AMX_13F3AM,AMX13F3AM
 france-AMX_50_100,AMX50 100
 france-AMX_50_120,AMX50 120
+france-AMX_50Fosh_155,AMX50F155
 france-AMX_AC_Mle1946,AC Mle.1946
 france-AMX_AC_Mle1948,AC Mle.48
 france-AMX_M4_1945,AMX M4 45
@@ -24,6 +25,7 @@ france-Bat_Chatillon25t,BatChat.25t
 france-BDR_G1B,BDR G1B
 france-D1,D1
 france-D2,D2
+france-ELC_AMX,ELC AMX
 france-F10_AMX_50B,AMX50B
 france-FCM_36Pak40,FCM36P40
 france-Hotchkiss_H35,H35
@@ -42,6 +44,7 @@ germany-Bison_I,Bison
 germany-DickerMax,D. Max
 germany-E-100,E-100
 germany-E-50,E-50
+germany-E50_Ausf_M,E-50M
 germany-E-75,E-75
 germany-Ferdinand,Ferdinand
 germany-G_E,GwTyp E
@@ -53,6 +56,8 @@ germany-H39_captured,Pz38H735f
 germany-Hetzer,Hetzer
 germany-Hummel,Hummel
 germany-JagdPanther,JgPanther
+germany-JagdPantherII,JgPanthII
+germany-JagdPz_E100,JgPzE100
 germany-JagdPzIV,JagdPzIV
 germany-JagdTiger,Jagdtiger
 germany-JagdTiger_SdKfz_185,JgTig.8.8 cm
@@ -92,6 +97,7 @@ germany-VK3601H,VK3601H
 germany-VK4502A,VK4502A
 germany-VK4502P,VK4502P
 germany-Wespe,Wespe
+uk-GB68_Matilda_Black_Prince,MatildaBP
 usa-M10_Wolverine,M10
 usa-M103,M103
 usa-M12,M12
@@ -108,6 +114,7 @@ usa-M4_Sherman,M4
 usa-M40M43,M40/M43
 usa-M41,M41
 usa-M46_Patton,Patton
+usa-M48A1,M48A1
 usa-M4A2E4,M4A2E4
 usa-M4A3E8_Sherman,M4A3E8
 usa-M5_Stuart,M5
@@ -123,6 +130,8 @@ usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1
 usa-T1_hvy,T1 HT
 usa-T110,T110E5
+usa-T110E3,T110E3
+usa-T110E4,T110E4
 usa-T14,T14
 usa-T18,T18
 usa-T2_lt,T2 LT
@@ -174,6 +183,7 @@ ussr-Object_212,Obj. 212
 ussr-Object_261,Obj. 261
 ussr-Object_704,Obj. 704
 ussr-Object252,IS-6
+ussr-Object268,Obj. 268
 ussr-S-51,S-51
 ussr-ST_I,ST-I
 ussr-SU_85I,SU-85I
@@ -198,5 +208,6 @@ ussr-T-44,T-44
 ussr-T-46,T-46
 ussr-T-50,T-50
 ussr-T-54,T-54
+ussr-T62A,T-62A
 ussr-Tetrarch_LL,Tetrarch
 ussr-Valentine_LL,Valentine

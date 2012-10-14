@@ -11,9 +11,9 @@ france-AMX_13F3AM,AMX 13 F3 AM
 france-AMX_50_100,AMX 50 100
 france-AMX_50_120,AMX 50 120
 france-AMX_50Fosh_155,AMX-50 Foch (155)
-france-AMX_AC_Mle1946,AMX AC Mle.1946
+france-AMX_AC_Mle1946,AMX AC Mle. 1946
 france-AMX_AC_Mle1948,AMX AC Mle. 1948
-france-AMX_M4_1945,AMX M4 (1945)
+france-AMX_M4_1945,AMX M4(1945)
 france-AMX38,AMX 38
 france-AMX40,AMX 40
 france-AMX50_Foch,AMX 50 Foch
@@ -44,7 +44,7 @@ germany-Bison_I,Sturmpanzer I Bison
 germany-DickerMax,Dicker Max
 germany-E-100,E-100
 germany-E-50,E-50
-germany-E50_Ausf_M,E-50 Ausf.M
+germany-E50_Ausf_M,E-50 Ausf. M
 germany-E-75,E-75
 germany-Ferdinand,Ferdinand
 germany-G_E,GW Typ E
@@ -56,7 +56,7 @@ germany-H39_captured,PzKpfw 38H735 (f)
 germany-Hetzer,Hetzer
 germany-Hummel,Hummel
 germany-JagdPanther,Jagdpanther
-germany-JagdPantherII,JagdPanther II
+germany-JagdPantherII,Jagdpanther II
 germany-JagdPz_E100,JagdPz E-100
 germany-JagdPzIV,JagdPz IV
 germany-JagdTiger,Jagdtiger
@@ -106,7 +106,7 @@ usa-M12,M12
 usa-M18_Hellcat,M18 Hellcat
 usa-M2_lt,M2 Light Tank
 usa-M2_med,M2 Medium Tank
-usa-M22_Locust,M22 Locust
+usa-M22_Locust,M22
 usa-M24_Chaffee,M24 Chaffee
 usa-M3_Grant,M3 Lee
 usa-M3_Stuart,M3 Stuart
@@ -130,7 +130,7 @@ usa-Pershing,M26 Pershing
 usa-Ram-II,Ram-II
 usa-Sherman_Jumbo,M4A3E2
 usa-T1_Cunningham,T1 Cunningham
-usa-T1_hvy,T1 heavy
+usa-T1_hvy,T1 Heavy
 usa-T110,T110E5
 usa-T110E3,T110E3
 usa-T110E4,T110E4
