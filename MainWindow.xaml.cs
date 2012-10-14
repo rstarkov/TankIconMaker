@@ -55,7 +55,7 @@ namespace TankIconMaker
         private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
         private ObservableCollection<string> _otherWarnings = new ObservableCollection<string>();
 
-        private LanguageHelperWpf<Translation> _translationHelper;
+        private LanguageHelperWpfOld<Translation> _translationHelper;
 
         public MainWindow()
             : base(App.Settings.MainWindow)
@@ -125,7 +125,7 @@ namespace TankIconMaker
             }
 #endif
             using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
-                _translationHelper = new LanguageHelperWpf<Translation>("Tank Icon Maker", "TankIconMaker", true,
+                _translationHelper = new LanguageHelperWpfOld<Translation>("Tank Icon Maker", "TankIconMaker", true,
                     App.Settings.TranslationFormSettings, new System.Drawing.Icon(iconStream), () => App.Settings.Lingo);
             _translationHelper.TranslationChanged += TranslationChanged;
             Translate(first: true);
@@ -253,8 +253,8 @@ namespace TankIconMaker
 
             // Bind the events now that all the UI is set up as desired
             Closing += (_, __) => SaveSettings();
-            this.SizeChanged += SaveSettings;
-            this.LocationChanged += SaveSettings;
+            this.SizeChanged += SaveSettingsDelayed;
+            this.LocationChanged += SaveSettingsDelayed;
             ctStyleDropdown.SelectionChanged += ctStyleDropdown_SelectionChanged;
             ctLayerProperties.PropertyValueChanged += ctLayerProperties_PropertyValueChanged;
             ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
@@ -721,19 +721,25 @@ namespace TankIconMaker
 
         private void SaveSettings()
         {
+            _saveSettingsTimer.Stop();
             App.Settings.LeftColumnWidth = ctLeftColumn.Width.Value;
             App.Settings.NameColumnWidth = ctLayerProperties.NameColumnWidth;
             App.Settings.SaveThreaded();
         }
 
-        private void SaveSettings(object _, SizeChangedEventArgs __)
+        private void SaveSettings(object _, EventArgs __)
         {
             SaveSettings();
         }
 
-        private void SaveSettings(object _, EventArgs __)
+        private DispatcherTimer _saveSettingsTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1.5), IsEnabled = false };
+
+        private void SaveSettingsDelayed(object _, EventArgs __)
         {
-            SaveSettings();
+            _saveSettingsTimer.Stop();
+            _saveSettingsTimer.Tick -= SaveSettings;
+            _saveSettingsTimer.Tick += SaveSettings;
+            _saveSettingsTimer.Start();
         }
 
         private void ctStyleDropdown_SelectionChanged(object sender = null, SelectionChangedEventArgs __ = null)
