@@ -1400,8 +1400,8 @@
       <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
     </GamePathRequired>
     <OverwriteIcons_Prompt>
-      <Translation encoding="c-literal">Вы уверены, что хотите заменить ваши текущие иконки?\r\n\r\nПуть: {0}\r\n\r\nВнимание: ВСЕ файлы *{1} по указанному пути будут заменены без возможности восстановления!</Translation>
-      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
+      <Translation encoding="c-literal">Вы уверены, что хотите заменить ваши текущие иконки?\r\n\r\nПуть: {0}\r\n\r\nВнимание: ВСЕ файлы {1} по указанному пути будут заменены без возможности восстановления!</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
     </OverwriteIcons_Prompt>
     <OverwriteIcons_Yes>
       <Translation>&amp;Да, заменить иконки</Translation>
@@ -1416,8 +1416,8 @@
       <Old>&amp;Use anyway</Old>
     </GameNotFound_Ignore>
     <IconsSaved>
-      <Translation>Иконки сохранены!</Translation>
-      <Old encoding="c-literal">Saved!\nEnjoy.</Old>
+      <Translation encoding="c-literal">Иконки сохранены!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию в теме Tank Icon Maker на игровом форуме.</Translation>
+      <Old encoding="c-literal">Icons saved!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
     </IconsSaved>
     <IconsSaveSkipped>
       <IsNumber>

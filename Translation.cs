@@ -625,11 +625,11 @@ namespace TankIconMaker
         public TrString PromptWindowOK = "_OK";
         public TrString GamePathRequired = "Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.";
         [LingoNotes("\"{1}\" is replaced with the extension of the image files being saved.")]
-        public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL *.{1} files in this path will be overwritten, and there is NO UNDO for this!";
+        public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!";
         public TrString OverwriteIcons_Yes = "&Yes, overwrite all files";
         public TrString GameNotFound_Prompt = "This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?";
         public TrString GameNotFound_Ignore = "&Use anyway";
-        public TrString IconsSaved = "Saved!\nEnjoy.";
+        public TrString IconsSaved = "Icons saved!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.";
         public TrStringNum IconsSaveSkipped = new TrStringNum("Note that 1 image was skipped due to errors.", "Note that {0} images were skipped due to errors.");
         public TrString Upvote_BuiltInOnly = "For security reasons, only built-in styles can be upvoted.";
         public TrString Upvote_NotAvailable = "This style does not currently have an associated post on World of Tanks forums.";
