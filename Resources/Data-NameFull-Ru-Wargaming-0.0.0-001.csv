@@ -2,6 +2,23 @@ WOT-DATA,1,"Полные названия танков, оригинал – к�
 china-Ch01_Type59,Type 59
 china-Ch02_Type62,Type 62
 china-Ch03_WZ-111,WZ-111
+china-Ch04_T34_1,T-34-1
+china-Ch05_T34_2,T-34-2
+china-Ch06_Renault_NC31,Renault NC-31
+china-Ch07_Vickers_MkE_Type_BT26,Vickers Mk. E Type B
+china-Ch08_Type97_Chi_Ha,Type 2597 Chi-Ha
+china-Ch09_M5,M5A1
+china-Ch10_IS2,IS-2
+china-Ch11_110,110
+china-Ch12_111_1_2_3,WZ-111 model 1-4
+china-Ch13_111_4_5,WZ-111 model 5A
+china-Ch15_59_16,59-16
+china-Ch16_WZ_131,WZ-131
+china-Ch17_WZ131_1_WZ132,WZ-132
+china-Ch18_WZ-120,WZ-120
+china-Ch19_121,121
+china-Ch20_Type58,Type 58
+china-Ch21_T34,Type T-34
 france-_105_leFH18B2,105 leFH18B2
 france-AMX_105AM,AMX 105AM
 france-AMX_12t,AMX 12t
@@ -27,8 +44,8 @@ france-D1,D1
 france-D2,D2
 france-ELC_AMX,ELC AMX
 france-F10_AMX_50B,AMX 50B
-france-FCM_36Pak40,FCM36 Pak40
-france-FCM_50t,FCM 50(t)
+france-FCM_36Pak40,FCM36 PaK40
+france-FCM_50t,FCM 50 t
 france-Hotchkiss_H35,Hotchkiss H35
 france-Lorraine155_50,Lorraine155 50
 france-Lorraine155_51,Lorraine155 51
@@ -100,7 +117,7 @@ germany-VK3601H,VK 3601 (H)
 germany-VK4502A,VK 4502 (P) Ausf. A
 germany-VK4502P,VK 4502 (P) Ausf. B
 germany-Wespe,Wespe
-uk-GB01_Medium_Mark_I,Medium Mark I
+uk-GB01_Medium_Mark_I,Vickers Medium Mk. I
 uk-GB03_Cruiser_Mk_I,Cruiser Mk. I
 uk-GB04_Valentine,Valentine
 uk-GB05_Vickers_Medium_Mk_II,Vickers Medium Mk. II
@@ -117,13 +134,13 @@ uk-GB21_Cromwell,Cromwell
 uk-GB22_Comet,Comet
 uk-GB23_Centurion,Centurion Mk. I
 uk-GB24_Centurion_Mk3,Centurion Mk. 7/1
-uk-GB58_Cruiser_Mk_III,A13 Mk. I Cr. Tank Mk. III
-uk-GB59_Cruiser_Mk_IV,A13 Mk. II Cr. Tank Mk. IV
-uk-GB60_Covenanter,A13 Covenanter
+uk-GB58_Cruiser_Mk_III,Cruiser Mk. III
+uk-GB59_Cruiser_Mk_IV,Cruiser Mk. IV
+uk-GB60_Covenanter,Covenanter
 uk-GB63_TOG_II,TOG II*
 uk-GB68_Matilda_Black_Prince,Matilda Black Prince
-uk-GB69_Cruiser_Mk_II,A10 Cruiser Mk. II
-uk-GB70_FV4202_105,FV4202(105)
+uk-GB69_Cruiser_Mk_II,Cruiser Mk. II
+uk-GB70_FV4202_105,FV4202
 uk-GB71_AT_15A,AT-15A
 usa-M10_Wolverine,M10 Wolverine
 usa-M103,M103
@@ -131,18 +148,18 @@ usa-M12,M12
 usa-M18_Hellcat,M18 Hellcat
 usa-M2_lt,M2 Light Tank
 usa-M2_med,M2 Medium Tank
-usa-M22_Locust,M22
+usa-M22_Locust,M22 Locust
 usa-M24_Chaffee,M24 Chaffee
 usa-M3_Grant,M3 Lee
 usa-M3_Stuart,M3 Stuart
-usa-M36_Slagger,M36 Slugger
+usa-M36_Slagger,M36 Jackson
 usa-M37,M37
 usa-M4_Sherman,M4 Sherman
 usa-M40M43,M40/M43
 usa-M41,M41
 usa-M46_Patton,M46 Patton
-usa-M48A1,M48A1
-usa-M4A2E4,M4A2E4
+usa-M48A1,M48A1 Patton
+usa-M4A2E4,M4A2E4 Sherman
 usa-M4A3E8_Sherman,M4A3E8 Sherman
 usa-M5_Stuart,M5 Stuart
 usa-M6,M6
@@ -152,11 +169,11 @@ usa-M7_Priest,M7 Priest
 usa-M8A1,M8A1
 usa-MTLS-1G14,MTLS-1G14
 usa-Pershing,M26 Pershing
-usa-Ram-II,Ram-II
-usa-Sherman_Jumbo,M4A3E2
+usa-Ram-II,Ram II
+usa-Sherman_Jumbo,M4A3E2 Sherman Jumbo
 usa-T1_Cunningham,T1 Cunningham
 usa-T1_E6,T1E6
-usa-T1_hvy,T1 Heavy
+usa-T1_hvy,T1 Heavy Tank
 usa-T110,T110E5
 usa-T110E3,T110E3
 usa-T110E4,T110E4
@@ -165,6 +182,7 @@ usa-T18,T18
 usa-T2_lt,T2 Light Tank
 usa-T2_med,T2 Medium Tank
 usa-T20,T20
+usa-T21,T21
 usa-T25_2,T25/2
 usa-T25_AT,T25 AT
 usa-T26_E4_SuperPershing,T26E4 SuperPershing
@@ -176,7 +194,11 @@ usa-T32,T32
 usa-T34_hvy,T34
 usa-T40,T40
 usa-T49,T49
+usa-T54E1,T54E1
 usa-T57,T57
+usa-T57_58,T57 Heavy Tank
+usa-T69,T69
+usa-T71,T71
 usa-T82,T82
 usa-T92,T92
 usa-T95,T95
@@ -186,7 +208,7 @@ ussr-AT-1,АТ-1
 ussr-BT-2,БТ-2
 ussr-BT-7,БТ-7
 ussr-BT-SV,БТ-СВ
-ussr-Churchill_LL,Churchill
+ussr-Churchill_LL,Черчилль III
 ussr-GAZ-74b,СУ-85Б
 ussr-IS,ИС
 ussr-IS-3,ИС-3
@@ -204,8 +226,8 @@ ussr-KV-220_action,КВ-220
 ussr-KV-3,КВ-3
 ussr-KV4,КВ-4
 ussr-KV-5,КВ-5
-ussr-M3_Stuart_LL,M3 Stuart
-ussr-Matilda_II_LL,Matilda
+ussr-M3_Stuart_LL,М3 лёгкий
+ussr-Matilda_II_LL,Матильда IV
 ussr-MS-1,МС-1
 ussr-Object_212,Объект 212
 ussr-Object_261,Объект 261
@@ -218,6 +240,7 @@ ussr-ST_I,СТ-I
 ussr-SU_85I,СУ-85И
 ussr-SU-100,СУ-100
 ussr-SU100M1,СУ-100М1
+ussr-SU100Y,СУ-100Y
 ussr-SU-101,СУ-101
 ussr-SU122_44,СУ-122-44
 ussr-SU122_54,СУ-122-54
@@ -234,7 +257,7 @@ ussr-T-127,Т-127
 ussr-T150,Т-150
 ussr-T-26,Т-26
 ussr-T-28,Т-28
-ussr-T-34,T-34
+ussr-T-34,Т-34
 ussr-T-34-85,Т-34-85
 ussr-T-43,Т-43
 ussr-T-44,Т-44
@@ -242,5 +265,5 @@ ussr-T-46,Т-46
 ussr-T-50,Т-50
 ussr-T-54,Т-54
 ussr-T62A,Т-62А
-ussr-Tetrarch_LL,MkVII Tetrarch
-ussr-Valentine_LL,Valentine
+ussr-Tetrarch_LL,Тетрарх
+ussr-Valentine_LL,Валентайн II
