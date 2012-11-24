@@ -97,30 +97,30 @@
       <Translation>По одному каждого типа</Translation>
       <Old>One of each combination</Old>
     </ctDisplayModeOneEach>
-    <ctDisplayModeCountryChina>
-      <Translation>Китай</Translation>
-      <Old>China</Old>
-    </ctDisplayModeCountryChina>
-    <ctDisplayModeCountryFrance>
-      <Translation>Франция</Translation>
-      <Old>France</Old>
-    </ctDisplayModeCountryFrance>
-    <ctDisplayModeCountryGermany>
-      <Translation>Германия</Translation>
-      <Old>Germany</Old>
-    </ctDisplayModeCountryGermany>
-    <ctDisplayModeCountryUK>
-      <Translation>Великобритания</Translation>
-      <Old>UK</Old>
-    </ctDisplayModeCountryUK>
-    <ctDisplayModeCountryUSA>
-      <Translation>США</Translation>
-      <Old>USA</Old>
-    </ctDisplayModeCountryUSA>
     <ctDisplayModeCountryUSSR>
       <Translation>СССР</Translation>
       <Old>USSR</Old>
     </ctDisplayModeCountryUSSR>
+    <ctDisplayModeCountryGermany>
+      <Translation>Германия</Translation>
+      <Old>Germany</Old>
+    </ctDisplayModeCountryGermany>
+    <ctDisplayModeCountryUSA>
+      <Translation>США</Translation>
+      <Old>USA</Old>
+    </ctDisplayModeCountryUSA>
+    <ctDisplayModeCountryFrance>
+      <Translation>Франция</Translation>
+      <Old>France</Old>
+    </ctDisplayModeCountryFrance>
+    <ctDisplayModeCountryUK>
+      <Translation>Великобритания</Translation>
+      <Old>UK</Old>
+    </ctDisplayModeCountryUK>
+    <ctDisplayModeCountryChina>
+      <Translation>Китай</Translation>
+      <Old>China</Old>
+    </ctDisplayModeCountryChina>
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -169,6 +169,10 @@
       <Translation>_Сохранить</Translation>
       <Old>_Save</Old>
     </ctSaveLabel>
+    <ctSaveToFolderLabel>
+      <Translation>Сохра_нить в папку</Translation>
+      <Old>Save to _folder</Old>
+    </ctSaveToFolderLabel>
     <ctAboutLabel>
       <Translation>О программе...</Translation>
       <Old>About...</Old>
@@ -1549,6 +1553,10 @@
         <item>Note that {0} images were skipped due to errors.</item>
       </Old>
     </IconsSaveSkipped>
+    <IconsSaveError>
+      <Translation encoding="c-literal">Не удалось сохранить иконки так как произошла ошибка.\r\n\r\nПодробности:\r\n • {0}</Translation>
+      <Old encoding="c-literal">The icons could not be saved due to an error.\n\nError message:\n • {0}</Old>
+    </IconsSaveError>
     <Upvote_BuiltInOnly>
       <Translation>По причине безопасности, плюсануть можно только встроенные стили.</Translation>
       <Old>For security reasons, only built-in styles can be upvoted.</Old>

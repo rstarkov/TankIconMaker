@@ -33,6 +33,8 @@ namespace TankIconMaker
         public double? NameColumnWidth = null;
         /// <summary>The last used index of the display mode dropdown.</summary>
         public DisplayFilter DisplayFilter = DisplayFilter.All;
+        /// <summary>The path last used with the "Save to folder" command.</summary>
+        public string SaveToFolderPath = null;
 
         /// <summary>The name and author of the last used maker.</summary>
         public string SelectedStyleNameAndAuthor;
@@ -45,8 +47,8 @@ namespace TankIconMaker
 
         /// <summary>Program language, and also the default language for property values when not specified.</summary>
         public Language Lingo = Language.EnglishUK;
-        /// <summary>If a maker requests a property by name only, this author is given preference.</summary>
-        public string DefaultPropertyAuthor = "Romkyns";
+        /// <summary>When resolving property inheritance and the author is not specified, this author is given preference.</summary>
+        public string DefaultPropertyAuthor = "Wargaming";
 
         /// <summary>Settings that are specific to a game installation path.</summary>
         public ObservableSortedList<GameInstallationSettings> GameInstalls = new ObservableSortedList<GameInstallationSettings>();
