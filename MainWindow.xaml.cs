@@ -927,9 +927,9 @@ namespace TankIconMaker
             ReloadData();
         }
 
-        bool _overwriteAccepted = false;
+        string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
 
-        private void ctSave_Click(object _, RoutedEventArgs __)
+        private void saveIcons(string folder = null, bool promptEvenIfEmpty = false)
         {
             var gameInstall = GetInstallationSettings();
             if (gameInstall == null)
@@ -938,50 +938,100 @@ namespace TankIconMaker
                 return;
             }
 
-            var path = Path.Combine(gameInstall.Path, gameInstall.GameVersion.PathDestination);
+            var path = folder ?? Path.Combine(gameInstall.Path, gameInstall.GameVersion.PathDestination);
 
-            if (!_overwriteAccepted && Directory.Exists(path))
-                if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                    .Fmt(path, gameInstall.GameVersion.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
-                    return;
-            _overwriteAccepted = true;
-            Directory.CreateDirectory(path);
-
-            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
-
-            var style = (Style) ctStyleDropdown.SelectedItem;
-            var renderTasks = ListRenderTasks(gameInstall, all: true);
-            var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            Task.Factory.StartNew(() =>
+            try
             {
-                try
-                {
-                    foreach (var renderTask in renderTasks)
-                        if (!renders.ContainsKey(renderTask.TankSystemId))
-                        {
-                            renders[renderTask.TankSystemId] = renderTask;
-                            RenderTank(style, renderTask);
-                        }
-                    foreach (var kvp in renders.Where(kvp => kvp.Value.Exception == null))
-                        Ut.SaveImage(kvp.Value.Image, Path.Combine(path, kvp.Key + gameInstall.GameVersion.TankIconExtension), gameInstall.GameVersion.TankIconExtension);
-                }
-                finally
-                {
-                    Dispatcher.Invoke((Action) GlobalStatusHide);
-                }
+                if (!_overwriteAccepted.EqualsNoCase(path) && (promptEvenIfEmpty || (Directory.Exists(path) && Directory.GetFileSystemEntries(path).Any())))
+                    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
+                        .Fmt(path, gameInstall.GameVersion.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                        return;
+                _overwriteAccepted = path;
+                Directory.CreateDirectory(path);
 
-                Dispatcher.Invoke((Action) (() =>
+                GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+
+                var style = (Style) ctStyleDropdown.SelectedItem;
+                var renderTasks = ListRenderTasks(gameInstall, all: true);
+                var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+                // The rest of the save process occurs off the GUI thread, while this method returns.
+                Task.Factory.StartNew(() =>
                 {
-                    foreach (var kvp in renders)
-                        if (!_renderResults.ContainsKey(kvp.Key))
-                            _renderResults[kvp.Key] = kvp.Value;
-                    int skipped = renders.Values.Count(rr => rr.Exception != null);
-                    DlgMessage.ShowInfo(App.Translation.Prompt.IconsSaved +
-                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped)))
-                    );
-                }));
-            });
+                    Exception exception = null;
+                    try
+                    {
+                        foreach (var renderTask in renderTasks)
+                            if (!renders.ContainsKey(renderTask.TankSystemId))
+                            {
+                                renders[renderTask.TankSystemId] = renderTask;
+                                RenderTank(style, renderTask);
+                            }
+                        foreach (var kvp in renders.Where(kvp => kvp.Value.Exception == null))
+                            Ut.SaveImage(kvp.Value.Image, Path.Combine(path, kvp.Key + gameInstall.GameVersion.TankIconExtension), gameInstall.GameVersion.TankIconExtension);
+                    }
+                    catch (Exception e)
+                    {
+                        exception = e;
+                    }
+                    finally
+                    {
+                        Dispatcher.Invoke((Action) (() =>
+                        {
+                            GlobalStatusHide();
+
+                            // Cache any new renders that we don't already have
+                            foreach (var kvp in renders)
+                                if (!_renderResults.ContainsKey(kvp.Key))
+                                    _renderResults[kvp.Key] = kvp.Value;
+                            // Inform the user of what happened
+                            if (exception == null)
+                            {
+                                int skipped = renders.Values.Count(rr => rr.Exception != null);
+                                DlgMessage.Show(App.Translation.Prompt.IconsSaved +
+                                    (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                                    skipped == 0 ? DlgType.Info : DlgType.Warning
+                                );
+                            }
+                            else
+                            {
+                                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(exception.Message));
+                            }
+                        }));
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(e.Message));
+            }
+        }
+
+        private void ctSave_Click(object _, RoutedEventArgs __)
+        {
+            saveIcons();
+        }
+
+        private void ctSaveToFolder_Click(object _, RoutedEventArgs __)
+        {
+            if (App.Settings.SaveToFolderPath == null)
+                ctSaveToFolderBrowse_Click();
+            else
+                saveIcons(App.Settings.SaveToFolderPath, promptEvenIfEmpty: true /* so the user knows which folder is selected */);
+        }
+
+        private void ctSaveToFolderBrowse_Click(object _ = null, RoutedEventArgs __ = null)
+        {
+            var dlg = new VistaFolderBrowserDialog();
+            dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
+            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
+                dlg.SelectedPath = App.Settings.SaveToFolderPath;
+            if (dlg.ShowDialog() != true)
+                return;
+            _overwriteAccepted = null; // force the prompt
+            App.Settings.SaveToFolderPath = dlg.SelectedPath;
+            App.Settings.SaveThreaded();
+            saveIcons(App.Settings.SaveToFolderPath);
         }
 
         private void ctAbout_Click(object sender, RoutedEventArgs e)

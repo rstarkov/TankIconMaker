@@ -293,8 +293,14 @@
                 <Button Name="ctReload" Margin="8" Click="ctReload_Click">
                     <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>
-                <Button Name="ctSave" Margin="0,8" Click="ctSave_Click">
+                <Button Name="ctSave" Margin="0,8,8,8" Click="ctSave_Click">
                     <AccessText Margin="8,0" Name="ctSaveLabel">_Save</AccessText>
+                </Button>
+                <Button Name="ctSaveToFolder" Margin="0,8,0,8" Click="ctSaveToFolder_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
+                    <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save to _folder</AccessText>
+                </Button>
+                <Button Name="ctSaveToFolderBrowse" Margin="0,8,8,8" Click="ctSaveToFolderBrowse_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
+                    <AccessText Margin="4,0">...</AccessText>
                 </Button>
                 <Button Name="ctAbout" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8" Click="ctAbout_Click">
                     <AccessText Margin="8,0" Name="ctAboutLabel">About...</AccessText>
