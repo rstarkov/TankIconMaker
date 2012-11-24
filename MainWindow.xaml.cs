@@ -153,8 +153,7 @@ namespace TankIconMaker
                 ctLeftColumn.Width = new GridLength(App.Settings.LeftColumnWidth.Value);
             if (App.Settings.NameColumnWidth != null)
                 ctLayerProperties.NameColumnWidth = App.Settings.NameColumnWidth.Value;
-            if (App.Settings.DisplayMode >= 0 && App.Settings.DisplayMode < ctDisplayMode.Items.Count)
-                ctDisplayMode.SelectedIndex = App.Settings.DisplayMode.Value;
+            ctDisplayMode.SelectedIndex = (int) App.Settings.DisplayFilter;
 
             if (File.Exists(Path.Combine(PathUtil.AppPath, "Data", "background.jpg")))
                 ctOuterGrid.Background = new ImageBrush
@@ -772,11 +771,31 @@ namespace TankIconMaker
                 return new List<RenderTask>(); // happens when there are no built-in data files
 
             IEnumerable<TankData> selection = null;
-            if (all || ctDisplayMode.SelectedIndex == 0) // all tanks
-                selection = builtin.Data;
-            else if (ctDisplayMode.SelectedIndex == 1) // one of each
-                selection = builtin.Data.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
-                    .SelectMany(p => SelectTiers(builtin.Data.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
+            switch (all ? DisplayFilter.All : App.Settings.DisplayFilter)
+            {
+                case DisplayFilter.All: selection = builtin.Data; break;
+                case DisplayFilter.OneOfEach:
+                    selection = builtin.Data.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
+                        .SelectMany(p => SelectTiers(builtin.Data.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
+                    break;
+
+                case DisplayFilter.China: selection = builtin.Data.Where(t => t.Country == Country.China); break;
+                case DisplayFilter.France: selection = builtin.Data.Where(t => t.Country == Country.France); break;
+                case DisplayFilter.Germany: selection = builtin.Data.Where(t => t.Country == Country.Germany); break;
+                case DisplayFilter.UK: selection = builtin.Data.Where(t => t.Country == Country.UK); break;
+                case DisplayFilter.USA: selection = builtin.Data.Where(t => t.Country == Country.USA); break;
+                case DisplayFilter.USSR: selection = builtin.Data.Where(t => t.Country == Country.USSR); break;
+
+                case DisplayFilter.Light: selection = builtin.Data.Where(t => t.Class == Class.Light); break;
+                case DisplayFilter.Medium: selection = builtin.Data.Where(t => t.Class == Class.Medium); break;
+                case DisplayFilter.Heavy: selection = builtin.Data.Where(t => t.Class == Class.Heavy); break;
+                case DisplayFilter.Artillery: selection = builtin.Data.Where(t => t.Class == Class.Artillery); break;
+                case DisplayFilter.Destroyer: selection = builtin.Data.Where(t => t.Class == Class.Destroyer); break;
+
+                case DisplayFilter.Normal: selection = builtin.Data.Where(t => t.Category == Category.Normal); break;
+                case DisplayFilter.Premium: selection = builtin.Data.Where(t => t.Category == Category.Premium); break;
+                case DisplayFilter.Special: selection = builtin.Data.Where(t => t.Category == Category.Special); break;
+            }
 
             var extras = App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
                 .Select(g => g.Where(df => df.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(df => df.GameVersion))
@@ -883,7 +902,7 @@ namespace TankIconMaker
 
         private void ctDisplayMode_SelectionChanged(object _, SelectionChangedEventArgs __)
         {
-            App.Settings.DisplayMode = ctDisplayMode.SelectedIndex;
+            App.Settings.DisplayFilter = (DisplayFilter) ctDisplayMode.SelectedIndex;
             UpdateIcons();
             SaveSettings();
         }

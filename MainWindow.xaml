@@ -253,6 +253,23 @@
                 <ComboBox Name="ctDisplayMode" Margin="8">
                     <ComboBoxItem Name="ctDisplayModeAll">All tanks</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeOneEach" Selector.IsSelected="True">One of each combination</ComboBoxItem>
+                    <Separator/>
+                    <ComboBoxItem Name="ctDisplayModeCountryUSSR">USSR</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountryGermany">Germany</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountryUSA">USA</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountryFrance">France</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountryUK">UK</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountryChina">China</ComboBoxItem>
+                    <Separator/>
+                    <ComboBoxItem Name="ctDisplayModeClassLight">Light tanks</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeClassMedium">Medium tanks</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeClassHeavy">Heavy tanks</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeClassArtillery">Artillery</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeClassDestroyer">Tank destoryers</ComboBoxItem>
+                    <Separator/>
+                    <ComboBoxItem Name="ctDisplayModeCategoryNormal">Normal</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCategoryPremium">Premium</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCategorySpecial">Special</ComboBoxItem>
                 </ComboBox>
                 <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
