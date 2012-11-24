@@ -364,7 +364,7 @@
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Century Gothic</FontFamily>
       <FontSize>10.5</FontSize>
-      <FontBold>False</FontBold>
+      <FontBold>True</FontBold>
       <FontItalic>False</FontItalic>
       <FontColor>
         <By>Category</By>
