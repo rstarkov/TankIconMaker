@@ -97,6 +97,62 @@
       <Translation>По одному каждого типа</Translation>
       <Old>One of each combination</Old>
     </ctDisplayModeOneEach>
+    <ctDisplayModeCountryChina>
+      <Translation>Китай</Translation>
+      <Old>China</Old>
+    </ctDisplayModeCountryChina>
+    <ctDisplayModeCountryFrance>
+      <Translation>Франция</Translation>
+      <Old>France</Old>
+    </ctDisplayModeCountryFrance>
+    <ctDisplayModeCountryGermany>
+      <Translation>Германия</Translation>
+      <Old>Germany</Old>
+    </ctDisplayModeCountryGermany>
+    <ctDisplayModeCountryUK>
+      <Translation>Великобритания</Translation>
+      <Old>UK</Old>
+    </ctDisplayModeCountryUK>
+    <ctDisplayModeCountryUSA>
+      <Translation>США</Translation>
+      <Old>USA</Old>
+    </ctDisplayModeCountryUSA>
+    <ctDisplayModeCountryUSSR>
+      <Translation>СССР</Translation>
+      <Old>USSR</Old>
+    </ctDisplayModeCountryUSSR>
+    <ctDisplayModeClassLight>
+      <Translation>Легкие танки</Translation>
+      <Old>Light tanks</Old>
+    </ctDisplayModeClassLight>
+    <ctDisplayModeClassMedium>
+      <Translation>Средние танки</Translation>
+      <Old>Medium tanks</Old>
+    </ctDisplayModeClassMedium>
+    <ctDisplayModeClassHeavy>
+      <Translation>Тяжелые танки</Translation>
+      <Old>Heavy tanks</Old>
+    </ctDisplayModeClassHeavy>
+    <ctDisplayModeClassArtillery>
+      <Translation>Артиллерия</Translation>
+      <Old>Artillery</Old>
+    </ctDisplayModeClassArtillery>
+    <ctDisplayModeClassDestroyer>
+      <Translation>ПТ</Translation>
+      <Old>Tank destoryers</Old>
+    </ctDisplayModeClassDestroyer>
+    <ctDisplayModeCategoryNormal>
+      <Translation>Обычный</Translation>
+      <Old>Normal</Old>
+    </ctDisplayModeCategoryNormal>
+    <ctDisplayModeCategoryPremium>
+      <Translation>Премиумный</Translation>
+      <Old>Premium</Old>
+    </ctDisplayModeCategoryPremium>
+    <ctDisplayModeCategorySpecial>
+      <Translation>Акционный</Translation>
+      <Old>Special</Old>
+    </ctDisplayModeCategorySpecial>
     <ctLanguageLabel>
       <Translation>_Язык</Translation>
       <Old>L_anguage</Old>

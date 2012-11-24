@@ -32,7 +32,7 @@ namespace TankIconMaker
         /// <summary>The width of the name column in the maker property editor; null to use the width set at design time.</summary>
         public double? NameColumnWidth = null;
         /// <summary>The last used index of the display mode dropdown.</summary>
-        public int? DisplayMode = null;
+        public DisplayFilter DisplayFilter = DisplayFilter.All;
 
         /// <summary>The name and author of the last used maker.</summary>
         public string SelectedStyleNameAndAuthor;
@@ -56,6 +56,17 @@ namespace TankIconMaker
             var result = (Settings) MemberwiseClone();
             return result;
         }
+    }
+
+    /// <summary>Specifies which tank icons are to be displayed in the preview area.</summary>
+    /// <remarks>The numeric value corresponds to the index of the relevant item in the filter drop-down.</remarks>
+    enum DisplayFilter
+    {
+        All = 0,
+        OneOfEach = 1,
+        USSR = 3, Germany, USA, France, UK, China,
+        Light = 10, Medium, Heavy, Artillery, Destroyer,
+        Normal = 16, Premium, Special,
     }
 
     /// <summary>
