@@ -582,6 +582,66 @@
       </Description>
     </Color>
   </EffectColorize>
+  <EffectNormalize>
+    <EffectName>
+      <Translation>Нормализация</Translation>
+      <Old>Normalize</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Нормализует яркость самого яркого пикселя с помощью автоматической подстройки контраста (т.е. черные цвета остаются черными). Также может нормализовать прозрачность и обесцветить изображение.</Translation>
+      <Old>Normalizes the brightness of the brightest pixels by automatically adjusting the contrast. Can also normalize the alpha channel and make the image grayscale.</Old>
+    </EffectDescription>
+    <Grayscale>
+      <DisplayName>
+        <Translation>Обесцветить</Translation>
+        <Old>Grayscale</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если включен, слой будет обесцвечен (т.е. переведен в оттенки серого).</Translation>
+        <Old>When enabled, the image will be made grayscale (i.e. fully desaturated)</Old>
+      </Description>
+    </Grayscale>
+    <NormalizeBrightness>
+      <DisplayName>
+        <Translation>Нормализовать яркость</Translation>
+        <Old>Normalize brightness</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если включен, нормализует яркость самого яркого пикселя, приводя ее к значению “Макс. яркость”. Эффект достигается автоматическим изменением контрастности изображения, т.е. черные цвета остаются черынми.</Translation>
+        <Old>When enabled, the brightness of the brightest pixel in the layer will be normalized to the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly.</Old>
+      </Description>
+    </NormalizeBrightness>
+    <NormalizeAlpha>
+      <DisplayName>
+        <Translation>Нормализовать альфа</Translation>
+        <Old>Normalize alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если включен, нормализует альфа (прозрачность) самого непрозрачного пикселя, приводя ее к значению ”Макс. альфа”.</Translation>
+        <Old>When enabled, the alpha (transparency) of the most opaque pixel in the layer will be normalized to the “Max alpha” value.</Old>
+      </Description>
+    </NormalizeAlpha>
+    <MaxBrightness>
+      <DisplayName>
+        <Translation>Макс. яркость</Translation>
+        <Old>Max. brightness</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Значение, к которому приводится яркость самого яркого пикселя при нормализации. Обычно в пределах 0..255, однако значения выше 255 также допускаются (слишком яркие цвета обрезаются на белом).</Translation>
+        <Old>The value to which the brightness of the brightest pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to white is acceptable.</Old>
+      </Description>
+    </MaxBrightness>
+    <MaxAlpha>
+      <DisplayName>
+        <Translation>Макс. альфа</Translation>
+        <Old>Max. alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Значение, к которому приводится альфа (прозрачность) самого непрозрачного пикселя при нормализации. Обычно в пределах 0..255, однако значения выше 255 также допускаются.</Translation>
+        <Old>The value to which the alpha (transparency) of the most opaque pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to fully opaque is acceptable.</Old>
+      </Description>
+    </MaxAlpha>
+  </EffectNormalize>
   <EffectFlip>
     <EffectName>
       <Translation>Отражение</Translation>
