@@ -43,6 +43,8 @@ namespace TankIconMaker
         EffectClip,
         [LingoGroup("Effect: Colorize", "Strings used in the property grid for the \"Colorize\" effect.")]
         EffectColorize,
+        [LingoGroup("Effect: Normalize", "Strings used in the property grid for the \"Normalize\" effect.")]
+        EffectNormalize,
         [LingoGroup("Effect: Flip", "Strings used in the property grid for the \"Flip\" effect.")]
         EffectFlip,
         [LingoGroup("Effect: Blur: Gaussian", "Strings used in the property grid for the \"Blur: Gaussian\" effect.")]
@@ -118,6 +120,7 @@ namespace TankIconMaker
 
         public EffectClipTranslation EffectClip = new EffectClipTranslation();
         public EffectColorizeTranslation EffectColorize = new EffectColorizeTranslation();
+        public EffectNormalizeTranslation EffectNormalize = new EffectNormalizeTranslation();
         public EffectFlipTranslation EffectFlip = new EffectFlipTranslation();
         public EffectGaussianBlurTranslation EffectGaussianBlur = new EffectGaussianBlurTranslation();
         public EffectOpacityTranslation EffectOpacity = new EffectOpacityTranslation();
@@ -330,6 +333,19 @@ namespace TankIconMaker
         public TrString EffectDescription = "Colorizes the layer according to one of the tank properties.";
 
         public MemberDescriptionTr Color = new MemberDescriptionTr { DisplayName = "Color", Description = "Specifies which color to use. Use the Alpha channel to adjust the strength of the effect." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectNormalize)]
+    sealed class EffectNormalizeTranslation
+    {
+        public TrString EffectName = "Normalize";
+        public TrString EffectDescription = "Normalizes the brightness of the brightest pixels by automatically adjusting the contrast. Can also normalize the alpha channel and make the image grayscale.";
+
+        public MemberDescriptionTr Grayscale = new MemberDescriptionTr { DisplayName = "Grayscale", Description = "When enabled, the image will be made grayscale (i.e. fully desaturated)" };
+        public MemberDescriptionTr NormalizeBrightness = new MemberDescriptionTr { DisplayName = "Normalize brightness", Description = "When enabled, the brightness of the brightest pixel in the layer will be normalized to the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly." };
+        public MemberDescriptionTr NormalizeAlpha = new MemberDescriptionTr { DisplayName = "Normalize alpha", Description = "When enabled, the alpha (transparency) of the most opaque pixel in the layer will be normalized to the “Max alpha” value." };
+        public MemberDescriptionTr MaxBrightness = new MemberDescriptionTr { DisplayName = "Max. brightness", Description = "The value to which the brightness of the brightest pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to white is acceptable." };
+        public MemberDescriptionTr MaxAlpha = new MemberDescriptionTr { DisplayName = "Max. alpha", Description = "The value to which the alpha (transparency) of the most opaque pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to fully opaque is acceptable." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectFlip)]
