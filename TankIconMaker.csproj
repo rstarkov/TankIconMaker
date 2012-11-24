@@ -179,6 +179,7 @@
     <EmbeddedResource Include="Resources\BuiltInStyles\Original.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent 2.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\DemoStyle.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Current.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\HARDicons Colored.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\HARDicons.xml" />

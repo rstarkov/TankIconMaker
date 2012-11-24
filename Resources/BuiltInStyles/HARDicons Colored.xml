@@ -2,13 +2,52 @@
 <item>
   <Name>HARDicons Colored</Name>
   <Author>Andrey_Hard</Author>
-  <ForumLink>http://forum.worldoftanks.ru/index.php?/topic/374544-hardicons-v074-%D0%B8%D0%BA%D0%BE%D0%BD%D0%BA%D0%B8-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D0%B0/</ForumLink>
   <Layers>
     <item type="TankIconMaker.Layers.TankImageLayer">
       <Name>Tank image</Name>
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects>
+        <item type="TankIconMaker.Effects.NormalizeEffect">
+          <Name>Premium</Name>
+          <Visible>True</Visible>
+          <VisibleFor>
+            <By>Category</By>
+            <By2>Single</By2>
+            <By3>Single</By3>
+            <By4>Single</By4>
+            <ClassLight>Yes</ClassLight>
+            <ClassMedium>Yes</ClassMedium>
+            <ClassHeavy>Yes</ClassHeavy>
+            <ClassDestroyer>Yes</ClassDestroyer>
+            <ClassArtillery>Yes</ClassArtillery>
+            <CountryUSSR>Yes</CountryUSSR>
+            <CountryGermany>Yes</CountryGermany>
+            <CountryUSA>Yes</CountryUSA>
+            <CountryFrance>Yes</CountryFrance>
+            <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
+            <CategNormal>No</CategNormal>
+            <CategPremium>Yes</CategPremium>
+            <CategSpecial>Yes</CategSpecial>
+            <Single>Yes</Single>
+            <Tier1>Yes</Tier1>
+            <Tier2>Yes</Tier2>
+            <Tier3>Yes</Tier3>
+            <Tier4>Yes</Tier4>
+            <Tier5>Yes</Tier5>
+            <Tier6>Yes</Tier6>
+            <Tier7>Yes</Tier7>
+            <Tier8>Yes</Tier8>
+            <Tier9>Yes</Tier9>
+            <Tier10>Yes</Tier10>
+          </VisibleFor>
+          <Grayscale>True</Grayscale>
+          <NormalizeBrightness>True</NormalizeBrightness>
+          <NormalizeAlpha>True</NormalizeAlpha>
+          <MaxBrightness>242</MaxBrightness>
+          <MaxAlpha>196</MaxAlpha>
+        </item>
         <item type="TankIconMaker.Effects.ColorizeEffect">
           <Name>Premium</Name>
           <Visible>True</Visible>
@@ -27,6 +66,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>No</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -57,10 +97,11 @@
             <CountryUSA>#FFFFFF</CountryUSA>
             <CountryFrance>#FFFFFF</CountryFrance>
             <CountryChina>#FFFFFF</CountryChina>
+            <CountryUK>#FFFFFF</CountryUK>
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#FFFFFF</CategPremium>
             <CategSpecial>#FFFFFF</CategSpecial>
-            <Single>#D67A6317</Single>
+            <Single>#E65E4810</Single>
             <Tier1>#FFFFFF</Tier1>
             <Tier5>#FFFFFF</Tier5>
             <Tier10>#FFFFFF</Tier10>
@@ -84,6 +125,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Passthrough</CategNormal>
             <CategPremium>No</CategPremium>
             <CategSpecial>No</CategSpecial>
@@ -114,6 +156,7 @@
             <CountryUSA>#FFFFFF</CountryUSA>
             <CountryFrance>#FFFFFF</CountryFrance>
             <CountryChina>#FFFFFF</CountryChina>
+            <CountryUK>#FFFFFF</CountryUK>
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#FFFFFF</CategPremium>
             <CategSpecial>#FFFFFF</CategSpecial>
@@ -141,6 +184,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Passthrough</CategNormal>
             <CategPremium>No</CategPremium>
             <CategSpecial>No</CategSpecial>
@@ -171,6 +215,7 @@
             <CountryUSA>#FFFFFF</CountryUSA>
             <CountryFrance>#FFFFFF</CountryFrance>
             <CountryChina>#FFFFFF</CountryChina>
+            <CountryUK>#FFFFFF</CountryUK>
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#FFFFFF</CategPremium>
             <CategSpecial>#FFFFFF</CategSpecial>
@@ -196,6 +241,7 @@
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
+        <CountryUK>Yes</CountryUK>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
@@ -236,6 +282,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -268,6 +315,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -295,6 +343,7 @@
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
+        <CountryUK>Yes</CountryUK>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
@@ -330,6 +379,7 @@
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
+        <CountryUK>#FFFFFF</CountryUK>
         <CategNormal>#00000000</CategNormal>
         <CategPremium>#D5E5C554</CategPremium>
         <CategSpecial>#D5E5C554</CategSpecial>
@@ -376,6 +426,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -408,6 +459,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -435,6 +487,7 @@
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
+        <CountryUK>Yes</CountryUK>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
@@ -470,6 +523,7 @@
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
+        <CountryUK>#FFFFFF</CountryUK>
         <CategNormal>#00000000</CategNormal>
         <CategPremium>#D5E5C554</CategPremium>
         <CategSpecial>#D5E5C554</CategSpecial>
@@ -494,4 +548,5 @@
       </Property>
     </item>
   </Layers>
+  <ForumLink>http://forum.worldoftanks.ru/index.php?/topic/374544-hardicons-v074-%D0%B8%D0%BA%D0%BE%D0%BD%D0%BA%D0%B8-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D0%B0/</ForumLink>
 </item>
