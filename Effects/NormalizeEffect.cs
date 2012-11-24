@@ -35,7 +35,7 @@ namespace TankIconMaker.Effects
 
         public override EffectBase Clone()
         {
-            var result = (ColorizeEffect) base.Clone();
+            var result = (NormalizeEffect) base.Clone();
             return result;
         }
 
