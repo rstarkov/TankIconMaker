@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media;
 using RT.Util;
 using RT.Util.Forms;
 using RT.Util.Lingo;
@@ -44,6 +45,13 @@ namespace TankIconMaker
 
         /// <summary>The last selected game install location.</summary>
         public string SelectedGamePath = Ut.FindTanksDirectory();
+
+        /// <summary>Specifies the name of the selected background file, or ":checkered" / ":solid" for these special backgrounds.</summary>
+        public string Background = "Ruinberg (Руинберг).jpg";
+        public Color BackgroundCheckeredColor1 = Color.FromRgb(0xC0, 0xC0, 0xC0);
+        public Color BackgroundCheckeredColor2 = Color.FromRgb(0xA0, 0xA0, 0xA0);
+        public Color BackgroundSolidColor = Color.FromRgb(0x80, 0xC0, 0xFF);
+        public int[] CustomColors = new int[] { 0xC0C0C0, 0xFFC080, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xA0A0A0, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF };
 
         /// <summary>Program language, and also the default language for property values when not specified.</summary>
         public Language Lingo = Language.EnglishUK;

@@ -5,6 +5,30 @@
     <Old>English translation by Romkyns</Old>
   </TranslationCredits>
   <MainWindow>
+    <BackgroundCheckered>
+      <Translation>_Клетчатый</Translation>
+      <Old>_Checkered</Old>
+    </BackgroundCheckered>
+    <BackgroundSolidColor>
+      <Translation>_Сплошной</Translation>
+      <Old>_Solid color</Old>
+    </BackgroundSolidColor>
+    <BackgroundChangeCheckered1>
+      <Translation>_Изменить цвет клеток №1...</Translation>
+      <Old>C_hange checkered color #1...</Old>
+    </BackgroundChangeCheckered1>
+    <BackgroundChangeCheckered2>
+      <Translation>И_зменить цвет клеток №2...</Translation>
+      <Old>Ch_ange checkered color #2...</Old>
+    </BackgroundChangeCheckered2>
+    <BackgroundChangeSolid>
+      <Translation>_Изменить сплошной цвет...</Translation>
+      <Old>C_hange solid color...</Old>
+    </BackgroundChangeSolid>
+    <BackgroundRestoreDefaults>
+      <Translation>_Восстановить стандартные цвета</Translation>
+      <Old>_Restore defaults</Old>
+    </BackgroundRestoreDefaults>
     <ctGameDirLabel>
       <Translation>_Папка с игрой:</Translation>
       <Old>Game _directory:</Old>
@@ -157,6 +181,10 @@
       <Translation>_Язык</Translation>
       <Old>L_anguage</Old>
     </ctLanguageLabel>
+    <ctBackgroundLabel>
+      <Translation>_Фон</Translation>
+      <Old>_Background</Old>
+    </ctBackgroundLabel>
     <ctWarning>
       <Translation>Обнаружены проблемы; щелкните по иконке для просмотра подробностей.</Translation>
       <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>

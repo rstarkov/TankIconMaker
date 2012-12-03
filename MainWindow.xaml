@@ -4,9 +4,10 @@
         xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:src="clr-namespace:TankIconMaker"
-        xmlns:wpfc="clr-namespace:WpfCrutches"
+        xmlns:wpfc="clr-namespace:WpfCrutches;assembly=WpfCrutches"
         Title="Tank Icon Maker"
         TextOptions.TextFormattingMode="Display"
+        wpfc:AccessKeysScopeBugfix.IsEnabled="true"
         Width="700" Height="500"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
     <Window.Resources>
@@ -59,19 +60,22 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <SolidColorBrush x:Key="bkgCheckeredBrush1" Color="#FFc0c0c0"/>
+        <SolidColorBrush x:Key="bkgCheckeredBrush2" Color="#FFa0a0a0"/>
+        <SolidColorBrush x:Key="bkgSolidBrush" Color="#FF80c0ff"/>
+
+        <DrawingBrush x:Key="bkgCheckered" Stretch="None" TileMode="Tile" Viewport="0,0,30,30" ViewportUnits="Absolute">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Geometry="M0,0 L30,0 30,30, 0,30Z" Brush="{StaticResource ResourceKey=bkgCheckeredBrush1}"/>
+                    <GeometryDrawing Geometry="M0,15 L30,15 30,30, 15,30 15,0 0,0Z" Brush="{StaticResource ResourceKey=bkgCheckeredBrush2}"/>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
     </Window.Resources>
 
-    <Grid Name="ctOuterGrid">
-        <Grid.Background>
-            <DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0,30,30" ViewportUnits="Absolute">
-                <DrawingBrush.Drawing>
-                    <DrawingGroup>
-                        <GeometryDrawing Geometry="M0,0 L30,0 30,30, 0,30Z" Brush="#FFc0c0c0"/>
-                        <GeometryDrawing Geometry="M0,15 L30,15 30,30, 15,30 15,0 0,0Z" Brush="#FFa0a0a0"/>
-                    </DrawingGroup>
-                </DrawingBrush.Drawing>
-            </DrawingBrush>
-        </Grid.Background>
+    <Grid Name="ctOuterGrid" Background="{StaticResource ResourceKey=bkgCheckered}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300" Name="ctLeftColumn" />
             <ColumnDefinition Width="*" />
@@ -251,8 +255,8 @@
             <DockPanel Grid.Row="0" Background="#87FFFFFF">
                 <CheckBox Name="ctZoomCheckbox" Margin="8,11,8,8">_Zoom</CheckBox>
                 <ComboBox Name="ctDisplayMode" Margin="8">
-                    <ComboBoxItem Name="ctDisplayModeAll">All tanks</ComboBoxItem>
-                    <ComboBoxItem Name="ctDisplayModeOneEach" Selector.IsSelected="True">One of each combination</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeAll" Selector.IsSelected="True">All tanks</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeOneEach">One of each combination</ComboBoxItem>
                     <Separator/>
                     <ComboBoxItem Name="ctDisplayModeCountryUSSR">USSR</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCountryGermany">Germany</ComboBoxItem>
@@ -274,6 +278,17 @@
                 <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
                         <AccessText Margin="6,0" Name="ctLanguageLabel">L_anguage</AccessText>
+                        <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <Separator/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button Margin="8,8,0,8" Name="ctBackground" DockPanel.Dock="Right" Click="ctBackground_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        <AccessText Margin="6,0" Name="ctBackgroundLabel">_Background</AccessText>
                         <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button.ContextMenu>

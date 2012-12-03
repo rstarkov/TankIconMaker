@@ -26,21 +26,6 @@ using TankIconMaker.Layers;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
-/*
- * Automatic OldFiles generation
- * Lanczos resampling; sharpen effect
- * Improved Font selection
- * Colorize method: set RGB
- * Effect: Position between other layers
- * See if transparent ClearType works reasonably well (add ClearType background hint or something?)
- * Effect: Duplicate another effect / all effects of another layer
- * Effect: fade out edges
- * Layer: "duplicate" (before or after effects)
- * How to "merge" two layers into one so that effects like "shadow" can apply to the merged result
- * Use a WPF MessageBox (avoid WinForms interop startup cost)
- * _otherWarnings: tag with warning type to enable reliable removal
- */
-
 namespace TankIconMaker
 {
     partial class MainWindow : ManagedWindow
@@ -155,12 +140,8 @@ namespace TankIconMaker
                 ctLayerProperties.NameColumnWidth = App.Settings.NameColumnWidth.Value;
             ctDisplayMode.SelectedIndex = (int) App.Settings.DisplayFilter;
 
-            if (File.Exists(Path.Combine(PathUtil.AppPath, "Data", "background.jpg")))
-                ctOuterGrid.Background = new ImageBrush
-                {
-                    ImageSource = new BitmapImage(new Uri(Path.Combine(PathUtil.AppPath, "Data", "background.jpg"))),
-                    Stretch = Stretch.UniformToFill,
-                };
+            ApplyBackground();
+            ApplyBackgroundColors();
 
             _warningImage = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Graphics/warning.png"));
 
@@ -905,6 +886,127 @@ namespace TankIconMaker
             App.Settings.DisplayFilter = (DisplayFilter) ctDisplayMode.SelectedIndex;
             UpdateIcons();
             SaveSettings();
+        }
+
+        private void ctBackground_Click(object _, EventArgs __)
+        {
+            var menu = ctBackground.ContextMenu;
+            menu.PlacementTarget = ctBackground;
+            menu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            menu.Items.Clear();
+
+            Directory.CreateDirectory(PathUtil.AppPathCombine("Backgrounds"));
+            foreach (var file in new DirectoryInfo(PathUtil.AppPathCombine("Backgrounds")).GetFiles("*.jpg").Where(f => f.Extension == ".jpg")) /* GetFiles has a bug whereby "blah.jpg2" is also matched */
+                menu.Items.Add(new MenuItem { Header = Path.GetFileNameWithoutExtension(file.Name), Tag = file.Name });
+
+            menu.Items.Add(new Separator());
+            menu.Items.Add(new MenuItem { Header = App.Translation.MainWindow.BackgroundCheckered.ToString(), Tag = ":checkered" });
+            menu.Items.Add(new MenuItem { Header = App.Translation.MainWindow.BackgroundSolidColor.ToString(), Tag = ":solid" });
+
+            if (App.Settings.Background == ":checkered")
+            {
+                menu.Items.Add(new Separator());
+                var menuitem = new MenuItem { Header = App.Translation.MainWindow.BackgroundChangeCheckered1.ToString() };
+                menuitem.Click += delegate { ChangeColor(ref App.Settings.BackgroundCheckeredColor1); ApplyBackgroundColors(); };
+                menu.Items.Add(menuitem);
+                menuitem = new MenuItem { Header = App.Translation.MainWindow.BackgroundChangeCheckered2.ToString() };
+                menuitem.Click += delegate { ChangeColor(ref App.Settings.BackgroundCheckeredColor2); ApplyBackgroundColors(); };
+                menu.Items.Add(menuitem);
+                menuitem = new MenuItem { Header = App.Translation.MainWindow.BackgroundRestoreDefaults.ToString() };
+                menuitem.Click += delegate
+                {
+                    App.Settings.BackgroundCheckeredColor1 = Color.FromRgb(0xc0, 0xc0, 0xc0);
+                    App.Settings.BackgroundCheckeredColor2 = Color.FromRgb(0xa0, 0xa0, 0xa0);
+                    App.Settings.SaveThreaded();
+                    ApplyBackgroundColors();
+                };
+                menu.Items.Add(menuitem);
+            }
+            else if (App.Settings.Background == ":solid")
+            {
+                menu.Items.Add(new Separator());
+                var menuitem = new MenuItem { Header = App.Translation.MainWindow.BackgroundChangeSolid.ToString() };
+                menuitem.Click += delegate { ChangeColor(ref App.Settings.BackgroundSolidColor); ApplyBackgroundColors(); };
+                menu.Items.Add(menuitem);
+                menuitem = new MenuItem { Header = App.Translation.MainWindow.BackgroundRestoreDefaults.ToString() };
+                menuitem.Click += delegate
+                {
+                    App.Settings.BackgroundSolidColor = Color.FromRgb(0x80, 0xc0, 0xff);
+                    App.Settings.SaveThreaded();
+                    ApplyBackgroundColors();
+                };
+                menu.Items.Add(menuitem);
+            }
+
+            foreach (var item in menu.Items.OfType<MenuItem>().Where(i => i.Tag != null))
+            {
+                item.IsChecked = App.Settings.Background.EqualsNoCase(item.Tag as string);
+                item.Click += delegate { App.Settings.Background = item.Tag as string; ApplyBackground(); };
+            }
+            menu.IsOpen = true;
+        }
+
+        private void ApplyBackground()
+        {
+            if (App.Settings.Background == ":checkered")
+            {
+                ctOuterGrid.Background = (Brush) Resources["bkgCheckered"];
+            }
+            else if (App.Settings.Background == ":solid")
+            {
+                ctOuterGrid.Background = (Brush) Resources["bkgSolidBrush"];
+            }
+            else
+            {
+                try
+                {
+                    var path = Path.Combine(PathUtil.AppPath, "Backgrounds", App.Settings.Background);
+                    if (File.Exists(path))
+                    {
+                        var img = new BitmapImage();
+                        img.BeginInit();
+                        img.StreamSource = new MemoryStream(File.ReadAllBytes(path));
+                        img.EndInit();
+                        ctOuterGrid.Background = new ImageBrush
+                        {
+                            ImageSource = img,
+                            Stretch = Stretch.UniformToFill,
+                        };
+                    }
+                    else
+                    {
+                        // This will occur pretty much only at startup, when the image has been removed after the user selected it
+                        App.Settings.Background = ":checkered";
+                        ApplyBackground();
+                    }
+                }
+                catch
+                {
+                    // The file was either corrupt or could not be opened
+                    App.Settings.Background = ":checkered";
+                    ApplyBackground();
+                }
+            }
+        }
+
+        private void ApplyBackgroundColors()
+        {
+            ((SolidColorBrush) Resources["bkgCheckeredBrush1"]).Color = App.Settings.BackgroundCheckeredColor1;
+            ((SolidColorBrush) Resources["bkgCheckeredBrush2"]).Color = App.Settings.BackgroundCheckeredColor2;
+            ((SolidColorBrush) Resources["bkgSolidBrush"]).Color = App.Settings.BackgroundSolidColor;
+        }
+
+        private void ChangeColor(ref Color color)
+        {
+            var dlg = new System.Windows.Forms.ColorDialog();
+            dlg.Color = color.ToColorGdi();
+            dlg.CustomColors = App.Settings.CustomColors;
+            dlg.FullOpen = true;
+            if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return;
+            color = dlg.Color.ToColorWpf();
+            App.Settings.CustomColors = dlg.CustomColors;
+            App.Settings.SaveThreaded();
         }
 
         private void ctLanguage_Click(object _, EventArgs __)
