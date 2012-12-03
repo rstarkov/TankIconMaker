@@ -108,12 +108,6 @@
     <Compile Include="UtGraphics.cs" />
     <Compile Include="UtMisc.cs" />
     <Compile Include="UtSerialize.cs" />
-    <Compile Include="WpfCrutches\CompositeCollection.cs" />
-    <Compile Include="WpfCrutches\LambdaBinding.cs" />
-    <Compile Include="WpfCrutches\ObservableSortedList.cs" />
-    <Compile Include="WpfCrutches\TreeViewWithItem.cs" />
-    <Compile Include="WpfCrutches\Value.cs" />
-    <Compile Include="WpfCrutches\WpfUtil.cs" />
     <Page Include="AddWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,18 +179,27 @@
     <EmbeddedResource Include="Resources\BuiltInStyles\HARDicons.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Aslain.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="WpfCrutches\WpfCrutches.csproj">
+      <Project>{07420e58-8087-48fb-9c24-ae0dfd2a3ad7}</Project>
+      <Name>WpfCrutches</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
       <Resources Include="Resources\*" Exclude="Resources\*-En-*" />
       <Images Include="Resources\Images\*" />
+      <Backgrounds Include="..\Backgrounds\LoRes\*" />
       <Licenses Include="ThirdParty\license-*" />
       <Translations Include="Resources\Translations\*" />
     </ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
+    <Copy SourceFiles="@(Backgrounds)" DestinationFolder="$(OutputPath)\Backgrounds" />
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
+    <Copy SourceFiles="WpfCrutches\License.txt" DestinationFiles="$(OutputPath)\license-WpfCrutches.txt" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>"$(TargetPath)" --post-build-check "$(SolutionDir)."</PostBuildEvent>

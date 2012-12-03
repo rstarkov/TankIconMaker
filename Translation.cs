@@ -195,6 +195,16 @@ namespace TankIconMaker
         public TrString Shift = "Shift";
     }
 
+    partial class MainWindowTranslation
+    {
+        public TrString BackgroundCheckered = "_Checkered";
+        public TrString BackgroundSolidColor = "_Solid color";
+        public TrString BackgroundChangeCheckered1 = "C_hange checkered color #1...";
+        public TrString BackgroundChangeCheckered2 = "Ch_ange checkered color #2...";
+        public TrString BackgroundChangeSolid = "C_hange solid color...";
+        public TrString BackgroundRestoreDefaults = "_Restore defaults";
+    }
+
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
     sealed class AddWindowTranslation
     {
