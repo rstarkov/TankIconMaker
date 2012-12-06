@@ -5,12 +5,15 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using RT.Util;
+using RT.Util.ExtensionMethods;
+using RT.Util.Lingo;
 
 namespace TankIconMaker
 {
@@ -373,6 +376,33 @@ namespace TankIconMaker
                 throw new ArgumentOutOfRangeException("len");
             fixed (byte* srcPtr = src)
                 MemCpy(dest, srcPtr, len);
+        }
+
+        public static Language GetOsLanguage()
+        {
+            try
+            {
+                var curUiLanguage = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLowerInvariant();
+
+                // Special case for the languages we supply, so that if there are several with the same 2-letter code
+                // we can pick the right one.
+                switch (curUiLanguage)
+                {
+                    case "en": return Language.EnglishUK;
+                    case "ru": return Language.Russian;
+                    case "de": return Language.German;
+                }
+
+                var t = typeof(Language);
+                foreach (var f in t.GetFields(BindingFlags.Public | BindingFlags.Static))
+                {
+                    var a = f.GetCustomAttributes<LanguageInfoAttribute>().FirstOrDefault();
+                    if (a != null && a.LanguageCode == curUiLanguage)
+                        return (Language) f.GetValue(null);
+                }
+            }
+            catch { }
+            return Language.EnglishUK;
         }
     }
 

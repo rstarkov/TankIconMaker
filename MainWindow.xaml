@@ -8,7 +8,7 @@
         Title="Tank Icon Maker"
         TextOptions.TextFormattingMode="Display"
         wpfc:AccessKeysScopeBugfix.IsEnabled="true"
-        Width="700" Height="500"
+        Width="850" Height="550"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
     <Window.Resources>
         <BitmapImage x:Key="imgUpvote" UriSource="/Resources/Graphics/upvote.png" />

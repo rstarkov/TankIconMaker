@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media;
 using RT.Util;
@@ -55,6 +54,9 @@ namespace TankIconMaker
 
         /// <summary>Program language, and also the default language for property values when not specified.</summary>
         public Language Lingo = Language.EnglishUK;
+        /// <summary>The language of the operating system selected last time the program started. When this changes, <see cref="Lingo"/> is autoselected.</summary>
+        public Language? OsLingo = null;
+
         /// <summary>When resolving property inheritance and the author is not specified, this author is given preference.</summary>
         public string DefaultPropertyAuthor = "Wargaming";
 
