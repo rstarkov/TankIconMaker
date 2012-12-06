@@ -5,6 +5,30 @@
     <Old>English translation by Romkyns</Old>
   </TranslationCredits>
   <MainWindow>
+    <BackgroundCheckered>
+      <Translation>_Schachbrettmuster</Translation>
+      <Old>_Checkered</Old>
+    </BackgroundCheckered>
+    <BackgroundSolidColor>
+      <Translation>_Unifarben</Translation>
+      <Old>_Solid color</Old>
+    </BackgroundSolidColor>
+    <BackgroundChangeCheckered1>
+      <Translation>S_chachbrettfarbe #1 ändern...</Translation>
+      <Old>C_hange checkered color #1...</Old>
+    </BackgroundChangeCheckered1>
+    <BackgroundChangeCheckered2>
+      <Translation>Sc_hachbrettfarbe #2 ändern...</Translation>
+      <Old>Ch_ange checkered color #2...</Old>
+    </BackgroundChangeCheckered2>
+    <BackgroundChangeSolid>
+      <Translation>U_nifarbe ändern...</Translation>
+      <Old>C_hange solid color...</Old>
+    </BackgroundChangeSolid>
+    <BackgroundRestoreDefaults>
+      <Translation>Standardwerte _wiederherstellen</Translation>
+      <Old>_Restore defaults</Old>
+    </BackgroundRestoreDefaults>
     <ctGameDirLabel>
       <Translation>Spielver_zeichnis:</Translation>
       <Old>Game _directory:</Old>
@@ -97,10 +121,70 @@
       <Translation>Einer von jeder Kombination</Translation>
       <Old>One of each combination</Old>
     </ctDisplayModeOneEach>
+    <ctDisplayModeCountryUSSR>
+      <Translation>UdSSR</Translation>
+      <Old>USSR</Old>
+    </ctDisplayModeCountryUSSR>
+    <ctDisplayModeCountryGermany>
+      <Translation>Deutschland</Translation>
+      <Old>Germany</Old>
+    </ctDisplayModeCountryGermany>
+    <ctDisplayModeCountryUSA>
+      <Translation>USA</Translation>
+      <Old>USA</Old>
+    </ctDisplayModeCountryUSA>
+    <ctDisplayModeCountryFrance>
+      <Translation>Frankreich</Translation>
+      <Old>France</Old>
+    </ctDisplayModeCountryFrance>
+    <ctDisplayModeCountryUK>
+      <Translation>Großbritannien</Translation>
+      <Old>UK</Old>
+    </ctDisplayModeCountryUK>
+    <ctDisplayModeCountryChina>
+      <Translation>China</Translation>
+      <Old>China</Old>
+    </ctDisplayModeCountryChina>
+    <ctDisplayModeClassLight>
+      <Translation>Leichte Panzer</Translation>
+      <Old>Light tanks</Old>
+    </ctDisplayModeClassLight>
+    <ctDisplayModeClassMedium>
+      <Translation>Mittelschwere Panzer</Translation>
+      <Old>Medium tanks</Old>
+    </ctDisplayModeClassMedium>
+    <ctDisplayModeClassHeavy>
+      <Translation>Schwere Panzer</Translation>
+      <Old>Heavy tanks</Old>
+    </ctDisplayModeClassHeavy>
+    <ctDisplayModeClassArtillery>
+      <Translation>Artillerie</Translation>
+      <Old>Artillery</Old>
+    </ctDisplayModeClassArtillery>
+    <ctDisplayModeClassDestroyer>
+      <Translation>Panzerjäger</Translation>
+      <Old>Tank destoryers</Old>
+    </ctDisplayModeClassDestroyer>
+    <ctDisplayModeCategoryNormal>
+      <Translation>Normal</Translation>
+      <Old>Normal</Old>
+    </ctDisplayModeCategoryNormal>
+    <ctDisplayModeCategoryPremium>
+      <Translation>Premium</Translation>
+      <Old>Premium</Old>
+    </ctDisplayModeCategoryPremium>
+    <ctDisplayModeCategorySpecial>
+      <Translation>Spezial</Translation>
+      <Old>Special</Old>
+    </ctDisplayModeCategorySpecial>
     <ctLanguageLabel>
       <Translation>Spr_ache</Translation>
       <Old>L_anguage</Old>
     </ctLanguageLabel>
+    <ctBackgroundLabel>
+      <Translation>_Hintergrund</Translation>
+      <Old>_Background</Old>
+    </ctBackgroundLabel>
     <ctWarning>
       <Translation>Dieses Symbol zeigt an, dass ein Problem aufgetreten ist. Klicken Sie auf das Symbol, um Details über das Problem abzurufen.</Translation>
       <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
@@ -113,6 +197,10 @@
       <Translation>_Speichern</Translation>
       <Old>_Save</Old>
     </ctSaveLabel>
+    <ctSaveToFolderLabel>
+      <Translation>_In Ordner speichern</Translation>
+      <Old>Save to _folder</Old>
+    </ctSaveToFolderLabel>
     <ctAboutLabel>
       <Translation>Ü_ber...</Translation>
       <Old>About...</Old>
@@ -179,7 +267,7 @@
         <Old>Visible</Old>
       </DisplayName>
       <Description>
-        <Translation>Hiermit können Sie den Effekt zeitweilig deaktivieren, ohne sie zu löschen.</Translation>
+        <Translation>Hiermit können Sie den Effekt zeitweilig deaktivieren, ohne ihn zu löschen.</Translation>
         <Old>Allows you to hide this effect temporarily without deleting it.</Old>
       </Description>
     </EffectVisible>
@@ -582,6 +670,66 @@
       </Description>
     </Color>
   </EffectColorize>
+  <EffectNormalize>
+    <EffectName>
+      <Translation>Normalisierung</Translation>
+      <Old>Normalize</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Verstellt den Kontrast, um die Helligkeit des hellsten Pixels zu normalisieren. Es kann außerdem die Deckkraft normalisiert und das Bild in Graustufen dargestellt werden.</Translation>
+      <Old>Normalizes the brightness of the brightest pixels by automatically adjusting the contrast. Can also normalize the alpha channel and make the image grayscale.</Old>
+    </EffectDescription>
+    <Grayscale>
+      <DisplayName>
+        <Translation>Graustufen</Translation>
+        <Old>Grayscale</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Stellt das Bild in Graustufen dar (d.h. ohne Sättigung).</Translation>
+        <Old>When enabled, the image will be made grayscale (i.e. fully desaturated)</Old>
+      </Description>
+    </Grayscale>
+    <NormalizeBrightness>
+      <DisplayName>
+        <Translation>Helligkeit normalisieren</Translation>
+        <Old>Normalize brightness</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Normalisiert die Helligkeit des hellsten Pixels auf den Wert unter „Maximale Helligkeit“. Das wird erreicht, indem der Ebenenkontrast entsprechend angepasst wird.</Translation>
+        <Old>When enabled, the brightness of the brightest pixel in the layer will be normalized to the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly.</Old>
+      </Description>
+    </NormalizeBrightness>
+    <NormalizeAlpha>
+      <DisplayName>
+        <Translation>Alphakanal normalisieren</Translation>
+        <Old>Normalize alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Normalisiert die Transparenz des undurchsichtigsten Pixels auf den Wert unter „Alpha-Maximum“.</Translation>
+        <Old>When enabled, the alpha (transparency) of the most opaque pixel in the layer will be normalized to the “Max alpha” value.</Old>
+      </Description>
+    </NormalizeAlpha>
+    <MaxBrightness>
+      <DisplayName>
+        <Translation>Maximale Helligkeit</Translation>
+        <Old>Max. brightness</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Auf diesen Wert wird die Helligkeit des hellsten Pixels normalisiert. Normalerweise zwischen 0 und 255. Werte über 255 sind erlaubt, verursachen aber Beschneidung auf Weiß.</Translation>
+        <Old>The value to which the brightness of the brightest pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to white is acceptable.</Old>
+      </Description>
+    </MaxBrightness>
+    <MaxAlpha>
+      <DisplayName>
+        <Translation>Alpha-Maximum</Translation>
+        <Old>Max. alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Auf diesen Wert wird der Alpha-Wert (Deckkraft) des undurchsichtigsten Pixels normalisiert. Normalerweise zwischen 0 und 255. Werte über 255 sind erlaubt, verursachen aber Beschneidung auf volle Deckkraft.</Translation>
+        <Old>The value to which the alpha (transparency) of the most opaque pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to fully opaque is acceptable.</Old>
+      </Description>
+    </MaxAlpha>
+  </EffectNormalize>
   <EffectFlip>
     <EffectName>
       <Translation>Spiegeln</Translation>
@@ -1416,8 +1564,8 @@
       <Old>&amp;Use anyway</Old>
     </GameNotFound_Ignore>
     <IconsSaved>
-      <Translation encoding="c-literal">Gespeichert.\r\nViel Spaß!</Translation>
-      <Old encoding="c-literal">Saved!\nEnjoy.</Old>
+      <Translation encoding="c-literal">Symbole gespeichert.\r\n\r\n• Manche Symbol erscheinen möglicherweise spiegelverkehrt.\r\n• Das Spiel stellt möglicherweise die Panzerstufe zusätzlich auf den Symbolen dar.\r\n\r\nUm diese Probleme zu beheben, folgen Sie den Anleitungen im Tank-Icon-Maker-Posting im World-of-Tanks-Forum.</Translation>
+      <Old encoding="c-literal">Icons saved!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
     </IconsSaved>
     <IconsSaveSkipped>
       <IsNumber>
@@ -1432,6 +1580,10 @@
         <item>Note that {0} images were skipped due to errors.</item>
       </Old>
     </IconsSaveSkipped>
+    <IconsSaveError>
+      <Translation encoding="c-literal">Aufgrund eines Fehlers konnten die Symbole nicht gespeichert werden.\r\n\r\nFehlermeldung:\r\n• {0}</Translation>
+      <Old encoding="c-literal">The icons could not be saved due to an error.\n\nError message:\n • {0}</Old>
+    </IconsSaveError>
     <Upvote_BuiltInOnly>
       <Translation>Aus Sicherheitsgründen können nur eingebaute Designs bewertet werden.</Translation>
       <Old>For security reasons, only built-in styles can be upvoted.</Old>
