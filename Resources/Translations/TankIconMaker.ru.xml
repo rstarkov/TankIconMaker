@@ -415,8 +415,8 @@
         <Old>Size</Old>
       </DisplayName>
       <Description>
-        <Translation>Размер шрифта.</Translation>
-        <Old>Font size.</Old>
+        <Translation>Размер шрифта. Если указана «Ширина» либо «Высота», то это – максимальный размер шрифта; программа уменьшит текст при необходимости.</Translation>
+        <Old>Specifies the font size. If “Width” and/or “Height” are specified, this is the maximum font size; the text may be made smaller to fit.</Old>
       </Description>
     </FontSize>
     <FontBold>
@@ -449,86 +449,6 @@
         <Old>Specifies the text color.</Old>
       </Description>
     </FontColor>
-    <Left>
-      <DisplayName>
-        <Translation>Левая граница</Translation>
-        <Old>Left</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-координата самого левого пикселя текста. Игнорируется когда «Левая привязка» отключена.</Translation>
-        <Old>X coordinate of the leftmost text pixel. Ignored if "Left anchor" is unchecked.</Old>
-      </Description>
-    </Left>
-    <Right>
-      <DisplayName>
-        <Translation>Правая граница</Translation>
-        <Old>Right</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-координата самого правого пикселя текста. Игнорируется когда «Правая привязка» отключена.</Translation>
-        <Old>X coordinate of the rightmost text pixel. Ignored if "Right anchor" is unchecked.</Old>
-      </Description>
-    </Right>
-    <Top>
-      <DisplayName>
-        <Translation>Верхняя граница</Translation>
-        <Old>Top</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-координата самого верхнего пикселя текста (однако см. «По линии шрифта»). Игнорируется когда «Верхняя привязка» отключена.</Translation>
-        <Old>Y coordinate of the topmost text pixel (but see also "Align baselines"). Ignored if "Top anchor" is unchecked.</Old>
-      </Description>
-    </Top>
-    <Bottom>
-      <DisplayName>
-        <Translation>Нижняя граница</Translation>
-        <Old>Bottom</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-координата самого нижнего пикселя текста (однако см. «По линии шрифта»). Игнорируется когда «Нижняя привязка» отключена.</Translation>
-        <Old>Y coordinate of the bottommost text pixel (but see also "Align baselines"). Ignored if "Bottom anchor" is unchecked.</Old>
-      </Description>
-    </Bottom>
-    <LeftAnchor>
-      <DisplayName>
-        <Translation>Левая привязка</Translation>
-        <Old>Left anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, самый левый пиксель текста размещается на X-координате, указанной в свойстве «Левая граница». Если «Правая привязка» тоже включена, текст центрируется между «Левая граница» и «Правая граница».</Translation>
-        <Old>When checked, the leftmost pixel of the text is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the text is centered between "Left" and "Right".</Old>
-      </Description>
-    </LeftAnchor>
-    <RightAnchor>
-      <DisplayName>
-        <Translation>Правая привязка</Translation>
-        <Old>Right anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, самый правый пиксель текста размещается на X-координате, указанной в свойстве «Правая граница». Если «Левая привязка» тоже включена, текст центрируется между «Левая граница» и «Правая граница».</Translation>
-        <Old>When checked, the rightmost pixel of the text is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the text is centered between "Left" and "Right".</Old>
-      </Description>
-    </RightAnchor>
-    <TopAnchor>
-      <DisplayName>
-        <Translation>Верхняя привязка</Translation>
-        <Old>Top anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, самый верхний пиксель текста размещается на Y-координате, указанной в свойстве «Верхняя граница». Если «Нижняя привязка» тоже включена, текст центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
-        <Old>When checked, the topmost pixel of the text is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </TopAnchor>
-    <BottomAnchor>
-      <DisplayName>
-        <Translation>Нижняя привязка</Translation>
-        <Old>Bottom anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, самый нижний пиксель текста размещается на Y-координате, указанной в свойстве «Нижняя граница». Если «Верхняя привязка» тоже включена, текст центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
-        <Old>When checked, the bottommost pixel of the text is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </BottomAnchor>
     <Baseline>
       <DisplayName>
         <Translation> По линии шрифта</Translation>
@@ -536,9 +456,59 @@
       </DisplayName>
       <Description>
         <Translation>Представьте слова «тип» и «Тип», с верхним якорем на пикселе 0. Если «По линии шрифта» включено, то «тип» будет отображаться несколько выше, чем «Тип». Если же свойство включено, то линия текста будет одинакова (при этом верхний пиксель в слове «тип» будет несколько ниже, чем 0-й пиксель).</Translation>
-        <Old>Consider the words "more" and "More", top-anchored at pixel 0. If "Align baselines" is false, the word "more" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of "more" will actually be below pixel 0.</Old>
+        <Old>Consider the words “more” and “More”, top-anchored at pixel 0. If “Align baselines” is false, the word “more” will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of “more” will actually be below pixel 0.</Old>
       </Description>
     </Baseline>
+    <Anchor>
+      <DisplayName>
+        <Translation>Привязка</Translation>
+        <Old>Anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, где должен быть расположен текст по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
+        <Old>Specifies where the text should be positioned relative to the point specified by the “X” and “Y” values.</Old>
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает горизонтальную координату точки привязки.</Translation>
+        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает вертикальную координату точки привязки.</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point.</Old>
+      </Description>
+    </Y>
+    <Width>
+      <DisplayName>
+        <Translation>Ширина</Translation>
+        <Old>Width</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Значения больше нуля задают максимальную ширину текста, в пикселях. Изначально текст имеет заданный размер шрифта; при необходимости шрифт уменьшается, но не увеличивается.</Translation>
+        <Old>When greater than zero, specifies that the text must not be wider than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown.</Old>
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>Высота</Translation>
+        <Old>Height</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Значения больше нуля задают максимальную высоту текста, в пикселях. Изначально текст имеет заданный размер шрифта; при необходимости шрифт уменьшается, но не увеличивается.</Translation>
+        <Old>When greater than zero, specifies that the text must not be taller than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown.</Old>
+      </Description>
+    </Height>
   </TextLayer>
   <PropertyTextLayer>
     <LayerName>
