@@ -269,7 +269,7 @@
                     <ComboBoxItem Name="ctDisplayModeClassMedium">Medium tanks</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeClassHeavy">Heavy tanks</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeClassArtillery">Artillery</ComboBoxItem>
-                    <ComboBoxItem Name="ctDisplayModeClassDestroyer">Tank destoryers</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeClassDestroyer">Tank destroyers</ComboBoxItem>
                     <Separator/>
                     <ComboBoxItem Name="ctDisplayModeCategoryNormal">Normal</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCategoryPremium">Premium</ComboBoxItem>
