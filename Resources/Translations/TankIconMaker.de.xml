@@ -676,8 +676,8 @@
       <Old>Normalize</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Verstellt den Kontrast, um die Helligkeit des hellsten Pixels zu normalisieren. Es kann außerdem die Deckkraft normalisiert und das Bild in Graustufen dargestellt werden.</Translation>
-      <Old>Normalizes the brightness of the brightest pixels by automatically adjusting the contrast. Can also normalize the alpha channel and make the image grayscale.</Old>
+      <Translation>Verstellt den Kontrast, um die Helligkeit oder die Deckkraft zu normalisieren. Es kann außerdem das Bild in Graustufen umgewandelt werden.</Translation>
+      <Old>Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.</Old>
     </EffectDescription>
     <Grayscale>
       <DisplayName>
@@ -685,8 +685,8 @@
         <Old>Grayscale</Old>
       </DisplayName>
       <Description>
-        <Translation>Stellt das Bild in Graustufen dar (d.h. ohne Sättigung).</Translation>
-        <Old>When enabled, the image will be made grayscale (i.e. fully desaturated)</Old>
+        <Translation>Wandelt das Bild in Graustufen um (d.h. ohne Sättigung).</Translation>
+        <Old>When enabled, the image is made grayscale (i.e. fully desaturated)</Old>
       </Description>
     </Grayscale>
     <NormalizeBrightness>
@@ -695,8 +695,8 @@
         <Old>Normalize brightness</Old>
       </DisplayName>
       <Description>
-        <Translation>Normalisiert die Helligkeit des hellsten Pixels auf den Wert unter „Maximale Helligkeit“. Das wird erreicht, indem der Ebenenkontrast entsprechend angepasst wird.</Translation>
-        <Old>When enabled, the brightness of the brightest pixel in the layer will be normalized to the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly.</Old>
+        <Translation>Normalisiert die Helligkeit, sodass der hellste Pixel den Wert unter „Maximale Helligkeit“ erhält. Das wird erreicht, indem der Ebenenkontrast entsprechend angepasst wird.</Translation>
+        <Old>When enabled, the brightness in the layer is normalized such that the brightest pixel receives the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly.</Old>
       </Description>
     </NormalizeBrightness>
     <NormalizeAlpha>
@@ -705,8 +705,8 @@
         <Old>Normalize alpha</Old>
       </DisplayName>
       <Description>
-        <Translation>Normalisiert die Transparenz des undurchsichtigsten Pixels auf den Wert unter „Alpha-Maximum“.</Translation>
-        <Old>When enabled, the alpha (transparency) of the most opaque pixel in the layer will be normalized to the “Max alpha” value.</Old>
+        <Translation>Normalisiert die Transparenz, sodass der undurchsichtigste Pixel den Wert unter „Alpha-Maximum“ erhält.</Translation>
+        <Old>When enabled, the alpha (opacity) in the layer is normalized such that the most opaque pixel receives the “Max alpha” value.</Old>
       </Description>
     </NormalizeAlpha>
     <MaxBrightness>
@@ -716,7 +716,7 @@
       </DisplayName>
       <Description>
         <Translation>Auf diesen Wert wird die Helligkeit des hellsten Pixels normalisiert. Normalerweise zwischen 0 und 255. Werte über 255 sind erlaubt, verursachen aber Beschneidung auf Weiß.</Translation>
-        <Old>The value to which the brightness of the brightest pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to white is acceptable.</Old>
+        <Old>The value to which the brightness of the brightest pixel is normalized. Normally 0 to 255. Values above 255 can be used if clipping to white is acceptable.</Old>
       </Description>
     </MaxBrightness>
     <MaxAlpha>
@@ -726,7 +726,7 @@
       </DisplayName>
       <Description>
         <Translation>Auf diesen Wert wird der Alpha-Wert (Deckkraft) des undurchsichtigsten Pixels normalisiert. Normalerweise zwischen 0 und 255. Werte über 255 sind erlaubt, verursachen aber Beschneidung auf volle Deckkraft.</Translation>
-        <Old>The value to which the alpha (transparency) of the most opaque pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to fully opaque is acceptable.</Old>
+        <Old>The value to which the alpha (opacity) of the most opaque pixel is normalized. Normally 0 to 255. Values above 255 can be used if clipping to full opacity is acceptable.</Old>
       </Description>
     </MaxAlpha>
   </EffectNormalize>
