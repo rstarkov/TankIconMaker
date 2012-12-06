@@ -175,6 +175,7 @@ namespace TankIconMaker
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ValueSelector<>), ExpandableObject = true });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(Filename), EditorType = typeof(FilenameEditor) });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ExtraPropertyId), EditorType = typeof(DataSourceEditor) });
+            ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(Anchor), EditorType = typeof(AnchorEditor) });
 
             ReloadData(first: true);
 
