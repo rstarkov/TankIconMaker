@@ -107,8 +107,14 @@ namespace TankIconMaker
             App.LayerTypes = findTypes<LayerBase>("layer");
             App.EffectTypes = findTypes<EffectBase>("effect");
 
-            // Load all settings and the UI translation
+            // Load all settings
             SettingsUtil.LoadSettings(out App.Settings);
+
+            // Guess the language if the OS language has changed (or this is the first run)
+            var osLingo = Ut.GetOsLanguage();
+            if (App.Settings.OsLingo != osLingo)
+                App.Settings.OsLingo = App.Settings.Lingo = osLingo;
+            // Load translation
             App.Translation = Lingo.LoadTranslationOrDefault<Translation>("TankIconMaker", ref App.Settings.Lingo);
 
             // Run the UI
