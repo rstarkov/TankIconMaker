@@ -91,39 +91,55 @@ namespace TankIconMaker
 
         /// <summary>
         /// Possibly the slowest ever implementation of a text draw routine, but enables pixel-perfect positioning of the text.
-        /// If only the <paramref name="left"/> value is non-null, the text is left-aligned. If only the <paramref name="right"/>, it's
-        /// right-aligned. If both are null, the text is centered assuming an 80x24 image. If both are non-null, the text is centered around
-        /// the mid point of the two values. Top/bottom work the same, with the extra complication of <paramref name="baseline"/>.
         /// </summary>
         /// <param name="graphics">The text is drawn into this drawing object.</param>
         /// <param name="text">The text to draw.</param>
-        /// <param name="font">The font to use.</param>
         /// <param name="brush">The brush to use.</param>
-        /// <param name="left">X coordinate of the leftmost text pixel, or null (see summary).</param>
-        /// <param name="right">X coordinate of the rightmost text pixel, or null (see summary).</param>
-        /// <param name="top">Y coordinate of the topmost text pixel, or null (see summary and "baseline").</param>
-        /// <param name="bottom">Y coordinate of the bottommost text pixel, or null (see summary and "baseline")</param>
-        /// <param name="baseline">If false, top/bottom use the specified string's pixels exactly. If true, top/bottom will instead position the baseline consistently,
+        /// <param name="fontFamily">Name of the font family.</param>
+        /// <param name="fontSize">Maximum font size: if width/height specified, text will be shrunk from this.</param>
+        /// <param name="fontStyle">Font style in which to draw the text.</param>
+        /// <param name="x">X coordinate of the anchor point.</param>
+        /// <param name="y">Y coordinate of the anchor point (see also <paramref name="baseline"/>).</param>
+        /// <param name="anchor">Specifies where the anchor point is positioned relative to the text.</param>
+        /// <param name="width">Maximum text width, in pixels. Text is shurnk if necessary to fit in.</param>
+        /// <param name="height">Maximum text height, in pixels. Text is shurnk if necessary to fit in.</param>
+        /// <param name="baseline">If false, the vertical anchoring is done on the topmost/bottommost pixel. If true, top/bottom will instead position the baseline consistently,
         /// so that the top of the tallest letter or the bottom of the lowest descender is located on the specified pixel.</param>
         /// <returns>A rectangle describing the extent of the text's pixels.</returns>
-        public static PixelRect DrawString(this D.Graphics graphics, string text, D.Font font, D.Brush brush,
-            int? left = null, int? right = null, int? top = null, int? bottom = null, bool baseline = false)
+        public static PixelRect DrawString(this D.Graphics graphics, string text, D.Brush brush, string fontFamily, double fontSize, D.FontStyle fontStyle,
+            int x, int y, Anchor anchor, int? width = null, int? height = null, bool baseline = false)
         {
-            var bmp = graphics.TextToBitmap(text, font, brush);
-            var size = baseline
-                ? bmp.PreciseWidth().WithTopBottom(graphics.TextToBitmap("Mgy345", font, D.Brushes.White).PreciseHeight())
-                : bmp.PreciseSize();
+            BitmapGdi bmp;
+            PixelRect size;
 
-            int x = (left != null && right != null) ? (left.Value + right.Value) / 2 - size.CenterHorz
-                : (left != null) ? left.Value - size.Left
-                : (right != null) ? right.Value - size.Right
-                : 80 / 2 - size.CenterHorz / 2;
-            int y = (top != null && bottom != null) ? (top.Value + bottom.Value) / 2 - size.CenterVert
-                : (top != null) ? top.Value - size.Top
-                : (bottom != null) ? bottom.Value - size.Bottom
-                : 24 / 2 - size.CenterVert;
+            double fontSizeMin = 0;
+            double fontSizeMax = fontSize;
+            double threshold = graphics.TextRenderingHint == D.Text.TextRenderingHint.AntiAlias ? 0.07 : 0.5;
 
-            graphics.DrawImageUnscaled(bmp.Bitmap, x, y);
+            while (true)
+            {
+                var font = new D.Font(fontFamily, (float) fontSize, fontStyle);
+                bmp = graphics.TextToBitmap(text, font, brush);
+                size = baseline
+                    ? bmp.PreciseWidth().WithTopBottom(graphics.TextToBitmap("Mgy345", font, D.Brushes.White).PreciseHeight())
+                    : bmp.PreciseSize();
+
+                if (width == null && height == null)
+                    break;
+                if ((width == null || size.Width <= width.Value) && (height == null || size.Height <= height.Value))
+                    fontSizeMin = fontSize; // Fits
+                else
+                    fontSizeMax = fontSize; // Doesn't fit
+                if (fontSize == fontSizeMin && fontSizeMax - fontSizeMin <= threshold)
+                    break;
+                fontSize = (fontSizeMin + fontSizeMax) / 2;
+            }
+
+            var anchr = (AnchorRaw) anchor;
+            x -= anchr.HasFlag(AnchorRaw.Right) ? size.Width - 1 : anchr.HasFlag(AnchorRaw.Center) ? (size.Width - 1) / 2 : 0;
+            y -= anchr.HasFlag(AnchorRaw.Bottom) ? size.Height - 1 : anchr.HasFlag(AnchorRaw.Mid) ? (size.Height - 1) / 2 : 0;
+
+            graphics.DrawImageUnscaled(bmp.Bitmap, x - size.Left, y - size.Top);
             GC.KeepAlive(bmp);
             return size.Shifted(x, y);
         }
@@ -265,6 +281,28 @@ namespace TankIconMaker
         Same,
         Mirror,
         Wrap,
+    }
+
+    [Flags]
+    enum AnchorRaw
+    {
+        Left = 0x01, Center = 0x02, Right = 0x04,
+        Top = 0x10, Mid = 0x20, Bottom = 0x40,
+    }
+
+    enum Anchor
+    {
+        TopLeft = AnchorRaw.Top | AnchorRaw.Left,
+        TopCenter = AnchorRaw.Top | AnchorRaw.Center,
+        TopRight = AnchorRaw.Top | AnchorRaw.Right,
+
+        MidLeft = AnchorRaw.Mid | AnchorRaw.Left,
+        MidCenter = AnchorRaw.Mid | AnchorRaw.Center,
+        MidRight = AnchorRaw.Mid | AnchorRaw.Right,
+
+        BottomLeft = AnchorRaw.Bottom | AnchorRaw.Left,
+        BottomCenter = AnchorRaw.Bottom | AnchorRaw.Center,
+        BottomRight = AnchorRaw.Bottom | AnchorRaw.Right,
     }
 
     class GaussianBlur

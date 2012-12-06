@@ -289,19 +289,16 @@ namespace TankIconMaker
     {
         public MemberDescriptionTr FontSmoothing = new MemberDescriptionTr { DisplayName = "Smoothing", Description = "Determines how to smooth the text (anti-aliasing)." };
         public MemberDescriptionTr FontFamily = new MemberDescriptionTr { DisplayName = "Family", Description = "Font family." };
-        public MemberDescriptionTr FontSize = new MemberDescriptionTr { DisplayName = "Size", Description = "Font size." };
+        public MemberDescriptionTr FontSize = new MemberDescriptionTr { DisplayName = "Size", Description = "Specifies the font size. If “Width” and/or “Height” are specified, this is the maximum font size; the text may be made smaller to fit." };
         public MemberDescriptionTr FontBold = new MemberDescriptionTr { DisplayName = "Bold", Description = "Makes the text bold." };
         public MemberDescriptionTr FontItalic = new MemberDescriptionTr { DisplayName = "Italic", Description = "Makes the text italic." };
         public MemberDescriptionTr FontColor = new MemberDescriptionTr { DisplayName = "Color", Description = "Specifies the text color." };
-        public MemberDescriptionTr Left = new MemberDescriptionTr { DisplayName = "Left", Description = "X coordinate of the leftmost text pixel. Ignored if \"Left anchor\" is unchecked." };
-        public MemberDescriptionTr Right = new MemberDescriptionTr { DisplayName = "Right", Description = "X coordinate of the rightmost text pixel. Ignored if \"Right anchor\" is unchecked." };
-        public MemberDescriptionTr Top = new MemberDescriptionTr { DisplayName = "Top", Description = "Y coordinate of the topmost text pixel (but see also \"Align baselines\"). Ignored if \"Top anchor\" is unchecked." };
-        public MemberDescriptionTr Bottom = new MemberDescriptionTr { DisplayName = "Bottom", Description = "Y coordinate of the bottommost text pixel (but see also \"Align baselines\"). Ignored if \"Bottom anchor\" is unchecked." };
-        public MemberDescriptionTr LeftAnchor = new MemberDescriptionTr { DisplayName = "Left anchor", Description = "When checked, the leftmost pixel of the text is anchored at the X coordinate specified by \"Left\". When \"Right anchor\" is also checked, the text is centered between \"Left\" and \"Right\"." };
-        public MemberDescriptionTr RightAnchor = new MemberDescriptionTr { DisplayName = "Right anchor", Description = "When checked, the rightmost pixel of the text is anchored at the X coordinate specified by \"Right\". When \"Left anchor\" is also checked, the text is centered between \"Left\" and \"Right\"." };
-        public MemberDescriptionTr TopAnchor = new MemberDescriptionTr { DisplayName = "Top anchor", Description = "When checked, the topmost pixel of the text is anchored at the Y coordinate specified by \"Top\". When \"Bottom anchor\" is also checked, the text is centered between \"Top\" and \"Bottom\"." };
-        public MemberDescriptionTr BottomAnchor = new MemberDescriptionTr { DisplayName = "Bottom anchor", Description = "When checked, the bottommost pixel of the text is anchored at the Y coordinate specified by \"Bottom\". When \"Top anchor\" is also checked, the text is centered between \"Top\" and \"Bottom\"." };
-        public MemberDescriptionTr Baseline = new MemberDescriptionTr { DisplayName = "Align baselines", Description = "Consider the words \"more\" and \"More\", top-anchored at pixel 0. If \"Align baselines\" is false, the word \"more\" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of \"more\" will actually be below pixel 0." };
+        public MemberDescriptionTr Baseline = new MemberDescriptionTr { DisplayName = "Align baselines", Description = "Consider the words “more” and “More”, top-anchored at pixel 0. If “Align baselines” is false, the word “more” will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of “more” will actually be below pixel 0." };
+        public MemberDescriptionTr Anchor = new MemberDescriptionTr { DisplayName = "Anchor", Description = "Specifies where the text should be positioned relative to the point specified by the “X” and “Y” values." };
+        public MemberDescriptionTr X = new MemberDescriptionTr { DisplayName = "X", Description = "Specifies the horizontal coordinate of the anchor point." };
+        public MemberDescriptionTr Y = new MemberDescriptionTr { DisplayName = "Y", Description = "Specifies the vertical coordinate of the anchor point. “Baseline” specifies whether this is pixel-perfect or baseline-consistent." };
+        public MemberDescriptionTr Width = new MemberDescriptionTr { DisplayName = "Width", Description = "When greater than zero, specifies that the text must not be wider than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown." };
+        public MemberDescriptionTr Height = new MemberDescriptionTr { DisplayName = "Height", Description = "When greater than zero, specifies that the text must not be taller than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerPropertyText)]
