@@ -8,7 +8,7 @@
         Title="Tank Icon Maker"
         TextOptions.TextFormattingMode="Display"
         wpfc:AccessKeysScopeBugfix.IsEnabled="true"
-        Width="850" Height="550"
+        Width="881" Height="550"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
     <Window.Resources>
         <BitmapImage x:Key="imgUpvote" UriSource="/Resources/Graphics/upvote.png" />
@@ -77,7 +77,7 @@
 
     <Grid Name="ctOuterGrid" Background="{StaticResource ResourceKey=bkgCheckered}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" Name="ctLeftColumn" />
+            <ColumnDefinition Width="325" Name="ctLeftColumn" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
