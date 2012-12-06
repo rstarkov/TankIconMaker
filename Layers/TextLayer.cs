@@ -20,26 +20,25 @@ namespace TankIconMaker.Layers
         public ColorSelector FontColor { get; set; }
         public static MemberTr FontColorTr(Translation tr) { return new MemberTr(tr.Category.Font, tr.TextLayer.FontColor); }
 
-        public int Left { get; set; }
-        public static MemberTr LeftTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Left); }
-        public int Right { get; set; }
-        public static MemberTr RightTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Right); }
-        public int Top { get; set; }
-        public static MemberTr TopTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Top); }
-        public int Bottom { get; set; }
-        public static MemberTr BottomTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Bottom); }
+        public Anchor Anchor { get; set; }
+        public static MemberTr AnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Anchor); }
+        public int X { get; set; }
+        public static MemberTr XTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.X); }
+        public int Y { get; set; }
+        public static MemberTr YTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Y); }
 
-        public bool LeftAnchor { get; set; }
-        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.LeftAnchor); }
-        public bool RightAnchor { get; set; }
-        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.RightAnchor); }
-        public bool TopAnchor { get; set; }
-        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.TopAnchor); }
-        public bool BottomAnchor { get; set; }
-        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.BottomAnchor); }
+        public int Width { get; set; }
+        public static MemberTr WidthTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.TextLayer.Width); }
+        public int Height { get; set; }
+        public static MemberTr HeightTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.TextLayer.Height); }
 
         public bool Baseline { get; set; }
         public static MemberTr BaselineTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Baseline); }
+
+        // Old stuff, to be deleted eventually...
+        private bool ConvertedFromOld = false;
+        private int Left, Right, Top, Bottom;
+        private bool LeftAnchor, RightAnchor, TopAnchor, BottomAnchor;
 
         protected abstract string GetText(Tank tank);
 
@@ -47,14 +46,20 @@ namespace TankIconMaker.Layers
         {
             FontFamily = "Arial";
             FontSize = 8.5;
-            Left = 3;
-            LeftAnchor = true;
-            Top = 3;
-            TopAnchor = true;
-            Right = 80 - 3;
-            Bottom = 24 - 3;
+            X = 3;
+            Y = 3;
+            Width = 999;
+            Height = 999;
+            Anchor = Anchor.TopLeft;
             Baseline = false;
             FontColor = new ColorSelector(Colors.White);
+
+            // Old stuff, to be deleted eventually
+            Left = Top = 3;
+            LeftAnchor = TopAnchor = true;
+            RightAnchor = BottomAnchor = false;
+            Right = 80 - 3;
+            Bottom = 24 - 3;
         }
 
         public override LayerBase Clone()
@@ -66,14 +71,66 @@ namespace TankIconMaker.Layers
 
         public override BitmapBase Draw(Tank tank)
         {
+            if (!ConvertedFromOld)
+                convertFromOld();
+
             return Ut.NewBitmapGdi(dc =>
             {
                 var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
                 dc.TextRenderingHint = FontSmoothing.ToGdi();
-                dc.DrawString(GetText(tank), new Font(FontFamily, (float) FontSize, style), new SolidBrush(FontColor.GetColorGdi(tank)),
-                    LeftAnchor ? (int?) Left : null, RightAnchor ? (int?) Right : null, TopAnchor ? (int?) Top : null, BottomAnchor ? (int?) Bottom : null,
-                    Baseline);
+                dc.DrawString(GetText(tank), new SolidBrush(FontColor.GetColorGdi(tank)), FontFamily, FontSize, style, X, Y, Anchor,
+                    Width <= 0 ? null : (int?) Width, Height <= 0 ? null : (int?) Height, Baseline);
             });
+        }
+
+        private void convertFromOld()
+        {
+            AnchorRaw anchor;
+
+            if (LeftAnchor && RightAnchor)
+            {
+                X = (Left + Right) / 2;
+                anchor = AnchorRaw.Center;
+            }
+            else if (LeftAnchor)
+            {
+                X = Left;
+                anchor = AnchorRaw.Left;
+            }
+            else if (RightAnchor)
+            {
+                X = Right;
+                anchor = AnchorRaw.Right;
+            }
+            else
+            {
+                X = 80 / 2;
+                anchor = AnchorRaw.Center;
+            }
+
+            if (TopAnchor && BottomAnchor)
+            {
+                Y = (Top + Bottom) / 2;
+                anchor |= AnchorRaw.Mid;
+            }
+            else if (TopAnchor)
+            {
+                Y = Top;
+                anchor |= AnchorRaw.Top;
+            }
+            else if (BottomAnchor)
+            {
+                Y = Bottom;
+                anchor |= AnchorRaw.Bottom;
+            }
+            else
+            {
+                Y = 24 / 2;
+                anchor |= AnchorRaw.Mid;
+            }
+
+            Anchor = (Anchor) anchor;
+            ConvertedFromOld = true;
         }
     }
 
