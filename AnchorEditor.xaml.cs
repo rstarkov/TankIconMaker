@@ -10,8 +10,6 @@ namespace TankIconMaker
 {
     public partial class AnchorEditor : UserControl, ITypeEditor
     {
-        private BindingExpression _expression;
-
         public AnchorEditor()
         {
             InitializeComponent();
