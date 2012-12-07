@@ -23,6 +23,7 @@ namespace TankIconMaker
 
         static oldFile[] _oldFiles = new[]
         {
+            new oldFile("Data\\background.jpg", 299329, "f1b3558d82bd35bc8a7ad4396bb086de5ae0c3c4f4664bf3e2ae6554db672a97"),
             new oldFile("Data\\Data-BuiltIn-0.7.0-001.csv", 5280, "b85c96aee01f811e13d00e814e7040e3377e0bb5fb550bf60ee1eda8a326bbea"),
             new oldFile("Data\\Data-BuiltIn-0.7.1-001.csv", 745, "dd2a659389e63227e44328f727b6a2901ce68e921cf15a1cc084b9d61f7ef822"),
             new oldFile("Data\\Data-BuiltIn-0.7.1-001.csv", 6007, "abb845a99208c132e40c5a8c8036ad6e45acc849fd42d3995be228771a74443b"),
@@ -90,11 +91,22 @@ namespace TankIconMaker
             new oldFile("Data\\GameVersion-0.8.0.xml", 1804, "f7db9b83f15aecb7336ea56acf43627c544c959c2eb0008921b37d23bdefce44"),
             new oldFile("Data\\GameVersion-0.8.0-CT.xml", 1833, "1e5c81f823c028d0d31072994da4fa096ce436550031ef381443eb5acbce7d38"),
             new oldFile("Data\\GameVersion-0.8.1-CT.xml", 1833, "35eff4198fe4434d1c634168087606793a595da3ce14aa802f5f18660977ae68"),
+            new oldFile("Data\\GameVersion-0.8.2-CT.xml", 1833, "08c873fc6e7646c8ddaa8209eb9d5e788acf54ccd285e410276d62e7f54ae5f6"),
+            new oldFile("license-ookii-dialogs.txt", 1569, "f9e2eb02b8ff3ebe1f95cd604082f62a6f33215b8832face93142b24398b610d"),
+            new oldFile("license-rt-util.txt", 33093, "321429c853d59b621414832581e93ff38586c348aa2de43c7e571b33423d670a"),
+            new oldFile("license-sharpziplib.txt", 19463, "902ab97972b67b826ab8caba382345f44fa70e561dc5cd3eff5cb51d3df4eac4"),
+            new oldFile("license-tank-icon-maker.txt", 33093, "321429c853d59b621414832581e93ff38586c348aa2de43c7e571b33423d670a"),
+            new oldFile("license-wpf-toolkit.txt", 2659, "3907b72d92cd01809f502fd5d583ad9c1ef9a1e924c4beb91d6d96e9c68a6e81"),
         };
 
         static string[] _currentFiles = new[]
         {
-            "Data/background.jpg",
+            "Backgrounds/Abbey (Монастырь).jpg",
+            "Backgrounds/Karelia (Карелия).jpg",
+            "Backgrounds/Lakeville (Ласвилль).jpg",
+            "Backgrounds/Ruinberg (Руинберг).jpg",
+            "Backgrounds/Sand River (Песчаная Река).jpg",
+            "Backgrounds/Westfield (Вестфилд).jpg",
             "Data/Data-BuiltIn-0.8.1-001.csv",
             "Data/Data-BuiltIn-0.8.2-001.csv",
             "Data/Data-NameFull-Ru-Wargaming-0.0.0-001.csv",
@@ -107,7 +119,6 @@ namespace TankIconMaker
             "Data/Data-SpeedReverse-X-Romkyns-0.0.0-001.csv",
             "Data/GameVersion-0.8.1.xml",
             "Data/GameVersion-0.8.2.xml",
-            "Data/GameVersion-0.8.2-CT.xml",
             "ICSharpCode.SharpZipLib.dll",
             "Images/class1-Artillery.png",
             "Images/class1-Destroyer.png",
@@ -120,17 +131,20 @@ namespace TankIconMaker
             "Images/country1-uk.png",
             "Images/country1-usa.png",
             "Images/country1-ussr.png",
-            "license-ookii-dialogs.txt",
-            "license-rt-util.txt",
-            "license-sharpziplib.txt",
-            "license-tank-icon-maker.txt",
-            "license-wpf-toolkit.txt",
+            "license-ICSharpCode.SharpZipLib.txt",
+            "license-Ookii.Dialogs.Wpf.txt",
+            "license-RT.Util.txt",
+            "license-TankIconMaker.txt",
+            "license-WpfCrutches.txt",
+            "license-WPFToolkit.Extended.txt",
             "Ookii.Dialogs.Wpf.dll",
             "RT.Util.dll",
             "TankIconMaker.exe",
             "TankIconMaker.pdb",
             "Translations/TankIconMaker.de.xml",
             "Translations/TankIconMaker.ru.xml",
+            "WpfCrutches.dll",
+            "WpfCrutches.pdb",
             "WPFToolkit.Extended.dll",
         };
 
