@@ -16,6 +16,9 @@ namespace TankIconMaker
     [Settings("TankIconMaker2", SettingsKind.UserSpecific)]
     sealed class Settings : SettingsThreadedBase
     {
+        /// <summary>Stores the program version that was used to save this settings file.</summary>
+        public int SavedByVersion = 17; // this feature was introduced in v018, so default to 17 for "everything before that".
+
         /// <summary>
         /// MainWindow settings, such as position, size and maximized state. Given that TankIconMaker is essentially a single-window
         /// application, all the other MainWindow-specific settings are stored directly in <see cref="Settings"/> for simplicity.

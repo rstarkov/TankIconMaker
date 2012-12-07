@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -10,7 +11,6 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Lingo;
 using RT.Util.Xml;
-using TankIconMaker.Effects;
 using WpfCrutches;
 using D = System.Drawing;
 using W = System.Windows.Media;
@@ -109,6 +109,7 @@ namespace TankIconMaker
 
             // Load all settings
             SettingsUtil.LoadSettings(out App.Settings);
+            BackupSettingsIfNecessary();
 
             // Guess the language if the OS language has changed (or this is the first run)
             var osLingo = Ut.GetOsLanguage();
@@ -152,6 +153,21 @@ namespace TankIconMaker
             }
             infos.Sort(CustomComparer<TypeInfo<T>>.By(ti => ti.Name));
             return infos.AsReadOnly();
+        }
+
+        private static void BackupSettingsIfNecessary()
+        {
+            var curVersion = Assembly.GetExecutingAssembly().GetName().Version.Major;
+            if (App.Settings.SavedByVersion != curVersion)
+                try
+                {
+                    var origName = SettingsUtil.GetAttribute<Settings>().GetFileName();
+                    File.Copy(origName, Path.Combine(
+                        Path.GetDirectoryName(origName),
+                        Path.GetFileNameWithoutExtension(origName) + ".v" + App.Settings.SavedByVersion.ToString().PadLeft(3, '0') + Path.GetExtension(origName)));
+                }
+                catch { }
+            App.Settings.SavedByVersion = curVersion;
         }
 
         private static void PostBuildCheck(IPostBuildReporter rep)
