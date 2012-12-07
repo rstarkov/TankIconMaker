@@ -415,8 +415,8 @@
         <Old>Size</Old>
       </DisplayName>
       <Description>
-        <Translation>Schriftgröße.</Translation>
-        <Old>Font size.</Old>
+        <Translation>Bestimmt die Schriftgröße. Wenn „Breite“ und/oder „Höhe“ angegeben sind, ist dies die maximale Schriftgröße; der Text wird verkleinert, wenn er nicht passt.</Translation>
+        <Old>Specifies the font size. If “Width” and/or “Height” are specified, this is the maximum font size; the text may be made smaller to fit.</Old>
       </Description>
     </FontSize>
     <FontBold>
@@ -449,86 +449,6 @@
         <Old>Specifies the text color.</Old>
       </Description>
     </FontColor>
-    <Left>
-      <DisplayName>
-        <Translation>Rand links</Translation>
-        <Old>Left</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-Koordinate des linken Textrands. Keine Wirkung, wenn „Anker links“ deaktiviert ist.</Translation>
-        <Old>X coordinate of the leftmost text pixel. Ignored if "Left anchor" is unchecked.</Old>
-      </Description>
-    </Left>
-    <Right>
-      <DisplayName>
-        <Translation>Rand rechts</Translation>
-        <Old>Right</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-Koordinate des rechten Textrands. Keine Wirkung, wenn „Anker rechts“ deaktiviert ist.</Translation>
-        <Old>X coordinate of the rightmost text pixel. Ignored if "Right anchor" is unchecked.</Old>
-      </Description>
-    </Right>
-    <Top>
-      <DisplayName>
-        <Translation>Rand oben</Translation>
-        <Old>Top</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-Koordinate des oberen Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Anker oben“ deaktiviert ist.</Translation>
-        <Old>Y coordinate of the topmost text pixel (but see also "Align baselines"). Ignored if "Top anchor" is unchecked.</Old>
-      </Description>
-    </Top>
-    <Bottom>
-      <DisplayName>
-        <Translation>Rand unten</Translation>
-        <Old>Bottom</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-Koordinate des unteren Textrands (siehe „Grundlinien ausrichten“ bzgl. abweichender Bedeutung). Keine Wirkung, wenn „Anker unten“ deaktiviert ist.</Translation>
-        <Old>Y coordinate of the bottommost text pixel (but see also "Align baselines"). Ignored if "Bottom anchor" is unchecked.</Old>
-      </Description>
-    </Bottom>
-    <LeftAnchor>
-      <DisplayName>
-        <Translation>Anker links</Translation>
-        <Old>Left anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der linke Rand des Textes an der unter „Rand links“ angegebenen X-Koordinate verankert wird oder (falls „Anker rechts“ auch aktiviert ist) dass der Text zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
-        <Old>When checked, the leftmost pixel of the text is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the text is centered between "Left" and "Right".</Old>
-      </Description>
-    </LeftAnchor>
-    <RightAnchor>
-      <DisplayName>
-        <Translation>Anker rechts</Translation>
-        <Old>Right anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der rechte Rand des Textes an der unter „Rand rechts“ angegebenen X-Koordinate verankert wird oder (falls „Anker links“ auch aktiviert ist) dass der Text zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
-        <Old>When checked, the rightmost pixel of the text is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the text is centered between "Left" and "Right".</Old>
-      </Description>
-    </RightAnchor>
-    <TopAnchor>
-      <DisplayName>
-        <Translation>Anker oben</Translation>
-        <Old>Top anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der obere Rand des Textes an der unter „Rand oben“ angegebenen Y-Koordinate verankert wird oder (falls „Anker unten“ auch aktiviert ist) dass der Text zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
-        <Old>When checked, the topmost pixel of the text is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </TopAnchor>
-    <BottomAnchor>
-      <DisplayName>
-        <Translation>Anker unten</Translation>
-        <Old>Bottom anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der untere Rand des Textes an der unter „Rand unten“ angegebenen Y-Koordinate verankert wird oder (falls „Anker oben“ auch aktiviert ist) dass der Text zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
-        <Old>When checked, the bottommost pixel of the text is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the text is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </BottomAnchor>
     <Baseline>
       <DisplayName>
         <Translation>Grundlinien ausrichten</Translation>
@@ -536,9 +456,59 @@
       </DisplayName>
       <Description>
         <Translation>Betrachten Sie die Wörter „neun“ und „Neun“. Angenommen, sie sind am oberen Rand bei der Y-Koordinate 0 verankert. Ohne „Grundlinien ausrichten“ würde das Wort „neun“ ein wenig höher dargestellt, sodass es an den 0. Pixel heranragt. „Grundlinien ausrichten“ bewirkt, dass die Wörter an ihrer jeweiligen Grundlinie ausgerichtet werden, wodurch das Wort „neun“ weiter unten als beim 0. Pixel erscheint.</Translation>
-        <Old>Consider the words "more" and "More", top-anchored at pixel 0. If "Align baselines" is false, the word "more" will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of "more" will actually be below pixel 0.</Old>
+        <Old>Consider the words “more” and “More”, top-anchored at pixel 0. If “Align baselines” is false, the word “more” will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of “more” will actually be below pixel 0.</Old>
       </Description>
     </Baseline>
+    <Anchor>
+      <DisplayName>
+        <Translation>Anker</Translation>
+        <Old>Anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, wo — relativ zum „X“-/„Y“-Wert — der Text dargestellt werden soll.</Translation>
+        <Old>Specifies where the text should be positioned relative to the point specified by the “X” and “Y” values.</Old>
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die horizontale Koordinate des Ankerpunkts.</Translation>
+        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die vertikale Koordinate des Ankerpunkts. „Grundlinie“ bestimmt, ob diese Koordinate pixelgenau oder grundlinienausgerichtet ist.</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point. “Baseline” specifies whether this is pixel-perfect or baseline-consistent.</Old>
+      </Description>
+    </Y>
+    <Width>
+      <DisplayName>
+        <Translation>Breite</Translation>
+        <Old>Width</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Ein Wert größer als Null gibt an, dass die Textbreite diesen Wert (in Pixeln) nicht überschreiten darf. Die Schriftgröße wird verringert, wenn der Text nicht passt (aber nie erhöht).</Translation>
+        <Old>When greater than zero, specifies that the text must not be wider than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown.</Old>
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>Höhe</Translation>
+        <Old>Height</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Ein Wert größer als Null gibt an, dass die Texthöhe diesen Wert (in Pixeln) nicht überschreiten darf. Die Schriftgröße wird verringert, wenn der Text nicht passt (aber nie erhöht).</Translation>
+        <Old>When greater than zero, specifies that the text must not be taller than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown.</Old>
+      </Description>
+    </Height>
   </TextLayer>
   <PropertyTextLayer>
     <LayerName>
