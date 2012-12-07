@@ -163,7 +163,7 @@
     </ctDisplayModeClassArtillery>
     <ctDisplayModeClassDestroyer>
       <Translation>ПТ</Translation>
-      <Old>Tank destoryers</Old>
+      <Old>Tank destroyers</Old>
     </ctDisplayModeClassDestroyer>
     <ctDisplayModeCategoryNormal>
       <Translation>Обычный</Translation>
@@ -485,8 +485,8 @@
         <Old>Y</Old>
       </DisplayName>
       <Description>
-        <Translation>Указывает вертикальную координату точки привязки.</Translation>
-        <Old>Specifies the vertical coordinate of the anchor point.</Old>
+        <Translation>Указывает вертикальную координату точки привязки. Свойство «По линии шрифта» выбирает привязку либо к пикселям, либо к линии шрифта.</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point. “Baseline” specifies whether this is pixel-perfect or baseline-consistent.</Old>
       </Description>
     </Y>
     <Width>
@@ -646,8 +646,8 @@
       <Old>Normalize</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Нормализует яркость самого яркого пикселя с помощью автоматической подстройки контраста (т.е. черные цвета остаются черными). Также может нормализовать прозрачность и обесцветить изображение.</Translation>
-      <Old>Normalizes the brightness of the brightest pixels by automatically adjusting the contrast. Can also normalize the alpha channel and make the image grayscale.</Old>
+      <Translation>Нормализует яркость изображения с помощью автоматической подстройки контраста (т.е. черные цвета остаются черными). Также может нормализовать прозрачность и обесцветить изображение.</Translation>
+      <Old>Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.</Old>
     </EffectDescription>
     <Grayscale>
       <DisplayName>
@@ -655,8 +655,8 @@
         <Old>Grayscale</Old>
       </DisplayName>
       <Description>
-        <Translation>Если включен, слой будет обесцвечен (т.е. переведен в оттенки серого).</Translation>
-        <Old>When enabled, the image will be made grayscale (i.e. fully desaturated)</Old>
+        <Translation>Если включен, обесцвечивает слой (т.е. переводит его в оттенки серого).</Translation>
+        <Old>When enabled, the image is made grayscale (i.e. fully desaturated)</Old>
       </Description>
     </Grayscale>
     <NormalizeBrightness>
@@ -665,8 +665,8 @@
         <Old>Normalize brightness</Old>
       </DisplayName>
       <Description>
-        <Translation>Если включен, нормализует яркость самого яркого пикселя, приводя ее к значению “Макс. яркость”. Эффект достигается автоматическим изменением контрастности изображения, т.е. черные цвета остаются черынми.</Translation>
-        <Old>When enabled, the brightness of the brightest pixel in the layer will be normalized to the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly.</Old>
+        <Translation>Если включен, яркость слоя нормализуется таким образом, чтобы привести яркость самого яркого пикселя к значению “Макс. яркость”. Эффект достигается автоматическим изменением контрастности изображения, т.е. черные цвета остаются черынми.</Translation>
+        <Old>When enabled, the brightness in the layer is normalized such that the brightest pixel receives the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly.</Old>
       </Description>
     </NormalizeBrightness>
     <NormalizeAlpha>
@@ -675,8 +675,8 @@
         <Old>Normalize alpha</Old>
       </DisplayName>
       <Description>
-        <Translation>Если включен, нормализует альфа (прозрачность) самого непрозрачного пикселя, приводя ее к значению ”Макс. альфа”.</Translation>
-        <Old>When enabled, the alpha (transparency) of the most opaque pixel in the layer will be normalized to the “Max alpha” value.</Old>
+        <Translation>Если включен, альфа (прозрачность) слоя нормализуется таким образом, чтобы привести прозрачность самого непрозрачного пикселя к значению ”Макс. альфа”.</Translation>
+        <Old>When enabled, the alpha (opacity) in the layer is normalized such that the most opaque pixel receives the “Max alpha” value.</Old>
       </Description>
     </NormalizeAlpha>
     <MaxBrightness>
@@ -686,7 +686,7 @@
       </DisplayName>
       <Description>
         <Translation>Значение, к которому приводится яркость самого яркого пикселя при нормализации. Обычно в пределах 0..255, однако значения выше 255 также допускаются (слишком яркие цвета обрезаются на белом).</Translation>
-        <Old>The value to which the brightness of the brightest pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to white is acceptable.</Old>
+        <Old>The value to which the brightness of the brightest pixel is normalized. Normally 0 to 255. Values above 255 can be used if clipping to white is acceptable.</Old>
       </Description>
     </MaxBrightness>
     <MaxAlpha>
@@ -696,7 +696,7 @@
       </DisplayName>
       <Description>
         <Translation>Значение, к которому приводится альфа (прозрачность) самого непрозрачного пикселя при нормализации. Обычно в пределах 0..255, однако значения выше 255 также допускаются.</Translation>
-        <Old>The value to which the alpha (transparency) of the most opaque pixel will be normalized. Normally 0..255, however values above 255 can be used if clipping to fully opaque is acceptable.</Old>
+        <Old>The value to which the alpha (opacity) of the most opaque pixel is normalized. Normally 0 to 255. Values above 255 can be used if clipping to full opacity is acceptable.</Old>
       </Description>
     </MaxAlpha>
   </EffectNormalize>
