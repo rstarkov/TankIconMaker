@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Media.Imaging;
 using RT.Util.ExtensionMethods;
 using RT.Util.Lingo;
 using RT.Util.Xml;
@@ -231,7 +230,7 @@ namespace TankIconMaker
     class DataFileBuiltIn
     {
         /// <summary>Which game version this data file was made for.</summary>
-        public Version GameVersion { get; private set; }
+        public int GameVersion { get; private set; }
         /// <summary>The file version of this file.</summary>
         public int FileVersion { get; private set; }
 
@@ -241,11 +240,11 @@ namespace TankIconMaker
         /// <summary>For debugging.</summary>
         public override string ToString()
         {
-            return "BuiltIn-{0}-{1}".Fmt(GameVersion, FileVersion);
+            return "BuiltIn-#{0:0000}-{1}".Fmt(GameVersion, FileVersion);
         }
 
         /// <summary>Constructs an instance and parses the data from the specified file.</summary>
-        public DataFileBuiltIn(Version gameVersion, int fileVersion, string filename)
+        public DataFileBuiltIn(int gameVersion, int fileVersion, string filename)
         {
             GameVersion = gameVersion;
             FileVersion = fileVersion;
@@ -269,7 +268,7 @@ namespace TankIconMaker
         }
 
         /// <summary>Constructs an instance using the specified parameters and data.</summary>
-        public DataFileBuiltIn(Version gameVersion, int fileVersion, IEnumerable<TankData> data)
+        public DataFileBuiltIn(int gameVersion, int fileVersion, IEnumerable<TankData> data)
         {
             GameVersion = gameVersion;
             FileVersion = fileVersion;
@@ -286,7 +285,7 @@ namespace TankIconMaker
         public string Name { get; private set; }
         public string Language { get; private set; }
         public string Author { get; private set; }
-        public Version GameVersion { get; private set; }
+        public int GameVersion { get; private set; }
         public int FileVersion { get; private set; }
         public string Description { get; private set; }
         public string InheritsFromName { get; private set; }
@@ -300,7 +299,7 @@ namespace TankIconMaker
             return "{0}-{1}-{2}-{3}-{4}".Fmt(Name, Language, Author, GameVersion, FileVersion);
         }
 
-        public DataFileExtra(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
+        public DataFileExtra(string name, string language, string author, int gameVersion, int fileVersion, string filename)
         {
             Name = name;
             Language = language;
@@ -355,7 +354,7 @@ namespace TankIconMaker
             Data = data.ToList().AsReadOnly();
         }
 
-        protected DataFileExtra(string name, string language, string author, Version gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
+        protected DataFileExtra(string name, string language, string author, int gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
         {
             Name = name;
             Language = language;
@@ -538,10 +537,10 @@ namespace TankIconMaker
             public int NearestRoot;
             public DataFileExtra Result;
 
-            public DataFileExtra2(string name, string language, string author, Version gameVersion, int fileVersion, string filename)
+            public DataFileExtra2(string name, string language, string author, int gameVersion, int fileVersion, string filename)
                 : base(name, language, author, gameVersion, fileVersion, filename) { }
 
-            public DataFileExtra2(string name, string language, string author, Version gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
+            public DataFileExtra2(string name, string language, string author, int gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
                 : base(name, language, author, gameVersion, description, inhName, inhAuthor, inhLanguage) { }
         }
 
@@ -584,14 +583,14 @@ namespace TankIconMaker
             {
                 var parts = fi.Name.Substring(0, fi.Name.Length - 4).Split('-');
 
-                if (parts.Length != 2 && parts.Length != 3)
+                if (parts.Length != 2)
                 {
-                    _warnings.Add(App.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "2-3", parts.Length));
+                    _warnings.Add(App.Translation.Error.DataDir_Skip_WrongParts.Fmt(fi.Name, "2", parts.Length));
                     continue;
                 }
 
-                Version gameVersion;
-                if (!Version.TryParse(parts[1], out gameVersion))
+                int gameVersion;
+                if (!parts[1].StartsWith("#") || !int.TryParse(parts[1].Substring(1), out gameVersion))
                 {
                     _warnings.Add(App.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, parts[1]));
                     continue;
@@ -600,7 +599,7 @@ namespace TankIconMaker
                 try
                 {
                     var ver = XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName);
-                    ver.Version = new VersionId(gameVersion, parts.Length < 3 ? "" : parts[2]);
+                    ver.Version = new VersionId(gameVersion, "");
                     _versions.Add(ver);
                 }
                 catch (Exception e)
@@ -637,15 +636,15 @@ namespace TankIconMaker
                     continue;
                 }
 
-                Version gameVersion;
-                if (!Version.TryParse(partsr[1], out gameVersion))
+                int gameVersion;
+                if (!partsr[1].StartsWith("#") || !int.TryParse(partsr[1].Substring(1), out gameVersion))
                 {
                     _warnings.Add(App.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, partsr[1]));
                     continue;
                 }
 
                 int fileVersion;
-                if (partsr[0].Length != 3 || !int.TryParse(partsr[0], out fileVersion))
+                if (!int.TryParse(partsr[0], out fileVersion))
                 {
                     _warnings.Add(App.Translation.Error.DataDir_Skip_FileVersion.Fmt(fi.Name, partsr[0]));
                     continue;
@@ -923,62 +922,56 @@ namespace TankIconMaker
         Class
     }
 
-    /// <summary>Encapsulates a version identifier, allowing for a comparable part (like 0.7.3) and a unique part (like "test").</summary>
-    class VersionId : IComparable<VersionId>, IComparable<Version>
+    /// <summary>Encapsulates a game version identifier, allowing for a comparable part (like "#332") and a human-readable part (like "0.8.2 Common Test").</summary>
+    class VersionId : IComparable<VersionId>, IComparable<int>
     {
-        public Version Numeric { get; private set; }
-        public string Textual { get; private set; }
-        public override string ToString() { return Numeric + " " + Textual; }
+        public int BuildId { get; private set; }
+        public string Name { get; private set; }
+        public override string ToString() { return Name + "  #" + BuildId; }
 
         /// <summary>Constructor. For XmlClassify.</summary>
-        private VersionId() { Numeric = new Version(0, 0); Textual = "n/a"; }
+        private VersionId() { BuildId = 0; Name = "n/a"; }
 
-        /// <summary>Constructor.</summary>
-        public VersionId(Version numeric, string textual)
+        public VersionId(int buildId, string name)
         {
-            if (numeric == null || textual == null)
-                throw new ArgumentNullException();
-            Numeric = numeric;
-            Textual = textual;
+            if (name == null)
+                throw new ArgumentNullException("name");
+            BuildId = buildId;
+            Name = name;
         }
 
         public int CompareTo(VersionId other)
         {
             if (other == null)
                 throw new ArgumentNullException();
-            int result = this.Numeric.CompareTo(other.Numeric);
-            if (result != 0)
-                return result;
-            return this.Textual.CompareTo(other.Textual);
+            return this.BuildId.CompareTo(other.BuildId);
         }
 
-        public int CompareTo(Version other)
+        public int CompareTo(int otherBuildId)
         {
-            if (other == null)
-                throw new ArgumentNullException();
-            return this.Numeric.CompareTo(other);
+            return this.BuildId.CompareTo(otherBuildId);
         }
 
         public override bool Equals(object obj)
         {
             var other = obj as VersionId;
-            return obj != null && Numeric == other.Numeric && Textual == other.Textual;
+            return obj != null && BuildId == other.BuildId;
         }
 
         public override int GetHashCode()
         {
             int result = 47;
-            result = result * 17 + Numeric.GetHashCode();
-            result = result * 17 + Textual.GetHashCode();
+            result = result * 17 + BuildId.GetHashCode();
+            result = result * 17 + Name.GetHashCode();
             return result;
         }
 
-        public static bool operator >(VersionId a, Version b) { return a.Numeric.CompareTo(b) > 0; }
-        public static bool operator <(VersionId a, Version b) { return a.Numeric.CompareTo(b) < 0; }
-        public static bool operator >=(VersionId a, Version b) { return a.Numeric.CompareTo(b) >= 0; }
-        public static bool operator <=(VersionId a, Version b) { return a.Numeric.CompareTo(b) <= 0; }
-        public static bool operator >=(Version a, VersionId b) { return a.CompareTo(b.Numeric) >= 0; }
-        public static bool operator <=(Version a, VersionId b) { return a.CompareTo(b.Numeric) <= 0; }
+        public static bool operator >(VersionId a, int b) { return a.BuildId.CompareTo(b) > 0; }
+        public static bool operator <(VersionId a, int b) { return a.BuildId.CompareTo(b) < 0; }
+        public static bool operator >=(VersionId a, int b) { return a.BuildId.CompareTo(b) >= 0; }
+        public static bool operator <=(VersionId a, int b) { return a.BuildId.CompareTo(b) <= 0; }
+        public static bool operator >=(int a, VersionId b) { return a.CompareTo(b.BuildId) >= 0; }
+        public static bool operator <=(int a, VersionId b) { return a.CompareTo(b.BuildId) <= 0; }
         public static bool operator >(VersionId a, VersionId b) { return a.CompareTo(b) > 0; }
         public static bool operator <(VersionId a, VersionId b) { return a.CompareTo(b) < 0; }
         public static bool operator >=(VersionId a, VersionId b) { return a.CompareTo(b) >= 0; }
@@ -1017,7 +1010,7 @@ namespace TankIconMaker
         /// <summary>A string expected inside the <see cref="CheckFileName"/> file. A match means that this is probably the right game version.</summary>
         public string CheckFileContent { get; private set; }
 
-        /// <summary>Specifies whether the tank images should be loaded and saved as PNG (if true) or TGA (if false).</summary>
+        /// <summary>Specifies whether the tank images should be loaded and saved as PNG or TGA.</summary>
         public string TankIconExtension { get; private set; }
 
         /// <summary>Constructor, for use by XmlClassify.</summary>

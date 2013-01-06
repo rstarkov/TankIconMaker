@@ -608,7 +608,7 @@ namespace TankIconMaker
         [LingoNotes("The DataFile_* errors are interpolated into this string in place of \"{1}\".")]
         public TrString DataDir_Skip_FileError = "Skipped \"{0}\" because the file could not be parsed: {1}";
         public TrString DataDir_Skip_GameVersion = "Skipped \"{0}\" because it has an unparseable game version part in the filename: \"{1}\".";
-        public TrString DataDir_Skip_FileVersion = "Skipped \"{0}\" because it has an unparseable file version part in the filename: \"{1}\" (or it isn't exactly 3 digits long).";
+        public TrString DataDir_Skip_FileVersion = "Skipped \"{0}\" because it has an unparseable file version part in the filename: \"{1}\".";
         public TrString DataDir_Skip_Author = "Skipped \"{0}\" because it has an empty author part in the filename.";
         public TrString DataDir_Skip_PropName = "Skipped \"{0}\" because it has an empty property name part in the filename.";
         public TrString DataDir_Skip_Lang = "Skipped \"{0}\" because its language name part in the filename (\"{1}\") is not a valid language code, nor \"X\" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.";
