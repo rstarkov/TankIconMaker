@@ -66,7 +66,7 @@ namespace TankIconMaker
         /// <summary>A short description of the property.</summary>
         public string Description { get; private set; }
         /// <summary>Which game version was this data file made for.</summary>
-        public Version GameVersion { get; private set; }
+        public int GameVersion { get; private set; }
         /// <summary>The last data file version used to construct this source.</summary>
         public int FileVersion { get; private set; }
 
