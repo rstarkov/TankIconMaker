@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <item>
-  <DisplayName>0.8.2</DisplayName>
   <PathMods>res_mods\0.8.2</PathMods>
   <PathDestination>res_mods\0.8.2\gui\maps\icons\vehicle\contour</PathDestination>
   <PathSourceContour>res\packages\gui.pkg:gui\maps\icons\vehicle\contour</PathSourceContour>
@@ -21,7 +20,5 @@
     <item key="Destroyer">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_atspg.png</item>
     <item key="Artillery">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_spg.png</item>
   </PathSourceClass>
-  <CheckFileName>WOTLauncher.cfg</CheckFileName>
-  <CheckFileContent>&lt;client_ver&gt;82.1973&lt;/client_ver&gt;</CheckFileContent>
   <TankIconExtension>.png</TankIconExtension>
 </item>

@@ -103,8 +103,6 @@
                         <Rectangle Width="10" Height="4" Fill="Red" Stroke="DarkRed" SnapsToDevicePixels="True"/>
                     </Button>
                 </Grid>
-                <Label Padding="3,6,0,0" Target="{Binding ElementName=ctGameVersion}" Name="ctGameVersionLabel">_Game version:</Label>
-                <ComboBox Name="ctGameVersion"></ComboBox>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=ctStyleDropdown}" Name="ctIconStyleLabel">_Icon style:</Label>
                 <ComboBox Name="ctStyleDropdown"/>
                 <DockPanel Margin="0,8,0,0">

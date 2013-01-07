@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.Win32;
 using RT.Util;
 using RT.Util.ExtensionMethods;
@@ -99,16 +100,55 @@ namespace TankIconMaker
             }
         }
 
-        /// <summary>Attempts to locate the World of Tanks installation directory. Returns the root of the C: drive in case of failure.</summary>
-        public static string FindTanksDirectory()
+        /// <summary>
+        /// Enumerates the full paths to each installation of World of Tanks that can be found in the registry. Enumerates only those directories which exist,
+        /// but does not verify that there is a valid WoT installation at that path.
+        /// </summary>
+        public static IEnumerable<string> EnumerateGameInstallations()
         {
-            string path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{1EAC1D02-C6AC-4FA6-9A44-96258C37C812}_is1", "InstallLocation", null) as string;
-            if (path == null)
-                path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{1EAC1D02-C6AC-4FA6-9A44-96258C37C812}_is1", "InstallLocation", null) as string;
-            if (path == null || !Directory.Exists(path))
-                return "C:\\"; // could do a more thorough search through the Uninstall keys - not sure if the GUID is fixed or not.
-            else
-                return path.TrimEnd('\\');
+            var paths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                using (var installs1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", writable: false))
+                using (var installs2 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall", writable: false))
+                {
+                    var keys = new[] { installs1, installs2 }.SelectMany(ins => ins.GetSubKeyNames().Select(name => new { Key = ins, Name = name }));
+                    foreach (var item in keys)
+                    {
+                        try
+                        {
+                            using (var key = item.Key.OpenSubKey(item.Name))
+                                paths.Add(key.GetValue("InstallLocation") as string);
+                        }
+                        catch { }
+                    }
+                }
+            }
+            catch { }
+
+            paths.RemoveWhere(p => p == null || !Directory.Exists(p));
+            return paths;
+        }
+
+        /// <summary>Reads the game version for an installation at the specified path. If this can't be done for any reason, returns null.</summary>
+        public static int? ReadGameVersionId(string gameInstallationPath, out string versionName)
+        {
+            try
+            {
+                var xml = XDocument.Parse(File.ReadAllText(Path.Combine(gameInstallationPath, "version.xml")));
+                var version = xml.Root.Element("version");
+
+                var m = Regex.Match(version.Value, @"^\s*(v\.)?(?<name>.*?)\s+#(?<build>\d+)\s*$");
+                if (!m.Success)
+                    throw new Exception("Cannot parse version string: " + version.Value);
+                versionName = m.Groups["name"].Value;
+                return int.Parse(m.Groups["build"].Value);
+            }
+            catch
+            {
+                versionName = null;
+                return null;
+            }
         }
 
         /// <summary>

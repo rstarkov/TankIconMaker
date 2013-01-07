@@ -503,30 +503,12 @@ namespace TankIconMaker
         private List<string> _warnings = new List<string>();
 
         /// <summary>
-        /// Gets game version information for a specific game version. Returns null if there is no exact match for this version.
+        /// Gets game version configuration appropriate for a game with the specified build ID. Returns null if none are appropriate
+        /// (e.g. none are available at all, or there isn't one with the build ID of zero).
         /// </summary>
-        public GameVersion GetVersion(VersionId version)
+        public GameVersion GetVersion(int version)
         {
-            return _versions.SingleOrDefault(v => v.Version == version);
-        }
-
-        /// <summary>Gets game version information for the latest defined version. Returns null if none are defined.</summary>
-        public GameVersion GetLatestVersion()
-        {
-            GameVersion max = null;
-            foreach (var gv in _versions)
-                if (max == null || gv.Version > max.Version)
-                    max = gv;
-            return max;
-        }
-
-        /// <summary>Gets game version information for whichever version appears to be installed at the specified path (or latest version if can’t determine that).</summary>
-        public GameVersion GetGuessedVersion(string path)
-        {
-            return _versions
-                .Where(v => File.Exists(Path.Combine(path, v.CheckFileName)) && Ut.FileContains(Path.Combine(path, v.CheckFileName), v.CheckFileContent))
-                .OrderByDescending(v => v.Version)
-                .FirstOrDefault() ?? GetLatestVersion();
+            return _versions.Where(v => v.Version <= version).MaxElementOrDefault(v => v.Version);
         }
 
         /// <summary>Represents an "extra" data file during loading, including all the extra info required to properly resolve inheritance.</summary>
@@ -599,7 +581,7 @@ namespace TankIconMaker
                 try
                 {
                     var ver = XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName);
-                    ver.Version = new VersionId(gameVersion, "");
+                    ver.Version = gameVersion;
                     _versions.Add(ver);
                 }
                 catch (Exception e)
@@ -922,75 +904,14 @@ namespace TankIconMaker
         Class
     }
 
-    /// <summary>Encapsulates a game version identifier, allowing for a comparable part (like "#332") and a human-readable part (like "0.8.2 Common Test").</summary>
-    class VersionId : IComparable<VersionId>, IComparable<int>
-    {
-        public int BuildId { get; private set; }
-        public string Name { get; private set; }
-        public override string ToString() { return Name + "  #" + BuildId; }
-
-        /// <summary>Constructor. For XmlClassify.</summary>
-        private VersionId() { BuildId = 0; Name = "n/a"; }
-
-        public VersionId(int buildId, string name)
-        {
-            if (name == null)
-                throw new ArgumentNullException("name");
-            BuildId = buildId;
-            Name = name;
-        }
-
-        public int CompareTo(VersionId other)
-        {
-            if (other == null)
-                throw new ArgumentNullException();
-            return this.BuildId.CompareTo(other.BuildId);
-        }
-
-        public int CompareTo(int otherBuildId)
-        {
-            return this.BuildId.CompareTo(otherBuildId);
-        }
-
-        public override bool Equals(object obj)
-        {
-            var other = obj as VersionId;
-            return obj != null && BuildId == other.BuildId;
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 47;
-            result = result * 17 + BuildId.GetHashCode();
-            result = result * 17 + Name.GetHashCode();
-            return result;
-        }
-
-        public static bool operator >(VersionId a, int b) { return a.BuildId.CompareTo(b) > 0; }
-        public static bool operator <(VersionId a, int b) { return a.BuildId.CompareTo(b) < 0; }
-        public static bool operator >=(VersionId a, int b) { return a.BuildId.CompareTo(b) >= 0; }
-        public static bool operator <=(VersionId a, int b) { return a.BuildId.CompareTo(b) <= 0; }
-        public static bool operator >=(int a, VersionId b) { return a.CompareTo(b.BuildId) >= 0; }
-        public static bool operator <=(int a, VersionId b) { return a.CompareTo(b.BuildId) <= 0; }
-        public static bool operator >(VersionId a, VersionId b) { return a.CompareTo(b) > 0; }
-        public static bool operator <(VersionId a, VersionId b) { return a.CompareTo(b) < 0; }
-        public static bool operator >=(VersionId a, VersionId b) { return a.CompareTo(b) >= 0; }
-        public static bool operator <=(VersionId a, VersionId b) { return a.CompareTo(b) <= 0; }
-        public static bool operator ==(VersionId a, VersionId b) { return (a == (object) null && b == (object) null) || (a != (object) null && a.Equals(b)); }
-        public static bool operator !=(VersionId a, VersionId b) { return !(a == b); }
-    }
-
     /// <summary>
-    /// Represents some settings for a particular game version.
+    /// Holds various tweakable properties which have historically changed between game versions.
     /// </summary>
     sealed class GameVersion
     {
-        /// <summary>The version of the game that this applies to. This property is deduced from file name, rather than its content.</summary>
+        /// <summary>These properties first apply in the game whose build ID is this. This property is deduced from file name, rather than its content.</summary>
         [XmlIgnore]
-        public VersionId Version { get; internal set; }
-
-        /// <summary>How this version should be displayed in the UI - allowing for oddities like "0.7.1b" or "0.7.1.1.1.1".</summary>
-        public string DisplayName { get; private set; }
+        public int Version { get; internal set; }
 
         /// <summary>Relative path to the root directory containing modding-related files for this specific version.</summary>
         public string PathMods { get; private set; }
@@ -1005,23 +926,10 @@ namespace TankIconMaker
         public Dictionary<Country, string> PathSourceCountry { get; private set; }
         public Dictionary<Class, string> PathSourceClass { get; private set; }
 
-        /// <summary>Relative path to a file whose size can be checked to auto-guess the game version.</summary>
-        public string CheckFileName { get; private set; }
-        /// <summary>A string expected inside the <see cref="CheckFileName"/> file. A match means that this is probably the right game version.</summary>
-        public string CheckFileContent { get; private set; }
-
         /// <summary>Specifies whether the tank images should be loaded and saved as PNG or TGA.</summary>
         public string TankIconExtension { get; private set; }
 
         /// <summary>Constructor, for use by XmlClassify.</summary>
-        private GameVersion()
-        {
-            PathSourceCountry = new Dictionary<Country, string>();
-            PathSourceClass = new Dictionary<Class, string>();
-            TankIconExtension = ".tga"; // default, if unspecified, for compatibility with older versions
-        }
-
-        /// <summary>Returns the display name of this game version.</summary>
-        public override string ToString() { return DisplayName; }
+        private GameVersion() { }
     }
 }

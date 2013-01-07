@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Media;
 using RT.Util;
 using RT.Util.Forms;
 using RT.Util.Lingo;
+using RT.Util.Xml;
 using WpfCrutches;
 
 namespace TankIconMaker
@@ -46,7 +48,7 @@ namespace TankIconMaker
         public ObservableSortedList<Style> Styles = new ObservableSortedList<Style>();
 
         /// <summary>The last selected game install location.</summary>
-        public string SelectedGamePath = Ut.FindTanksDirectory();
+        public string SelectedGamePath = Ut.EnumerateGameInstallations().FirstOrDefault();
 
         /// <summary>Specifies the name of the selected background file, or ":checkered" / ":solid" for these special backgrounds.</summary>
         public string Background = "Ruinberg (Руинберг).jpg";
@@ -94,6 +96,7 @@ namespace TankIconMaker
         public GameInstallationSettings(string path)
         {
             _path = path;
+            ReloadGameVersion();
         }
 
         /// <summary>Absolute path to the root of this game installation.</summary>
@@ -103,33 +106,37 @@ namespace TankIconMaker
         }
         private string _path;
 
-        /// <summary>The version of the game that is located at this path. Null iff there are no game versions defined at all.</summary>
+        /// <summary>The version of the game that is located at this path. Null if game version could not be detected or no suitable configuration available.</summary>
         public GameVersion GameVersion
         {
-            get { return App.Data.GetVersion(_version) ?? App.Data.GetGuessedVersion(_path); }
-            set
-            {
-                if (value == null)
-                    return;
-                _version = value.Version;
-                PropertyChanged(this, new PropertyChangedEventArgs("GameVersion"));
-                PropertyChanged(this, new PropertyChangedEventArgs("DisplayName"));
-            }
+            get { return GameVersionId == null ? null : App.Data.GetVersion(GameVersionId.Value); }
         }
-        private VersionId _version;
+
+        [XmlIgnore]
+        public int? GameVersionId { get; private set; }
+        [XmlIgnore]
+        public string GameVersionName { get; private set; }
+
+        public void ReloadGameVersion()
+        {
+            string gameVersionName; // sigh... :( This is so ugly.
+            GameVersionId = Ut.ReadGameVersionId(Path, out gameVersionName);
+            GameVersionName = gameVersionName;
+            PropertyChanged(this, new PropertyChangedEventArgs("DisplayName"));
+        }
 
         /// <summary>The value displayed in the drop-down.</summary>
-        public string DisplayName { get { return (GameVersion == null ? "" : (GameVersion.DisplayName + ":  ")) + _path; } }
+        public string DisplayName { get { return (GameVersionName ?? "?") + ":  " + Path; } }
         public override string ToString() { return DisplayName; }
 
         public int CompareTo(GameInstallationSettings other)
         {
             if (other == null) return 1;
-            if (_version == null && other._version == null)
+            if (GameVersionId == null && other.GameVersionId == null)
                 return 0;
-            if (_version == null || other._version == null)
-                return other._version == null ? 1 : -1;
-            int result = -_version.CompareTo(other._version);
+            if (GameVersionId == null || other.GameVersionId == null)
+                return other.GameVersionId == null ? 1 : -1;
+            int result = -GameVersionId.Value.CompareTo(other.GameVersionId.Value);
             if (result != 0)
                 return result;
             return string.Compare(Path, other.Path);
