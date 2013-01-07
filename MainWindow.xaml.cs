@@ -161,15 +161,10 @@ namespace TankIconMaker
 
             // Guess the location/version of the game and add to the list of paths if it’s empty
             if (App.Settings.GameInstalls.Count == 0)
-            {
-                App.Settings.GameInstalls.Add(GuessTanksLocationAndVersion());
-                App.Settings.SaveThreaded();
-            }
+                AddGameInstallations();
 
             ctGamePath.ItemsSource = App.Settings.GameInstalls;
             ctGamePath.DisplayMemberPath = "DisplayName";
-            ctGameVersion.ItemsSource = App.Data.Versions; // currently empty because we haven’t loaded it yet
-            ctGameVersion.DisplayMemberPath = "DisplayName";
 
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ColorSelector), ExpandableObject = true });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ValueSelector<>), ExpandableObject = true });
@@ -180,25 +175,13 @@ namespace TankIconMaker
             ReloadData(first: true);
 
             // Set WPF bindings now that all the data we need is loaded
-            BindingOperations.SetBinding(ctAddGamePath, Button.IsEnabledProperty, LambdaBinding.New(
-                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
-                (int index, bool filesAvailable) => filesAvailable
-            ));
             BindingOperations.SetBinding(ctRemoveGamePath, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
-                (int index, bool filesAvailable) => index >= 0 && filesAvailable
+                (int index) => index >= 0
             ));
             BindingOperations.SetBinding(ctGamePath, ComboBox.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
-                (int index, bool filesAvailable) => index >= 0 && filesAvailable
-            ));
-            BindingOperations.SetBinding(ctGameVersion, ComboBox.IsEnabledProperty, LambdaBinding.New(
-                new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
-                new Binding { Source = App.Data, Path = new PropertyPath("FilesAvailable") },
-                (int index, bool filesAvailable) => index >= 0 && filesAvailable
+                (int index) => index >= 0
             ));
             BindingOperations.SetBinding(ctStyleDropdown, ComboBox.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = ctGamePath, Path = new PropertyPath(ComboBox.SelectedIndexProperty) },
@@ -227,7 +210,6 @@ namespace TankIconMaker
             var selectedInstall = App.Settings.GameInstalls.FirstOrDefault(gis => gis.Path.EqualsNoCase(App.Settings.SelectedGamePath))
                 ?? App.Settings.GameInstalls.FirstOrDefault();
             ctGamePath.SelectedItem = selectedInstall;
-            ctGameVersion.SelectedItem = selectedInstall.NullOr(gis => gis.GameVersion);
 
             // Another day, another WPF crutch... http://stackoverflow.com/questions/3921712
             ctLayersTree.PreviewMouseDown += (_, __) => { FocusManager.SetFocusedElement(this, ctLayersTree); };
@@ -239,7 +221,6 @@ namespace TankIconMaker
             ctStyleDropdown.SelectionChanged += ctStyleDropdown_SelectionChanged;
             ctLayerProperties.PropertyValueChanged += ctLayerProperties_PropertyValueChanged;
             ctDisplayMode.SelectionChanged += ctDisplayMode_SelectionChanged;
-            ctGameVersion.SelectionChanged += ctGameVersion_SelectionChanged;
             ctGamePath.SelectionChanged += ctGamePath_SelectionChanged;
             ctGamePath.PreviewKeyDown += ctGamePath_PreviewKeyDown;
             ctLayersTree.SelectedItemChanged += (_, e) => { _updatePropertiesTimer.Stop(); _updatePropertiesTimer.Start(); };
@@ -342,14 +323,16 @@ namespace TankIconMaker
             foreach (var warning in App.Data.Warnings)
                 _dataWarnings.Add(warning);
 
+            // Re-detect game versions
+            foreach (var gameInstallation in App.Settings.GameInstalls.ToList()) // grab a list of all items because the source auto-resorts on changes
+                gameInstallation.ReloadGameVersion();
+
             // Yes, this stuff is a bit WinForms'sy...
             var gis = GetInstallationSettings();
             ctGamePath.Items.Refresh();
-            ctGameVersion.Items.Refresh();
             if (gis != null)
             {
-                ctGameVersion.SelectedItem = gis.GameVersion;
-                UpdateDataSources(gis.GameVersion.Version);
+                UpdateDataSources(gis.GameVersionId.Value);
                 ctStyleDropdown_SelectionChanged();
             }
             else
@@ -369,7 +352,7 @@ namespace TankIconMaker
         /// <summary>
         /// Updates the list of data sources currently available to be used in the icon maker. 
         /// </summary>
-        private void UpdateDataSources(VersionId version)
+        private void UpdateDataSources(int version)
         {
             foreach (var item in App.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
             {
@@ -832,27 +815,9 @@ namespace TankIconMaker
                 yield return max;
         }
 
-        private void ctGameVersion_SelectionChanged(object _, SelectionChangedEventArgs args)
-        {
-            var added = args.AddedItems.OfType<GameVersion>().ToList();
-            if (added.Count != 1)
-                return;
-
-            var gis = GetInstallationSettings();
-            if (gis == null)
-                return;
-            gis.GameVersion = added.First();
-            ctGamePath.SelectedItem = gis;
-            SaveSettings();
-            UpdateDataSources(gis.GameVersion.Version);
-            _renderResults.Clear();
-            ScheduleUpdateIcons();
-        }
-
         private void ctGamePath_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var gis = GetInstallationSettings();
-            ctGameVersion.SelectedItem = gis.NullOr(g => g.GameVersion);
             if (gis == null)
                 return;
             App.Settings.SelectedGamePath = gis.Path;
@@ -1154,34 +1119,30 @@ namespace TankIconMaker
 
         private void AddGamePath(object _, RoutedEventArgs __)
         {
-            GameInstallationSettings gis;
-
             // Add the very first path differently: by guessing where the game is installed
             if (App.Settings.GameInstalls.Count == 0)
             {
-                gis = GuessTanksLocationAndVersion();
-            }
-            else
-            {
-                var dlg = new VistaFolderBrowserDialog();
-                gis = GetInstallationSettings();
-                if (gis != null && Directory.Exists(gis.Path))
-                    dlg.SelectedPath = gis.Path;
-                if (dlg.ShowDialog() != true)
-                    return;
-
-                var best = App.Data.Versions.Where(v => File.Exists(Path.Combine(dlg.SelectedPath, v.CheckFileName))).ToList();
-                if (best.Count == 0)
+                AddGameInstallations();
+                if (App.Settings.GameInstalls.Count > 0)
                 {
-                    if (DlgMessage.ShowWarning(App.Translation.Prompt.GameNotFound_Prompt,
-                        App.Translation.Prompt.GameNotFound_Ignore, App.Translation.Prompt.Cancel) == 1)
-                        return;
+                    ctGamePath.SelectedItem = App.Settings.GameInstalls.MaxElement(gi => gi.GameVersionId ?? 0);
+                    return;
                 }
-                var version = best.Where(v => Ut.FileContains(Path.Combine(dlg.SelectedPath, v.CheckFileName), v.CheckFileContent))
-                    .OrderByDescending(v => v.Version)
-                    .FirstOrDefault();
+            }
 
-                gis = new GameInstallationSettings(path: dlg.SelectedPath) { GameVersion = version ?? App.Data.GetLatestVersion() };
+            var dlg = new VistaFolderBrowserDialog();
+            var gis = GetInstallationSettings();
+            if (gis != null && Directory.Exists(gis.Path))
+                dlg.SelectedPath = gis.Path;
+            if (dlg.ShowDialog() != true)
+                return;
+
+            gis = new GameInstallationSettings(dlg.SelectedPath);
+            if (gis.GameVersionId == null)
+            {
+                if (DlgMessage.ShowWarning(App.Translation.Prompt.GameNotFound_Prompt,
+                    App.Translation.Prompt.GameNotFound_Ignore, App.Translation.Prompt.Cancel) == 1)
+                    return;
             }
 
             App.Settings.GameInstalls.Add(gis);
@@ -1216,15 +1177,13 @@ namespace TankIconMaker
         }
 
         /// <summary>
-        /// Creates and returns a new instance of <see cref="GameInstallationSettings"/>, pointing to the most likely location of
-        /// the World of Tanks installation, and either the exact matching game version or the latest of the versions we support.
+        /// Finds all installations of World of Tanks on the user's computer and adds them to the list of installations.
         /// </summary>
-        private GameInstallationSettings GuessTanksLocationAndVersion()
+        private void AddGameInstallations()
         {
-            var path = Ut.FindTanksDirectory();
-            var version = App.Data.GetGuessedVersion(path);
-
-            return new GameInstallationSettings(path) { GameVersion = version ?? App.Data.GetLatestVersion() };
+            foreach (var path in Ut.EnumerateGameInstallations())
+                App.Settings.GameInstalls.Add(new GameInstallationSettings(path));
+            App.Settings.SaveThreaded();
         }
 
         private void ctStyleMore_Click(object sender, RoutedEventArgs e)
