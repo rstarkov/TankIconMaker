@@ -540,17 +540,6 @@ namespace TankIconMaker
                 readDataFiles(path);
             }
 
-            // Remove versions that have no built-in data files available
-            if (_builtIn.Any() && _versions.Any())
-            {
-                var minBuiltin = _builtIn.Min(b => b.GameVersion);
-                foreach (var version in _versions.Where(v => v.Version < minBuiltin).ToArray())
-                {
-                    _versions.Remove(version);
-                    _warnings.Add(App.Translation.Error.DataDir_Skip_NoBuiltIns.Fmt(version, "Data\\GameVersion-{0}.xml".Fmt(version)));
-                }
-            }
-
             FilesAvailable = _builtIn.Any() && _versions.Any();
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs("FilesAvailable"));

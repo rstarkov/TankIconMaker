@@ -603,7 +603,6 @@ namespace TankIconMaker
         public TrString DataFile_CsvParse = "Couldn't parse line {0}.";
 
         public TrString DataDir_NoFilesAvailable = "Could not load any game version data files and/or any built-in property data files.";
-        public TrString DataDir_Skip_NoBuiltIns = "Skipped version {0} because there are no built-in property data files for it to use. Delete the \"{1}\" file to get rid of this warning.";
         public TrString DataDir_Skip_WrongParts = "Skipped \"{0}\" because it has the wrong number of filename parts (expected: {1}, actual {2}).";
         [LingoNotes("The DataFile_* errors are interpolated into this string in place of \"{1}\".")]
         public TrString DataDir_Skip_FileError = "Skipped \"{0}\" because the file could not be parsed: {1}";

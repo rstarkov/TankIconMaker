@@ -731,7 +731,7 @@ namespace TankIconMaker
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
         private List<RenderTask> ListRenderTasks(GameInstallationSettings gameInstall, bool all = false)
         {
-            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(b => b.GameVersion);
+            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= gameInstall.GameVersionId).MaxOrDefault(b => b.GameVersion);
             if (builtin == null)
                 return new List<RenderTask>(); // happens when there are no built-in data files
 
@@ -763,7 +763,7 @@ namespace TankIconMaker
             }
 
             var extras = App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
-                .Select(g => g.Where(df => df.GameVersion <= gameInstall.GameVersion.Version).MaxOrDefault(df => df.GameVersion))
+                .Select(g => g.Where(df => df.GameVersion <= gameInstall.GameVersionId).MaxOrDefault(df => df.GameVersion))
                 .Where(df => df != null).ToList();
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
                 .Select(tank =>
