@@ -71,11 +71,11 @@ namespace TankIconMaker.Layers
                 return null;
 
             var image = ImageCache.GetImage(PathUtil.AppPathCombine(filename));
-            if (image == null && App.LastGameInstallSettings != null)
+            if (image == null && App.Settings.ActiveInstallation != null)
             {
-                image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods, filename));
+                image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods, filename));
                 if (image == null)
-                    image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, filename));
+                    image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, filename));
             }
             if (image == null)
             {
@@ -112,11 +112,11 @@ namespace TankIconMaker.Layers
                 return null;
 
             var image = ImageCache.GetImage(PathUtil.AppPathCombine(filename));
-            if (image == null && App.LastGameInstallSettings != null)
+            if (image == null && App.Settings.ActiveInstallation != null)
             {
-                image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods, filename));
+                image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods, filename));
                 if (image == null)
-                    image = ImageCache.GetImage(Path.Combine(App.LastGameInstallSettings.Path, filename));
+                    image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, filename));
             }
             if (image == null)
             {

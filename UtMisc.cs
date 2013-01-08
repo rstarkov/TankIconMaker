@@ -113,7 +113,7 @@ namespace TankIconMaker
                 using (var installs2 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall", writable: false))
                 {
                     var keys = new[] { installs1, installs2 }.SelectMany(ins => ins.GetSubKeyNames().Select(name => new { Key = ins, Name = name }));
-                    foreach (var item in keys)
+                    foreach (var item in keys.Where(k => k.Name.StartsWith("{1EAC1D02-C6AC-4FA6-9A44-96258C37")))
                     {
                         try
                         {
@@ -266,18 +266,18 @@ namespace TankIconMaker
                     return PathUtil.ToggleRelative(PathUtil.AppPath, path);
             }
             catch { }
-            if (App.LastGameInstallSettings == null)
+            if (App.Settings.ActiveInstallation == null || App.Settings.ActiveInstallation.GameVersion == null)
                 return path;
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods)))
-                    return PathUtil.ToggleRelative(Path.Combine(App.LastGameInstallSettings.Path, App.LastGameInstallSettings.GameVersion.PathMods), path);
+                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods)))
+                    return PathUtil.ToggleRelative(Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods), path);
             }
             catch { }
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, App.LastGameInstallSettings.Path))
-                    return PathUtil.ToggleRelative(App.LastGameInstallSettings.Path, path);
+                if (PathUtil.IsSubpathOfOrSame(path, App.Settings.ActiveInstallation.Path))
+                    return PathUtil.ToggleRelative(App.Settings.ActiveInstallation.Path, path);
             }
             catch { }
             return path;

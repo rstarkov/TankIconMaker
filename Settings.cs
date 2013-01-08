@@ -16,7 +16,7 @@ namespace TankIconMaker
     /// <see cref="SaveThreaded"/>, which is designed to be callable efficiently multiple times in a row.
     /// </summary>
     [Settings("TankIconMaker2", SettingsKind.UserSpecific)]
-    sealed class Settings : SettingsThreadedBase
+    sealed class Settings : SettingsThreadedBase, IXmlClassifyProcess
     {
         /// <summary>Stores the program version that was used to save this settings file.</summary>
         public int SavedByVersion = 17; // this feature was introduced in v018, so default to 17 for "everything before that".
@@ -47,9 +47,6 @@ namespace TankIconMaker
         /// <summary>A list of all the available user styles. Built-in styles are not stored in the settings file.</summary>
         public ObservableSortedList<Style> Styles = new ObservableSortedList<Style>();
 
-        /// <summary>The last selected game install location.</summary>
-        public string SelectedGamePath = Ut.EnumerateGameInstallations().FirstOrDefault();
-
         /// <summary>Specifies the name of the selected background file, or ":checkered" / ":solid" for these special backgrounds.</summary>
         public string Background = "Ruinberg (Руинберг).jpg";
         public Color BackgroundCheckeredColor1 = Color.FromRgb(0xC0, 0xC0, 0xC0);
@@ -66,13 +63,41 @@ namespace TankIconMaker
         public string DefaultPropertyAuthor = "Wargaming";
 
         /// <summary>Settings that are specific to a game installation path.</summary>
-        public ObservableSortedList<GameInstallationSettings> GameInstalls = new ObservableSortedList<GameInstallationSettings>();
+        public ObservableSortedList<GameInstallationSettings> GameInstallations = new ObservableSortedList<GameInstallationSettings>();
+
+        /// <summary>The authoritative source on which of the game installations the user has activated in the UI. May be null if no game installations are listed.</summary>
+        public GameInstallationSettings ActiveInstallation;
 
         protected override SettingsThreadedBase CloneForSaveThreaded()
         {
             var result = (Settings) MemberwiseClone();
             return result;
         }
+
+        #region Upgrade-related
+
+        void IXmlClassifyProcess.AfterXmlDeclassify()
+        {
+            // Added in v019
+            if (SavedByVersion < 19 && GameInstalls != null)
+                GameInstallations = GameInstalls;
+            if (SavedByVersion < 19 && SelectedGamePath != null)
+                ActiveInstallation = GameInstallations.Where(gi => gi.Path.EqualsNoCase(SelectedGamePath)).FirstOrDefault() ?? GameInstallations.FirstOrDefault();
+            GameInstalls = null;
+            SelectedGamePath = null;
+        }
+
+        void IXmlClassifyProcess.BeforeXmlClassify()
+        {
+        }
+
+        // Fields obsoleted in v019
+        [XmlIgnoreIfDefault]
+        private ObservableSortedList<GameInstallationSettings> GameInstalls;
+        [XmlIgnoreIfDefault]
+        private string SelectedGamePath;
+
+        #endregion
     }
 
     /// <summary>Specifies which tank icons are to be displayed in the preview area.</summary>
@@ -135,7 +160,7 @@ namespace TankIconMaker
             if (GameVersionId == null && other.GameVersionId == null)
                 return 0;
             if (GameVersionId == null || other.GameVersionId == null)
-                return other.GameVersionId == null ? 1 : -1;
+                return other.GameVersionId == null ? -1 : 1;
             int result = -GameVersionId.Value.CompareTo(other.GameVersionId.Value);
             if (result != 0)
                 return result;
