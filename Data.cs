@@ -28,7 +28,6 @@ namespace TankIconMaker
         private Dictionary<ExtraPropertyId, string> _extras;
 
         private GameInstallationSettings _gameInstall;
-        private GameVersion _gameVersion;
         private Action<string> _addWarning;
 
         protected Tank() { }
@@ -37,12 +36,14 @@ namespace TankIconMaker
         /// <param name="tank">Tank data to copy into this instance.</param>
         /// <param name="extras">All the extra properties available for this tank and this game version.</param>
         /// <param name="gameInstall">Game install settings (to allow loading standard tank images).</param>
-        /// <param name="gameVersion">Game version info (to allow loading standard tank images).</param>
         /// <param name="addWarning">The method to be used to add warnings about this tank's rendering.</param>
         public Tank(TankData tank, IEnumerable<KeyValuePair<ExtraPropertyId, string>> extras,
-            GameInstallationSettings gameInstall, GameVersion gameVersion, Action<string> addWarning)
+            GameInstallationSettings gameInstall, Action<string> addWarning)
         {
-            if (gameInstall == null || gameVersion == null) throw new ArgumentNullException();
+            if (gameInstall == null)
+                throw new ArgumentNullException();
+            if (gameInstall.GameVersion == null)
+                throw new InvalidOperationException("This game installation doesn't have a valid version configuration.");
             SystemId = tank.SystemId;
             Country = tank.Country;
             Tier = tank.Tier;
@@ -53,7 +54,6 @@ namespace TankIconMaker
                 foreach (var extra in extras)
                     _extras.Add(extra.Key, extra.Value);
             _gameInstall = gameInstall;
-            _gameVersion = gameVersion;
             _addWarning = addWarning;
         }
 
@@ -121,18 +121,19 @@ namespace TankIconMaker
         /// <summary>Gets a built-in image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
         public virtual BitmapBase GetImageBuiltIn(ImageBuiltInStyle style)
         {
+            var gameVersion = _gameInstall.GameVersion;
             switch (style)
             {
                 case ImageBuiltInStyle.Contour:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceContour, SystemId + _gameVersion.TankIconExtension));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSourceContour, SystemId + gameVersion.TankIconExtension));
                 case ImageBuiltInStyle.ThreeD:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3D, SystemId + _gameVersion.TankIconExtension));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSource3D, SystemId + gameVersion.TankIconExtension));
                 case ImageBuiltInStyle.ThreeDLarge:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSource3DLarge, SystemId + _gameVersion.TankIconExtension));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSource3DLarge, SystemId + gameVersion.TankIconExtension));
                 case ImageBuiltInStyle.Country:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceCountry[Country]));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSourceCountry[Country]));
                 case ImageBuiltInStyle.Class:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathSourceClass[Class]));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSourceClass[Class]));
                 default:
                     throw new Exception("9174876");
             }
@@ -141,7 +142,8 @@ namespace TankIconMaker
         /// <summary>Gets the currently saved icon image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
         public virtual BitmapBase GetImageCurrent()
         {
-            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, _gameVersion.PathDestination, SystemId + _gameVersion.TankIconExtension))
+            var gameVersion = _gameInstall.GameVersion;
+            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathDestination, SystemId + gameVersion.TankIconExtension))
                 ?? GetImageBuiltIn(ImageBuiltInStyle.Contour);
         }
     }
