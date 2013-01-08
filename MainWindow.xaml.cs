@@ -426,7 +426,7 @@ namespace TankIconMaker
                 return;
 
             var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
-            var renderTasks = ListRenderTasks(App.Settings.ActiveInstallation);
+            var renderTasks = ListRenderTasks();
 
             var style = (Style) ctStyleDropdown.SelectedItem;
             foreach (var layer in style.Layers)
@@ -746,9 +746,9 @@ namespace TankIconMaker
         /// of the tanks if the user chose a smaller subset in the GUI.
         /// </summary>
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
-        private List<RenderTask> ListRenderTasks(GameInstallationSettings gameInstall, bool all = false)
+        private List<RenderTask> ListRenderTasks(bool all = false)
         {
-            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= gameInstall.GameVersionId).MaxOrDefault(b => b.GameVersion);
+            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersion);
             if (builtin == null)
                 return new List<RenderTask>(); // happens when there are no built-in data files
 
@@ -780,7 +780,7 @@ namespace TankIconMaker
             }
 
             var extras = App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
-                .Select(g => g.Where(df => df.GameVersion <= gameInstall.GameVersionId).MaxOrDefault(df => df.GameVersion))
+                .Select(g => g.Where(df => df.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(df => df.GameVersion))
                 .Where(df => df != null).ToList();
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
                 .Select(tank =>
@@ -793,8 +793,7 @@ namespace TankIconMaker
                             key: new ExtraPropertyId(df.Name, df.Language, df.Author),
                             value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
                         )),
-                        gameInstall: gameInstall,
-                        gameVersion: gameInstall.GameVersion,
+                        gameInstall: App.Settings.ActiveInstallation,
                         addWarning: task.AddWarning
                     );
                     return task;
@@ -1029,7 +1028,7 @@ namespace TankIconMaker
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
                 var style = (Style) ctStyleDropdown.SelectedItem;
-                var renderTasks = ListRenderTasks(gameInstall, all: true);
+                var renderTasks = ListRenderTasks(all: true);
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
