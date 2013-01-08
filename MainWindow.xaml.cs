@@ -859,7 +859,7 @@ namespace TankIconMaker
             }
             _renderResults.Clear();
             ScheduleUpdateIcons();
-            App.Settings.SaveThreaded();
+            SaveSettings();
         }
 
         private void ctDisplayMode_SelectionChanged(object _, SelectionChangedEventArgs __)
@@ -898,7 +898,7 @@ namespace TankIconMaker
                 {
                     App.Settings.BackgroundCheckeredColor1 = Color.FromRgb(0xc0, 0xc0, 0xc0);
                     App.Settings.BackgroundCheckeredColor2 = Color.FromRgb(0xa0, 0xa0, 0xa0);
-                    App.Settings.SaveThreaded();
+                    SaveSettings();
                     ApplyBackgroundColors();
                 };
                 menu.Items.Add(menuitem);
@@ -913,7 +913,7 @@ namespace TankIconMaker
                 menuitem.Click += delegate
                 {
                     App.Settings.BackgroundSolidColor = Color.FromRgb(0x80, 0xc0, 0xff);
-                    App.Settings.SaveThreaded();
+                    SaveSettings();
                     ApplyBackgroundColors();
                 };
                 menu.Items.Add(menuitem);
@@ -987,7 +987,7 @@ namespace TankIconMaker
                 return;
             color = dlg.Color.ToColorWpf();
             App.Settings.CustomColors = dlg.CustomColors;
-            App.Settings.SaveThreaded();
+            SaveSettings();
         }
 
         private void ctLanguage_Click(object _, EventArgs __)
@@ -1107,7 +1107,7 @@ namespace TankIconMaker
                 return;
             _overwriteAccepted = null; // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
-            App.Settings.SaveThreaded();
+            SaveSettings();
             saveIcons(App.Settings.SaveToFolderPath);
         }
 
@@ -1154,7 +1154,7 @@ namespace TankIconMaker
             }
 
             App.Settings.GameInstallations.Add(gis);
-            App.Settings.SaveThreaded();
+            SaveSettings();
 
             ctGamePath.SelectedItem = gis; // this triggers all the necessary work, like updating ActiveInstallation and re-rendering
         }
@@ -1177,7 +1177,7 @@ namespace TankIconMaker
         {
             foreach (var path in Ut.EnumerateGameInstallations())
                 App.Settings.GameInstallations.Add(new GameInstallationSettings(path));
-            App.Settings.SaveThreaded();
+            SaveSettings();
         }
 
         private void ctStyleMore_Click(object sender, RoutedEventArgs e)
@@ -1545,7 +1545,7 @@ namespace TankIconMaker
 
             App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
-            App.Settings.SaveThreaded();
+            SaveSettings();
         }
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
