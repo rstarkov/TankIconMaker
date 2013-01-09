@@ -33,10 +33,6 @@
       <Translation>Spielver_zeichnis:</Translation>
       <Old>Game _directory:</Old>
     </ctGameDirLabel>
-    <ctGameVersionLabel>
-      <Translation>Spiel_version:</Translation>
-      <Old>_Game version:</Old>
-    </ctGameVersionLabel>
     <ctIconStyleLabel>
       <Translation>Symbol_design:</Translation>
       <Old>_Icon style:</Old>
@@ -1513,10 +1509,6 @@
       <Translation>_OK</Translation>
       <Old>_OK</Old>
     </PromptWindowOK>
-    <GamePathRequired>
-      <Translation>Bitte geben Sie zuerst ein Spielverzeichnis an (oben links, grüne Plus-Schaltfläche), in dem TankIconMaker die Symbole speichern soll.</Translation>
-      <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
-    </GamePathRequired>
     <OverwriteIcons_Prompt>
       <Translation encoding="c-literal">Sollen die bisherigen Symbole überschrieben werden?\r\n\r\nPfad: {0}\r\n\r\nWarnung: ALLE {1}-Dateien in diesem Verzeichnis werden überschrieben. Diese Aktion kann NICHT rückgängig gemacht werden.</Translation>
       <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
@@ -1677,10 +1669,6 @@
       <Translation>Keine Spielversionsdatendateien und/oder eingebauten Datendateien gefunden.</Translation>
       <Old>Could not load any game version data files and/or any built-in property data files.</Old>
     </DataDir_NoFilesAvailable>
-    <DataDir_Skip_NoBuiltIns>
-      <Translation>Version {0} wurde übersprungen, weil dafür keine eingebauten Eigenschaftendatendateien verfügbar sind. Löschen Sie die Datei „{1}“, um diese Warnung zu entfernen.</Translation>
-      <Old>Skipped version {0} because there are no built-in property data files for it to use. Delete the "{1}" file to get rid of this warning.</Old>
-    </DataDir_Skip_NoBuiltIns>
     <DataDir_Skip_WrongParts>
       <Translation>„{0}“ wurde übersprungen, weil die Anzahl der Dateinamenelemente nicht stimmt (erwartet: {1}, erhalten: {2})</Translation>
       <Old>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Old>
@@ -1694,8 +1682,8 @@
       <Old>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Old>
     </DataDir_Skip_GameVersion>
     <DataDir_Skip_FileVersion>
-      <Translation>„{0}“ wurde übersprungen, weil die Dateiversion im Dateinamen nicht verarbeitet werden konnte: „{1}“ (sie muss genau 3 Ziffern lang sein).</Translation>
-      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}" (or it isn't exactly 3 digits long).</Old>
+      <Translation>„{0}“ wurde übersprungen, weil die Dateiversion im Dateinamen nicht verarbeitet werden konnte: „{1}“.</Translation>
+      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}".</Old>
     </DataDir_Skip_FileVersion>
     <DataDir_Skip_Author>
       <Translation>„{0}“ wurde übersprungen, weil der Autor-Teil im Dateinamen leer ist.</Translation>
@@ -1733,6 +1721,26 @@
       <Translation encoding="c-literal">Keine Versionsdatendateien und/oder eingebaute Eigenschaftendatendateien gefunden. Sorgen Sie dafür, dass die Dateien im folgenden Pfad vorhanden sind:\r\n\r\n{0}</Translation>
       <Old encoding="c-literal">Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}</Old>
     </NoDataFilesWarning>
+    <DataMissing_NoDataFiles>
+      <Translation>Keine Versionsdatendateien und/oder eingebaute Eigenschaftendatendateien gefunden.</Translation>
+      <Old>Found no version files and/or no built-in property data files.</Old>
+    </DataMissing_NoDataFiles>
+    <DataMissing_NoWotInstallation>
+      <Translation>Im angegebenen Verzeichnis wurde keine unterstützte Installation von World of Tanks erkannt.</Translation>
+      <Old>Failed to detect a supported World of Tanks installation at this path.</Old>
+    </DataMissing_NoWotInstallation>
+    <DataMissing_WotVersionTooOld>
+      <Translation>Diese Version von World of Tanks ({0}) wird nicht unterstützt, weil keine geeigneten Konfigurationsdateien verfügbar sind.</Translation>
+      <Old>This version of World of Tanks ({0}) is not supported because no suitable configuration files are available.</Old>
+    </DataMissing_WotVersionTooOld>
+    <DataMissing_NoInstallationSelected>
+      <Translation>Wählen Sie eine Installation des Spiels aus oder fügen Sie mithilfe der grünen [+]-Schaltfläche eine neue hinzu.</Translation>
+      <Old>Select a game installation above or add a new one using the green [+] button.</Old>
+    </DataMissing_NoInstallationSelected>
+    <DataMissing_DirNotFound>
+      <Translation>Dieses Verzeichnis existiert nicht.</Translation>
+      <Old>This directory does not exist.</Old>
+    </DataMissing_DirNotFound>
     <RenderWithErrors>
       <Translation>Einige der Panzersymbole wurden nicht korrekt erzeugt; wählen Sie die Ansicht „Alle Panzer“ und klicken Sie auf die fehlerhaften Symbole, um Details abzurufen.</Translation>
       <Old>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Old>
