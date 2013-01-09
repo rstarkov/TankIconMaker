@@ -127,9 +127,9 @@ namespace TankIconMaker
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Delete, cmdStyle_Delete, (_, a) => { a.CanExecute = cmdStyle_UserStyleSelected(); }));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeName, cmdStyle_ChangeName, (_, a) => { a.CanExecute = cmdStyle_UserStyleSelected(); }));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.ChangeAuthor, cmdStyle_ChangeAuthor, (_, a) => { a.CanExecute = cmdStyle_UserStyleSelected(); }));
-            CommandBindings.Add(new CommandBinding(TankStyleCommands.Duplicate, cmdStyle_Duplicate, (_, a) => { a.CanExecute = ctStyleDropdown.SelectedItem is Style; }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Duplicate, cmdStyle_Duplicate));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Import, cmdStyle_Import));
-            CommandBindings.Add(new CommandBinding(TankStyleCommands.Export, cmdStyle_Export, (_, a) => { a.CanExecute = ctStyleDropdown.SelectedItem is Style; }));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Export, cmdStyle_Export));
 
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
@@ -145,19 +145,20 @@ namespace TankIconMaker
 
             _warningImage = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Graphics/warning.png"));
 
-            // Compose the built-in styles and user styles and put them into the UI
+            // Styles: build the combined built-in and user-defined styles collection
             var styles = new CompositeCollection<Style>();
             RecreateBuiltInStyles();
             styles.AddCollection(_builtinStyles);
             styles.AddCollection(App.Settings.Styles);
+            // Styles: update the active style
+            if (App.Settings.ActiveStyle == null)
+                App.Settings.ActiveStyle = _builtinStyles.First();
+            else if (!App.Settings.Styles.Contains(App.Settings.ActiveStyle))
+                App.Settings.ActiveStyle = styles.FirstOrDefault(s => s.Name == App.Settings.ActiveStyle.Name && s.Author == App.Settings.ActiveStyle.Author) ?? _builtinStyles.First();
+            // Styles: configure the UI control
             ctStyleDropdown.ItemsSource = styles;
             ctStyleDropdown.DisplayMemberPath = "Display";
-
-            // Locate the closest match for the maker that was selected last time the program was run
-            ctStyleDropdown.SelectedItem = styles.OfType<Style>()
-                .OrderBy(s => s.ToString() == App.Settings.SelectedStyleNameAndAuthor ? 0 : 1)
-                .ThenBy(s => styles.IndexOf(s))
-                .FirstOrDefault();
+            ctStyleDropdown.SelectedItem = App.Settings.ActiveStyle;
 
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ColorSelector), ExpandableObject = true });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ValueSelector<>), ExpandableObject = true });
@@ -247,7 +248,7 @@ namespace TankIconMaker
                 App.Translation.DlgMessage.CaptionWarning,
                 App.Translation.DlgMessage.CaptionError);
 
-            foreach (var style in ctStyleDropdown.Items.OfType<Style>()) // this includes the built-in styles too
+            foreach (var style in ctStyleDropdown.Items.OfType<Style>()) // this includes the built-in styles too, unlike App.Settings.Styles
                 style.TranslationChanged();
 
             if (!first)
@@ -428,7 +429,7 @@ namespace TankIconMaker
             var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
             var renderTasks = ListRenderTasks();
 
-            var style = (Style) ctStyleDropdown.SelectedItem;
+            var style = App.Settings.ActiveStyle;
             foreach (var layer in style.Layers)
                 TestLayer(layer, App.Settings.ActiveInstallation);
 
@@ -726,15 +727,14 @@ namespace TankIconMaker
         private void ctStyleDropdown_SelectionChanged(object sender = null, SelectionChangedEventArgs __ = null)
         {
             _renderResults.Clear();
-            var style = (Style) ctStyleDropdown.SelectedItem;
-            ctUpvote.Visibility = style.Kind == StyleKind.BuiltIn ? Visibility.Visible : Visibility.Collapsed;
-            App.Settings.SelectedStyleNameAndAuthor = style.ToString();
+            App.Settings.ActiveStyle = (Style) ctStyleDropdown.SelectedItem;
+            ctUpvote.Visibility = App.Settings.ActiveStyle.Kind == StyleKind.BuiltIn ? Visibility.Visible : Visibility.Collapsed;
             SaveSettings();
-            ctLayersTree.ItemsSource = style.Layers;
-            if (style.Layers.Count > 0)
+            ctLayersTree.ItemsSource = App.Settings.ActiveStyle.Layers;
+            if (App.Settings.ActiveStyle.Layers.Count > 0)
             {
-                style.Layers[0].TreeViewItem.IsSelected = true;
-                ctLayerProperties.SelectedObject = style.Layers[0];
+                App.Settings.ActiveStyle.Layers[0].TreeViewItem.IsSelected = true;
+                ctLayerProperties.SelectedObject = App.Settings.ActiveStyle.Layers[0];
             }
             else
                 ctLayerProperties.SelectedObject = null;
@@ -850,8 +850,7 @@ namespace TankIconMaker
 
         private void ctLayerProperties_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
-            if (style.Kind != StyleKind.User)
+            if (App.Settings.ActiveStyle.Kind != StyleKind.User)
             {
                 GetEditableStyle(); // duplicate the style
                 RecreateBuiltInStyles();
@@ -1027,7 +1026,7 @@ namespace TankIconMaker
 
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
-                var style = (Style) ctStyleDropdown.SelectedItem;
+                var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
                 var renderTasks = ListRenderTasks(all: true);
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
@@ -1188,7 +1187,7 @@ namespace TankIconMaker
 
         private void ctUpvote_Click(object sender, RoutedEventArgs e)
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
+            var style = App.Settings.ActiveStyle;
             if (style.Kind != StyleKind.BuiltIn)
             {
                 DlgMessage.ShowInfo(App.Translation.Prompt.Upvote_BuiltInOnly);
@@ -1225,37 +1224,39 @@ namespace TankIconMaker
         /// </summary>
         private Style GetEditableStyle()
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
-            if (style.Kind != StyleKind.User)
+            if (App.Settings.ActiveStyle.Kind == StyleKind.User)
+                return App.Settings.ActiveStyle;
+            // Otherwise the active style is not editable. We must clone it, make the clone the active style, and cause as few changes
+            // in the UI as possible.
+
+            // Remember what was expanded and selected
+            var layer = ctLayersTree.SelectedItem as LayerBase;
+            var effect = ctLayersTree.SelectedItem as EffectBase;
+            int selectedLayerIndex = layer == null && effect == null ? -1 : App.Settings.ActiveStyle.Layers.IndexOf(layer ?? effect.Layer);
+            int selectedEffectIndex = effect == null ? -1 : effect.Layer.Effects.IndexOf(effect);
+            var expandedIndexes = App.Settings.ActiveStyle.Layers.Select((l, i) => l.TreeViewItem.IsExpanded ? i : -1).Where(i => i >= 0).ToArray();
+            // Duplicate
+            var style = App.Settings.ActiveStyle.Clone();
+            style.Kind = StyleKind.User;
+            style.Name = App.Translation.Misc.NameOfCopied.Fmt(style.Name);
+            App.Settings.Styles.Add(style);
+            ctStyleDropdown.SelectedItem = style;
+            SaveSettings();
+            // Re-select/expand
+            foreach (var i in expandedIndexes)
+                style.Layers[i].TreeViewItem.IsExpanded = true;
+            Dispatcher.Invoke((Action) delegate // must let the TreeView think about this before we can set IsSelected
             {
-                // Remember what was expanded and selected
-                var layer = ctLayersTree.SelectedItem as LayerBase;
-                var effect = ctLayersTree.SelectedItem as EffectBase;
-                int selectedLayerIndex = layer == null && effect == null ? -1 : style.Layers.IndexOf(layer ?? effect.Layer);
-                int selectedEffectIndex = effect == null ? -1 : effect.Layer.Effects.IndexOf(effect);
-                var expandedIndexes = style.Layers.Select((l, i) => l.TreeViewItem.IsExpanded ? i : -1).Where(i => i >= 0).ToArray();
-                // Duplicate
-                style = style.Clone();
-                style.Kind = StyleKind.User;
-                style.Name = App.Translation.Misc.NameOfCopied.Fmt(style.Name);
-                App.Settings.Styles.Add(style);
-                ctStyleDropdown.SelectedItem = style;
-                SaveSettings();
-                // Re-select/expand
-                foreach (var i in expandedIndexes)
-                    style.Layers[i].TreeViewItem.IsExpanded = true;
-                Dispatcher.Invoke((Action) delegate // must let the TreeView think about this before we can set IsSelected
+                layer = selectedLayerIndex < 0 ? null : style.Layers[selectedLayerIndex];
+                effect = selectedEffectIndex < 0 ? null : layer.Effects[selectedEffectIndex];
+                var tvi = effect != null ? effect.TreeViewItem : layer != null ? layer.TreeViewItem : null;
+                if (tvi != null)
                 {
-                    layer = selectedLayerIndex < 0 ? null : style.Layers[selectedLayerIndex];
-                    effect = selectedEffectIndex < 0 ? null : layer.Effects[selectedEffectIndex];
-                    var tvi = effect != null ? effect.TreeViewItem : layer != null ? layer.TreeViewItem : null;
-                    if (tvi != null)
-                    {
-                        tvi.IsSelected = true;
-                        tvi.BringIntoView();
-                    }
-                }, DispatcherPriority.Background);
-            }
+                    tvi.IsSelected = true;
+                    tvi.BringIntoView();
+                }
+            }, DispatcherPriority.Background);
+
             return style;
         }
 
@@ -1406,7 +1407,7 @@ namespace TankIconMaker
         {
             if (ctLayersTree.SelectedItem == null)
                 return false;
-            var style = ctStyleDropdown.SelectedItem as Style;
+            var style = App.Settings.ActiveStyle;
             var layer = ctLayersTree.SelectedItem as LayerBase;
             var effect = ctLayersTree.SelectedItem as EffectBase;
             if (layer != null)
@@ -1467,14 +1468,12 @@ namespace TankIconMaker
 
         private bool cmdStyle_UserStyleSelected()
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
-            if (style == null) return false;
-            return style.Kind == StyleKind.User;
+            return App.Settings.ActiveStyle.Kind == StyleKind.User;
         }
 
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
+            var style = App.Settings.ActiveStyle; // because it will have changed by the time we're ready to remove it from the list of styles
             if (DlgMessage.ShowQuestion(App.Translation.Prompt.DeleteStyle_Prompt.Fmt(style.Name), App.Translation.Prompt.DeleteStyle_Yes, App.Translation.Prompt.Cancel) == 1)
                 return;
             if (ctStyleDropdown.SelectedIndex < ctStyleDropdown.Items.Count - 1)
@@ -1487,32 +1486,29 @@ namespace TankIconMaker
 
         private void cmdStyle_ChangeName(object sender, ExecutedRoutedEventArgs e)
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
-            var name = PromptWindow.ShowPrompt(this, style.Name, App.Translation.Prompt.RenameStyle_Title, App.Translation.Prompt.RenameStyle_Label);
+            var name = PromptWindow.ShowPrompt(this, App.Settings.ActiveStyle.Name, App.Translation.Prompt.RenameStyle_Title, App.Translation.Prompt.RenameStyle_Label);
             if (name == null)
                 return;
-            style.Name = name;
+            App.Settings.ActiveStyle.Name = name;
             SaveSettings();
         }
 
         private void cmdStyle_ChangeAuthor(object sender, ExecutedRoutedEventArgs e)
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
-            var author = PromptWindow.ShowPrompt(this, style.Author, App.Translation.Prompt.ChangeAuthor_Title, App.Translation.Prompt.ChangeAuthor_Label);
+            var author = PromptWindow.ShowPrompt(this, App.Settings.ActiveStyle.Author, App.Translation.Prompt.ChangeAuthor_Title, App.Translation.Prompt.ChangeAuthor_Label);
             if (author == null)
                 return;
-            style.Author = author;
+            App.Settings.ActiveStyle.Author = author;
             SaveSettings();
         }
 
         private void cmdStyle_Duplicate(object sender, ExecutedRoutedEventArgs e)
         {
-            var style = ctStyleDropdown.SelectedItem as Style;
-            var name = PromptWindow.ShowPrompt(this, App.Translation.Misc.NameOfCopied.Fmt(style.Name),
+            var name = PromptWindow.ShowPrompt(this, App.Translation.Misc.NameOfCopied.Fmt(App.Settings.ActiveStyle.Name),
                 App.Translation.Prompt.DuplicateStyle_Title, App.Translation.Prompt.DuplicateStyle_Label);
             if (name == null)
                 return;
-            style = style.Clone();
+            var style = App.Settings.ActiveStyle.Clone();
             style.Kind = StyleKind.User;
             style.Name = name;
             App.Settings.Styles.Add(style);
@@ -1559,7 +1555,7 @@ namespace TankIconMaker
             var filename = dlg.FileName;
             if (!filename.ToLower().EndsWith(".xml"))
                 filename += ".xml";
-            XmlClassify.SaveObjectToXmlFile(ctStyleDropdown.SelectedItem, typeof(Style), filename);
+            XmlClassify.SaveObjectToXmlFile(App.Settings.ActiveStyle, filename);
             DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
         }
     }

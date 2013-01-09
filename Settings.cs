@@ -41,12 +41,6 @@ namespace TankIconMaker
         /// <summary>The path last used with the "Save to folder" command.</summary>
         public string SaveToFolderPath = null;
 
-        /// <summary>The name and author of the last used maker.</summary>
-        public string SelectedStyleNameAndAuthor;
-
-        /// <summary>A list of all the available user styles. Built-in styles are not stored in the settings file.</summary>
-        public ObservableSortedList<Style> Styles = new ObservableSortedList<Style>();
-
         /// <summary>Specifies the name of the selected background file, or ":checkered" / ":solid" for these special backgrounds.</summary>
         public string Background = "Ruinberg (Руинберг).jpg";
         public Color BackgroundCheckeredColor1 = Color.FromRgb(0xC0, 0xC0, 0xC0);
@@ -68,6 +62,16 @@ namespace TankIconMaker
         /// <summary>The authoritative source on which of the game installations the user has activated in the UI. May be null if no game installations are listed.</summary>
         public GameInstallationSettings ActiveInstallation;
 
+        /// <summary>A list of all the available user styles. Built-in styles are not stored in the settings file.</summary>
+        public ObservableSortedList<Style> Styles = new ObservableSortedList<Style>();
+
+        /// <summary>
+        /// The authoritative source on which of the game styles the user has activated in the UI. This is only null on first run, until the initialization
+        /// has finished. Note that this may also be set to a built-in style, even though those aren't stored in <see cref="Styles"/>; in this case,
+        /// the correct built-in style instance is substituted on startup by matching the style name.
+        /// </summary>
+        public Style ActiveStyle;
+
         protected override SettingsThreadedBase CloneForSaveThreaded()
         {
             var result = (Settings) MemberwiseClone();
@@ -83,8 +87,12 @@ namespace TankIconMaker
                 GameInstallations = GameInstalls;
             if (SavedByVersion < 19 && SelectedGamePath != null)
                 ActiveInstallation = GameInstallations.Where(gi => gi.Path.EqualsNoCase(SelectedGamePath)).FirstOrDefault() ?? GameInstallations.FirstOrDefault();
+            if (SavedByVersion < 19 && SelectedStyleNameAndAuthor != null)
+                // This is a fairly approximate match but this way at least some users will see the right style still selected. The old property was too lossy to allow for reliable matching.
+                ActiveStyle = Styles.FirstOrDefault(s => SelectedStyleNameAndAuthor.Contains(s.Name) && SelectedStyleNameAndAuthor.Contains(s.Author));
             GameInstalls = null;
             SelectedGamePath = null;
+            SelectedStyleNameAndAuthor = null;
         }
 
         void IXmlClassifyProcess.BeforeXmlClassify()
@@ -96,6 +104,8 @@ namespace TankIconMaker
         private ObservableSortedList<GameInstallationSettings> GameInstalls;
         [XmlIgnoreIfDefault]
         private string SelectedGamePath;
+        [XmlIgnoreIfDefault]
+        private string SelectedStyleNameAndAuthor;
 
         #endregion
     }
