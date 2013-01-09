@@ -38,7 +38,7 @@ namespace TankIconMaker
         private ObservableValue<bool> _rendering = new ObservableValue<bool>(false);
         private ObservableValue<bool> _dataMissing = new ObservableValue<bool>(false);
         private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
-        private ObservableCollection<string> _otherWarnings = new ObservableCollection<string>();
+        private ObservableCollection<Warning> _otherWarnings = new ObservableCollection<Warning>();
 
         private LanguageHelperWpfOld<Translation> _translationHelper;
 
@@ -488,24 +488,11 @@ namespace TankIconMaker
             _rendering.Value = false;
 
             // Update the warning messages
-            string warning = App.Translation.Error.RenderWithErrors;
-            bool need = _renderResults.Values.Any(rr => rr.Exception != null);
-            bool have = _otherWarnings.Contains(warning);
-            if (need && !have)
-                _otherWarnings.Add(warning);
-            else if (have && !need)
-                _otherWarnings.Remove(warning);
-
-            if (!need)
-            {
-                warning = App.Translation.Error.RenderWithWarnings;
-                need = _renderResults.Values.Any(rr => rr.WarningsCount > 0);
-                have = _otherWarnings.Contains(warning);
-                if (need && !have)
-                    _otherWarnings.Add(warning);
-                else if (have && !need)
-                    _otherWarnings.Remove(warning);
-            }
+            _otherWarnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
+            if (_renderResults.Values.Any(rr => rr.Exception != null))
+                _otherWarnings.Add(new Warning_RenderedWithErrWarn(App.Translation.Error.RenderWithErrors));
+            else if (_renderResults.Values.Any(rr => rr.WarningsCount > 0))
+                _otherWarnings.Add(new Warning_RenderedWithErrWarn(App.Translation.Error.RenderWithWarnings));
 
             // Clean up all those temporary images we've just created and won't be doing again for a while.
             // (this keeps "private bytes" when idle 10-15 MB lower)
@@ -519,8 +506,7 @@ namespace TankIconMaker
         private void TestLayer(LayerBase layer, GameInstallationSettings gameInstall)
         {
             // Test missing extra properties
-            string missingExtraProperties = "when presented with a tank that is missing some \"extra\" properties"; // A bit of a quick hack, but should do the job
-            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains(missingExtraProperties)).FirstOrDefault());
+            _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingExtra);
             try
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
@@ -530,15 +516,14 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 if (!(e is StyleUserError))
-                    _otherWarnings.Add(("The layer {0} is buggy: it throws a {1} " + missingExtraProperties + ". Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name));
+                    _otherWarnings.Add(new Warning_LayerTest_MissingExtra(("The layer {0} is buggy: it throws a {1} when presented with a tank that is missing some \"extra\" properties. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
                 // The maker must not throw when properties are missing: firstly, for configurable properties the user could select "None"
                 // from the drop-down, and secondly, hard-coded properties could simply be missing altogether.
                 // (although this could, of course, be a bug in TankIconMaker itself)
             }
 
             // Test unexpected property values
-            string unexpectedProperty = "possibly due to a property value it didn't expect"; // A bit of a quick hack, but should do the job
-            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains(unexpectedProperty)).FirstOrDefault());
+            _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_UnexpectedProperty);
             try
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
@@ -549,14 +534,13 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 if (!(e is StyleUserError))
-                    _otherWarnings.Add(("The layer {0} is buggy: it throws a {1} " + unexpectedProperty + ". Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name));
+                    _otherWarnings.Add(new Warning_LayerTest_UnexpectedProperty(("The layer {0} is buggy: it throws a {1} possibly due to a property value it didn't expect. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
                 // The maker must not throw for unexpected property values: it could issue a warning using tank.AddWarning.
                 // (although this could, of course, be a bug in TankIconMaker itself)
             }
 
             // Test missing images
-            string missingImages = "when some of the standard images cannot be found"; // A bit of a quick hack, but should do the job
-            _otherWarnings.Remove(_otherWarnings.Where(w => w.Contains(missingImages)).FirstOrDefault());
+            _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingImage);
             try
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
@@ -566,7 +550,7 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 if (!(e is StyleUserError))
-                    _otherWarnings.Add(("The layer {0} is buggy: it throws a {1} " + missingImages + ". Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name));
+                    _otherWarnings.Add(new Warning_LayerTest_MissingImage(("The layer {0} is buggy: it throws a {1} when some of the standard images cannot be found. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
                 // The maker must not throw if the images are missing: it could issue a warning using tank.AddWarning though.
                 // (although this could, of course, be a bug in TankIconMaker itself)
             }
@@ -1000,7 +984,7 @@ namespace TankIconMaker
 
         private void ctWarning_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DlgMessage.ShowWarning(string.Join("\n\n", _dataWarnings.Concat(_otherWarnings).Select(s => "• " + s)));
+            DlgMessage.ShowWarning(string.Join("\n\n", _dataWarnings.Concat(_otherWarnings.Select(w => w.Text)).Select(s => "• " + s)));
         }
 
         private void ctReload_Click(object sender, RoutedEventArgs e)
@@ -1558,6 +1542,16 @@ namespace TankIconMaker
             XmlClassify.SaveObjectToXmlFile(App.Settings.ActiveStyle, filename);
             DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
         }
+
+        private abstract class Warning
+        {
+            public string Text { get; protected set; }
+            public override string ToString() { return Text; }
+        }
+        private sealed class Warning_LayerTest_MissingExtra : Warning { public Warning_LayerTest_MissingExtra(string text) { Text = text; } }
+        private sealed class Warning_LayerTest_UnexpectedProperty : Warning { public Warning_LayerTest_UnexpectedProperty(string text) { Text = text; } }
+        private sealed class Warning_LayerTest_MissingImage : Warning { public Warning_LayerTest_MissingImage(string text) { Text = text; } }
+        private sealed class Warning_RenderedWithErrWarn : Warning { public Warning_RenderedWithErrWarn(string text) { Text = text; } }
     }
 
     static class TankLayerCommands
