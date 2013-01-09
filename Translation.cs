@@ -619,6 +619,11 @@ namespace TankIconMaker
         public TrString DataDir_Skip_InhCircular = "Skipped \"{0}\" due to a circular dependency.";
 
         public TrString NoDataFilesWarning = "Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}";
+        public TrString DataMissing_NoDataFiles = "Found no version files and/or no built-in property data files.";
+        public TrString DataMissing_NoWotInstallation = "Failed to detect a supported World of Tanks installation at this path.";
+        public TrString DataMissing_WotVersionTooOld = "This version of World of Tanks ({0}) is not supported because no suitable configuration files are available.";
+        public TrString DataMissing_NoInstallationSelected = "Select a game installation above or add a new one using the green [+] button.";
+        public TrString DataMissing_DirNotFound = "This directory does not exist.";
 
         public TrString RenderWithErrors = "Some of the tank icons did not render correctly; make sure you view \"All tanks\" and click each broken image for details.";
         public TrString RenderWithWarnings = "Some of the tank icons rendered with warnings; make sure you view \"All tanks\" and click each image with a warning icon for details.";
@@ -645,7 +650,6 @@ namespace TankIconMaker
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
         public TrString Cancel = "Cancel";
         public TrString PromptWindowOK = "_OK";
-        public TrString GamePathRequired = "Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.";
         [LingoNotes("\"{1}\" is replaced with the extension of the image files being saved.")]
         public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!";
         public TrString OverwriteIcons_Yes = "&Yes, overwrite all files";

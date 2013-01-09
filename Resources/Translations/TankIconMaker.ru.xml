@@ -33,10 +33,6 @@
       <Translation>_Папка с игрой:</Translation>
       <Old>Game _directory:</Old>
     </ctGameDirLabel>
-    <ctGameVersionLabel>
-      <Translation>_Версия игры:</Translation>
-      <Old>_Game version:</Old>
-    </ctGameVersionLabel>
     <ctIconStyleLabel>
       <Translation>Стиль _иконок:</Translation>
       <Old>_Icon style:</Old>
@@ -1513,10 +1509,6 @@
       <Translation>_ОК</Translation>
       <Old>_OK</Old>
     </PromptWindowOK>
-    <GamePathRequired>
-      <Translation>Сначала необходимо добавить путь к игре (кнопка с зеленым плюсом слева вверху).</Translation>
-      <Old>Please add a game path first (top left, green plus button) so that TankIconMaker knows where to save the icons.</Old>
-    </GamePathRequired>
     <OverwriteIcons_Prompt>
       <Translation encoding="c-literal">Вы уверены, что хотите заменить ваши текущие иконки?\r\n\r\nПуть: {0}\r\n\r\nВнимание: ВСЕ файлы {1} по указанному пути будут заменены без возможности восстановления!</Translation>
       <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
@@ -1679,10 +1671,6 @@
       <Translation>Не удалось загрузить ни одного файла версии игры либо файла со встроенными свойствами.</Translation>
       <Old>Could not load any game version data files and/or any built-in property data files.</Old>
     </DataDir_NoFilesAvailable>
-    <DataDir_Skip_NoBuiltIns>
-      <Translation>Игнорирую версию {0} так как для нее не найден ни один файл со встроенными свойствами. Удалите файл "{1}" чтобы избавиться от этого сообщения.</Translation>
-      <Old>Skipped version {0} because there are no built-in property data files for it to use. Delete the "{1}" file to get rid of this warning.</Old>
-    </DataDir_Skip_NoBuiltIns>
     <DataDir_Skip_WrongParts>
       <Translation>Игнорирую файл "{0}" так как в его имени содержится неверное количество частей (ожидалось: {1}, найдено {2}).</Translation>
       <Old>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Old>
@@ -1696,8 +1684,8 @@
       <Old>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Old>
     </DataDir_Skip_GameVersion>
     <DataDir_Skip_FileVersion>
-      <Translation>Игнорирую файл "{0}" так как версия файла указана в неверном формате: "{1}" (либо не состоит ровно из 3 цифр).</Translation>
-      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}" (or it isn't exactly 3 digits long).</Old>
+      <Translation>Игнорирую файл "{0}" так как версия файла указана в неверном формате: "{1}".</Translation>
+      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}".</Old>
     </DataDir_Skip_FileVersion>
     <DataDir_Skip_Author>
       <Translation>Игнорирую файл "{0}" так как поле автора в имени файла является пустым.</Translation>
@@ -1735,6 +1723,26 @@
       <Translation encoding="c-literal">Не удалось загрузить ни одного файла версии либо файла со встроенными свойствами. Убедитесь, что эти файлы существуют по следующему пути:\r\n\r\n{0}</Translation>
       <Old encoding="c-literal">Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}</Old>
     </NoDataFilesWarning>
+    <DataMissing_NoDataFiles>
+      <Translation>Не удалось загрузить ни одного файла версии либо файла со встроенными свойствами.</Translation>
+      <Old>Found no version files and/or no built-in property data files.</Old>
+    </DataMissing_NoDataFiles>
+    <DataMissing_NoWotInstallation>
+      <Translation>Не удалось обнаружить поддерживаемую версию World of Tanks по указанному пути.</Translation>
+      <Old>Failed to detect a supported World of Tanks installation at this path.</Old>
+    </DataMissing_NoWotInstallation>
+    <DataMissing_WotVersionTooOld>
+      <Translation>Данная версия World of Tanks ({0}) не поддерживается, так как отсутствуют подходящие файлы конфигурации.</Translation>
+      <Old>This version of World of Tanks ({0}) is not supported because no suitable configuration files are available.</Old>
+    </DataMissing_WotVersionTooOld>
+    <DataMissing_NoInstallationSelected>
+      <Translation>Выберите папку с игрой в списке выше, либо добавьте новую с помощью кнопки [+].</Translation>
+      <Old>Select a game installation above or add a new one using the green [+] button.</Old>
+    </DataMissing_NoInstallationSelected>
+    <DataMissing_DirNotFound>
+      <Translation>Указанная папка не существует.</Translation>
+      <Old>This directory does not exist.</Old>
+    </DataMissing_DirNotFound>
     <RenderWithErrors>
       <Translation>Не удалось нарисовать некоторые иконки. Выберите режим «Все танки» и щелкните по иконке с ошибками для просмотра подробностей.</Translation>
       <Old>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Old>

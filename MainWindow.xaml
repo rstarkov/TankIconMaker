@@ -103,6 +103,17 @@
                         <Rectangle Width="10" Height="4" Fill="Red" Stroke="DarkRed" SnapsToDevicePixels="True"/>
                     </Button>
                 </Grid>
+                <TextBlock Padding="3,6,0,0" Name="ctGameInstallationWarning" Foreground="Maroon" FontWeight="Bold" TextWrapping="Wrap">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <Label Padding="3,6,0,0" Target="{Binding ElementName=ctStyleDropdown}" Name="ctIconStyleLabel">_Icon style:</Label>
                 <ComboBox Name="ctStyleDropdown"/>
                 <DockPanel Margin="0,8,0,0">

@@ -321,13 +321,15 @@ namespace TankIconMaker
                 _dataWarnings.Add(warning);
 
             // Disable parts of the UI if some of the data is unavailable, and show warnings as appropriate
+            _otherWarnings.RemoveWhere(w => w is Warning_DataMissing);
             if (!App.Data.Versions.Any() || !App.Data.BuiltIn.Any())
             {
                 // This means things are badly broken; this isn't supposed to happen; bad enough to warrant a dialog.
                 _dataMissing.Value = true;
                 UpdateDataSources(9999);
+                _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoDataFiles));
+                ctGameInstallationWarning.Text = null;
                 DlgMessage.ShowWarning(App.Translation.Error.NoDataFilesWarning.Fmt(Path.Combine(PathUtil.AppPath, "Data")));
-#warning TODO: add to _otherWarnings
             }
             else if (App.Settings.ActiveInstallation == null || App.Settings.ActiveInstallation.GameVersionId == null)
             {
@@ -335,20 +337,29 @@ namespace TankIconMaker
                 // in the drop-downs, and also can't render tanks because we don't know which ones.
                 _dataMissing.Value = true;
                 UpdateDataSources(9999);
-#warning TODO: add to _otherWarnings
+                _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoWotInstallation));
+                if (App.Settings.ActiveInstallation == null)
+                    ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoInstallationSelected;
+                else if (!Directory.Exists(App.Settings.ActiveInstallation.Path))
+                    ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_DirNotFound;
+                else
+                    ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoWotInstallation;
             }
             else if (App.Settings.ActiveInstallation.GameVersion == null)
             {
                 // The WoT installation is valid, but we don't have a suitable version config. Can list the right properties, but can't really render.
                 _dataMissing.Value = true;
                 UpdateDataSources(App.Settings.ActiveInstallation.GameVersionId.Value);
-#warning TODO: add to _otherWarnings
+                var msg = App.Translation.Error.DataMissing_WotVersionTooOld.Fmt(App.Settings.ActiveInstallation.GameVersionName + " #" + App.Settings.ActiveInstallation.GameVersionId);
+                _otherWarnings.Add(new Warning_DataMissing(msg));
+                ctGameInstallationWarning.Text = msg;
             }
             else
             {
                 // Everything's fine.
                 _dataMissing.Value = false;
                 UpdateDataSources(App.Settings.ActiveInstallation.GameVersionId.Value);
+                ctGameInstallationWarning.Text = null;
             }
 
             if (_dataMissing)
@@ -417,6 +428,7 @@ namespace TankIconMaker
             _rendering.Value = true;
             foreach (var image in ctIconsPanel.Children.OfType<TankImageControl>())
                 image.Opacity = 0.7;
+            _otherWarnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
 
             _updateIconsTimer.Stop();
             _cancelRender.Cancel();
@@ -488,7 +500,6 @@ namespace TankIconMaker
             _rendering.Value = false;
 
             // Update the warning messages
-            _otherWarnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
             if (_renderResults.Values.Any(rr => rr.Exception != null))
                 _otherWarnings.Add(new Warning_RenderedWithErrWarn(App.Translation.Error.RenderWithErrors));
             else if (_renderResults.Values.Any(rr => rr.WarningsCount > 0))
@@ -1552,6 +1563,7 @@ namespace TankIconMaker
         private sealed class Warning_LayerTest_UnexpectedProperty : Warning { public Warning_LayerTest_UnexpectedProperty(string text) { Text = text; } }
         private sealed class Warning_LayerTest_MissingImage : Warning { public Warning_LayerTest_MissingImage(string text) { Text = text; } }
         private sealed class Warning_RenderedWithErrWarn : Warning { public Warning_RenderedWithErrWarn(string text) { Text = text; } }
+        private sealed class Warning_DataMissing : Warning { public Warning_DataMissing(string text) { Text = text; } }
     }
 
     static class TankLayerCommands
