@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -213,45 +214,6 @@ namespace TankIconMaker
             return result.ToString();
         }
 
-        /// <summary>Provides a function delegate that accepts only value types as return types.</summary>
-        /// <remarks>This type was introduced to make <see cref="ObjectExtensions.NullOr{TInput,TResult}(TInput,FuncStruct{TInput,TResult})"/>
-        /// work without clashing with <see cref="ObjectExtensions.NullOr{TInput,TResult}(TInput,FuncClass{TInput,TResult})"/>.</remarks>
-        public delegate TResult FuncStruct<in TInput, TResult>(TInput input) where TResult : struct;
-        /// <summary>Provides a function delegate that accepts only reference types as return types.</summary>
-        /// <remarks>This type was introduced to make <see cref="ObjectExtensions.NullOr{TInput,TResult}(TInput,FuncClass{TInput,TResult})"/>
-        /// work without clashing with <see cref="ObjectExtensions.NullOr{TInput,TResult}(TInput,FuncStruct{TInput,TResult})"/>.</remarks>
-        public delegate TResult FuncClass<in TInput, TResult>(TInput input) where TResult : class;
-
-        /// <summary>Returns null if the input is null, otherwise the result of the specified lambda when applied to the input.</summary>
-        /// <typeparam name="TInput">Type of the input value.</typeparam>
-        /// <typeparam name="TResult">Type of the result from the lambda.</typeparam>
-        /// <param name="input">Input value to check for null.</param>
-        /// <param name="lambda">Function to apply the input value to if it is not null.</param>
-        public static TResult NullOr<TInput, TResult>(this TInput input, FuncClass<TInput, TResult> lambda) where TResult : class
-        {
-            return input == null ? null : lambda(input);
-        }
-
-        /// <summary>Returns null if the input is null, otherwise the result of the specified lambda when applied to the input.</summary>
-        /// <typeparam name="TInput">Type of the input value.</typeparam>
-        /// <typeparam name="TResult">Type of the result from the lambda.</typeparam>
-        /// <param name="input">Input value to check for null.</param>
-        /// <param name="lambda">Function to apply the input value to if it is not null.</param>
-        public static TResult? NullOr<TInput, TResult>(this TInput input, Func<TInput, TResult?> lambda) where TResult : struct
-        {
-            return input == null ? null : lambda(input);
-        }
-
-        /// <summary>Returns null if the input is null, otherwise the result of the specified lambda when applied to the input.</summary>
-        /// <typeparam name="TInput">Type of the input value.</typeparam>
-        /// <typeparam name="TResult">Type of the result from the lambda.</typeparam>
-        /// <param name="input">Input value to check for null.</param>
-        /// <param name="lambda">Function to apply the input value to if it is not null.</param>
-        public static TResult? NullOr<TInput, TResult>(this TInput input, FuncStruct<TInput, TResult> lambda) where TResult : struct
-        {
-            return input == null ? null : (TResult?) lambda(input);
-        }
-
         public static int ModPositive(int value, int modulus)
         {
             int result = value % modulus;
@@ -454,6 +416,12 @@ namespace TankIconMaker
             if (path.Contains('"'))
                 throw new ArgumentException("The path “{0}” contains double-quote characters after expanding all known tokens. Did you mean one of: \"VersionName\"?");
             return path;
+        }
+
+        public static void RemoveWhere<T>(this ICollection<T> collection, Func<T, bool> predicate)
+        {
+            foreach (var item in collection.Where(predicate).ToList())
+                collection.Remove(item);
         }
     }
 
