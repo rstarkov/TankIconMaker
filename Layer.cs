@@ -68,8 +68,15 @@ namespace TankIconMaker
         /// then be used to apply transformations to the XML produced by old versions of a maker.
         /// </summary>
         private int SavedByVersion;
-        void IXmlClassifyProcess.BeforeXmlClassify() { SavedByVersion = Version; }
-        void IXmlClassifyProcess.AfterXmlDeclassify()
+
+        void IXmlClassifyProcess.BeforeXmlClassify() { ActualBeforeXmlClassify(); }
+        protected virtual void ActualBeforeXmlClassify()
+        {
+            SavedByVersion = Version;
+        }
+
+        void IXmlClassifyProcess.AfterXmlDeclassify() { ActualAfterXmlDeclassify(); }
+        protected virtual void ActualAfterXmlDeclassify()
         {
             foreach (var effect in Effects)
                 effect.Layer = this;

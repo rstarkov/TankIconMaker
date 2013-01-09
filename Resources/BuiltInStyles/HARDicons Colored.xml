@@ -359,6 +359,7 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
+      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Tahoma</FontFamily>
       <FontSize>8.5</FontSize>
@@ -388,14 +389,11 @@
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
       </FontColor>
-      <Left>25</Left>
-      <Right>77</Right>
-      <Top>16</Top>
-      <Bottom>22</Bottom>
-      <LeftAnchor>True</LeftAnchor>
-      <RightAnchor>False</RightAnchor>
-      <TopAnchor>False</TopAnchor>
-      <BottomAnchor>True</BottomAnchor>
+      <Anchor>BottomLeft</Anchor>
+      <X>25</X>
+      <Y>22</Y>
+      <Width>999</Width>
+      <Height>999</Height>
       <Baseline>False</Baseline>
       <Property>
         <Name>NameShort</Name>
@@ -503,6 +501,7 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
+      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Tahoma</FontFamily>
       <FontSize>7.5</FontSize>
@@ -532,14 +531,11 @@
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
       </FontColor>
-      <Left>1</Left>
-      <Right>77</Right>
-      <Top>1</Top>
-      <Bottom>21</Bottom>
-      <LeftAnchor>True</LeftAnchor>
-      <RightAnchor>False</RightAnchor>
-      <TopAnchor>True</TopAnchor>
-      <BottomAnchor>False</BottomAnchor>
+      <Anchor>TopLeft</Anchor>
+      <X>1</X>
+      <Y>1</Y>
+      <Width>999</Width>
+      <Height>999</Height>
       <Baseline>False</Baseline>
       <Property>
         <Name>Tier (Roman)</Name>

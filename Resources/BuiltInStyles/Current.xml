@@ -8,6 +8,38 @@
       <Visible>True</Visible>
       <SavedByVersion>1</SavedByVersion>
       <Effects />
+      <VisibleFor>
+        <By>Single</By>
+        <By2>Single</By2>
+        <By3>Single</By3>
+        <By4>Single</By4>
+        <ClassLight>Yes</ClassLight>
+        <ClassMedium>Yes</ClassMedium>
+        <ClassHeavy>Yes</ClassHeavy>
+        <ClassDestroyer>Yes</ClassDestroyer>
+        <ClassArtillery>Yes</ClassArtillery>
+        <CountryUSSR>Yes</CountryUSSR>
+        <CountryGermany>Yes</CountryGermany>
+        <CountryUSA>Yes</CountryUSA>
+        <CountryFrance>Yes</CountryFrance>
+        <CountryChina>Yes</CountryChina>
+        <CountryUK>Yes</CountryUK>
+        <CategNormal>Yes</CategNormal>
+        <CategPremium>Yes</CategPremium>
+        <CategSpecial>Yes</CategSpecial>
+        <Single>Yes</Single>
+        <Tier1>Yes</Tier1>
+        <Tier2>Yes</Tier2>
+        <Tier3>Yes</Tier3>
+        <Tier4>Yes</Tier4>
+        <Tier5>Yes</Tier5>
+        <Tier6>Yes</Tier6>
+        <Tier7>Yes</Tier7>
+        <Tier8>Yes</Tier8>
+        <Tier9>Yes</Tier9>
+        <Tier10>Yes</Tier10>
+      </VisibleFor>
     </item>
   </Layers>
+  <ForumLink null="1" />
 </item>
