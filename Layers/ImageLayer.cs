@@ -70,12 +70,12 @@ namespace TankIconMaker.Layers
             if (string.IsNullOrWhiteSpace(filename))
                 return null;
 
-            var image = ImageCache.GetImage(PathUtil.AppPathCombine(filename));
+            var image = ImageCache.GetImage(new CompositeFilename(PathUtil.AppPath, filename));
             if (image == null && App.Settings.ActiveInstallation != null)
             {
-                image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods, filename));
+                image = ImageCache.GetImage(new CompositeFilename(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods, filename));
                 if (image == null)
-                    image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, filename));
+                    image = ImageCache.GetImage(new CompositeFilename(App.Settings.ActiveInstallation.Path, filename));
             }
             if (image == null)
             {
@@ -111,12 +111,12 @@ namespace TankIconMaker.Layers
             if (string.IsNullOrWhiteSpace(filename))
                 return null;
 
-            var image = ImageCache.GetImage(PathUtil.AppPathCombine(filename));
+            var image = ImageCache.GetImage(new CompositeFilename(PathUtil.AppPath, filename));
             if (image == null && App.Settings.ActiveInstallation != null)
             {
-                image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods, filename));
+                image = ImageCache.GetImage(new CompositeFilename(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods, filename));
                 if (image == null)
-                    image = ImageCache.GetImage(Path.Combine(App.Settings.ActiveInstallation.Path, filename));
+                    image = ImageCache.GetImage(new CompositeFilename(App.Settings.ActiveInstallation.Path, filename));
             }
             if (image == null)
             {

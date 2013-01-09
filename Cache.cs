@@ -231,13 +231,6 @@ namespace TankIconMaker
         /// <summary>Empties the cache completely, resetting it to blank state.</summary>
         public static void Clear() { _cache.Clear(); }
 
-        /// <summary>Retrieves an image that isn't stored inside a zip file.</summary>
-        public static BitmapRam GetImage(string path)
-        {
-            return _cache.GetEntry(":" + path,
-                () => (ImageEntry) new FileImageEntry(path)).Image;
-        }
-
         /// <summary>Retrieves an image which may optionally be stored inside a zip file.</summary>
         public static BitmapRam GetImage(CompositeFilename path)
         {
