@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <item>
-  <PathMods>res_mods\0.8.2</PathMods>
-  <PathDestination>res_mods\0.8.2\gui\maps\icons\vehicle\contour</PathDestination>
+  <PathMods>res_mods\"VersionName"</PathMods>
+  <PathDestination>res_mods\"VersionName"\gui\maps\icons\vehicle\contour</PathDestination>
   <PathSourceContour>res\packages\gui.pkg:gui\maps\icons\vehicle\contour</PathSourceContour>
   <PathSource3D>res\packages\gui.pkg:gui\maps\icons\vehicle\small</PathSource3D>
   <PathSource3DLarge>res\packages\gui.pkg:gui\maps\icons\vehicle</PathSource3DLarge>

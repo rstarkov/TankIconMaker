@@ -270,8 +270,8 @@ namespace TankIconMaker
                 return path;
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods)))
-                    return PathUtil.ToggleRelative(Path.Combine(App.Settings.ActiveInstallation.Path, App.Settings.ActiveInstallation.GameVersion.PathMods), path);
+                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersion.PathMods))))
+                    return PathUtil.ToggleRelative(Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersion.PathMods)), path);
             }
             catch { }
             try
@@ -444,6 +444,17 @@ namespace TankIconMaker
             catch { }
             return Language.EnglishUK;
         }
+
+        /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
+        public static string ExpandPath(string path)
+        {
+            if (path == null)
+                return null;
+            path = path.Replace("\"VersionName\"", App.Settings.ActiveInstallation.GameVersionName);
+            if (path.Contains('"'))
+                throw new ArgumentException("The path “{0}” contains double-quote characters after expanding all known tokens. Did you mean one of: \"VersionName\"?");
+            return path;
+        }
     }
 
     /// <summary>
@@ -561,7 +572,8 @@ namespace TankIconMaker
                     builder.Append(part);
                 }
             }
-            File = builder.ToString();
+            File = Ut.ExpandPath(builder.ToString());
+            Container = Ut.ExpandPath(Container);
         }
     }
 

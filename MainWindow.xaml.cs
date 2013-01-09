@@ -1013,7 +1013,7 @@ namespace TankIconMaker
         private void saveIcons(string folder = null, bool promptEvenIfEmpty = false)
         {
             var gameInstall = App.Settings.ActiveInstallation; // must capture this in case the user changes it while the background save continues
-            var path = folder ?? Path.Combine(gameInstall.Path, gameInstall.GameVersion.PathDestination);
+            var path = folder ?? Path.Combine(gameInstall.Path, Ut.ExpandPath(gameInstall.GameVersion.PathDestination));
 
             try
             {
