@@ -361,6 +361,7 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
+      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Century Gothic</FontFamily>
       <FontSize>10.5</FontSize>
@@ -390,14 +391,11 @@
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
       </FontColor>
-      <Left>3</Left>
-      <Right>9</Right>
-      <Top>3</Top>
-      <Bottom>21</Bottom>
-      <LeftAnchor>True</LeftAnchor>
-      <RightAnchor>True</RightAnchor>
-      <TopAnchor>True</TopAnchor>
-      <BottomAnchor>False</BottomAnchor>
+      <Anchor>TopCenter</Anchor>
+      <X>6</X>
+      <Y>3</Y>
+      <Width>999</Width>
+      <Height>999</Height>
       <Baseline>False</Baseline>
       <Text>
         <By>Tier</By>
@@ -1025,6 +1023,7 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
+      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Arial</FontFamily>
       <FontSize>8.5</FontSize>
@@ -1054,14 +1053,11 @@
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
       </FontColor>
-      <Left>3</Left>
-      <Right>76</Right>
-      <Top>3</Top>
-      <Bottom>21</Bottom>
-      <LeftAnchor>False</LeftAnchor>
-      <RightAnchor>True</RightAnchor>
-      <TopAnchor>False</TopAnchor>
-      <BottomAnchor>True</BottomAnchor>
+      <Anchor>BottomRight</Anchor>
+      <X>76</X>
+      <Y>21</Y>
+      <Width>999</Width>
+      <Height>999</Height>
       <Baseline>True</Baseline>
       <Property>
         <Name>NameShort</Name>
@@ -1170,14 +1166,6 @@
         <Tier10>Yes</Tier10>
       </VisibleFor>
       <ConvertedFromOld>True</ConvertedFromOld>
-      <Left>8</Left>
-      <Right>77</Right>
-      <Top>9</Top>
-      <Bottom>19</Bottom>
-      <LeftAnchor>True</LeftAnchor>
-      <RightAnchor>False</RightAnchor>
-      <TopAnchor>True</TopAnchor>
-      <BottomAnchor>False</BottomAnchor>
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Segoe UI</FontFamily>
       <FontSize>30</FontSize>
@@ -1220,4 +1208,5 @@
       </Property>
     </item>
   </Layers>
+  <ForumLink null="1" />
 </item>

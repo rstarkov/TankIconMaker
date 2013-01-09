@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Media;
 using RT.Util.Lingo;
+using RT.Util.Xml;
 
 namespace TankIconMaker.Layers
 {
@@ -37,7 +38,9 @@ namespace TankIconMaker.Layers
 
         // Old stuff, to be deleted eventually...
         private bool ConvertedFromOld = false;
+        [XmlIgnoreIfDefault]
         private int Left, Right, Top, Bottom;
+        [XmlIgnoreIfDefault]
         private bool LeftAnchor, RightAnchor, TopAnchor, BottomAnchor;
 
         protected abstract string GetText(Tank tank);
@@ -71,9 +74,6 @@ namespace TankIconMaker.Layers
 
         public override BitmapBase Draw(Tank tank)
         {
-            if (!ConvertedFromOld)
-                convertFromOld();
-
             return Ut.NewBitmapGdi(dc =>
             {
                 var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
@@ -83,53 +83,61 @@ namespace TankIconMaker.Layers
             });
         }
 
-        private void convertFromOld()
+        protected override void ActualAfterXmlDeclassify()
         {
-            AnchorRaw anchor;
+            base.ActualAfterXmlDeclassify();
 
-            if (LeftAnchor && RightAnchor)
+            if (!ConvertedFromOld)
             {
-                X = (Left + Right) / 2;
-                anchor = AnchorRaw.Center;
-            }
-            else if (LeftAnchor)
-            {
-                X = Left;
-                anchor = AnchorRaw.Left;
-            }
-            else if (RightAnchor)
-            {
-                X = Right;
-                anchor = AnchorRaw.Right;
-            }
-            else
-            {
-                X = 80 / 2;
-                anchor = AnchorRaw.Center;
+                AnchorRaw anchor;
+
+                if (LeftAnchor && RightAnchor)
+                {
+                    X = (Left + Right) / 2;
+                    anchor = AnchorRaw.Center;
+                }
+                else if (LeftAnchor)
+                {
+                    X = Left;
+                    anchor = AnchorRaw.Left;
+                }
+                else if (RightAnchor)
+                {
+                    X = Right;
+                    anchor = AnchorRaw.Right;
+                }
+                else
+                {
+                    X = 80 / 2;
+                    anchor = AnchorRaw.Center;
+                }
+
+                if (TopAnchor && BottomAnchor)
+                {
+                    Y = (Top + Bottom) / 2;
+                    anchor |= AnchorRaw.Mid;
+                }
+                else if (TopAnchor)
+                {
+                    Y = Top;
+                    anchor |= AnchorRaw.Top;
+                }
+                else if (BottomAnchor)
+                {
+                    Y = Bottom;
+                    anchor |= AnchorRaw.Bottom;
+                }
+                else
+                {
+                    Y = 24 / 2;
+                    anchor |= AnchorRaw.Mid;
+                }
+
+                Anchor = (Anchor) anchor;
             }
 
-            if (TopAnchor && BottomAnchor)
-            {
-                Y = (Top + Bottom) / 2;
-                anchor |= AnchorRaw.Mid;
-            }
-            else if (TopAnchor)
-            {
-                Y = Top;
-                anchor |= AnchorRaw.Top;
-            }
-            else if (BottomAnchor)
-            {
-                Y = Bottom;
-                anchor |= AnchorRaw.Bottom;
-            }
-            else
-            {
-                Y = 24 / 2;
-                anchor |= AnchorRaw.Mid;
-            }
-
-            Anchor = (Anchor) anchor;
+            Left = Right = Top = Bottom = 0;
+            LeftAnchor = RightAnchor = TopAnchor = BottomAnchor = false;
             ConvertedFromOld = true;
         }
     }

@@ -2,7 +2,6 @@
 <item>
   <Name>Aslain</Name>
   <Author>Aslain</Author>
-  <ForumLink>http://forum.worldoftanks.ru/index.php?/topic/96805-075-aslains-icon-contour-mod-v176-upd-12072012/</ForumLink>
   <Layers>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Tier</Name>
@@ -27,6 +26,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -59,6 +59,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -88,6 +89,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -120,6 +122,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -147,6 +150,7 @@
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
+        <CountryUK>Yes</CountryUK>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
@@ -162,6 +166,7 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
+      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>UnhintedGDI</FontSmoothing>
       <FontFamily>Segoe UI</FontFamily>
       <FontSize>10.5</FontSize>
@@ -182,6 +187,7 @@
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
+        <CountryUK>#FFFFFF</CountryUK>
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
@@ -190,14 +196,11 @@
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
       </FontColor>
-      <Left>3</Left>
-      <Right>77</Right>
-      <Top>2</Top>
-      <Bottom>21</Bottom>
-      <LeftAnchor>True</LeftAnchor>
-      <RightAnchor>False</RightAnchor>
-      <TopAnchor>True</TopAnchor>
-      <BottomAnchor>False</BottomAnchor>
+      <Anchor>TopLeft</Anchor>
+      <X>3</X>
+      <Y>2</Y>
+      <Width>999</Width>
+      <Height>999</Height>
       <Baseline>False</Baseline>
       <Property>
         <Name>Tier (Roman)</Name>
@@ -228,6 +231,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -260,6 +264,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -289,6 +294,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -321,6 +327,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -348,6 +355,7 @@
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
+        <CountryUK>Yes</CountryUK>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
@@ -363,6 +371,7 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
+      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>UnhintedGDI</FontSmoothing>
       <FontFamily>Segoe UI</FontFamily>
       <FontSize>8.5</FontSize>
@@ -383,6 +392,7 @@
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
+        <CountryUK>#FFFFFF</CountryUK>
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
@@ -391,14 +401,11 @@
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
       </FontColor>
-      <Left>8</Left>
-      <Right>77</Right>
-      <Top>9</Top>
-      <Bottom>19</Bottom>
-      <LeftAnchor>True</LeftAnchor>
-      <RightAnchor>False</RightAnchor>
-      <TopAnchor>True</TopAnchor>
-      <BottomAnchor>False</BottomAnchor>
+      <Anchor>TopLeft</Anchor>
+      <X>8</X>
+      <Y>9</Y>
+      <Width>999</Width>
+      <Height>999</Height>
       <Baseline>True</Baseline>
       <Property>
         <Name>NameShort</Name>
@@ -429,6 +436,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -461,6 +469,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -490,6 +499,7 @@
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
+            <CountryUK>Yes</CountryUK>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
@@ -522,6 +532,7 @@
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
+            <CountryUK>#000000</CountryUK>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
@@ -549,6 +560,7 @@
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
+        <CountryUK>Yes</CountryUK>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
@@ -564,6 +576,7 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
+      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>UnhintedGDI</FontSmoothing>
       <FontFamily>Segoe UI</FontFamily>
       <FontSize>9.5</FontSize>
@@ -584,6 +597,7 @@
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
+        <CountryUK>#FFFFFF</CountryUK>
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
@@ -592,14 +606,11 @@
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
       </FontColor>
-      <Left>5</Left>
-      <Right>77</Right>
-      <Top>0</Top>
-      <Bottom>23</Bottom>
-      <LeftAnchor>True</LeftAnchor>
-      <RightAnchor>False</RightAnchor>
-      <TopAnchor>True</TopAnchor>
-      <BottomAnchor>True</BottomAnchor>
+      <Anchor>MidLeft</Anchor>
+      <X>5</X>
+      <Y>11</Y>
+      <Width>999</Width>
+      <Height>999</Height>
       <Baseline>True</Baseline>
       <Property>
         <Name>NameShort</Name>
@@ -608,5 +619,5 @@
       </Property>
     </item>
   </Layers>
-  <ForumLink null="1" />
+  <ForumLink>http://forum.worldoftanks.ru/index.php?/topic/96805-075-aslains-icon-contour-mod-v176-upd-12072012/</ForumLink>
 </item>
