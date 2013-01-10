@@ -160,6 +160,17 @@ namespace TankIconMaker
             ctStyleDropdown.DisplayMemberPath = "Display";
             ctStyleDropdown.SelectedItem = App.Settings.ActiveStyle;
 
+            // Game installations: find/add all installations if blank
+            if (App.Settings.GameInstallations.Count == 0)
+                AddGameInstallations();
+            // Game installations: make sure one of the installations is the active one
+            if (!App.Settings.GameInstallations.Contains(App.Settings.ActiveInstallation)) // includes the "null" case
+                App.Settings.ActiveInstallation = App.Settings.GameInstallations.FirstOrDefault();
+            // Game installations: configure the UI control
+            ctGamePath.ItemsSource = App.Settings.GameInstallations;
+            ctGamePath.DisplayMemberPath = "DisplayName";
+            ctGamePath.SelectedItem = App.Settings.ActiveInstallation;
+
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ColorSelector), ExpandableObject = true });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ValueSelector<>), ExpandableObject = true });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(Filename), EditorType = typeof(FilenameEditor) });
@@ -191,17 +202,6 @@ namespace TankIconMaker
                 new Binding { Source = ctLeftBottomPane, Path = new PropertyPath(Grid.ActualHeightProperty) },
                 (double paneHeight) => paneHeight * 0.4
             ));
-
-            // Game installations: find/add all installations if blank
-            if (App.Settings.GameInstallations.Count == 0)
-                AddGameInstallations();
-            // Game installations: make sure one of the installations is the active one
-            if (!App.Settings.GameInstallations.Contains(App.Settings.ActiveInstallation)) // includes the "null" case
-                App.Settings.ActiveInstallation = App.Settings.GameInstallations.FirstOrDefault();
-            // Game installations: configure the UI control
-            ctGamePath.ItemsSource = App.Settings.GameInstallations;
-            ctGamePath.DisplayMemberPath = "DisplayName";
-            ctGamePath.SelectedItem = App.Settings.ActiveInstallation;
 
             // Another day, another WPF crutch... http://stackoverflow.com/questions/3921712
             ctLayersTree.PreviewMouseDown += (_, __) => { FocusManager.SetFocusedElement(this, ctLayersTree); };
