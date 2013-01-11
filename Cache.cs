@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Media.Imaging;
 using ICSharpCode.SharpZipLib.Zip;
 using RT.Util;
+using RT.Util.ExtensionMethods;
 
 namespace TankIconMaker
 {
@@ -248,7 +249,11 @@ namespace TankIconMaker
             if (extension == ".tga")
                 Image = Targa.Load(file);
             else
+            {
+                if (!file.CanSeek) // http://stackoverflow.com/questions/14286462/how-to-use-bitmapdecoder-with-a-non-seekable-stream
+                    file = new MemoryStream(file.ReadAllBytes());
                 Image = BitmapDecoder.Create(file, BitmapCreateOptions.None, BitmapCacheOption.None).Frames[0].ToBitmapRam();
+            }
             Image.MarkReadOnly();
         }
 
