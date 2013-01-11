@@ -314,7 +314,6 @@ namespace TankIconMaker
             foreach (var gameInstallation in App.Settings.GameInstallations.ToList()) // grab a list of all items because the source auto-resorts on changes
                 gameInstallation.ReloadGameVersion();
             App.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
-            var builtin = App.Data.BuiltIn.Where(b => b.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersionId); // duplicated in ListRenderTasks; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
 
             // Update the list of warnings
             _dataWarnings.Clear();
@@ -355,7 +354,7 @@ namespace TankIconMaker
                 _otherWarnings.Add(new Warning_DataMissing(msg));
                 ctGameInstallationWarning.Text = msg;
             }
-            else if (builtin == null)
+            else if (App.Data.BuiltIn.Where(b => b.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersionId) == null) // duplicated in ListRenderTasks; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
             {
                 // Everything's fine with the installation but we don't have any built-in data files for this version.
                 _dataMissing.Value = true;
@@ -1014,7 +1013,7 @@ namespace TankIconMaker
 
         string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
 
-        private void saveIcons(string folder = null, bool promptEvenIfEmpty = false)
+        private void saveIcons(string folder, Class? tankClass, bool promptEvenIfEmpty = false)
         {
             var gameInstallation = App.Settings.ActiveInstallation; // must capture this in case the user changes it while the background save continues
             var path = folder ?? Path.Combine(gameInstallation.Path, Ut.ExpandPath(gameInstallation.GameVersionConfig.PathDestination));
@@ -1031,7 +1030,7 @@ namespace TankIconMaker
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
                 var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-                var renderTasks = ListRenderTasks(all: true);
+                var renderTasks = ListRenderTasks(all: true).Where(rt => tankClass == null || rt.Tank.Class == tankClass.Value).ToList();
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
@@ -1046,8 +1045,12 @@ namespace TankIconMaker
                                 renders[renderTask.TankSystemId] = renderTask;
                                 RenderTank(style, renderTask);
                             }
-                        foreach (var kvp in renders.Where(kvp => kvp.Value.Exception == null))
-                            Ut.SaveImage(kvp.Value.Image, Path.Combine(path, kvp.Key + gameInstallation.GameVersionConfig.TankIconExtension), gameInstallation.GameVersionConfig.TankIconExtension);
+                        foreach (var renderTask in renderTasks)
+                        {
+                            var render = renders[renderTask.TankSystemId];
+                            if (render.Exception == null)
+                                Ut.SaveImage(render.Image, Path.Combine(path, renderTask.TankSystemId + gameInstallation.GameVersionConfig.TankIconExtension), gameInstallation.GameVersionConfig.TankIconExtension);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -1067,7 +1070,7 @@ namespace TankIconMaker
                             if (exception == null)
                             {
                                 int skipped = renders.Values.Count(rr => rr.Exception != null);
-                                DlgMessage.Show(App.Translation.Prompt.IconsSaved +
+                                DlgMessage.Show(App.Translation.Prompt.IconsSaved.Fmt(path) +
                                     (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
                                     skipped == 0 ? DlgType.Info : DlgType.Warning
                                 );
@@ -1086,20 +1089,39 @@ namespace TankIconMaker
             }
         }
 
+        private bool _saveIconsToFolder = false;
+
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
-            saveIcons();
+            if (!_saveIconsToFolder)
+            {
+                saveIcons(folder: null, tankClass: null);
+            }
+            else
+            {
+                if (App.Settings.SaveToFolderPath == null)
+                    BrowseAndSaveIcons_All();
+                else
+                    saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderClass, promptEvenIfEmpty: true /* so the user knows which folder is selected */);
+            }
         }
 
         private void ctSaveToFolder_Click(object _, RoutedEventArgs __)
         {
-            if (App.Settings.SaveToFolderPath == null)
-                ctSaveToFolderBrowse_Click();
-            else
-                saveIcons(App.Settings.SaveToFolderPath, promptEvenIfEmpty: true /* so the user knows which folder is selected */);
+            var menu = ctSaveToFolder.ContextMenu;
+            menu.PlacementTarget = ctSaveToFolder;
+            menu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            ctSaveIcons_AllToGameFolder.IsChecked = !_saveIconsToFolder;
+            ctBrowseAndSaveIcons_All.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == null;
+            ctBrowseAndSaveIcons_Light.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Light;
+            ctBrowseAndSaveIcons_Medium.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Medium;
+            ctBrowseAndSaveIcons_Heavy.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Heavy;
+            ctBrowseAndSaveIcons_Artillery.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Artillery;
+            ctBrowseAndSaveIcons_Destroyer.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Destroyer;
+            menu.IsOpen = true;
         }
 
-        private void ctSaveToFolderBrowse_Click(object _ = null, RoutedEventArgs __ = null)
+        private void BrowseAndSaveToFolder(Class? tankClass)
         {
             var dlg = new VistaFolderBrowserDialog();
             dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
@@ -1107,11 +1129,25 @@ namespace TankIconMaker
                 dlg.SelectedPath = App.Settings.SaveToFolderPath;
             if (dlg.ShowDialog() != true)
                 return;
+            _saveIconsToFolder = true;
             _overwriteAccepted = null; // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
+            App.Settings.SaveToFolderClass = tankClass;
             SaveSettings();
-            saveIcons(App.Settings.SaveToFolderPath);
+            saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderClass);
         }
+
+        private void SaveIcons_AllToGameFolder(object _ = null, RoutedEventArgs __ = null)
+        {
+            _saveIconsToFolder = false;
+            saveIcons(folder: null, tankClass: null);
+        }
+        private void BrowseAndSaveIcons_All(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(null); }
+        private void BrowseAndSaveIcons_Light(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Light); }
+        private void BrowseAndSaveIcons_Medium(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Medium); }
+        private void BrowseAndSaveIcons_Heavy(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Heavy); }
+        private void BrowseAndSaveIcons_Artillery(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Artillery); }
+        private void BrowseAndSaveIcons_Destroyer(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Destroyer); }
 
         private void ctAbout_Click(object sender, RoutedEventArgs e)
         {
