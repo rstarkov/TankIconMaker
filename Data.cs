@@ -759,10 +759,8 @@ namespace TankIconMaker
                     // Inherit from the explicitly specified file
                     if (e.InheritsFromName != null)
                     {
-                        var p = extra.Where(df => df.GameVersionId <= e.GameVersionId && df.Name == e.InheritsFromName)
+                        var p = extra.Where(df => df.GameVersionId <= e.GameVersionId && df.Name == e.InheritsFromName && df.Language == (e.InheritsFromLanguage ?? e.Language))
                             .OrderByDescending(df => df.GameVersionId).AsEnumerable();
-                        if (e.InheritsFromLanguage != null)
-                            p = p.Where(df => df.Language == e.InheritsFromLanguage);
                         e.ImmediateParents.Add(p.Where(df => df.Author == e.InheritsFromAuthor).OrderByDescending(df => df.FileVersion).First());
                     }
 
