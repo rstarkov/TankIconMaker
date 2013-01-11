@@ -659,7 +659,8 @@ namespace TankIconMaker
         public TrString OverwriteIcons_Yes = "&Yes, overwrite all files";
         public TrString GameNotFound_Prompt = "This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?";
         public TrString GameNotFound_Ignore = "&Use anyway";
-        public TrString IconsSaved = "Icons saved!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.";
+        [LingoNotes("The save path is substituted for \"{0}\".")]
+        public TrString IconsSaved = "Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.";
         public TrStringNum IconsSaveSkipped = new TrStringNum("Note that 1 image was skipped due to errors.", "Note that {0} images were skipped due to errors.");
         public TrString IconsSaveError = "The icons could not be saved due to an error.\n\nError message:\n • {0}";
         public TrString Upvote_BuiltInOnly = "For security reasons, only built-in styles can be upvoted.";
