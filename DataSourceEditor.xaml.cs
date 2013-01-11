@@ -65,8 +65,8 @@ namespace TankIconMaker
 
         /// <summary>A short description of the property.</summary>
         public string Description { get; private set; }
-        /// <summary>Which game version was this data file made for.</summary>
-        public int GameVersion { get; private set; }
+        /// <summary>The first game build ID for which this data file applies.</summary>
+        public int GameVersionId { get; private set; }
         /// <summary>The last data file version used to construct this source.</summary>
         public int FileVersion { get; private set; }
 
@@ -81,7 +81,7 @@ namespace TankIconMaker
             Author = file.Author;
 
             Description = file.Description;
-            GameVersion = file.GameVersion;
+            GameVersionId = file.GameVersionId;
             FileVersion = file.FileVersion;
         }
 
@@ -97,10 +97,10 @@ namespace TankIconMaker
                 Description = file.Description;
                 if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Description"));
             }
-            if (GameVersion != file.GameVersion)
+            if (GameVersionId != file.GameVersionId)
             {
-                GameVersion = file.GameVersion;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("GameVersion"));
+                GameVersionId = file.GameVersionId;
+                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("GameVersionId"));
             }
             if (FileVersion != file.FileVersion)
             {

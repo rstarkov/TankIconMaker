@@ -228,12 +228,12 @@ namespace TankIconMaker
                     return PathUtil.ToggleRelative(PathUtil.AppPath, path);
             }
             catch { }
-            if (App.Settings.ActiveInstallation == null || App.Settings.ActiveInstallation.GameVersion == null)
+            if (App.Settings.ActiveInstallation == null || App.Settings.ActiveInstallation.GameVersionConfig == null)
                 return path;
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersion.PathMods))))
-                    return PathUtil.ToggleRelative(Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersion.PathMods)), path);
+                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersionConfig.PathMods))))
+                    return PathUtil.ToggleRelative(Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersionConfig.PathMods)), path);
             }
             catch { }
             try
