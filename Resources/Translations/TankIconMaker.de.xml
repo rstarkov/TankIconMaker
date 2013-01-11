@@ -185,18 +185,46 @@
       <Translation>Dieses Symbol zeigt an, dass ein Problem aufgetreten ist. Klicken Sie auf das Symbol, um Details über das Problem abzurufen.</Translation>
       <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
     </ctWarning>
-    <ctReloadLabel>
-      <Translation>Daten neu _laden</Translation>
-      <Old>_Reload data</Old>
-    </ctReloadLabel>
     <ctSaveLabel>
       <Translation>_Speichern</Translation>
       <Old>_Save</Old>
     </ctSaveLabel>
     <ctSaveToFolderLabel>
-      <Translation>_In Ordner speichern</Translation>
-      <Old>Save to _folder</Old>
+      <Translation>_In Ordner speichern...</Translation>
+      <Old>Save to _folder...</Old>
     </ctSaveToFolderLabel>
+    <ctSaveIcons_AllToGameFolder>
+      <Translation>Alle Symbole ins Spiel_verzeichnis</Translation>
+      <Old>All icons to _game folder</Old>
+    </ctSaveIcons_AllToGameFolder>
+    <ctBrowseAndSaveIcons_All>
+      <Translation>_Alle Symbole...</Translation>
+      <Old>_All icons...</Old>
+    </ctBrowseAndSaveIcons_All>
+    <ctBrowseAndSaveIcons_Light>
+      <Translation>Nur Symbole für _leichte Panzer...</Translation>
+      <Old>Only _light tank icons...</Old>
+    </ctBrowseAndSaveIcons_Light>
+    <ctBrowseAndSaveIcons_Medium>
+      <Translation>Nur Symbole für _mittelschwere Panzer...</Translation>
+      <Old>Only _medium tank icons...</Old>
+    </ctBrowseAndSaveIcons_Medium>
+    <ctBrowseAndSaveIcons_Heavy>
+      <Translation>Nur Symbole für _schwere Panzer...</Translation>
+      <Old>Only _heavy tank icons...</Old>
+    </ctBrowseAndSaveIcons_Heavy>
+    <ctBrowseAndSaveIcons_Artillery>
+      <Translation>Nur Symbole für _Artillerie...</Translation>
+      <Old>Only a_rtillery icons...</Old>
+    </ctBrowseAndSaveIcons_Artillery>
+    <ctBrowseAndSaveIcons_Destroyer>
+      <Translation>Nur Symbole für _Panzerjäger...</Translation>
+      <Old>Only _destroyer icons...</Old>
+    </ctBrowseAndSaveIcons_Destroyer>
+    <ctReloadLabel>
+      <Translation>Daten neu _laden</Translation>
+      <Old>_Reload data</Old>
+    </ctReloadLabel>
     <ctAboutLabel>
       <Translation>Ü_ber...</Translation>
       <Old>About...</Old>
@@ -1556,8 +1584,8 @@
       <Old>&amp;Use anyway</Old>
     </GameNotFound_Ignore>
     <IconsSaved>
-      <Translation encoding="c-literal">Symbole gespeichert.\r\n\r\n• Manche Symbol erscheinen möglicherweise spiegelverkehrt.\r\n• Das Spiel stellt möglicherweise die Panzerstufe zusätzlich auf den Symbolen dar.\r\n\r\nUm diese Probleme zu beheben, folgen Sie den Anleitungen im Tank-Icon-Maker-Posting im World-of-Tanks-Forum.</Translation>
-      <Old encoding="c-literal">Icons saved!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
+      <Translation encoding="c-literal">Symbole in „{0}“ gespeichert.\r\n\r\n• Manche Symbol erscheinen möglicherweise spiegelverkehrt.\r\n• Das Spiel stellt möglicherweise die Panzerstufe zusätzlich auf den Symbolen dar.\r\n\r\nUm diese Probleme zu beheben, folgen Sie den Anleitungen im Tank-Icon-Maker-Posting im World-of-Tanks-Forum.</Translation>
+      <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
     </IconsSaved>
     <IconsSaveSkipped>
       <IsNumber>
