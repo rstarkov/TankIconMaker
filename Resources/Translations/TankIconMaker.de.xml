@@ -352,7 +352,7 @@
       </DisplayName>
       <Description>
         <Translation>Bestimmt einen Pfad für die Bilddatei. Relative Pfade sind erlaubt, in welchem Falle zuerst im Programmverzeichnis, dann im versionsspezifischen WoT-Mods-Verzeichnis und schließlich im WoT-Installationsverzeichnis nach einem passenden Verzeichnis gesucht wird.</Translation>
-        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Old>
+        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT installation directory.</Old>
       </Description>
     </ImageFile>
     <MissingImageWarning>
@@ -805,6 +805,36 @@
         <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
       </Description>
     </Color>
+    <Threshold>
+      <DisplayName>
+        <Translation>Grenzwert</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Grenzwert im Alphakanal, bei dem der Umriss generiert wird.</Translation>
+        <Old>Specifies the alpha channel threshold at which the outline is to be drawn.</Old>
+      </Description>
+    </Threshold>
+    <Inside>
+      <DisplayName>
+        <Translation>Innen</Translation>
+        <Old>Inside</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Wenn deaktiviert, wird der Umriss auf den durchsichtigen Pixeln gezeichnet, wodurch die Pixel mit größerer Deckkraft als der Grenzwert voll sichtbar bleiben. Wenn aktiviert, wird der Umriss auf den undurchsichtigen Pixeln gezeichnet, wodurch die durchsichtigen Pixel voll sichtbar bleiben.</Translation>
+        <Old>When unchecked, the outline is drawn on the transparent pixels, leaving pixels more opaque than the Threshold fully visible. Otherwise, the outline is drawn over the opaque pixels, leaving the transparent ones fully visible.</Old>
+      </Description>
+    </Inside>
+    <KeepImage>
+      <DisplayName>
+        <Translation>Bild beibehalten</Translation>
+        <Old>Keep image</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, ob das Bild, auf dem der Umriss basiert, beibehalten wird, oder ob das Bild verworfen und lediglich der Umriss beibehalten wird.</Translation>
+        <Old>Specifies whether to leave the image on which the outline is based, or discard it and show just the outline.</Old>
+      </Description>
+    </KeepImage>
   </EffectPixelOutline>
   <EffectShadow>
     <EffectName>
@@ -1725,6 +1755,10 @@
       <Translation>Keine Versionsdatendateien und/oder eingebaute Eigenschaftendatendateien gefunden.</Translation>
       <Old>Found no version files and/or no built-in property data files.</Old>
     </DataMissing_NoDataFiles>
+    <DataMissing_NoBuiltinData>
+      <Translation>Keine eingebaute Eigenschaftendatendatei für diese Version von World of Tanks gefunden.</Translation>
+      <Old>Found no built-in property data file for this version of World of Tanks.</Old>
+    </DataMissing_NoBuiltinData>
     <DataMissing_NoWotInstallation>
       <Translation>Im angegebenen Verzeichnis wurde keine unterstützte Installation von World of Tanks erkannt.</Translation>
       <Old>Failed to detect a supported World of Tanks installation at this path.</Old>
