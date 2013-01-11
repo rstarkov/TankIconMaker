@@ -314,6 +314,7 @@ namespace TankIconMaker
             foreach (var gameInstallation in App.Settings.GameInstallations.ToList()) // grab a list of all items because the source auto-resorts on changes
                 gameInstallation.ReloadGameVersion();
             App.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
+            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersion); // duplicated in ListRenderTasks; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
 
             // Update the list of warnings
             _dataWarnings.Clear();
@@ -353,6 +354,14 @@ namespace TankIconMaker
                 var msg = App.Translation.Error.DataMissing_WotVersionTooOld.Fmt(App.Settings.ActiveInstallation.GameVersionName + " #" + App.Settings.ActiveInstallation.GameVersionId);
                 _otherWarnings.Add(new Warning_DataMissing(msg));
                 ctGameInstallationWarning.Text = msg;
+            }
+            else if (builtin == null)
+            {
+                // Everything's fine with the installation but we don't have any built-in data files for this version.
+                _dataMissing.Value = true;
+                UpdateDataSources(App.Settings.ActiveInstallation.GameVersionId.Value);
+                _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoBuiltinData));
+                ctGameInstallationWarning.Text = null;
             }
             else
             {
@@ -743,7 +752,7 @@ namespace TankIconMaker
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
         private List<RenderTask> ListRenderTasks(bool all = false)
         {
-            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersion);
+            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersion);  // duplicated in ReloadData; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
             if (builtin == null)
                 return new List<RenderTask>(); // happens when there are no built-in data files
 

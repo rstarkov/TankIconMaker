@@ -620,6 +620,7 @@ namespace TankIconMaker
 
         public TrString NoDataFilesWarning = "Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}";
         public TrString DataMissing_NoDataFiles = "Found no version files and/or no built-in property data files.";
+        public TrString DataMissing_NoBuiltinData = "Found no built-in property data file for this version of World of Tanks.";
         public TrString DataMissing_NoWotInstallation = "Failed to detect a supported World of Tanks installation at this path.";
         public TrString DataMissing_WotVersionTooOld = "This version of World of Tanks ({0}) is not supported because no suitable configuration files are available.";
         public TrString DataMissing_NoInstallationSelected = "Select a game installation above or add a new one using the green [+] button.";

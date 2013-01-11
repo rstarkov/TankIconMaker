@@ -493,11 +493,6 @@ namespace TankIconMaker
         private readonly List<GameVersion> _versions = new List<GameVersion>();
 
         /// <summary>
-        /// Gets a value indicating whether the bare minimum of files are available.
-        /// </summary>
-        public bool FilesAvailable { get; private set; }
-
-        /// <summary>
         /// Gets a list of warnings issued while loading the data. These can be serious and help understand
         /// why data might be missing. This list is read-only.
         /// </summary>
@@ -542,11 +537,7 @@ namespace TankIconMaker
                 readDataFiles(path);
             }
 
-            FilesAvailable = _builtIn.Any() && _versions.Any();
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs("FilesAvailable"));
-
-            if (!FilesAvailable)
+            if (!_builtIn.Any() || !_versions.Any())
                 _warnings.Add(App.Translation.Error.DataDir_NoFilesAvailable);
         }
 
