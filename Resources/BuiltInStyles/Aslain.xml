@@ -404,7 +404,7 @@
       <Anchor>TopLeft</Anchor>
       <X>8</X>
       <Y>9</Y>
-      <Width>999</Width>
+      <Width>68</Width>
       <Height>999</Height>
       <Baseline>True</Baseline>
       <Property>
@@ -609,7 +609,7 @@
       <Anchor>MidLeft</Anchor>
       <X>5</X>
       <Y>11</Y>
-      <Width>999</Width>
+      <Width>70</Width>
       <Height>999</Height>
       <Baseline>True</Baseline>
       <Property>
