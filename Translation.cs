@@ -392,6 +392,9 @@ namespace TankIconMaker
         public TrString EffectDescription = "Adds a 1 pixel outline around the image. Not suitable for layers with soft outlines.";
 
         public MemberDescriptionTr Color = new MemberDescriptionTr { DisplayName = "Color", Description = "Specifies which color to use. Use the Alpha channel to adjust the strength of the effect." };
+        public MemberDescriptionTr Threshold = new MemberDescriptionTr { DisplayName = "Threshold", Description = "Specifies the alpha channel threshold at which the outline is to be drawn." };
+        public MemberDescriptionTr Inside = new MemberDescriptionTr { DisplayName = "Inside", Description = "When unchecked, the outline is drawn on the transparent pixels, leaving pixels more opaque than the Threshold fully visible. Otherwise, the outline is drawn over the opaque pixels, leaving the transparent ones fully visible." };
+        public MemberDescriptionTr KeepImage = new MemberDescriptionTr { DisplayName = "Keep image", Description = "Specifies whether to leave the image on which the outline is based, or discard it and show just the outline." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectShadow)]

@@ -352,7 +352,7 @@
       </DisplayName>
       <Description>
         <Translation>Указывает путь к файлу с изображением. Относительные пути разрешаются; программа ищет такие файлы сначала в директории программы, потом в папке для модов WoT текущей версии, а потом в папке установки WoT.</Translation>
-        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory.</Old>
+        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT installation directory.</Old>
       </Description>
     </ImageFile>
     <MissingImageWarning>
@@ -805,6 +805,36 @@
         <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
       </Description>
     </Color>
+    <Threshold>
+      <DisplayName>
+        <Translation>Порог</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает порог значений альфа канала, на котором будет нарисован контур.</Translation>
+        <Old>Specifies the alpha channel threshold at which the outline is to be drawn.</Old>
+      </Description>
+    </Threshold>
+    <Inside>
+      <DisplayName>
+        <Translation>Внутри</Translation>
+        <Old>Inside</Old>
+      </DisplayName>
+      <Description>
+        <Translation>По умолчанию (если эта опция отключена), контур рисуется поверх прозрачных пикселей, оставляя видимыми все пиксели, более непрозрачные, чем Порог. Когда включена, контур рисуется поверх непрозрачных пикселей, оставляя прозрачные полностью видимыми.</Translation>
+        <Old>When unchecked, the outline is drawn on the transparent pixels, leaving pixels more opaque than the Threshold fully visible. Otherwise, the outline is drawn over the opaque pixels, leaving the transparent ones fully visible.</Old>
+      </Description>
+    </Inside>
+    <KeepImage>
+      <DisplayName>
+        <Translation>Оставить изображение</Translation>
+        <Old>Keep image</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, оставить ли видимым изображение, на основе которого построен контур, либо оставить только контур.</Translation>
+        <Old>Specifies whether to leave the image on which the outline is based, or discard it and show just the outline.</Old>
+      </Description>
+    </KeepImage>
   </EffectPixelOutline>
   <EffectShadow>
     <EffectName>

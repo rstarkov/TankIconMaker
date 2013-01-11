@@ -470,7 +470,7 @@ namespace TankIconMaker
     /// Encapsulates all of the World of Tanks data available to the program, and implements methods
     /// to load the data off disk and retrieve a list of warnings indicating problems with the data.
     /// </summary>
-    sealed class WotData : INotifyPropertyChanged
+    sealed class WotData
     {
         /// <summary>
         /// Gets a list of all the built-in data files available. Each file contains all the tanks, including those
@@ -837,8 +837,6 @@ namespace TankIconMaker
             foreach (var e in extra.GroupBy(df => new { name = df.Name, language = df.Language, author = df.Author, gamever = df.GameVersionId }))
                 _extra.Add(e.Single(k => k.FileVersion == e.Max(m => m.FileVersion)).Result);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     /// <summary>Represents one of the WoT countries.</summary>

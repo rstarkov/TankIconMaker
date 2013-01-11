@@ -519,8 +519,9 @@ namespace TankIconMaker
         /// <summary>
         /// Returns a new image which contains a 1 pixel wide black outline of the specified image.
         /// </summary>
-        public void GetOutline(BitmapBase result, Color color)
+        public void GetOutline(BitmapBase result, Color color, int threshold, bool inside)
         {
+            const byte outside = 0;
             using (UseRead())
             using (result.UseWrite())
             {
@@ -530,15 +531,20 @@ namespace TankIconMaker
                 for (int y = 0; y < Height; y++)
                 {
                     int b = y * Stride;
-                    int left = 0;
+                    int left = outside;
                     int cur = src[b + 0 + 3];
                     int right;
                     for (int x = 0; x < Width; x++, b += 4)
                     {
-                        right = x == Width - 1 ? (byte) 0 : src[b + 4 + 3];
-                        if (src[b + 3] == 0)
+                        right = x == Width - 1 ? outside : src[b + 4 + 3];
+                        if ((src[b + 3] <= threshold) ^ inside)
                         {
-                            if (left != 0 || right != 0 || (y > 0 && src[b - Stride + 3] > 0) || ((y < Height - 1) && src[b + Stride + 3] > 0))
+                            if (
+                                ((left > threshold) ^ inside) ||
+                                ((right > threshold) ^ inside) ||
+                                (((y == 0 ? outside : src[b - Stride + 3]) > threshold) ^ inside) ||
+                                (((y == Height - 1 ? outside : src[b + Stride + 3]) > threshold) ^ inside)
+                            )
                             {
                                 tgt[b] = cb;
                                 tgt[b + 1] = cg;

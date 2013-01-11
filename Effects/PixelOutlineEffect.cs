@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using RT.Util.ExtensionMethods;
 using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
@@ -12,9 +13,22 @@ namespace TankIconMaker.Effects
         public ColorSelector Color { get; set; }
         public static MemberTr ColorTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectPixelOutline.Color); }
 
+        public int Threshold { get { return _Threshold; } set { _Threshold = value.Clip(0, 255); } }
+        private int _Threshold;
+        public static MemberTr ThresholdTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectPixelOutline.Threshold); }
+
+        public bool Inside { get; set; }
+        public static MemberTr InsideTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectPixelOutline.Inside); }
+
+        public bool KeepImage { get; set; }
+        public static MemberTr KeepImageTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectPixelOutline.KeepImage); }
+
         public PixelOutlineEffect()
         {
             Color = new ColorSelector(Colors.Black);
+            Threshold = 0;
+            Inside = false;
+            KeepImage = true;
         }
 
         public override EffectBase Clone()
@@ -27,9 +41,14 @@ namespace TankIconMaker.Effects
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             var outline = new BitmapRam(layer.Width, layer.Height);
-            layer.GetOutline(outline, Color.GetColorWpf(tank));
-            layer.DrawImage(outline);
-            return layer;
+            layer.GetOutline(outline, Color.GetColorWpf(tank), Threshold, Inside);
+            if (KeepImage)
+            {
+                layer.DrawImage(outline);
+                return layer;
+            }
+            else
+                return outline;
         }
     }
 }
