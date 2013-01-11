@@ -1727,6 +1727,10 @@
       <Translation>Не удалось загрузить ни одного файла версии либо файла со встроенными свойствами.</Translation>
       <Old>Found no version files and/or no built-in property data files.</Old>
     </DataMissing_NoDataFiles>
+    <DataMissing_NoBuiltinData>
+      <Translation>Для данной версии World of Tanks файл со встроенными свойствами танков не найден.</Translation>
+      <Old>Found no built-in property data file for this version of World of Tanks.</Old>
+    </DataMissing_NoBuiltinData>
     <DataMissing_NoWotInstallation>
       <Translation>Не удалось обнаружить поддерживаемую версию World of Tanks по указанному пути.</Translation>
       <Old>Failed to detect a supported World of Tanks installation at this path.</Old>
