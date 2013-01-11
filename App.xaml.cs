@@ -38,7 +38,7 @@ namespace TankIconMaker
         public static ObservableSortedList<DataSourceInfo> DataSources = new ObservableSortedList<DataSourceInfo>(
             items: new DataSourceInfo[] { new DataSourceTierArabic(), new DataSourceTierRoman() },
             comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceTierArabic ? 0 : ds is DataSourceTierRoman ? 1 : 2)
-                .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersion));
+                .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersionId));
 
         /// <summary>
         /// Screen resolution at program start time, relative to the WPF's 96.0 ppi. Windows 7 won't allow this to be changed
@@ -95,7 +95,6 @@ namespace TankIconMaker
             XmlClassify.DefaultOptions = new XmlClassifyOptions()
                 .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
                 .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(Version), new versionTypeOptions())
                 .AddTypeOptions(typeof(Filename), new filenameTypeOptions())
                 .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
                 .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
@@ -172,7 +171,7 @@ namespace TankIconMaker
             Lingo.PostBuildStep<Translation>(rep, Assembly.GetExecutingAssembly());
             XmlClassify.PostBuildStep<Settings>(rep);
             XmlClassify.PostBuildStep<Style>(rep);
-            XmlClassify.PostBuildStep<GameVersion>(rep);
+            XmlClassify.PostBuildStep<GameVersionConfig>(rep);
         }
     }
 }

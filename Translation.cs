@@ -266,7 +266,7 @@ namespace TankIconMaker
         public TrString LayerName = "Image / By properties";
         public TrString LayerDescription = "Draws an image loaded from a file whose name is selected based on tank properties.";
 
-        public MemberDescriptionTr ImageFile = new MemberDescriptionTr { DisplayName = "Image file", Description = "Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT install directory." };
+        public MemberDescriptionTr ImageFile = new MemberDescriptionTr { DisplayName = "Image file", Description = "Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT installation directory." };
 
         [LingoNotes("The string \"{0}\" is replaced with the filename of the missing image. ")]
         public TrString MissingImageWarning = "The image {0} could not be found.";

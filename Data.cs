@@ -27,7 +27,7 @@ namespace TankIconMaker
 
         private Dictionary<ExtraPropertyId, string> _extras;
 
-        private GameInstallationSettings _gameInstall;
+        private GameInstallation _gameInstallation;
         private Action<string> _addWarning;
 
         protected Tank() { }
@@ -35,14 +35,14 @@ namespace TankIconMaker
         /// <summary>Creates an instance ready to pass on to a Maker.</summary>
         /// <param name="tank">Tank data to copy into this instance.</param>
         /// <param name="extras">All the extra properties available for this tank and this game version.</param>
-        /// <param name="gameInstall">Game install settings (to allow loading standard tank images).</param>
+        /// <param name="gameInstallation">Game installation info (to allow loading standard tank images).</param>
         /// <param name="addWarning">The method to be used to add warnings about this tank's rendering.</param>
         public Tank(TankData tank, IEnumerable<KeyValuePair<ExtraPropertyId, string>> extras,
-            GameInstallationSettings gameInstall, Action<string> addWarning)
+            GameInstallation gameInstallation, Action<string> addWarning)
         {
-            if (gameInstall == null)
+            if (gameInstallation == null)
                 throw new ArgumentNullException();
-            if (gameInstall.GameVersion == null)
+            if (gameInstallation.GameVersionConfig == null)
                 throw new InvalidOperationException("This game installation doesn't have a valid version configuration.");
             SystemId = tank.SystemId;
             Country = tank.Country;
@@ -53,7 +53,7 @@ namespace TankIconMaker
             if (extras != null)
                 foreach (var extra in extras)
                     _extras.Add(extra.Key, extra.Value);
-            _gameInstall = gameInstall;
+            _gameInstallation = gameInstallation;
             _addWarning = addWarning;
         }
 
@@ -121,19 +121,19 @@ namespace TankIconMaker
         /// <summary>Gets a built-in image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
         public virtual BitmapBase GetImageBuiltIn(ImageBuiltInStyle style)
         {
-            var gameVersion = _gameInstall.GameVersion;
+            var config = _gameInstallation.GameVersionConfig;
             switch (style)
             {
                 case ImageBuiltInStyle.Contour:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSourceContour, SystemId + gameVersion.TankIconExtension));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSourceContour, SystemId + config.TankIconExtension));
                 case ImageBuiltInStyle.ThreeD:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSource3D, SystemId + gameVersion.TankIconExtension));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSource3D, SystemId + config.TankIconExtension));
                 case ImageBuiltInStyle.ThreeDLarge:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSource3DLarge, SystemId + gameVersion.TankIconExtension));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSource3DLarge, SystemId + config.TankIconExtension));
                 case ImageBuiltInStyle.Country:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSourceCountry[Country]));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSourceCountry[Country]));
                 case ImageBuiltInStyle.Class:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathSourceClass[Class]));
+                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSourceClass[Class]));
                 default:
                     throw new Exception("9174876");
             }
@@ -142,8 +142,8 @@ namespace TankIconMaker
         /// <summary>Gets the currently saved icon image for this tank. Returns null if the image file does not exist. Throws on format errors.</summary>
         public virtual BitmapBase GetImageCurrent()
         {
-            var gameVersion = _gameInstall.GameVersion;
-            return ImageCache.GetImage(new CompositeFilename(_gameInstall.Path, gameVersion.PathDestination, SystemId + gameVersion.TankIconExtension))
+            var config = _gameInstallation.GameVersionConfig;
+            return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathDestination, SystemId + config.TankIconExtension))
                 ?? GetImageBuiltIn(ImageBuiltInStyle.Contour);
         }
     }
@@ -173,7 +173,7 @@ namespace TankIconMaker
 
     /// <summary>
     /// Encapsulates information about a tank read from the built-in data file. This is a separate type from <see cref="Tank"/> to ensure
-    /// that it is not accidentally passed on to a maker without filling out the extra properties or linking to a game version/install.
+    /// that it is not accidentally passed on to a maker without filling out the extra properties or linking to a game version/installation.
     /// </summary>
     class TankData : Tank
     {
@@ -231,8 +231,8 @@ namespace TankIconMaker
     /// </summary>
     class DataFileBuiltIn
     {
-        /// <summary>Which game version this data file was made for.</summary>
-        public int GameVersion { get; private set; }
+        /// <summary>This data file applies from this game build ID onwards (unless overridden by a later one).</summary>
+        public int GameVersionId { get; private set; }
         /// <summary>The file version of this file.</summary>
         public int FileVersion { get; private set; }
 
@@ -242,13 +242,13 @@ namespace TankIconMaker
         /// <summary>For debugging.</summary>
         public override string ToString()
         {
-            return "BuiltIn-#{0:0000}-{1}".Fmt(GameVersion, FileVersion);
+            return "BuiltIn-#{0:0000}-{1}".Fmt(GameVersionId, FileVersion);
         }
 
         /// <summary>Constructs an instance and parses the data from the specified file.</summary>
-        public DataFileBuiltIn(int gameVersion, int fileVersion, string filename)
+        public DataFileBuiltIn(int gameVersionId, int fileVersion, string filename)
         {
-            GameVersion = gameVersion;
+            GameVersionId = gameVersionId;
             FileVersion = fileVersion;
 
             var lines = Ut.ReadCsvLines(filename).ToArray();
@@ -270,9 +270,9 @@ namespace TankIconMaker
         }
 
         /// <summary>Constructs an instance using the specified parameters and data.</summary>
-        public DataFileBuiltIn(int gameVersion, int fileVersion, IEnumerable<TankData> data)
+        public DataFileBuiltIn(int gameVersionId, int fileVersion, IEnumerable<TankData> data)
         {
-            GameVersion = gameVersion;
+            GameVersionId = gameVersionId;
             FileVersion = fileVersion;
             Data = data.ToList().AsReadOnly();
         }
@@ -287,7 +287,7 @@ namespace TankIconMaker
         public string Name { get; private set; }
         public string Language { get; private set; }
         public string Author { get; private set; }
-        public int GameVersion { get; private set; }
+        public int GameVersionId { get; private set; }
         public int FileVersion { get; private set; }
         public string Description { get; private set; }
         public string InheritsFromName { get; private set; }
@@ -298,15 +298,15 @@ namespace TankIconMaker
 
         public override string ToString()
         {
-            return "{0}-{1}-{2}-{3}-{4}".Fmt(Name, Language, Author, GameVersion, FileVersion);
+            return "{0}-{1}-{2}-{3}-{4}".Fmt(Name, Language, Author, GameVersionId, FileVersion);
         }
 
-        public DataFileExtra(string name, string language, string author, int gameVersion, int fileVersion, string filename)
+        public DataFileExtra(string name, string language, string author, int gameVersionId, int fileVersion, string filename)
         {
             Name = name;
             Language = language;
             Author = author;
-            GameVersion = gameVersion;
+            GameVersionId = gameVersionId;
             FileVersion = fileVersion;
 
             var lines = Ut.ReadCsvLines(filename).ToArray();
@@ -347,7 +347,7 @@ namespace TankIconMaker
             Name = properties.Name;
             Language = properties.Language;
             Author = properties.Author;
-            GameVersion = properties.GameVersion;
+            GameVersionId = properties.GameVersionId;
             FileVersion = properties.FileVersion;
             Description = properties.Description;
             InheritsFromName = properties.InheritsFromName;
@@ -356,12 +356,12 @@ namespace TankIconMaker
             Data = data.ToList().AsReadOnly();
         }
 
-        protected DataFileExtra(string name, string language, string author, int gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
+        protected DataFileExtra(string name, string language, string author, int gameVersionId, string description, string inhName, string inhAuthor, string inhLanguage)
         {
             Name = name;
             Language = language;
             Author = author;
-            GameVersion = gameVersion;
+            GameVersionId = gameVersionId;
             FileVersion = 1;
             Description = description;
             InheritsFromName = inhName;
@@ -489,8 +489,8 @@ namespace TankIconMaker
         /// <summary>
         /// Gets a dictionary of all the game version information available. This dictionary is read-only.
         /// </summary>
-        public IList<GameVersion> Versions { get { return _versions.AsReadOnly(); } }
-        private readonly List<GameVersion> _versions = new List<GameVersion>();
+        public IList<GameVersionConfig> VersionConfigs { get { return _versionConfigs.AsReadOnly(); } }
+        private readonly List<GameVersionConfig> _versionConfigs = new List<GameVersionConfig>();
 
         /// <summary>
         /// Gets a list of warnings issued while loading the data. These can be serious and help understand
@@ -503,9 +503,9 @@ namespace TankIconMaker
         /// Gets game version configuration appropriate for a game with the specified build ID. Returns null if none are appropriate
         /// (e.g. none are available at all, or there isn't one with the build ID of zero).
         /// </summary>
-        public GameVersion GetVersion(int version)
+        public GameVersionConfig GetVersionConfig(int gameVersionId)
         {
-            return _versions.Where(v => v.Version <= version).MaxElementOrDefault(v => v.Version);
+            return _versionConfigs.Where(v => v.GameVersionId <= gameVersionId).MaxElementOrDefault(v => v.GameVersionId);
         }
 
         /// <summary>Represents an "extra" data file during loading, including all the extra info required to properly resolve inheritance.</summary>
@@ -516,11 +516,11 @@ namespace TankIconMaker
             public int NearestRoot;
             public DataFileExtra Result;
 
-            public DataFileExtra2(string name, string language, string author, int gameVersion, int fileVersion, string filename)
-                : base(name, language, author, gameVersion, fileVersion, filename) { }
+            public DataFileExtra2(string name, string language, string author, int gameVersionId, int fileVersion, string filename)
+                : base(name, language, author, gameVersionId, fileVersion, filename) { }
 
-            public DataFileExtra2(string name, string language, string author, int gameVersion, string description, string inhName, string inhAuthor, string inhLanguage)
-                : base(name, language, author, gameVersion, description, inhName, inhAuthor, inhLanguage) { }
+            public DataFileExtra2(string name, string language, string author, int gameVersionId, string description, string inhName, string inhAuthor, string inhLanguage)
+                : base(name, language, author, gameVersionId, description, inhName, inhAuthor, inhLanguage) { }
         }
 
         /// <summary>Clears all the data and performs a fresh load off disk.</summary>
@@ -528,7 +528,7 @@ namespace TankIconMaker
         {
             _builtIn.Clear();
             _extra.Clear();
-            _versions.Clear();
+            _versionConfigs.Clear();
             _warnings.Clear();
 
             if (Directory.Exists(path))
@@ -537,7 +537,7 @@ namespace TankIconMaker
                 readDataFiles(path);
             }
 
-            if (!_builtIn.Any() || !_versions.Any())
+            if (!_builtIn.Any() || !_versionConfigs.Any())
                 _warnings.Add(App.Translation.Error.DataDir_NoFilesAvailable);
         }
 
@@ -553,8 +553,8 @@ namespace TankIconMaker
                     continue;
                 }
 
-                int gameVersion;
-                if (!parts[1].StartsWith("#") || !int.TryParse(parts[1].Substring(1), out gameVersion))
+                int gameVersionId;
+                if (!parts[1].StartsWith("#") || !int.TryParse(parts[1].Substring(1), out gameVersionId))
                 {
                     _warnings.Add(App.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, parts[1]));
                     continue;
@@ -562,9 +562,9 @@ namespace TankIconMaker
 
                 try
                 {
-                    var ver = XmlClassify.LoadObjectFromXmlFile<GameVersion>(fi.FullName);
-                    ver.Version = gameVersion;
-                    _versions.Add(ver);
+                    var ver = XmlClassify.LoadObjectFromXmlFile<GameVersionConfig>(fi.FullName);
+                    ver.GameVersionId = gameVersionId;
+                    _versionConfigs.Add(ver);
                 }
                 catch (Exception e)
                 {
@@ -600,8 +600,8 @@ namespace TankIconMaker
                     continue;
                 }
 
-                int gameVersion;
-                if (!partsr[1].StartsWith("#") || !int.TryParse(partsr[1].Substring(1), out gameVersion))
+                int gameVersionId;
+                if (!partsr[1].StartsWith("#") || !int.TryParse(partsr[1].Substring(1), out gameVersionId))
                 {
                     _warnings.Add(App.Translation.Error.DataDir_Skip_GameVersion.Fmt(fi.Name, partsr[1]));
                     continue;
@@ -618,7 +618,7 @@ namespace TankIconMaker
                 {
                     try
                     {
-                        var df = new DataFileBuiltIn(gameVersion, fileVersion, fi.FullName);
+                        var df = new DataFileBuiltIn(gameVersionId, fileVersion, fi.FullName);
                         builtin.Add(df);
                         origFilenames[df] = fi.Name;
                     }
@@ -653,7 +653,7 @@ namespace TankIconMaker
 
                     try
                     {
-                        var df = new DataFileExtra2(extraName, languageName, author, gameVersion, fileVersion, fi.FullName);
+                        var df = new DataFileExtra2(extraName, languageName, author, gameVersionId, fileVersion, fi.FullName);
                         extra.Add(df);
                         origFilenames[df] = fi.Name;
                     }
@@ -666,10 +666,10 @@ namespace TankIconMaker
             }
 
             // Conjure up blank "extra" files for all "missing" versions
-            var versions = builtin.Select(f => f.GameVersion).Concat(extra.Select(f => f.GameVersion)).Distinct().OrderBy(v => v).ToArray();
+            var versions = builtin.Select(f => f.GameVersionId).Concat(extra.Select(f => f.GameVersionId)).Distinct().OrderBy(v => v).ToArray();
             foreach (var ex in extra.ToArray())
-                foreach (var ver in versions.Where(v => v > ex.GameVersion))
-                    if (!extra.Any(e => e.Name == ex.Name && e.Language == ex.Language && e.Author == ex.Author && e.GameVersion == ver))
+                foreach (var ver in versions.Where(v => v > ex.GameVersionId))
+                    if (!extra.Any(e => e.Name == ex.Name && e.Language == ex.Language && e.Author == ex.Author && e.GameVersionId == ver))
                     {
                         var newextra = new DataFileExtra2(ex.Name, ex.Language, ex.Author, ver, ex.Description,
                             ex.InheritsFromName, ex.InheritsFromAuthor, ex.InheritsFromLanguage);
@@ -683,12 +683,12 @@ namespace TankIconMaker
 
         private void resolveBuiltIn(List<DataFileBuiltIn> builtin)
         {
-            foreach (var group in builtin.GroupBy(df => new { gamever = df.GameVersion }).OrderBy(g => g.Key.gamever))
+            foreach (var group in builtin.GroupBy(df => new { gamever = df.GameVersionId }).OrderBy(g => g.Key.gamever))
             {
                 var tanks = new Dictionary<string, TankData>();
 
                 // Inherit from the earlier game versions
-                var earlierVer = _builtIn.OrderByDescending(df => df.GameVersion).FirstOrDefault();
+                var earlierVer = _builtIn.OrderByDescending(df => df.GameVersionId).FirstOrDefault();
                 if (earlierVer != null)
                     foreach (var row in earlierVer.Data)
                         tanks[row.SystemId] = row;
@@ -740,10 +740,10 @@ namespace TankIconMaker
                                 continue;
                             }
                         }
-                        p = p.Where(df => df.GameVersion <= e.GameVersion).ToList();
+                        p = p.Where(df => df.GameVersionId <= e.GameVersionId).ToList();
                         if (p.Count == 0)
                         {
-                            _warnings.Add(App.Translation.Error.DataDir_Skip_InhNoGameVer.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersion));
+                            _warnings.Add(App.Translation.Error.DataDir_Skip_InhNoGameVer.Fmt(origFilenames[e], e.InheritsFromName, e.InheritsFromLanguage, e.GameVersionId));
                             ignore.Add(e);
                             continue;
                         }
@@ -759,20 +759,20 @@ namespace TankIconMaker
                     // Inherit from the explicitly specified file
                     if (e.InheritsFromName != null)
                     {
-                        var p = extra.Where(df => df.GameVersion <= e.GameVersion && df.Name == e.InheritsFromName)
-                            .OrderByDescending(df => df.GameVersion).AsEnumerable();
+                        var p = extra.Where(df => df.GameVersionId <= e.GameVersionId && df.Name == e.InheritsFromName)
+                            .OrderByDescending(df => df.GameVersionId).AsEnumerable();
                         if (e.InheritsFromLanguage != null)
                             p = p.Where(df => df.Language == e.InheritsFromLanguage);
                         e.ImmediateParents.Add(p.Where(df => df.Author == e.InheritsFromAuthor).OrderByDescending(df => df.FileVersion).First());
                     }
 
                     // Inherit from the latest version of the same file for an earlier game version
-                    var earlierGameVersion = sameNEL.Where(df => df.GameVersion < e.GameVersion).MaxAll(df => df.GameVersion).MaxOrDefault(df => df.FileVersion);
+                    var earlierGameVersion = sameNEL.Where(df => df.GameVersionId < e.GameVersionId).MaxAll(df => df.GameVersionId).MaxOrDefault(df => df.FileVersion);
                     if (earlierGameVersion != null)
                         e.ImmediateParents.Add(earlierGameVersion);
 
                     // Inherit from an earlier version of this same file
-                    var earlierVersionOfSameFile = sameNEL.Where(df => df.GameVersion == e.GameVersion && df.FileVersion < e.FileVersion)
+                    var earlierVersionOfSameFile = sameNEL.Where(df => df.GameVersionId == e.GameVersionId && df.FileVersion < e.FileVersion)
                         .MaxOrDefault(df => df.FileVersion);
                     if (earlierVersionOfSameFile != null)
                         e.ImmediateParents.Add(earlierVersionOfSameFile);
@@ -836,7 +836,7 @@ namespace TankIconMaker
             }
 
             // Keep only the latest file version of each file
-            foreach (var e in extra.GroupBy(df => new { name = df.Name, language = df.Language, author = df.Author, gamever = df.GameVersion }))
+            foreach (var e in extra.GroupBy(df => new { name = df.Name, language = df.Language, author = df.Author, gamever = df.GameVersionId }))
                 _extra.Add(e.Single(k => k.FileVersion == e.Max(m => m.FileVersion)).Result);
         }
 
@@ -889,11 +889,11 @@ namespace TankIconMaker
     /// <summary>
     /// Holds various tweakable properties which have historically changed between game versions.
     /// </summary>
-    sealed class GameVersion
+    sealed class GameVersionConfig
     {
         /// <summary>These properties first apply in the game whose build ID is this. This property is deduced from file name, rather than its content.</summary>
         [XmlIgnore]
-        public int Version { get; internal set; }
+        public int GameVersionId { get; internal set; }
 
         /// <summary>Relative path to the root directory containing modding-related files for this specific version.</summary>
         public string PathMods { get; private set; }
@@ -912,6 +912,6 @@ namespace TankIconMaker
         public string TankIconExtension { get; private set; }
 
         /// <summary>Constructor, for use by XmlClassify.</summary>
-        private GameVersion() { }
+        private GameVersionConfig() { }
     }
 }

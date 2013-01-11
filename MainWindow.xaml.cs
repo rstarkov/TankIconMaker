@@ -314,7 +314,7 @@ namespace TankIconMaker
             foreach (var gameInstallation in App.Settings.GameInstallations.ToList()) // grab a list of all items because the source auto-resorts on changes
                 gameInstallation.ReloadGameVersion();
             App.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
-            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersion); // duplicated in ListRenderTasks; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
+            var builtin = App.Data.BuiltIn.Where(b => b.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersionId); // duplicated in ListRenderTasks; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
 
             // Update the list of warnings
             _dataWarnings.Clear();
@@ -323,7 +323,7 @@ namespace TankIconMaker
 
             // Disable parts of the UI if some of the data is unavailable, and show warnings as appropriate
             _otherWarnings.RemoveWhere(w => w is Warning_DataMissing);
-            if (!App.Data.Versions.Any() || !App.Data.BuiltIn.Any())
+            if (!App.Data.VersionConfigs.Any() || !App.Data.BuiltIn.Any())
             {
                 // This means things are badly broken; this isn't supposed to happen; bad enough to warrant a dialog.
                 _dataMissing.Value = true;
@@ -346,7 +346,7 @@ namespace TankIconMaker
                 else
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoWotInstallation;
             }
-            else if (App.Settings.ActiveInstallation.GameVersion == null)
+            else if (App.Settings.ActiveInstallation.GameVersionConfig == null)
             {
                 // The WoT installation is valid, but we don't have a suitable version config. Can list the right properties, but can't really render.
                 _dataMissing.Value = true;
@@ -391,11 +391,11 @@ namespace TankIconMaker
         /// <summary>
         /// Updates the list of data sources currently available to be used in the icon maker. 
         /// </summary>
-        private void UpdateDataSources(int version)
+        private void UpdateDataSources(int gameVersionId)
         {
             foreach (var item in App.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
             {
-                var extra = App.Data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
+                var extra = App.Data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersionId <= gameVersionId).MaxOrDefault(df => df.GameVersionId);
                 if (extra == null)
                     App.DataSources.Remove(item);
                 else
@@ -403,7 +403,7 @@ namespace TankIconMaker
             }
             foreach (var group in App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author }))
             {
-                var extra = group.Where(df => df.GameVersion <= version).MaxOrDefault(df => df.GameVersion);
+                var extra = group.Where(df => df.GameVersionId <= gameVersionId).MaxOrDefault(df => df.GameVersionId);
                 if (extra != null && !App.DataSources.Any(item => extra.Name == item.Name && extra.Language == item.Language && extra.Author == item.Author))
                     App.DataSources.Add(new DataSourceInfo(extra));
             }
@@ -523,7 +523,7 @@ namespace TankIconMaker
         /// Tests the specified layer instance for its handling of missing extra properties (and possibly other problems). Adds an
         /// appropriate warning message if a problem is detected.
         /// </summary>
-        private void TestLayer(LayerBase layer, GameInstallationSettings gameInstall)
+        private void TestLayer(LayerBase layer, GameInstallation gameInstallation)
         {
             // Test missing extra properties
             _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingExtra);
@@ -752,7 +752,7 @@ namespace TankIconMaker
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
         private List<RenderTask> ListRenderTasks(bool all = false)
         {
-            var builtin = App.Data.BuiltIn.Where(b => b.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersion);  // duplicated in ReloadData; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
+            var builtin = App.Data.BuiltIn.Where(b => b.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersionId);  // duplicated in ReloadData; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
             if (builtin == null)
                 return new List<RenderTask>(); // happens when there are no built-in data files
 
@@ -784,7 +784,7 @@ namespace TankIconMaker
             }
 
             var extras = App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
-                .Select(g => g.Where(df => df.GameVersion <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(df => df.GameVersion))
+                .Select(g => g.Where(df => df.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(df => df.GameVersionId))
                 .Where(df => df != null).ToList();
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
                 .Select(tank =>
@@ -797,7 +797,7 @@ namespace TankIconMaker
                             key: new ExtraPropertyId(df.Name, df.Language, df.Author),
                             value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
                         )),
-                        gameInstall: App.Settings.ActiveInstallation,
+                        gameInstallation: App.Settings.ActiveInstallation,
                         addWarning: task.AddWarning
                     );
                     return task;
@@ -837,7 +837,7 @@ namespace TankIconMaker
 
         private void ctGamePath_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.Settings.ActiveInstallation = ctGamePath.SelectedItem as GameInstallationSettings;
+            App.Settings.ActiveInstallation = ctGamePath.SelectedItem as GameInstallation;
 
             ReloadData();
             SaveSettings();
@@ -1016,14 +1016,14 @@ namespace TankIconMaker
 
         private void saveIcons(string folder = null, bool promptEvenIfEmpty = false)
         {
-            var gameInstall = App.Settings.ActiveInstallation; // must capture this in case the user changes it while the background save continues
-            var path = folder ?? Path.Combine(gameInstall.Path, Ut.ExpandPath(gameInstall.GameVersion.PathDestination));
+            var gameInstallation = App.Settings.ActiveInstallation; // must capture this in case the user changes it while the background save continues
+            var path = folder ?? Path.Combine(gameInstallation.Path, Ut.ExpandPath(gameInstallation.GameVersionConfig.PathDestination));
 
             try
             {
                 if (!_overwriteAccepted.EqualsNoCase(path) && (promptEvenIfEmpty || (Directory.Exists(path) && Directory.GetFileSystemEntries(path).Any())))
                     if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                        .Fmt(path, gameInstall.GameVersion.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                        .Fmt(path, gameInstallation.GameVersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
                         return;
                 _overwriteAccepted = path;
                 Directory.CreateDirectory(path);
@@ -1047,7 +1047,7 @@ namespace TankIconMaker
                                 RenderTank(style, renderTask);
                             }
                         foreach (var kvp in renders.Where(kvp => kvp.Value.Exception == null))
-                            Ut.SaveImage(kvp.Value.Image, Path.Combine(path, kvp.Key + gameInstall.GameVersion.TankIconExtension), gameInstall.GameVersion.TankIconExtension);
+                            Ut.SaveImage(kvp.Value.Image, Path.Combine(path, kvp.Key + gameInstallation.GameVersionConfig.TankIconExtension), gameInstallation.GameVersionConfig.TankIconExtension);
                     }
                     catch (Exception e)
                     {
@@ -1147,18 +1147,18 @@ namespace TankIconMaker
             if (dlg.ShowDialog() != true)
                 return;
 
-            var gis = new GameInstallationSettings(dlg.SelectedPath);
-            if (gis.GameVersionId == null)
+            var gameInstallation = new GameInstallation(dlg.SelectedPath);
+            if (gameInstallation.GameVersionId == null)
             {
                 if (DlgMessage.ShowWarning(App.Translation.Prompt.GameNotFound_Prompt,
                     App.Translation.Prompt.GameNotFound_Ignore, App.Translation.Prompt.Cancel) == 1)
                     return;
             }
 
-            App.Settings.GameInstallations.Add(gis);
+            App.Settings.GameInstallations.Add(gameInstallation);
             SaveSettings();
 
-            ctGamePath.SelectedItem = gis; // this triggers all the necessary work, like updating ActiveInstallation and re-rendering
+            ctGamePath.SelectedItem = gameInstallation; // this triggers all the necessary work, like updating ActiveInstallation and re-rendering
         }
 
         private void RemoveGamePath(object _ = null, RoutedEventArgs __ = null)
@@ -1178,7 +1178,7 @@ namespace TankIconMaker
         private void AddGameInstallations()
         {
             foreach (var path in Ut.EnumerateGameInstallations())
-                App.Settings.GameInstallations.Add(new GameInstallationSettings(path));
+                App.Settings.GameInstallations.Add(new GameInstallation(path));
             SaveSettings();
         }
 

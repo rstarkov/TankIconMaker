@@ -56,11 +56,11 @@ namespace TankIconMaker
         /// <summary>When resolving property inheritance and the author is not specified, this author is given preference.</summary>
         public string DefaultPropertyAuthor = "Wargaming";
 
-        /// <summary>Settings that are specific to a game installation path.</summary>
-        public ObservableSortedList<GameInstallationSettings> GameInstallations = new ObservableSortedList<GameInstallationSettings>();
+        /// <summary>Holds every game installation the user added to the program, as well as any installation-specific settings (currently none).</summary>
+        public ObservableSortedList<GameInstallation> GameInstallations = new ObservableSortedList<GameInstallation>();
 
         /// <summary>The authoritative source on which of the game installations the user has activated in the UI. May be null if no game installations are listed.</summary>
-        public GameInstallationSettings ActiveInstallation;
+        public GameInstallation ActiveInstallation;
 
         /// <summary>A list of all the available user styles. Built-in styles are not stored in the settings file.</summary>
         public ObservableSortedList<Style> Styles = new ObservableSortedList<Style>();
@@ -74,6 +74,9 @@ namespace TankIconMaker
 
         protected override SettingsThreadedBase CloneForSaveThreaded()
         {
+            // Note: this currently makes only a partial clone. This means that the user could potentially change some important setting
+            // while a background save is happening, resulting in a save that's inconsistent. The risk is not non-existent, but fairly low.
+            // Still, doing a deep clone here would be nice.
             var result = (Settings) MemberwiseClone();
             return result;
         }
@@ -101,7 +104,7 @@ namespace TankIconMaker
 
         // Fields obsoleted in v019
         [XmlIgnoreIfDefault]
-        private ObservableSortedList<GameInstallationSettings> GameInstalls;
+        private ObservableSortedList<GameInstallation> GameInstalls;
         [XmlIgnoreIfDefault]
         private string SelectedGamePath;
         [XmlIgnoreIfDefault]
@@ -122,29 +125,26 @@ namespace TankIconMaker
     }
 
     /// <summary>
-    /// Encapsulates the settings for a specific game install location.
+    /// Encapsulates the settings for a specific game installation location.
     /// </summary>
-    sealed class GameInstallationSettings : IComparable<GameInstallationSettings>, INotifyPropertyChanged
+    sealed class GameInstallation : IComparable<GameInstallation>, INotifyPropertyChanged
     {
-        private GameInstallationSettings() { } // for XmlClassify
+        private GameInstallation() { } // for XmlClassify
 
-        public GameInstallationSettings(string path)
+        public GameInstallation(string path)
         {
             _path = path;
             ReloadGameVersion();
         }
 
         /// <summary>Absolute path to the root of this game installation.</summary>
-        public string Path
-        {
-            get { return _path; }
-        }
+        public string Path { get { return _path; } }
         private string _path;
 
         /// <summary>The version of the game that is located at this path. Null if game version could not be detected or no suitable configuration available.</summary>
-        public GameVersion GameVersion
+        public GameVersionConfig GameVersionConfig
         {
-            get { return GameVersionId == null ? null : App.Data.GetVersion(GameVersionId.Value); }
+            get { return GameVersionId == null ? null : App.Data.GetVersionConfig(GameVersionId.Value); }
         }
 
         [XmlIgnore]
@@ -164,7 +164,7 @@ namespace TankIconMaker
         public string DisplayName { get { return (GameVersionName ?? "?") + ":  " + Path; } }
         public override string ToString() { return DisplayName; }
 
-        public int CompareTo(GameInstallationSettings other)
+        public int CompareTo(GameInstallation other)
         {
             if (other == null) return 1;
             if (GameVersionId == null && other.GameVersionId == null)
