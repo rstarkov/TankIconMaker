@@ -185,18 +185,46 @@
       <Translation>Обнаружены проблемы; щелкните по иконке для просмотра подробностей.</Translation>
       <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
     </ctWarning>
-    <ctReloadLabel>
-      <Translation>_Обновить данные</Translation>
-      <Old>_Reload data</Old>
-    </ctReloadLabel>
     <ctSaveLabel>
       <Translation>_Сохранить</Translation>
       <Old>_Save</Old>
     </ctSaveLabel>
     <ctSaveToFolderLabel>
-      <Translation>Сохра_нить в папку</Translation>
-      <Old>Save to _folder</Old>
+      <Translation>Сохра_нить в папку...</Translation>
+      <Old>Save to _folder...</Old>
     </ctSaveToFolderLabel>
+    <ctSaveIcons_AllToGameFolder>
+      <Translation>Все иконки в _игровую папку</Translation>
+      <Old>All icons to _game folder</Old>
+    </ctSaveIcons_AllToGameFolder>
+    <ctBrowseAndSaveIcons_All>
+      <Translation>_Все иконки...</Translation>
+      <Old>_All icons...</Old>
+    </ctBrowseAndSaveIcons_All>
+    <ctBrowseAndSaveIcons_Light>
+      <Translation>Только иконки _легких танков...</Translation>
+      <Old>Only _light tank icons...</Old>
+    </ctBrowseAndSaveIcons_Light>
+    <ctBrowseAndSaveIcons_Medium>
+      <Translation>Только иконки _средних танков...</Translation>
+      <Old>Only _medium tank icons...</Old>
+    </ctBrowseAndSaveIcons_Medium>
+    <ctBrowseAndSaveIcons_Heavy>
+      <Translation>Только иконки _тяжелых танков...</Translation>
+      <Old>Only _heavy tank icons...</Old>
+    </ctBrowseAndSaveIcons_Heavy>
+    <ctBrowseAndSaveIcons_Artillery>
+      <Translation>Только иконки _артиллерии...</Translation>
+      <Old>Only a_rtillery icons...</Old>
+    </ctBrowseAndSaveIcons_Artillery>
+    <ctBrowseAndSaveIcons_Destroyer>
+      <Translation>Только иконки _ПТ...</Translation>
+      <Old>Only _destroyer icons...</Old>
+    </ctBrowseAndSaveIcons_Destroyer>
+    <ctReloadLabel>
+      <Translation>_Обновить данные</Translation>
+      <Old>_Reload data</Old>
+    </ctReloadLabel>
     <ctAboutLabel>
       <Translation>О программе...</Translation>
       <Old>About...</Old>
@@ -1556,8 +1584,8 @@
       <Old>&amp;Use anyway</Old>
     </GameNotFound_Ignore>
     <IconsSaved>
-      <Translation encoding="c-literal">Иконки сохранены!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию в теме Tank Icon Maker на игровом форуме.</Translation>
-      <Old encoding="c-literal">Icons saved!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
+      <Translation encoding="c-literal">Иконки сохранены в папку ”{0}”!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию в теме Tank Icon Maker на игровом форуме.</Translation>
+      <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
     </IconsSaved>
     <IconsSaveSkipped>
       <IsNumber>

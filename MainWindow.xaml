@@ -314,17 +314,26 @@
             <DockPanel Grid.Row="2" Background="#87FFFFFF">
                 <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
                        ToolTip="Indicates that a problem has occurred. Click this icon to view details of the problem." />
-                <Button Name="ctReload" Margin="8" Click="ctReload_Click">
-                    <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
-                </Button>
-                <Button Name="ctSave" Margin="0,8,8,8" Click="ctSave_Click">
+                <Button Name="ctSave" Margin="8,8,8,8" Click="ctSave_Click">
                     <AccessText Margin="8,0" Name="ctSaveLabel">_Save</AccessText>
                 </Button>
-                <Button Name="ctSaveToFolder" Margin="0,8,0,8" Click="ctSaveToFolder_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
-                    <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save to _folder</AccessText>
+                <Button Name="ctSaveToFolder" Margin="0,8,8,8" Click="ctSaveToFolder_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
+                    <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save to _folder...</AccessText>
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="All icons to _game folder" Name="ctSaveIcons_AllToGameFolder" Click="SaveIcons_AllToGameFolder"/>
+                            <MenuItem Header="_All icons..." Name="ctBrowseAndSaveIcons_All" Click="BrowseAndSaveIcons_All"/>
+                            <Separator/>
+                            <MenuItem Header="Only _light tank icons..." Name="ctBrowseAndSaveIcons_Light" Click="BrowseAndSaveIcons_Light"/>
+                            <MenuItem Header="Only _medium tank icons..." Name="ctBrowseAndSaveIcons_Medium" Click="BrowseAndSaveIcons_Medium"/>
+                            <MenuItem Header="Only _heavy tank icons..." Name="ctBrowseAndSaveIcons_Heavy" Click="BrowseAndSaveIcons_Heavy"/>
+                            <MenuItem Header="Only a_rtillery icons..." Name="ctBrowseAndSaveIcons_Artillery" Click="BrowseAndSaveIcons_Artillery"/>
+                            <MenuItem Header="Only _destroyer icons..." Name="ctBrowseAndSaveIcons_Destroyer" Click="BrowseAndSaveIcons_Destroyer"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
                 </Button>
-                <Button Name="ctSaveToFolderBrowse" Margin="0,8,8,8" Click="ctSaveToFolderBrowse_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
-                    <AccessText Margin="4,0">...</AccessText>
+                <Button Name="ctReload" Margin="0,8,8,8" Click="ctReload_Click">
+                    <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>
                 <Button Name="ctAbout" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8" Click="ctAbout_Click">
                     <AccessText Margin="8,0" Name="ctAboutLabel">About...</AccessText>
