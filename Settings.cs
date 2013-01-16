@@ -87,6 +87,16 @@ namespace TankIconMaker
 
         void IXmlClassifyProcess.AfterXmlDeclassify()
         {
+            // Some people have strange broken styles in their settings, probably added due to some bug in an earlier version of the program.
+            Styles.RemoveWhere(style => style.Layers == null || style.Layers.Count == 0);
+            foreach (var style in Styles)
+            {
+                if (style.Name == null)
+                    style.Name = "<unknown>";
+                if (style.Author == null)
+                    style.Author = "<unknown>";
+            }
+
             // Added in v019
             if (SavedByVersion < 19 && GameInstalls != null)
                 GameInstallations = GameInstalls;
