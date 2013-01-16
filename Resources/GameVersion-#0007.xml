@@ -2,23 +2,23 @@
 <item>
   <PathMods>res_mods\"VersionName"</PathMods>
   <PathDestination>res_mods\"VersionName"\gui\maps\icons\vehicle\contour</PathDestination>
-  <PathSourceContour>res\packages\gui.pkg:gui\maps\icons\vehicle\contour</PathSourceContour>
-  <PathSource3D>res\packages\gui.pkg:gui\maps\icons\vehicle\small</PathSource3D>
-  <PathSource3DLarge>res\packages\gui.pkg:gui\maps\icons\vehicle</PathSource3DLarge>
+  <PathSourceContour>res\packages\gui.pkg|gui\maps\icons\vehicle\contour</PathSourceContour>
+  <PathSource3D>res\packages\gui.pkg|gui\maps\icons\vehicle\small</PathSource3D>
+  <PathSource3DLarge>res\packages\gui.pkg|gui\maps\icons\vehicle</PathSource3DLarge>
   <PathSourceCountry>
-    <item key="USSR">res\packages\gui.pkg:gui\maps\icons\filters\nations\ussr.png</item>
-    <item key="Germany">res\packages\gui.pkg:gui\maps\icons\filters\nations\germany.png</item>
-    <item key="USA">res\packages\gui.pkg:gui\maps\icons\filters\nations\usa.png</item>
-    <item key="France">res\packages\gui.pkg:gui\maps\icons\filters\nations\france.png</item>
-    <item key="China">res\packages\gui.pkg:gui\maps\icons\filters\nations\china.png</item>
-    <item key="UK">res\packages\gui.pkg:gui\maps\icons\filters\nations\uk.png</item>
+    <item key="USSR">res\packages\gui.pkg|gui\maps\icons\filters\nations\ussr.png</item>
+    <item key="Germany">res\packages\gui.pkg|gui\maps\icons\filters\nations\germany.png</item>
+    <item key="USA">res\packages\gui.pkg|gui\maps\icons\filters\nations\usa.png</item>
+    <item key="France">res\packages\gui.pkg|gui\maps\icons\filters\nations\france.png</item>
+    <item key="China">res\packages\gui.pkg|gui\maps\icons\filters\nations\china.png</item>
+    <item key="UK">res\packages\gui.pkg|gui\maps\icons\filters\nations\uk.png</item>
   </PathSourceCountry>
   <PathSourceClass>
-    <item key="Light">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_light.png</item>
-    <item key="Medium">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_medium.png</item>
-    <item key="Heavy">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_heavy.png</item>
-    <item key="Destroyer">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_atspg.png</item>
-    <item key="Artillery">res\packages\gui.pkg:gui\maps\icons\filters\tanks\tank_type_spg.png</item>
+    <item key="Light">res\packages\gui.pkg|gui\maps\icons\filters\tanks\tank_type_light.png</item>
+    <item key="Medium">res\packages\gui.pkg|gui\maps\icons\filters\tanks\tank_type_medium.png</item>
+    <item key="Heavy">res\packages\gui.pkg|gui\maps\icons\filters\tanks\tank_type_heavy.png</item>
+    <item key="Destroyer">res\packages\gui.pkg|gui\maps\icons\filters\tanks\tank_type_atspg.png</item>
+    <item key="Artillery">res\packages\gui.pkg|gui\maps\icons\filters\tanks\tank_type_spg.png</item>
   </PathSourceClass>
   <TankIconExtension>.png</TankIconExtension>
 </item>

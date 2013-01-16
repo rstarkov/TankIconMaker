@@ -60,6 +60,10 @@ namespace TankIconMaker
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
+#if DEBUG
+            CompositePath.Tests();
+#endif
+
 #if !DEBUG
             Thread.CurrentThread.Name = "Main";
             AppDomain.CurrentDomain.UnhandledException += (_, ea) =>

@@ -125,15 +125,15 @@ namespace TankIconMaker
             switch (style)
             {
                 case ImageBuiltInStyle.Contour:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSourceContour, SystemId + config.TankIconExtension));
+                    return ImageCache.GetImage(new CompositePath(_gameInstallation.Path, config.PathSourceContour, SystemId + config.TankIconExtension));
                 case ImageBuiltInStyle.ThreeD:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSource3D, SystemId + config.TankIconExtension));
+                    return ImageCache.GetImage(new CompositePath(_gameInstallation.Path, config.PathSource3D, SystemId + config.TankIconExtension));
                 case ImageBuiltInStyle.ThreeDLarge:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSource3DLarge, SystemId + config.TankIconExtension));
+                    return ImageCache.GetImage(new CompositePath(_gameInstallation.Path, config.PathSource3DLarge, SystemId + config.TankIconExtension));
                 case ImageBuiltInStyle.Country:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSourceCountry[Country]));
+                    return ImageCache.GetImage(new CompositePath(_gameInstallation.Path, config.PathSourceCountry[Country]));
                 case ImageBuiltInStyle.Class:
-                    return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathSourceClass[Class]));
+                    return ImageCache.GetImage(new CompositePath(_gameInstallation.Path, config.PathSourceClass[Class]));
                 default:
                     throw new Exception("9174876");
             }
@@ -143,7 +143,7 @@ namespace TankIconMaker
         public virtual BitmapBase GetImageCurrent()
         {
             var config = _gameInstallation.GameVersionConfig;
-            return ImageCache.GetImage(new CompositeFilename(_gameInstallation.Path, config.PathDestination, SystemId + config.TankIconExtension))
+            return ImageCache.GetImage(new CompositePath(_gameInstallation.Path, config.PathDestination, SystemId + config.TankIconExtension))
                 ?? GetImageBuiltIn(ImageBuiltInStyle.Contour);
         }
     }
