@@ -403,8 +403,8 @@
         <Old>Template</Old>
       </DisplayName>
       <Description>
-        <Translation>Шаблон имени файла. Следующие строки заменяются на свойства конкретного танка: {tier} (уровень), {country} (страна), {class} (класс техники), {category} (статус в магазине), {id}.</Translation>
-        <Old>Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.</Old>
+        <Translation encoding="c-literal">Шаблон имени файла. Следующие строки заменяются на свойства конкретного танка: {tier} (уровень), {country} (страна), {class} (класс техники), {category} (статус в магазине), {id}.\r\n\r\nТакже поддерживаются дополнительные свойства, например {NameShort}. Разрешается добавить язык, автора, либо и то и другое, например {NameShort/Ru}, {NameShort/Wargaming} либо {NameShort/Ru/Wargaming}.</Translation>
+        <Old>Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}. Extra property names are also supported, for example {NameShort}. The property name may also include the language, the author, or both, for example {NameShort/Ru}, {NameShort/Wargaming} or {NameShort/Ru/Wargaming}.</Old>
       </Description>
     </Pattern>
     <MissingImageWarning>

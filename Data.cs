@@ -89,7 +89,12 @@ namespace TankIconMaker
             {
                 if (name == null)
                     return null;
-                var matches = _extras.Keys.Where(k => k.Name.EqualsNoCase(name)).ToArray();
+                var matches = _extras.Keys.Where(k =>
+                        k.Name.EqualsNoCase(name) ||
+                        (k.Name + "/" + k.Language).EqualsNoCase(name) ||
+                        (k.Name + "/" + k.Author).EqualsNoCase(name) ||
+                        (k.Name + "/" + k.Language + "/" + k.Author).EqualsNoCase(name)
+                    ).ToArray();
                 if (matches.Length == 0)
                     return null;
                 if (matches.Length == 1)

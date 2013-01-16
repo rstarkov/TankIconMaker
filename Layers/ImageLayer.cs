@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 using RT.Util;
 using RT.Util.Lingo;
 
@@ -97,7 +98,7 @@ namespace TankIconMaker.Layers
 
         public FilenamePatternImageLayer()
         {
-            Pattern = "Images/Example/tank-{country}-{class}-{category}.png";
+            Pattern = "Images/Example/tank-{country}-{class}-{category}-{NameShort}.png";
         }
 
         public override BitmapBase Draw(Tank tank)
@@ -108,6 +109,7 @@ namespace TankIconMaker.Layers
                 .Replace("{class}", tank.Class.ToString().ToLower())
                 .Replace("{category}", tank.Category.ToString().ToLower())
                 .Replace("{id}", tank.SystemId);
+            filename = Regex.Replace(filename, @"{([^}]+)}", match => tank[match.Groups[1].Value] ?? "");
             if (string.IsNullOrWhiteSpace(filename))
                 return null;
 
