@@ -171,12 +171,12 @@ namespace TankIconMaker
         /// Opens a file inside a zip file, returning the stream for reading its contents. The stream must be disposed after use.
         /// Returns null if the zip file or the file inside it does not exist.
         /// </summary>
-        public static Stream GetZipFileStream(CompositeFilename path)
+        public static Stream GetZipFileStream(CompositePath path)
         {
-            var zipfile = _cache.GetEntry(path.Container.ToLowerInvariant(), () => new ZipCacheEntry(path.Container)).Zip;
+            var zipfile = _cache.GetEntry(path.File.ToLowerInvariant(), () => new ZipCacheEntry(path.File)).Zip;
             if (zipfile == null)
                 return null;
-            var entry = zipfile.GetEntry(path.File.Replace('\\', '/'));
+            var entry = zipfile.GetEntry(path.InnerFile.Replace('\\', '/'));
             if (entry == null)
                 return null;
             else
@@ -233,10 +233,10 @@ namespace TankIconMaker
         public static void Clear() { _cache.Clear(); }
 
         /// <summary>Retrieves an image which may optionally be stored inside a zip file.</summary>
-        public static BitmapRam GetImage(CompositeFilename path)
+        public static BitmapRam GetImage(CompositePath path)
         {
-            return _cache.GetEntry(path.Container + ":" + path.File,
-                () => path.Container == null ? (ImageEntry) new FileImageEntry(path.File) : new ZipImageEntry(path)).Image;
+            return _cache.GetEntry(path.ToString(),
+                () => path.InnerFile == null ? (ImageEntry) new FileImageEntry(path.File) : new ZipImageEntry(path)).Image;
         }
     }
 
@@ -265,9 +265,9 @@ namespace TankIconMaker
 
     sealed class ZipImageEntry : ImageEntry
     {
-        private CompositeFilename _path;
+        private CompositePath _path;
 
-        public ZipImageEntry(CompositeFilename path)
+        public ZipImageEntry(CompositePath path)
         {
             _path = path;
         }
@@ -278,7 +278,7 @@ namespace TankIconMaker
                 if (stream == null)
                     Image = null;
                 else
-                    LoadImage(stream, Path.GetExtension(_path.File).ToLowerInvariant());
+                    LoadImage(stream, Path.GetExtension(_path.InnerFile).ToLowerInvariant());
         }
     }
 

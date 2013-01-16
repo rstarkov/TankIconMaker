@@ -501,48 +501,116 @@ namespace TankIconMaker
 
     /// <summary>
     /// Encapsulates a file name which may refer to a file inside a container file, or just to a file directly. The parts
-    /// are separated with a ":". Helps avoid issues with Path.Combine complaining about invalid filenames.
+    /// are separated with a "|". Helps avoid issues with Path.Combine complaining about invalid filenames.
     /// </summary>
-    struct CompositeFilename
+    struct CompositePath
     {
-        /// <summary>Container file path, or null if none.</summary>
-        public string Container { get; private set; }
-        /// <summary>Referenced file path.</summary>
+        /// <summary>The main path part.</summary>
         public string File { get; private set; }
+        /// <summary>The inner path part, where present.</summary>
+        public string InnerFile { get; private set; }
 
-        public override string ToString() { return Container + ":" + File; }
+        public override string ToString() { return File + (InnerFile == null ? "" : ("|" + InnerFile)); }
 
-        public CompositeFilename(params string[] path)
+        public CompositePath(params string[] path)
             : this()
         {
             var builder = new StringBuilder(256);
-            Container = null;
+            string first = null;
             foreach (var part in path)
             {
-                var parts = Regex.Split(part, @"(?<=..):");
-                if (parts.Length > 2)
-                    throw new ArgumentException("Multiple \":\" separators are not allowed.");
-                else if (parts.Length == 2)
-                {
-                    if (Container != null)
-                        throw new ArgumentException("Multiple \":\" separators are not allowed.");
-                    if (builder.Length > 0)
-                        builder.Append('\\');
-                    builder.Append(parts[0]);
-                    Container = builder.ToString();
+                int colon = part.IndexOf(':');
+                int pipe = part.IndexOf('|');
+                if (colon != -1 && colon != 1)
+                    throw new StyleUserError("Invalid composite file path: \":\" is only allowed in a drive letter specification at the start of the path.");
+                if (pipe != -1 && (colon > pipe || first != null))
+                    throw new StyleUserError("Invalid composite file path: \":\" is not allowed in the path anywhere after the \"|\".");
+                // now the colon is either absent or at the right place, in the first half of the composite path
+                if (pipe != -1 && first != null)
+                    throw new StyleUserError("Invalid composite file path: \"|\" must not occur more than once.");
+                // now we know that the colon and pipe characters are used correctly in the path so far
+
+                if (colon > 0 || part.StartsWith("/") || part.StartsWith("\\"))
                     builder.Clear();
-                    builder.Append(parts[1]);
-                }
+                else if (builder.Length > 0 && builder[builder.Length - 1] != '/' && builder[builder.Length - 1] != '\\')
+                    builder.Append('\\');
+
+                if (pipe == -1)
+                    builder.Append(part);
                 else
                 {
-                    if (builder.Length > 0)
-                        builder.Append('\\');
-                    builder.Append(part);
+                    builder.Append(part.Substring(0, pipe));
+                    first = builder.ToString();
+                    builder.Clear();
+                    builder.Append(part.Substring(pipe + 1));
                 }
             }
-            File = Ut.ExpandPath(builder.ToString());
-            Container = Ut.ExpandPath(Container);
+            var second = builder.ToString();
+            File = _expand(first ?? second);
+            InnerFile = first == null ? null : _expand(second);
         }
+
+        private static Func<string, string> _expand = Ut.ExpandPath; // necessary due to some bad design; see also: http://tankiconmaker.myjetbrains.com/youtrack/issue/T-64
+
+        #region Tests
+
+        internal static void Tests()
+        {
+            _expand = (string s) => s;
+
+            test(new CompositePath(@""), @"", null);
+            test(new CompositePath(@"foo"), @"foo", null);
+            test(new CompositePath(@"foo/bar"), @"foo/bar", null);
+            test(new CompositePath(@"\foo\bar"), @"\foo\bar", null);
+            test(new CompositePath(@"C:\foo\bar"), @"C:\foo\bar", null);
+
+            test(new CompositePath(@"foo\bar", @"thingy\blah"), @"foo\bar\thingy\blah", null);
+            test(new CompositePath(@"foo\bar\", @"thingy\blah"), @"foo\bar\thingy\blah", null);
+            test(new CompositePath(@"foo\bar", @"thingy\blah", @"stuff"), @"foo\bar\thingy\blah\stuff", null);
+            test(new CompositePath(@"foo\bar", @"thingy\blah", @"D:\stuff"), @"D:\stuff", null);
+
+            test(new CompositePath(@"C:\foo\bar", @"thingy"), @"C:\foo\bar\thingy", null);
+            test(new CompositePath(@"C:\foo\bar", @"thingy", @"stuff"), @"C:\foo\bar\thingy\stuff", null);
+            test(new CompositePath(@"C:\foo\bar", @"thingy", @"D:\stuff"), @"D:\stuff", null);
+
+
+            test(new CompositePath(@"|"), @"", @"");
+            test(new CompositePath(@"fo|o"), @"fo", @"o");
+            test(new CompositePath(@"fo|o/bar"), @"fo", @"o/bar");
+            test(new CompositePath(@"foo/b|ar"), @"foo/b", @"ar");
+            test(new CompositePath(@"C:\fo|o\bar"), @"C:\fo", @"o\bar");
+            test(new CompositePath(@"C:\foo\b|ar"), @"C:\foo\b", @"ar");
+
+            test(new CompositePath(@"foo\b|ar", @"thingy\blah"), @"foo\b", @"ar\thingy\blah");
+            test(new CompositePath(@"foo\b|ar\", @"thingy\blah"), @"foo\b", @"ar\thingy\blah");
+            test(new CompositePath(@"foo\b|ar", @"thingy\blah", @"stuff"), @"foo\b", @"ar\thingy\blah\stuff");
+            test(new CompositePath(@"D:\foo\b|ar", @"thingy\blah", @"stuff"), @"D:\foo\b", @"ar\thingy\blah\stuff");
+
+            test(new CompositePath(@"foo\bar", @"thin|gy\blah"), @"foo\bar\thin", @"gy\blah");
+            test(new CompositePath(@"foo\bar\", @"thin|gy\blah"), @"foo\bar\thin", @"gy\blah");
+            test(new CompositePath(@"foo\bar", @"thin|gy\blah", @"stuff"), @"foo\bar\thin", @"gy\blah\stuff");
+            test(new CompositePath(@"foo\bar", @"D:\thin|gy\blah", @"stuff"), @"D:\thin", @"gy\blah\stuff");
+
+            test(new CompositePath(@"foo\bar", @"thingy\blah", @"stu|ff"), @"foo\bar\thingy\blah\stu", @"ff");
+            test(new CompositePath(@"foo\bar", @"thingy\blah", @"D:\stu|ff"), @"D:\stu", @"ff");
+
+            test(new CompositePath(@"C:\fo|o\bar", @"thingy"), @"C:\fo", @"o\bar\thingy");
+            test(new CompositePath(@"C:\foo\bar", @"thin|gy"), @"C:\foo\bar\thin", @"gy");
+            test(new CompositePath(@"C:\fo|o\bar", @"thingy", @"stuff"), @"C:\fo", @"o\bar\thingy\stuff");
+            test(new CompositePath(@"C:\foo\bar", @"thin|gy", @"stuff"), @"C:\foo\bar\thin", @"gy\stuff");
+            test(new CompositePath(@"C:\foo\bar", @"thingy", @"stu|ff"), @"C:\foo\bar\thingy\stu", @"ff");
+            test(new CompositePath(@"C:\foo\bar", @"thingy", @"D:\stu|ff"), @"D:\stu", @"ff");
+
+            _expand = Ut.ExpandPath;
+        }
+
+        private static void test(CompositePath cf, string expectedPath, string expectedInnerPath)
+        {
+            if (cf.File != expectedPath || cf.InnerFile != expectedInnerPath)
+                throw new Exception("CompositePath test failed.");
+        }
+
+        #endregion
     }
 
     [TypeConverter(typeof(BoolWithPassthroughTranslation.Conv))]
