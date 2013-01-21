@@ -33,6 +33,8 @@ namespace TankIconMaker
         public static MemberTr ClassDestroyerTr(Translation tr) { return new MemberTr(tr.Selector.ClassDestroyer); }
         public T ClassArtillery { get; set; }
         public static MemberTr ClassArtilleryTr(Translation tr) { return new MemberTr(tr.Selector.ClassArtillery); }
+        public T ClassNone { get; set; }
+        public static MemberTr ClassNoneTr(Translation tr) { return new MemberTr(tr.Selector.ClassNone); }
 
         public T CountryUSSR { get; set; }
         public static MemberTr CountryUSSRTr(Translation tr) { return new MemberTr(tr.Selector.CountryUSSR); }
@@ -46,6 +48,8 @@ namespace TankIconMaker
         public static MemberTr CountryChinaTr(Translation tr) { return new MemberTr(tr.Selector.CountryChina); }
         public T CountryUK { get; set; }
         public static MemberTr CountryUKTr(Translation tr) { return new MemberTr(tr.Selector.CountryUK); }
+        public T CountryNone { get; set; }
+        public static MemberTr CountryNoneTr(Translation tr) { return new MemberTr(tr.Selector.CountryNone); }
 
         public T CategNormal { get; set; }
         public static MemberTr CategNormalTr(Translation tr) { return new MemberTr(tr.Selector.CategNormal); }
@@ -65,8 +69,8 @@ namespace TankIconMaker
         public SelectorBase(T value)
         {
             By = By2 = By3 = By4 = SelectBy.Single;
-            ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery
-                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina = CountryUK
+            ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery = ClassNone
+                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina = CountryUK = CountryNone
                 = CategNormal = CategPremium = CategSpecial
                 = Single = value;
         }
@@ -79,6 +83,8 @@ namespace TankIconMaker
 
     sealed class ValueSelector<T> : SelectorBase<T>
     {
+        public T TierNone { get; set; }
+        public static MemberTr TierNoneTr(Translation tr) { return new MemberTr(tr.Selector.TierNone); }
         public T Tier1 { get; set; }
         public static MemberTr Tier1Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(1)); }
         public T Tier2 { get; set; }
@@ -113,7 +119,7 @@ namespace TankIconMaker
         public ValueSelector(T value)
             : base(value)
         {
-            Tier1 = Tier2 = Tier3 = Tier4 = Tier5 = Tier6 = Tier7 = Tier8 = Tier9 = Tier10 = value;
+            Tier1 = Tier2 = Tier3 = Tier4 = Tier5 = Tier6 = Tier7 = Tier8 = Tier9 = Tier10 = TierNone = value;
         }
 
         public T GetValue(Tank tank)
@@ -131,12 +137,13 @@ namespace TankIconMaker
         {
             switch (by)
             {
-                case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
-                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK);
+                case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery, ClassNone);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK, CountryNone);
                 case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
                 case SelectBy.Tier:
                     switch (tank.Tier)
                     {
+                        case 0: return TierNone;
                         case 1: return Tier1;
                         case 2: return Tier2;
                         case 3: return Tier3;
@@ -195,6 +202,8 @@ namespace TankIconMaker
 
     sealed class ColorSelector : SelectorBase<Color>
     {
+        public Color TierNone { get; set; }
+        public static MemberTr TierNoneTr(Translation tr) { return new MemberTr(tr.Selector.TierNone); }
         public Color Tier1 { get; set; }
         public static MemberTr Tier1Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(1)); }
         public Color Tier5 { get; set; }
@@ -215,7 +224,7 @@ namespace TankIconMaker
         public ColorSelector(Color color)
             : base(color)
         {
-            Tier1 = Tier5 = Tier10 = color;
+            Tier1 = Tier5 = Tier10 = TierNone = color;
         }
 
         public ColorSelector Clone()
@@ -239,10 +248,12 @@ namespace TankIconMaker
         {
             switch (by)
             {
-                case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery);
-                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK);
+                case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery, ClassNone);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK, CountryNone);
                 case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
-                case SelectBy.Tier: return tank.Tier <= 5 ? Ut.BlendColors(Tier1, Tier5, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5, Tier10, (tank.Tier - 5) / 5.0);
+                case SelectBy.Tier:
+                    if (tank.Tier == 0) return TierNone;
+                    return tank.Tier <= 5 ? Ut.BlendColors(Tier1, Tier5, (tank.Tier - 1) / 4.0) : Ut.BlendColors(Tier5, Tier10, (tank.Tier - 5) / 5.0);
                 case SelectBy.Single: return Single;
                 default: throw new Exception();
             }
