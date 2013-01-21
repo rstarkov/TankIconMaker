@@ -64,10 +64,9 @@ namespace TankIconMaker
         /// </summary>
         public virtual string this[ExtraPropertyId property]
         {
-            get
-            {
+            get {
                 if (property.Equals(ExtraPropertyId.TierArabic))
-                    return Tier.ToString();
+                    return Tier != 0 ? Tier.ToString() : String.Empty;
                 else if (property.Equals(ExtraPropertyId.TierRoman))
                     return Ut.RomanNumerals[Tier].ToString();
                 string result;
@@ -198,14 +197,15 @@ namespace TankIconMaker
                 case "china": Country = Country.China; break;
                 case "france": Country = Country.France; break;
                 case "uk": Country = Country.UK; break;
+                case "none": Country = Country.None; break;
                 default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedCountry.Fmt(fields[1],
-                    new[] { "ussr", "germany", "usa", "china", "france", "uk" }.JoinString(", ", "\"", "\"")));
+                    new[] { "ussr", "germany", "usa", "china", "france", "uk", "none" }.JoinString(", ", "\"", "\"")));
             }
 
             int tier;
             if (!int.TryParse(fields[2], out tier))
                 throw new Exception(string.Format(App.Translation.Error.DataFile_TankTierValue, fields[2]));
-            if (tier < 1 || tier > 10)
+            if (tier < 0 || tier > 10)
                 throw new Exception(string.Format(App.Translation.Error.DataFile_TankTierValue, fields[2]));
             Tier = tier;
 
@@ -216,8 +216,9 @@ namespace TankIconMaker
                 case "heavy": Class = Class.Heavy; break;
                 case "destroyer": Class = Class.Destroyer; break;
                 case "artillery": Class = Class.Artillery; break;
+                case "none": Class = Class.None; break;
                 default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedClass.Fmt(fields[3],
-                    new[] { "light", "medium", "heavy", "destroyer", "artillery" }.JoinString(", ", "\"", "\"")));
+                    new[] { "light", "medium", "heavy", "destroyer", "artillery", "none" }.JoinString(", ", "\"", "\"")));
             }
 
             switch (fields[4])
@@ -853,6 +854,7 @@ namespace TankIconMaker
         France,
         China,
         UK,
+        None
     }
 
     /// <summary>Represents one of the possible tank classes: light/medium/heavy, tank destroyer, and artillery.</summary>
@@ -863,6 +865,7 @@ namespace TankIconMaker
         Heavy,
         Destroyer,
         Artillery,
+        None
     }
 
     /// <summary>Represents one of the possible tank availability categories based on how (and whether) they can be bought.</summary>

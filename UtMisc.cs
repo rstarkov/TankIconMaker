@@ -61,7 +61,7 @@ namespace TankIconMaker
         }
 
         /// <summary>Returns one of the specified values based on which country this value represents.</summary>
-        public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china, T uk)
+        public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china, T uk, T none)
         {
             switch (country)
             {
@@ -71,12 +71,13 @@ namespace TankIconMaker
                 case Country.France: return france;
                 case Country.China: return china;
                 case Country.UK: return uk;
+                case Country.None: return none;
                 default: throw new Exception();
             }
         }
 
         /// <summary>Returns one of the specified values based on which tank class this value represents.</summary>
-        public static T Pick<T>(this Class class_, T light, T medium, T heavy, T destroyer, T artillery)
+        public static T Pick<T>(this Class class_, T light, T medium, T heavy, T destroyer, T artillery, T none)
         {
             switch (class_)
             {
@@ -85,6 +86,7 @@ namespace TankIconMaker
                 case Class.Heavy: return heavy;
                 case Class.Destroyer: return destroyer;
                 case Class.Artillery: return artillery;
+                case Class.None: return none;
                 default: throw new Exception();
             }
         }

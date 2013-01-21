@@ -711,6 +711,7 @@ namespace TankIconMaker
         public TrString ClassHeavy = "Class: Heavy tank";
         public TrString ClassDestroyer = "Class: Destroyer";
         public TrString ClassArtillery = "Class: Artillery";
+        public TrString ClassNone = "Class: None";
 
         public TrString CountryUSSR = "Country: USSR";
         public TrString CountryGermany = "Country: Germany";
@@ -718,6 +719,7 @@ namespace TankIconMaker
         public TrString CountryFrance = "Country: France";
         public TrString CountryChina = "Country: China";
         public TrString CountryUK = "Country: UK";
+        public TrString CountryNone = "Country: None";
 
         public TrString CategNormal = "Avail.: Normal";
         public TrString CategPremium = "Avail.: Premium";
@@ -727,5 +729,7 @@ namespace TankIconMaker
         public TrString SingleDescription = "When \"Vary by\" is set to \"No variation\", specifies the value to use. Use this when the value does not need to vary by tank properties.";
 
         public TrString TierN = "Tier: {0,2}";
+        public TrString TierNone = "Tier: None";
+        
     }
 }

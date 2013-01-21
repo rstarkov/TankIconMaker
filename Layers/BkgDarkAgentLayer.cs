@@ -23,6 +23,7 @@ namespace TankIconMaker.Layers
             BackColor.ClassHeavy = Color.FromArgb(180, 99, 99, 99);
             BackColor.ClassDestroyer = Color.FromArgb(180, 41, 83, 160);
             BackColor.ClassArtillery = Color.FromArgb(180, 181, 47, 47);
+            BackColor.ClassNone = Color.FromArgb(180, 255, 255, 255);
         }
 
         public override LayerBase Clone()
