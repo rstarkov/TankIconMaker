@@ -511,8 +511,8 @@ namespace TankIconMaker
     {
         public TrString NoChange = "No change";
         public TrString ByPercentage = "By %";
-        public TrString BySizeWidthOnly = "By width";
-        public TrString BySizeHeightOnly = "By height";
+        public TrString BySizeWidthOnly = "By size: width";
+        public TrString BySizeHeightOnly = "By size: height";
         public TrString BySizeFit = "By size: fit";
         public TrString BySizeStretch = "By size: stretch";
 

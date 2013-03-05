@@ -969,8 +969,8 @@
         <Old>Anchor</Old>
       </DisplayName>
       <Description>
-        <Translation>Указывает, где должен быть расположен слой по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
-        <Old>Specifies where the layer should be positioned relative to the point specified by the “X” and “Y” values.</Old>
+        <Translation>Указывает, как расположить слой по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
+        <Old>Specifies how to position the layer relative to the “X” and “Y” co-ordinates.</Old>
       </Description>
     </Anchor>
     <X>
@@ -1100,7 +1100,7 @@
       </DisplayName>
       <Description>
         <Translation>Отображает перекрестие в точке привязки.</Translation>
-        <Old>If enabled, draws a crosshair to show where the anchor is positioned within the icon.</Old>
+        <Old>If enabled, draws a cross-hair at the anchor position.</Old>
       </Description>
     </ShowAnchor>
   </EffectSizePos>
@@ -1187,11 +1187,11 @@
     </ByPercentage>
     <BySizeWidthOnly>
       <Translation>По размеру: ширина</Translation>
-      <Old>By size: width only</Old>
+      <Old>By size: width</Old>
     </BySizeWidthOnly>
     <BySizeHeightOnly>
       <Translation>По размеру: высота</Translation>
-      <Old>By size: height only</Old>
+      <Old>By size: height</Old>
     </BySizeHeightOnly>
     <BySizeFit>
       <Translation>По размеру: вместить</Translation>
