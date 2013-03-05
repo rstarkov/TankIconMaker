@@ -56,6 +56,21 @@ namespace TankIconMaker
             return result;
         }
 
+        public static BitmapRam ToBitmapRam(this D.Image src)
+        {
+            return ToBitmapGdi(src).ToBitmapRam();
+        }
+
+        public static BitmapWpf ToBitmapWpf(this D.Image src)
+        {
+            return ToBitmapGdi(src).ToBitmapWpf();
+        }
+
+        public static BitmapGdi ToBitmapGdi(this D.Image src)
+        {
+            return Ut.NewBitmapGdi(dc => { dc.DrawImageUnscaled(src, 0, 0); }, src.Width, src.Height);
+        }
+
         /// <summary>Converts this value to the System.Drawing-compatible enum type.</summary>
         public static D.Text.TextRenderingHint ToGdi(this TextSmoothingStyle style)
         {
