@@ -403,8 +403,8 @@
         <Old>Template</Old>
       </DisplayName>
       <Description>
-        <Translation>Dateinamenschablone. Die folgenden Platzhalter sind verfügbar: {tier} (Panzerstufe), {country} (Land), {class} (Klasse), {category} (Kategorie), {id} (ID).</Translation>
-        <Old>Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.</Old>
+        <Translation encoding="c-literal">Dateinamenschablone. Die folgenden Platzhalter sind verfügbar: {tier} (Panzerstufe), {country} (Land), {class} (Klasse), {category} (Kategorie), {id} (ID).\r\n\r\nWeitere Eigenschaftennamen werden unterstützt, z.B. {NameShort} (kurzer Name). Der Eigenschaftenname kann außerdem die Sprache, den Autor oder beides angeben, z.B. {NameShort/En}, {NameShort/Wargaming} oder {NameShort/En/Wargaming}.</Translation>
+        <Old encoding="c-literal">Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.\n\nExtra property names are also supported, for example {NameShort}. The property name may also include the language, the author, or both, for example {NameShort/En}, {NameShort/Wargaming} or {NameShort/En/Wargaming}.</Old>
       </Description>
     </Pattern>
     <MissingImageWarning>
@@ -963,6 +963,36 @@
       <Translation>Verändert die Größe und/oder Position dieser Ebene. Dieser Effekt wird immer vor allen anderen Effekten ausgeführt.</Translation>
       <Old>Adjusts this layer's size and/or position. This effect is always applied before any other effects.</Old>
     </EffectDescription>
+    <Anchor>
+      <DisplayName>
+        <Translation>Anker</Translation>
+        <Old>Anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, wie die Ebene relativ zu den „X“/„Y“-Koordinaten positioniert wird.</Translation>
+        <Old>Specifies how to position the layer relative to the “X” and “Y” co-ordinates.</Old>
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die horizontale Koordinate des Ankerpunkts.</Translation>
+        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die vertikale Koordinate des Ankerpunkts.</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point.</Old>
+      </Description>
+    </Y>
     <PositionByPixels>
       <DisplayName>
         <Translation>Nach Pixelwerten gehen</Translation>
@@ -973,86 +1003,6 @@
         <Old>When checked, the edge of the layer is defined by the visible pixels (see also "Transparency threshold"). Otherwise the complete layer size is used.</Old>
       </Description>
     </PositionByPixels>
-    <Left>
-      <DisplayName>
-        <Translation>Links</Translation>
-        <Old>Left</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-Koordinate des linken Rands. Keine Wirkung, wenn „Anker links“ deaktiviert ist.</Translation>
-        <Old>X coordinate of the left edge. Ignored if "Left anchor" is unchecked.</Old>
-      </Description>
-    </Left>
-    <Right>
-      <DisplayName>
-        <Translation>Rand rechts</Translation>
-        <Old>Right</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-Koordinate des rechten Rands. Keine Wirkung, wenn „Anker rechts“ deaktiviert ist.</Translation>
-        <Old>X coordinate of the right edge. Ignored if "Right anchor" is unchecked.</Old>
-      </Description>
-    </Right>
-    <Top>
-      <DisplayName>
-        <Translation>Rand oben</Translation>
-        <Old>Top</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-Koordinate des oberen Rands. Keine Wirkung, wenn „Anker oben“ deaktiviert ist.</Translation>
-        <Old>Y coordinate of the top edge. Ignored if "Top anchor" is unchecked.</Old>
-      </Description>
-    </Top>
-    <Bottom>
-      <DisplayName>
-        <Translation>Rand unten</Translation>
-        <Old>Bottom</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-Koordinate des unteren Rands. Keine Wirkung, wenn „Anker unten“ deaktiviert ist.</Translation>
-        <Old>Y coordinate of the bottom edge. Ignored if "Bottom anchor" is unchecked.</Old>
-      </Description>
-    </Bottom>
-    <LeftAnchor>
-      <DisplayName>
-        <Translation>Anker links</Translation>
-        <Old>Left anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der linke Rand an der unter „Rand links“ angegebenen X-Koordinate verankert wird oder (falls „Anker rechts“ auch aktiviert ist) dass die Ebene zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
-        <Old>When checked, the left edge is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
-      </Description>
-    </LeftAnchor>
-    <RightAnchor>
-      <DisplayName>
-        <Translation>Anker rechts</Translation>
-        <Old>Right anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der rechte Rand an der unter „Rand rechts“ angegebenen X-Koordinate verankert wird oder (falls „Anker links“ auch aktiviert ist) dass die Ebene zwischen „Rand links“ und „Rand rechts“ zentriert wird.</Translation>
-        <Old>When checked, the right edge is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
-      </Description>
-    </RightAnchor>
-    <TopAnchor>
-      <DisplayName>
-        <Translation>Anker oben</Translation>
-        <Old>Top anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der obere Rand an der unter „Rand oben“ angegebenen Y-Koordinate verankert wird oder (falls „Anker unten“ auch aktiviert ist) dass die Ebene zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
-        <Old>When checked, the top edge is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </TopAnchor>
-    <BottomAnchor>
-      <DisplayName>
-        <Translation>Anker unten</Translation>
-        <Old>Bottom anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Bewirkt, dass der untere Rand an der unter „Rand unten“ angegebenen Y-Koordinate verankert wird oder (falls „Anker oben“ auch aktiviert ist) dass die Ebene zwischen „Rand oben“ und „Rand unten“ zentriert wird.</Translation>
-        <Old>When checked, the bottom edge is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </BottomAnchor>
     <SizeByPixels>
       <DisplayName>
         <Translation>Nach Pixelwerten gehen</Translation>
@@ -1143,16 +1093,16 @@
         <Old>If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using "Transparency threshold". These borders are used when "Use pixels" is enabled.</Old>
       </Description>
     </ShowPixelBorders>
-    <ShowTargetBorders>
+    <ShowAnchor>
       <DisplayName>
-        <Translation>Zielrand darstellen</Translation>
-        <Old>Show target borders</Old>
+        <Translation>Anker zeigen</Translation>
+        <Old>Show anchor</Old>
       </DisplayName>
       <Description>
-        <Translation>Bewirkt, dass die Zielposition der Ebene als Rechteck dargestellt wird. Verankerte Ränder werden durch volle Linien dargestellt, nicht verankerte durch gestrichelte.</Translation>
-        <Old>If enabled, draws a rectangle to show the selected target position for the layer. Anchored borders are drawn as solid lines, non-anchored are dotted.</Old>
+        <Translation>Bewirkt, dass ein Fadenkreuz an der Ankerposition gezeichnet wird.</Translation>
+        <Old>If enabled, draws a cross-hair at the anchor position.</Old>
       </Description>
-    </ShowTargetBorders>
+    </ShowAnchor>
   </EffectSizePos>
   <BoolWithPassthrough>
     <Yes>
@@ -1236,33 +1186,21 @@
       <Old>By %</Old>
     </ByPercentage>
     <BySizeWidthOnly>
-      <Translation>Nach Größe: nur Breite</Translation>
-      <Old>By size: width only</Old>
+      <Translation>Nach Breite</Translation>
+      <Old>By width</Old>
     </BySizeWidthOnly>
     <BySizeHeightOnly>
-      <Translation>Nach Größe: nur Höhe</Translation>
-      <Old>By size: height only</Old>
+      <Translation>Nach Höhe</Translation>
+      <Old>By height</Old>
     </BySizeHeightOnly>
-    <BySizeWidthHeightStretch>
+    <BySizeFit>
+      <Translation>Nach Größe: angleichen</Translation>
+      <Old>By size: fit</Old>
+    </BySizeFit>
+    <BySizeStretch>
       <Translation>Nach Größe: strecken</Translation>
       <Old>By size: stretch</Old>
-    </BySizeWidthHeightStretch>
-    <ByPosLeftRight>
-      <Translation>Nach Position: links/rechts</Translation>
-      <Old>By pos: left/right</Old>
-    </ByPosLeftRight>
-    <ByPosTopBottom>
-      <Translation>Nach Position: oben/unten</Translation>
-      <Old>By pos: top/bottom</Old>
-    </ByPosTopBottom>
-    <ByPosAllFit>
-      <Translation>Nach Position: einpassen</Translation>
-      <Old>By pos: fit inside</Old>
-    </ByPosAllFit>
-    <ByPosAllStretch>
-      <Translation>Nach Position: strecken</Translation>
-      <Old>By pos: stretch</Old>
-    </ByPosAllStretch>
+    </BySizeStretch>
   </SizeMode>
   <GrowShrinkMode>
     <GrowAndShrink>
