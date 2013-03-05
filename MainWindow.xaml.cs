@@ -591,13 +591,15 @@ namespace TankIconMaker
                         var img = layer.Draw(renderTask.Tank);
                         if (img == null)
                             continue;
+                        foreach (var effect in layer.Effects.Where(e => e is Effects.SizePosEffect && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
+                            img = effect.Apply(renderTask.Tank, img.AsWritable());
                         if (layer.Effects.Count > 0 && (img.Width < 80 || img.Height < 24))
                         {
                             var imgOrig = img;
                             img = new BitmapRam(Math.Max(80, img.Width), Math.Max(24, img.Height));
                             img.DrawImage(imgOrig);
                         }
-                        foreach (var effect in layer.Effects.OrderBy(l => l is Effects.SizePosEffect ? 0 : 1).Where(e => e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
+                        foreach (var effect in layer.Effects.Where(e => !(e is Effects.SizePosEffect) && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
                             img = effect.Apply(renderTask.Tank, img.AsWritable());
                         result.DrawImage(img);
                     }
