@@ -7,7 +7,7 @@ using WpfCrutches;
 
 namespace TankIconMaker
 {
-    abstract class EffectBase : IHasTreeViewItem, IHasTypeNameDescription, INotifyPropertyChanged
+    abstract class EffectBase : IHasTreeViewItem, IHasTypeNameDescription, IXmlClassifyProcess, INotifyPropertyChanged
     {
         /// <summary>Describes what this effect type does as concisely as possible.</summary>
         [Browsable(false)]
@@ -48,6 +48,23 @@ namespace TankIconMaker
         /// directly and return the same instance, instead of creating a new one.
         /// </summary>
         public abstract BitmapBase Apply(Tank tank, BitmapBase layer);
+
+        /// <summary>
+        /// Stores the <see cref="Version"/> of the maker as it was at the time of saving settings to XML. This may
+        /// then be used to apply transformations to the XML produced by old versions of a layer.
+        /// </summary>
+        private int SavedByVersion;
+
+        void IXmlClassifyProcess.BeforeXmlClassify() { ActualBeforeXmlClassify(); }
+        protected virtual void ActualBeforeXmlClassify()
+        {
+            SavedByVersion = Version;
+        }
+
+        void IXmlClassifyProcess.AfterXmlDeclassify() { ActualAfterXmlDeclassify(); }
+        protected virtual void ActualAfterXmlDeclassify()
+        {
+        }
 
         [XmlIgnore, Browsable(false)]
         public TreeViewItem TreeViewItem { get; set; }

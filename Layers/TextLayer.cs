@@ -36,12 +36,14 @@ namespace TankIconMaker.Layers
         public bool Baseline { get; set; }
         public static MemberTr BaselineTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Baseline); }
 
+        #region Old
         // Old stuff, to be deleted eventually...
         private bool ConvertedFromOld = false;
         [XmlIgnoreIfDefault]
         private int Left, Right, Top, Bottom;
         [XmlIgnoreIfDefault]
         private bool LeftAnchor, RightAnchor, TopAnchor, BottomAnchor;
+        #endregion
 
         protected abstract string GetText(Tank tank);
 

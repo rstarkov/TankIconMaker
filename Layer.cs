@@ -65,7 +65,7 @@ namespace TankIconMaker
 
         /// <summary>
         /// Stores the <see cref="Version"/> of the maker as it was at the time of saving settings to XML. This may
-        /// then be used to apply transformations to the XML produced by old versions of a maker.
+        /// then be used to apply transformations to the XML produced by old versions of a layer.
         /// </summary>
         private int SavedByVersion;
 

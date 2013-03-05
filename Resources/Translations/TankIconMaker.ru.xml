@@ -404,7 +404,7 @@
       </DisplayName>
       <Description>
         <Translation encoding="c-literal">Шаблон имени файла. Следующие строки заменяются на свойства конкретного танка: {tier} (уровень), {country} (страна), {class} (класс техники), {category} (статус в магазине), {id}.\r\n\r\nТакже поддерживаются дополнительные свойства, например {NameShort}. Разрешается добавить язык, автора, либо и то и другое, например {NameShort/Ru}, {NameShort/Wargaming} либо {NameShort/Ru/Wargaming}.</Translation>
-        <Old>Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}. Extra property names are also supported, for example {NameShort}. The property name may also include the language, the author, or both, for example {NameShort/Ru}, {NameShort/Wargaming} or {NameShort/Ru/Wargaming}.</Old>
+        <Old encoding="c-literal">Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.\n\nExtra property names are also supported, for example {NameShort}. The property name may also include the language, the author, or both, for example {NameShort/En}, {NameShort/Wargaming} or {NameShort/En/Wargaming}.</Old>
       </Description>
     </Pattern>
     <MissingImageWarning>
@@ -963,6 +963,36 @@
       <Translation>Изменяет размер либо положение слоя. Данный эффект всегда применяется первым, вне зависимости от порядка эффектов.</Translation>
       <Old>Adjusts this layer's size and/or position. This effect is always applied before any other effects.</Old>
     </EffectDescription>
+    <Anchor>
+      <DisplayName>
+        <Translation>Привязка</Translation>
+        <Old>Anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, где должен быть расположен слой по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
+        <Old>Specifies where the layer should be positioned relative to the point specified by the “X” and “Y” values.</Old>
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает горизонтальную координату точки привязки.</Translation>
+        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает вертикальную координату точки привязки.</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point.</Old>
+      </Description>
+    </Y>
     <PositionByPixels>
       <DisplayName>
         <Translation> По пикселям</Translation>
@@ -973,86 +1003,6 @@
         <Old>When checked, the edge of the layer is defined by the visible pixels (see also "Transparency threshold"). Otherwise the complete layer size is used.</Old>
       </Description>
     </PositionByPixels>
-    <Left>
-      <DisplayName>
-        <Translation>Левая граница</Translation>
-        <Old>Left</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-координата левого края. Игнорируется когда «Левая привязка» отключена.</Translation>
-        <Old>X coordinate of the left edge. Ignored if "Left anchor" is unchecked.</Old>
-      </Description>
-    </Left>
-    <Right>
-      <DisplayName>
-        <Translation>Правая граница</Translation>
-        <Old>Right</Old>
-      </DisplayName>
-      <Description>
-        <Translation>X-координата правого края. Игнорируется когда «Правая привязка» отключена.</Translation>
-        <Old>X coordinate of the right edge. Ignored if "Right anchor" is unchecked.</Old>
-      </Description>
-    </Right>
-    <Top>
-      <DisplayName>
-        <Translation>Верхняя граница</Translation>
-        <Old>Top</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-координата верхнего края. Игнорируется когда «Верхняя привязка» отключена.</Translation>
-        <Old>Y coordinate of the top edge. Ignored if "Top anchor" is unchecked.</Old>
-      </Description>
-    </Top>
-    <Bottom>
-      <DisplayName>
-        <Translation>Нижняя граница</Translation>
-        <Old>Bottom</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Y-координата нижнего края. Игнорируется когда «Нижняя привязка» отключена.</Translation>
-        <Old>Y coordinate of the bottom edge. Ignored if "Bottom anchor" is unchecked.</Old>
-      </Description>
-    </Bottom>
-    <LeftAnchor>
-      <DisplayName>
-        <Translation>Левая привязка</Translation>
-        <Old>Left anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, левая граница размещается на X-координате, указанной в свойстве «Левая граница». Если «Правая привязка» тоже включена, слой центрируется между «Левая граница» и «Правая граница».</Translation>
-        <Old>When checked, the left edge is anchored at the X coordinate specified by "Left". When "Right anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
-      </Description>
-    </LeftAnchor>
-    <RightAnchor>
-      <DisplayName>
-        <Translation>Правая привязка</Translation>
-        <Old>Right anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, правая граница размещается на X-координате, указанной в свойстве «Правая граница». Если «Левая привязка» тоже включена, слой центрируется между «Левая граница» и «Правая граница».</Translation>
-        <Old>When checked, the right edge is anchored at the X coordinate specified by "Right". When "Left anchor" is also checked, the layer is centered between "Left" and "Right".</Old>
-      </Description>
-    </RightAnchor>
-    <TopAnchor>
-      <DisplayName>
-        <Translation>Верхняя привязка</Translation>
-        <Old>Top anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, верхняя граница размещается на Y-координате, указанной в свойстве «Верхняя граница». Если «Нижняя привязка» тоже включена, слой центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
-        <Old>When checked, the top edge is anchored at the Y coordinate specified by "Top". When "Bottom anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </TopAnchor>
-    <BottomAnchor>
-      <DisplayName>
-        <Translation>Нижняя привязка</Translation>
-        <Old>Bottom anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда включена, нижняя граница текста размещается на Y-координате, указанной в свойстве «Нижняя граница». Если «Верхняя привязка» тоже включена, слой центрируется между «Верхняя граница» и «Нижняя граница».</Translation>
-        <Old>When checked, the bottom edge is anchored at the Y coordinate specified by "Bottom". When "Top anchor" is also checked, the layer is centered between "Top" and "Bottom".</Old>
-      </Description>
-    </BottomAnchor>
     <SizeByPixels>
       <DisplayName>
         <Translation> По пикселям</Translation>
@@ -1143,16 +1093,16 @@
         <Old>If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using "Transparency threshold". These borders are used when "Use pixels" is enabled.</Old>
       </Description>
     </ShowPixelBorders>
-    <ShowTargetBorders>
+    <ShowAnchor>
       <DisplayName>
-        <Translation>Цель</Translation>
-        <Old>Show target borders</Old>
+        <Translation>Точка привязки</Translation>
+        <Old>Show anchor</Old>
       </DisplayName>
       <Description>
-        <Translation>Отображает границы заданного положения слоя («Левая граница» и т.д.). Границы, для которых включена привязка, отображаются сплошной линией; остальные – пунктиром.</Translation>
-        <Old>If enabled, draws a rectangle to show the selected target position for the layer. Anchored borders are drawn as solid lines, non-anchored are dotted.</Old>
+        <Translation>Отображает перекрестие в точке привязки.</Translation>
+        <Old>If enabled, draws a crosshair to show where the anchor is positioned within the icon.</Old>
       </Description>
-    </ShowTargetBorders>
+    </ShowAnchor>
   </EffectSizePos>
   <BoolWithPassthrough>
     <Yes>
@@ -1243,26 +1193,14 @@
       <Translation>По размеру: высота</Translation>
       <Old>By size: height only</Old>
     </BySizeHeightOnly>
-    <BySizeWidthHeightStretch>
+    <BySizeFit>
+      <Translation>По размеру: вместить</Translation>
+      <Old>By size: fit</Old>
+    </BySizeFit>
+    <BySizeStretch>
       <Translation>По размеру: растянуть</Translation>
       <Old>By size: stretch</Old>
-    </BySizeWidthHeightStretch>
-    <ByPosLeftRight>
-      <Translation>По позиции: лево/право</Translation>
-      <Old>By pos: left/right</Old>
-    </ByPosLeftRight>
-    <ByPosTopBottom>
-      <Translation>По позиции: верх/низ</Translation>
-      <Old>By pos: top/bottom</Old>
-    </ByPosTopBottom>
-    <ByPosAllFit>
-      <Translation>По позиции: вместить</Translation>
-      <Old>By pos: fit inside</Old>
-    </ByPosAllFit>
-    <ByPosAllStretch>
-      <Translation>По позиции: растянуть</Translation>
-      <Old>By pos: stretch</Old>
-    </ByPosAllStretch>
+    </BySizeStretch>
   </SizeMode>
   <GrowShrinkMode>
     <GrowAndShrink>

@@ -13,9 +13,9 @@ namespace TankIconMaker
     {
         /// <summary>Returns a new blank (transparent) GDI bitmap of the standard icon size (80x24).</summary>
         /// <param name="draw">Optionally a method to draw into the returned image.</param>
-        public static BitmapGdi NewBitmapGdi(Action<D.Graphics> draw = null)
+        public static BitmapGdi NewBitmapGdi(Action<D.Graphics> draw = null, int width = 80, int height = 24)
         {
-            var result = new BitmapGdi(80, 24);
+            var result = new BitmapGdi(width, height);
             if (draw != null)
                 using (var g = D.Graphics.FromImage(result.Bitmap))
                     draw(g);
@@ -24,9 +24,9 @@ namespace TankIconMaker
 
         /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
         /// <param name="draw">A method to draw into the returned image.</param>
-        public static BitmapSource NewBitmapWpf(Action<DrawingContext> draw)
+        public static BitmapSource NewBitmapWpf(Action<DrawingContext> draw, int width = 80, int height = 24)
         {
-            var bmp = new RenderTargetBitmap(80, 24, 96, 96, PixelFormats.Pbgra32);
+            var bmp = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
             var visual = new DrawingVisual();
             using (var context = visual.RenderOpen())
                 draw(context);

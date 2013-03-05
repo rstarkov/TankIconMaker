@@ -3,21 +3,19 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using RT.Util.Lingo;
+using RT.Util.Xml;
 
 namespace TankIconMaker.Effects
 {
     [TypeConverter(typeof(SizeModeTranslation.Conv))]
-    enum SizeMode
+    enum SizeMode2
     {
         NoChange,
         ByPercentage,
         BySizeWidthOnly,
         BySizeHeightOnly,
-        BySizeWidthHeightStretch,
-        ByPosLeftRight,
-        ByPosTopBottom,
-        ByPosAllFit,
-        ByPosAllStretch,
+        BySizeFit,
+        BySizeStretch,
     }
 
     [TypeConverter(typeof(GrowShrinkModeTranslation.Conv))]
@@ -37,23 +35,12 @@ namespace TankIconMaker.Effects
         public bool PositionByPixels { get; set; }
         public static MemberTr PositionByPixelsTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.PositionByPixels); }
 
-        public int Left { get; set; }
-        public static MemberTr LeftTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Left); }
-        public int Right { get; set; }
-        public static MemberTr RightTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Right); }
-        public int Top { get; set; }
-        public static MemberTr TopTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Top); }
-        public int Bottom { get; set; }
-        public static MemberTr BottomTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Bottom); }
-
-        public bool LeftAnchor { get; set; }
-        public static MemberTr LeftAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.LeftAnchor); }
-        public bool RightAnchor { get; set; }
-        public static MemberTr RightAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.RightAnchor); }
-        public bool TopAnchor { get; set; }
-        public static MemberTr TopAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.TopAnchor); }
-        public bool BottomAnchor { get; set; }
-        public static MemberTr BottomAnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.BottomAnchor); }
+        public Anchor Anchor { get; set; }
+        public static MemberTr AnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Anchor); }
+        public int X { get; set; }
+        public static MemberTr XTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.X); }
+        public int Y { get; set; }
+        public static MemberTr YTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Y); }
 
         public bool SizeByPixels { get; set; }
         public static MemberTr SizeByPixelsTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.SizeByPixels); }
@@ -67,8 +54,8 @@ namespace TankIconMaker.Effects
         public int Height { get { return _Height; } set { _Height = Math.Max(0, value); } }
         private int _Height;
         public static MemberTr HeightTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Height); }
-        public SizeMode SizeMode { get; set; }
-        public static MemberTr SizeModeTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.SizeMode); }
+        public SizeMode2 SizeMode2 { get; set; }
+        public static MemberTr SizeMode2Tr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.SizeMode); }
         public GrowShrinkMode GrowShrinkMode { get; set; }
         public static MemberTr GrowShrinkModeTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.GrowShrinkMode); }
 
@@ -80,73 +67,75 @@ namespace TankIconMaker.Effects
         public static MemberTr ShowLayerBordersTr(Translation tr) { return new MemberTr(tr.Category.Debug, tr.EffectSizePos.ShowLayerBorders); }
         public bool ShowPixelBorders { get; set; }
         public static MemberTr ShowPixelBordersTr(Translation tr) { return new MemberTr(tr.Category.Debug, tr.EffectSizePos.ShowPixelBorders); }
-        public bool ShowTargetBorders { get; set; }
-        public static MemberTr ShowTargetBordersTr(Translation tr) { return new MemberTr(tr.Category.Debug, tr.EffectSizePos.ShowTargetBorders); }
+        public bool ShowAnchor { get; set; }
+        public static MemberTr ShowAnchorTr(Translation tr) { return new MemberTr(tr.Category.Debug, tr.EffectSizePos.ShowAnchor); }
+
+        #region Old
+        // Old stuff, to be deleted eventually...
+        private bool ConvertedFromOld = false;
+        [XmlIgnoreIfDefault]
+        private int Left, Right, Top, Bottom;
+        [XmlIgnoreIfDefault]
+        private bool LeftAnchor, RightAnchor, TopAnchor, BottomAnchor;
+        [XmlIgnoreIfDefault]
+        private SizeModeOld SizeMode;
+        enum SizeModeOld { NoChange, ByPercentage, BySizeWidthOnly, BySizeHeightOnly, BySizeWidthHeightStretch, ByPosLeftRight, ByPosTopBottom, ByPosAllFit, ByPosAllStretch, }
+        #endregion
 
         public SizePosEffect()
         {
             PositionByPixels = true;
             SizeByPixels = true;
             PixelAlphaThreshold = 120;
+            X = Y = 0;
+            Anchor = Anchor.TopLeft;
+            Percentage = 50;
+            Width = 30;
+            Height = 18;
+            SizeMode2 = SizeMode2.NoChange;
+            GrowShrinkMode = GrowShrinkMode.GrowAndShrink;
+
+            // Old stuff, to be deleted eventually
             Left = 0;
             Top = 0;
             Right = 79;
             Bottom = 23;
             LeftAnchor = TopAnchor = true;
-            Percentage = 50;
-            Width = 30;
-            Height = 18;
-            SizeMode = SizeMode.NoChange;
-            GrowShrinkMode = GrowShrinkMode.GrowAndShrink;
+            SizeMode = SizeModeOld.NoChange;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             PixelRect pixels = PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
-            if (ShowPixelBorders || PositionByPixels || (SizeByPixels && SizeMode != SizeMode.NoChange && SizeMode != SizeMode.ByPercentage))
+            if (ShowPixelBorders || PositionByPixels || (SizeByPixels && SizeMode2 != SizeMode2.NoChange && SizeMode2 != SizeMode2.ByPercentage))
                 pixels = layer.PreciseSize(PixelAlphaThreshold);
-            double scaleWidth = 1, scaleHeight = 1;
+            double scaleWidth, scaleHeight;
 
-            var size = SizeByPixels ? pixels : PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
-            if (SizeMode != SizeMode.NoChange)
+            int sourceWidth = SizeByPixels ? pixels.Width : layer.Width;
+            int sourceHeight = SizeByPixels ? pixels.Height : layer.Height;
+            switch (SizeMode2)
             {
-                switch (SizeMode)
-                {
-                    case SizeMode.ByPercentage:
-                        scaleWidth = scaleHeight = Percentage / 100.0;
-                        break;
-                    case SizeMode.BySizeWidthOnly:
-                        scaleWidth = scaleHeight = Width / (double) size.Width;
-                        break;
-                    case SizeMode.BySizeHeightOnly:
-                        scaleWidth = scaleHeight = Height / (double) size.Height;
-                        break;
-                    //case SizeMode.BySizeWidthHeightSmaller:
-                    //    scaleWidth = scaleHeight = Math.Min(Width / (double) size.Width, Height / (double) size.Height);
-                    //    break;
-                    //case SizeMode.BySizeWidthHeightLarger:
-                    //    scaleWidth = scaleHeight = Math.Max(Width / (double) size.Width, Height / (double) size.Height);
-                    //    break;
-                    case SizeMode.BySizeWidthHeightStretch:
-                        scaleWidth = Width / (double) size.Width;
-                        scaleHeight = Height / (double) size.Height;
-                        break;
-                    case SizeMode.ByPosLeftRight:
-                        scaleWidth = scaleHeight = (Right - Left + 1) / (double) size.Width;
-                        break;
-                    case SizeMode.ByPosTopBottom:
-                        scaleWidth = scaleHeight = (Bottom - Top + 1) / (double) size.Height;
-                        break;
-                    case SizeMode.ByPosAllFit:
-                        scaleWidth = scaleHeight = Math.Min((Right - Left + 1) / (double) size.Width, (Bottom - Top + 1) / (double) size.Height);
-                        break;
-                    case SizeMode.ByPosAllStretch:
-                        scaleWidth = (Right - Left + 1) / (double) size.Width;
-                        scaleHeight = (Bottom - Top + 1) / (double) size.Height;
-                        break;
-                    default:
-                        throw new Exception("7924688");
-                }
+                case SizeMode2.NoChange:
+                    scaleWidth = scaleHeight = 1;
+                    break;
+                case SizeMode2.ByPercentage:
+                    scaleWidth = scaleHeight = Percentage / 100.0;
+                    break;
+                case SizeMode2.BySizeWidthOnly:
+                    scaleWidth = scaleHeight = Width / (double) sourceWidth;
+                    break;
+                case SizeMode2.BySizeHeightOnly:
+                    scaleWidth = scaleHeight = Height / (double) sourceHeight;
+                    break;
+                case SizeMode2.BySizeFit:
+                    scaleWidth = scaleHeight = Math.Min(Width / (double) sourceWidth, Height / (double) sourceHeight);
+                    break;
+                case SizeMode2.BySizeStretch:
+                    scaleWidth = Width / (double) sourceWidth;
+                    scaleHeight = Height / (double) sourceHeight;
+                    break;
+                default:
+                    throw new Exception("7924688");
             }
 
             if (GrowShrinkMode == GrowShrinkMode.GrowOnly)
@@ -160,50 +149,158 @@ namespace TankIconMaker.Effects
                 scaleHeight = Math.Min(1.0, scaleHeight);
             }
 
-            size = PositionByPixels ? pixels : PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
+            var anchor = (AnchorRaw) Anchor;
+            int anchorWidth = (int) Math.Ceiling((PositionByPixels ? pixels.Width : layer.Width) * scaleWidth);
+            int anchorHeight = (int) Math.Ceiling((PositionByPixels ? pixels.Height : layer.Height) * scaleHeight);
+            // Location of the top left corner of the anchored rectangle
+            int tgtX = X - (anchor.HasFlag(AnchorRaw.Right) ? anchorWidth - 1 : anchor.HasFlag(AnchorRaw.Center) ? (anchorWidth - 1) / 2 : 0);
+            int tgtY = Y - (anchor.HasFlag(AnchorRaw.Bottom) ? anchorHeight - 1 : anchor.HasFlag(AnchorRaw.Mid) ? (anchorHeight - 1) / 2 : 0);
+            // Location of the top left corner of the whole scaled layer image
+            double x = tgtX - (PositionByPixels ? pixels.Left * scaleWidth : 0);
+            double y = tgtY - (PositionByPixels ? pixels.Top * scaleHeight : 0);
 
-            double x = (LeftAnchor && RightAnchor) ? (Left + Right) / 2.0 - size.CenterHorzD * scaleWidth
-                : LeftAnchor ? Left - size.Left * scaleWidth
-                : RightAnchor ? Right - size.Right * scaleWidth
-                : 0;
-            double y = (TopAnchor && BottomAnchor) ? (Top + Bottom) / 2.0 - size.CenterVertD * scaleHeight
-                : TopAnchor ? Top - size.Top * scaleHeight
-                : BottomAnchor ? Bottom - size.Bottom * scaleHeight
-                : 0;
-
-            var gdi = layer.ToBitmapGdi();
+            var src = layer.ToBitmapGdi();
             if (ShowLayerBorders || ShowPixelBorders)
-                using (var dc = Graphics.FromImage(gdi.Bitmap))
+                using (var dc = System.Drawing.Graphics.FromImage(src.Bitmap))
                 {
                     if (ShowLayerBorders)
-                        dc.DrawRectangle(Pens.Aqua, 0, 0, layer.Width - 1, layer.Height - 1);
+                        dc.DrawRectangle(System.Drawing.Pens.Aqua, 0, 0, layer.Width - 1, layer.Height - 1);
                     if (ShowPixelBorders)
-                        dc.DrawRectangle(Pens.Red, pixels.Left, pixels.Top, pixels.Width - 1, pixels.Height - 1);
+                        dc.DrawRectangle(System.Drawing.Pens.Red, pixels.Left, pixels.Top, pixels.Width - 1, pixels.Height - 1);
                 }
 
+#if true
+            // Using GDI: sharp-ish downscaling, but imprecise boundaries
             var result = new BitmapGdi(Math.Max(layer.Width, 80), Math.Max(layer.Height, 24));
             using (var dc = Graphics.FromImage(result.Bitmap))
             {
                 dc.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                if (scaleWidth == 1 && scaleHeight == 1)
-                    dc.DrawImage(gdi.Bitmap, (int) (x + 0.5), (int) (y + 0.5));
-                else
-                    dc.DrawImage(gdi.Bitmap, (float) x, (float) y, (float) (gdi.Width * scaleWidth), (float) (gdi.Height * scaleHeight));
-
-                if (ShowTargetBorders)
-                {
-                    using (var normal = new Pen(Color.FromArgb(120, Color.Yellow), 0))
-                    using (var dashed = new Pen(Color.FromArgb(120, Color.Yellow), 0) { DashStyle = DashStyle.Custom, DashPattern = new[] { 1f, 1f } })
+                dc.DrawImage(src.Bitmap, (float) x, (float) y, (float) (src.Width * scaleWidth), (float) (src.Height * scaleHeight));
+                if (ShowAnchor)
+                    using (var pen = new Pen(Color.FromArgb(120, Color.Yellow), 0))
                     {
-                        dc.DrawLine(TopAnchor ? normal : dashed, Left, Top, Right - 1, Top);
-                        dc.DrawLine(RightAnchor ? normal : dashed, Right, Top, Right, Bottom - 1);
-                        dc.DrawLine(BottomAnchor ? normal : dashed, Right, Bottom, Left + 1, Bottom);
-                        dc.DrawLine(LeftAnchor ? normal : dashed, Left, Bottom, Left, Top + 1);
+                        dc.DrawLine(pen, X - 1, Y, X + 1, Y);
+                        dc.DrawLine(pen, X, Y - 1, X, Y + 1);
                     }
+            }
+#else
+            // Using WPF: precise boundaries but rather blurry downscaling
+            var result = Ut.NewBitmapWpf(dc =>
+            {
+                var img = src.ToBitmapWpf().UnderlyingImage;
+
+                var group = new System.Windows.Media.DrawingGroup();
+                System.Windows.Media.RenderOptions.SetBitmapScalingMode(group, System.Windows.Media.BitmapScalingMode.Fant);
+                group.Children.Add(new System.Windows.Media.ImageDrawing(img, new System.Windows.Rect(x, y, src.Width * scaleWidth, src.Height * scaleHeight)));
+                dc.DrawDrawing(group);
+
+                if (ShowTargetPosition)
+                {
+                    var pen = new System.Windows.Media.Pen(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(200, 255, 255, 0)), 1);
+                    dc.DrawLine(pen, new System.Windows.Point(X - 1 + 0.5, Y + 0.5), new System.Windows.Point(X + 1 + 0.5, Y + 0.5));
+                    dc.DrawLine(pen, new System.Windows.Point(X + 0.5, Y - 1 + 0.5), new System.Windows.Point(X + 0.5, Y + 1 + 0.5));
+                }
+            }, Math.Max(layer.Width, 80), Math.Max(layer.Height, 24));
+#endif
+
+            GC.KeepAlive(src);
+            return result.ToBitmapRam();
+        }
+
+        protected override void ActualAfterXmlDeclassify()
+        {
+            base.ActualAfterXmlDeclassify();
+
+            if (!ConvertedFromOld)
+            {
+                AnchorRaw anchor;
+
+                if (LeftAnchor && RightAnchor)
+                {
+                    X = (Left + Right) / 2;
+                    anchor = AnchorRaw.Center;
+                }
+                else if (LeftAnchor)
+                {
+                    X = Left;
+                    anchor = AnchorRaw.Left;
+                }
+                else if (RightAnchor)
+                {
+                    X = Right;
+                    anchor = AnchorRaw.Right;
+                }
+                else
+                {
+                    X = 80 / 2;
+                    anchor = AnchorRaw.Center;
+                }
+
+                if (TopAnchor && BottomAnchor)
+                {
+                    Y = (Top + Bottom) / 2;
+                    anchor |= AnchorRaw.Mid;
+                }
+                else if (TopAnchor)
+                {
+                    Y = Top;
+                    anchor |= AnchorRaw.Top;
+                }
+                else if (BottomAnchor)
+                {
+                    Y = Bottom;
+                    anchor |= AnchorRaw.Bottom;
+                }
+                else
+                {
+                    Y = 24 / 2;
+                    anchor |= AnchorRaw.Mid;
+                }
+
+                Anchor = (Anchor) anchor;
+
+                switch (SizeMode)
+                {
+                    case SizeModeOld.NoChange:
+                        SizeMode2 = SizeMode2.NoChange;
+                        break;
+                    case SizeModeOld.ByPercentage:
+                        SizeMode2 = SizeMode2.ByPercentage;
+                        break;
+                    case SizeModeOld.BySizeWidthOnly:
+                        SizeMode2 = SizeMode2.BySizeWidthOnly;
+                        break;
+                    case SizeModeOld.BySizeHeightOnly:
+                        SizeMode2 = SizeMode2.BySizeHeightOnly;
+                        break;
+                    case SizeModeOld.BySizeWidthHeightStretch:
+                        SizeMode2 = SizeMode2.BySizeStretch;
+                        break;
+                    case SizeModeOld.ByPosLeftRight:
+                        SizeMode2 = SizeMode2.BySizeWidthOnly;
+                        Width = Right - Left + 1;
+                        break;
+                    case SizeModeOld.ByPosTopBottom:
+                        SizeMode2 = SizeMode2.BySizeHeightOnly;
+                        Height = Bottom - Top + 1;
+                        break;
+                    case SizeModeOld.ByPosAllFit:
+                        SizeMode2 = SizeMode2.BySizeFit;
+                        Width = Right - Left + 1;
+                        Height = Bottom - Top + 1;
+                        break;
+                    case SizeModeOld.ByPosAllStretch:
+                        SizeMode2 = SizeMode2.BySizeStretch;
+                        Width = Right - Left + 1;
+                        Height = Bottom - Top + 1;
+                        break;
                 }
             }
-            GC.KeepAlive(gdi);
-            return result;
+
+            Left = Right = Top = Bottom = 0;
+            LeftAnchor = RightAnchor = TopAnchor = BottomAnchor = false;
+            SizeMode = default(SizeModeOld);
+            ConvertedFromOld = true;
         }
     }
 }
