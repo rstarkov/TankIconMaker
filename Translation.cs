@@ -426,7 +426,7 @@ namespace TankIconMaker
         public TrString EffectName = "Size / Position";
         public TrString EffectDescription = "Adjusts this layer's size and/or position. This effect is always applied before any other effects.";
 
-        public MemberDescriptionTr Anchor = new MemberDescriptionTr { DisplayName = "Anchor", Description = "Specifies where the layer should be positioned relative to the point specified by the “X” and “Y” values." };
+        public MemberDescriptionTr Anchor = new MemberDescriptionTr { DisplayName = "Anchor", Description = "Specifies how to position the layer relative to the “X” and “Y” co-ordinates." };
         public MemberDescriptionTr X = new MemberDescriptionTr { DisplayName = "X", Description = "Specifies the horizontal coordinate of the anchor point." };
         public MemberDescriptionTr Y = new MemberDescriptionTr { DisplayName = "Y", Description = "Specifies the vertical coordinate of the anchor point." };
 
@@ -443,7 +443,7 @@ namespace TankIconMaker
 
         public MemberDescriptionTr ShowLayerBorders = new MemberDescriptionTr { DisplayName = "Show layer borders", Description = "If enabled, draws a rectangle to show the layer borders. These borders are used when \"Use pixels\" is disabled." };
         public MemberDescriptionTr ShowPixelBorders = new MemberDescriptionTr { DisplayName = "Show pixel borders", Description = "If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using \"Transparency threshold\". These borders are used when \"Use pixels\" is enabled." };
-        public MemberDescriptionTr ShowAnchor = new MemberDescriptionTr { DisplayName = "Show anchor", Description = "If enabled, draws a crosshair to show where the anchor is positioned within the icon." };
+        public MemberDescriptionTr ShowAnchor = new MemberDescriptionTr { DisplayName = "Show anchor", Description = "If enabled, draws a cross-hair at the anchor position." };
     }
 
     #endregion
@@ -511,8 +511,8 @@ namespace TankIconMaker
     {
         public TrString NoChange = "No change";
         public TrString ByPercentage = "By %";
-        public TrString BySizeWidthOnly = "By size: width only";
-        public TrString BySizeHeightOnly = "By size: height only";
+        public TrString BySizeWidthOnly = "By width";
+        public TrString BySizeHeightOnly = "By height";
         public TrString BySizeFit = "By size: fit";
         public TrString BySizeStretch = "By size: stretch";
 
