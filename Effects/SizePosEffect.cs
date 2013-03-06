@@ -106,11 +106,14 @@ namespace TankIconMaker.Effects
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            PixelRect pixels = PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
+            var pixels = PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
             if (ShowPixelBorders || PositionByPixels || (SizeByPixels && SizeMode2 != SizeMode2.NoChange && SizeMode2 != SizeMode2.ByPercentage))
                 pixels = layer.PreciseSize(PixelAlphaThreshold);
-            double scaleWidth, scaleHeight;
+            bool emptyPixels = pixels.Width <= 0 || pixels.Height <= 0;
+            if (emptyPixels)
+                pixels = PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
 
+            double scaleWidth, scaleHeight;
             int sourceWidth = SizeByPixels ? pixels.Width : layer.Width;
             int sourceHeight = SizeByPixels ? pixels.Height : layer.Height;
             switch (SizeMode2)
@@ -165,7 +168,7 @@ namespace TankIconMaker.Effects
                 {
                     if (ShowLayerBorders)
                         dc.DrawRectangle(System.Drawing.Pens.Aqua, 0, 0, layer.Width - 1, layer.Height - 1);
-                    if (ShowPixelBorders)
+                    if (ShowPixelBorders && !emptyPixels)
                         dc.DrawRectangle(System.Drawing.Pens.Red, pixels.Left, pixels.Top, pixels.Width - 1, pixels.Height - 1);
                 }
 

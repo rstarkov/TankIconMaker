@@ -107,7 +107,7 @@
           <Percentage>50</Percentage>
           <Width>30</Width>
           <Height>18</Height>
-          <PixelAlphaThreshold>180</PixelAlphaThreshold>
+          <PixelAlphaThreshold>160</PixelAlphaThreshold>
           <ConvertedFromOld>True</ConvertedFromOld>
           <PositionByPixels>True</PositionByPixels>
           <Anchor>MidLeft</Anchor>
@@ -118,7 +118,7 @@
           <GrowShrinkMode>GrowAndShrink</GrowShrinkMode>
           <ShowLayerBorders>False</ShowLayerBorders>
           <ShowPixelBorders>False</ShowPixelBorders>
-          <ShowTargetPosition>False</ShowTargetPosition>
+          <ShowAnchor>False</ShowAnchor>
         </item>
         <item type="TankIconMaker.Effects.ClipEffect">
           <Name null="1" />
