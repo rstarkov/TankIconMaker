@@ -58,13 +58,6 @@ namespace TankIconMaker.Layers
             Anchor = Anchor.TopLeft;
             Baseline = false;
             FontColor = new ColorSelector(Colors.White);
-
-            // Old stuff, to be deleted eventually
-            Left = Top = 3;
-            LeftAnchor = TopAnchor = true;
-            RightAnchor = BottomAnchor = false;
-            Right = 80 - 3;
-            Bottom = 24 - 3;
         }
 
         public override LayerBase Clone()
@@ -151,7 +144,7 @@ namespace TankIconMaker.Layers
 
     sealed class PropertyTextLayer : TextLayer
     {
-        public override int Version { get { return 1; } }
+        public override int Version { get { return 2; } }
         public override string TypeName { get { return App.Translation.PropertyTextLayer.LayerName; } }
         public override string TypeDescription { get { return App.Translation.PropertyTextLayer.LayerDescription; } }
 
@@ -171,7 +164,7 @@ namespace TankIconMaker.Layers
 
     sealed class CustomTextLayer : TextLayer
     {
-        public override int Version { get { return 1; } }
+        public override int Version { get { return 2; } }
         public override string TypeName { get { return App.Translation.CustomTextLayer.LayerName; } }
         public override string TypeDescription { get { return App.Translation.CustomTextLayer.LayerDescription; } }
 
