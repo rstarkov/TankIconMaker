@@ -221,6 +221,30 @@
       <Translation>Только иконки _ПТ...</Translation>
       <Old>Only _destroyer icons...</Old>
     </ctBrowseAndSaveIcons_Destroyer>
+    <ctBrowseAndSaveIcons_USSR>
+      <Translation>Только иконки ССС_Р...</Translation>
+      <Old>Only _USSR...</Old>
+    </ctBrowseAndSaveIcons_USSR>
+    <ctBrowseAndSaveIcons_Germany>
+      <Translation>Только иконки _Германии...</Translation>
+      <Old>Only G_ermany...</Old>
+    </ctBrowseAndSaveIcons_Germany>
+    <ctBrowseAndSaveIcons_USA>
+      <Translation>Только иконки С_ША...</Translation>
+      <Old>Only U_SA...</Old>
+    </ctBrowseAndSaveIcons_USA>
+    <ctBrowseAndSaveIcons_France>
+      <Translation>Только иконки _Франции...</Translation>
+      <Old>Only _France...</Old>
+    </ctBrowseAndSaveIcons_France>
+    <ctBrowseAndSaveIcons_UK>
+      <Translation>Только иконки Велико_британии...</Translation>
+      <Old>Only U_K...</Old>
+    </ctBrowseAndSaveIcons_UK>
+    <ctBrowseAndSaveIcons_China>
+      <Translation>Только иконки _Китая...</Translation>
+      <Old>Only _China...</Old>
+    </ctBrowseAndSaveIcons_China>
     <ctReloadLabel>
       <Translation>_Обновить данные</Translation>
       <Old>_Reload data</Old>
