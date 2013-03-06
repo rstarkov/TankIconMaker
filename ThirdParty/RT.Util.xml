@@ -220,23 +220,23 @@
         <member name="M:RT.Util.CommandLine.UndocumentedAttribute.#ctor">
             <summary>Constructor.</summary>
         </member>
-        <member name="T:RT.Util.CommandLine.EnumBehaviour">
-            <summary>Describes the behaviour of an enum-typed field with the <see cref="T:RT.Util.CommandLine.EnumOptionsAttribute"/>.</summary>
+        <member name="T:RT.Util.CommandLine.EnumBehavior">
+            <summary>Describes the behavior of an enum-typed field with the <see cref="T:RT.Util.CommandLine.EnumOptionsAttribute"/>.</summary>
         </member>
-        <member name="F:RT.Util.CommandLine.EnumBehaviour.SingleValue">
+        <member name="F:RT.Util.CommandLine.EnumBehavior.SingleValue">
             <summary>Specifies that an enum is considered to represent a single value.</summary>
         </member>
-        <member name="F:RT.Util.CommandLine.EnumBehaviour.MultipleValues">
+        <member name="F:RT.Util.CommandLine.EnumBehavior.MultipleValues">
             <summary>Specifies that an enum is considered to represent a bitfield containing multiple values.</summary>
         </member>
         <member name="T:RT.Util.CommandLine.EnumOptionsAttribute">
             <summary>Specifies that a field of an enum type should be interpreted as multiple possible options, each specified
             by an <see cref="T:RT.Util.CommandLine.OptionAttribute"/> on the enum values in the enum type.</summary>
         </member>
-        <member name="M:RT.Util.CommandLine.EnumOptionsAttribute.#ctor(RT.Util.CommandLine.EnumBehaviour)">
+        <member name="M:RT.Util.CommandLine.EnumOptionsAttribute.#ctor(RT.Util.CommandLine.EnumBehavior)">
             <summary>Constructor.</summary>
         </member>
-        <member name="P:RT.Util.CommandLine.EnumOptionsAttribute.Behaviour">
+        <member name="P:RT.Util.CommandLine.EnumOptionsAttribute.Behavior">
             <summary>Specifies whether the enum is considered to represent a single value or a bitfield containing multiple values.</summary>
         </member>
         <member name="T:RT.Util.CommandLine.IgnoreAttribute">
@@ -327,37 +327,41 @@
             <param name="tr">The translation class containing the translated text, or null for English.</param>
             <param name="wrapWidth">The character width at which the output should be word-wrapped.</param>
         </member>
-        <member name="M:RT.Util.CommandLine.CommandLineParseException.#ctor(System.Func{RT.Util.CommandLine.Translation,System.String},System.Func{RT.Util.CommandLine.Translation,System.Int32,RT.Util.Consoles.ConsoleColoredString})">
+        <member name="M:RT.Util.CommandLine.CommandLineParseException.#ctor(System.Func{RT.Util.CommandLine.Translation,RT.Util.Consoles.ConsoleColoredString},System.Func{RT.Util.CommandLine.Translation,System.Int32,RT.Util.Consoles.ConsoleColoredString})">
             <summary>Constructor.</summary>
         </member>
-        <member name="M:RT.Util.CommandLine.CommandLineParseException.#ctor(System.Func{RT.Util.CommandLine.Translation,System.String},System.Func{RT.Util.CommandLine.Translation,System.Int32,RT.Util.Consoles.ConsoleColoredString},System.Exception)">
+        <member name="M:RT.Util.CommandLine.CommandLineParseException.#ctor(System.Func{RT.Util.CommandLine.Translation,RT.Util.Consoles.ConsoleColoredString},System.Func{RT.Util.CommandLine.Translation,System.Int32,RT.Util.Consoles.ConsoleColoredString},System.Exception)">
             <summary>Constructor.</summary>
         </member>
         <member name="M:RT.Util.CommandLine.CommandLineParseException.WriteUsageInfoToConsole(RT.Util.CommandLine.Translation)">
             <summary>
             Prints usage information, followed by an error message describing to the user what it was that the parser didn't
-            understand. When the exception was caused by a help switch (see <see cref="P:RT.Util.CommandLine.CommandLineParseException.WasCausedByHelpRequest"/>),
-            no error message is printed.
+            understand.
             </summary>
             <param name="tr">Contains translations for the messages used by the command-line parser. Set this to null
             only if your application is definitely monolingual (unlocalisable).</param>
         </member>
-        <member name="F:RT.Util.CommandLine.CommandLineParseException._helpSwitches">
-            <summary>Contains the list of switches that are recognised by <see cref="P:RT.Util.CommandLine.CommandLineParseException.WasCausedByHelpRequest"/>.</summary>
-        </member>
         <member name="P:RT.Util.CommandLine.CommandLineParseException.GenerateHelpFunc">
             <summary>Generates the help screen to be output to the user on the console. For non-internationalised (single-language) applications, pass null for the Translation parameter.</summary>
         </member>
-        <member name="P:RT.Util.CommandLine.CommandLineParseException.WasCausedByHelpRequest">
-            <summary>Indicates whether this exception was caused by the user specifying an option that looks like a help switch.</summary>
-            <remarks>Currently the following switches are recognised as help switches:
-            <c>-?</c>, <c>/?</c>, <c>--?</c>, <c>-h</c>, <c>/h</c>, <c>--help</c>, <c>help</c>
-            </remarks>
+        <member name="P:RT.Util.CommandLine.CommandLineParseException.GetColoredMessage">
+            <summary>Contains the error message that describes the cause of this exception.</summary>
+        </member>
+        <member name="T:RT.Util.CommandLine.CommandLineHelpRequestedException">
+            <summary>Indicates that the user supplied one of the standard options we recognize as a help request.</summary>
+        </member>
+        <member name="M:RT.Util.CommandLine.CommandLineHelpRequestedException.#ctor(System.Func{RT.Util.CommandLine.Translation,System.Int32,RT.Util.Consoles.ConsoleColoredString})">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="M:RT.Util.CommandLine.CommandLineHelpRequestedException.WriteUsageInfoToConsole(RT.Util.CommandLine.Translation)">
+            <summary>Prints usage information.</summary>
+            <param name="tr">Contains translations for the messages used by the command-line parser. Set this to null
+            only if your application is definitely monolingual (unlocalisable).</param>
         </member>
         <member name="T:RT.Util.CommandLine.CommandLineValidationException">
             <summary>Specifies that the arguments specified by the user on the command-line do not pass the custom validation checks.</summary>
         </member>
-        <member name="M:RT.Util.CommandLine.CommandLineValidationException.#ctor(System.String,System.Func{RT.Util.CommandLine.Translation,System.Int32,RT.Util.Consoles.ConsoleColoredString})">
+        <member name="M:RT.Util.CommandLine.CommandLineValidationException.#ctor(RT.Util.Consoles.ConsoleColoredString,System.Func{RT.Util.CommandLine.Translation,System.Int32,RT.Util.Consoles.ConsoleColoredString})">
             <summary>Constructor.</summary>
         </member>
         <member name="T:RT.Util.CommandLine.UnrecognizedCommandOrOptionException">
@@ -372,10 +376,6 @@
         </member>
         <member name="P:RT.Util.CommandLine.UnrecognizedCommandOrOptionException.CommandOrOptionName">
             <summary>The unrecognized command name or option name.</summary>
-        </member>
-        <member name="P:RT.Util.CommandLine.UnrecognizedCommandOrOptionException.WasCausedByHelpRequest">
-            <summary>Indicates whether this exception was caused by the user specifying an option that looks like a help switch.</summary>
-            <remarks>The set of switches recognised as help switches is listed in the base property documentation, <see cref="P:RT.Util.CommandLine.CommandLineParseException.WasCausedByHelpRequest"/>.</remarks>
         </member>
         <member name="T:RT.Util.CommandLine.IncompatibleCommandOrOptionException">
             <summary>Specifies that the command-line parser encountered a command or option that is not allowed in conjunction with a previously-encountered command or option.</summary>
@@ -415,10 +415,6 @@
         </member>
         <member name="P:RT.Util.CommandLine.UnexpectedArgumentException.UnexpectedParameters">
             <summary>Contains the first unexpected argument and all of the subsequent arguments.</summary>
-        </member>
-        <member name="P:RT.Util.CommandLine.UnexpectedArgumentException.WasCausedByHelpRequest">
-            <summary>Indicates whether this exception was caused by the user specifying an option that looks like a help switch.</summary>
-            <remarks>The set of switches recognised as help switches is listed in the base property documentation, <see cref="P:RT.Util.CommandLine.CommandLineParseException.WasCausedByHelpRequest"/>.</remarks>
         </member>
         <member name="T:RT.Util.CommandLine.InvalidNumericParameterException">
             <summary>Specifies that a parameter that expected a numerical value was passed a string by the user that doesn’t parse as a number.</summary>
@@ -1370,6 +1366,9 @@
             <summary>Contains information about a parse error that describes in what way the current value of
             <see cref="P:RT.Util.Controls.LabelEx.Text"/> is invalid EggsML, or null if it is valid.</summary>
         </member>
+        <member name="P:RT.Util.Controls.LabelEx.Bullet">
+            <summary>Gets or sets a string to use as the bullet point for bulleted lists ([...] in the mark-up).</summary>
+        </member>
         <member name="T:RT.Util.Controls.LabelEx.IndentUnit">
             <summary>Contains values that specify the unit in which the value of the <see cref="P:RT.Util.Controls.LabelEx.HangingIndent"/> property is measured.</summary>
         </member>
@@ -1950,6 +1949,16 @@
             <param name="selector">Function selecting the actual string value to be compared.</param>
             <param name="ignoreCase">If false, an invariant culture string comparison is used. Otherwise, an ordinal no-case comparison (suitable for filenames etc).</param>
         </member>
+        <member name="T:RT.Util.ExtensionMethods.TextReaderWriterExtensions">
+            <summary>
+                Provides extension methods on the <see cref="T:System.IO.TextReader"/>, <see cref="T:System.IO.TextWriter"/>
+                and any related types.</summary>
+        </member>
+        <member name="M:RT.Util.ExtensionMethods.TextReaderWriterExtensions.ReadLines(System.IO.TextReader)">
+            <summary>
+                Enumerates all (remaining) lines from this text reader, reading lines only when needed, and
+                hence compatible with potentially blocking or infinite streams.</summary>
+        </member>
         <member name="T:RT.Util.IL.ILReader">
             <summary>Decodes the IL inside a specified method.</summary>
         </member>
@@ -2384,94 +2393,165 @@
             <summary>Returns the Transform of the Graphics object back to its original value.</summary>
         </member>
         <member name="T:RT.Util.Drawing.GraphicsUtil">
-            <summary>
-            Contains static methods for various graphics-related operations.
-            </summary>
+            <summary>Contains static methods for various graphics-related operations.</summary>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.ColorBlend(System.Drawing.Color,System.Drawing.Color,System.Double)">
-            <summary>Blends the specified colors together.</summary>
-            <param name="color">Color to blend onto the background color.</param>
-            <param name="backColor">Color to blend the other color onto.</param>
-            <param name="amount">How much of <paramref name="color"/> to keep, “on top of” <paramref name="backColor"/>.</param>
-            <returns>The blended colors.</returns>
+            <summary>
+                Blends the specified colors together.</summary>
+            <param name="color">
+                Color to blend onto the background color.</param>
+            <param name="backColor">
+                Color to blend the other color onto.</param>
+            <param name="amount">
+                How much of <paramref name="color"/> to keep, “on top of” <paramref name="backColor"/>.</param>
+            <returns>
+                The blended colors.</returns>
         </member>
-        <member name="M:RT.Util.Drawing.GraphicsUtil.FromHsl(System.Double,System.Double,System.Double)">
-            <summary>Converts the specified hue, saturation and luminance values into an RGB color.</summary>
+        <member name="M:RT.Util.Drawing.GraphicsUtil.FromHsv(System.Double,System.Double,System.Double)">
+            <summary>Converts hue, saturation and value into an RGB color object.</summary>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.DrawImageAlpha(System.Drawing.Graphics,System.Drawing.Image,System.Drawing.Rectangle,System.Single)">
             <summary>
-            Draws the specified <paramref name="image"/> into the destination rectangle <paramref name="destRect"/> of the <paramref name="graphics"/> object using the specified <paramref name="opacity"/>.
-            </summary>
-            <param name="graphics">Graphics object to alpha-blend the image onto.</param>
-            <param name="image">Image to draw.</param>
-            <param name="destRect">Destination rectangle within the target Graphics canvas.</param>
-            <param name="opacity">Opacity level to use when drawing the image. 0 means nothing changes.
-            1 means the image is drawn normally. 0.5 means a 50% blend between source and destination.</param>
+                Draws the specified <paramref name="image"/> into the destination rectangle <paramref name="destRect"/> of the
+                <paramref name="graphics"/> object using the specified <paramref name="opacity"/>.</summary>
+            <param name="graphics">
+                Graphics object to alpha-blend the image onto.</param>
+            <param name="image">
+                Image to draw.</param>
+            <param name="destRect">
+                Destination rectangle within the target Graphics canvas.</param>
+            <param name="opacity">
+                Opacity level to use when drawing the image. 0 means nothing changes. 1 means the image is drawn normally. 0.5
+                means a 50% blend between source and destination.</param>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.DrawRoundedRectangle(System.Drawing.Graphics,System.Drawing.Pen,System.Drawing.RectangleF,System.Single,System.Boolean)">
-            <summary>Draws a rounded rectangle.</summary>
-            <param name="g">Graphics object to draw on.</param>
-            <param name="pen">Pen to use when drawing the rounded rectangle.</param>
-            <param name="rectangle">Position of the rectangle.</param>
-            <param name="radius">Radius of the rounding of each corner of the rectangle.</param>
-            <param name="tolerant">If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is thrown.</param>
+            <summary>
+                Draws a rounded rectangle.</summary>
+            <param name="g">
+                Graphics object to draw on.</param>
+            <param name="pen">
+                Pen to use when drawing the rounded rectangle.</param>
+            <param name="rectangle">
+                Position of the rectangle.</param>
+            <param name="radius">
+                Radius of the rounding of each corner of the rectangle.</param>
+            <param name="tolerant">
+                If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is
+                thrown.</param>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.DrawRoundedRectangle(System.Drawing.Graphics,System.Drawing.Pen,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)">
-            <summary>Draws a rounded rectangle.</summary>
-            <param name="g">Graphics object to draw on.</param>
-            <param name="pen">Pen to use when drawing the rounded rectangle.</param>
-            <param name="x">Left edge of the rounded rectangle.</param>
-            <param name="y">Top edge of the rounded rectangle.</param>
-            <param name="width">Width of the rounded rectangle.</param>
-            <param name="height">Height of the rounded rectangle.</param>
-            <param name="radius">Radius of the rounding of each corner of the rectangle.</param>
-            <param name="tolerant">If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is thrown.</param>
+            <summary>
+                Draws a rounded rectangle.</summary>
+            <param name="g">
+                Graphics object to draw on.</param>
+            <param name="pen">
+                Pen to use when drawing the rounded rectangle.</param>
+            <param name="x">
+                Left edge of the rounded rectangle.</param>
+            <param name="y">
+                Top edge of the rounded rectangle.</param>
+            <param name="width">
+                Width of the rounded rectangle.</param>
+            <param name="height">
+                Height of the rounded rectangle.</param>
+            <param name="radius">
+                Radius of the rounding of each corner of the rectangle.</param>
+            <param name="tolerant">
+                If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is
+                thrown.</param>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.RoundedRectangle(System.Drawing.RectangleF,System.Single,System.Boolean)">
-            <summary>Returns a <see cref="T:System.Drawing.Drawing2D.GraphicsPath"/> object that represents a rounded rectangle.</summary>
-            <param name="rectangle">Position of the rectangle.</param>
-            <param name="radius">Radius of the rounding of each corner of the rectangle.</param>
-            <param name="tolerant">If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is thrown.</param>
+            <summary>
+                Returns a <see cref="T:System.Drawing.Drawing2D.GraphicsPath"/> object that represents a rounded rectangle.</summary>
+            <param name="rectangle">
+                Position of the rectangle.</param>
+            <param name="radius">
+                Radius of the rounding of each corner of the rectangle.</param>
+            <param name="tolerant">
+                If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is
+                thrown.</param>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.RoundedRectangle(System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)">
             <summary>
-            Returns a <see cref="T:System.Drawing.Drawing2D.GraphicsPath"/> object that represents a rounded rectangle.
-            </summary>
-            <param name="x">Left edge of the rounded rectangle.</param>
-            <param name="y">Top edge of the rounded rectangle.</param>
-            <param name="width">Width of the rounded rectangle.</param>
-            <param name="height">Height of the rounded rectangle.</param>
-            <param name="radius">Radius of the rounding of each corner of the rectangle.</param>
-            <param name="tolerant">If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is thrown.</param>
+                Returns a <see cref="T:System.Drawing.Drawing2D.GraphicsPath"/> object that represents a rounded rectangle.</summary>
+            <param name="x">
+                Left edge of the rounded rectangle.</param>
+            <param name="y">
+                Top edge of the rounded rectangle.</param>
+            <param name="width">
+                Width of the rounded rectangle.</param>
+            <param name="height">
+                Height of the rounded rectangle.</param>
+            <param name="radius">
+                Radius of the rounding of each corner of the rectangle.</param>
+            <param name="tolerant">
+                If true, the radius is reduced if it is too large to fit into the specified size. Otherwise, an exception is
+                thrown.</param>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.GetMaximumFontSize(System.Drawing.Graphics,System.Drawing.SizeF,System.Drawing.FontFamily,System.String,System.Drawing.FontStyle,System.Boolean)">
-            <summary>Determines the largest font size at which the specified text fits into the specified maximum size in the specified font.</summary>
-            <param name="graphics">Specifies the <see cref="T:System.Drawing.Graphics"/> object to use when measuring the font size.</param>
-            <param name="maximumSize">Maximum size (in pixels) the text should have.</param>
-            <param name="fontFamily">The font to measure.</param>
-            <param name="text">The text whose size mustn't exceed <paramref name="maximumSize"/>.</param>
-            <param name="style">Font style to apply.</param>
-            <param name="allowWordWrapping">True if the text is allowed to word-wrap within the specified bounds.</param>
+            <summary>
+                Determines the largest font size at which the specified text fits into the specified maximum size in the specified
+                font.</summary>
+            <param name="graphics">
+                Specifies the <see cref="T:System.Drawing.Graphics"/> object to use when measuring the font size.</param>
+            <param name="maximumSize">
+                Maximum size (in pixels) the text should have.</param>
+            <param name="fontFamily">
+                The font to measure.</param>
+            <param name="text">
+                The text whose size mustn't exceed <paramref name="maximumSize"/>.</param>
+            <param name="style">
+                Font style to apply.</param>
+            <param name="allowWordWrapping">
+                True if the text is allowed to word-wrap within the specified bounds.</param>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.GetMaximumFontSize(System.Drawing.Graphics,System.Drawing.FontFamily,System.String,System.Drawing.FontStyle,System.Boolean,System.Nullable{System.Single},System.Nullable{System.Single})">
-            <summary>Determines the largest font size at which the specified text fits into the specified maximum size in the specified font.</summary>
-            <param name="graphics">Specifies the <see cref="T:System.Drawing.Graphics"/> object to use when measuring the font size.</param>
-            <param name="fontFamily">The font to measure.</param>
-            <param name="text">The text whose size mustn't exceed <paramref name="maxWidth"/> and <paramref name="maxHeight"/>.</param>
-            <param name="style">Font style to apply.</param>
-            <param name="allowWordWrapping">True if the text is allowed to word-wrap within the specified bounds.</param>
-            <param name="maxWidth">Maximum width the text may have, or null if only the maximum height should apply. If <paramref name="allowWordWrapping"/> is true, this cannot be null.</param>
-            <param name="maxHeight">Maximum width the text may have, or null if only the maximum width should apply. If <paramref name="maxWidth"/> is null, this cannot be null.</param>
+            <summary>
+                Determines the largest font size at which the specified text fits into the specified maximum size in the specified
+                font.</summary>
+            <param name="graphics">
+                Specifies the <see cref="T:System.Drawing.Graphics"/> object to use when measuring the font size.</param>
+            <param name="fontFamily">
+                The font to measure.</param>
+            <param name="text">
+                The text whose size mustn't exceed <paramref name="maxWidth"/> and <paramref name="maxHeight"/>.</param>
+            <param name="style">
+                Font style to apply.</param>
+            <param name="allowWordWrapping">
+                True if the text is allowed to word-wrap within the specified bounds.</param>
+            <param name="maxWidth">
+                Maximum width the text may have, or null if only the maximum height should apply. If <paramref name="allowWordWrapping"/> is true, this cannot be null.</param>
+            <param name="maxHeight">
+                Maximum width the text may have, or null if only the maximum width should apply. If <paramref name="maxWidth"/> is
+                null, this cannot be null.</param>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.SetHighQuality(System.Drawing.Graphics)">
-            <summary>Sets the interpolation mode, smoothing mode, text rendering hint and compositing quality for the
-            specified Graphics object to high quality.</summary>
+            <summary>
+                Sets the interpolation mode, smoothing mode, text rendering hint and compositing quality for the specified
+                Graphics object to high quality.</summary>
         </member>
         <member name="M:RT.Util.Drawing.GraphicsUtil.FitIntoMaintainAspectRatio(System.Drawing.Size,System.Drawing.Rectangle)">
-            <summary>Returns a rectangle that has the same aspect ratio as <paramref name="fitWhat"/> but fits into <paramref name="fitInto"/>.</summary>
-            <param name="fitWhat">Specifies the aspect ratio of the desired rectangle.</param>
-            <param name="fitInto">The rectangle into which to fit the result rectangle.</param>
-            <returns>The result rectangle which fits into <paramref name="fitInto"/>.</returns>
+            <summary>
+                Returns a rectangle that has the same aspect ratio as <paramref name="fitWhat"/> but fits into <paramref
+                name="fitInto"/>.</summary>
+            <param name="fitWhat">
+                Specifies the aspect ratio of the desired rectangle.</param>
+            <param name="fitInto">
+                The rectangle into which to fit the result rectangle.</param>
+            <returns>
+                The result rectangle which fits into <paramref name="fitInto"/>.</returns>
+        </member>
+        <member name="M:RT.Util.Drawing.GraphicsUtil.DrawBitmap(System.Int32,System.Int32,System.Action{System.Drawing.Graphics},System.Boolean)">
+            <summary>
+                Creates a new bitmap by executing the specified drawing command(s) on a blank new 32-bit bitmap.</summary>
+            <param name="width">
+                Width of the bitmap.</param>
+            <param name="height">
+                Height of the bitmap.</param>
+            <param name="draw">
+                Command(s) to execute on the new bitmap.</param>
+            <param name="keepLowQuality">
+                If false (the default), <see cref="M:RT.Util.Drawing.GraphicsUtil.SetHighQuality(System.Drawing.Graphics)"/> is called on the graphics object automatically.</param>
         </member>
         <member name="T:RT.Util.EggsML">
              <summary>Implements a parser for the minimalist text mark-up language EggsML.</summary>
@@ -4226,7 +4306,7 @@
         <member name="M:RT.Util.ExtensionMethods.StreamExtensions.ReadAllText(System.IO.Stream,System.Text.Encoding)">
             <summary>Reads all bytes from the current Stream and converts them into text using the specified encoding.</summary>
             <param name="stream">Stream to read from.</param>
-            <param name="encoding">Encoding to expect the text to be in.</param>
+            <param name="encoding">Encoding to expect the text to be in. If <c>null</c> then the UTF-8 encoding is used.</param>
             <returns>The text read from the stream.</returns>
         </member>
         <member name="M:RT.Util.ExtensionMethods.StreamExtensions.Read(System.IO.Stream,System.Int32)">
@@ -4354,7 +4434,7 @@
             </summary>
             <param name="input">String containing URL escape sequences to be decoded.</param>
             <returns>The specified string with all URL escape sequences decoded.</returns>
-            /// <seealso cref="M:RT.Util.ExtensionMethods.StringExtensions.UrlEscape(System.String)"/>
+            <seealso cref="M:RT.Util.ExtensionMethods.StringExtensions.UrlEscape(System.String)"/>
         </member>
         <member name="M:RT.Util.ExtensionMethods.StringExtensions.FilenameCharactersEscape(System.String)">
             <summary>
@@ -5154,6 +5234,12 @@
             Returns true iff this bounding box contains the specified point.
             </summary>
         </member>
+        <member name="P:RT.Util.Geometry.BoundingBoxD.Width">
+            <summary>Gets the difference between the larger and the smaller X limits of the box, i.e. the width of the bounding box.</summary>
+        </member>
+        <member name="P:RT.Util.Geometry.BoundingBoxD.Height">
+            <summary>Gets the difference between the larger and the smaller Y limits of the box, i.e. the height of the bounding box.</summary>
+        </member>
         <member name="T:RT.Util.Geometry.CircleD">
             <summary>Encapsulates a double-precision circle.</summary>
         </member>
@@ -5320,29 +5406,11 @@
             the lambdas are set to NaN.
             </summary>
         </member>
-        <member name="M:RT.Util.Geometry.Intersect.LineWithLine(System.Double@,System.Double@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
-            <summary>
-            <para>Finds the point of intersection between two lines, specified by a
-            point on a line and the gradient. Works correctly if the gradient
-            is infinite (vertical line), for both positive and negative inf.</para>
-            
-            <para>If a single intersection exists, returns the coordinates in ix, iy.
-            If the lines coincide, returns Inf,Inf. If lines are parallel but
-            don't coincide returns NaN,NaN.</para>
-            
-            <para>WARNING: untested.</para>
-            </summary>
-        </member>
-        <member name="M:RT.Util.Geometry.Intersect.LineWithLine(System.Double@,System.Double@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:RT.Util.Geometry.Intersect.intersect(RT.Util.Geometry.PointD,RT.Util.Geometry.PointD,RT.Util.Geometry.PointD,RT.Util.Geometry.PointD)">
             <summary>
             <para>Finds the point of intersection between two lines, specified by
             two points each.</para>
-            
-            <para>If a single intersection exists, returns the coordinates in ix, iy.
-            If the lines coincide, returns Inf,Inf. If lines are parallel but
-            don't coincide returns NaN,NaN.</para>
-            
-            <para>WARNING: untested.</para>
+            <para>If the lines coincide or are parallel, returns (NaN,NaN).</para>
             </summary>
         </member>
         <member name="M:RT.Util.Geometry.Intersect.LineWithCircle(RT.Util.Geometry.EdgeD@,RT.Util.Geometry.CircleD@,System.Double@,System.Double@)">
@@ -5694,61 +5762,91 @@
             <summary>Manages a global low-level keyboard hook.</summary>
         </member>
         <member name="F:RT.Util.GlobalKeyboardListener._hHook">
-            <summary>
-            Handle to the hook, need this to unhook and call the next hook
-            </summary>
+            <summary>Handle to the hook, need this to unhook and call the next hook</summary>
+        </member>
+        <member name="F:RT.Util.GlobalKeyboardListener._ctrl">
+            <summary>Current state of each modifier key.</summary>
+        </member>
+        <member name="F:RT.Util.GlobalKeyboardListener._alt">
+            <summary>Current state of each modifier key.</summary>
+        </member>
+        <member name="F:RT.Util.GlobalKeyboardListener._shift">
+            <summary>Current state of each modifier key.</summary>
+        </member>
+        <member name="F:RT.Util.GlobalKeyboardListener._win">
+            <summary>Current state of each modifier key.</summary>
+        </member>
+        <member name="F:RT.Util.GlobalKeyboardListener._hook">
+            <summary>Keeps the managed delegate referenced so that the garbage collector doesn’t collect it.</summary>
         </member>
         <member name="M:RT.Util.GlobalKeyboardListener.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:RT.Util.GlobalKeyboardListener"/> class and installs the keyboard hook.
-            </summary>
+                Initializes a new instance of the <see cref="T:RT.Util.GlobalKeyboardListener"/> class and installs the keyboard hook.</summary>
         </member>
         <member name="M:RT.Util.GlobalKeyboardListener.Finalize">
             <summary>
-            Releases unmanaged resources and performs other cleanup operations before the
-            <see cref="T:RT.Util.GlobalKeyboardListener"/> is reclaimed by garbage collection and uninstalls the keyboard hook.
-            </summary>
+                Releases unmanaged resources and performs other cleanup operations before the <see cref="T:RT.Util.GlobalKeyboardListener"/> is reclaimed by garbage collection and uninstalls the keyboard hook.</summary>
         </member>
-        <member name="M:RT.Util.GlobalKeyboardListener.hook">
-            <summary>
-            Installs the global hook
-            </summary>
-        </member>
-        <member name="M:RT.Util.GlobalKeyboardListener.unhook">
-            <summary>
-            Uninstalls the global hook
-            </summary>
+        <member name="M:RT.Util.GlobalKeyboardListener.Dispose">
+            <summary>Unregisters the hook and disposes the object.</summary>
         </member>
         <member name="M:RT.Util.GlobalKeyboardListener.hookProc(System.Int32,System.Int32,RT.Util.WinAPI.KeyboardHookStruct@)">
-            <summary>The callback for the keyboard hook.</summary>
-            <param name="code">The hook code. If this is &lt; 0, the callback shouldn’t do anyting.</param>
-            <param name="wParam">The event type. Only <c>WM_(SYS)?KEY(DOWN|UP)</c> events are handled.</param>
-            <param name="lParam">Information about the key pressed/released.</param>
+            <summary>
+                The callback for the keyboard hook.</summary>
+            <param name="code">
+                The hook code. If this is &lt; 0, the callback shouldn’t do anyting.</param>
+            <param name="wParam">
+                The event type. Only <c>WM_(SYS)?KEY(DOWN|UP)</c> events are handled.</param>
+            <param name="lParam">
+                Information about the key pressed/released.</param>
         </member>
         <member name="P:RT.Util.GlobalKeyboardListener.HookedKeys">
-            <summary>
-            The collections of keys to watch for. This is ignored if <see cref="P:RT.Util.GlobalKeyboardListener.HookAllKeys"/> is set to true.
-            </summary>
+            <summary>The collections of keys to watch for. This is ignored if <see cref="P:RT.Util.GlobalKeyboardListener.HookAllKeys"/> is set to true.</summary>
         </member>
         <member name="P:RT.Util.GlobalKeyboardListener.HookAllKeys">
             <summary>
-            Gets or sets a value indicating whether all keys are listened for. If this is set to true, <see cref="P:RT.Util.GlobalKeyboardListener.HookedKeys"/> is ignored.
-            </summary>
+                Gets or sets a value indicating whether all keys are listened for. If this is set to true, <see cref="P:RT.Util.GlobalKeyboardListener.HookedKeys"/> is ignored.</summary>
         </member>
         <member name="E:RT.Util.GlobalKeyboardListener.KeyDown">
-            <summary>
-            Occurs when one of the hooked keys is pressed.
-            </summary>
+            <summary>Occurs when one of the hooked keys is pressed.</summary>
         </member>
         <member name="E:RT.Util.GlobalKeyboardListener.KeyUp">
-            <summary>
-            Occurs when one of the hooked keys is released.
-            </summary>
+            <summary>Occurs when one of the hooked keys is released.</summary>
+        </member>
+        <member name="T:RT.Util.ModifierKeysState">
+            <summary>Encapsulates the current state of modifier keys.</summary>
+        </member>
+        <member name="M:RT.Util.ModifierKeysState.#ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="M:RT.Util.ModifierKeysState.op_Equality(RT.Util.ModifierKeysState,RT.Util.ModifierKeysState)">
+            <summary>Compares the modifiers and returns true iff the two are equal.</summary>
+        </member>
+        <member name="M:RT.Util.ModifierKeysState.op_Inequality(RT.Util.ModifierKeysState,RT.Util.ModifierKeysState)">
+            <summary>Compares the modifiers and returns true iff the two are not equal.</summary>
+        </member>
+        <member name="M:RT.Util.ModifierKeysState.Equals(System.Object)">
+            <summary>Override; see base.</summary>
+        </member>
+        <member name="M:RT.Util.ModifierKeysState.GetHashCode">
+            <summary>Override; see base.</summary>
+        </member>
+        <member name="P:RT.Util.ModifierKeysState.Ctrl">
+            <summary>Gets the state of the Control key (true if left OR right is down).</summary>
+        </member>
+        <member name="P:RT.Util.ModifierKeysState.Alt">
+            <summary>Gets the state of the Alt key (true if left OR right is down).</summary>
+        </member>
+        <member name="P:RT.Util.ModifierKeysState.Shift">
+            <summary>Gets the state of the Shift key (true if left OR right is down).</summary>
+        </member>
+        <member name="P:RT.Util.ModifierKeysState.Win">
+            <summary>Gets the state of the Windows key (true if left OR right is down).</summary>
         </member>
         <member name="T:RT.Util.GlobalKeyEventArgs">
             <summary>Contains arguments for the KeyUp/KeyDown event in a <see cref="T:RT.Util.GlobalKeyboardListener"/>.</summary>
         </member>
-        <member name="M:RT.Util.GlobalKeyEventArgs.#ctor(System.Windows.Forms.Keys,System.Int32)">
+        <member name="M:RT.Util.GlobalKeyEventArgs.#ctor(System.Windows.Forms.Keys,System.Int32,RT.Util.ModifierKeysState)">
             <summary>Constructor.</summary>
         </member>
         <member name="P:RT.Util.GlobalKeyEventArgs.VirtualKeyCode">
@@ -5756,6 +5854,9 @@
         </member>
         <member name="P:RT.Util.GlobalKeyEventArgs.ScanCode">
             <summary>The scancode of the key being pressed or released.</summary>
+        </member>
+        <member name="P:RT.Util.GlobalKeyEventArgs.ModifierKeys">
+            <summary>Current state of the modifier keys</summary>
         </member>
         <member name="P:RT.Util.GlobalKeyEventArgs.Handled">
             <summary>Set this to ‘true’ to prevent further processing of the keystroke (i.e. to ‘swallow’ it).</summary>
@@ -5772,13 +5873,14 @@
         <member name="M:RT.Util.Dialogs.InputBox.#ctor">
             <summary>Initialises a new <see cref="T:RT.Util.Dialogs.InputBox"/> instance.</summary>
         </member>
-        <member name="M:RT.Util.Dialogs.InputBox.GetLine(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:RT.Util.Dialogs.InputBox.GetLine(System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>Prompts the user for input.</summary>
             <param name="prompt">Message to display to prompt the user.</param>
             <param name="default">Initial value to populate the input box with.</param>
             <param name="caption">Caption to use in the title bar of the dialog.</param>
             <param name="okButtonText">Caption for the OK button.</param>
             <param name="cancelButtonText">Caption for the Cancel button.</param>
+            <param name="useMultilineBox">If true, a multi-line textbox is used, allowing the user to enter multiple lines of text.</param>
             <returns>The text entered by the user, or null if the user selected the Cancel button.</returns>
         </member>
         <member name="F:RT.Util.Dialogs.InputBox.components">
@@ -5797,6 +5899,69 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="T:RT.Util.Json.NumericConversionOptions">
+            <summary>
+                Specifies the degree of strictness or leniency when converting a <see cref="T:RT.Util.Json.JsonValue"/> to a numerical type such as
+                <c>int</c> or <c>double</c>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.NumericConversionOptions.Strict">
+            <summary>
+                The conversion only succeeds if the object is a <see cref="T:RT.Util.Json.JsonNumber"/> and its value is exactly representable by
+                the target type.</summary>
+        </member>
+        <member name="F:RT.Util.Json.NumericConversionOptions.AllowConversionFromString">
+            <summary>The conversion succeeds if the object is a <see cref="T:RT.Util.Json.JsonString"/> with numerical content.</summary>
+        </member>
+        <member name="F:RT.Util.Json.NumericConversionOptions.AllowZeroFractionToInteger">
+            <summary>
+                Ignored unless <see cref="F:RT.Util.Json.NumericConversionOptions.AllowConversionFromString"/> is also specified. A conversion to an integer type succeeds
+                if the string contains a decimal followed by a zero fractional part.</summary>
+        </member>
+        <member name="F:RT.Util.Json.NumericConversionOptions.AllowConversionFromBool">
+            <summary>The conversion succeeds if the object is a <see cref="T:RT.Util.Json.JsonBool"/>, which will convert to 0 if false and 1 if true.</summary>
+        </member>
+        <member name="F:RT.Util.Json.NumericConversionOptions.AllowTruncation">
+            <summary>
+                Allows conversion of non-integral numbers to integer types by truncation (rounding towards zero). If <see cref="F:RT.Util.Json.NumericConversionOptions.AllowConversionFromString"/> is specified, strings containing a decimal part are also converted and
+                truncated when converting to an integer type.</summary>
+        </member>
+        <member name="F:RT.Util.Json.NumericConversionOptions.Lenient">
+            <summary>Specifies maximum leniency.</summary>
+        </member>
+        <member name="T:RT.Util.Json.StringConversionOptions">
+            <summary>Specifies the degree of strictness or leniency when converting a <see cref="T:RT.Util.Json.JsonValue"/> to a <c>string</c>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.StringConversionOptions.Strict">
+            <summary>The conversion only succeeds if the object is a <see cref="T:RT.Util.Json.JsonString"/>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.StringConversionOptions.AllowConversionFromNumber">
+            <summary>The conversion succeeds if the object is a <see cref="T:RT.Util.Json.JsonNumber"/>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.StringConversionOptions.AllowConversionFromBool">
+            <summary>The conversion succeeds if the object is a <see cref="T:RT.Util.Json.JsonBool"/>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.StringConversionOptions.Lenient">
+            <summary>Specifies maximum leniency.</summary>
+        </member>
+        <member name="T:RT.Util.Json.BoolConversionOptions">
+            <summary>Specifies the degree of strictness or leniency when converting a <see cref="T:RT.Util.Json.JsonValue"/> to a <c>bool</c>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.BoolConversionOptions.Strict">
+            <summary>The conversion only succeeds if the object is a <see cref="T:RT.Util.Json.JsonBool"/>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.BoolConversionOptions.AllowConversionFromNumber">
+            <summary>
+                The conversion succeeds if the object is a <see cref="T:RT.Util.Json.JsonNumber"/>. 0 (zero) is converted to false, all other
+                values to true.</summary>
+        </member>
+        <member name="F:RT.Util.Json.BoolConversionOptions.AllowConversionFromString">
+            <summary>
+                The conversion succeeds if the object is a <see cref="T:RT.Util.Json.JsonString"/> with specific content. The set of permissible
+                strings is controlled by <see cref="F:RT.Util.Json.JsonString.True"/>, <see cref="F:RT.Util.Json.JsonString.False"/> and <see cref="F:RT.Util.Json.JsonString.TrueFalseComparer"/>.</summary>
+        </member>
+        <member name="F:RT.Util.Json.BoolConversionOptions.Lenient">
+            <summary>Specifies maximum leniency.</summary>
         </member>
         <member name="T:RT.Util.Json.JsonParseException">
             <summary>Represents a JSON parsing exception.</summary>
@@ -5817,22 +5982,32 @@
             <summary>Encapsulates a JSON value (e.g. a boolean, a number, a string, a list, a dictionary, etc.)</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)">
-            <summary>Parses the specified string into a JSON value.</summary>
-            <param name="jsonValue">A string containing JSON syntax.</param>
+            <summary>
+                Parses the specified string into a JSON value.</summary>
+            <param name="jsonValue">
+                A string containing JSON syntax.</param>
             <param name="allowJavaScript">
-            <para>True to allow certain notations that are allowed in JavaScript but not strictly in JSON:</para>
-            <list type="bullet">
-            <item><description>allows keys in dictionaries to be unquoted</description></item>
-            <item><description>allows strings to be delimited with single-quotes in addition to double-quotes</description></item>
-            </list>
-            </param>
-            <returns>A <see cref="T:RT.Util.Json.JsonValue"/> instance representing the value.</returns>
+                <para>
+                    True to allow certain notations that are allowed in JavaScript but not strictly in JSON:</para>
+                <list type="bullet">
+                    <item><description>
+                        allows keys in dictionaries to be unquoted</description></item>
+                    <item><description>
+                        allows strings to be delimited with single-quotes in addition to
+                        double-quotes</description></item></list></param>
+            <returns>
+                A <see cref="T:RT.Util.Json.JsonValue"/> instance representing the value.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonValue.TryParse(System.String,RT.Util.Json.JsonValue@)">
-            <summary>Attempts to parse the specified string into a JSON value.</summary>
-            <param name="jsonValue">A string containing JSON syntax.</param>
-            <param name="result">Receives the <see cref="T:RT.Util.Json.JsonValue"/> representing the value, or null if unsuccessful. (But note that null is also a possible valid value in case of success.)</param>
-            <returns>True if parsing was successful; otherwise, false.</returns>
+            <summary>
+                Attempts to parse the specified string into a JSON value.</summary>
+            <param name="jsonValue">
+                A string containing JSON syntax.</param>
+            <param name="result">
+                Receives the <see cref="T:RT.Util.Json.JsonValue"/> representing the value, or null if unsuccessful. (But note that null is also
+                a possible valid value in case of success.)</param>
+            <returns>
+                True if parsing was successful; otherwise, false.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Implicit(System.String)~RT.Util.Json.JsonValue">
             <summary>Constructs a <see cref="T:RT.Util.Json.JsonValue"/> from the specified string.</summary>
@@ -5849,6 +6024,12 @@
         <member name="M:RT.Util.Json.JsonValue.op_Implicit(System.Nullable{System.Double})~RT.Util.Json.JsonValue">
             <summary>Constructs a <see cref="T:RT.Util.Json.JsonValue"/> from the specified nullable double.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonValue.op_Implicit(System.Decimal)~RT.Util.Json.JsonValue">
+            <summary>Constructs a <see cref="T:RT.Util.Json.JsonValue"/> from the specified decimal.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.op_Implicit(System.Nullable{System.Decimal})~RT.Util.Json.JsonValue">
+            <summary>Constructs a <see cref="T:RT.Util.Json.JsonValue"/> from the specified nullable decimal.</summary>
+        </member>
         <member name="M:RT.Util.Json.JsonValue.op_Implicit(System.Int64)~RT.Util.Json.JsonValue">
             <summary>Constructs a <see cref="T:RT.Util.Json.JsonValue"/> from the specified long.</summary>
         </member>
@@ -5862,89 +6043,299 @@
             <summary>Constructs a <see cref="T:RT.Util.Json.JsonValue"/> from the specified nullable int.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.String">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsString"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.StringConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Boolean">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsBool"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.BoolConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Nullable{System.Boolean}">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsBool"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.BoolConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Double">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsDouble"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Nullable{System.Double}">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsDouble"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Decimal">
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Nullable{System.Decimal}">
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Int64">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsLong"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Nullable{System.Int64}">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsLong"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Int32">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsInt"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.op_Explicit(RT.Util.Json.JsonValue)~System.Nullable{System.Int32}">
-            <summary>See <see cref="P:RT.Util.Json.JsonValue.AsInt"/>.</summary>
+            <summary>See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetList">
+            <summary>Converts the current value to <see cref="T:RT.Util.Json.JsonList"/> if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetListSafe">
+            <summary>Converts the current value to <see cref="T:RT.Util.Json.JsonList"/> if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, returns null.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getList(System.Boolean)">
+            <summary>
+                Converts the current value to <see cref="T:RT.Util.Json.JsonList"/>.</summary>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDict">
+            <summary>Converts the current value to <see cref="T:RT.Util.Json.JsonDict"/> if it is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDictSafe">
+            <summary>Converts the current value to <see cref="T:RT.Util.Json.JsonDict"/> if it is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, returns null.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getDict(System.Boolean)">
+            <summary>
+                Converts the current value to <see cref="T:RT.Util.Json.JsonDict"/>.</summary>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetString(RT.Util.Json.StringConversionOptions)">
+            <summary>Converts the current value to a <c>string</c>. Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetStringLenient">
+            <summary>
+                Converts the current value to a <c>string</c> by using the <see cref="F:RT.Util.Json.StringConversionOptions.Lenient"/> option.
+                Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetStringSafe(RT.Util.Json.StringConversionOptions)">
+            <summary>Converts the current value to a <c>string</c>. Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetStringLenientSafe">
+            <summary>
+                Converts the current value to a <c>string</c> by using the <see cref="F:RT.Util.Json.StringConversionOptions.Lenient"/> option.
+                Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getString(RT.Util.Json.StringConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>string</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetBool(RT.Util.Json.BoolConversionOptions)">
+            <summary>Converts the current value to a <c>bool</c>. Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetBoolLenient">
+            <summary>
+                Converts the current value to a <c>bool</c> by using the <see cref="F:RT.Util.Json.BoolConversionOptions.Lenient"/> option.
+                Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetBoolSafe(RT.Util.Json.BoolConversionOptions)">
+            <summary>Converts the current value to a <c>bool</c>. Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetBoolLenientSafe">
+            <summary>
+                Converts the current value to a <c>bool</c> by using the <see cref="F:RT.Util.Json.BoolConversionOptions.Lenient"/> option.
+                Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getBool(RT.Util.Json.BoolConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>bool</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDouble(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to a <c>double</c>. Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDoubleLenient">
+            <summary>
+                Converts the current value to a <c>double</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDoubleSafe(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to a <c>double</c>. Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDoubleLenientSafe">
+            <summary>
+                Converts the current value to a <c>double</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getDouble(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>double</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDecimal(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to a <c>decimal</c>. Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDecimalLenient">
+            <summary>
+                Converts the current value to a <c>decimal</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDecimalSafe(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to a <c>decimal</c>. Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetDecimalLenientSafe">
+            <summary>
+                Converts the current value to a <c>decimal</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getDecimal(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>decimal</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetLong(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to a <c>long</c>. Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetLongLenient">
+            <summary>
+                Converts the current value to a <c>long</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetLongSafe(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to a <c>long</c>. Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetLongLenientSafe">
+            <summary>
+                Converts the current value to a <c>long</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getLong(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>long</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetInt(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to an <c>int</c>. Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetIntLenient">
+            <summary>
+                Converts the current value to an <c>int</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Throws if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetIntSafe(RT.Util.Json.NumericConversionOptions)">
+            <summary>Converts the current value to an <c>int</c>. Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.GetIntLenientSafe">
+            <summary>
+                Converts the current value to an <c>int</c> by using the <see cref="F:RT.Util.Json.NumericConversionOptions.Lenient"/> option.
+                Returns null if the conversion is not valid.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonValue.getInt(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>int</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Clear">
-            <summary>Removes all items from the current value if it is a <see cref="T:RT.Util.Json.JsonList"/> or <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
+            <summary>
+                Removes all items from the current value if it is a <see cref="T:RT.Util.Json.JsonList"/> or <see cref="T:RT.Util.Json.JsonDict"/>; otherwise,
+                throws.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Add(RT.Util.Json.JsonValue)">
-            <summary>Add the specified <paramref name="item"/> to the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+            <summary>
+                Add the specified <paramref name="item"/> to the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise,
+                throws.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Remove(RT.Util.Json.JsonValue)">
-            <summary>Removes the first instance of the specified <paramref name="item"/> from the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
-            <returns>True if an item was removed; otherwise, false.</returns>
+            <summary>
+                Removes the first instance of the specified <paramref name="item"/> from the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+            <returns>
+                True if an item was removed; otherwise, false.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Contains(RT.Util.Json.JsonValue)">
-            <summary>Determines whether the specified <paramref name="item"/> is contained in the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+            <summary>
+                Determines whether the specified <paramref name="item"/> is contained in the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Insert(System.Int32,RT.Util.Json.JsonValue)">
-            <summary>Inserts the specified <paramref name="item"/> at the specified <paramref name="index"/> to the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+            <summary>
+                Inserts the specified <paramref name="item"/> at the specified <paramref name="index"/> to the current list if it
+                is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.RemoveAt(System.Int32)">
-            <summary>Removes the item at the specified <paramref name="index"/> from the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+            <summary>
+                Removes the item at the specified <paramref name="index"/> from the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.IndexOf(RT.Util.Json.JsonValue)">
-            <summary>Returns the index of the first occurrence of the specified <paramref name="item"/> within the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
-            <returns>The index of the item, or -1 if the item is not in the list.</returns>
+            <summary>
+                Returns the index of the first occurrence of the specified <paramref name="item"/> within the current list if it
+                is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+            <returns>
+                The index of the item, or -1 if the item is not in the list.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonValue.CopyTo(RT.Util.Json.JsonValue[],System.Int32)">
-            <summary>Copies the entire list to a compatible one-dimensional <paramref name="array"/>, starting at the specified <paramref name="arrayIndex"/> of the target array, if this is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
-            <param name="array">The one-dimensional array that is the destination of the elements copied from the list. The array must have zero-based indexing.</param>
-            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+            <summary>
+                Copies the entire list to a compatible one-dimensional <paramref name="array"/>, starting at the specified
+                <paramref name="arrayIndex"/> of the target array, if this is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise,
+                throws.</summary>
+            <param name="array">
+                The one-dimensional array that is the destination of the elements copied from the list. The array must have
+                zero-based indexing.</param>
+            <param name="arrayIndex">
+                The zero-based index in array at which copying begins.</param>
         </member>
         <member name="M:RT.Util.Json.JsonValue.TryGetValue(System.String,RT.Util.Json.JsonValue@)">
-            <summary>Attempts to retrieve the value associated with the specified <paramref name="key"/> if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
-            <param name="key">The key for which to try to retrieve the value.</param>
-            <param name="value">Receives the value associated with the specified <paramref name="key"/>, or null if the key is not in the dictionary. (Note that null may also be a valid value in case of success.)</param>
-            <returns>True if the key was in the dictionary; otherwise, false.</returns>
+            <summary>
+                Attempts to retrieve the value associated with the specified <paramref name="key"/> if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
+            <param name="key">
+                The key for which to try to retrieve the value.</param>
+            <param name="value">
+                Receives the value associated with the specified <paramref name="key"/>, or null if the key is not in the
+                dictionary. (Note that null may also be a valid value in case of success.)</param>
+            <returns>
+                True if the key was in the dictionary; otherwise, false.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Add(System.String,RT.Util.Json.JsonValue)">
-            <summary>Adds the specified key/value pair to the dictionary if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
-            <param name="key">The key to add.</param>
-            <param name="value">The value to add.</param>
+            <summary>
+                Adds the specified key/value pair to the dictionary if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise,
+                throws.</summary>
+            <param name="key">
+                The key to add.</param>
+            <param name="value">
+                The value to add.</param>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Remove(System.String)">
-            <summary>Removes the entry with the specified <paramref name="key"/> from the dictionary if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
-            <param name="key">The key that identifies the entry to remove.</param>
-            <returns>True if an entry was removed; false if the key wasn’t in the dictionary.</returns>
+            <summary>
+                Removes the entry with the specified <paramref name="key"/> from the dictionary if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
+            <param name="key">
+                The key that identifies the entry to remove.</param>
+            <returns>
+                True if an entry was removed; false if the key wasn’t in the dictionary.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonValue.ContainsKey(System.String)">
-            <summary>Determines whether an entry with the specified <paramref name="key"/> exists in the dictionary if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
+            <summary>
+                Determines whether an entry with the specified <paramref name="key"/> exists in the dictionary if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Equals(System.Object)">
-            <summary>Determines whether this value is equal to the <paramref name="other"/> value. (See also remarks in the other overload, <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.)</summary>
+            <summary>
+                Determines whether this value is equal to the <paramref name="other"/> value. (See also remarks in the other
+                overload, <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.)</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)">
-            <summary>Determines whether this value is equal to the <paramref name="other"/> value. (See also remarks.)</summary>
-            <remarks>Two values are only considered equal if they are of the same type (e.g. a <see cref="T:RT.Util.Json.JsonString"/> is never equal to a <see cref="T:RT.Util.Json.JsonNumber"/> even if they contain the same number).
-            Lists are equal if they contain the same values in the same order. Dictionaries are equal if they contain the same set of key/value pairs.</remarks>
+            <summary>
+                Determines whether this value is equal to the <paramref name="other"/> value. (See also remarks.)</summary>
+            <remarks>
+                Two values are only considered equal if they are of the same type (e.g. a <see cref="T:RT.Util.Json.JsonString"/> is never equal
+                to a <see cref="T:RT.Util.Json.JsonNumber"/> even if they contain the same number). Lists are equal if they contain the same
+                values in the same order. Dictionaries are equal if they contain the same set of key/value pairs.</remarks>
         </member>
         <member name="M:RT.Util.Json.JsonValue.GetHashCode">
-            <summary>Always throws.</summary>
             <summary>Returns a hash code representing this object.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonValue.ToString(RT.Util.Json.JsonValue)">
@@ -5961,55 +6352,52 @@
         </member>
         <member name="M:RT.Util.Json.JsonValue.Fmt(System.String,RT.Util.Json.JsonValue[])">
             <summary>
-            Formats JSON values into a piece of JavaScript code and then removes almost all unnecessary whitespace and comments.
-            Values are referenced by names; placeholders for these values are written as {{name}}. Placeholders are only replaced
-            outside of JavaScript literal strings and regexes. <see cref="T:RT.Util.Json.JsonRaw"/> instances are inserted unmodified.
-            </summary>
-            <param name="js">JavaScript code with placeholders.</param>
-            <param name="namevalues">Alternating names and associated values, for example ["user", "abc"] specifies one value named "user".</param>
+                Formats JSON values into a piece of JavaScript code and then removes almost all unnecessary whitespace and
+                comments. Values are referenced by names; placeholders for these values are written as {{name}}. Placeholders are
+                only replaced outside of JavaScript literal strings and regexes. <see cref="T:RT.Util.Json.JsonRaw"/> instances are inserted
+                unmodified.</summary>
+            <param name="js">
+                JavaScript code with placeholders.</param>
+            <param name="namevalues">
+                Alternating names and associated values, for example ["user", "abc"] specifies one value named "user".</param>
             <example>
-            <para>The following code:</para>
-            <code>JsonValue.Fmt(@"Foo({{userid}}, {{username}}, {{options}});", "userid", userid, "username", username, "options", null)</code>
-            <para>might return the following string:</para>
-            <code>Foo(123, "Matthew Stranger", null);</code>
-            </example>
+                <para>
+                    The following code:</para>
+                <code>
+                    JsonValue.Fmt(@"Foo({{userid}}, {{username}}, {{options}});",
+                        "userid", userid,
+                        "username", username,
+                        "options", null)</code>
+                <para>
+                    might return the following string:</para>
+                <code>
+                    Foo(123, "Matthew Stranger", null);</code></example>
             <exception cref="T:System.ArgumentException">
-            <paramref name="namevalues"/> has an odd number of values. OR
-            <paramref name="js"/> contains a {{placeholder}} whose name is not listed in <paramref name="namevalues"/>.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="js"/> is null. OR <paramref name="namevalues"/> is null.</exception>
+                <paramref name="namevalues"/> has an odd number of values. OR <paramref name="js"/> contains a {{placeholder}}
+                whose name is not listed in <paramref name="namevalues"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="js"/> is null. OR <paramref name="namevalues"/> is null.</exception>
         </member>
-        <member name="P:RT.Util.Json.JsonValue.AsList">
-            <summary>Returns the current value cast to <see cref="T:RT.Util.Json.JsonList"/> if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
-        </member>
-        <member name="P:RT.Util.Json.JsonValue.AsDict">
-            <summary>Returns the current value cast to <see cref="T:RT.Util.Json.JsonDict"/> if it is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
-        </member>
-        <member name="P:RT.Util.Json.JsonValue.AsString">
-            <summary>Returns the current value as a string if it is a <see cref="T:RT.Util.Json.JsonString"/>; otherwise, throws.</summary>
-        </member>
-        <member name="P:RT.Util.Json.JsonValue.AsBool">
-            <summary>Returns the current value as a bool if it is a <see cref="T:RT.Util.Json.JsonBool"/>; otherwise, throws.</summary>
-        </member>
-        <member name="P:RT.Util.Json.JsonValue.AsDouble">
-            <summary>Returns the current value as a double if it is a <see cref="T:RT.Util.Json.JsonNumber"/>; otherwise, throws.</summary>
-        </member>
-        <member name="P:RT.Util.Json.JsonValue.AsLong">
-            <summary>Returns the current value as a long if it is a <see cref="T:RT.Util.Json.JsonNumber"/> containing an integer within the range of long; otherwise, throws.</summary>
-        </member>
-        <member name="P:RT.Util.Json.JsonValue.AsInt">
-            <summary>Returns the current value as an int if it is a <see cref="T:RT.Util.Json.JsonNumber"/> containing an integer within the range of int; otherwise, throws.</summary>
+        <member name="P:RT.Util.Json.JsonValue.Safe">
+            <summary>
+                Returns an object that allows safe access to the indexers. “Safe” in this context means that the indexers, when
+                given an index or key not found in the list or dictionary, do not throw but instead return <see cref="P:RT.Util.Json.JsonNoValue.Instance"/> whose getters (such as <see cref="M:RT.Util.Json.JsonValue.GetString(RT.Util.Json.StringConversionOptions)"/>) return null.</summary>
         </member>
         <member name="P:RT.Util.Json.JsonValue.Count">
-            <summary>Returns the number of items in the current value if it is a <see cref="T:RT.Util.Json.JsonList"/> or <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
+            <summary>
+                Returns the number of items in the current value if it is a <see cref="T:RT.Util.Json.JsonList"/> or <see cref="T:RT.Util.Json.JsonDict"/>;
+                otherwise, throws.</summary>
         </member>
-        <member name="P:RT.Util.Json.JsonValue.IsReadOnly">
-            <summary>Returns false if this value is a <see cref="T:RT.Util.Json.JsonDict"/> or a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, returns true.</summary>
+        <member name="P:RT.Util.Json.JsonValue.IsContainer">
+            <summary>Returns true if this value is a <see cref="T:RT.Util.Json.JsonDict"/> or a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, returns false.</summary>
         </member>
         <member name="P:RT.Util.Json.JsonValue.Item(System.Int32)">
-            <summary>Returns the item at the specified <paramref name="index"/> within the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
+            <summary>
+                Returns the item at the specified <paramref name="index"/> within the current list if it is a <see cref="T:RT.Util.Json.JsonList"/>; otherwise, throws.</summary>
         </member>
         <member name="P:RT.Util.Json.JsonValue.Item(System.String)">
-            <summary>Gets or sets the value associated with the specified <paramref name="key"/> if this value is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
+            <summary>
+                Gets or sets the value associated with the specified <paramref name="key"/> if this value is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
         </member>
         <member name="P:RT.Util.Json.JsonValue.Keys">
             <summary>Returns the keys contained in the dictionary if this is a <see cref="T:RT.Util.Json.JsonDict"/>; otherwise, throws.</summary>
@@ -6024,23 +6412,40 @@
             <summary>Constructs an empty list.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonList.#ctor(System.Collections.Generic.IEnumerable{RT.Util.Json.JsonValue})">
-            <summary>Constructs a <see cref="T:RT.Util.Json.JsonList"/> instance containing a copy of the specified collection of <paramref name="items"/>.</summary>
+            <summary>
+                Constructs a <see cref="T:RT.Util.Json.JsonList"/> instance containing a copy of the specified collection of <paramref name="items"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonList.Parse(System.String,System.Boolean)">
-            <summary>Parses the specified JSON as a JSON list. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
-            <param name="jsonList">JSON syntax to parse.</param>
-            <param name="allowJavaScript">See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
+            <summary>
+                Parses the specified JSON as a JSON list. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
+            <param name="jsonList">
+                JSON syntax to parse.</param>
+            <param name="allowJavaScript">
+                See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
         </member>
         <member name="M:RT.Util.Json.JsonList.TryParse(System.String,RT.Util.Json.JsonList@)">
-            <summary>Attempts to parse the specified string into a JSON list.</summary>
-            <param name="jsonNumber">A string containing JSON syntax.</param>
-            <param name="result">Receives the <see cref="T:RT.Util.Json.JsonList"/> representing the list, or null if unsuccessful.</param>
-            <returns>True if parsing was successful; otherwise, false.</returns>
+            <summary>
+                Attempts to parse the specified string into a JSON list.</summary>
+            <param name="jsonNumber">
+                A string containing JSON syntax.</param>
+            <param name="result">
+                Receives the <see cref="T:RT.Util.Json.JsonList"/> representing the list, or null if unsuccessful.</param>
+            <returns>
+                True if parsing was successful; otherwise, false.</returns>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.getList(System.Boolean)">
+            <summary>
+                Converts the current value to <see cref="T:RT.Util.Json.JsonList"/>.</summary>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
         </member>
         <member name="M:RT.Util.Json.JsonList.GetEnumerator">
             <summary>Enumerates the values in this list.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonList.Equals(System.Object)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.Equals(RT.Util.Json.JsonValue)">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonList.Equals(RT.Util.Json.JsonList)">
@@ -6052,6 +6457,53 @@
         <member name="M:RT.Util.Json.JsonList.ToEnumerable">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.ToEnumerable"/>.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonList.Clear">
+            <summary>Removes all items from the current list.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.Add(RT.Util.Json.JsonValue)">
+            <summary>Add the specified <paramref name="item"/> to the current list.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.Remove(RT.Util.Json.JsonValue)">
+            <summary>
+                Removes the first instance of the specified <paramref name="item"/> from the current list.</summary>
+            <returns>
+                True if an item was removed; otherwise, false.</returns>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.Contains(RT.Util.Json.JsonValue)">
+            <summary>Determines whether the specified <paramref name="item"/> is contained in the current list.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.Insert(System.Int32,RT.Util.Json.JsonValue)">
+            <summary>Inserts the specified <paramref name="item"/> at the specified <paramref name="index"/> to the current list.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.RemoveAt(System.Int32)">
+            <summary>Removes the item at the specified <paramref name="index"/> from the current list.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.IndexOf(RT.Util.Json.JsonValue)">
+            <summary>
+                Returns the index of the first occurrence of the specified <paramref name="item"/> within the current
+                list.</summary>
+            <returns>
+                The index of the item, or -1 if the item is not in the list.</returns>
+        </member>
+        <member name="M:RT.Util.Json.JsonList.CopyTo(RT.Util.Json.JsonValue[],System.Int32)">
+            <summary>
+                Copies the entire list to a compatible one-dimensional <paramref name="array"/>, starting at the specified
+                <paramref name="arrayIndex"/> of the target array.</summary>
+            <param name="array">
+                The one-dimensional array that is the destination of the elements copied from the list. The array must have
+                zero-based indexing.</param>
+            <param name="arrayIndex">
+                The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="P:RT.Util.Json.JsonList.Count">
+            <summary>Returns the number of items in the current list.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonList.IsContainer">
+            <summary>Returns true.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonList.Item(System.Int32)">
+            <summary>Returns the item at the specified <paramref name="index"/> within the current list.</summary>
+        </member>
         <member name="T:RT.Util.Json.JsonDict">
             <summary>Encapsulates a JSON dictionary (a set of key/value pairs).</summary>
         </member>
@@ -6062,20 +6514,36 @@
             <summary>Constructs a dictionary containing a copy of the specified collection of key/value pairs.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonDict.Parse(System.String,System.Boolean)">
-            <summary>Parses the specified JSON as a JSON dictionary. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
-            <param name="jsonDict">JSON syntax to parse.</param>
-            <param name="allowJavaScript">See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
+            <summary>
+                Parses the specified JSON as a JSON dictionary. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
+            <param name="jsonDict">
+                JSON syntax to parse.</param>
+            <param name="allowJavaScript">
+                See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
         </member>
         <member name="M:RT.Util.Json.JsonDict.TryParse(System.String,RT.Util.Json.JsonDict@)">
-            <summary>Attempts to parse the specified string into a JSON dictionary.</summary>
-            <param name="jsonDict">A string containing JSON syntax.</param>
-            <param name="result">Receives the <see cref="T:RT.Util.Json.JsonDict"/> representing the dictionary, or null if unsuccessful.</param>
-            <returns>True if parsing was successful; otherwise, false.</returns>
+            <summary>
+                Attempts to parse the specified string into a JSON dictionary.</summary>
+            <param name="jsonDict">
+                A string containing JSON syntax.</param>
+            <param name="result">
+                Receives the <see cref="T:RT.Util.Json.JsonDict"/> representing the dictionary, or null if unsuccessful.</param>
+            <returns>
+                True if parsing was successful; otherwise, false.</returns>
+        </member>
+        <member name="M:RT.Util.Json.JsonDict.getDict(System.Boolean)">
+            <summary>
+                Converts the current value to <see cref="T:RT.Util.Json.JsonDict"/>.</summary>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
         </member>
         <member name="M:RT.Util.Json.JsonDict.GetEnumerator">
             <summary>Enumerates the key/value pairs in this dictionary.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonDict.Equals(System.Object)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonDict.Equals(RT.Util.Json.JsonValue)">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonDict.Equals(RT.Util.Json.JsonDict)">
@@ -6087,6 +6555,54 @@
         <member name="M:RT.Util.Json.JsonDict.ToEnumerable">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.ToEnumerable"/>.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonDict.Clear">
+            <summary>Removes all items from the current dictionary.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonDict.TryGetValue(System.String,RT.Util.Json.JsonValue@)">
+            <summary>
+                Attempts to retrieve the value associated with the specified <paramref name="key"/>.</summary>
+            <param name="key">
+                The key for which to try to retrieve the value.</param>
+            <param name="value">
+                Receives the value associated with the specified <paramref name="key"/>, or null if the key is not in the
+                dictionary. (Note that null may also be a valid value in case of success.)</param>
+            <returns>
+                True if the key was in the dictionary; otherwise, false.</returns>
+        </member>
+        <member name="M:RT.Util.Json.JsonDict.Add(System.String,RT.Util.Json.JsonValue)">
+            <summary>
+                Adds the specified key/value pair to the dictionary.</summary>
+            <param name="key">
+                The key to add.</param>
+            <param name="value">
+                The value to add.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonDict.Remove(System.String)">
+            <summary>
+                Removes the entry with the specified <paramref name="key"/> from the dictionary.</summary>
+            <param name="key">
+                The key that identifies the entry to remove.</param>
+            <returns>
+                True if an entry was removed; false if the key wasn’t in the dictionary.</returns>
+        </member>
+        <member name="M:RT.Util.Json.JsonDict.ContainsKey(System.String)">
+            <summary>Determines whether an entry with the specified <paramref name="key"/> exists in the dictionary.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonDict.Count">
+            <summary>Returns the number of items in the current dictionary.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonDict.IsContainer">
+            <summary>Returns true.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonDict.Item(System.String)">
+            <summary>Gets or sets the value associated with the specified <paramref name="key"/>.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonDict.Keys">
+            <summary>Returns the keys contained in the dictionary.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonDict.Values">
+            <summary>Returns the values contained in the dictionary.</summary>
+        </member>
         <member name="T:RT.Util.Json.JsonString">
             <summary>Encapsulates a string as a JSON value.</summary>
         </member>
@@ -6094,15 +6610,22 @@
             <summary>Constructs a <see cref="T:RT.Util.Json.JsonString"/> instance from the specified string.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonString.Parse(System.String,System.Boolean)">
-            <summary>Parses the specified JSON as a JSON string. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
-            <param name="jsonString">JSON syntax to parse.</param>
-            <param name="allowJavaScript">See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
+            <summary>
+                Parses the specified JSON as a JSON string. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
+            <param name="jsonString">
+                JSON syntax to parse.</param>
+            <param name="allowJavaScript">
+                See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
         </member>
         <member name="M:RT.Util.Json.JsonString.TryParse(System.String,RT.Util.Json.JsonString@)">
-            <summary>Attempts to parse the specified string into a JSON string.</summary>
-            <param name="jsonString">A string containing JSON syntax.</param>
-            <param name="result">Receives the <see cref="T:RT.Util.Json.JsonString"/> representing the string, or null if unsuccessful.</param>
-            <returns>True if parsing was successful; otherwise, false.</returns>
+            <summary>
+                Attempts to parse the specified string into a JSON string.</summary>
+            <param name="jsonString">
+                A string containing JSON syntax.</param>
+            <param name="result">
+                Receives the <see cref="T:RT.Util.Json.JsonString"/> representing the string, or null if unsuccessful.</param>
+            <returns>
+                True if parsing was successful; otherwise, false.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonString.op_Implicit(RT.Util.Json.JsonString)~System.String">
             <summary>Converts the specified <see cref="T:RT.Util.Json.JsonString"/> value to an ordinary string.</summary>
@@ -6110,7 +6633,77 @@
         <member name="M:RT.Util.Json.JsonString.op_Implicit(System.String)~RT.Util.Json.JsonString">
             <summary>Converts the specified ordinary string to a <see cref="T:RT.Util.Json.JsonString"/> value.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonString.getDouble(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>double</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonString.getDecimal(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>decimal</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonString.getInt(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>int</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonString.getLong(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>long</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonString.getBool(RT.Util.Json.BoolConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>bool</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="F:RT.Util.Json.JsonString.False">
+            <summary>
+                Controls which string values are converted to <c>false</c> when using <see cref="M:RT.Util.Json.JsonValue.GetBool(RT.Util.Json.BoolConversionOptions)"/> with <see cref="F:RT.Util.Json.BoolConversionOptions.AllowConversionFromString"/>.</summary>
+            <remarks>
+                The default is: <c>{ "", "false", "n", "no", "off", "disable", "disabled", "0" }</c>.</remarks>
+        </member>
+        <member name="F:RT.Util.Json.JsonString.True">
+            <summary>
+                Controls which string values are converted to <c>true</c> when using <see cref="M:RT.Util.Json.JsonValue.GetBool(RT.Util.Json.BoolConversionOptions)"/> with <see cref="F:RT.Util.Json.BoolConversionOptions.AllowConversionFromString"/>.</summary>
+            <remarks>
+                The default is: <c>{ "true", "y", "yes", "on", "enable", "enabled", "1" }</c>.</remarks>
+        </member>
+        <member name="F:RT.Util.Json.JsonString.TrueFalseComparer">
+            <summary>
+                Controls which string equality comparer is used when comparing strings against elements in <see cref="F:RT.Util.Json.JsonString.True"/> and
+                <see cref="F:RT.Util.Json.JsonString.False"/> during conversion to bool by <see cref="M:RT.Util.Json.JsonValue.GetBool(RT.Util.Json.BoolConversionOptions)"/>.</summary>
+            <remarks>
+                The default is <see cref="P:System.StringComparer.OrdinalIgnoreCase"/>.</remarks>
+        </member>
+        <member name="M:RT.Util.Json.JsonString.getString(RT.Util.Json.StringConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>string</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
         <member name="M:RT.Util.Json.JsonString.Equals(System.Object)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonString.Equals(RT.Util.Json.JsonValue)">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonString.Equals(RT.Util.Json.JsonString)">
@@ -6123,8 +6716,10 @@
             <summary>See <see cref="M:RT.Util.Json.JsonValue.ToEnumerable"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonString.ToString(RT.Util.ExtensionMethods.JsQuotes)">
-            <summary>Returns a JavaScript-compatible representation of this string.</summary>
-            <param name="quotes">Specifies the style of quotes to use around the string.</param>
+            <summary>
+                Returns a JavaScript-compatible representation of this string.</summary>
+            <param name="quotes">
+                Specifies the style of quotes to use around the string.</param>
         </member>
         <member name="T:RT.Util.Json.JsonBool">
             <summary>Encapsulates a boolean value as a <see cref="T:RT.Util.Json.JsonValue"/>.</summary>
@@ -6133,15 +6728,22 @@
             <summary>Constructs a <see cref="T:RT.Util.Json.JsonBool"/> from the specified boolean.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonBool.Parse(System.String,System.Boolean)">
-            <summary>Parses the specified JSON as a JSON boolean. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
-            <param name="jsonBool">JSON syntax to parse.</param>
-            <param name="allowJavaScript">See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
+            <summary>
+                Parses the specified JSON as a JSON boolean. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
+            <param name="jsonBool">
+                JSON syntax to parse.</param>
+            <param name="allowJavaScript">
+                See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
         </member>
         <member name="M:RT.Util.Json.JsonBool.TryParse(System.String,RT.Util.Json.JsonBool@)">
-            <summary>Attempts to parse the specified string into a JSON boolean.</summary>
-            <param name="jsonBool">A string containing JSON syntax.</param>
-            <param name="result">Receives the <see cref="T:RT.Util.Json.JsonBool"/> representing the boolean, or null if unsuccessful.</param>
-            <returns>True if parsing was successful; otherwise, false.</returns>
+            <summary>
+                Attempts to parse the specified string into a JSON boolean.</summary>
+            <param name="jsonBool">
+                A string containing JSON syntax.</param>
+            <param name="result">
+                Receives the <see cref="T:RT.Util.Json.JsonBool"/> representing the boolean, or null if unsuccessful.</param>
+            <returns>
+                True if parsing was successful; otherwise, false.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonBool.op_Explicit(RT.Util.Json.JsonBool)~System.Boolean">
             <summary>Converts the specified <see cref="T:RT.Util.Json.JsonBool"/> value to an ordinary boolean.</summary>
@@ -6158,6 +6760,9 @@
         <member name="M:RT.Util.Json.JsonBool.Equals(System.Object)">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonBool.Equals(RT.Util.Json.JsonValue)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
         <member name="M:RT.Util.Json.JsonBool.Equals(RT.Util.Json.JsonBool)">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
         </member>
@@ -6167,28 +6772,94 @@
         <member name="M:RT.Util.Json.JsonBool.ToEnumerable">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.ToEnumerable"/>.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonBool.getBool(RT.Util.Json.BoolConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>bool</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonBool.getDecimal(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>decimal</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonBool.getDouble(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>double</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonBool.getInt(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>int</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonBool.getLong(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>long</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonBool.getString(RT.Util.Json.StringConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>string</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
         <member name="T:RT.Util.Json.JsonNumber">
-            <summary>Encapsulates a number, which may be a floating-point number or an integer, as a <see cref="T:RT.Util.Json.JsonValue"/>.</summary>
+            <summary>
+                Encapsulates a number, which may be a floating-point number or an integer, as a <see cref="T:RT.Util.Json.JsonValue"/>. See
+                Remarks.</summary>
+            <remarks>
+                JSON does not define any specific limits for numeric values. This implementation supports integers in the signed
+                64-bit range, as well as IEEE 64-bit doubles (except NaNs and infinities). Conversions to/from <c>decimal</c> are
+                exact for integers, but can be approximate for non-integers, depending on the exact value.</remarks>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.#ctor(System.Double)">
-            <summary>Constructs a <see cref="T:RT.Util.Json.JsonBool"/> from the specified double-precision floating-point number.</summary>
+            <summary>Constructs a <see cref="T:RT.Util.Json.JsonNumber"/> from the specified double-precision floating-point number.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.#ctor(System.Int64)">
-            <summary>Constructs a <see cref="T:RT.Util.Json.JsonBool"/> from the specified 64-bit integer.</summary>
+            <summary>Constructs a <see cref="T:RT.Util.Json.JsonNumber"/> from the specified 64-bit integer.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.#ctor(System.Int32)">
-            <summary>Constructs a <see cref="T:RT.Util.Json.JsonBool"/> from the specified 32-bit integer.</summary>
+            <summary>Constructs a <see cref="T:RT.Util.Json.JsonNumber"/> from the specified 32-bit integer.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.#ctor(System.Decimal)">
+            <summary>
+                Constructs a <see cref="T:RT.Util.Json.JsonNumber"/> from the specified decimal. This operation is slightly lossy; see Remarks on
+                <see cref="T:RT.Util.Json.JsonNumber"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.Parse(System.String,System.Boolean)">
-            <summary>Parses the specified JSON as a JSON number. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
-            <param name="jsonNumber">JSON syntax to parse.</param>
-            <param name="allowJavaScript">See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
+            <summary>
+                Parses the specified JSON as a JSON number. All other types of JSON values result in a <see cref="T:RT.Util.Json.JsonParseException"/>.</summary>
+            <param name="jsonNumber">
+                JSON syntax to parse.</param>
+            <param name="allowJavaScript">
+                See <see cref="M:RT.Util.Json.JsonValue.Parse(System.String,System.Boolean)"/>.</param>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.TryParse(System.String,RT.Util.Json.JsonNumber@)">
-            <summary>Attempts to parse the specified string into a JSON number.</summary>
-            <param name="jsonNumber">A string containing JSON syntax.</param>
-            <param name="result">Receives the <see cref="T:RT.Util.Json.JsonNumber"/> representing the number, or null if unsuccessful.</param>
-            <returns>True if parsing was successful; otherwise, false.</returns>
+            <summary>
+                Attempts to parse the specified string into a JSON number.</summary>
+            <param name="jsonNumber">
+                A string containing JSON syntax.</param>
+            <param name="result">
+                Receives the <see cref="T:RT.Util.Json.JsonNumber"/> representing the number, or null if unsuccessful.</param>
+            <returns>
+                True if parsing was successful; otherwise, false.</returns>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.op_Explicit(RT.Util.Json.JsonNumber)~System.Double">
             <summary>Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a double.</summary>
@@ -6196,17 +6867,30 @@
         <member name="M:RT.Util.Json.JsonNumber.op_Implicit(RT.Util.Json.JsonNumber)~System.Nullable{System.Double}">
             <summary>Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a nullable double.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonNumber.op_Explicit(RT.Util.Json.JsonNumber)~System.Decimal">
+            <summary>
+                Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a decimal. This operator is slightly lossy; see Remarks on <see cref="T:RT.Util.Json.JsonNumber"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.op_Explicit(RT.Util.Json.JsonNumber)~System.Nullable{System.Decimal}">
+            <summary>
+                Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a nullable decimal. This operator is slightly lossy; see
+                Remarks on <see cref="T:RT.Util.Json.JsonNumber"/>.</summary>
+        </member>
         <member name="M:RT.Util.Json.JsonNumber.op_Explicit(RT.Util.Json.JsonNumber)~System.Int64">
-            <summary>Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a 64-bit integer. (Throws if the number is not an integer or does not fit in the range of a 64-bit integer.)</summary>
+            <summary>
+                Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a 64-bit integer. See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.op_Explicit(RT.Util.Json.JsonNumber)~System.Nullable{System.Int64}">
-            <summary>Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a nullable 64-bit integer. (Throws if the number is not an integer or does not fit in the range of a 64-bit integer.)</summary>
+            <summary>
+                Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a nullable 64-bit integer. See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.op_Explicit(RT.Util.Json.JsonNumber)~System.Int32">
-            <summary>Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a 32-bit integer. (Throws if the number is not an integer or does not fit in the range of a 32-bit integer.)</summary>
+            <summary>
+                Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a 32-bit integer. See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.op_Explicit(RT.Util.Json.JsonNumber)~System.Nullable{System.Int32}">
-            <summary>Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a nullable 32-bit integer. (Throws if the number is not an integer or does not fit in the range of a 32-bit integer.)</summary>
+            <summary>
+                Converts the specified <see cref="T:RT.Util.Json.JsonNumber"/> to a nullable 32-bit integer. See <see cref="F:RT.Util.Json.NumericConversionOptions.Strict"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.op_Implicit(System.Double)~RT.Util.Json.JsonNumber">
             <summary>Converts the specified double to a <see cref="T:RT.Util.Json.JsonNumber"/> value.</summary>
@@ -6226,7 +6910,68 @@
         <member name="M:RT.Util.Json.JsonNumber.op_Implicit(System.Nullable{System.Int32})~RT.Util.Json.JsonNumber">
             <summary>Converts the specified nullable 32-bit integer to a <see cref="T:RT.Util.Json.JsonNumber"/> value.</summary>
         </member>
+        <member name="M:RT.Util.Json.JsonNumber.op_Explicit(System.Decimal)~RT.Util.Json.JsonNumber">
+            <summary>
+                Converts the specified decimal to a <see cref="T:RT.Util.Json.JsonNumber"/> value. This operator is slightly lossy; see Remarks
+                on <see cref="T:RT.Util.Json.JsonNumber"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.op_Explicit(System.Nullable{System.Decimal})~RT.Util.Json.JsonNumber">
+            <summary>
+                Converts the specified nullable decimal to a <see cref="T:RT.Util.Json.JsonNumber"/> value. This operator is slightly lossy; see
+                Remarks on <see cref="T:RT.Util.Json.JsonNumber"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.getDouble(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>double</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.getDecimal(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>decimal</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.getInt(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>int</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.getLong(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>long</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.getString(RT.Util.Json.StringConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>string</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.getBool(RT.Util.Json.BoolConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>bool</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
         <member name="M:RT.Util.Json.JsonNumber.Equals(System.Object)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNumber.Equals(RT.Util.Json.JsonValue)">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonNumber.Equals(RT.Util.Json.JsonNumber)">
@@ -6238,11 +6983,142 @@
         <member name="M:RT.Util.Json.JsonNumber.ToEnumerable">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.ToEnumerable"/>.</summary>
         </member>
+        <member name="T:RT.Util.Json.JsonNoValue">
+            <summary>
+                Represents a non-value when looking up a non-existent index or key in a list or dictionary.</summary>
+            <remarks>
+                <list type="bullet">
+                    <item><description>
+                        This is a singleton class; use <see cref="P:RT.Util.Json.JsonNoValue.Instance"/> to access it.</description></item>
+                    <item><description>
+                        This class overloads the <c>==</c> operator such that comparing with <c>null</c> returns
+                        <c>true</c>.</description></item></list></remarks>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.Equals(System.Object)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.Equals(RT.Util.Json.JsonValue)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.Equals(RT.Util.Json.JsonNoValue)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.op_Equality(RT.Util.Json.JsonNoValue,RT.Util.Json.JsonNoValue)">
+            <summary>
+                Always returns true.</summary>
+            <remarks>
+                <para>
+                    This operator can only be invoked in three ways:</para>
+                <list type="bullet">
+                    <item><description>
+                        <c>JsonNoValue.Instance == JsonNoValue.Instance</c></description></item>
+                    <item><description>
+                        <c>JsonNoValue.Instance == null</c></description></item>
+                    <item><description>
+                        <c>null == JsonNoValue.Instance</c></description></item></list>
+                <para>
+                    In all three cases, the intended comparison is <c>true</c>.</para></remarks>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.op_Inequality(RT.Util.Json.JsonNoValue,RT.Util.Json.JsonNoValue)">
+            <summary>
+                Always returns false.</summary>
+            <seealso cref="M:RT.Util.Json.JsonNoValue.op_Equality(RT.Util.Json.JsonNoValue,RT.Util.Json.JsonNoValue)"/>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.GetHashCode">
+            <summary>Returns a hash code representing this object.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.ToEnumerable">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.ToEnumerable"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.getBool(RT.Util.Json.BoolConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>bool</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.getDecimal(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>decimal</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.getDouble(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>double</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.getInt(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>int</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.getLong(RT.Util.Json.NumericConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>long</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonNoValue.getString(RT.Util.Json.StringConversionOptions,System.Boolean)">
+            <summary>
+                Converts the current value to <c>string</c>.</summary>
+            <param name="options">
+                Specifies options for the conversion.</param>
+            <param name="safe">
+                Controls the behavior in case of conversion failure. If true, returns null; if false, throws.</param>
+        </member>
+        <member name="P:RT.Util.Json.JsonNoValue.Instance">
+            <summary>Returns the singleton instance of this type.</summary>
+        </member>
+        <member name="T:RT.Util.Json.JsonSafeValue">
+            <summary>Provides safe access to the indexers of a <see cref="T:RT.Util.Json.JsonValue"/>. See <see cref="P:RT.Util.Json.JsonValue.Safe"/> for details.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonSafeValue.#ctor(RT.Util.Json.JsonValue)">
+            <summary>
+                Constructor.</summary>
+            <param name="value">
+                Specifies the underlying JSON value to provide safe access to.</param>
+        </member>
+        <member name="M:RT.Util.Json.JsonSafeValue.GetHashCode">
+            <summary>Returns a hash code representing this object.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonSafeValue.Equals(System.Object)">
+            <summary>Determines whether the specified instance is equal to this one.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonSafeValue.Equals(RT.Util.Json.JsonSafeValue)">
+            <summary>
+                Determines whether the specified instance is equal to this one. (See remarks.)</summary>
+            <remarks>
+                Two instances of <see cref="T:RT.Util.Json.JsonSafeValue"/> are considered equal if the underlying values are equal. See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/> for details.</remarks>
+        </member>
+        <member name="P:RT.Util.Json.JsonSafeValue.Value">
+            <summary>Gets the underlying JSON value associated with this object.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonSafeValue.Item(System.Int32)">
+            <summary>
+                If the underlying value is a list, and the specified <paramref name="index"/> exists within the list, returns the
+                associated item; otherwise, returns a <see cref="T:RT.Util.Json.JsonNoValue"/> instance.</summary>
+        </member>
+        <member name="P:RT.Util.Json.JsonSafeValue.Item(System.String)">
+            <summary>
+                If the underlying value is a dictionary, and the specified <paramref name="key"/> exists within the dictionary,
+                gets the value associated with that key; otherwise, returns a <see cref="T:RT.Util.Json.JsonNoValue"/> instance.</summary>
+        </member>
         <member name="T:RT.Util.Json.JsonRaw">
             <summary>
-            A special type of value which is never produced as a result of parsing valid JSON. Its sole purpose is to allow embedding
-            arbitrary JavaScript code using <see cref="M:RT.Util.Json.JsonValue.Fmt(System.String,RT.Util.Json.JsonValue[])"/>.
-            </summary>
+                A special type of value which is never produced as a result of parsing valid JSON. Its sole purpose is to allow
+                embedding arbitrary JavaScript code using <see cref="M:RT.Util.Json.JsonValue.Fmt(System.String,RT.Util.Json.JsonValue[])"/>.</summary>
         </member>
         <member name="M:RT.Util.Json.JsonRaw.#ctor(System.String)">
             <summary>Constructs a <see cref="T:RT.Util.Json.JsonRaw"/> instance from the specified raw JSON.</summary>
@@ -6252,6 +7128,18 @@
         </member>
         <member name="M:RT.Util.Json.JsonRaw.ToEnumerable">
             <summary>See <see cref="M:RT.Util.Json.JsonValue.ToEnumerable"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonRaw.Equals(System.Object)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonRaw.Equals(RT.Util.Json.JsonValue)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonRaw.Equals(RT.Util.Json.JsonRaw)">
+            <summary>See <see cref="M:RT.Util.Json.JsonValue.Equals(RT.Util.Json.JsonValue)"/>.</summary>
+        </member>
+        <member name="M:RT.Util.Json.JsonRaw.GetHashCode">
+            <summary>Returns a hash code representing this object.</summary>
         </member>
         <member name="P:RT.Util.Json.JsonRaw.Raw">
             <summary>Gets the raw JSON.</summary>
@@ -7965,6 +8853,118 @@
         <member name="M:RT.Util.MulticastLogger.ConfigureVerbosity(System.String)">
             <summary>Configures the verbosity of every underlying logger. See <see cref="M:RT.Util.LoggerBase.ConfigureVerbosity(System.String)"/> for more info.</summary>
         </member>
+        <member name="T:RT.Util.MultipartFormDataHelper">
+            <summary>
+                Simplifies submitting POST requests with data encoded in the multipart/form-data format. See Remarks.</summary>
+            <remarks>
+                The simplest use example is to create a web request using <c>(HttpWebRequest) WebRequest.Create(...)</c>, add
+                the data using <see cref="M:RT.Util.MultipartFormDataHelper.AddField(System.String,System.String)"/> and <see cref="M:RT.Util.MultipartFormDataHelper.AddFile(System.String,System.String,System.String)"/> methods, and complete the
+                request using <see cref="M:RT.Util.MultipartFormDataHelper.GetResponse"/>.</remarks>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.#ctor(System.Net.HttpWebRequest)">
+            <summary>
+                Constructor.</summary>
+            <param name="request">
+                The request to be used for the form data submission. This class automatically sets several fields which should not be
+                modified by the caller afterwards. These are: Method, ContentType. You MUST NOT call <see cref="M:System.Net.HttpWebRequest.GetRequestStream"/>
+                or <see cref="M:System.Net.HttpWebRequest.GetResponse"/> on this request. You may modify request headers until the first call to an Add* method.</param>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.GetResponse">
+            <summary>
+                Finalizes the request and sends it to the remote host (or, if the request is not buffered, ensures the entire request has been sent).
+                Waits for response and returns the response object.</summary>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.AddField(System.String,System.String)">
+            <summary>
+                Adds a named text value to the POST request.</summary>
+            <param name="name">
+                The name of the value to add. For maximum compatibility with servers, use only printable ASCII characters in this name. This field
+                is encoded using UTF-8, which is supported by some modern servers, but not by others.</param>
+            <param name="value">
+                The content to add as the value. Note that this is interpreted as Unicode text, and is a poor choice for binary data. For binary data,
+                see <see cref="M:RT.Util.MultipartFormDataHelper.AddFile(System.String,System.String,System.String)"/>.</param>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.AddFile(System.String,System.String,System.String)">
+            <summary>
+                Adds a named file (or, generally, a binary data field) to the POST request.</summary>
+            <param name="name">
+                The name of the value to add. For maximum compatibility with servers, use only printable ASCII characters in this name. This field
+                is encoded using UTF-8, which is supported by some modern servers, but not by others.</param>
+            <param name="filename">
+                The filename to use. The server may interpret this as it pleases, but this value will often end up being exposed as the name of the
+                uploaded file. For maximum compatibility with servers, use only printable ASCII characters in this name. This field
+                is encoded using UTF-8, which is supported by some modern servers, but not by others.</param>
+            <param name="contentType">
+                The content type to specify for this data/file. Some servers decide whether to accept or reject an upload based on the content type.
+                Specify <c>null</c> to prevent the inclusion of the Content-Type header.</param>
+            <returns>
+                A stream into which the binary data is to be written. You may close this stream when done, but if you don't, it will be closed
+                automatically next time you add a field or a file, or if you call <see cref="M:RT.Util.MultipartFormDataHelper.GetResponse"/> (which prevents further writing).</returns>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.AddFile(System.String,System.String,System.Byte[],System.String)">
+            <summary>
+                Adds a named file (or, generally, a binary data field) to the POST request.</summary>
+            <param name="name">
+                The name of the value to add. For maximum compatibility with servers, use only printable ASCII characters in this name. This field
+                is encoded using UTF-8, which is supported by some modern servers, but not by others.</param>
+            <param name="filename">
+                The filename to use. The server may interpret this as it pleases, but this value will often end up being exposed as the name of the
+                uploaded file. For maximum compatibility with servers, use only printable ASCII characters in this name. This field
+                is encoded using UTF-8, which is supported by some modern servers, but not by others.</param>
+            <param name="data">
+                The binary data to send as the content of this file.</param>
+            <param name="contentType">
+                The content type to specify for this data/file. Some servers decide whether to accept or reject an upload based on the content type.
+                Specify <c>null</c> to prevent the inclusion of the Content-Type header.</param>
+        </member>
+        <member name="T:RT.Util.MultipartFormDataHelper.MultipartFileStream">
+            <summary>
+                Encapsulates a stream used for writing a file body into a multipart/form-data stream.</summary>
+            <remarks>
+                The main purpose is to prevent the caller accidentally closing the request stream (which results in an exception
+                whose cause is pretty tricky to establish).</remarks>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.MultipartFileStream.Close">
+            <summary>
+                Closes the stream and prevents further writing to this stream. You may call this explicitly; you may call <see cref="M:System.IO.Stream.Dispose"/>
+                instead, or you could just leave it up to <see cref="T:RT.Util.MultipartFormDataHelper"/> to close this stream automatically next time
+                a new field or file is added, or when the helper itself is closed.</summary>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.MultipartFileStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+                Writes file data to the request stream.</summary>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.MultipartFileStream.Flush">
+            <summary>
+                Flushes the request stream.</summary>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.MultipartFileStream.SetLength(System.Int64)">
+            <summary>Throws a <c>NotSupportedException</c>.</summary>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.MultipartFileStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>Throws a <c>NotSupportedException</c>.</summary>
+        </member>
+        <member name="M:RT.Util.MultipartFormDataHelper.MultipartFileStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>Throws a <c>NotSupportedException</c>.</summary>
+        </member>
+        <member name="P:RT.Util.MultipartFormDataHelper.MultipartFileStream.CanWrite">
+            <summary>
+                Always <c>true</c>.</summary>
+        </member>
+        <member name="P:RT.Util.MultipartFormDataHelper.MultipartFileStream.CanRead">
+            <summary>
+                Always <c>false</c>.</summary>
+        </member>
+        <member name="P:RT.Util.MultipartFormDataHelper.MultipartFileStream.CanSeek">
+            <summary>
+                Always <c>false</c>.</summary>
+        </member>
+        <member name="P:RT.Util.MultipartFormDataHelper.MultipartFileStream.Length">
+            <summary>Throws a <c>NotSupportedException</c>.</summary>
+        </member>
+        <member name="P:RT.Util.MultipartFormDataHelper.MultipartFileStream.Position">
+            <summary>Throws a <c>NotSupportedException</c>.</summary>
+        </member>
         <member name="T:RT.Util.NameGenerator">
             <summary>Generates a sequence of short names starting with “a” through “z”, followed by two-letter names etc.</summary>
         </member>
@@ -8119,153 +9119,156 @@
             <summary>Constructor.</summary>
         </member>
         <member name="M:RT.Util.PathException.#ctor(System.String)">
-            <summary>Constructor.</summary>
-            <param name="message">Exception message.</param>
+            <summary>
+                Constructor.</summary>
+            <param name="message">
+                Exception message.</param>
         </member>
         <member name="T:RT.Util.PathUtil">
-            <summary>
-            Provides path-related utilities.
-            </summary>
+            <summary>Provides path-related utilities.</summary>
         </member>
         <member name="F:RT.Util.PathUtil._cachedAppPath">
-            <summary>
-            Stores a copy of the value generated by AppPath. This way AppPath
-            only needs to generate it once.
-            </summary>
+            <summary>Stores a copy of the value generated by AppPath. This way AppPath only needs to generate it once.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.AppPathCombine(System.String)">
             <summary>
-            Combines the full path containing the running executable with the specified string.
-            Ensures that only a single <see cref="F:System.IO.Path.DirectorySeparatorChar"/> separates the two.
-            </summary>
+                Combines the full path containing the running executable with the specified string. Ensures that only a single
+                <see cref="F:System.IO.Path.DirectorySeparatorChar"/> separates the two.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.AppPathCombine(System.String[])">
             <summary>
-            Combines the full path containing the running executable with one or more strings.
-            Ensures that only a single <see cref="F:System.IO.Path.DirectorySeparatorChar"/> separates
-            the executable path and every string.
-            </summary>
+                Combines the full path containing the running executable with one or more strings. Ensures that only a single
+                <see cref="F:System.IO.Path.DirectorySeparatorChar"/> separates the executable path and every string.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.OverrideAppPath(System.String)">
-            <summary>
-            Makes all AppPath* functions of PathUtil use the specified value as the application path.
-            </summary>
+            <summary>Makes all AppPath* functions of PathUtil use the specified value as the application path.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.NormPath(System.String)">
-            <summary>Normalises the specified path. A "normalised path" is a path to a
-            directory (not a file!) which always ends with a slash.</summary>
-            <param name="path">Path to be normalised.</param>
-            <returns>Normalised version of <paramref name="path"/>, or null if the input was null.</returns>
+            <summary>
+                Normalises the specified path. A "normalised path" is a path to a directory (not a file!) which always ends
+                with a slash.</summary>
+            <param name="path">
+                Path to be normalised.</param>
+            <returns>
+                Normalised version of <paramref name="path" />, or null if the input was null.</returns>
         </member>
         <member name="M:RT.Util.PathUtil.IsSubpathOf(System.String,System.String)">
             <summary>
-            Checks whether <paramref name="subpath"/> refers to a subdirectory inside <paramref name="parentPath"/>.
-            </summary>
+                Checks whether <paramref name="subpath" /> refers to a subdirectory inside <paramref name="parentPath" />.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.IsSubpathOfOrSame(System.String,System.String)">
             <summary>
-            Checks whether <paramref name="subpath"/> refers to a subdirectory inside <paramref name="parentPath"/> or the same directory.
-            </summary>
+                Checks whether <paramref name="subpath" /> refers to a subdirectory inside <paramref name="parentPath" /> or
+                the same directory.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.ExpandPath(System.String)">
-            <summary>Expands all occurrences of "$(NAME)" in the specified string with the special folder path
-            for the current machine/user. See remarks for details.</summary>
+            <summary>
+                Expands all occurrences of "$(NAME)" in the specified string with the special folder path for the current
+                machine/user. See remarks for details.</summary>
             <remarks>
-            <para>Expands all occurrences of "$(NAME)", where NAME is the name of one of the values of the <see cref="T:System.Environment.SpecialFolder"/>
-            enum. There is no support for escaping such a replacement, and invalid names are ignored.</para>
-            <para>The following additional names are also recognised:</para>
-            <list type="table">
-            <item><term>$(Temp)</term><description>expands to the system's temporary folder path (Path.GetTempPath()).</description></item>
-            <item><term>$(AppPath)</term><description>expands to the directory containing the entry assembly (Assembly.GetEntryAssembly()).
-               Throws an <see cref="T:System.InvalidOperationException"/> if there is no entry assembly (e.g. in a secondary app domain).</description></item>
-            </list>
-            </remarks>
+                <para>Expands all occurrences of "$(NAME)", where NAME is the name of one of the values of the <see cref="T:System.Environment.SpecialFolder"/> enum. There is no support for escaping such a replacement, and invalid
+                names are ignored.</para>
+                <para>The following additional names are also recognised:</para>
+                <list type="table">
+                <item><term>$(Temp)</term><description>
+                    expands to the system's temporary folder path (Path.GetTempPath()).</description></item>
+                <item><term>$(AppPath)</term><description>
+                    expands to the directory containing the entry assembly (Assembly.GetEntryAssembly()). Throws an <see cref="T:System.InvalidOperationException"/> if there is no entry assembly (e.g. in a secondary app
+                    domain).</description></item>
+                </list></remarks>
         </member>
         <member name="M:RT.Util.PathUtil.UnexpandPath(System.String)">
             <summary>
-            Checks to see whether the specified path starts with any of the standard paths supported by
-            <see cref="M:RT.Util.PathUtil.ExpandPath(System.String)"/>, and if so, replaces the prefix with a "$(NAME)" string and returns
-            the resulting value. The value passed in should be an absolute path for the substitution to work.
-            </summary>
+                Checks to see whether the specified path starts with any of the standard paths supported by <see cref="M:RT.Util.PathUtil.ExpandPath(System.String)"/>, and if so, replaces the prefix with a "$(NAME)" string and returns the resulting value.
+                The value passed in should be an absolute path for the substitution to work.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.DeleteEmptyDirs(System.String)">
             <summary>
-            Deletes the specified directory only if it is empty, and then
-            checks all parents to see if they have become empty too. If so,
-            deletes them too. Does not throw any exceptions.
-            </summary>
+                Deletes the specified directory only if it is empty, and then checks all parents to see if they have become
+                empty too. If so, deletes them too. Does not throw any exceptions.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.ExtractParent(System.String)">
             <summary>
-            Returns the "parent" path of the specified path by removing the last name
-            from the path, separated by either forward or backslash. If the original
-            path ends in slash, the returned path will also end with a slash.
-            </summary>
+                Returns the "parent" path of the specified path by removing the last name from the path, separated by either
+                forward or backslash. If the original path ends in slash, the returned path will also end with a slash.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.ExtractParent(System.String,System.Char)">
             <summary>
-            Returns the "parent" path of the specified path by removing the last group
-            from the path, separated by the "separator" character. If the original
-            path ends in slash, the returned path will also end with a slash.
-            </summary>
+                Returns the "parent" path of the specified path by removing the last group from the path, separated by the
+                "separator" character. If the original path ends in slash, the returned path will also end with a slash.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.ExtractNameAndExt(System.String)">
             <summary>
-            Returns the name and extension of the last group in the specified path,
-            separated by either of the two slashes.
-            </summary>
+                Returns the name and extension of the last group in the specified path, separated by either of the two
+                slashes.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.Combine(System.String,System.String)">
             <summary>
-            Joins the two paths using the OS separator character. If the second path is absolute,
-            only the second path is returned.
-            </summary>
+                Joins the two paths using the OS separator character. If the second path is absolute, only the second path is
+                returned.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.Combine(System.String,System.String,System.String[])">
             <summary>
-            Joins multiple paths using the OS separator character. If any of the paths is absolute,
-            all preceding paths are discarded.
-            </summary>
+                Joins multiple paths using the OS separator character. If any of the paths is absolute, all preceding paths
+                are discarded.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.CreatePathToFile(System.String)">
             <summary>
-            Creates all directories in the path to the specified file if they don't exist.
-            Accepts filenames relative to the current directory.
-            </summary>
+                Creates all directories in the path to the specified file if they don't exist. Accepts filenames relative to
+                the current directory.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.StripTrailingSeparator(System.String)">
             <summary>
-            Strips a single trailing directory separator, whether it's the forward- or backslash. Preserves the single separator at the end of
-            paths referring to the root of a drive, such as "C:\". Removes at most a single separator, never more.
-            </summary>
+                Strips a single trailing directory separator, whether it's the forward- or backslash. Preserves the single
+                separator at the end of paths referring to the root of a drive, such as "C:\". Removes at most a single
+                separator, never more.</summary>
         </member>
         <member name="M:RT.Util.PathUtil.ToggleRelative(System.String,System.String)">
             <summary>
-            Changes a relative <paramref name="toggledPath"/> to an absolute and vice versa, with respect to <paramref name="basePath"/>.
-            Neither path must be an empty string. Any trailing slashes are ignored and the result won't have one except for root "C:\"-style paths.
-            Forward slashes, multiple repeated slashes, and any redundant "." or ".." elements are correctly interpreted and eliminated.
-            See Remarks for some special cases.
-            </summary>
+                Changes a relative <paramref name="toggledPath"/> to an absolute and vice versa, with respect to <paramref name="basePath"/>. Neither path must be an empty string. Any trailing slashes are ignored and the result
+                won't have one except for root "C:\"-style paths. Forward slashes, multiple repeated slashes, and any
+                redundant "." or ".." elements are correctly interpreted and eliminated. See Remarks for some special cases.</summary>
             <remarks>
-            Relative paths that specify a drive letter "C:thing" are not supported and result in undefined behaviour. If the toggled path is relative
-            then all ".." levels that expand beyond the root directory are silently discarded.
-            </remarks>
-            <param name="basePath">An absolute path to the directory which serves as the base for absolute/relative conversion.</param>
-            <param name="toggledPath">An absolute or a relative path to be converted.</param>
-            <returns>The converted path.</returns>
-            <exception cref="T:RT.Util.ToggleRelativeException">Conversion could not be performed for the reason specified in the exception object.</exception>
+                Relative paths that specify a drive letter "C:thing" are not supported and result in undefined behaviour. If
+                the toggled path is relative then all ".." levels that expand beyond the root directory are silently
+                discarded.</remarks>
+            <param name="basePath">
+                An absolute path to the directory which serves as the base for absolute/relative conversion.</param>
+            <param name="toggledPath">
+                An absolute or a relative path to be converted.</param>
+            <returns>
+                The converted path.</returns>
+            <exception cref="T:RT.Util.ToggleRelativeException">
+                Conversion could not be performed for the reason specified in the exception object.</exception>
         </member>
         <member name="M:RT.Util.PathUtil.AppendBeforeExtension(System.String,System.String)">
-            <summary>Appends the specified value to the filename part before extension.</summary>
-            <param name="filename">Filename to which the value should be appended.</param>
-            <param name="value">The value to append.</param>
+            <summary>
+                Appends the specified value to the filename part before extension.</summary>
+            <param name="filename">
+                Filename to which the value should be appended.</param>
+            <param name="value">
+                The value to append.</param>
+        </member>
+        <member name="M:RT.Util.PathUtil.ExpandWildcards(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+                Given a filename or a pattern containing * or ? wildcards, enumerates all names matching the wildcard.</summary>
+            <param name="filenameOrPattern">
+                The filename or pattern to expand. If this doesn't contain any wildcards, it is returned unchanged, even if
+                the named file/directory does not exist in the file system. The pattern may include an absolute or a relative
+                path, or contain just a name; the results will be relative iff the pattern was relative, and will contain no
+                path iff the pattern didn't.</param>
+            <param name="matchFiles">
+                Specifies that the pattern should match existing files.</param>
+            <param name="matchDirectories">
+                Specifies that the pattern should match existing directories.</param>
+            <param name="includeSubdirectories">
+                Indicates that files contained in subdirectories should be included.</param>
         </member>
         <member name="P:RT.Util.PathUtil.AppPath">
             <summary>
-            Returns the full path to the directory containing the application's entry assembly.
-            Will succeed for the main AppDomain of an application started as an .exe; will
-            throw for anything that doesn't have an entry assembly, such as a manually created AppDomain.
-            </summary>
+                Returns the full path to the directory containing the application's entry assembly. Will succeed for the main
+                AppDomain of an application started as an .exe; will throw for anything that doesn't have an entry assembly,
+                such as a manually created AppDomain.</summary>
             <seealso cref="M:RT.Util.PathUtil.AppPathCombine(System.String[])"/>
         </member>
         <member name="T:RT.Util.ToggleRelativeProblem">
@@ -8275,7 +9278,9 @@
             <summary>The base path is not an absolute path.</summary>
         </member>
         <member name="F:RT.Util.ToggleRelativeProblem.PathsOnDifferentDrives">
-            <summary>The two paths are both absolute and on different drives, making it impossible to make one of them relative to the other.</summary>
+            <summary>
+                The two paths are both absolute and on different drives, making it impossible to make one of them relative to
+                the other.</summary>
         </member>
         <member name="F:RT.Util.ToggleRelativeProblem.InvalidBasePath">
             <summary>The base path is not a valid path and/or contains invalid characters.</summary>
@@ -8587,6 +9592,12 @@
             be made to the fields. The base implementation does nothing. Note that this may be called on a different thread
             than the one invoking a Save* operation (but the same as the thread performing the save immediately after this
             method returns).
+            </summary>
+        </member>
+        <member name="M:RT.Util.SettingsBase.AfterLoad">
+            <summary>
+            This method is called just before the settings class is restored from disk, allowing any required changes to
+            be made to the fields. The base implementation does nothing.
             </summary>
         </member>
         <member name="M:RT.Util.SettingsBase.Save(System.String,System.Nullable{RT.Util.SettingsSerializer},RT.Util.SettingsOnFailure)">
@@ -8956,6 +9967,57 @@
             <param name="readPrefix">If not null, all calls to <see cref="M:RT.Util.Streams.ConsoleLoggingStream.Read(System.Byte[],System.Int32,System.Int32)"/> will print a single line to the console starting with this prefix and showing a hex dump of the bytes read.</param>
             <param name="writePrefix">If not null, all calls to <see cref="M:RT.Util.Streams.ConsoleLoggingStream.Read(System.Byte[],System.Int32,System.Int32)"/> will print a single line to the console starting with this prefix and showing a hex dump of the bytes written.</param>
         </member>
+        <member name="T:RT.Util.Streams.DoNotCloseStream">
+            <summary>
+                Passes through every operation to the underlying stream. When disposed, leaves the
+                underlying stream alone instead of closing it. Intended for use with certain streams
+                which do not have the "do not close the underlying stream" option built-in, such
+                as the CryptoStream for example.</summary>
+        </member>
+        <member name="M:RT.Util.Streams.DoNotCloseStream.#ctor(System.IO.Stream)">
+            <summary>
+                Constructor.</summary>
+        </member>
+        <member name="M:RT.Util.Streams.DoNotCloseStream.Flush">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="M:RT.Util.Streams.DoNotCloseStream.SetLength(System.Int64)">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="M:RT.Util.Streams.DoNotCloseStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="M:RT.Util.Streams.DoNotCloseStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="M:RT.Util.Streams.DoNotCloseStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="P:RT.Util.Streams.DoNotCloseStream.CanWrite">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="P:RT.Util.Streams.DoNotCloseStream.CanRead">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="P:RT.Util.Streams.DoNotCloseStream.CanSeek">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="P:RT.Util.Streams.DoNotCloseStream.Length">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
+        <member name="P:RT.Util.Streams.DoNotCloseStream.Position">
+            <summary>
+                Passes through this operation to the underlying stream.</summary>
+        </member>
         <member name="T:RT.Util.Streams.HashingStream">
             <summary>
             Calculates MD5 checksum of all values that are read/written via this stream.
@@ -9017,7 +10079,7 @@
         <member name="M:RT.Util.Streams.NewlineNormalizerStream8bit.#ctor(System.IO.Stream,System.Byte[])">
             <summary>Constructs a <see cref="T:RT.Util.Streams.NewlineNormalizerStream8bit"/>.</summary>
             <param name="underlyingStream">Stream to read textual data from.</param>
-            <param name="newline">Normalised newline to use.</param>
+            <param name="newline">Normalised newline to use. If not specified, uses <c>Environment.NewLine</c>, encoded to UTF-8.</param>
         </member>
         <member name="M:RT.Util.Streams.NewlineNormalizerStream8bit.Read(System.Byte[],System.Int32,System.Int32)">
             <summary>
@@ -9907,12 +10969,6 @@
         <member name="M:RT.Util.Ut.ParseEnum``1(System.String,System.Boolean)">
             <summary>Returns the enum value represented by the specified string, or null if the string does not represent a valid enum value.</summary>
         </member>
-        <member name="M:RT.Util.Ut.Min(System.DateTime,System.DateTime)">
-            <summary>Returns the earlier of the two specified date/time stamps.</summary>
-        </member>
-        <member name="M:RT.Util.Ut.Max(System.DateTime,System.DateTime)">
-            <summary>Returns the later of the two specified date/time stamps.</summary>
-        </member>
         <member name="M:RT.Util.Ut.CreateDelegate(System.Object,System.Reflection.MethodInfo)">
             <summary>Creates a delegate using Action&lt;,*&gt; or Func&lt;,*&gt; depending on the number of parameters of the specified method.</summary>
             <param name="firstArgument">Object to call the method on, or null for static methods.</param>
@@ -9938,15 +10994,27 @@
             exception will propagate to the caller of this method. Use null to retry indefinitely.</param>
             <param name="onSharingVio">Action to execute when a sharing violation does occur (is called before the waiting).</param>
         </member>
-        <member name="M:RT.Util.Ut.ReduceRequiredSet``1(``0[],System.Func{``0[],System.Boolean})">
+        <member name="M:RT.Util.Ut.ReduceRequiredSet``1(System.Collections.Generic.IEnumerable{``0},System.Func{RT.Util.Ut.ReduceRequiredSetState{``0},System.Boolean},System.Boolean,System.Boolean)">
             <summary>
-            Given a set of values and a function that returns true when given this set, will efficiently remove values from this
-            set which are not essential for making the function return true. The relative order of values is preserved.
-            </summary>
-            <typeparam name="T">Type of the values in the set.</typeparam>
-            <param name="values">The set of values to reduce.</param>
-            <param name="test">The function that examines the set. Must always return the same value for the same set.</param>
-            <returns>A hopefully smaller set of values that still causes the function to return true.</returns>
+                Given a set of values and a function that returns true when given this set, will efficiently remove items from
+                this set which are not essential for making the function return true. The relative order of items is
+                preserved. This method cannot generally guarantee that the result is optimal, but for some types of functions
+                the result will be guaranteed optimal.</summary>
+            <typeparam name="T">
+                Type of the values in the set.</typeparam>
+            <param name="items">
+                The set of items to reduce.</param>
+            <param name="test">
+                The function that examines the set. Must always return the same value for the same set.</param>
+            <param name="breadthFirst">
+                A value selecting a breadth-first or a depth-first approach. Depth-first is best at quickly locating a single
+                value which will be present in the final required set. Breadth-first is best at quickly placing a lower bound
+                on the total number of individual items in the required set.</param>
+            <param name="skipConsistencyTest">
+                When the function is particularly slow, you might want to set this to true to disable calls which are not
+                required to reduce the set and are only there to ensure that the function behaves consistently.</param>
+            <returns>
+                A hopefully smaller set of values that still causes the function to return true.</returns>
         </member>
         <member name="M:RT.Util.Ut.InternalError">
             <summary>
@@ -9981,21 +11049,29 @@
         </member>
         <member name="M:RT.Util.Ut.RunMain(System.Action,System.Action{System.Exception},System.Action{System.Exception})">
             <summary>
-            Execute the core of the application. In debug mode, exceptions are passed through untouched. In release mode, all exceptions are caught,
-            including those on other threads, and passed on to the specified handlers (which must not be null). Also, the main thread is given the name "Main".
-            </summary>
-            <param name="main">A method which executes the core of the application.</param>
-            <param name="onUnhandledMain">Method called in case the main method throws an unhandled exception.</param>
-            <param name="onUnhandledThread">Method called in case a thread other than the one executing the main method throws an unhandled exception.</param>
+                Execute the core of the application. In debug mode, exceptions are passed through untouched. In release mode, all
+                exceptions are caught, including those on other threads, and passed on to the specified handlers. Also, the main thread
+                is given the name "Main".</summary>
+            <param name="main">
+                A method which executes the core of the application.</param>
+            <param name="onUnhandledMain">
+                Method called in case the main method throws an unhandled exception.</param>
+            <param name="onUnhandledThread">
+                Method called in case a thread other than the one executing the main method throws an unhandled exception. If null,
+                <paramref name="onUnhandledMain"/> will be called instead.</param>
         </member>
         <member name="M:RT.Util.Ut.RunMain(System.Func{System.Int32},System.Func{System.Exception,System.Int32},System.Action{System.Exception})">
             <summary>
-            Execute the core of the application. In debug mode, exceptions are passed through untouched. In release mode, all exceptions are caught,
-            including those on other threads, and passed on to the specified handlers (which must not be null). Also, the main thread is given the name "Main".
-            </summary>
-            <param name="main">A method which executes the core of the application.</param>
-            <param name="onUnhandledMain">Method called in case the main method throws an unhandled exception. The return value is what this method will return.</param>
-            <param name="onUnhandledThread">Method called in case a thread other than the one executing the main method throws an unhandled exception.</param>
+                Execute the core of the application. In debug mode, exceptions are passed through untouched. In release mode, all
+                exceptions are caught, including those on other threads, and passed on to the specified handlers. Also, the main thread
+                is given the name "Main".</summary>
+            <param name="main">
+                A method which executes the core of the application.</param>
+            <param name="onUnhandledMain">
+                Method called in case the main method throws an unhandled exception. The return value is what this method will return.</param>
+            <param name="onUnhandledThread">
+                Method called in case a thread other than the one executing the main method throws an unhandled exception. If null,
+                <paramref name="onUnhandledMain"/> will be called instead, and its return value will be ignored.</param>
         </member>
         <member name="M:RT.Util.Ut.Tic">
             <summary>
@@ -10038,6 +11114,49 @@
         <member name="M:RT.Util.IPostBuildReporter.Warning(System.String,System.String,System.Int32,System.Nullable{System.Int32})">
             <summary>When implemented in a class, outputs the warning <paramref name="message"/> including the specified <paramref name="filename"/>, <paramref name="lineNumber"/> and optional <paramref name="columnNumber"/>.</summary>
         </member>
+        <member name="T:RT.Util.Ut.ReduceRequiredSetState`1">
+            <summary>
+                Encapsulates the state of the <see cref="M:RT.Util.Ut.ReduceRequiredSet``1(System.Collections.Generic.IEnumerable{``0},System.Func{RT.Util.Ut.ReduceRequiredSetState{``0},System.Boolean},System.Boolean,System.Boolean)"/> algorithm and exposes statistics about it.</summary>
+        </member>
+        <member name="F:RT.Util.Ut.ReduceRequiredSetState`1.Ranges">
+            <summary>Internal; do not use.</summary>
+        </member>
+        <member name="F:RT.Util.Ut.ReduceRequiredSetState`1.Items">
+            <summary>Internal; do not use.</summary>
+        </member>
+        <member name="F:RT.Util.Ut.ReduceRequiredSetState`1.ExcludedRange">
+            <summary>Internal; do not use.</summary>
+        </member>
+        <member name="F:RT.Util.Ut.ReduceRequiredSetState`1.IncludedRange">
+            <summary>Internal; do not use.</summary>
+        </member>
+        <member name="P:RT.Util.Ut.ReduceRequiredSetState`1.DefinitelyRequired">
+            <summary>
+                Enumerates every item that is known to be in the final required set. "Definitely" doesn't mean that there
+                exists no subset resulting in "true" without these members. Rather, it means that the algorithm will
+                definitely return these values, and maybe some others too.</summary>
+        </member>
+        <member name="P:RT.Util.Ut.ReduceRequiredSetState`1.PartitionsCount">
+            <summary>
+                Gets the current number of partitions containing uncertain items. The more of these, the slower the
+                algorithm will converge from here onwards.</summary>
+        </member>
+        <member name="P:RT.Util.Ut.ReduceRequiredSetState`1.SmallestPartitionSize">
+            <summary>
+                Gets the number of items in the smallest partition. This is the value that is halved upon a successful
+                depth-first iteration.</summary>
+        </member>
+        <member name="P:RT.Util.Ut.ReduceRequiredSetState`1.LargestPartitionSize">
+            <summary>
+                Gets the number of items in the largest partition. This is the value that is halved upon a successful
+                breadth-first iteration.</summary>
+        </member>
+        <member name="P:RT.Util.Ut.ReduceRequiredSetState`1.ItemsRemaining">
+            <summary>Gets the total number of items about which the algorithm is currently undecided.</summary>
+        </member>
+        <member name="P:RT.Util.Ut.ReduceRequiredSetState`1.SetToTest">
+            <summary>Gets the set of items for which the function should be evaluated in the current step.</summary>
+        </member>
         <member name="T:RT.Util.InternalErrorException">
             <summary>
             Represents an internal error in the code. Any place where the code is able
@@ -10073,7 +11192,8 @@
             <param name="rep">Object to report post-build errors to.</param>
         </member>
         <member name="M:RT.Util.SettingsUtil.LoadSettings``1(``0@,System.String,System.Nullable{RT.Util.SettingsSerializer})">
-            <summary>Loads settings into the specified class, or, if not available, creates a new instance of the class.</summary>
+            <summary>Loads settings into the specified class, or, if not available, creates a new instance of the class. See Remarks.</summary>
+            <remarks>If the settings file exists but can't be loaded, this function will automatically create a backup of the settings file. If the file is opened exclusively by other code, will retry reading from it for up to 1.5 seconds.</remarks>
             <param name="settings">Destination - the settings class will be placed here</param>
             <param name="filename">If specified, overrides the filename that is normally derived from the values specified in the <see cref="T:RT.Util.SettingsAttribute"/> on the settings class.</param>
             <param name="serializer">If specified, overrides the serializer specified in the <see cref="T:RT.Util.SettingsAttribute"/> on the settings class.</param>
@@ -11093,6 +12213,34 @@
             Run this method as a post-build step to ensure reliability of execution. For an example of use, see <see cref="M:RT.Util.Ut.RunPostBuildChecks(System.String,System.Reflection.Assembly[])"/>. This method is available only in DEBUG mode.</summary>
             <param name="type">The type that must be XmlClassify-able.</param>
             <param name="rep">Object to report post-build errors to.</param>
+        </member>
+        <member name="T:RT.Util.Xml.IXmlClassifyProcess2">
+            <summary>
+            Contains methods to process an object and/or the associated XML before or after <see cref="T:RT.Util.Xml.XmlClassify"/> (de)serializes it.
+            To have effect, this interface must be implemented by the object being serialised.
+            </summary>
+        </member>
+        <member name="M:RT.Util.Xml.IXmlClassifyProcess2.BeforeXmlClassify(System.Xml.Linq.XElement)">
+            <summary>Pre-processes this object before <see cref="T:RT.Util.Xml.XmlClassify"/> turns it into XML.
+            This method is automatically invoked by <see cref="T:RT.Util.Xml.XmlClassify"/> and should not be called directly.</summary>
+            <param name="xml">The (initially empty) XML element which will be populated once this class returns. Any changes made to it by the
+            method may be either trampled upon the method's return, or conflict with <see cref="T:RT.Util.Xml.XmlClassify"/> changes and cause it to throw an exception.</param>
+        </member>
+        <member name="M:RT.Util.Xml.IXmlClassifyProcess2.AfterXmlClassify(System.Xml.Linq.XElement)">
+            <summary>Post-processes the XML produced by <see cref="T:RT.Util.Xml.XmlClassify"/> for this object.
+            This method is automatically invoked by <see cref="T:RT.Util.Xml.XmlClassify"/> and should not be called directly.</summary>
+            <param name="xml">The XML element produced for this object. All changes made to it are final and will appear in <see cref="T:RT.Util.Xml.XmlClassify"/>'s output.</param>
+        </member>
+        <member name="M:RT.Util.Xml.IXmlClassifyProcess2.BeforeXmlDeclassify(System.Xml.Linq.XElement)">
+            <summary>Pre-processes this object's XML before <see cref="T:RT.Util.Xml.XmlClassify"/> has restored it from XML.
+            The object's fields have not yet been populated when this method is called.
+            This method is automatically invoked by <see cref="T:RT.Util.Xml.XmlClassify"/> and should not be called directly.</summary>
+            <param name="xml">The XML element from which this object is about to be restored. All changes made to it will affect how the object is restored from XML.</param>
+        </member>
+        <member name="M:RT.Util.Xml.IXmlClassifyProcess2.AfterXmlDeclassify(System.Xml.Linq.XElement)">
+            <summary>Post-processes this object after <see cref="T:RT.Util.Xml.XmlClassify"/> has restored it from XML.
+            This method is automatically invoked by <see cref="T:RT.Util.Xml.XmlClassify"/> and should not be called directly.</summary>
+            <param name="xml">The XML element from which this object was restored. Changes made to this XML will have no effect as the XML is discarded afterwards.</param>
         </member>
         <member name="T:RT.Util.Xml.IXmlClassifyProcessXml">
             <summary>

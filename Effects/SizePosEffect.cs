@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Xml;
 
@@ -28,7 +29,7 @@ namespace TankIconMaker.Effects
 
     class SizePosEffect : EffectBase
     {
-        public override int Version { get { return 1; } }
+        public override int Version { get { return 2; } }
         public override string TypeName { get { return App.Translation.EffectSizePos.EffectName; } }
         public override string TypeDescription { get { return App.Translation.EffectSizePos.EffectDescription; } }
 
@@ -72,7 +73,6 @@ namespace TankIconMaker.Effects
 
         #region Old
         // Old stuff, to be deleted eventually...
-        private bool ConvertedFromOld = false;
         [XmlIgnoreIfDefault]
         private int Left, Right, Top, Bottom;
         [XmlIgnoreIfDefault]
@@ -210,12 +210,18 @@ namespace TankIconMaker.Effects
             return result.ToBitmapRam();
         }
 
-        protected override void ActualAfterXmlDeclassify()
+        protected override void AfterXmlDeclassify(XElement xml)
         {
-            base.ActualAfterXmlDeclassify();
+            base.AfterXmlDeclassify(xml);
 
-            if (!ConvertedFromOld)
+            // At one point, a field called "ConvertedFromOld" was introduced instead of increasing Version to 2. The following is a fix for this.
+            if (xml.Element("ConvertedFromOld") != null && xml.Element("ConvertedFromOld").Value == "True")
+                SavedByVersion = 2;
+
+            // Upgrade to v2
+            if (SavedByVersion < 2)
             {
+                SavedByVersion = 2;
                 AnchorRaw anchor;
 
                 if (LeftAnchor && RightAnchor)
@@ -303,7 +309,6 @@ namespace TankIconMaker.Effects
             Left = Right = Top = Bottom = 0;
             LeftAnchor = RightAnchor = TopAnchor = BottomAnchor = false;
             SizeMode = default(SizeModeOld);
-            ConvertedFromOld = true;
         }
     }
 }

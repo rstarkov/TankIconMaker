@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Media;
+using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Xml;
 
@@ -38,7 +39,6 @@ namespace TankIconMaker.Layers
 
         #region Old
         // Old stuff, to be deleted eventually...
-        private bool ConvertedFromOld = false;
         [XmlIgnoreIfDefault]
         private int Left, Right, Top, Bottom;
         [XmlIgnoreIfDefault]
@@ -85,12 +85,18 @@ namespace TankIconMaker.Layers
             });
         }
 
-        protected override void ActualAfterXmlDeclassify()
+        protected override void AfterXmlDeclassify(XElement xml)
         {
-            base.ActualAfterXmlDeclassify();
+            base.AfterXmlDeclassify(xml);
 
-            if (!ConvertedFromOld)
+            // At one point, a field called "ConvertedFromOld" was introduced instead of increasing Version to 2. The following is a fix for this.
+            if (xml.Element("ConvertedFromOld") != null && xml.Element("ConvertedFromOld").Value == "True")
+                SavedByVersion = 2;
+
+            // Upgrade to v2
+            if (SavedByVersion < 2)
             {
+                SavedByVersion = 2;
                 AnchorRaw anchor;
 
                 if (LeftAnchor && RightAnchor)
@@ -140,7 +146,6 @@ namespace TankIconMaker.Layers
 
             Left = Right = Top = Bottom = 0;
             LeftAnchor = RightAnchor = TopAnchor = BottomAnchor = false;
-            ConvertedFromOld = true;
         }
     }
 
