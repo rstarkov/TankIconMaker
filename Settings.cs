@@ -40,8 +40,8 @@ namespace TankIconMaker
         public DisplayFilter DisplayFilter = DisplayFilter.All;
         /// <summary>The path last used with the "Save to folder" command.</summary>
         public string SaveToFolderPath = null;
-        /// <summary>Tank class filter last used with the "Save to folder" command.</summary>
-        public Class? SaveToFolderClass = null;
+        /// <summary>The filter last used with the "Save to folder" command. Null for "all", or a <see cref="Class"/> or <see cref="Country"/> value.</summary>
+        public object SaveToFolderFilter = null;
 
         /// <summary>Specifies the name of the selected background file, or ":checkered" / ":solid" for these special backgrounds.</summary>
         public string Background = "Ruinberg (Руинберг).jpg";
