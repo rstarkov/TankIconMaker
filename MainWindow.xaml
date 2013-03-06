@@ -321,6 +321,7 @@
                     <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save to _folder...</AccessText>
                     <Button.ContextMenu>
                         <ContextMenu>
+                            <!-- Available: BIJNOPQTVWXYZ -->
                             <MenuItem Header="All icons to _game folder" Name="ctSaveIcons_AllToGameFolder" Click="SaveIcons_AllToGameFolder"/>
                             <MenuItem Header="_All icons..." Name="ctBrowseAndSaveIcons_All" Click="BrowseAndSaveIcons_All"/>
                             <Separator/>
@@ -329,6 +330,13 @@
                             <MenuItem Header="Only _heavy tank icons..." Name="ctBrowseAndSaveIcons_Heavy" Click="BrowseAndSaveIcons_Heavy"/>
                             <MenuItem Header="Only a_rtillery icons..." Name="ctBrowseAndSaveIcons_Artillery" Click="BrowseAndSaveIcons_Artillery"/>
                             <MenuItem Header="Only _destroyer icons..." Name="ctBrowseAndSaveIcons_Destroyer" Click="BrowseAndSaveIcons_Destroyer"/>
+                            <Separator/>
+                            <MenuItem Header="Only _USSR..." Name="ctBrowseAndSaveIcons_USSR" Click="BrowseAndSaveIcons_USSR"/>
+                            <MenuItem Header="Only G_ermany..." Name="ctBrowseAndSaveIcons_Germany" Click="BrowseAndSaveIcons_Germany"/>
+                            <MenuItem Header="Only U_SA..." Name="ctBrowseAndSaveIcons_USA" Click="BrowseAndSaveIcons_USA"/>
+                            <MenuItem Header="Only _France..." Name="ctBrowseAndSaveIcons_France" Click="BrowseAndSaveIcons_France"/>
+                            <MenuItem Header="Only U_K..." Name="ctBrowseAndSaveIcons_UK" Click="BrowseAndSaveIcons_UK"/>
+                            <MenuItem Header="Only _China..." Name="ctBrowseAndSaveIcons_China" Click="BrowseAndSaveIcons_China"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
