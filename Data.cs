@@ -64,9 +64,10 @@ namespace TankIconMaker
         /// </summary>
         public virtual string this[ExtraPropertyId property]
         {
-            get {
+            get
+            {
                 if (property.Equals(ExtraPropertyId.TierArabic))
-                    return Tier != 0 ? Tier.ToString() : String.Empty;
+                    return Tier == 0 ? "" : Tier.ToString();
                 else if (property.Equals(ExtraPropertyId.TierRoman))
                     return Ut.RomanNumerals[Tier].ToString();
                 string result;
@@ -854,7 +855,7 @@ namespace TankIconMaker
         France,
         China,
         UK,
-        None
+        None,
     }
 
     /// <summary>Represents one of the possible tank classes: light/medium/heavy, tank destroyer, and artillery.</summary>
@@ -865,7 +866,7 @@ namespace TankIconMaker
         Heavy,
         Destroyer,
         Artillery,
-        None
+        None,
     }
 
     /// <summary>Represents one of the possible tank availability categories based on how (and whether) they can be bought.</summary>

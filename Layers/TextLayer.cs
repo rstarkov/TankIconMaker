@@ -177,7 +177,7 @@ namespace TankIconMaker.Layers
 
             Text.Single = "Example";
 
-            Text.CountryNone = string.Empty;
+            Text.CountryNone = "";
             Text.CountryUSSR = "СССР";
             Text.CountryGermany = "Deutschland";
             Text.CountryUSA = "USA";
@@ -185,7 +185,7 @@ namespace TankIconMaker.Layers
             Text.CountryChina = "中国";
             Text.CountryUK = "UK";
 
-            Text.ClassNone = string.Empty;
+            Text.ClassNone = "";
             Text.ClassLight = "LT";
             Text.ClassMedium = "MT";
             Text.ClassHeavy = "HT";
@@ -196,7 +196,7 @@ namespace TankIconMaker.Layers
             Text.CategPremium = "♦";
             Text.CategSpecial = "∞";
 
-            Text.TierNone = string.Empty;
+            Text.TierNone = "";
             Text.Tier1 = "I";
             Text.Tier2 = "II";
             Text.Tier3 = "III";
