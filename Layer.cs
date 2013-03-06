@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Xml;
 using WpfCrutches;
 
 namespace TankIconMaker
 {
-    abstract class LayerBase : IHasTreeViewItem, IHasTypeNameDescription, IXmlClassifyProcess, INotifyPropertyChanged
+    abstract class LayerBase : IHasTreeViewItem, IHasTypeNameDescription, IXmlClassifyProcess2, INotifyPropertyChanged
     {
         /// <summary>Describes what this layer type does as concisely as possible.</summary>
         [Browsable(false)]
@@ -67,16 +68,22 @@ namespace TankIconMaker
         /// Stores the <see cref="Version"/> of the maker as it was at the time of saving settings to XML. This may
         /// then be used to apply transformations to the XML produced by old versions of a layer.
         /// </summary>
-        private int SavedByVersion;
+        protected int SavedByVersion;
 
-        void IXmlClassifyProcess.BeforeXmlClassify() { ActualBeforeXmlClassify(); }
-        protected virtual void ActualBeforeXmlClassify()
+        void IXmlClassifyProcess2.BeforeXmlClassify(XElement xml) { BeforeXmlClassify(xml); }
+        protected virtual void BeforeXmlClassify(XElement xml)
         {
             SavedByVersion = Version;
         }
 
-        void IXmlClassifyProcess.AfterXmlDeclassify() { ActualAfterXmlDeclassify(); }
-        protected virtual void ActualAfterXmlDeclassify()
+        void IXmlClassifyProcess2.AfterXmlClassify(XElement xml) { AfterXmlClassify(xml); }
+        protected virtual void AfterXmlClassify(XElement xml) { }
+
+        void IXmlClassifyProcess2.BeforeXmlDeclassify(XElement xml) { BeforeXmlDeclassify(xml); }
+        protected virtual void BeforeXmlDeclassify(XElement xml) { }
+
+        void IXmlClassifyProcess2.AfterXmlDeclassify(XElement xml) { AfterXmlDeclassify(xml); }
+        protected virtual void AfterXmlDeclassify(XElement xml)
         {
             foreach (var effect in Effects)
                 effect.Layer = this;
