@@ -94,14 +94,6 @@ namespace TankIconMaker.Effects
             Height = 18;
             SizeMode2 = SizeMode2.NoChange;
             GrowShrinkMode = GrowShrinkMode.GrowAndShrink;
-
-            // Old stuff, to be deleted eventually
-            Left = 0;
-            Top = 0;
-            Right = 79;
-            Bottom = 23;
-            LeftAnchor = TopAnchor = true;
-            SizeMode = SizeModeOld.NoChange;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)

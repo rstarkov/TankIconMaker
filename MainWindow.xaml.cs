@@ -1072,10 +1072,17 @@ namespace TankIconMaker
                             if (exception == null)
                             {
                                 int skipped = renders.Values.Count(rr => rr.Exception != null);
-                                DlgMessage.Show(App.Translation.Prompt.IconsSaved.Fmt(path) +
-                                    (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
-                                    skipped == 0 ? DlgType.Info : DlgType.Warning
+                                int choice = DlgMessage.Show(App.Translation.Prompt.IconsSaved.Fmt(path) +
+                                    (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))), null,
+                                    skipped == 0 ? DlgType.Info : DlgType.Warning,
+                                    App.Translation.DlgMessage.OK.ToString(), App.Translation.Prompt.IconsSavedGoToForum.ToString()
                                 );
+                                if (choice == 1)
+                                {
+                                    var url = "http://forum.worldoftanks.ru/index.php?/topic/274782-tank-icon-maker";
+                                    // will customize URL here based on language, when topics in other languages are available.
+                                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                                }
                             }
                             else
                             {
