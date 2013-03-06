@@ -1401,6 +1401,10 @@
       <Translation>Класс: артиллерия</Translation>
       <Old>Class: Artillery</Old>
     </ClassArtillery>
+    <ClassNone>
+      <Translation>Класс:  без класса</Translation>
+      <Old>Class: None</Old>
+    </ClassNone>
     <CountryUSSR>
       <Translation>Страна: СССР</Translation>
       <Old>Country: USSR</Old>
@@ -1425,6 +1429,10 @@
       <Translation>Страна: Великобритания</Translation>
       <Old>Country: UK</Old>
     </CountryUK>
+    <CountryNone>
+      <Translation>Страна:  без страны</Translation>
+      <Old>Country: None</Old>
+    </CountryNone>
     <CategNormal>
       <Translation>Доступ: Обычный</Translation>
       <Old>Avail.: Normal</Old>
@@ -1449,6 +1457,10 @@
       <Translation>Уровень: {0,2}</Translation>
       <Old>Tier: {0,2}</Old>
     </TierN>
+    <TierNone>
+      <Translation>Уровень: без уровня</Translation>
+      <Old>Tier: None</Old>
+    </TierNone>
   </Selector>
   <DlgMessage>
     <OK>
