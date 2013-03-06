@@ -426,18 +426,11 @@ namespace TankIconMaker
         public TrString EffectName = "Size / Position";
         public TrString EffectDescription = "Adjusts this layer's size and/or position. This effect is always applied before any other effects.";
 
+        public MemberDescriptionTr Anchor = new MemberDescriptionTr { DisplayName = "Anchor", Description = "Specifies how to position the layer relative to the “X” and “Y” co-ordinates." };
+        public MemberDescriptionTr X = new MemberDescriptionTr { DisplayName = "X", Description = "Specifies the horizontal coordinate of the anchor point." };
+        public MemberDescriptionTr Y = new MemberDescriptionTr { DisplayName = "Y", Description = "Specifies the vertical coordinate of the anchor point." };
+
         public MemberDescriptionTr PositionByPixels = new MemberDescriptionTr { DisplayName = "Use pixels", Description = "When checked, the edge of the layer is defined by the visible pixels (see also \"Transparency threshold\"). Otherwise the complete layer size is used." };
-
-        public MemberDescriptionTr Left = new MemberDescriptionTr { DisplayName = "Left", Description = "X coordinate of the left edge. Ignored if \"Left anchor\" is unchecked." };
-        public MemberDescriptionTr Right = new MemberDescriptionTr { DisplayName = "Right", Description = "X coordinate of the right edge. Ignored if \"Right anchor\" is unchecked." };
-        public MemberDescriptionTr Top = new MemberDescriptionTr { DisplayName = "Top", Description = "Y coordinate of the top edge. Ignored if \"Top anchor\" is unchecked." };
-        public MemberDescriptionTr Bottom = new MemberDescriptionTr { DisplayName = "Bottom", Description = "Y coordinate of the bottom edge. Ignored if \"Bottom anchor\" is unchecked." };
-
-        public MemberDescriptionTr LeftAnchor = new MemberDescriptionTr { DisplayName = "Left anchor", Description = "When checked, the left edge is anchored at the X coordinate specified by \"Left\". When \"Right anchor\" is also checked, the layer is centered between \"Left\" and \"Right\"." };
-        public MemberDescriptionTr RightAnchor = new MemberDescriptionTr { DisplayName = "Right anchor", Description = "When checked, the right edge is anchored at the X coordinate specified by \"Right\". When \"Left anchor\" is also checked, the layer is centered between \"Left\" and \"Right\"." };
-        public MemberDescriptionTr TopAnchor = new MemberDescriptionTr { DisplayName = "Top anchor", Description = "When checked, the top edge is anchored at the Y coordinate specified by \"Top\". When \"Bottom anchor\" is also checked, the layer is centered between \"Top\" and \"Bottom\"." };
-        public MemberDescriptionTr BottomAnchor = new MemberDescriptionTr { DisplayName = "Bottom anchor", Description = "When checked, the bottom edge is anchored at the Y coordinate specified by \"Bottom\". When \"Top anchor\" is also checked, the layer is centered between \"Top\" and \"Bottom\"." };
-
         public MemberDescriptionTr SizeByPixels = new MemberDescriptionTr { DisplayName = "Use pixels", Description = "If checked, transparent areas on the outside of the image will be ignored in size calculations. See also \"Transparency threshold\"." };
 
         public MemberDescriptionTr Percentage = new MemberDescriptionTr { DisplayName = "Resize %", Description = "When Mode is \"By %\", selects the desired resize percentage." };
@@ -450,7 +443,7 @@ namespace TankIconMaker
 
         public MemberDescriptionTr ShowLayerBorders = new MemberDescriptionTr { DisplayName = "Show layer borders", Description = "If enabled, draws a rectangle to show the layer borders. These borders are used when \"Use pixels\" is disabled." };
         public MemberDescriptionTr ShowPixelBorders = new MemberDescriptionTr { DisplayName = "Show pixel borders", Description = "If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using \"Transparency threshold\". These borders are used when \"Use pixels\" is enabled." };
-        public MemberDescriptionTr ShowTargetBorders = new MemberDescriptionTr { DisplayName = "Show target borders", Description = "If enabled, draws a rectangle to show the selected target position for the layer. Anchored borders are drawn as solid lines, non-anchored are dotted." };
+        public MemberDescriptionTr ShowAnchor = new MemberDescriptionTr { DisplayName = "Show anchor", Description = "If enabled, draws a cross-hair at the anchor position." };
     }
 
     #endregion
@@ -518,15 +511,12 @@ namespace TankIconMaker
     {
         public TrString NoChange = "No change";
         public TrString ByPercentage = "By %";
-        public TrString BySizeWidthOnly = "By size: width only";
-        public TrString BySizeHeightOnly = "By size: height only";
-        public TrString BySizeWidthHeightStretch = "By size: stretch";
-        public TrString ByPosLeftRight = "By pos: left/right";
-        public TrString ByPosTopBottom = "By pos: top/bottom";
-        public TrString ByPosAllFit = "By pos: fit inside";
-        public TrString ByPosAllStretch = "By pos: stretch";
+        public TrString BySizeWidthOnly = "By size: width";
+        public TrString BySizeHeightOnly = "By size: height";
+        public TrString BySizeFit = "By size: fit";
+        public TrString BySizeStretch = "By size: stretch";
 
-        public class Conv : LingoEnumConverter<SizeMode, SizeModeTranslation>
+        public class Conv : LingoEnumConverter<SizeMode2, SizeModeTranslation>
         {
             public Conv() : base(() => App.Translation.SizeMode) { }
         }
@@ -661,6 +651,7 @@ namespace TankIconMaker
         public TrString GameNotFound_Ignore = "&Use anyway";
         [LingoNotes("The save path is substituted for \"{0}\".")]
         public TrString IconsSaved = "Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.";
+        public TrString IconsSavedGoToForum = "Open &forum in browser";
         public TrStringNum IconsSaveSkipped = new TrStringNum("Note that 1 image was skipped due to errors.", "Note that {0} images were skipped due to errors.");
         public TrString IconsSaveError = "The icons could not be saved due to an error.\n\nError message:\n • {0}";
         public TrString Upvote_BuiltInOnly = "For security reasons, only built-in styles can be upvoted.";
