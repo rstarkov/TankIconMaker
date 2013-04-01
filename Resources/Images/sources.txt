@@ -1,0 +1,9 @@
+From Lesic's TIMPack (not all of these are original work):
+ - background-slesh-*
+ - class2-*
+ - class3-*
+ - country2-*
+ - country3-*
+ - country4-*
+ - country5-*
+ - tierA-*
