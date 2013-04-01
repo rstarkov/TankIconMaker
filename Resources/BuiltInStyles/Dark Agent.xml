@@ -72,6 +72,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name null="1" />
           <Visible>True</Visible>
+          <SavedByVersion>1</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -106,26 +107,23 @@
           <Percentage>50</Percentage>
           <Width>30</Width>
           <Height>18</Height>
-          <PixelAlphaThreshold>180</PixelAlphaThreshold>
+          <PixelAlphaThreshold>160</PixelAlphaThreshold>
+          <ConvertedFromOld>True</ConvertedFromOld>
           <PositionByPixels>True</PositionByPixels>
-          <Left>12</Left>
-          <Right>79</Right>
-          <Top>0</Top>
-          <Bottom>23</Bottom>
-          <LeftAnchor>False</LeftAnchor>
-          <RightAnchor>False</RightAnchor>
-          <TopAnchor>True</TopAnchor>
-          <BottomAnchor>True</BottomAnchor>
+          <Anchor>MidLeft</Anchor>
+          <X>8</X>
+          <Y>11</Y>
           <SizeByPixels>True</SizeByPixels>
-          <SizeMode>NoChange</SizeMode>
+          <SizeMode2>NoChange</SizeMode2>
           <GrowShrinkMode>GrowAndShrink</GrowShrinkMode>
           <ShowLayerBorders>False</ShowLayerBorders>
           <ShowPixelBorders>False</ShowPixelBorders>
-          <ShowTargetBorders>False</ShowTargetBorders>
+          <ShowAnchor>False</ShowAnchor>
         </item>
         <item type="TankIconMaker.Effects.ClipEffect">
           <Name null="1" />
           <Visible>True</Visible>
+          <SavedByVersion>1</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -206,6 +204,7 @@
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Name null="1" />
           <Visible>True</Visible>
+          <SavedByVersion>1</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -269,6 +268,7 @@
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Name null="1" />
           <Visible>True</Visible>
+          <SavedByVersion>1</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -411,6 +411,7 @@
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Name null="1" />
           <Visible>True</Visible>
+          <SavedByVersion>1</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -474,6 +475,7 @@
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Name null="1" />
           <Visible>True</Visible>
+          <SavedByVersion>1</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>

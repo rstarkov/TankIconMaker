@@ -312,7 +312,8 @@ namespace TankIconMaker
                         else // topA and btmA both >0 and <255
                         {
                             byte tgtAA = *(tgt + 3) = (byte) (topA + (btmA * (255 - topA) >> 8));
-                            int btmAA = btmA * (255 - topA) / 255;
+                            int btmAA = (btmA * (255 - topA)) / 255;
+                            tgtAA += 1; // ensures the division below never results in a value greater than 255
                             *(tgt + 0) = (byte) ((*(top + 0) * topA + *(btm + 0) * btmAA) / tgtAA);
                             *(tgt + 1) = (byte) ((*(top + 1) * topA + *(btm + 1) * btmAA) / tgtAA);
                             *(tgt + 2) = (byte) ((*(top + 2) * topA + *(btm + 2) * btmAA) / tgtAA);

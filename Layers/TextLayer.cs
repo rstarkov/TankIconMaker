@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Media;
+using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Xml;
 
@@ -36,12 +37,13 @@ namespace TankIconMaker.Layers
         public bool Baseline { get; set; }
         public static MemberTr BaselineTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Baseline); }
 
+        #region Old
         // Old stuff, to be deleted eventually...
-        private bool ConvertedFromOld = false;
         [XmlIgnoreIfDefault]
         private int Left, Right, Top, Bottom;
         [XmlIgnoreIfDefault]
         private bool LeftAnchor, RightAnchor, TopAnchor, BottomAnchor;
+        #endregion
 
         protected abstract string GetText(Tank tank);
 
@@ -56,13 +58,6 @@ namespace TankIconMaker.Layers
             Anchor = Anchor.TopLeft;
             Baseline = false;
             FontColor = new ColorSelector(Colors.White);
-
-            // Old stuff, to be deleted eventually
-            Left = Top = 3;
-            LeftAnchor = TopAnchor = true;
-            RightAnchor = BottomAnchor = false;
-            Right = 80 - 3;
-            Bottom = 24 - 3;
         }
 
         public override LayerBase Clone()
@@ -83,12 +78,18 @@ namespace TankIconMaker.Layers
             });
         }
 
-        protected override void ActualAfterXmlDeclassify()
+        protected override void AfterXmlDeclassify(XElement xml)
         {
-            base.ActualAfterXmlDeclassify();
+            base.AfterXmlDeclassify(xml);
 
-            if (!ConvertedFromOld)
+            // At one point, a field called "ConvertedFromOld" was introduced instead of increasing Version to 2. The following is a fix for this.
+            if (xml.Element("ConvertedFromOld") != null && xml.Element("ConvertedFromOld").Value == "True")
+                SavedByVersion = 2;
+
+            // Upgrade to v2
+            if (SavedByVersion < 2)
             {
+                SavedByVersion = 2;
                 AnchorRaw anchor;
 
                 if (LeftAnchor && RightAnchor)
@@ -138,13 +139,12 @@ namespace TankIconMaker.Layers
 
             Left = Right = Top = Bottom = 0;
             LeftAnchor = RightAnchor = TopAnchor = BottomAnchor = false;
-            ConvertedFromOld = true;
         }
     }
 
     sealed class PropertyTextLayer : TextLayer
     {
-        public override int Version { get { return 1; } }
+        public override int Version { get { return 2; } }
         public override string TypeName { get { return App.Translation.PropertyTextLayer.LayerName; } }
         public override string TypeDescription { get { return App.Translation.PropertyTextLayer.LayerDescription; } }
 
@@ -164,7 +164,7 @@ namespace TankIconMaker.Layers
 
     sealed class CustomTextLayer : TextLayer
     {
-        public override int Version { get { return 1; } }
+        public override int Version { get { return 2; } }
         public override string TypeName { get { return App.Translation.CustomTextLayer.LayerName; } }
         public override string TypeDescription { get { return App.Translation.CustomTextLayer.LayerDescription; } }
 
