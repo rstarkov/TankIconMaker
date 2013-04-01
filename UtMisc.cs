@@ -141,10 +141,11 @@ namespace TankIconMaker
                 var xml = XDocument.Parse(File.ReadAllText(Path.Combine(gameInstallationPath, "version.xml")));
                 var version = xml.Root.Element("version");
 
-                var m = Regex.Match(version.Value, @"^\s*(v\.)?(?<name>.*?)\s+#(?<build>\d+)\s*$");
+                var m = Regex.Match(version.Value, @"^\s*(v\.)?(?<name>.*?)\s+#(?<build>\d+)(?<idiotic_suffix>.*?)\s*$");
                 if (!m.Success)
                     throw new Exception("Cannot parse version string: " + version.Value);
-                versionName = m.Groups["name"].Value;
+                var idioticSuffix = m.Groups["idiotic_suffix"].Value; // take care of "0.8.4 #381a", which should have been "0.8.4 #382" or something. Make it show as "0.8.4 (a)"
+                versionName = m.Groups["name"].Value + (string.IsNullOrWhiteSpace(idioticSuffix) ? "" : " ({0})".Fmt(idioticSuffix));
                 return int.Parse(m.Groups["build"].Value);
             }
             catch
