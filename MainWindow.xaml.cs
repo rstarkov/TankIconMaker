@@ -591,13 +591,15 @@ namespace TankIconMaker
                         var img = layer.Draw(renderTask.Tank);
                         if (img == null)
                             continue;
+                        foreach (var effect in layer.Effects.Where(e => e is Effects.SizePosEffect && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
+                            img = effect.Apply(renderTask.Tank, img.AsWritable());
                         if (layer.Effects.Count > 0 && (img.Width < 80 || img.Height < 24))
                         {
                             var imgOrig = img;
                             img = new BitmapRam(Math.Max(80, img.Width), Math.Max(24, img.Height));
                             img.DrawImage(imgOrig);
                         }
-                        foreach (var effect in layer.Effects.OrderBy(l => l is Effects.SizePosEffect ? 0 : 1).Where(e => e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
+                        foreach (var effect in layer.Effects.Where(e => !(e is Effects.SizePosEffect) && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
                             img = effect.Apply(renderTask.Tank, img.AsWritable());
                         result.DrawImage(img);
                     }
@@ -1013,7 +1015,7 @@ namespace TankIconMaker
 
         string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
 
-        private void saveIcons(string folder, Class? tankClass, bool promptEvenIfEmpty = false)
+        private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false)
         {
             var gameInstallation = App.Settings.ActiveInstallation; // must capture this in case the user changes it while the background save continues
             var path = folder ?? Path.Combine(gameInstallation.Path, Ut.ExpandPath(gameInstallation.GameVersionConfig.PathDestination));
@@ -1030,7 +1032,7 @@ namespace TankIconMaker
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
                 var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-                var renderTasks = ListRenderTasks(all: true).Where(rt => tankClass == null || rt.Tank.Class == tankClass.Value).ToList();
+                var renderTasks = ListRenderTasks(all: true).Where(rt => filter == null || rt.Tank.Class.Equals(filter) || rt.Tank.Country.Equals(filter)).ToList();
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
@@ -1070,10 +1072,21 @@ namespace TankIconMaker
                             if (exception == null)
                             {
                                 int skipped = renders.Values.Count(rr => rr.Exception != null);
-                                DlgMessage.Show(App.Translation.Prompt.IconsSaved.Fmt(path) +
-                                    (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
-                                    skipped == 0 ? DlgType.Info : DlgType.Warning
-                                );
+                                int choice = new DlgMessage
+                                {
+                                    Message = App.Translation.Prompt.IconsSaved.Fmt(path) +
+                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                                    AcceptButton = 0,
+                                    CancelButton = 0,
+                                }.Show();
+                                if (choice == 1)
+                                {
+                                    var url = "http://forum.worldoftanks.ru/index.php?/topic/274782-tank-icon-maker";
+                                    // will customize URL here based on language, when topics in other languages are available.
+                                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                                }
                             }
                             else
                             {
@@ -1095,14 +1108,14 @@ namespace TankIconMaker
         {
             if (!_saveIconsToFolder)
             {
-                saveIcons(folder: null, tankClass: null);
+                saveIcons(folder: null, filter: null);
             }
             else
             {
                 if (App.Settings.SaveToFolderPath == null)
                     BrowseAndSaveIcons_All();
                 else
-                    saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderClass, promptEvenIfEmpty: true /* so the user knows which folder is selected */);
+                    saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderFilter, promptEvenIfEmpty: true /* so the user knows which folder is selected */);
             }
         }
 
@@ -1112,16 +1125,22 @@ namespace TankIconMaker
             menu.PlacementTarget = ctSaveToFolder;
             menu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             ctSaveIcons_AllToGameFolder.IsChecked = !_saveIconsToFolder;
-            ctBrowseAndSaveIcons_All.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == null;
-            ctBrowseAndSaveIcons_Light.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Light;
-            ctBrowseAndSaveIcons_Medium.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Medium;
-            ctBrowseAndSaveIcons_Heavy.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Heavy;
-            ctBrowseAndSaveIcons_Artillery.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Artillery;
-            ctBrowseAndSaveIcons_Destroyer.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderClass == Class.Destroyer;
+            ctBrowseAndSaveIcons_All.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderFilter == null;
+            ctBrowseAndSaveIcons_Light.IsChecked = _saveIconsToFolder && Class.Light.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_Medium.IsChecked = _saveIconsToFolder && Class.Medium.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_Heavy.IsChecked = _saveIconsToFolder && Class.Heavy.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_Artillery.IsChecked = _saveIconsToFolder && Class.Artillery.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_Destroyer.IsChecked = _saveIconsToFolder && Class.Destroyer.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_USSR.IsChecked = _saveIconsToFolder && Country.USSR.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_Germany.IsChecked = _saveIconsToFolder && Country.Germany.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_USA.IsChecked = _saveIconsToFolder && Country.USA.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_France.IsChecked = _saveIconsToFolder && Country.France.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_UK.IsChecked = _saveIconsToFolder && Country.UK.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_China.IsChecked = _saveIconsToFolder && Country.China.Equals(App.Settings.SaveToFolderFilter);
             menu.IsOpen = true;
         }
 
-        private void BrowseAndSaveToFolder(Class? tankClass)
+        private void BrowseAndSaveToFolder(object filter) // filter is either null or a Class/Country value
         {
             var dlg = new VistaFolderBrowserDialog();
             dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
@@ -1132,15 +1151,15 @@ namespace TankIconMaker
             _saveIconsToFolder = true;
             _overwriteAccepted = null; // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
-            App.Settings.SaveToFolderClass = tankClass;
+            App.Settings.SaveToFolderFilter = filter;
             SaveSettings();
-            saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderClass);
+            saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderFilter);
         }
 
         private void SaveIcons_AllToGameFolder(object _ = null, RoutedEventArgs __ = null)
         {
             _saveIconsToFolder = false;
-            saveIcons(folder: null, tankClass: null);
+            saveIcons(folder: null, filter: null);
         }
         private void BrowseAndSaveIcons_All(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(null); }
         private void BrowseAndSaveIcons_Light(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Light); }
@@ -1148,6 +1167,12 @@ namespace TankIconMaker
         private void BrowseAndSaveIcons_Heavy(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Heavy); }
         private void BrowseAndSaveIcons_Artillery(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Artillery); }
         private void BrowseAndSaveIcons_Destroyer(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Destroyer); }
+        private void BrowseAndSaveIcons_USSR(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.USSR); }
+        private void BrowseAndSaveIcons_Germany(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.Germany); }
+        private void BrowseAndSaveIcons_USA(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.USA); }
+        private void BrowseAndSaveIcons_France(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.France); }
+        private void BrowseAndSaveIcons_UK(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.UK); }
+        private void BrowseAndSaveIcons_China(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.China); }
 
         private void ctAbout_Click(object sender, RoutedEventArgs e)
         {
