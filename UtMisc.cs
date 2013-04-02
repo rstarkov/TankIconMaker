@@ -144,8 +144,7 @@ namespace TankIconMaker
                 var m = Regex.Match(version.Value, @"^\s*(v\.)?(?<name>.*?)\s+#(?<build>\d+)(?<idiotic_suffix>.*?)\s*$");
                 if (!m.Success)
                     throw new Exception("Cannot parse version string: " + version.Value);
-                var idioticSuffix = m.Groups["idiotic_suffix"].Value; // take care of "0.8.4 #381a", which should have been "0.8.4 #382" or something. Make it show as "0.8.4 (a)"
-                versionName = m.Groups["name"].Value + (string.IsNullOrWhiteSpace(idioticSuffix) ? "" : " ({0})".Fmt(idioticSuffix));
+                versionName = m.Groups["name"].Value;
                 return int.Parse(m.Groups["build"].Value);
             }
             catch
