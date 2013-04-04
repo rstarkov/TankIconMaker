@@ -694,12 +694,6 @@ namespace TankIconMaker
             {
                 var tanks = new Dictionary<string, TankData>();
 
-                // Inherit from the earlier game versions
-                var earlierVer = _builtIn.OrderByDescending(df => df.GameVersionId).FirstOrDefault();
-                if (earlierVer != null)
-                    foreach (var row in earlierVer.Data)
-                        tanks[row.SystemId] = row;
-
                 // Inherit from all the file versions for this game version
                 foreach (var row in group.OrderBy(df => df.FileVersion).SelectMany(df => df.Data))
                     tanks[row.SystemId] = row;
