@@ -604,6 +604,14 @@ namespace TankIconMaker
                         result.DrawImage(img);
                     }
                 }
+                if (style.Centerable)
+                {
+                    var width = result.PreciseWidth();
+                    var wantedWidth = Math.Min(width.Right + width.Left + 1, style.IconWidth);
+                    var img = result;
+                    result = new BitmapWpf(wantedWidth, img.Height);
+                    result.CopyPixelsFrom(img);
+                }
                 result.MarkReadOnly();
                 renderTask.Image = result.UnderlyingImage;
             }
@@ -611,11 +619,11 @@ namespace TankIconMaker
             {
                 renderTask.Image = Ut.NewBitmapWpf(style.IconWidth, style.IconHeight, dc =>
                 {
-                    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(180, 255, 255, 255)), null, new Rect(0.5, 1.5, 79, 21));
+                    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(180, 255, 255, 255)), null, new Rect(0.5, 1.5, style.IconWidth - 1, style.IconHeight - 3));
                     var pen = new Pen(e is StyleUserError ? Brushes.Green : Brushes.Red, 2);
-                    dc.DrawLine(pen, new Point(1, 2), new Point(79, 21));
-                    dc.DrawLine(pen, new Point(79, 2), new Point(1, 21));
-                    dc.DrawRectangle(null, new Pen(Brushes.Black, 1), new Rect(0.5, 1.5, 79, 21));
+                    dc.DrawLine(pen, new Point(1, 2), new Point(style.IconWidth - 1, style.IconHeight - 3));
+                    dc.DrawLine(pen, new Point(style.IconWidth - 1, 2), new Point(1, style.IconHeight - 3));
+                    dc.DrawRectangle(null, new Pen(Brushes.Black, 1), new Rect(0.5, 1.5, style.IconWidth - 1, style.IconHeight - 3));
                 });
                 renderTask.Exception = e;
             }
@@ -646,6 +654,7 @@ namespace TankIconMaker
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
                 (bool check) => (double) style.IconHeight * (check ? 5 : 1) / App.DpiScaleY
             ));
+            img.HorizontalAlignment = HorizontalAlignment.Left;
             ctIconsPanel.Children.Add(img);
             return img;
         }
@@ -1528,6 +1537,7 @@ namespace TankIconMaker
             style.Author = App.Translation.Misc.NameOfNewStyleAuthor;
             style.IconWidth = 84;
             style.IconHeight = 24;
+            style.Centerable = true;
             style.Layers.Add(new TankImageLayer { Name = App.Translation.Misc.NameOfTankImageLayer });
             App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;

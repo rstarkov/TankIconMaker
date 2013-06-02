@@ -24,6 +24,11 @@ namespace TankIconMaker
         public int IconWidth = 80;
         /// <summary>Icon height; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
         public int IconHeight = 24;
+        /// <summary>
+        ///     If true, the number of transparent pixels on the right will be made the same as on the left (up to <see
+        ///     cref="IconWidth"/>), so as to make it possible to vertically center the icon. Defaults to the value used in old
+        ///     clients so that old styles can be loaded correctly.</summary>
+        public bool Centerable = false;
 
         public string Display
         {
