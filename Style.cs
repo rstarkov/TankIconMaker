@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Xml.Linq;
 using RT.Util.Xml;
 
 namespace TankIconMaker
 {
     enum StyleKind { Original, Current, BuiltIn, User }
 
-    sealed class Style : INotifyPropertyChanged, IComparable<Style>
+    sealed class Style : INotifyPropertyChanged, IComparable<Style>, IXmlClassifyProcess2
     {
         /// <summary>The name of the style (chosen by the artist).</summary>
         public string Name { get { return _Name; } set { _Name = value; NotifyPropertyChanged("Name"); NotifyPropertyChanged("Display"); } }
@@ -17,6 +19,11 @@ namespace TankIconMaker
         /// <summary>The name of the author of this style.</summary>
         public string Author { get { return _Author; } set { _Author = value; NotifyPropertyChanged("Author"); NotifyPropertyChanged("Display"); } }
         private string _Author;
+
+        /// <summary>Icon width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
+        public int IconWidth = 80;
+        /// <summary>Icon height; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
+        public int IconHeight = 24;
 
         public string Display
         {
@@ -46,6 +53,17 @@ namespace TankIconMaker
         public Style()
         {
             Kind = StyleKind.User;
+            Layers.CollectionChanged += updateLayerStyle;
+        }
+
+        void updateLayerStyle(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Replace)
+                foreach (var item in e.NewItems.OfType<LayerBase>())
+                    item.ParentStyle = this;
+            else if (e.Action == NotifyCollectionChangedAction.Reset)
+                foreach (var item in Layers)
+                    item.ParentStyle = this;
         }
 
         private void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
@@ -80,14 +98,27 @@ namespace TankIconMaker
         {
             var result = MemberwiseClone() as Style;
             result.PropertyChanged = (_, __) => { };
-            result.Layers = new ObservableCollection<LayerBase>(Layers.Select(l => l.Clone()));
+            result.Layers = new ObservableCollection<LayerBase>();
+            result.Layers.CollectionChanged += result.updateLayerStyle;
+            foreach (var l in Layers)
+                result.Layers.Add(l.Clone());
             return result;
         }
+
+        public void AfterXmlDeclassify(XElement xml)
+        {
+            foreach (var layer in Layers)
+                layer.ParentStyle = this;
+            Layers.CollectionChanged -= updateLayerStyle;
+            Layers.CollectionChanged += updateLayerStyle;
+        }
+
+        public void AfterXmlClassify(XElement xml) { }
+        public void BeforeXmlClassify(XElement xml) { }
+        public void BeforeXmlDeclassify(XElement xml) { }
     }
 
-    /// <summary>
-    /// Thrown from a layer or effect implementation to report an error that the user can fix or needs to know about.
-    /// </summary>
+    /// <summary>Thrown from a layer or effect implementation to report an error that the user can fix or needs to know about.</summary>
     class StyleUserError : Exception
     {
         public StyleUserError(string message) : base(message) { }

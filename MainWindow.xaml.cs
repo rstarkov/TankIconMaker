@@ -451,13 +451,13 @@ namespace TankIconMaker
 
             var style = App.Settings.ActiveStyle;
             foreach (var layer in style.Layers)
-                TestLayer(layer, App.Settings.ActiveInstallation);
+                TestLayer(style, layer, App.Settings.ActiveInstallation);
 
             var tasks = new List<Action>();
             for (int i = 0; i < renderTasks.Count; i++)
             {
                 if (i >= images.Count)
-                    images.Add(CreateTankImageControl());
+                    images.Add(CreateTankImageControl(style));
                 var renderTask = renderTasks[i];
                 var image = images[i];
 
@@ -522,14 +522,14 @@ namespace TankIconMaker
         /// Tests the specified layer instance for its handling of missing extra properties (and possibly other problems). Adds an
         /// appropriate warning message if a problem is detected.
         /// </summary>
-        private void TestLayer(LayerBase layer, GameInstallation gameInstallation)
+        private void TestLayer(Style style, LayerBase layer, GameInstallation gameInstallation)
         {
             // Test missing extra properties
             _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingExtra);
             try
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
-                tank.LoadedImage = new BitmapRam(80, 24);
+                tank.LoadedImage = new BitmapRam(style.IconWidth, style.IconHeight);
                 layer.Draw(tank);
             }
             catch (Exception e)
@@ -547,7 +547,7 @@ namespace TankIconMaker
             {
                 var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
                 tank.PropertyValue = "z"; // very short, so substring/indexing can fail, also not parseable as integer. Hopefully "unexpected enough".
-                tank.LoadedImage = new BitmapRam(80, 24);
+                tank.LoadedImage = new BitmapRam(style.IconWidth, style.IconHeight);
                 layer.Draw(tank);
             }
             catch (Exception e)
@@ -583,7 +583,7 @@ namespace TankIconMaker
         {
             try
             {
-                var result = new BitmapWpf(80, 24);
+                var result = new BitmapWpf(style.IconWidth, style.IconHeight);
                 using (result.UseWrite())
                 {
                     foreach (var layer in style.Layers.Where(l => l.Visible && l.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
@@ -593,10 +593,10 @@ namespace TankIconMaker
                             continue;
                         foreach (var effect in layer.Effects.Where(e => e is Effects.SizePosEffect && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
                             img = effect.Apply(renderTask.Tank, img.AsWritable());
-                        if (layer.Effects.Count > 0 && (img.Width < 80 || img.Height < 24))
+                        if (layer.Effects.Count > 0 && (img.Width < style.IconWidth || img.Height < style.IconHeight))
                         {
                             var imgOrig = img;
-                            img = new BitmapRam(Math.Max(80, img.Width), Math.Max(24, img.Height));
+                            img = new BitmapRam(Math.Max(style.IconWidth, img.Width), Math.Max(style.IconHeight, img.Height));
                             img.DrawImage(imgOrig);
                         }
                         foreach (var effect in layer.Effects.Where(e => !(e is Effects.SizePosEffect) && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
@@ -609,7 +609,7 @@ namespace TankIconMaker
             }
             catch (Exception e)
             {
-                renderTask.Image = Ut.NewBitmapWpf(dc =>
+                renderTask.Image = Ut.NewBitmapWpf(style.IconWidth, style.IconHeight, dc =>
                 {
                     dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(180, 255, 255, 255)), null, new Rect(0.5, 1.5, 79, 21));
                     var pen = new Pen(e is StyleUserError ? Brushes.Green : Brushes.Red, 2);
@@ -627,7 +627,7 @@ namespace TankIconMaker
         /// Creates a TankImageControl and adds it to the scrollable tank image area. This involves a bunch of properties,
         /// event handlers, and bindings, and is hence abstracted into a method.
         /// </summary>
-        private TankImageControl CreateTankImageControl()
+        private TankImageControl CreateTankImageControl(Style style)
         {
             var img = new TankImageControl
             {
@@ -640,11 +640,11 @@ namespace TankIconMaker
             img.MouseLeftButtonUp += TankImage_MouseLeftButtonUp;
             BindingOperations.SetBinding(img, TankImageControl.WidthProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => 80.0 * (check ? 5 : 1) / App.DpiScaleX
+                (bool check) => (double) style.IconWidth * (check ? 5 : 1) / App.DpiScaleX
             ));
             BindingOperations.SetBinding(img, TankImageControl.HeightProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => 24.0 * (check ? 5 : 1) / App.DpiScaleY
+                (bool check) => (double) style.IconHeight * (check ? 5 : 1) / App.DpiScaleY
             ));
             ctIconsPanel.Children.Add(img);
             return img;
@@ -732,6 +732,7 @@ namespace TankIconMaker
         private void ctStyleDropdown_SelectionChanged(object sender = null, SelectionChangedEventArgs __ = null)
         {
             _renderResults.Clear();
+            ctIconsPanel.Children.Clear();
             App.Settings.ActiveStyle = (Style) ctStyleDropdown.SelectedItem;
             ctUpvote.Visibility = App.Settings.ActiveStyle.Kind == StyleKind.BuiltIn ? Visibility.Visible : Visibility.Collapsed;
             SaveSettings();
@@ -1525,6 +1526,8 @@ namespace TankIconMaker
             var style = new Style();
             style.Name = name;
             style.Author = App.Translation.Misc.NameOfNewStyleAuthor;
+            style.IconWidth = 84;
+            style.IconHeight = 24;
             style.Layers.Add(new TankImageLayer { Name = App.Translation.Misc.NameOfTankImageLayer });
             App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;

@@ -166,7 +166,7 @@ namespace TankIconMaker.Effects
 
 #if true
             // Using GDI: sharp-ish downscaling, but imprecise boundaries
-            var result = new BitmapGdi(Math.Max(layer.Width, 80), Math.Max(layer.Height, 24));
+            var result = new BitmapGdi(Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight));
             using (var dc = Graphics.FromImage(result.Bitmap))
             {
                 dc.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -195,7 +195,7 @@ namespace TankIconMaker.Effects
                     dc.DrawLine(pen, new System.Windows.Point(X - 1 + 0.5, Y + 0.5), new System.Windows.Point(X + 1 + 0.5, Y + 0.5));
                     dc.DrawLine(pen, new System.Windows.Point(X + 0.5, Y - 1 + 0.5), new System.Windows.Point(X + 0.5, Y + 1 + 0.5));
                 }
-            }, Math.Max(layer.Width, 80), Math.Max(layer.Height, 24));
+            }, Math.Max(layer.Width, Layer.Style.IconWidth), Math.Max(layer.Height, Layer.Style.IconHeight));
 #endif
 
             GC.KeepAlive(src);
@@ -233,7 +233,7 @@ namespace TankIconMaker.Effects
                 }
                 else
                 {
-                    X = 80 / 2;
+                    X = 80 / 2; // ok to hard-code 80 because that was the IconWidth of all styles as old as this one
                     anchor = AnchorRaw.Center;
                 }
 
@@ -254,7 +254,7 @@ namespace TankIconMaker.Effects
                 }
                 else
                 {
-                    Y = 24 / 2;
+                    Y = 24 / 2; // ok to hard-code 24 because that was the IconHeight of all styles as old as this one
                     anchor |= AnchorRaw.Mid;
                 }
 
