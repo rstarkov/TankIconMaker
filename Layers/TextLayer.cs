@@ -69,7 +69,7 @@ namespace TankIconMaker.Layers
 
         public override BitmapBase Draw(Tank tank)
         {
-            return Ut.NewBitmapGdi(dc =>
+            return Ut.NewBitmapGdi(ParentStyle.IconWidth, ParentStyle.IconHeight, dc =>
             {
                 var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
                 dc.TextRenderingHint = FontSmoothing.ToGdi();
@@ -109,7 +109,7 @@ namespace TankIconMaker.Layers
                 }
                 else
                 {
-                    X = 80 / 2;
+                    X = 80 / 2; // ok to hard-code 80 because that was the IconWidth of all styles as old as this one
                     anchor = AnchorRaw.Center;
                 }
 
@@ -130,7 +130,7 @@ namespace TankIconMaker.Layers
                 }
                 else
                 {
-                    Y = 24 / 2;
+                    Y = 24 / 2; // ok to hard-code 24 because that was the IconHeight of all styles as old as this one
                     anchor |= AnchorRaw.Mid;
                 }
 

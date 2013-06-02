@@ -30,6 +30,9 @@ namespace TankIconMaker
         [Browsable(false)]
         public Visibility NameVisibility { get { return string.IsNullOrEmpty(Name) ? Visibility.Collapsed : Visibility.Visible; } }
 
+        /// <summary>Keeps track of the style that this layer belongs to. This value is kept up-to-date automatically.</summary>
+        [Browsable(false), XmlIgnore]
+        public Style ParentStyle { get; set; }
         [Browsable(false)]
         public ObservableCollection<EffectBase> Effects { get; set; }
 

@@ -39,8 +39,8 @@ namespace TankIconMaker.Layers
             {
                 rectWidth = rnd.Next(1, 70);
                 rectHeight = rnd.Next(1, 20);
-                x = rnd.Next(0, 80 - rectWidth);
-                y = rnd.Next(0, 24 - rectHeight);
+                x = rnd.Next(0, ParentStyle.IconWidth - rectWidth);
+                y = rnd.Next(0, ParentStyle.IconHeight - rectHeight);
                 layerWidth = x + rectWidth + rnd.Next(0, 10);
                 layerHeight = y + rectHeight + rnd.Next(0, 10);
             }

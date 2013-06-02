@@ -52,10 +52,10 @@ namespace TankIconMaker.Layers
                 EndPoint = new Point(0, 1),
             };
 
-            return Ut.NewBitmapWpf(dc =>
+            return Ut.NewBitmapWpf(ParentStyle.IconWidth, ParentStyle.IconHeight, dc =>
             {
-                dc.DrawRectangle(brush, outline, new Rect(0.5, 1.5, 79, 21));
-                dc.DrawRectangle(null, outlineInner, new Rect(1.5, 2.5, 77, 19));
+                dc.DrawRectangle(brush, outline, new Rect(0.5, 1.5, ParentStyle.IconWidth - 1, ParentStyle.IconHeight - 3));
+                dc.DrawRectangle(null, outlineInner, new Rect(1.5, 2.5, ParentStyle.IconWidth - 3, ParentStyle.IconHeight - 5));
             }).ToBitmapRam();
         }
     }

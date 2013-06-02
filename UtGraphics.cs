@@ -11,9 +11,9 @@ namespace TankIconMaker
 {
     static partial class Ut
     {
-        /// <summary>Returns a new blank (transparent) GDI bitmap of the standard icon size (80x24).</summary>
+        /// <summary>Returns a new blank (transparent) GDI bitmap of the specified size.</summary>
         /// <param name="draw">Optionally a method to draw into the returned image.</param>
-        public static BitmapGdi NewBitmapGdi(Action<D.Graphics> draw = null, int width = 80, int height = 24)
+        public static BitmapGdi NewBitmapGdi(int width, int height, Action<D.Graphics> draw)
         {
             var result = new BitmapGdi(width, height);
             if (draw != null)
@@ -22,9 +22,9 @@ namespace TankIconMaker
             return result;
         }
 
-        /// <summary>Returns a new blank (transparent) WPF bitmap of the standard icon size (80x24).</summary>
+        /// <summary>Returns a new blank (transparent) WPF bitmap of the specified size.</summary>
         /// <param name="draw">A method to draw into the returned image.</param>
-        public static BitmapSource NewBitmapWpf(Action<DrawingContext> draw, int width = 80, int height = 24)
+        public static BitmapSource NewBitmapWpf(int width, int height, Action<DrawingContext> draw)
         {
             var bmp = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
             var visual = new DrawingVisual();
@@ -68,7 +68,7 @@ namespace TankIconMaker
 
         public static BitmapGdi ToBitmapGdi(this D.Image src)
         {
-            return Ut.NewBitmapGdi(dc => { dc.DrawImageUnscaled(src, 0, 0); }, src.Width, src.Height);
+            return Ut.NewBitmapGdi(src.Width, src.Height, dc => { dc.DrawImageUnscaled(src, 0, 0); });
         }
 
         /// <summary>Converts this value to the System.Drawing-compatible enum type.</summary>

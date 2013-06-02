@@ -50,7 +50,7 @@ namespace TankIconMaker.Effects
                     ? layer.PreciseSize(PixelAlphaThreshold)
                 : Mode == ClipMode.ByLayerBounds
                     ? PixelRect.FromMixed(0, 0, layer.Width, layer.Height)
-                    : PixelRect.FromMixed(0, 0, 80, 24);
+                    : PixelRect.FromMixed(0, 0, Layer.ParentStyle.IconWidth, Layer.ParentStyle.IconHeight);
 
             using (layer.UseWrite())
             {
