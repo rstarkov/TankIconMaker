@@ -156,6 +156,10 @@
                         </StackPanel>
                         <Button.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header="Icon width" Name="ctStyleIconWidth" Command="src:TankStyleCommands.IconWidth"/>
+                                <MenuItem Header="Icon height" Name="ctStyleIconHeight" Command="src:TankStyleCommands.IconHeight"/>
+                                <MenuItem Header="Centerable" Name="ctStyleCenterable" Command="src:TankStyleCommands.Centerable"/>
+                                <Separator/>
                                 <MenuItem Header="Change _name" Name="ctStyleChangeName" Command="src:TankStyleCommands.ChangeName"/>
                                 <MenuItem Header="Change _author" Name="ctStyleChangeAuthor" Command="src:TankStyleCommands.ChangeAuthor"/>
                                 <Separator/>

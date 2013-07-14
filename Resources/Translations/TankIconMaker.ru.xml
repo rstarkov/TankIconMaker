@@ -57,6 +57,18 @@
       <Translation>_Ещё</Translation>
       <Old>_More</Old>
     </ctStyleMoreLabel>
+    <ctStyleIconWidth>
+      <Translation>_Ширина иконок</Translation>
+      <Old>Icon width</Old>
+    </ctStyleIconWidth>
+    <ctStyleIconHeight>
+      <Translation>_Высота иконок</Translation>
+      <Old>Icon height</Old>
+    </ctStyleIconHeight>
+    <ctStyleCenterable>
+      <Translation>_Центрирующиеся</Translation>
+      <Old>Centerable</Old>
+    </ctStyleCenterable>
     <ctStyleChangeName>
       <Translation>Изменить _название</Translation>
       <Old>Change _name</Old>
@@ -1533,6 +1545,34 @@
       <Translation>_Название нового стиля:</Translation>
       <Old>New style _name:</Old>
     </DuplicateStyle_Label>
+    <IconDims_Title>
+      <Translation>Размеры иконок</Translation>
+      <Old>Icon dimensions</Old>
+    </IconDims_Title>
+    <IconDims_Width>
+      <Translation>Введите ширину иконок в пикселях:</Translation>
+      <Old>Please enter the width of the icons, in pixels:</Old>
+    </IconDims_Width>
+    <IconDims_Height>
+      <Translation>Введите высоту иконок в пикселях:</Translation>
+      <Old>Please enter the height of the icons, in pixels:</Old>
+    </IconDims_Height>
+    <IconDims_NumberError>
+      <Translation>Введите целое число больше нуля.</Translation>
+      <Old>Please enter a whole number greater than zero.</Old>
+    </IconDims_NumberError>
+    <Centerable_Prompt>
+      <Translation encoding="c-literal">Выберите один из двух типов иконок:\r\n\r\n• Центрирующиеся иконки поддерживают горизонтальное центрирование над танками. Ширина иконок варьируется.\r\n• Иконки с фиксированной шириной будут правильно центрироваться только если изображение танка расположено по центру иконки.\r\n\r\nДанная настройка не имеет видимого эффекта в программе, так как все иконки отображаются с выравниванием по левому краю. Эффект настройки будет заметен в игре если в иконке имеется много неиспользуемого места.\r\n\r\nТекущий режим у данного стиля: {0}.</Translation>
+      <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within TankIconMaker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
+    </Centerable_Prompt>
+    <Centerable_Yes>
+      <Translation>Центрирующиеся</Translation>
+      <Old>Centerable</Old>
+    </Centerable_Yes>
+    <Centerable_No>
+      <Translation>Фиксированная ширина</Translation>
+      <Old>Fixed-width</Old>
+    </Centerable_No>
     <Cancel>
       <Translation>Отмена</Translation>
       <Old>Cancel</Old>

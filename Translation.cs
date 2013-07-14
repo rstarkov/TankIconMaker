@@ -640,6 +640,13 @@ namespace TankIconMaker
         public TrString ChangeAuthor_Label = "New style _author:";
         public TrString DuplicateStyle_Title = "Duplicate style";
         public TrString DuplicateStyle_Label = "New style _name:";
+        public TrString IconDims_Title = "Icon dimensions";
+        public TrString IconDims_Width = "Please enter the width of the icons, in pixels:";
+        public TrString IconDims_Height = "Please enter the height of the icons, in pixels:";
+        public TrString IconDims_NumberError = "Please enter a whole number greater than zero.";
+        public TrString Centerable_Prompt = "Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within TankIconMaker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.";
+        public TrString Centerable_Yes = "Centerable";
+        public TrString Centerable_No = "Fixed-width";
 
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
         public TrString Cancel = "Cancel";
