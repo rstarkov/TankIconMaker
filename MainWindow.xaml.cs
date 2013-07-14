@@ -130,6 +130,9 @@ namespace TankIconMaker
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Duplicate, cmdStyle_Duplicate));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Import, cmdStyle_Import));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Export, cmdStyle_Export));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.IconWidth, cmdStyle_IconWidth));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.IconHeight, cmdStyle_IconHeight));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.Centerable, cmdStyle_Centerable));
 
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
@@ -1637,6 +1640,67 @@ namespace TankIconMaker
             DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
         }
 
+        private void cmdStyle_IconWidth(object sender, ExecutedRoutedEventArgs e)
+        {
+            // note: most of this code is duplicated below
+            again: ;
+            var widthStr = InputBox.GetLine(App.Translation.Prompt.IconDims_Width, App.Settings.ActiveStyle.IconWidth.ToString(), App.Translation.Prompt.IconDims_Title, App.Translation.DlgMessage.OK, App.Translation.Prompt.Cancel);
+            if (widthStr == null)
+                return;
+            int width;
+            if (!int.TryParse(widthStr, out width) || width <= 0)
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.IconDims_NumberError);
+                goto again;
+            }
+            if (App.Settings.ActiveStyle.IconWidth == width)
+                return;
+            var style = GetEditableStyle();
+            style.IconWidth = width;
+            SaveSettings();
+            _renderResults.Clear();
+            ctIconsPanel.Children.Clear(); // they need to be recreated with a new size
+            UpdateIcons();
+        }
+
+        private void cmdStyle_IconHeight(object sender, ExecutedRoutedEventArgs e)
+        {
+            // note: most of this code is duplicated above
+            again: ;
+            var heightStr = InputBox.GetLine(App.Translation.Prompt.IconDims_Height, App.Settings.ActiveStyle.IconHeight.ToString(), App.Translation.Prompt.IconDims_Title, App.Translation.DlgMessage.OK, App.Translation.Prompt.Cancel);
+            if (heightStr == null)
+                return;
+            int height;
+            if (!int.TryParse(heightStr, out height) || height <= 0)
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.IconDims_NumberError);
+                goto again;
+            }
+            if (App.Settings.ActiveStyle.IconHeight == height)
+                return;
+            var style = GetEditableStyle();
+            style.IconHeight = height;
+            SaveSettings();
+            _renderResults.Clear();
+            ctIconsPanel.Children.Clear(); // they need to be recreated with a new size
+            UpdateIcons();
+        }
+
+        private void cmdStyle_Centerable(object sender, ExecutedRoutedEventArgs e)
+        {
+            var choice = DlgMessage.ShowQuestion(App.Translation.Prompt.Centerable_Prompt.Fmt(App.Settings.ActiveStyle.Centerable ? App.Translation.Prompt.Centerable_Yes : App.Translation.Prompt.Centerable_No),
+                App.Translation.Prompt.Centerable_Yes, App.Translation.Prompt.Centerable_No, App.Translation.Prompt.Cancel);
+            if (choice == 2)
+                return;
+            if (App.Settings.ActiveStyle.Centerable == (choice == 0))
+                return;
+            var style = GetEditableStyle();
+            style.Centerable = (choice == 0);
+            SaveSettings();
+            _renderResults.Clear();
+            UpdateIcons();
+        }
+
         private abstract class Warning
         {
             public string Text { get; protected set; }
@@ -1669,6 +1733,9 @@ namespace TankIconMaker
         public static RoutedCommand Duplicate = new RoutedCommand();
         public static RoutedCommand Import = new RoutedCommand();
         public static RoutedCommand Export = new RoutedCommand();
+        public static RoutedCommand IconWidth = new RoutedCommand();
+        public static RoutedCommand IconHeight = new RoutedCommand();
+        public static RoutedCommand Centerable = new RoutedCommand();
     }
 
     /// <summary>
