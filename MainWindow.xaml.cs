@@ -1538,7 +1538,7 @@ namespace TankIconMaker
             var style = new Style();
             style.Name = name;
             style.Author = App.Translation.Misc.NameOfNewStyleAuthor;
-            style.IconWidth = 84;
+            style.IconWidth = 80;
             style.IconHeight = 24;
             style.Centerable = true;
             style.Layers.Add(new TankImageLayer { Name = App.Translation.Misc.NameOfTankImageLayer });
