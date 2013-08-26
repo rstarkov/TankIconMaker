@@ -57,6 +57,18 @@
       <Translation>_Mehr</Translation>
       <Old>_More</Old>
     </ctStyleMoreLabel>
+    <ctStyleIconWidth>
+      <Translation>Icon width</Translation>
+      <Old null="1" />
+    </ctStyleIconWidth>
+    <ctStyleIconHeight>
+      <Translation>Icon height</Translation>
+      <Old null="1" />
+    </ctStyleIconHeight>
+    <ctStyleCenterable>
+      <Translation>Centerable</Translation>
+      <Old null="1" />
+    </ctStyleCenterable>
     <ctStyleChangeName>
       <Translation>_Namen ändern</Translation>
       <Old>Change _name</Old>
@@ -141,6 +153,10 @@
       <Translation>China</Translation>
       <Old>China</Old>
     </ctDisplayModeCountryChina>
+    <ctDisplayModeCountryJapan>
+      <Translation>Japan</Translation>
+      <Old>Japan</Old>
+    </ctDisplayModeCountryJapan>
     <ctDisplayModeClassLight>
       <Translation>Leichte Panzer</Translation>
       <Old>Light tanks</Old>
@@ -221,6 +237,34 @@
       <Translation>Nur Symbole für _Panzerjäger...</Translation>
       <Old>Only _destroyer icons...</Old>
     </ctBrowseAndSaveIcons_Destroyer>
+    <ctBrowseAndSaveIcons_USSR>
+      <Translation>Only _USSR...</Translation>
+      <Old null="1" />
+    </ctBrowseAndSaveIcons_USSR>
+    <ctBrowseAndSaveIcons_Germany>
+      <Translation>Only G_ermany...</Translation>
+      <Old null="1" />
+    </ctBrowseAndSaveIcons_Germany>
+    <ctBrowseAndSaveIcons_USA>
+      <Translation>Only U_SA...</Translation>
+      <Old null="1" />
+    </ctBrowseAndSaveIcons_USA>
+    <ctBrowseAndSaveIcons_France>
+      <Translation>Only _France...</Translation>
+      <Old null="1" />
+    </ctBrowseAndSaveIcons_France>
+    <ctBrowseAndSaveIcons_UK>
+      <Translation>Only U_K...</Translation>
+      <Old null="1" />
+    </ctBrowseAndSaveIcons_UK>
+    <ctBrowseAndSaveIcons_China>
+      <Translation>Only _China...</Translation>
+      <Old null="1" />
+    </ctBrowseAndSaveIcons_China>
+    <ctBrowseAndSaveIcons_Japan>
+      <Translation>Only _Japan...</Translation>
+      <Old null="1" />
+    </ctBrowseAndSaveIcons_Japan>
     <ctReloadLabel>
       <Translation>Daten neu _laden</Translation>
       <Old>_Reload data</Old>
@@ -1377,6 +1421,10 @@
       <Translation>Klasse: Artillerie</Translation>
       <Old>Class: Artillery</Old>
     </ClassArtillery>
+    <ClassNone>
+      <Translation>Class:  None</Translation>
+      <Old null="1" />
+    </ClassNone>
     <CountryUSSR>
       <Translation>Land: UdSSR</Translation>
       <Old>Country: USSR</Old>
@@ -1401,6 +1449,14 @@
       <Translation>Land: Großbritannien</Translation>
       <Old>Country: UK</Old>
     </CountryUK>
+    <CountryJapan>
+      <Translation>Land: Japan</Translation>
+      <Old>Country: Japan</Old>
+    </CountryJapan>
+    <CountryNone>
+      <Translation>Country:  None</Translation>
+      <Old null="1" />
+    </CountryNone>
     <CategNormal>
       <Translation>Verf.: Normal</Translation>
       <Old>Avail.: Normal</Old>
@@ -1425,6 +1481,10 @@
       <Translation>Stufe: {0,2}</Translation>
       <Old>Tier: {0,2}</Old>
     </TierN>
+    <TierNone>
+      <Translation>Tier: None</Translation>
+      <Old null="1" />
+    </TierNone>
   </Selector>
   <DlgMessage>
     <OK>
@@ -1497,6 +1557,34 @@
       <Translation>_Name des Duplikats:</Translation>
       <Old>New style _name:</Old>
     </DuplicateStyle_Label>
+    <IconDims_Title>
+      <Translation>Icon dimensions</Translation>
+      <Old null="1" />
+    </IconDims_Title>
+    <IconDims_Width>
+      <Translation>Please enter the width of the icons, in pixels:</Translation>
+      <Old null="1" />
+    </IconDims_Width>
+    <IconDims_Height>
+      <Translation>Please enter the height of the icons, in pixels:</Translation>
+      <Old null="1" />
+    </IconDims_Height>
+    <IconDims_NumberError>
+      <Translation>Please enter a whole number greater than zero.</Translation>
+      <Old null="1" />
+    </IconDims_NumberError>
+    <Centerable_Prompt>
+      <Translation encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within TankIconMaker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Translation>
+      <Old null="1" />
+    </Centerable_Prompt>
+    <Centerable_Yes>
+      <Translation>Centerable</Translation>
+      <Old null="1" />
+    </Centerable_Yes>
+    <Centerable_No>
+      <Translation>Fixed-width</Translation>
+      <Old null="1" />
+    </Centerable_No>
     <Cancel>
       <Translation>Abbrechen</Translation>
       <Old>Cancel</Old>
@@ -1525,6 +1613,10 @@
       <Translation encoding="c-literal">Symbole in „{0}“ gespeichert.\r\n\r\n• Manche Symbol erscheinen möglicherweise spiegelverkehrt.\r\n• Das Spiel stellt möglicherweise die Panzerstufe zusätzlich auf den Symbolen dar.\r\n\r\nUm diese Probleme zu beheben, folgen Sie den Anleitungen im Tank-Icon-Maker-Posting im World-of-Tanks-Forum.</Translation>
       <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
     </IconsSaved>
+    <IconsSavedGoToForum>
+      <Translation>Open &amp;forum in browser</Translation>
+      <Old null="1" />
+    </IconsSavedGoToForum>
     <IconsSaveSkipped>
       <IsNumber>
         <item>True</item>

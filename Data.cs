@@ -198,9 +198,10 @@ namespace TankIconMaker
                 case "china": Country = Country.China; break;
                 case "france": Country = Country.France; break;
                 case "uk": Country = Country.UK; break;
+                case "japan": Country = Country.Japan; break;
                 case "none": Country = Country.None; break;
                 default: throw new Exception(App.Translation.Error.DataFile_UnrecognizedCountry.Fmt(fields[1],
-                    new[] { "ussr", "germany", "usa", "china", "france", "uk", "none" }.JoinString(", ", "\"", "\"")));
+                    new[] { "ussr", "germany", "usa", "china", "france", "uk", "japan", "none" }.JoinString(", ", "\"", "\"")));
             }
 
             int tier;
@@ -849,6 +850,7 @@ namespace TankIconMaker
         France,
         China,
         UK,
+        Japan,
         None,
     }
 
