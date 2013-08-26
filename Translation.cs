@@ -644,7 +644,7 @@ namespace TankIconMaker
         public TrString IconDims_Width = "Please enter the width of the icons, in pixels:";
         public TrString IconDims_Height = "Please enter the height of the icons, in pixels:";
         public TrString IconDims_NumberError = "Please enter a whole number greater than zero.";
-        public TrString Centerable_Prompt = "Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within TankIconMaker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.";
+        public TrString Centerable_Prompt = "Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.";
         public TrString Centerable_Yes = "Centerable";
         public TrString Centerable_No = "Fixed-width";
 
