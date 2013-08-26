@@ -153,6 +153,10 @@
       <Translation>Китай</Translation>
       <Old>China</Old>
     </ctDisplayModeCountryChina>
+    <ctDisplayModeCountryJapan>
+      <Translation>Япония</Translation>
+      <Old>Japan</Old>
+    </ctDisplayModeCountryJapan>
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -257,6 +261,10 @@
       <Translation>Только иконки _Китая...</Translation>
       <Old>Only _China...</Old>
     </ctBrowseAndSaveIcons_China>
+    <ctBrowseAndSaveIcons_Japan>
+      <Translation>Только иконки _Японии...</Translation>
+      <Old>Only _Japan...</Old>
+    </ctBrowseAndSaveIcons_Japan>
     <ctReloadLabel>
       <Translation>_Обновить данные</Translation>
       <Old>_Reload data</Old>
@@ -1415,7 +1423,7 @@
     </ClassArtillery>
     <ClassNone>
       <Translation>Класс:  без класса</Translation>
-      <Old>Class: None</Old>
+      <Old>Class:  None</Old>
     </ClassNone>
     <CountryUSSR>
       <Translation>Страна: СССР</Translation>
@@ -1441,9 +1449,13 @@
       <Translation>Страна: Великобритания</Translation>
       <Old>Country: UK</Old>
     </CountryUK>
+    <CountryJapan>
+      <Translation>Страна: Япония</Translation>
+      <Old>Country: Japan</Old>
+    </CountryJapan>
     <CountryNone>
       <Translation>Страна:  без страны</Translation>
-      <Old>Country: None</Old>
+      <Old>Country:  None</Old>
     </CountryNone>
     <CategNormal>
       <Translation>Доступ: Обычный</Translation>

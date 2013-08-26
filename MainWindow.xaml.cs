@@ -782,6 +782,7 @@ namespace TankIconMaker
                 case DisplayFilter.China: selection = builtin.Data.Where(t => t.Country == Country.China); break;
                 case DisplayFilter.France: selection = builtin.Data.Where(t => t.Country == Country.France); break;
                 case DisplayFilter.Germany: selection = builtin.Data.Where(t => t.Country == Country.Germany); break;
+                case DisplayFilter.Japan: selection = builtin.Data.Where(t => t.Country == Country.Japan); break;
                 case DisplayFilter.UK: selection = builtin.Data.Where(t => t.Country == Country.UK); break;
                 case DisplayFilter.USA: selection = builtin.Data.Where(t => t.Country == Country.USA); break;
                 case DisplayFilter.USSR: selection = builtin.Data.Where(t => t.Country == Country.USSR); break;
@@ -1150,6 +1151,7 @@ namespace TankIconMaker
             ctBrowseAndSaveIcons_France.IsChecked = _saveIconsToFolder && Country.France.Equals(App.Settings.SaveToFolderFilter);
             ctBrowseAndSaveIcons_UK.IsChecked = _saveIconsToFolder && Country.UK.Equals(App.Settings.SaveToFolderFilter);
             ctBrowseAndSaveIcons_China.IsChecked = _saveIconsToFolder && Country.China.Equals(App.Settings.SaveToFolderFilter);
+            ctBrowseAndSaveIcons_Japan.IsChecked = _saveIconsToFolder && Country.Japan.Equals(App.Settings.SaveToFolderFilter);
             menu.IsOpen = true;
         }
 
@@ -1186,6 +1188,7 @@ namespace TankIconMaker
         private void BrowseAndSaveIcons_France(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.France); }
         private void BrowseAndSaveIcons_UK(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.UK); }
         private void BrowseAndSaveIcons_China(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.China); }
+        private void BrowseAndSaveIcons_Japan(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.Japan); }
 
         private void ctAbout_Click(object sender, RoutedEventArgs e)
         {
