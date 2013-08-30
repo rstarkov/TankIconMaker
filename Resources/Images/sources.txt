@@ -6,4 +6,5 @@ From Lesic's TIMPack (not all of these are original work):
  - country3-*
  - country4-*
  - country5-*
+ - country6-*
  - tierA-*
