@@ -58,16 +58,16 @@
       <Old>_More</Old>
     </ctStyleMoreLabel>
     <ctStyleIconWidth>
-      <Translation>Icon width</Translation>
-      <Old null="1" />
+      <Translation>Symbolbreite</Translation>
+      <Old>Icon width</Old>
     </ctStyleIconWidth>
     <ctStyleIconHeight>
-      <Translation>Icon height</Translation>
-      <Old null="1" />
+      <Translation>Symbolhöhe</Translation>
+      <Old>Icon height</Old>
     </ctStyleIconHeight>
     <ctStyleCenterable>
-      <Translation>Centerable</Translation>
-      <Old null="1" />
+      <Translation>Zentrierbar</Translation>
+      <Old>Centerable</Old>
     </ctStyleCenterable>
     <ctStyleChangeName>
       <Translation>_Namen ändern</Translation>
@@ -226,11 +226,11 @@
       <Old>Only _medium tank icons...</Old>
     </ctBrowseAndSaveIcons_Medium>
     <ctBrowseAndSaveIcons_Heavy>
-      <Translation>Nur Symbole für _schwere Panzer...</Translation>
+      <Translation>Nur Symbole für s_chwere Panzer...</Translation>
       <Old>Only _heavy tank icons...</Old>
     </ctBrowseAndSaveIcons_Heavy>
     <ctBrowseAndSaveIcons_Artillery>
-      <Translation>Nur Symbole für _Artillerie...</Translation>
+      <Translation>Nur Symbole für A_rtillerie...</Translation>
       <Old>Only a_rtillery icons...</Old>
     </ctBrowseAndSaveIcons_Artillery>
     <ctBrowseAndSaveIcons_Destroyer>
@@ -238,32 +238,32 @@
       <Old>Only _destroyer icons...</Old>
     </ctBrowseAndSaveIcons_Destroyer>
     <ctBrowseAndSaveIcons_USSR>
-      <Translation>Only _USSR...</Translation>
-      <Old null="1" />
+      <Translation>Nur _UdSSR...</Translation>
+      <Old>Only _USSR...</Old>
     </ctBrowseAndSaveIcons_USSR>
     <ctBrowseAndSaveIcons_Germany>
-      <Translation>Only G_ermany...</Translation>
-      <Old null="1" />
+      <Translation>Nur _Deutschland...</Translation>
+      <Old>Only G_ermany...</Old>
     </ctBrowseAndSaveIcons_Germany>
     <ctBrowseAndSaveIcons_USA>
-      <Translation>Only U_SA...</Translation>
-      <Old null="1" />
+      <Translation>Nur U_SA...</Translation>
+      <Old>Only U_SA...</Old>
     </ctBrowseAndSaveIcons_USA>
     <ctBrowseAndSaveIcons_France>
-      <Translation>Only _France...</Translation>
-      <Old null="1" />
+      <Translation>Nur _Frankreich...</Translation>
+      <Old>Only _France...</Old>
     </ctBrowseAndSaveIcons_France>
     <ctBrowseAndSaveIcons_UK>
-      <Translation>Only U_K...</Translation>
-      <Old null="1" />
+      <Translation>Nur _Großbritannien...</Translation>
+      <Old>Only U_K...</Old>
     </ctBrowseAndSaveIcons_UK>
     <ctBrowseAndSaveIcons_China>
-      <Translation>Only _China...</Translation>
-      <Old null="1" />
+      <Translation>Nur _China...</Translation>
+      <Old>Only _China...</Old>
     </ctBrowseAndSaveIcons_China>
     <ctBrowseAndSaveIcons_Japan>
-      <Translation>Only _Japan...</Translation>
-      <Old null="1" />
+      <Translation>Nur _Japan...</Translation>
+      <Old>Only _Japan...</Old>
     </ctBrowseAndSaveIcons_Japan>
     <ctReloadLabel>
       <Translation>Daten neu _laden</Translation>
@@ -1230,12 +1230,12 @@
       <Old>By %</Old>
     </ByPercentage>
     <BySizeWidthOnly>
-      <Translation>Nach Breite</Translation>
-      <Old>By width</Old>
+      <Translation>Nach Größe: Breite</Translation>
+      <Old>By size: width</Old>
     </BySizeWidthOnly>
     <BySizeHeightOnly>
-      <Translation>Nach Höhe</Translation>
-      <Old>By height</Old>
+      <Translation>Nach Größe: Höhe</Translation>
+      <Old>By size: height</Old>
     </BySizeHeightOnly>
     <BySizeFit>
       <Translation>Nach Größe: angleichen</Translation>
@@ -1422,8 +1422,8 @@
       <Old>Class: Artillery</Old>
     </ClassArtillery>
     <ClassNone>
-      <Translation>Class:  None</Translation>
-      <Old null="1" />
+      <Translation>Klasse: (keine)</Translation>
+      <Old>Class:  None</Old>
     </ClassNone>
     <CountryUSSR>
       <Translation>Land: UdSSR</Translation>
@@ -1454,8 +1454,8 @@
       <Old>Country: Japan</Old>
     </CountryJapan>
     <CountryNone>
-      <Translation>Country:  None</Translation>
-      <Old null="1" />
+      <Translation>Land: (kein)</Translation>
+      <Old>Country:  None</Old>
     </CountryNone>
     <CategNormal>
       <Translation>Verf.: Normal</Translation>
@@ -1482,8 +1482,8 @@
       <Old>Tier: {0,2}</Old>
     </TierN>
     <TierNone>
-      <Translation>Tier: None</Translation>
-      <Old null="1" />
+      <Translation>Stufe:  (keine)</Translation>
+      <Old>Tier: None</Old>
     </TierNone>
   </Selector>
   <DlgMessage>
@@ -1558,32 +1558,32 @@
       <Old>New style _name:</Old>
     </DuplicateStyle_Label>
     <IconDims_Title>
-      <Translation>Icon dimensions</Translation>
-      <Old null="1" />
+      <Translation>Symbolgröße</Translation>
+      <Old>Icon dimensions</Old>
     </IconDims_Title>
     <IconDims_Width>
-      <Translation>Please enter the width of the icons, in pixels:</Translation>
-      <Old null="1" />
+      <Translation>Bitte geben Sie die Breite der Symbole in Pixeln an:</Translation>
+      <Old>Please enter the width of the icons, in pixels:</Old>
     </IconDims_Width>
     <IconDims_Height>
-      <Translation>Please enter the height of the icons, in pixels:</Translation>
-      <Old null="1" />
+      <Translation>Bitte geben Sie die Höhe der Symbole in Pixeln an:</Translation>
+      <Old>Please enter the height of the icons, in pixels:</Old>
     </IconDims_Height>
     <IconDims_NumberError>
-      <Translation>Please enter a whole number greater than zero.</Translation>
-      <Old null="1" />
+      <Translation>Bitte geben Sie eine Ganzzahl größer als Null ein.</Translation>
+      <Old>Please enter a whole number greater than zero.</Old>
     </IconDims_NumberError>
     <Centerable_Prompt>
-      <Translation encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within TankIconMaker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Translation>
-      <Old null="1" />
+      <Translation encoding="c-literal">Bitte wählen Sie einen der zwei Modi für die Symbolbreite:\r\n\r\n• Zentrierbare Symbole können horizontal über dem Panzer zentriert werden. Die Breite der gespeicherten Symbole variiert also entsprechend.\r\n• Symbole mit Festbreite haben alle die gleiche Breite, aber werden dafür nur dann korrekt zentriert, wenn das Panzerbild bereits innerhalb der Symbolgrenzen zentriert ist.\r\n\r\nDiese Einstellung wirkt sich nur auf die Darstellung im Spiel aus, hat aber keine sichtbare Auswirkung innerhalb von Tank Icon Maker, da die Symbole hier immer links ausgerichtet werden.</Translation>
+      <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
     </Centerable_Prompt>
     <Centerable_Yes>
-      <Translation>Centerable</Translation>
-      <Old null="1" />
+      <Translation>Zentrierbar</Translation>
+      <Old>Centerable</Old>
     </Centerable_Yes>
     <Centerable_No>
-      <Translation>Fixed-width</Translation>
-      <Old null="1" />
+      <Translation>Festbreite</Translation>
+      <Old>Fixed-width</Old>
     </Centerable_No>
     <Cancel>
       <Translation>Abbrechen</Translation>
@@ -1614,8 +1614,8 @@
       <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
     </IconsSaved>
     <IconsSavedGoToForum>
-      <Translation>Open &amp;forum in browser</Translation>
-      <Old null="1" />
+      <Translation>&amp;Forum im Browser öffnen</Translation>
+      <Old>Open &amp;forum in browser</Old>
     </IconsSavedGoToForum>
     <IconsSaveSkipped>
       <IsNumber>
