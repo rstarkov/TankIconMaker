@@ -28,6 +28,7 @@
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
         <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
@@ -62,6 +63,7 @@
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
         <CountryUK>#FFFFFF</CountryUK>
+        <CountryJapan>#FFFFFF</CountryJapan>
         <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
@@ -99,6 +101,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -152,6 +155,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -197,6 +201,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -235,6 +240,7 @@
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
         <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
@@ -280,6 +286,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -316,6 +323,7 @@
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
             <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
@@ -350,6 +358,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -386,6 +395,7 @@
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
             <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#C9FF00</CategPremium>
@@ -417,6 +427,7 @@
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
         <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
@@ -456,6 +467,7 @@
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
         <CountryUK>#FFFFFF</CountryUK>
+        <CountryJapan>#FFFFFF</CountryJapan>
         <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#AFAFAF</CategNormal>
         <CategPremium>#FFFF00</CategPremium>
@@ -489,12 +501,13 @@
         <CountryFrance>France</CountryFrance>
         <CountryChina>中国</CountryChina>
         <CountryUK>UK</CountryUK>
+        <CountryJapan>日本</CountryJapan>
         <CountryNone></CountryNone>
         <CategNormal>•</CategNormal>
         <CategPremium>♦</CategPremium>
         <CategSpecial>∞</CategSpecial>
         <Single>Example</Single>
-        <TierNone></TierNone>
+        <TierNone>-</TierNone>
         <Tier1>I</Tier1>
         <Tier2>2</Tier2>
         <Tier3>3</Tier3>
@@ -533,6 +546,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -586,6 +600,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -620,6 +635,7 @@
             <CountryFrance>#FFFFFF</CountryFrance>
             <CountryChina>#FFFFFF</CountryChina>
             <CountryUK>#FFFFFF</CountryUK>
+            <CountryJapan>#FFFFFF</CountryJapan>
             <CountryNone>#FFFFFF</CountryNone>
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#FFFFFF</CategPremium>
@@ -652,6 +668,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -688,6 +705,7 @@
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
             <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
@@ -719,6 +737,7 @@
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
         <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
@@ -753,6 +772,7 @@
         <CountryFrance></CountryFrance>
         <CountryChina></CountryChina>
         <CountryUK></CountryUK>
+        <CountryJapan></CountryJapan>
         <CountryNone></CountryNone>
         <CategNormal></CategNormal>
         <CategPremium></CategPremium>
@@ -797,6 +817,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -847,6 +868,7 @@
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
         <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
@@ -881,6 +903,7 @@
         <CountryFrance>Images\country1-france.png</CountryFrance>
         <CountryChina>Images\country1-china.png</CountryChina>
         <CountryUK>Images\country1-uk.png</CountryUK>
+        <CountryJapan>Images\country1-japan.png</CountryJapan>
         <CountryNone></CountryNone>
         <CategNormal></CategNormal>
         <CategPremium></CategPremium>
@@ -925,6 +948,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -961,6 +985,7 @@
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
             <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
@@ -995,6 +1020,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -1031,6 +1057,7 @@
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
             <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
@@ -1065,6 +1092,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>No</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -1101,6 +1129,7 @@
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
             <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
@@ -1132,6 +1161,7 @@
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
         <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
@@ -1171,6 +1201,7 @@
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
         <CountryUK>#FFFFFF</CountryUK>
+        <CountryJapan>#FFFFFF</CountryJapan>
         <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#D2D2D2</CategNormal>
         <CategPremium>#FFFF00</CategPremium>
@@ -1219,6 +1250,7 @@
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
             <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
@@ -1255,6 +1287,7 @@
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
             <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
@@ -1286,6 +1319,7 @@
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
         <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
@@ -1325,6 +1359,7 @@
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
         <CountryUK>#FFFFFF</CountryUK>
+        <CountryJapan>#FFFFFF</CountryJapan>
         <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
