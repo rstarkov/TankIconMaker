@@ -11,17 +11,6 @@ ussr-Observer,none,0,none,special
 # Unknown tank is not actually listed in the game data, so add it
 noImage,none,0,none,special
 
-# These tanks are not available for purchase, but the game data record them as available for gold for some reason
-china-Ch01_Type59,,,,special
-china-Ch02_Type62,,,,special
-germany-B-1bis_captured,,,,special
-germany-H39_captured,,,,special
-germany-PzV_PzIV,,,,special
-usa-M6A2E1,,,,special
-ussr-A-32,,,,special
-ussr-KV-220_action,,,,special
-ussr-KV-5,,,,special
-
 # Remove training tanks, since these share the icon with the "real" tank
 china-Ch04_T34_1_training,,,,,,del
 germany-PzIII_training,,,,,,del
