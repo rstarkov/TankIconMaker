@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using RT.Util.Lingo;
+using WotDataLib;
 
 namespace TankIconMaker.Layers
 {

@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Xml;
+using WotDataLib;
 
 namespace TankIconMaker.Effects
 {

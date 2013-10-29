@@ -1,0 +1,128 @@
+WOT-BUILTIN,2
+
+# WARNING! It's best not to edit this file; if you make changes, the next
+#          release of Tank Icon Maker will overwrite them. You should
+#          instead create a file called "WotBuiltIn-2.csv" and add
+#          any of your own overrides in there. See Examples below.
+
+
+# Observer has special properties
+ussr-Observer,none,0,none,special
+# Unknown tank is not actually listed in the game data, so add it
+noImage,none,0,none,special
+
+# These tanks are not available for purchase, but the game data record them as available for gold for some reason
+china-Ch01_Type59,,,,special
+china-Ch02_Type62,,,,special
+germany-B-1bis_captured,,,,special
+germany-H39_captured,,,,special
+germany-PzV_PzIV,,,,special
+usa-M6A2E1,,,,special
+ussr-A-32,,,,special
+ussr-KV-220_action,,,,special
+ussr-KV-5,,,,special
+
+# Remove training tanks, since these share the icon with the "real" tank
+china-Ch04_T34_1_training,,,,,,del
+germany-PzIII_training,,,,,,del
+germany-PzV_training,,,,,,del
+germany-PzVIB_Tiger_II_training,,,,,,del
+usa-M4A3E8_Sherman_training,,,,,,del
+ussr-T-34-85_training,,,,,,del
+
+# Remove these tanks since they don't have contour icons (at least not in the Ru client)
+# If you require these tanks, see notes below for how to add your own tanks to the data files.
+usa-Sexton_I,,,,,,del
+usa-T23,,,,,,del
+china-Ch01_Type59_Gold,,,,,,del
+
+
+# EXAMPLES #
+#
+# Please read the warning at the top of the file and place your additions INTO A NEW FILE
+# named "WotBuiltIn-2.csv"
+
+
+# ussr-SomeTank,,,,,,del
+#
+# Hide SomeTank completely, regardless of game version. Use this to hide "weird" tanks
+# not available in your region.
+
+
+# ussr-SomeTank,ussr,8,medium,special
+#
+# This defines a new USSR tier VIII medium tank, one that isn't available for purchase.
+# If the game data also defines a SomeTank, the properties specified above take precedence.
+
+
+# ussr-SomeTank,ussr,8,medium,special,#0466
+#
+# Same as above, only this tank is only displayed for WoT versions 0.8.7 and higher.
+# See a list of version numbers at the end of this file.
+# If the game data also defines SomeTank, it will be visible, and the properties
+# will depend on the game version.
+
+
+# ussr-SomeTank,,9
+#
+# Change SomeTank to be tier 9 regardless of game version. Omitting country and type information
+# tells TankIconMaker that these should be inherited from the game data and only the tier should
+# be changed. If there is no such tank in the game data, a warning is generated and the tank is
+# skipped.
+
+
+# ussr-SomeTank,,9,,,#0466
+#
+# Change SomeTank to be tier 9 starting with WoT version 0.8.7
+
+
+# ussr-SomeTank,ussr,8,medium,special,#0466
+# ussr-SomeTank,ussr,8,medium,special,#0515,del
+#
+# Same as above, only this tank is only displayed for WoT version 0.8.7, and is removed
+# from WoT versions 0.8.8 and higher. Note that the "del" line doesn't actually require
+# the country etc and those fields are ignored. This is equivalent:
+#
+# ussr-SomeTank,ussr,8,medium,special,#0466
+# ussr-SomeTank,,,,,#0515,del
+
+
+
+# ADDITIONAL NOTES #
+
+# Each line must be blank, start with a #, or list a tank.
+#
+# Available fields:
+#  - tank ID: the name of the icon file and also equals country + "-" + internal WoT tank ID
+#  - country: one of "china", "france", "germany", "japan", "uk", "usa", "ussr", "none"
+#  - tier/level: a number from 1-10, or 0 for "none"
+#  - type: one of "light", "medium", "heavy", "artillery", "destroyer", "none"
+#  - availability: one of "normal" (available for silver), "premium" (available for gold), "special" (not available)
+#  - game version: #1234, the "#" is mandatory and the number MUST consist of 4 digits
+#  - "del" marker: see examples above
+#
+# All fields except for the first one are optional.
+#
+# The order of lines does not matter.
+#
+# Tanks are read from the game data, then from WotBuiltIn-1.csv, then -2, if any, and so on.
+# The WotBuiltIn-1 file takes precedence over the actual game data, -2 takes precedence over -1 etc.
+
+
+
+# GAME VERSIONS #
+
+# n/a, 0.7.1b
+# #0022, 0.7.1.1, looks like an error in the numbering. Uses res_mods.
+# #????, 0.7.2 Common Test, Uses res_mods.
+# #0007, 0.7.2
+# #0242, 0.7.5
+# #0332, 0.8.2 Common Test
+# #0349, 0.8.2
+# #0352, 0.8.3 Common Test
+# #0374, 0.8.4 Common Test
+# #0381, 0.8.4
+# #0405, 0.8.5
+# #0439, 0.8.6
+# #0466, 0.8.7
+# #0515, 0.8.8

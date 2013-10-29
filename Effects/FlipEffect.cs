@@ -1,4 +1,5 @@
 ﻿using RT.Util.Lingo;
+using WotDataLib;
 
 namespace TankIconMaker.Effects
 {

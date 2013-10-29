@@ -188,6 +188,10 @@
     <EmbeddedResource Include="Resources\BuiltInStyles\Aslain.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="WotDataLib\WotDataLib.csproj">
+      <Project>{77e86e2b-89df-43d2-8efa-6eccd961465e}</Project>
+      <Name>WotDataLib</Name>
+    </ProjectReference>
     <ProjectReference Include="WpfCrutches\WpfCrutches.csproj">
       <Project>{07420e58-8087-48fb-9c24-ae0dfd2a3ad7}</Project>
       <Name>WpfCrutches</Name>

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Media;
 using RT.Util.Lingo;
+using WotDataLib;
 using D = System.Drawing;
 
 namespace TankIconMaker

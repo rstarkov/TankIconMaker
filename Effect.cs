@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Xml;
+using WotDataLib;
 using WpfCrutches;
 
 namespace TankIconMaker

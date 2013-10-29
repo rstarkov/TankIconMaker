@@ -2,16 +2,23 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 using Ookii.Dialogs.Wpf;
+using RT.Util.Xml;
+using WotDataLib;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
-using RT.Util.Xml;
 
 namespace TankIconMaker
 {
     public partial class FilenameEditor : UserControl, ITypeEditor
     {
         private BindingExpression _expression;
+
+        /// <summary>
+        ///     A hack to give the filename editor access to the relevant context. A non-hacky approach would require the
+        ///     MainWindow to pass to each instance some way of retrieving the current context. However, since these instances
+        ///     are created by a third-party component, this is highly non-trivial, so this hack is used instead.</summary>
+        public static WotContext LastContext;
 
         public FilenameEditor()
         {
@@ -38,7 +45,7 @@ namespace TankIconMaker
             dlg.CheckFileExists = false;
             if (dlg.ShowDialog() != true)
                 return;
-            textbox.Text = Ut.MakeRelativePath(dlg.FileName);
+            textbox.Text = Ut.MakeRelativePath(LastContext, dlg.FileName);
             _expression.UpdateSource();
         }
     }

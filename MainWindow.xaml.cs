@@ -23,6 +23,7 @@ using RT.Util.Forms;
 using RT.Util.Lingo;
 using RT.Util.Xml;
 using TankIconMaker.Layers;
+using WotDataLib;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
@@ -167,12 +168,14 @@ namespace TankIconMaker
             if (App.Settings.GameInstallations.Count == 0)
                 AddGameInstallations();
             // Game installations: make sure one of the installations is the active one
+#pragma warning disable 0618 // ActiveInstallation should only be used for loading/saving the setting, which is what the code below does.
             if (!App.Settings.GameInstallations.Contains(App.Settings.ActiveInstallation)) // includes the "null" case
                 App.Settings.ActiveInstallation = App.Settings.GameInstallations.FirstOrDefault();
             // Game installations: configure the UI control
             ctGamePath.ItemsSource = App.Settings.GameInstallations;
             ctGamePath.DisplayMemberPath = "DisplayName";
             ctGamePath.SelectedItem = App.Settings.ActiveInstallation;
+#pragma warning restore 0618
 
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ColorSelector), ExpandableObject = true });
             ctLayerProperties.EditorDefinitions.Add(new EditorDefinition { TargetType = typeof(ValueSelector<>), ExpandableObject = true });
@@ -305,6 +308,37 @@ namespace TankIconMaker
         }
 
         /// <summary>
+        /// Gets the installation currently selected in the GUI, or null if none are available.
+        /// </summary>
+        private TimGameInstallation ActiveInstallation
+        {
+            get { return ctGamePath.Items.Count == 0 ? null : (TimGameInstallation) ctGamePath.SelectedItem; }
+        }
+
+        [Obsolete("Use LoadContext instead!")] // to make sure this is not used accidentally; the correct use is to LoadContext(cached: true)
+        private WotContext _context;
+
+        /// <summary>
+        /// Returns a WotContext based on the currently selected game installation and the last loaded game data.
+        /// Returns null if a context cannot be obtained, e.g. due to missing data or configuration. Use the cached context
+        /// except when all data must be reloaded off disk; store the cache in a local and pass to all the methods that need to
+        /// finish the operation.
+        /// </summary>
+        private WotContext LoadContext(bool cached)
+        {
+#pragma warning disable 618 // this method is the only one allowed to use "_context"
+            if (cached && _context != null && ActiveInstallation != null && _context.Installation.GameVersionId == ActiveInstallation.GameVersionId)
+                return _context;
+            _context = null;
+            if (ActiveInstallation.GameVersionId != null)
+                try { _context = WotData.Load(PathUtil.AppPathCombine("Data"), ActiveInstallation, App.Settings.DefaultPropertyAuthor); }
+                catch (WotDataException) { }
+            FilenameEditor.LastContext = _context; // bit of a hack to give these instances access to the context, see comment on the field.
+            return _context;
+#pragma warning restore 618
+        }
+
+        /// <summary>
         /// Does a bunch of stuff necessary to reload all the data off disk and refresh the UI (except for drawing the icons:
         /// this must be done as a separate step).
         /// </summary>
@@ -315,63 +349,71 @@ namespace TankIconMaker
             ImageCache.Clear();
 
             foreach (var gameInstallation in App.Settings.GameInstallations.ToList()) // grab a list of all items because the source auto-resorts on changes
-                gameInstallation.ReloadGameVersion();
-            App.Data.Reload(Path.Combine(PathUtil.AppPath, "Data"));
-
-            // Update the list of warnings
-            _dataWarnings.Clear();
-            foreach (var warning in App.Data.Warnings)
-                _dataWarnings.Add(warning);
+                gameInstallation.Reload();
 
             // Disable parts of the UI if some of the data is unavailable, and show warnings as appropriate
             _otherWarnings.RemoveWhere(w => w is Warning_DataMissing);
-            if (!App.Data.VersionConfigs.Any() || !App.Data.BuiltIn.Any())
-            {
-                // This means things are badly broken; this isn't supposed to happen; bad enough to warrant a dialog.
-                _dataMissing.Value = true;
-                UpdateDataSources(9999);
-                _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoDataFiles));
-                ctGameInstallationWarning.Text = null;
-                DlgMessage.ShowWarning(App.Translation.Error.NoDataFilesWarning.Fmt(Path.Combine(PathUtil.AppPath, "Data")));
-            }
-            else if (App.Settings.ActiveInstallation == null || App.Settings.ActiveInstallation.GameVersionId == null)
+            WotContext context = null;
+            if (ActiveInstallation == null || ActiveInstallation.GameVersionId == null)
             {
                 // This means we don't have a valid WoT installation available. So we still can't show the correct lists of properties
                 // in the drop-downs, and also can't render tanks because we don't know which ones.
                 _dataMissing.Value = true;
-                UpdateDataSources(9999);
                 _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoWotInstallation));
-                if (App.Settings.ActiveInstallation == null)
+                if (ActiveInstallation == null)
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoInstallationSelected;
-                else if (!Directory.Exists(App.Settings.ActiveInstallation.Path))
+                else if (!Directory.Exists(ActiveInstallation.Path))
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_DirNotFound;
                 else
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoWotInstallation;
             }
-            else if (App.Settings.ActiveInstallation.GameVersionConfig == null)
-            {
-                // The WoT installation is valid, but we don't have a suitable version config. Can list the right properties, but can't really render.
-                _dataMissing.Value = true;
-                UpdateDataSources(App.Settings.ActiveInstallation.GameVersionId.Value);
-                var msg = App.Translation.Error.DataMissing_WotVersionTooOld.Fmt(App.Settings.ActiveInstallation.GameVersionName + " #" + App.Settings.ActiveInstallation.GameVersionId);
-                _otherWarnings.Add(new Warning_DataMissing(msg));
-                ctGameInstallationWarning.Text = msg;
-            }
-            else if (App.Data.BuiltIn.Where(b => b.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersionId) == null) // duplicated in ListRenderTasks; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
-            {
-                // Everything's fine with the installation but we don't have any built-in data files for this version.
-                _dataMissing.Value = true;
-                UpdateDataSources(App.Settings.ActiveInstallation.GameVersionId.Value);
-                _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoBuiltinData));
-                ctGameInstallationWarning.Text = null;
-            }
             else
             {
-                // Everything's fine.
-                _dataMissing.Value = false;
-                UpdateDataSources(App.Settings.ActiveInstallation.GameVersionId.Value);
-                ctGameInstallationWarning.Text = null;
+                // Resolve the data to see if it's fine
+                context = LoadContext(cached: false);
+                // Update the list of warnings
+                _dataWarnings.Clear();
+                foreach (var warning in context.Warnings)
+                    _dataWarnings.Add(warning);
+                // See how complete of a context we managed to get
+                if (context.VersionConfig == null)
+                {
+                    // The WoT installation is valid, but we don't have a suitable version config. Can list the right properties, but can't really render.
+                    _dataMissing.Value = true;
+                    var msg = App.Translation.Error.DataMissing_WotVersionTooOld.Fmt(ActiveInstallation.GameVersionName + " #" + ActiveInstallation.GameVersionId);
+                    _otherWarnings.Add(new Warning_DataMissing(msg));
+                    ctGameInstallationWarning.Text = msg;
+                }
+                else if (context.Tanks == null)
+                {
+                    // Everything's fine with the installation but we don't have any built-in data files for this version. Can edit styles but not render.
+                    _dataMissing.Value = true;
+                    _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoBuiltinData));
+                    ctGameInstallationWarning.Text = null;
+                }
+                else
+                {
+                    // Everything's fine.
+                    _dataMissing.Value = false;
+                    ctGameInstallationWarning.Text = null;
+                }
             }
+
+            // Update the list of data sources currently available. This list is used by drop-downs which offer the user to select a property.
+            foreach (var item in App.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
+            {
+                var extra = context == null ? null : context.ExtraProperties.FirstOrDefault(df => df.PropertyId == item.PropertyId);
+                if (extra == null)
+                    App.DataSources.Remove(item);
+                else
+                    item.UpdateFrom(extra);
+            }
+            if (context != null)
+                foreach (var extra in context.ExtraProperties)
+                {
+                    if (!App.DataSources.Any(item => extra.PropertyId == item.PropertyId))
+                        App.DataSources.Add(new DataSourceInfo(extra));
+                }
 
             if (_dataMissing)
             {
@@ -387,27 +429,6 @@ namespace TankIconMaker
                     _renderResults.Clear();
                     UpdateIcons();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Updates the list of data sources currently available to be used in the icon maker. 
-        /// </summary>
-        private void UpdateDataSources(int gameVersionId)
-        {
-            foreach (var item in App.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
-            {
-                var extra = App.Data.Extra.Where(df => df.Name == item.Name && df.Language == item.Language && df.Author == item.Author && df.GameVersionId <= gameVersionId).MaxOrDefault(df => df.GameVersionId);
-                if (extra == null)
-                    App.DataSources.Remove(item);
-                else
-                    item.UpdateFrom(extra);
-            }
-            foreach (var group in App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author }))
-            {
-                var extra = group.Where(df => df.GameVersionId <= gameVersionId).MaxOrDefault(df => df.GameVersionId);
-                if (extra != null && !App.DataSources.Any(item => extra.Name == item.Name && extra.Language == item.Language && extra.Author == item.Author))
-                    App.DataSources.Add(new DataSourceInfo(extra));
             }
         }
 
@@ -449,12 +470,13 @@ namespace TankIconMaker
             if (_dataMissing)
                 return;
 
+            var context = LoadContext(cached: true);
             var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
-            var renderTasks = ListRenderTasks();
+            var renderTasks = ListRenderTasks(context);
 
             var style = App.Settings.ActiveStyle;
             foreach (var layer in style.Layers)
-                TestLayer(style, layer, App.Settings.ActiveInstallation);
+                TestLayer(style, layer);
 
             var tasks = new List<Action>();
             for (int i = 0; i < renderTasks.Count; i++)
@@ -464,11 +486,11 @@ namespace TankIconMaker
                 var renderTask = renderTasks[i];
                 var image = images[i];
 
-                image.ToolTip = renderTasks[i].TankSystemId;
-                if (_renderResults.ContainsKey(renderTask.TankSystemId))
+                image.ToolTip = renderTasks[i].TankId;
+                if (_renderResults.ContainsKey(renderTask.TankId))
                 {
-                    image.Source = _renderResults[renderTask.TankSystemId].Image;
-                    image.RenderTask = _renderResults[renderTask.TankSystemId];
+                    image.Source = _renderResults[renderTask.TankId].Image;
+                    image.RenderTask = _renderResults[renderTask.TankId];
                     image.Opacity = 1;
                 }
                 else
@@ -482,7 +504,7 @@ namespace TankIconMaker
                             Dispatcher.Invoke(new Action(() =>
                             {
                                 if (cancelToken.IsCancellationRequested) return;
-                                _renderResults[renderTask.TankSystemId] = renderTask;
+                                _renderResults[renderTask.TankId] = renderTask;
                                 image.Source = renderTask.Image;
                                 image.RenderTask = renderTask;
                                 image.Opacity = 1;
@@ -525,13 +547,13 @@ namespace TankIconMaker
         /// Tests the specified layer instance for its handling of missing extra properties (and possibly other problems). Adds an
         /// appropriate warning message if a problem is detected.
         /// </summary>
-        private void TestLayer(Style style, LayerBase layer, GameInstallation gameInstallation)
+        private void TestLayer(Style style, LayerBase layer)
         {
             // Test missing extra properties
             _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingExtra);
             try
             {
-                var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
+                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal);
                 tank.LoadedImage = new BitmapRam(style.IconWidth, style.IconHeight);
                 layer.Draw(tank);
             }
@@ -548,7 +570,7 @@ namespace TankIconMaker
             _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_UnexpectedProperty);
             try
             {
-                var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
+                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal);
                 tank.PropertyValue = "z"; // very short, so substring/indexing can fail, also not parseable as integer. Hopefully "unexpected enough".
                 tank.LoadedImage = new BitmapRam(style.IconWidth, style.IconHeight);
                 layer.Draw(tank);
@@ -565,7 +587,7 @@ namespace TankIconMaker
             _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingImage);
             try
             {
-                var tank = new TankTest("test", 5, Country.USSR, Class.Medium, Category.Normal);
+                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal);
                 tank.PropertyValue = "test";
                 layer.Draw(tank);
             }
@@ -764,54 +786,45 @@ namespace TankIconMaker
         /// of the tanks if the user chose a smaller subset in the GUI.
         /// </summary>
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
-        private List<RenderTask> ListRenderTasks(bool all = false)
+        private static List<RenderTask> ListRenderTasks(WotContext context, bool all = false)
         {
-            var builtin = App.Data.BuiltIn.Where(b => b.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(b => b.GameVersionId);  // duplicated in ReloadData; see http://tankiconmaker.myjetbrains.com/youtrack/issue/T-62
-            if (builtin == null)
+            if (context.Tanks.Count == 0)
                 return new List<RenderTask>(); // happens when there are no built-in data files
 
-            IEnumerable<TankData> selection = null;
+            IEnumerable<WotTank> selection = null;
             switch (all ? DisplayFilter.All : App.Settings.DisplayFilter)
             {
-                case DisplayFilter.All: selection = builtin.Data; break;
+                case DisplayFilter.All: selection = context.Tanks; break;
                 case DisplayFilter.OneOfEach:
-                    selection = builtin.Data.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
-                        .SelectMany(p => SelectTiers(builtin.Data.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
+                    selection = context.Tanks.Select(t => new { t.Category, t.Class, t.Country }).Distinct()
+                        .SelectMany(p => SelectTiers(context.Tanks.Where(t => t.Category == p.Category && t.Class == p.Class && t.Country == p.Country)));
                     break;
 
-                case DisplayFilter.China: selection = builtin.Data.Where(t => t.Country == Country.China); break;
-                case DisplayFilter.France: selection = builtin.Data.Where(t => t.Country == Country.France); break;
-                case DisplayFilter.Germany: selection = builtin.Data.Where(t => t.Country == Country.Germany); break;
-                case DisplayFilter.UK: selection = builtin.Data.Where(t => t.Country == Country.UK); break;
-                case DisplayFilter.USA: selection = builtin.Data.Where(t => t.Country == Country.USA); break;
-                case DisplayFilter.USSR: selection = builtin.Data.Where(t => t.Country == Country.USSR); break;
+                case DisplayFilter.China: selection = context.Tanks.Where(t => t.Country == Country.China); break;
+                case DisplayFilter.France: selection = context.Tanks.Where(t => t.Country == Country.France); break;
+                case DisplayFilter.Germany: selection = context.Tanks.Where(t => t.Country == Country.Germany); break;
+                case DisplayFilter.UK: selection = context.Tanks.Where(t => t.Country == Country.UK); break;
+                case DisplayFilter.USA: selection = context.Tanks.Where(t => t.Country == Country.USA); break;
+                case DisplayFilter.USSR: selection = context.Tanks.Where(t => t.Country == Country.USSR); break;
 
-                case DisplayFilter.Light: selection = builtin.Data.Where(t => t.Class == Class.Light); break;
-                case DisplayFilter.Medium: selection = builtin.Data.Where(t => t.Class == Class.Medium); break;
-                case DisplayFilter.Heavy: selection = builtin.Data.Where(t => t.Class == Class.Heavy); break;
-                case DisplayFilter.Artillery: selection = builtin.Data.Where(t => t.Class == Class.Artillery); break;
-                case DisplayFilter.Destroyer: selection = builtin.Data.Where(t => t.Class == Class.Destroyer); break;
+                case DisplayFilter.Light: selection = context.Tanks.Where(t => t.Class == Class.Light); break;
+                case DisplayFilter.Medium: selection = context.Tanks.Where(t => t.Class == Class.Medium); break;
+                case DisplayFilter.Heavy: selection = context.Tanks.Where(t => t.Class == Class.Heavy); break;
+                case DisplayFilter.Artillery: selection = context.Tanks.Where(t => t.Class == Class.Artillery); break;
+                case DisplayFilter.Destroyer: selection = context.Tanks.Where(t => t.Class == Class.Destroyer); break;
 
-                case DisplayFilter.Normal: selection = builtin.Data.Where(t => t.Category == Category.Normal); break;
-                case DisplayFilter.Premium: selection = builtin.Data.Where(t => t.Category == Category.Premium); break;
-                case DisplayFilter.Special: selection = builtin.Data.Where(t => t.Category == Category.Special); break;
+                case DisplayFilter.Normal: selection = context.Tanks.Where(t => t.Category == Category.Normal); break;
+                case DisplayFilter.Premium: selection = context.Tanks.Where(t => t.Category == Category.Premium); break;
+                case DisplayFilter.Special: selection = context.Tanks.Where(t => t.Category == Category.Special); break;
             }
 
-            var extras = App.Data.Extra.GroupBy(df => new { df.Name, df.Language, df.Author })
-                .Select(g => g.Where(df => df.GameVersionId <= App.Settings.ActiveInstallation.GameVersionId).MaxOrDefault(df => df.GameVersionId))
-                .Where(df => df != null).ToList();
-            return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.SystemId)
+            return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.TankId)
                 .Select(tank =>
                 {
                     var task = new RenderTask();
-                    task.TankSystemId = tank.SystemId;
+                    task.TankId = tank.TankId;
                     task.Tank = new Tank(
                         tank,
-                        extras.Select(df => new KeyValuePair<ExtraPropertyId, string>(
-                            key: new ExtraPropertyId(df.Name, df.Language, df.Author),
-                            value: df.Data.Where(dp => dp.TankSystemId == tank.SystemId).Select(dp => dp.Value).FirstOrDefault()
-                        )),
-                        gameInstallation: App.Settings.ActiveInstallation,
                         addWarning: task.AddWarning
                     );
                     return task;
@@ -821,11 +834,11 @@ namespace TankIconMaker
         /// <summary>
         /// Enumerates up to three tanks with tiers as different as possible. Ideally enumerates one tier 1, one tier 5 and one tier 10 tank.
         /// </summary>
-        private static IEnumerable<TankData> SelectTiers(IEnumerable<TankData> tanks)
+        private static IEnumerable<WotTank> SelectTiers(IEnumerable<WotTank> tanks)
         {
-            TankData min = null;
-            TankData mid = null;
-            TankData max = null;
+            WotTank min = null;
+            WotTank mid = null;
+            WotTank max = null;
             foreach (var tank in tanks)
             {
                 if (min == null || tank.Tier < min.Tier)
@@ -851,7 +864,9 @@ namespace TankIconMaker
 
         private void ctGamePath_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.Settings.ActiveInstallation = ctGamePath.SelectedItem as GameInstallation;
+#pragma warning disable 0618 // ActiveInstallation should only be used for loading/saving the setting, which is what the code below does.
+            App.Settings.ActiveInstallation = ctGamePath.SelectedItem as TimGameInstallation;
+#pragma warning restore 0618
 
             ReloadData();
             SaveSettings();
@@ -1030,14 +1045,14 @@ namespace TankIconMaker
 
         private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false)
         {
-            var gameInstallation = App.Settings.ActiveInstallation; // must capture this in case the user changes it while the background save continues
-            var path = folder ?? Path.Combine(gameInstallation.Path, Ut.ExpandPath(gameInstallation.GameVersionConfig.PathDestination));
+            var context = LoadContext(cached: true);
+            var path = folder ?? Path.Combine(context.Installation.Path, Ut.ExpandPath(context, context.VersionConfig.PathDestination));
 
             try
             {
                 if (!_overwriteAccepted.EqualsNoCase(path) && (promptEvenIfEmpty || (Directory.Exists(path) && Directory.GetFileSystemEntries(path).Any())))
                     if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                        .Fmt(path, gameInstallation.GameVersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                        .Fmt(path, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
                         return;
                 _overwriteAccepted = path;
                 Directory.CreateDirectory(path);
@@ -1045,7 +1060,7 @@ namespace TankIconMaker
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
                 var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-                var renderTasks = ListRenderTasks(all: true).Where(rt => filter == null || rt.Tank.Class.Equals(filter) || rt.Tank.Country.Equals(filter)).ToList();
+                var renderTasks = ListRenderTasks(context, all: true).Where(rt => filter == null || rt.Tank.Class.Equals(filter) || rt.Tank.Country.Equals(filter)).ToList();
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
@@ -1055,16 +1070,16 @@ namespace TankIconMaker
                     try
                     {
                         foreach (var renderTask in renderTasks)
-                            if (!renders.ContainsKey(renderTask.TankSystemId))
+                            if (!renders.ContainsKey(renderTask.TankId))
                             {
-                                renders[renderTask.TankSystemId] = renderTask;
+                                renders[renderTask.TankId] = renderTask;
                                 RenderTank(style, renderTask);
                             }
                         foreach (var renderTask in renderTasks)
                         {
-                            var render = renders[renderTask.TankSystemId];
+                            var render = renders[renderTask.TankId];
                             if (render.Exception == null)
-                                Ut.SaveImage(render.Image, Path.Combine(path, renderTask.TankSystemId + gameInstallation.GameVersionConfig.TankIconExtension), gameInstallation.GameVersionConfig.TankIconExtension);
+                                Ut.SaveImage(render.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
                         }
                     }
                     catch (Exception e)
@@ -1216,12 +1231,12 @@ namespace TankIconMaker
             }
 
             var dlg = new VistaFolderBrowserDialog();
-            if (App.Settings.ActiveInstallation != null && Directory.Exists(App.Settings.ActiveInstallation.Path))
-                dlg.SelectedPath = App.Settings.ActiveInstallation.Path;
+            if (ActiveInstallation != null && Directory.Exists(ActiveInstallation.Path))
+                dlg.SelectedPath = ActiveInstallation.Path;
             if (dlg.ShowDialog() != true)
                 return;
 
-            var gameInstallation = new GameInstallation(dlg.SelectedPath);
+            var gameInstallation = new TimGameInstallation(dlg.SelectedPath);
             if (gameInstallation.GameVersionId == null)
             {
                 if (DlgMessage.ShowWarning(App.Translation.Prompt.GameNotFound_Prompt,
@@ -1252,7 +1267,7 @@ namespace TankIconMaker
         private void AddGameInstallations()
         {
             foreach (var path in Ut.EnumerateGameInstallations())
-                App.Settings.GameInstallations.Add(new GameInstallation(path));
+                App.Settings.GameInstallations.Add(new TimGameInstallation(path));
             SaveSettings();
         }
 
@@ -1744,7 +1759,7 @@ namespace TankIconMaker
     sealed class RenderTask
     {
         /// <summary>System Id of the tank that this task is for.</summary>
-        public string TankSystemId;
+        public string TankId;
         /// <summary>All the tank data pertaining to this render task. This is set to null immediately after a render.</summary>
         public Tank Tank;
 

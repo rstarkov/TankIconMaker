@@ -6,6 +6,7 @@ using RT.Util;
 using RT.Util.Forms;
 using RT.Util.Lingo;
 using RT.Util.Xml;
+using WotDataLib;
 using WpfCrutches;
 
 namespace TankIconMaker
@@ -55,14 +56,15 @@ namespace TankIconMaker
         /// <summary>The language of the operating system selected last time the program started. When this changes, <see cref="Lingo"/> is autoselected.</summary>
         public Language? OsLingo = null;
 
-        /// <summary>When resolving property inheritance and the author is not specified, this author is given preference.</summary>
+        /// <summary>When a property name is specified without the author, and multiple authors are available, this author is given preference.</summary>
         public string DefaultPropertyAuthor = "Wargaming";
 
         /// <summary>Holds every game installation the user added to the program, as well as any installation-specific settings (currently none).</summary>
-        public ObservableSortedList<GameInstallation> GameInstallations = new ObservableSortedList<GameInstallation>();
+        public ObservableSortedList<TimGameInstallation> GameInstallations = new ObservableSortedList<TimGameInstallation>();
 
-        /// <summary>The authoritative source on which of the game installations the user has activated in the UI. May be null if no game installations are listed.</summary>
-        public GameInstallation ActiveInstallation;
+        /// <summary>Remembers which game installation the user selected.</summary>
+        [Obsolete("Use this only for settings!")] // this field should only be used on startup to load the value and on change to save it. At all other times this should be retrieved either directly from the GUI or from the relevant WotContext.
+        public TimGameInstallation ActiveInstallation;
 
         /// <summary>A list of all the available user styles. Built-in styles are not stored in the settings file.</summary>
         public ObservableSortedList<Style> Styles = new ObservableSortedList<Style>();
@@ -100,8 +102,10 @@ namespace TankIconMaker
             // Added in v019
             if (SavedByVersion < 19 && GameInstalls != null)
                 GameInstallations = GameInstalls;
+#pragma warning disable 0618 // ActiveInstallation should only be used for loading/saving the setting, which is what the code below does.
             if (SavedByVersion < 19 && SelectedGamePath != null)
                 ActiveInstallation = GameInstallations.Where(gi => gi.Path.EqualsNoCase(SelectedGamePath)).FirstOrDefault() ?? GameInstallations.FirstOrDefault();
+#pragma warning restore 0618
             if (SavedByVersion < 19 && SelectedStyleNameAndAuthor != null)
                 // This is a fairly approximate match but this way at least some users will see the right style still selected. The old property was too lossy to allow for reliable matching.
                 ActiveStyle = Styles.FirstOrDefault(s => SelectedStyleNameAndAuthor.Contains(s.Name) && SelectedStyleNameAndAuthor.Contains(s.Author));
@@ -116,7 +120,7 @@ namespace TankIconMaker
 
         // Fields obsoleted in v019
         [XmlIgnoreIfDefault]
-        private ObservableSortedList<GameInstallation> GameInstalls;
+        private ObservableSortedList<TimGameInstallation> GameInstalls;
         [XmlIgnoreIfDefault]
         private string SelectedGamePath;
         [XmlIgnoreIfDefault]
@@ -134,61 +138,5 @@ namespace TankIconMaker
         USSR = 3, Germany, USA, France, UK, China,
         Light = 10, Medium, Heavy, Artillery, Destroyer,
         Normal = 16, Premium, Special,
-    }
-
-    /// <summary>
-    /// Encapsulates the settings for a specific game installation location.
-    /// </summary>
-    sealed class GameInstallation : IComparable<GameInstallation>, INotifyPropertyChanged
-    {
-        private GameInstallation() { } // for XmlClassify
-
-        public GameInstallation(string path)
-        {
-            _path = path;
-            ReloadGameVersion();
-        }
-
-        /// <summary>Absolute path to the root of this game installation.</summary>
-        public string Path { get { return _path; } }
-        private string _path;
-
-        /// <summary>The version of the game that is located at this path. Null if game version could not be detected or no suitable configuration available.</summary>
-        public GameVersionConfig GameVersionConfig
-        {
-            get { return GameVersionId == null ? null : App.Data.GetVersionConfig(GameVersionId.Value); }
-        }
-
-        [XmlIgnore]
-        public int? GameVersionId { get; private set; }
-        [XmlIgnore]
-        public string GameVersionName { get; private set; }
-
-        public void ReloadGameVersion()
-        {
-            string gameVersionName; // sigh... :( This is so ugly.
-            GameVersionId = Ut.ReadGameVersionId(Path, out gameVersionName);
-            GameVersionName = gameVersionName;
-            PropertyChanged(this, new PropertyChangedEventArgs("DisplayName"));
-        }
-
-        /// <summary>The value displayed in the drop-down.</summary>
-        public string DisplayName { get { return (GameVersionName ?? "?") + ":  " + Path; } }
-        public override string ToString() { return DisplayName; }
-
-        public int CompareTo(GameInstallation other)
-        {
-            if (other == null) return 1;
-            if (GameVersionId == null && other.GameVersionId == null)
-                return 0;
-            if (GameVersionId == null || other.GameVersionId == null)
-                return other.GameVersionId == null ? -1 : 1;
-            int result = -GameVersionId.Value.CompareTo(other.GameVersionId.Value);
-            if (result != 0)
-                return result;
-            return string.Compare(Path, other.Path);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
     }
 }
