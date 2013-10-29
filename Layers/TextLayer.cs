@@ -185,6 +185,7 @@ namespace TankIconMaker.Layers
             Text.CountryFrance = "France";
             Text.CountryChina = "中国";
             Text.CountryUK = "UK";
+            Text.CountryJapan = "日本";
 
             Text.ClassNone = "";
             Text.ClassLight = "LT";

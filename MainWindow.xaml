@@ -277,6 +277,7 @@
                     <ComboBoxItem Name="ctDisplayModeCountryFrance">France</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCountryUK">UK</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCountryChina">China</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountryJapan">Japan</ComboBoxItem>
                     <Separator/>
                     <ComboBoxItem Name="ctDisplayModeClassLight">Light tanks</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeClassMedium">Medium tanks</ComboBoxItem>
@@ -341,6 +342,7 @@
                             <MenuItem Header="Only _France..." Name="ctBrowseAndSaveIcons_France" Click="BrowseAndSaveIcons_France"/>
                             <MenuItem Header="Only U_K..." Name="ctBrowseAndSaveIcons_UK" Click="BrowseAndSaveIcons_UK"/>
                             <MenuItem Header="Only _China..." Name="ctBrowseAndSaveIcons_China" Click="BrowseAndSaveIcons_China"/>
+                            <MenuItem Header="Only _Japan..." Name="ctBrowseAndSaveIcons_Japan" Click="BrowseAndSaveIcons_Japan"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>

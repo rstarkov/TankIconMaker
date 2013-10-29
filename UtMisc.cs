@@ -35,7 +35,7 @@ namespace TankIconMaker
         }
 
         /// <summary>Returns one of the specified values based on which country this value represents.</summary>
-        public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china, T uk, T none)
+        public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china, T uk, T japan, T none)
         {
             switch (country)
             {
@@ -45,6 +45,7 @@ namespace TankIconMaker
                 case Country.France: return france;
                 case Country.China: return china;
                 case Country.UK: return uk;
+                case Country.Japan: return japan;
                 case Country.None: return none;
                 default: throw new Exception();
             }
