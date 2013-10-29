@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using WotDataLib;
 
 namespace TankIconMaker.Layers
 {
@@ -31,7 +32,7 @@ namespace TankIconMaker.Layers
 
         public override BitmapBase Draw(Tank tank)
         {
-            var rnd = new Random(tank.SystemId.GetHashCode());
+            var rnd = new Random(tank.TankId.GetHashCode());
             int rectWidth = _RectWidth, rectHeight = _RectHeight;
             int x = _X, y = _Y;
             int layerWidth = _LayerWidth, layerHeight = _LayerHeight;

@@ -4,6 +4,7 @@ using System.Windows.Media;
 using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Xml;
+using WotDataLib;
 
 namespace TankIconMaker.Layers
 {
@@ -153,7 +154,7 @@ namespace TankIconMaker.Layers
 
         public PropertyTextLayer()
         {
-            Property = new ExtraPropertyId("NameShort", "Ru", "Wargaming");
+            Property = new ExtraPropertyId("NameShort", null, "Wargaming");
         }
 
         protected override string GetText(Tank tank)

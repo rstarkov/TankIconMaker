@@ -16,13 +16,12 @@ using Microsoft.Win32;
 using RT.Util;
 using RT.Util.ExtensionMethods;
 using RT.Util.Lingo;
+using WotDataLib;
 
 namespace TankIconMaker
 {
     static partial class Ut
     {
-        public static readonly string[] RomanNumerals = new[] { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" };
-
         /// <summary>Shorthand for string.Format, with a more natural ordering (since formatting is typically an afterthought).</summary>
         public static string Fmt(this string formatString, params object[] args)
         {
@@ -33,31 +32,6 @@ namespace TankIconMaker
         public static bool EqualsNoCase(this string string1, string string2)
         {
             return StringComparer.OrdinalIgnoreCase.Equals(string1, string2);
-        }
-
-        /// <summary>
-        /// Enumerates the rows of a CSV file. Each row is represented by a tuple containing the line number and
-        /// an array of fields. Does not handle all valid CSV files: for example, multi-line field values are not supported.
-        /// </summary>
-        public static IEnumerable<Tuple<int, string[]>> ReadCsvLines(string filename)
-        {
-            int num = 0;
-            foreach (var line in File.ReadLines(filename))
-            {
-                num++;
-                var fields = parseCsvLine(line);
-                if (fields == null)
-                    throw new Exception(App.Translation.Error.DataFile_CsvParse.Fmt(num));
-                yield return Tuple.Create(num, fields);
-            }
-        }
-
-        private static string[] parseCsvLine(string line)
-        {
-            var fields = Regex.Matches(line, @"(^|(?<=,)) *(?<quote>""?)(("""")?[^""]*?)*?\k<quote> *($|(?=,))").Cast<Match>().Select(m => m.Value).ToArray();
-            if (line != string.Join(",", fields))
-                return null;
-            return fields.Select(f => f.Contains('"') ? Regex.Replace(f, @"^ *""(.*)"" *$", "$1").Replace(@"""""", @"""") : f).ToArray();
         }
 
         /// <summary>Returns one of the specified values based on which country this value represents.</summary>
@@ -133,27 +107,6 @@ namespace TankIconMaker
             return paths;
         }
 
-        /// <summary>Reads the game version for an installation at the specified path. If this can't be done for any reason, returns null.</summary>
-        public static int? ReadGameVersionId(string gameInstallationPath, out string versionName)
-        {
-            try
-            {
-                var xml = XDocument.Parse(File.ReadAllText(Path.Combine(gameInstallationPath, "version.xml")));
-                var version = xml.Root.Element("version");
-
-                var m = Regex.Match(version.Value, @"^\s*(v\.)?(?<name>.*?)\s+#(?<build>\d+)(?<idiotic_suffix>.*?)\s*$");
-                if (!m.Success)
-                    throw new Exception("Cannot parse version string: " + version.Value);
-                versionName = m.Groups["name"].Value;
-                return int.Parse(m.Groups["build"].Value);
-            }
-            catch
-            {
-                versionName = null;
-                return null;
-            }
-        }
-
         /// <summary>
         /// Returns the first item whose <paramref name="maxOf"/> selector is maximal in this collection, or null if the collection is empty.
         /// </summary>
@@ -222,7 +175,10 @@ namespace TankIconMaker
             return result >= 0 ? result : (result + modulus);
         }
 
-        public static string MakeRelativePath(string path)
+        /// <summary>
+        /// Works correctly even if context is null; will simply skip trying to make the path relative to game directories.
+        /// </summary>
+        public static string MakeRelativePath(WotContext context, string path)
         {
             try
             {
@@ -230,18 +186,16 @@ namespace TankIconMaker
                     return PathUtil.ToggleRelative(PathUtil.AppPath, path);
             }
             catch { }
-            if (App.Settings.ActiveInstallation == null || App.Settings.ActiveInstallation.GameVersionConfig == null)
-                return path;
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersionConfig.PathMods))))
-                    return PathUtil.ToggleRelative(Path.Combine(App.Settings.ActiveInstallation.Path, Ut.ExpandPath(App.Settings.ActiveInstallation.GameVersionConfig.PathMods)), path);
+                if (PathUtil.IsSubpathOfOrSame(path, Path.Combine(context.Installation.Path, Ut.ExpandPath(context, context.VersionConfig.PathMods))))
+                    return PathUtil.ToggleRelative(Path.Combine(context.Installation.Path, Ut.ExpandPath(context, context.VersionConfig.PathMods)), path);
             }
             catch { }
             try
             {
-                if (PathUtil.IsSubpathOfOrSame(path, App.Settings.ActiveInstallation.Path))
-                    return PathUtil.ToggleRelative(App.Settings.ActiveInstallation.Path, path);
+                if (PathUtil.IsSubpathOfOrSame(path, context.Installation.Path))
+                    return PathUtil.ToggleRelative(context.Installation.Path, path);
             }
             catch { }
             return path;
@@ -410,13 +364,13 @@ namespace TankIconMaker
         }
 
         /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
-        public static string ExpandPath(string path)
+        public static string ExpandPath(WotContext context, string path)
         {
             if (path == null)
                 return null;
-            path = path.Replace("\"VersionName\"", App.Settings.ActiveInstallation.GameVersionName);
+            path = path.Replace("\"VersionName\"", context.Installation.GameVersionName);
             if (path.Contains('"'))
-                throw new ArgumentException("The path “{0}” contains double-quote characters after expanding all known tokens. Did you mean one of: \"VersionName\"?");
+                throw new Exception("The path “{0}” contains double-quote characters after expanding all known tokens. Did you mean one of: \"VersionName\"?".Fmt(path));
             return path;
         }
 
@@ -424,6 +378,24 @@ namespace TankIconMaker
         {
             foreach (var item in collection.Where(predicate).ToList())
                 collection.Remove(item);
+        }
+
+        /// <summary>Selects a string from the specified dictionary based on the current application language.</summary>
+        public static string StringForCurrentLanguage(IDictionary<string, string> dictionary)
+        {
+            if (dictionary.Count == 0)
+                return "";
+            string lang;
+            if (App.Translation.Language == Language.EnglishUK || App.Translation.Language == Language.EnglishUS)
+                lang = "En";
+            else
+                lang = App.Translation.Language.GetIsoLanguageCode().ToString();
+            if (dictionary.ContainsKey(lang))
+                return dictionary[lang];
+            else if (dictionary.ContainsKey("En"))
+                return dictionary["En"];
+            else
+                return dictionary.Values.First();
         }
     }
 
@@ -514,7 +486,7 @@ namespace TankIconMaker
 
         public override string ToString() { return File + (InnerFile == null ? "" : ("|" + InnerFile)); }
 
-        public CompositePath(params string[] path)
+        public CompositePath(WotContext context, params string[] path)
             : this()
         {
             var builder = new StringBuilder(256);
@@ -548,62 +520,65 @@ namespace TankIconMaker
                 }
             }
             var second = builder.ToString();
-            File = _expand(first ?? second);
-            InnerFile = first == null ? null : _expand(second);
+            if (context != null)
+            {
+                File = Ut.ExpandPath(context, first ?? second);
+                InnerFile = first == null ? null : Ut.ExpandPath(context, second);
+            }
+            else
+            {
+                // Used for testing only
+                File = first ?? second;
+                InnerFile = first == null ? null : second;
+            }
         }
-
-        private static Func<string, string> _expand = Ut.ExpandPath; // necessary due to some bad design; see also: http://tankiconmaker.myjetbrains.com/youtrack/issue/T-64
 
         #region Tests
 
         internal static void Tests()
         {
-            _expand = (string s) => s;
+            test(new CompositePath(null, @""), @"", null);
+            test(new CompositePath(null, @"foo"), @"foo", null);
+            test(new CompositePath(null, @"foo/bar"), @"foo/bar", null);
+            test(new CompositePath(null, @"\foo\bar"), @"\foo\bar", null);
+            test(new CompositePath(null, @"C:\foo\bar"), @"C:\foo\bar", null);
 
-            test(new CompositePath(@""), @"", null);
-            test(new CompositePath(@"foo"), @"foo", null);
-            test(new CompositePath(@"foo/bar"), @"foo/bar", null);
-            test(new CompositePath(@"\foo\bar"), @"\foo\bar", null);
-            test(new CompositePath(@"C:\foo\bar"), @"C:\foo\bar", null);
+            test(new CompositePath(null, @"foo\bar", @"thingy\blah"), @"foo\bar\thingy\blah", null);
+            test(new CompositePath(null, @"foo\bar\", @"thingy\blah"), @"foo\bar\thingy\blah", null);
+            test(new CompositePath(null, @"foo\bar", @"thingy\blah", @"stuff"), @"foo\bar\thingy\blah\stuff", null);
+            test(new CompositePath(null, @"foo\bar", @"thingy\blah", @"D:\stuff"), @"D:\stuff", null);
 
-            test(new CompositePath(@"foo\bar", @"thingy\blah"), @"foo\bar\thingy\blah", null);
-            test(new CompositePath(@"foo\bar\", @"thingy\blah"), @"foo\bar\thingy\blah", null);
-            test(new CompositePath(@"foo\bar", @"thingy\blah", @"stuff"), @"foo\bar\thingy\blah\stuff", null);
-            test(new CompositePath(@"foo\bar", @"thingy\blah", @"D:\stuff"), @"D:\stuff", null);
-
-            test(new CompositePath(@"C:\foo\bar", @"thingy"), @"C:\foo\bar\thingy", null);
-            test(new CompositePath(@"C:\foo\bar", @"thingy", @"stuff"), @"C:\foo\bar\thingy\stuff", null);
-            test(new CompositePath(@"C:\foo\bar", @"thingy", @"D:\stuff"), @"D:\stuff", null);
+            test(new CompositePath(null, @"C:\foo\bar", @"thingy"), @"C:\foo\bar\thingy", null);
+            test(new CompositePath(null, @"C:\foo\bar", @"thingy", @"stuff"), @"C:\foo\bar\thingy\stuff", null);
+            test(new CompositePath(null, @"C:\foo\bar", @"thingy", @"D:\stuff"), @"D:\stuff", null);
 
 
-            test(new CompositePath(@"|"), @"", @"");
-            test(new CompositePath(@"fo|o"), @"fo", @"o");
-            test(new CompositePath(@"fo|o/bar"), @"fo", @"o/bar");
-            test(new CompositePath(@"foo/b|ar"), @"foo/b", @"ar");
-            test(new CompositePath(@"C:\fo|o\bar"), @"C:\fo", @"o\bar");
-            test(new CompositePath(@"C:\foo\b|ar"), @"C:\foo\b", @"ar");
+            test(new CompositePath(null, @"|"), @"", @"");
+            test(new CompositePath(null, @"fo|o"), @"fo", @"o");
+            test(new CompositePath(null, @"fo|o/bar"), @"fo", @"o/bar");
+            test(new CompositePath(null, @"foo/b|ar"), @"foo/b", @"ar");
+            test(new CompositePath(null, @"C:\fo|o\bar"), @"C:\fo", @"o\bar");
+            test(new CompositePath(null, @"C:\foo\b|ar"), @"C:\foo\b", @"ar");
 
-            test(new CompositePath(@"foo\b|ar", @"thingy\blah"), @"foo\b", @"ar\thingy\blah");
-            test(new CompositePath(@"foo\b|ar\", @"thingy\blah"), @"foo\b", @"ar\thingy\blah");
-            test(new CompositePath(@"foo\b|ar", @"thingy\blah", @"stuff"), @"foo\b", @"ar\thingy\blah\stuff");
-            test(new CompositePath(@"D:\foo\b|ar", @"thingy\blah", @"stuff"), @"D:\foo\b", @"ar\thingy\blah\stuff");
+            test(new CompositePath(null, @"foo\b|ar", @"thingy\blah"), @"foo\b", @"ar\thingy\blah");
+            test(new CompositePath(null, @"foo\b|ar\", @"thingy\blah"), @"foo\b", @"ar\thingy\blah");
+            test(new CompositePath(null, @"foo\b|ar", @"thingy\blah", @"stuff"), @"foo\b", @"ar\thingy\blah\stuff");
+            test(new CompositePath(null, @"D:\foo\b|ar", @"thingy\blah", @"stuff"), @"D:\foo\b", @"ar\thingy\blah\stuff");
 
-            test(new CompositePath(@"foo\bar", @"thin|gy\blah"), @"foo\bar\thin", @"gy\blah");
-            test(new CompositePath(@"foo\bar\", @"thin|gy\blah"), @"foo\bar\thin", @"gy\blah");
-            test(new CompositePath(@"foo\bar", @"thin|gy\blah", @"stuff"), @"foo\bar\thin", @"gy\blah\stuff");
-            test(new CompositePath(@"foo\bar", @"D:\thin|gy\blah", @"stuff"), @"D:\thin", @"gy\blah\stuff");
+            test(new CompositePath(null, @"foo\bar", @"thin|gy\blah"), @"foo\bar\thin", @"gy\blah");
+            test(new CompositePath(null, @"foo\bar\", @"thin|gy\blah"), @"foo\bar\thin", @"gy\blah");
+            test(new CompositePath(null, @"foo\bar", @"thin|gy\blah", @"stuff"), @"foo\bar\thin", @"gy\blah\stuff");
+            test(new CompositePath(null, @"foo\bar", @"D:\thin|gy\blah", @"stuff"), @"D:\thin", @"gy\blah\stuff");
 
-            test(new CompositePath(@"foo\bar", @"thingy\blah", @"stu|ff"), @"foo\bar\thingy\blah\stu", @"ff");
-            test(new CompositePath(@"foo\bar", @"thingy\blah", @"D:\stu|ff"), @"D:\stu", @"ff");
+            test(new CompositePath(null, @"foo\bar", @"thingy\blah", @"stu|ff"), @"foo\bar\thingy\blah\stu", @"ff");
+            test(new CompositePath(null, @"foo\bar", @"thingy\blah", @"D:\stu|ff"), @"D:\stu", @"ff");
 
-            test(new CompositePath(@"C:\fo|o\bar", @"thingy"), @"C:\fo", @"o\bar\thingy");
-            test(new CompositePath(@"C:\foo\bar", @"thin|gy"), @"C:\foo\bar\thin", @"gy");
-            test(new CompositePath(@"C:\fo|o\bar", @"thingy", @"stuff"), @"C:\fo", @"o\bar\thingy\stuff");
-            test(new CompositePath(@"C:\foo\bar", @"thin|gy", @"stuff"), @"C:\foo\bar\thin", @"gy\stuff");
-            test(new CompositePath(@"C:\foo\bar", @"thingy", @"stu|ff"), @"C:\foo\bar\thingy\stu", @"ff");
-            test(new CompositePath(@"C:\foo\bar", @"thingy", @"D:\stu|ff"), @"D:\stu", @"ff");
-
-            _expand = Ut.ExpandPath;
+            test(new CompositePath(null, @"C:\fo|o\bar", @"thingy"), @"C:\fo", @"o\bar\thingy");
+            test(new CompositePath(null, @"C:\foo\bar", @"thin|gy"), @"C:\foo\bar\thin", @"gy");
+            test(new CompositePath(null, @"C:\fo|o\bar", @"thingy", @"stuff"), @"C:\fo", @"o\bar\thingy\stuff");
+            test(new CompositePath(null, @"C:\foo\bar", @"thin|gy", @"stuff"), @"C:\foo\bar\thin", @"gy\stuff");
+            test(new CompositePath(null, @"C:\foo\bar", @"thingy", @"stu|ff"), @"C:\foo\bar\thingy\stu", @"ff");
+            test(new CompositePath(null, @"C:\foo\bar", @"thingy", @"D:\stu|ff"), @"D:\stu", @"ff");
         }
 
         private static void test(CompositePath cf, string expectedPath, string expectedInnerPath)

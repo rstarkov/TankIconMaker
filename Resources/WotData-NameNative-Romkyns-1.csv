@@ -1,4 +1,8 @@
-WOT-DATA,1,"Короткие названия, перевод",NameShort,Romkyns
+WOT-DATA,2
+{{ID}},Ru
+{{EN}},"Short tank names, in Russian"
+{{RU}},"Короткие названия, по-русски"
+{{Inherit}},NameShort/Wargaming
 china-Ch01_Type59,Тип 59
 china-Ch02_Type62,Тип 62
 china-Ch20_Type58,Тип 58

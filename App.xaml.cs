@@ -11,6 +11,7 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Lingo;
 using RT.Util.Xml;
+using WotDataLib;
 using WpfCrutches;
 using D = System.Drawing;
 using W = System.Windows.Media;
@@ -28,9 +29,6 @@ namespace TankIconMaker
         /// <summary>Contains the current UI translation.</summary>
         public static Translation Translation = new Translation();
 
-        /// <summary>Encapsulates all the tank/game data TankIconMaker requires.</summary>
-        public static WotData Data = new WotData();
-
         /// <summary>
         /// Lists all the possible sources of extra properties, sorted and in an observable fashion. This is kept up-to-date
         /// by the <see cref="MainWindow"/> and used in data binding by the <see cref="DataSourceEditor"/>.
@@ -38,7 +36,7 @@ namespace TankIconMaker
         public static ObservableSortedList<DataSourceInfo> DataSources = new ObservableSortedList<DataSourceInfo>(
             items: new DataSourceInfo[] { new DataSourceTierArabic(), new DataSourceTierRoman() },
             comparer: CustomComparer<DataSourceInfo>.By(ds => ds is DataSourceTierArabic ? 0 : ds is DataSourceTierRoman ? 1 : 2)
-                .ThenBy(ds => ds.Name).ThenBy(ds => ds.Language).ThenBy(ds => ds.Author).ThenBy(ds => ds.GameVersionId));
+                .ThenBy(ds => ds.Name).ThenBy(ds => ds.Author));
 
         /// <summary>
         /// Screen resolution at program start time, relative to the WPF's 96.0 ppi. Windows 7 won't allow this to be changed

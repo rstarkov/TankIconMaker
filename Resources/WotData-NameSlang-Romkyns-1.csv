@@ -1,0 +1,22 @@
+WOT-DATA,2
+{{ID}},Ru,En
+{{EN}},"Slang tank names, in Russian","Slang tank names, in English"
+{{RU}},"Разговорные названия танков, по-русски","Разговорные названия танков, по-английски"
+{{Inherit}},NameNative/Ru/Romkyns,NameShort/Wargaming
+germany-Ferdinand,Федя,Ferdy
+germany-PzVIB_Tiger_II,КоТэ
+germany-VK4502P,Тапок
+usa-M4A3E8_Sherman,Мазай
+usa-M6A2E1,Утенок
+usa-T29,Чебуратор
+ussr-IS-7,Луноход
+ussr-KV-1s,КВАС
+ussr-Object_212,Валенок
+ussr-S-51,Буратино
+ussr-SU-14,Холод
+ussr-T-54,Таракан
+germany-G_Panther,,Dracula
+france-AMX40,,Duck
+ussr-SU-14,,School Bus
+
+# additions welcome, please send them in!

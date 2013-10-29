@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using WotDataLib;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
@@ -26,8 +27,8 @@ namespace TankIconMaker
         {
             BindingOperations.SetBinding(ctCombo, ComboBox.SelectedItemProperty, LambdaBinding.New(
                 new Binding("Value") { Source = propertyItem, Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
-                (ExtraPropertyId source) => { return App.DataSources.FirstOrDefault(d => d.ToExtraPropertyId().Equals(source)); },
-                (DataSourceInfo source) => { return source == null ? null : source.ToExtraPropertyId(); }
+                (ExtraPropertyId source) => { return App.DataSources.FirstOrDefault(d => d.PropertyId.Equals(source)); },
+                (DataSourceInfo source) => { return source == null ? null : source.PropertyId; }
             ));
             return this;
         }
@@ -57,32 +58,25 @@ namespace TankIconMaker
     class DataSourceInfo : INotifyPropertyChanged
     {
         /// <summary>The name of the property.</summary>
-        public string Name { get; private set; }
-        /// <summary>The 2-letter language code of the property; "xx" for language-less properties.</summary>
-        public string Language { get; private set; }
+        public string Name { get { return PropertyId.FileId + (PropertyId.ColumnId == null ? "" : ("/" + PropertyId.ColumnId)); } }
         /// <summary>Name of the data file's author.</summary>
-        public string Author { get; private set; }
+        public string Author { get { return PropertyId.Author; } }
 
         /// <summary>A short description of the property.</summary>
         public string Description { get; private set; }
-        /// <summary>The first game build ID for which this data file applies.</summary>
-        public int GameVersionId { get; private set; }
-        /// <summary>The last data file version used to construct this source.</summary>
-        public int FileVersion { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected DataSourceInfo() { }
 
-        public DataSourceInfo(DataFileExtra file)
-        {
-            Name = file.Name;
-            Language = file.Language;
-            Author = file.Author;
+        private ExtraPropertyId _propertyId;
 
-            Description = file.Description;
-            GameVersionId = file.GameVersionId;
-            FileVersion = file.FileVersion;
+        public DataSourceInfo(ExtraPropertyInfo propertyInfo)
+        {
+            if (propertyInfo == null)
+                throw new ArgumentNullException();
+            _propertyId = propertyInfo.PropertyId;
+            Description = propertyInfo.Descriptions["Ru"];
         }
 
         /// <summary>
@@ -90,47 +84,39 @@ namespace TankIconMaker
         /// There can be several versions of the same data source which may differ in the property description etc. This
         /// method is called to ensure such values are inherited from the latest version of the file.
         /// </summary>
-        public void UpdateFrom(DataFileExtra file)
+        public void UpdateFrom(ExtraPropertyInfo propertyInfo)
         {
-            if (Description != file.Description)
+            if (propertyInfo == null)
+                throw new ArgumentNullException();
+            if (Description != Ut.StringForCurrentLanguage(propertyInfo.Descriptions))
             {
-                Description = file.Description;
+                Description = Ut.StringForCurrentLanguage(propertyInfo.Descriptions);
                 if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Description"));
-            }
-            if (GameVersionId != file.GameVersionId)
-            {
-                GameVersionId = file.GameVersionId;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("GameVersionId"));
-            }
-            if (FileVersion != file.FileVersion)
-            {
-                FileVersion = file.FileVersion;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("FileVersion"));
             }
         }
 
         /// <summary>Returns an "extra" property identifier matching this data file.</summary>
-        public virtual ExtraPropertyId ToExtraPropertyId()
+        public virtual ExtraPropertyId PropertyId
         {
-            return new ExtraPropertyId(Name, Language, Author);
+            get { return _propertyId; }
         }
     }
 
     /// <summary>Represents a "tier" data source value using arabic numerals.</summary>
     sealed class DataSourceTierArabic : DataSourceInfo
     {
-        public override ExtraPropertyId ToExtraPropertyId()
+        public override ExtraPropertyId PropertyId
         {
-            return ExtraPropertyId.TierArabic;
+            get { return ExtraPropertyId.TierArabic; }
         }
     }
 
     /// <summary>Represents a "tier" data source value using roman numerals.</summary>
     sealed class DataSourceTierRoman : DataSourceInfo
     {
-        public override ExtraPropertyId ToExtraPropertyId()
+        public override ExtraPropertyId PropertyId
         {
-            return ExtraPropertyId.TierRoman;
+            get { return ExtraPropertyId.TierRoman; }
         }
     }
 }

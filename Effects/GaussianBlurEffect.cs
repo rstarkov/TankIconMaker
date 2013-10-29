@@ -1,6 +1,7 @@
 ﻿using System;
 using RT.Util.Lingo;
 using RT.Util.Xml;
+using WotDataLib;
 
 namespace TankIconMaker.Effects
 {
