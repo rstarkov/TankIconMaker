@@ -49,6 +49,8 @@ namespace TankIconMaker
         public static MemberTr CountryChinaTr(Translation tr) { return new MemberTr(tr.Selector.CountryChina); }
         public T CountryUK { get; set; }
         public static MemberTr CountryUKTr(Translation tr) { return new MemberTr(tr.Selector.CountryUK); }
+        public T CountryJapan { get; set; }
+        public static MemberTr CountryJapanTr(Translation tr) { return new MemberTr(tr.Selector.CountryJapan); }
         public T CountryNone { get; set; }
         public static MemberTr CountryNoneTr(Translation tr) { return new MemberTr(tr.Selector.CountryNone); }
 
@@ -71,7 +73,7 @@ namespace TankIconMaker
         {
             By = By2 = By3 = By4 = SelectBy.Single;
             ClassLight = ClassMedium = ClassHeavy = ClassDestroyer = ClassArtillery = ClassNone
-                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina = CountryUK = CountryNone
+                = CountryUSSR = CountryGermany = CountryUSA = CountryFrance = CountryChina = CountryUK = CountryJapan = CountryNone
                 = CategNormal = CategPremium = CategSpecial
                 = Single = value;
         }
@@ -139,7 +141,7 @@ namespace TankIconMaker
             switch (by)
             {
                 case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery, ClassNone);
-                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK, CountryNone);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK, CountryJapan, CountryNone);
                 case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
                 case SelectBy.Tier:
                     switch (tank.Tier)
@@ -250,7 +252,7 @@ namespace TankIconMaker
             switch (by)
             {
                 case SelectBy.Class: return tank.Class.Pick(ClassLight, ClassMedium, ClassHeavy, ClassDestroyer, ClassArtillery, ClassNone);
-                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK, CountryNone);
+                case SelectBy.Country: return tank.Country.Pick(CountryUSSR, CountryGermany, CountryUSA, CountryFrance, CountryChina, CountryUK, CountryJapan, CountryNone);
                 case SelectBy.Category: return tank.Category.Pick(CategNormal, CategPremium, CategSpecial);
                 case SelectBy.Tier:
                     if (tank.Tier == 0) return TierNone;
