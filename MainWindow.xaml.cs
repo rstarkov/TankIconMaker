@@ -115,6 +115,7 @@ namespace TankIconMaker
                     App.Settings.TranslationFormSettings, new System.Drawing.Icon(iconStream), () => App.Settings.Lingo);
             _translationHelper.TranslationChanged += TranslationChanged;
             Translate(first: true);
+            Title += " (v" + Assembly.GetExecutingAssembly().GetName().Version.Major.ToString("000") + ")";
 
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdLayer_AddLayer));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
