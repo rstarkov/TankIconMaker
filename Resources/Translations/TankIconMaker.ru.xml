@@ -189,6 +189,18 @@
       <Translation>Акционный</Translation>
       <Old>Special</Old>
     </ctDisplayModeCategorySpecial>
+    <ctDisplayModeTierLow>
+      <Translation>Низкие уровни</Translation>
+      <Old>Low tiers</Old>
+    </ctDisplayModeTierLow>
+    <ctDisplayModeTierMedHigh>
+      <Translation>Средние и высокие уровни</Translation>
+      <Old>Medium and high tiers</Old>
+    </ctDisplayModeTierMedHigh>
+    <ctDisplayModeTierHigh>
+      <Translation>Высокие уровни</Translation>
+      <Old>High tiers</Old>
+    </ctDisplayModeTierHigh>
     <ctLanguageLabel>
       <Translation>_Язык</Translation>
       <Old>L_anguage</Old>
@@ -1575,7 +1587,7 @@
     </IconDims_NumberError>
     <Centerable_Prompt>
       <Translation encoding="c-literal">Выберите один из двух типов иконок:\r\n\r\n• Центрирующиеся иконки поддерживают горизонтальное центрирование над танками. Ширина иконок варьируется.\r\n• Иконки с фиксированной шириной будут правильно центрироваться только если изображение танка расположено по центру иконки.\r\n\r\nДанная настройка не имеет видимого эффекта в программе, так как все иконки отображаются с выравниванием по левому краю. Эффект настройки будет заметен в игре если в иконке имеется много неиспользуемого места.\r\n\r\nТекущий режим у данного стиля: {0}.</Translation>
-      <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within TankIconMaker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
+      <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
     </Centerable_Prompt>
     <Centerable_Yes>
       <Translation>Центрирующиеся</Translation>
@@ -1701,120 +1713,6 @@
     </ErrorToClipboard_CopyFail>
   </Prompt>
   <Error>
-    <DataFile_UnrecognizedCountry>
-      <Translation>Нераспознанная страна: "{0}". Допустимые значения: {1}.</Translation>
-      <Old>Unrecognized country: "{0}". Allowed values: {1}.</Old>
-    </DataFile_UnrecognizedCountry>
-    <DataFile_UnrecognizedClass>
-      <Translation>Нераспознанный класс: "{0}". Допустимые значения: {1}.</Translation>
-      <Old>Unrecognized class: "{0}". Allowed values: {1}.</Old>
-    </DataFile_UnrecognizedClass>
-    <DataFile_UnrecognizedCategory>
-      <Translation>Нераспознанная доступность: "{0}". Допустимые значения: {1}.</Translation>
-      <Old>Unrecognized availability: "{0}". Allowed values: {1}.</Old>
-    </DataFile_UnrecognizedCategory>
-    <DataFile_TankTierValue>
-      <Translation>Поле с уровнем танка не является целым числом, либо выходит за допустимые пределы (1-10): "{0}"</Translation>
-      <Old>The tier field is not a whole number or outside of the 1..10 range: "{0}"</Old>
-    </DataFile_TankTierValue>
-    <DataFile_TooFewFields>
-      <IsNumber>
-        <item>True</item>
-      </IsNumber>
-      <Translations>
-        <item>Требуется как минимум 1 поле.</item>
-        <item>Требуются как минимум {0} поля.</item>
-        <item>Требуется как минимум {0} полей.</item>
-      </Translations>
-      <Old>
-        <item>Expected at least 1 field.</item>
-        <item>Expected at least {0} fields.</item>
-      </Old>
-    </DataFile_TooFewFields>
-    <DataFile_EmptyFile>
-      <Translation>Требуется как минимум одна строка.</Translation>
-      <Old>Expected at least one line.</Old>
-    </DataFile_EmptyFile>
-    <DataFile_TooFewFieldsFirstLine>
-      <Translation>Требуются как минимум два поля в первой строке.</Translation>
-      <Old>Expected at least two columns in the first row.</Old>
-    </DataFile_TooFewFieldsFirstLine>
-    <DataFile_ExpectedSignature>
-      <Translation>Требуется "{0}" в первом поле первой строки.</Translation>
-      <Old>Expected "{0}" in the first column of the first row.</Old>
-    </DataFile_ExpectedSignature>
-    <DataFile_ExpectedV1>
-      <Translation>Второе поле первой строки должно содержать "1" (версия формата)</Translation>
-      <Old>The second column of the first row must be "1" (format version)</Old>
-    </DataFile_ExpectedV1>
-    <DataFile_LineNum>
-      <Translation>Строка {0}: {1}</Translation>
-      <Old>Line {0}: {1}</Old>
-    </DataFile_LineNum>
-    <DataFile_CsvParse>
-      <Translation>Не удалось прочитать строку {0}.</Translation>
-      <Old>Couldn't parse line {0}.</Old>
-    </DataFile_CsvParse>
-    <DataDir_NoFilesAvailable>
-      <Translation>Не удалось загрузить ни одного файла версии игры либо файла со встроенными свойствами.</Translation>
-      <Old>Could not load any game version data files and/or any built-in property data files.</Old>
-    </DataDir_NoFilesAvailable>
-    <DataDir_Skip_WrongParts>
-      <Translation>Игнорирую файл "{0}" так как в его имени содержится неверное количество частей (ожидалось: {1}, найдено {2}).</Translation>
-      <Old>Skipped "{0}" because it has the wrong number of filename parts (expected: {1}, actual {2}).</Old>
-    </DataDir_Skip_WrongParts>
-    <DataDir_Skip_FileError>
-      <Translation>Игнорирую файл "{0}" так как в нем содержится ошибка: {1}</Translation>
-      <Old>Skipped "{0}" because the file could not be parsed: {1}</Old>
-    </DataDir_Skip_FileError>
-    <DataDir_Skip_GameVersion>
-      <Translation>Игнорирую файл "{0}" так как часть имени файла, указывающая версию игры, нераспознана: "{1}".</Translation>
-      <Old>Skipped "{0}" because it has an unparseable game version part in the filename: "{1}".</Old>
-    </DataDir_Skip_GameVersion>
-    <DataDir_Skip_FileVersion>
-      <Translation>Игнорирую файл "{0}" так как версия файла указана в неверном формате: "{1}".</Translation>
-      <Old>Skipped "{0}" because it has an unparseable file version part in the filename: "{1}".</Old>
-    </DataDir_Skip_FileVersion>
-    <DataDir_Skip_Author>
-      <Translation>Игнорирую файл "{0}" так как поле автора в имени файла является пустым.</Translation>
-      <Old>Skipped "{0}" because it has an empty author part in the filename.</Old>
-    </DataDir_Skip_Author>
-    <DataDir_Skip_PropName>
-      <Translation>Игнорирую файл "{0}" так как поле названия свойства в имени файла является пустым.</Translation>
-      <Old>Skipped "{0}" because it has an empty property name part in the filename.</Old>
-    </DataDir_Skip_PropName>
-    <DataDir_Skip_Lang>
-      <Translation>Игнорирую файл "{0}" так как поле языка данных ("{1}") не является кодом языка, либо "X" для файлов без определенного языка. Возможно вы имели в виду En, Ru, Zh, Es, Fr, De, Ja? Полный список кодов ISO-639-1 можно найти на Википедии.</Translation>
-      <Old>Skipped "{0}" because its language name part in the filename ("{1}") is not a valid language code, nor "X" for language-less files. Did you mean En, Ru, Zh, Es, Fr, De, Ja? Full list of ISO-639-1 codes is available on Wikipedia.</Old>
-    </DataDir_Skip_Lang>
-    <DataDir_Skip_InhNoProp>
-      <Translation>Игнорирую файл "{0}" так как не найдены файлы для свойства "{1}" (из которого данный файл наследует значения).</Translation>
-      <Old>Skipped "{0}" because there are no data files for the property "{1}" (from which it inherits values).</Old>
-    </DataDir_Skip_InhNoProp>
-    <DataDir_Skip_InhNoLang>
-      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}" (из которого он наследует значения) имеют язык "{2}".</Translation>
-      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are in language "{2}".</Old>
-    </DataDir_Skip_InhNoLang>
-    <DataDir_Skip_InhNoAuth>
-      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}" (из которого он наследует значения) имеют автора "{2}".</Translation>
-      <Old>Skipped "{0}" because no data files for the property "{1}" (from which it inherits values) are by author "{2}".</Old>
-    </DataDir_Skip_InhNoAuth>
-    <DataDir_Skip_InhNoGameVer>
-      <Translation>Игнорирую файл "{0}" так как ни один из файлов для свойства "{1}"/"{2}" (из которого он наследует значения) имеет версию игры "{3}" либо ниже.</Translation>
-      <Old>Skipped "{0}" because no data files for the property "{1}"/"{2}" (from which it inherits values) have game version "{3}" or below.</Old>
-    </DataDir_Skip_InhNoGameVer>
-    <DataDir_Skip_InhCircular>
-      <Translation>Игнорирую файл "{0}" в связи с круговой зависимостью.</Translation>
-      <Old>Skipped "{0}" due to a circular dependency.</Old>
-    </DataDir_Skip_InhCircular>
-    <NoDataFilesWarning>
-      <Translation encoding="c-literal">Не удалось загрузить ни одного файла версии либо файла со встроенными свойствами. Убедитесь, что эти файлы существуют по следующему пути:\r\n\r\n{0}</Translation>
-      <Old encoding="c-literal">Found no version files and/or no built-in property data files. Make sure the files are available under the following path:\n\n{0}</Old>
-    </NoDataFilesWarning>
-    <DataMissing_NoDataFiles>
-      <Translation>Не удалось загрузить ни одного файла версии либо файла со встроенными свойствами.</Translation>
-      <Old>Found no version files and/or no built-in property data files.</Old>
-    </DataMissing_NoDataFiles>
     <DataMissing_NoBuiltinData>
       <Translation>Для данной версии World of Tanks файл со встроенными свойствами танков не найден.</Translation>
       <Old>Found no built-in property data file for this version of World of Tanks.</Old>
