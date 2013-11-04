@@ -568,7 +568,7 @@ namespace TankIconMaker
                 for (int y = 0; y < Height; y++)
                 {
                     uint* ptrL = (uint*) (Data + y * Stride);
-                    uint* ptrR = (uint*) (Data + y * Stride + Width * 4);
+                    uint* ptrR = (uint*) (Data + y * Stride + (Width - 1) * 4);
                     while (ptrL < ptrR)
                     {
                         uint temp = *ptrR;
