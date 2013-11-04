@@ -288,6 +288,10 @@
                     <ComboBoxItem Name="ctDisplayModeCategoryNormal">Normal</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCategoryPremium">Premium</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCategorySpecial">Special</ComboBoxItem>
+                    <Separator/>
+                    <ComboBoxItem Name="ctDisplayModeTierLow">Low tiers</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeTierMedHigh">Medium and high tiers</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeTierHigh">High tiers</ComboBoxItem>
                 </ComboBox>
                 <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">

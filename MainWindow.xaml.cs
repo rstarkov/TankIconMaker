@@ -783,6 +783,32 @@ namespace TankIconMaker
             UpdateIcons();
         }
 
+        private static bool isMedHighTier(WotTank t)
+        {
+            switch (t.Class)
+            {
+                case Class.Light: return t.Tier >= 4;
+                case Class.Artillery: return t.Tier >= 5;
+                case Class.Destroyer: return t.Tier >= 5;
+                case Class.Medium: return t.Tier >= 6;
+                case Class.Heavy: return t.Tier >= 6;
+                default: return false;
+            }
+        }
+
+        private static bool isHighTier(WotTank t)
+        {
+            switch (t.Class)
+            {
+                case Class.Light: return t.Tier >= 7;
+                case Class.Artillery: return t.Tier >= 8;
+                case Class.Destroyer: return t.Tier >= 8;
+                case Class.Medium: return t.Tier >= 9;
+                case Class.Heavy: return t.Tier >= 9;
+                default: return false;
+            }
+        }
+
         /// <summary>
         /// Constructs a list of render tasks based on the current settings in the GUI. Will enumerate only some
         /// of the tanks if the user chose a smaller subset in the GUI.
@@ -819,6 +845,10 @@ namespace TankIconMaker
                 case DisplayFilter.Normal: selection = context.Tanks.Where(t => t.Category == Category.Normal); break;
                 case DisplayFilter.Premium: selection = context.Tanks.Where(t => t.Category == Category.Premium); break;
                 case DisplayFilter.Special: selection = context.Tanks.Where(t => t.Category == Category.Special); break;
+
+                case DisplayFilter.TierLow: selection = context.Tanks.Where(t => !isMedHighTier(t)); break;
+                case DisplayFilter.TierMedHigh: selection = context.Tanks.Where(t => isMedHighTier(t)); break;
+                case DisplayFilter.TierHigh: selection = context.Tanks.Where(t => isHighTier(t)); break;
             }
 
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.TankId)
