@@ -91,6 +91,16 @@ namespace TankIconMaker
         {
             foreach (var effect in Effects)
                 effect.Layer = this;
+            var oldSizePosEffects = Effects.Where(e => e is Effects.SizePosEffect && e.SavedByVersion <= 2).ToList();
+            if (oldSizePosEffects.Any())
+            {
+                oldSizePosEffects.Reverse();
+                foreach (var e in oldSizePosEffects)
+                {
+                    Effects.Remove(e);
+                    Effects.Insert(0, e);
+                }
+            }
             Effects.CollectionChanged -= updateEffectLayer;
             Effects.CollectionChanged += updateEffectLayer;
         }

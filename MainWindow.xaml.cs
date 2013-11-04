@@ -617,16 +617,17 @@ namespace TankIconMaker
                         var img = layer.Draw(renderTask.Tank);
                         if (img == null)
                             continue;
-                        foreach (var effect in layer.Effects.Where(e => e is Effects.SizePosEffect && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
-                            img = effect.Apply(renderTask.Tank, img.AsWritable());
-                        if (layer.Effects.Count > 0 && (img.Width < style.IconWidth || img.Height < style.IconHeight))
+                        foreach (var effect in layer.Effects.Where(e => e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
                         {
-                            var imgOrig = img;
-                            img = new BitmapRam(Math.Max(style.IconWidth, img.Width), Math.Max(style.IconHeight, img.Height));
-                            img.DrawImage(imgOrig);
-                        }
-                        foreach (var effect in layer.Effects.Where(e => !(e is Effects.SizePosEffect) && e.Visible && e.VisibleFor.GetValue(renderTask.Tank) == BoolWithPassthrough.Yes))
                             img = effect.Apply(renderTask.Tank, img.AsWritable());
+                            if (effect is Effects.SizePosEffect)
+                                if (img.Width < style.IconWidth || img.Height < style.IconHeight)
+                                {
+                                    var imgOrig = img;
+                                    img = new BitmapRam(Math.Max(style.IconWidth, img.Width), Math.Max(style.IconHeight, img.Height));
+                                    img.DrawImage(imgOrig);
+                                }
+                        }
                         result.DrawImage(img);
                     }
                 }
