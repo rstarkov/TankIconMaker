@@ -332,7 +332,7 @@ namespace TankIconMaker
                 return _context;
             _context = null;
             if (ActiveInstallation.GameVersionId != null)
-                try { _context = WotData.Load(PathUtil.AppPathCombine("Data"), ActiveInstallation, App.Settings.DefaultPropertyAuthor); }
+                try { _context = WotData.Load(PathUtil.AppPathCombine("Data"), ActiveInstallation, App.Settings.DefaultPropertyAuthor, PathUtil.AppPathCombine("Data", "Exported")); }
                 catch (WotDataException) { }
             FilenameEditor.LastContext = _context; // bit of a hack to give these instances access to the context, see comment on the field.
             return _context;
