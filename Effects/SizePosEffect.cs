@@ -30,7 +30,7 @@ namespace TankIconMaker.Effects
 
     class SizePosEffect : EffectBase
     {
-        public override int Version { get { return 2; } }
+        public override int Version { get { return 3; } }
         public override string TypeName { get { return App.Translation.EffectSizePos.EffectName; } }
         public override string TypeDescription { get { return App.Translation.EffectSizePos.EffectDescription; } }
 
