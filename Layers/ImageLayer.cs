@@ -39,9 +39,13 @@ namespace TankIconMaker.Layers
                         image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge, tank.TankId + config.TankIconExtension));
                         break;
                     case ImageBuiltInStyle.Country:
+                        if (tank.Country == Country.None)
+                            return null;
                         image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceCountry[tank.Country]));
                         break;
                     case ImageBuiltInStyle.Class:
+                        if (tank.Class == Class.None)
+                            return null;
                         image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceClass[tank.Class]));
                         break;
                     default:

@@ -23,5 +23,5 @@
     <item key="Destroyer">res\packages\gui.pkg|gui\maps\icons\filters\tanks\tank_type_atspg.png</item>
     <item key="Artillery">res\packages\gui.pkg|gui\maps\icons\filters\tanks\tank_type_spg.png</item>
   </PathSourceClass>
-  <TankIconExtension>.tga</TankIconExtension>
+  <TankIconExtension>.png</TankIconExtension>
 </item>
