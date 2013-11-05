@@ -6,8 +6,8 @@ WOT-BUILTIN,2
 #          any of your own overrides in there. See Examples below.
 
 
-# Observer has special properties
-ussr-Observer,none,0,none,special
+# Observer has special properties and is only present in 0.8.0+
+ussr-Observer,none,0,none,special,#265
 # Unknown tank is not actually listed in the game data, so add it
 noImage,none,0,none,special
 
