@@ -83,7 +83,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name null="1" />
           <Visible>True</Visible>
-          <SavedByVersion>2</SavedByVersion>
+          <SavedByVersion>3</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -528,7 +528,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name></Name>
           <Visible>True</Visible>
-          <SavedByVersion>2</SavedByVersion>
+          <SavedByVersion>3</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -799,7 +799,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name></Name>
           <Visible>True</Visible>
-          <SavedByVersion>2</SavedByVersion>
+          <SavedByVersion>3</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -1219,9 +1219,9 @@
       <Height>999</Height>
       <Baseline>True</Baseline>
       <Property>
-        <Name>NameShort</Name>
-        <Language>Ru</Language>
-        <Author>Romkyns</Author>
+        <FileId>NameShort</FileId>
+        <ColumnId null="1" />
+        <Author>Wargaming</Author>
       </Property>
     </item>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
@@ -1377,8 +1377,8 @@
       <Height>36</Height>
       <Baseline>False</Baseline>
       <Property>
-        <Name>NameShort</Name>
-        <Language>Ru</Language>
+        <FileId>NameShort</FileId>
+        <ColumnId null="1" />
         <Author>Wargaming</Author>
       </Property>
     </item>

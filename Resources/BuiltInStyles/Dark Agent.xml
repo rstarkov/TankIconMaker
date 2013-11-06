@@ -2,6 +2,9 @@
 <item>
   <Name>Dark Agent</Name>
   <Author>Romkyns</Author>
+  <IconWidth>80</IconWidth>
+  <IconHeight>24</IconHeight>
+  <Centerable>False</Centerable>
   <Layers>
     <item type="TankIconMaker.Layers.BkgDarkAgentLayer">
       <Name></Name>
@@ -18,16 +21,20 @@
         <ClassHeavy>Yes</ClassHeavy>
         <ClassDestroyer>Yes</ClassDestroyer>
         <ClassArtillery>Yes</ClassArtillery>
+        <ClassNone>Yes</ClassNone>
         <CountryUSSR>Yes</CountryUSSR>
         <CountryGermany>Yes</CountryGermany>
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
+        <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
         <Single>Yes</Single>
+        <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
         <Tier2>Yes</Tier2>
         <Tier3>Yes</Tier3>
@@ -49,16 +56,20 @@
         <ClassHeavy>#B4636363</ClassHeavy>
         <ClassDestroyer>#B42853A0</ClassDestroyer>
         <ClassArtillery>#B4B52F2F</ClassArtillery>
+        <ClassNone>#B4FFFFFF</ClassNone>
         <CountryUSSR>#FFFFFF</CountryUSSR>
         <CountryGermany>#FFFFFF</CountryGermany>
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
         <CountryUK>#FFFFFF</CountryUK>
+        <CountryJapan>#FFFFFF</CountryJapan>
+        <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
         <Single>#FFFFFF</Single>
+        <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
@@ -72,7 +83,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name null="1" />
           <Visible>True</Visible>
-          <SavedByVersion>1</SavedByVersion>
+          <SavedByVersion>3</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -83,16 +94,20 @@
             <ClassHeavy>Yes</ClassHeavy>
             <ClassDestroyer>Yes</ClassDestroyer>
             <ClassArtillery>Yes</ClassArtillery>
+            <ClassNone>Yes</ClassNone>
             <CountryUSSR>Yes</CountryUSSR>
             <CountryGermany>Yes</CountryGermany>
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
+            <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
             <Single>Yes</Single>
+            <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
             <Tier2>Yes</Tier2>
             <Tier3>Yes</Tier3>
@@ -108,7 +123,6 @@
           <Width>30</Width>
           <Height>18</Height>
           <PixelAlphaThreshold>160</PixelAlphaThreshold>
-          <ConvertedFromOld>True</ConvertedFromOld>
           <PositionByPixels>True</PositionByPixels>
           <Anchor>MidLeft</Anchor>
           <X>8</X>
@@ -134,16 +148,20 @@
             <ClassHeavy>Yes</ClassHeavy>
             <ClassDestroyer>Yes</ClassDestroyer>
             <ClassArtillery>Yes</ClassArtillery>
+            <ClassNone>Yes</ClassNone>
             <CountryUSSR>Yes</CountryUSSR>
             <CountryGermany>Yes</CountryGermany>
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
+            <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
             <Single>Yes</Single>
+            <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
             <Tier2>Yes</Tier2>
             <Tier3>Yes</Tier3>
@@ -173,16 +191,20 @@
         <ClassHeavy>Yes</ClassHeavy>
         <ClassDestroyer>Yes</ClassDestroyer>
         <ClassArtillery>Yes</ClassArtillery>
+        <ClassNone>Yes</ClassNone>
         <CountryUSSR>Yes</CountryUSSR>
         <CountryGermany>Yes</CountryGermany>
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
+        <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
         <Single>Yes</Single>
+        <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
         <Tier2>Yes</Tier2>
         <Tier3>Yes</Tier3>
@@ -199,7 +221,7 @@
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Tier</Name>
       <Visible>True</Visible>
-      <SavedByVersion>1</SavedByVersion>
+      <SavedByVersion>2</SavedByVersion>
       <Effects>
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Name null="1" />
@@ -215,16 +237,20 @@
             <ClassHeavy>Yes</ClassHeavy>
             <ClassDestroyer>Yes</ClassDestroyer>
             <ClassArtillery>Yes</ClassArtillery>
+            <ClassNone>Yes</ClassNone>
             <CountryUSSR>Yes</CountryUSSR>
             <CountryGermany>Yes</CountryGermany>
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
+            <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
             <Single>Yes</Single>
+            <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
             <Tier2>Yes</Tier2>
             <Tier3>Yes</Tier3>
@@ -248,16 +274,20 @@
             <ClassHeavy>#000000</ClassHeavy>
             <ClassDestroyer>#000000</ClassDestroyer>
             <ClassArtillery>#000000</ClassArtillery>
+            <ClassNone>#000000</ClassNone>
             <CountryUSSR>#000000</CountryUSSR>
             <CountryGermany>#000000</CountryGermany>
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
+            <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
             <Single>#000000</Single>
+            <TierNone>#000000</TierNone>
             <Tier1>#000000</Tier1>
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
@@ -279,16 +309,20 @@
             <ClassHeavy>Yes</ClassHeavy>
             <ClassDestroyer>Yes</ClassDestroyer>
             <ClassArtillery>Yes</ClassArtillery>
+            <ClassNone>Yes</ClassNone>
             <CountryUSSR>Yes</CountryUSSR>
             <CountryGermany>Yes</CountryGermany>
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
+            <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
             <Single>Yes</Single>
+            <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
             <Tier2>Yes</Tier2>
             <Tier3>Yes</Tier3>
@@ -312,16 +346,20 @@
             <ClassHeavy>#000000</ClassHeavy>
             <ClassDestroyer>#000000</ClassDestroyer>
             <ClassArtillery>#000000</ClassArtillery>
+            <ClassNone>#000000</ClassNone>
             <CountryUSSR>#000000</CountryUSSR>
             <CountryGermany>#000000</CountryGermany>
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
+            <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
             <Single>#000000</Single>
+            <TierNone>#000000</TierNone>
             <Tier1>#000000</Tier1>
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
@@ -340,16 +378,20 @@
         <ClassHeavy>Yes</ClassHeavy>
         <ClassDestroyer>Yes</ClassDestroyer>
         <ClassArtillery>Yes</ClassArtillery>
+        <ClassNone>Yes</ClassNone>
         <CountryUSSR>Yes</CountryUSSR>
         <CountryGermany>Yes</CountryGermany>
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
+        <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
         <Single>Yes</Single>
+        <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
         <Tier2>Yes</Tier2>
         <Tier3>Yes</Tier3>
@@ -361,7 +403,6 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
-      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Arial</FontFamily>
       <FontSize>8.5</FontSize>
@@ -377,16 +418,20 @@
         <ClassHeavy>#FFFFFF</ClassHeavy>
         <ClassDestroyer>#FFFFFF</ClassDestroyer>
         <ClassArtillery>#FFFFFF</ClassArtillery>
+        <ClassNone>#FFFFFF</ClassNone>
         <CountryUSSR>#FFFFFF</CountryUSSR>
         <CountryGermany>#FFFFFF</CountryGermany>
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
         <CountryUK>#FFFFFF</CountryUK>
+        <CountryJapan>#FFFFFF</CountryJapan>
+        <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
         <Single>#FFFFFF</Single>
+        <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FF0000</Tier10>
@@ -398,15 +443,15 @@
       <Height>999</Height>
       <Baseline>False</Baseline>
       <Property>
-        <Name>Tier (Arabic)</Name>
-        <Language null="1" />
+        <FileId>Tier (Arabic)</FileId>
+        <ColumnId null="1" />
         <Author>(built-in)</Author>
       </Property>
     </item>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Name</Name>
       <Visible>True</Visible>
-      <SavedByVersion>1</SavedByVersion>
+      <SavedByVersion>2</SavedByVersion>
       <Effects>
         <item type="TankIconMaker.Effects.ShadowEffect">
           <Name null="1" />
@@ -422,16 +467,20 @@
             <ClassHeavy>Yes</ClassHeavy>
             <ClassDestroyer>Yes</ClassDestroyer>
             <ClassArtillery>Yes</ClassArtillery>
+            <ClassNone>Yes</ClassNone>
             <CountryUSSR>Yes</CountryUSSR>
             <CountryGermany>Yes</CountryGermany>
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
+            <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
             <Single>Yes</Single>
+            <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
             <Tier2>Yes</Tier2>
             <Tier3>Yes</Tier3>
@@ -455,16 +504,20 @@
             <ClassHeavy>#000000</ClassHeavy>
             <ClassDestroyer>#000000</ClassDestroyer>
             <ClassArtillery>#000000</ClassArtillery>
+            <ClassNone>#000000</ClassNone>
             <CountryUSSR>#000000</CountryUSSR>
             <CountryGermany>#000000</CountryGermany>
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
+            <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
             <Single>#000000</Single>
+            <TierNone>#000000</TierNone>
             <Tier1>#000000</Tier1>
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
@@ -486,16 +539,20 @@
             <ClassHeavy>Yes</ClassHeavy>
             <ClassDestroyer>Yes</ClassDestroyer>
             <ClassArtillery>Yes</ClassArtillery>
+            <ClassNone>Yes</ClassNone>
             <CountryUSSR>Yes</CountryUSSR>
             <CountryGermany>Yes</CountryGermany>
             <CountryUSA>Yes</CountryUSA>
             <CountryFrance>Yes</CountryFrance>
             <CountryChina>Yes</CountryChina>
             <CountryUK>Yes</CountryUK>
+            <CountryJapan>Yes</CountryJapan>
+            <CountryNone>Yes</CountryNone>
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
             <Single>Yes</Single>
+            <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
             <Tier2>Yes</Tier2>
             <Tier3>Yes</Tier3>
@@ -519,16 +576,20 @@
             <ClassHeavy>#000000</ClassHeavy>
             <ClassDestroyer>#000000</ClassDestroyer>
             <ClassArtillery>#000000</ClassArtillery>
+            <ClassNone>#000000</ClassNone>
             <CountryUSSR>#000000</CountryUSSR>
             <CountryGermany>#000000</CountryGermany>
             <CountryUSA>#000000</CountryUSA>
             <CountryFrance>#000000</CountryFrance>
             <CountryChina>#000000</CountryChina>
             <CountryUK>#000000</CountryUK>
+            <CountryJapan>#000000</CountryJapan>
+            <CountryNone>#000000</CountryNone>
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
             <Single>#000000</Single>
+            <TierNone>#000000</TierNone>
             <Tier1>#000000</Tier1>
             <Tier5>#000000</Tier5>
             <Tier10>#000000</Tier10>
@@ -547,16 +608,20 @@
         <ClassHeavy>Yes</ClassHeavy>
         <ClassDestroyer>Yes</ClassDestroyer>
         <ClassArtillery>Yes</ClassArtillery>
+        <ClassNone>Yes</ClassNone>
         <CountryUSSR>Yes</CountryUSSR>
         <CountryGermany>Yes</CountryGermany>
         <CountryUSA>Yes</CountryUSA>
         <CountryFrance>Yes</CountryFrance>
         <CountryChina>Yes</CountryChina>
         <CountryUK>Yes</CountryUK>
+        <CountryJapan>Yes</CountryJapan>
+        <CountryNone>Yes</CountryNone>
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
         <Single>Yes</Single>
+        <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
         <Tier2>Yes</Tier2>
         <Tier3>Yes</Tier3>
@@ -568,7 +633,6 @@
         <Tier9>Yes</Tier9>
         <Tier10>Yes</Tier10>
       </VisibleFor>
-      <ConvertedFromOld>True</ConvertedFromOld>
       <FontSmoothing>ClearType</FontSmoothing>
       <FontFamily>Arial</FontFamily>
       <FontSize>8.5</FontSize>
@@ -584,16 +648,20 @@
         <ClassHeavy>#FFFFFF</ClassHeavy>
         <ClassDestroyer>#FFFFFF</ClassDestroyer>
         <ClassArtillery>#FFFFFF</ClassArtillery>
+        <ClassNone>#FFFFFF</ClassNone>
         <CountryUSSR>#FFFFFF</CountryUSSR>
         <CountryGermany>#FFFFFF</CountryGermany>
         <CountryUSA>#FFFFFF</CountryUSA>
         <CountryFrance>#FFFFFF</CountryFrance>
         <CountryChina>#FFFFFF</CountryChina>
         <CountryUK>#FFFFFF</CountryUK>
+        <CountryJapan>#FFFFFF</CountryJapan>
+        <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#D2D2D2</CategNormal>
         <CategPremium>#FFFF00</CategPremium>
         <CategSpecial>#F26267</CategSpecial>
         <Single>#FFFFFF</Single>
+        <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>
         <Tier5>#FFFFFF</Tier5>
         <Tier10>#FFFFFF</Tier10>
@@ -605,9 +673,9 @@
       <Height>999</Height>
       <Baseline>True</Baseline>
       <Property>
-        <Name>NameNative</Name>
-        <Language>Ru</Language>
-        <Author>Romkyns</Author>
+        <FileId>NameShort</FileId>
+        <ColumnId null="1" />
+        <Author>Wargaming</Author>
       </Property>
     </item>
   </Layers>
