@@ -1144,8 +1144,9 @@ namespace TankIconMaker
                                 }.Show();
                                 if (choice == 1)
                                 {
-                                    var url = "http://forum.worldoftanks.ru/index.php?/topic/274782-tank-icon-maker";
-                                    // will customize URL here based on language, when topics in other languages are available.
+                                    string url = "http://forum.worldoftanks.eu/index.php?/topic/318315-";
+                                    if (App.Translation.Language == RT.Util.Lingo.Language.Russian)
+                                        url = "http://forum.worldoftanks.ru/index.php?/topic/274782-tank-icon-maker";
                                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                                 }
                             }
