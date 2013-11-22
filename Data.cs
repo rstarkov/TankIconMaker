@@ -41,7 +41,7 @@ namespace TankIconMaker
     class TestTank : Tank
     {
         /// <summary>Constructor.</summary>
-        public TestTank(string tankId, int tier, Country country, Class class_, Category category)
+        public TestTank(string tankId, int tier, Country country, Class class_, Category category, WotContext context)
             : base(tankId, tier, country, class_, category)
         {
             TankId = tankId;
@@ -49,6 +49,7 @@ namespace TankIconMaker
             Country = country;
             Class = class_;
             Category = category;
+            Context = context;
         }
 
         public string PropertyValue;
