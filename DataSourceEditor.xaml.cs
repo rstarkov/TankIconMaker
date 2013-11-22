@@ -76,7 +76,7 @@ namespace TankIconMaker
             if (propertyInfo == null)
                 throw new ArgumentNullException();
             _propertyId = propertyInfo.PropertyId;
-            Description = propertyInfo.Descriptions["Ru"];
+            Description = Ut.StringForCurrentLanguage(propertyInfo.Descriptions);
         }
 
         /// <summary>
