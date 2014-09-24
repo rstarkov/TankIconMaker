@@ -84,7 +84,7 @@ germany-G20_Marder_II,Mrdr2
 germany-Grille,Grill
 germany-GW_Mk_VIe,GW·VI
 germany-GW_Tiger_P,GWTP
-germany-H39_captured,H39
+germany-H39_captured,Pz38h
 germany-Hetzer,Hetzr
 germany-Hummel,Humml
 germany-Indien_Panzer,IndPz
@@ -145,7 +145,21 @@ germany-VK4502A,4502a
 germany-VK4502P,4502p
 germany-VK7201,vk7201
 germany-Wespe,Wespe
+japan-Chi_Ha,JChiHa
+japan-Chi_He,ChiHe
+japan-Chi_Ni,ChiNi
+japan-Chi_Nu,ChiNu
 japan-Chi_Nu_Kai,ChiNuK
+japan-Chi_Ri,ChiRi
+japan-Chi_To,ChiTo
+japan-Ha_Go,HaGo
+japan-Ke_Ho,KeHo
+japan-Ke_Ni,KeNi
+japan-Ke_Ni_B,KeNiO
+japan-NC27,R.Ots
+japan-ST_B1,stb·1
+japan-STA_1,sta·1
+japan-Type_61,Typ61
 uk-GB01_Medium_Mark_I,Med1
 uk-GB03_Cruiser_Mk_I,CrMk1
 uk-GB04_Valentine,Valnt
@@ -172,7 +186,7 @@ uk-GB30_FV3805,fv3805
 uk-GB31_Conqueror_Gun,ConqG
 uk-GB32_Tortoise,Tort
 uk-GB39_Universal_CarrierQF2,QF2
-uk-GB40_Gun_Carrier_Churchill,GCChr
+uk-GB40_Gun_Carrier_Churchill,ChrGC
 uk-GB42_Valentine_AT,ValAT
 uk-GB48_FV215b_183,Fv183
 uk-GB51_Excelsior,Excel
@@ -191,7 +205,7 @@ uk-GB74_AT8,AT8
 uk-GB75_AT7,AT7
 uk-GB77_FV304,fv304
 uk-GB78_Sexton_I,Sext1
-uk-GB79_FV206,fv206
+uk-GB79_FV206,fv207
 usa-M10_Wolverine,Wolvr
 usa-M103,M103
 usa-M12,M12
@@ -201,7 +215,7 @@ usa-M2_med,M2med
 usa-M22_Locust,Locst
 usa-M24_Chaffee,Chaff
 usa-M3_Grant,M3Lee
-usa-M3_Stuart,M3Stu
+usa-M3_Stuart,M3stu
 usa-M36_Slagger,Slagr
 usa-M37,M37
 usa-M4_Sherman,Sherm
@@ -213,7 +227,7 @@ usa-M48A1,M48a1
 usa-M4A2E4,M4a2e4
 usa-M4A3E8_Sherman,M4a3e8
 usa-M4A3E8_Sherman_training,M4a3e8
-usa-M5_Stuart,M5Stu
+usa-M5_Stuart,M5stu
 usa-M53_55,M53·55
 usa-M6,M6
 usa-M60,M60
@@ -221,7 +235,7 @@ usa-M6A2E1,M6a2e1
 usa-M7_med,M7
 usa-M7_Priest,Prist
 usa-M8A1,M8a1
-usa-MTLS-1G14,MTLS
+usa-MTLS-1G14,mtls
 usa-Pershing,Persh
 usa-Ram-II,Ram2
 usa-Sexton_I,Sext1
@@ -304,6 +318,7 @@ ussr-SU-18,Су·18,Su·18
 ussr-SU-26,Су·26,Su·26
 ussr-SU-5,Су·5,Su·5
 ussr-SU-76,Су76,Su76
+ussr-SU76I,Су76и,Su76i
 ussr-SU-8,Су·8,Su·8
 ussr-SU-85,Су85,Su85
 ussr-SU_85I,Су85и,Su85i
@@ -343,7 +358,7 @@ germany-RhB_Waffentrager,WTRhB
 germany-Sturer_Emil,PzSf5
 germany-Waffentrager_E100,WT100
 germany-Waffentrager_IV,WT4
-uk-GB76_Mk_VIC,Mk6c
+uk-GB76_Mk_VIC,L.vic
 usa-T7_Combat_Car,T7
 ussr-62A,т62а,t62a
 ussr-R80_KV1,Кв·1,Kv·1
@@ -356,3 +371,8 @@ ussr-A43,А·43,A·43
 ussr-A44,А·44,A·44
 germany-DW_II,DW2
 china-Ch24_Type64,Typ64
+ussr-Object_430,об.430,obj430
+ussr-R104_Object_430_II,430·2
+germany-G100_Gtraktor_Krupp,GrTr
+usa-T23E3,T23e3
+usa-T95_E6,T95e6
