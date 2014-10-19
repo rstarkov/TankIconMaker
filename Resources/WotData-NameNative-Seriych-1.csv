@@ -103,7 +103,7 @@ germany-Panther_II,Pant2
 germany-Panther_M10,PanM10
 germany-PanzerJager_I,PzJg1
 germany-Pro_Ag_A,LeoPrA
-germany-Pz_II_AusfG,Pz2ag
+germany-Pz_II_AusfG,Pz2g
 germany-Pz_Sfl_IVb,PzS4b
 germany-Pz35t,Pz35t
 germany-Pz38_NA,Pz38na
@@ -395,3 +395,13 @@ ussr-R106_KV85,Кв·85,Kv·85
 ussr-R107_LTB,Лттб,LTB
 ussr-R108_T34_85M,т3485м,t3485m
 ussr-R109_T54S,т54об,t54l
+germany-Env_Artillery,E.Art
+germany-G104_Stug_IV,Stug4
+germany-G105_T-55_NVA_DDR,T·55a
+germany-G106_PzKpfwPanther_AusfF,Pant88
+germany-G108_PzKpfwII_AusfD,Pz2d
+usa-A101_M56,M56
+usa-A102_T28_concept,T28c
+usa-A104_M4A3E8A,Fury
+usa-T95_E2,T95e2
+ussr-R110_Object_260,об.260,obj260
