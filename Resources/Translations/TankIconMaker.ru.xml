@@ -589,6 +589,24 @@
         <Old>When greater than zero, specifies that the text must not be taller than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown.</Old>
       </Description>
     </Height>
+    <Format>
+      <DisplayName>
+        <Translation>Формат</Translation>
+        <Old>Format</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Стандартная строка форматирования .NET для корректировки свойства. Примеры: "{0}сек" добавляет слово "сек" к значению. "{0:0.00}" округляет численные свойства до двух знаков после запятой. "{0:#,0}" добавляет разделитель тысяч и округляет до целого числа. "{0:0000}" добавляет нули слева от числа.</Translation>
+        <Old>A standard .NET format string to tweak the displayed value. Examples: "{0} seconds" appends the word "seconds" to the value. "{0:0.00}" rounds numeric values to 2 d.p. "{0:#,0}" adds thousands separators and rounds to whole numbers. "{0:0000}" pads the number with zeroes.</Old>
+      </Description>
+    </Format>
+    <FormatStringInvalidNum>
+      <Translation>Формат "{0}" не является допустимым, либо не совместим с численным значением "{1}".</Translation>
+      <Old>The format string "{0}" is not valid, or not compatible with the numeric value "{1}".</Old>
+    </FormatStringInvalidNum>
+    <FormatStringInvalid>
+      <Translation>Формат "{0}" не является допустимым.</Translation>
+      <Old>The format string "{0}" is not valid.</Old>
+    </FormatStringInvalid>
   </TextLayer>
   <PropertyTextLayer>
     <LayerName>
