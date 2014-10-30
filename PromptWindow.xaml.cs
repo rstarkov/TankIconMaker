@@ -9,6 +9,7 @@ namespace TankIconMaker
             : base(App.Settings.RenameWindow)
         {
             InitializeComponent();
+            MainWindow.ApplyUiZoom(this);
         }
 
         private void ok(object sender, RoutedEventArgs e)

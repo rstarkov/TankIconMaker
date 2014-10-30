@@ -10,6 +10,7 @@ namespace TankIconMaker
             : base(App.Settings.AddWindow)
         {
             InitializeComponent();
+            MainWindow.ApplyUiZoom(this);
             ContentRendered += delegate
             {
                 ((ListBoxItem) ctList.ItemContainerGenerator.ContainerFromIndex(0)).Focus();

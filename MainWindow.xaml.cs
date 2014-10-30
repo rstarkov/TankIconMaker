@@ -47,6 +47,7 @@ namespace TankIconMaker
             : base(App.Settings.MainWindow)
         {
             InitializeComponent();
+            UiZoom = App.Settings.UiZoom;
             GlobalStatusShow(App.Translation.Misc.GlobalStatus_Loading);
             ContentRendered += InitializeEverything;
             Closing += MainWindow_Closing;
@@ -209,6 +210,15 @@ namespace TankIconMaker
                 new Binding { Source = ctLeftBottomPane, Path = new PropertyPath(Grid.ActualHeightProperty) },
                 (double paneHeight) => paneHeight * 0.4
             ));
+            BindingOperations.SetBinding(ctUiZoomIn, Button.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = UiZoomObservable, Path = new PropertyPath("Value") },
+                (double zoom) => zoom <= 2.5
+            ));
+            BindingOperations.SetBinding(ctUiZoomOut, Button.IsEnabledProperty, LambdaBinding.New(
+                new Binding { Source = UiZoomObservable, Path = new PropertyPath("Value") },
+                (double zoom) => zoom >= 0.5
+            ));
+
 
             // Another day, another WPF crutch... http://stackoverflow.com/questions/3921712
             ctLayersTree.PreviewMouseDown += (_, __) => { FocusManager.SetFocusedElement(this, ctLayersTree); };
@@ -678,11 +688,13 @@ namespace TankIconMaker
             img.MouseLeftButtonUp += TankImage_MouseLeftButtonUp;
             BindingOperations.SetBinding(img, TankImageControl.WidthProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => (double) style.IconWidth * (check ? 5 : 1) / App.DpiScaleX
+                new Binding { Source = UiZoomObservable, Path = new PropertyPath("Value") },
+                (bool check, double uiZoom) => (double) style.IconWidth * (check ? App.Settings.IconScaleZoomed : App.Settings.IconScaleNormal) / App.DpiScaleX / uiZoom
             ));
             BindingOperations.SetBinding(img, TankImageControl.HeightProperty, LambdaBinding.New(
                 new Binding { Source = ctZoomCheckbox, Path = new PropertyPath(CheckBox.IsCheckedProperty) },
-                (bool check) => (double) style.IconHeight * (check ? 5 : 1) / App.DpiScaleY
+                new Binding { Source = UiZoomObservable, Path = new PropertyPath("Value") },
+                (bool check, double uiZoom) => (double) style.IconHeight * (check ? App.Settings.IconScaleZoomed : App.Settings.IconScaleNormal) / App.DpiScaleY / uiZoom
             ));
             img.HorizontalAlignment = HorizontalAlignment.Left;
             ctIconsPanel.Children.Add(img);
@@ -760,7 +772,7 @@ namespace TankIconMaker
 
         private DispatcherTimer _saveSettingsTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1.5), IsEnabled = false };
 
-        private void SaveSettingsDelayed(object _, EventArgs __)
+        private void SaveSettingsDelayed(object _ = null, EventArgs __ = null)
         {
             _saveSettingsTimer.Stop();
             _saveSettingsTimer.Tick -= SaveSettings;
@@ -1240,6 +1252,40 @@ namespace TankIconMaker
         private void BrowseAndSaveIcons_UK(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.UK); }
         private void BrowseAndSaveIcons_China(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.China); }
         private void BrowseAndSaveIcons_Japan(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.Japan); }
+
+        private ObservableValue<double> UiZoomObservable = new ObservableValue<double>(1);
+
+        private double UiZoom
+        {
+            get { return App.Settings.UiZoom; }
+            set
+            {
+                var val = value;
+                if (val >= 0.95 && val <= 1.05) // snap to 100%
+                    val = 1;
+                App.Settings.UiZoom = UiZoomObservable.Value = val;
+                ApplyUiZoom(this);
+                SaveSettingsDelayed();
+            }
+        }
+
+        public static void ApplyUiZoom(Window wnd)
+        {
+            // not the best location for this method... but not completely awful either since this is where most of the UI zoom code resides already...
+            TextOptions.SetTextFormattingMode(wnd, App.Settings.UiZoom == 1 ? TextFormattingMode.Display : TextFormattingMode.Ideal);
+            var scale = wnd.Resources["UiZoomer"] as ScaleTransform;
+            scale.ScaleX = scale.ScaleY = App.Settings.UiZoom;
+        }
+
+        private void ctUiZoomIn_Click(object _, EventArgs __)
+        {
+            UiZoom *= 1.1;
+        }
+
+        private void ctUiZoomOut_Click(object _, EventArgs __)
+        {
+            UiZoom /= 1.1;
+        }
 
         private void ctAbout_Click(object sender, RoutedEventArgs e)
         {
