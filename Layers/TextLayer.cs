@@ -38,6 +38,9 @@ namespace TankIconMaker.Layers
         public bool Baseline { get; set; }
         public static MemberTr BaselineTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.TextLayer.Baseline); }
 
+        public string Format { get; set; }
+        public static MemberTr FormatTr(Translation tr) { return new MemberTr(tr.Category.TextSource, tr.TextLayer.Format); }
+
         #region Old
         // Old stuff, to be deleted eventually...
         [XmlIgnoreIfDefault]
@@ -72,9 +75,24 @@ namespace TankIconMaker.Layers
         {
             return Ut.NewBitmapGdi(ParentStyle.IconWidth, ParentStyle.IconHeight, dc =>
             {
+                string text = GetText(tank);
+                if (!string.IsNullOrEmpty(Format))
+                {
+                    long numI;
+                    decimal numD;
+                    if (long.TryParse(text, out numI))
+                        try { text = string.Format(Format, numI); }
+                        catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(Format, numI)); }
+                    if (decimal.TryParse(text, out numD))
+                        try { text = string.Format(Format, numD); }
+                        catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(Format, numD)); }
+                    else
+                        try { text = string.Format(Format, text); }
+                        catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalid.Fmt(Format)); }
+                }
                 var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
                 dc.TextRenderingHint = FontSmoothing.ToGdi();
-                dc.DrawString(GetText(tank), new SolidBrush(FontColor.GetColorGdi(tank)), FontFamily, FontSize, style, X, Y, Anchor,
+                dc.DrawString(text, new SolidBrush(FontColor.GetColorGdi(tank)), FontFamily, FontSize, style, X, Y, Anchor,
                     Width <= 0 ? null : (int?) Width, Height <= 0 ? null : (int?) Height, Baseline);
             });
         }
