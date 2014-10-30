@@ -51,6 +51,13 @@ namespace TankIconMaker
         public Color BackgroundSolidColor = Color.FromRgb(0x80, 0xC0, 0xFF);
         public int[] CustomColors = new int[] { 0xC0C0C0, 0xFFC080, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xA0A0A0, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF };
 
+        /// <summary>Specifies the scale at which icons are displayed with the "Zoom" checkbox checked or unchecked. The scale is relative to screen pixels, so a scale of 1 shows 1:1 pixels.</summary>
+        public double IconScaleNormal = 1;
+        public double IconScaleZoomed = 5;
+
+        /// <summary>Specifies a zoom factor for the entire UI, except for the icons.</summary>
+        public double UiZoom = 1;
+
         /// <summary>Program language, and also the default language for property values when not specified.</summary>
         public Language Lingo = Language.EnglishUK;
         /// <summary>The language of the operating system selected last time the program started. When this changes, <see cref="Lingo"/> is autoselected.</summary>
