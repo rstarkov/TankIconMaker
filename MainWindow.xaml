@@ -323,7 +323,7 @@
                             <Canvas.RenderTransform>
                                 <TranslateTransform X="-252" Y="-393"/>
                             </Canvas.RenderTransform>
-                            <Path Fill="#FFFFFFFF" StrokeThickness="35" Stroke="#FF333333" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat">
+                            <Path StrokeThickness="35" Stroke="#FF333333" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat">
                                 <Path.Data>
                                     <CombinedGeometry>
                                         <CombinedGeometry.Geometry1>
@@ -352,7 +352,7 @@
                             <Canvas.RenderTransform>
                                 <TranslateTransform X="-252" Y="-393"/>
                             </Canvas.RenderTransform>
-                            <Path Fill="#FFFFFFFF" StrokeThickness="35" Stroke="#FF333333" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat">
+                            <Path StrokeThickness="35" Stroke="#FF333333" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat">
                                 <Path.Data>
                                     <CombinedGeometry>
                                         <CombinedGeometry.Geometry1>
