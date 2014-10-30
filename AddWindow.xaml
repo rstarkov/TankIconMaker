@@ -9,7 +9,10 @@
         TextOptions.TextFormattingMode="Display"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
-    <Grid Margin="10">
+    <Window.Resources>
+        <ScaleTransform x:Key="UiZoomer" CenterX="0" CenterY="0" ScaleX="1" ScaleY="1" />
+    </Window.Resources>
+    <Grid Margin="10" LayoutTransform="{StaticResource UiZoomer}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>

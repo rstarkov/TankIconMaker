@@ -73,9 +73,11 @@
                 </DrawingGroup>
             </DrawingBrush.Drawing>
         </DrawingBrush>
+
+        <ScaleTransform x:Key="UiZoomer" CenterX="0" CenterY="0" ScaleX="1" ScaleY="1" />
     </Window.Resources>
 
-    <Grid Name="ctOuterGrid" Background="{StaticResource ResourceKey=bkgCheckered}">
+    <Grid Name="ctOuterGrid" Background="{StaticResource ResourceKey=bkgCheckered}" LayoutTransform="{StaticResource UiZoomer}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="325" Name="ctLeftColumn" />
             <ColumnDefinition Width="*" />
@@ -155,7 +157,7 @@
                             <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                         <Button.ContextMenu>
-                            <ContextMenu>
+                            <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
                                 <MenuItem Header="Icon width" Name="ctStyleIconWidth" Command="src:TankStyleCommands.IconWidth"/>
                                 <MenuItem Header="Icon height" Name="ctStyleIconHeight" Command="src:TankStyleCommands.IconHeight"/>
                                 <MenuItem Header="Centerable" Name="ctStyleCenterable" Command="src:TankStyleCommands.Centerable"/>
@@ -239,7 +241,7 @@
                         <KeyBinding Command="src:TankLayerCommands.ToggleVisibility" Key="F3" />
                     </wpfc:TreeViewWithItem.InputBindings>
                     <wpfc:TreeViewWithItem.ContextMenu>
-                        <ContextMenu>
+                        <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
                             <!-- Used letters: DELMOUV -->
                             <MenuItem Header="Add _layer..." Name="ctLayersAddLayer"  Command="src:TankLayerCommands.AddLayer" InputGestureText="Insert" />
                             <MenuItem Header="Add _effect..." Name="ctLayersAddEffect"  Command="src:TankLayerCommands.AddEffect" InputGestureText="Alt+Insert" />
@@ -266,8 +268,8 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" Background="#87FFFFFF">
-                <CheckBox Name="ctZoomCheckbox" Margin="8,11,8,8">_Zoom</CheckBox>
-                <ComboBox Name="ctDisplayMode" Margin="8">
+                <CheckBox Name="ctZoomCheckbox" Margin="8,11,8,8" TabIndex="1">_Zoom</CheckBox>
+                <ComboBox Name="ctDisplayMode" Margin="8" TabIndex="2">
                     <ComboBoxItem Name="ctDisplayModeAll" Selector.IsSelected="True">All tanks</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeOneEach">One of each combination</ComboBoxItem>
                     <Separator/>
@@ -293,27 +295,85 @@
                     <ComboBoxItem Name="ctDisplayModeTierMedHigh">Medium and high tiers</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeTierHigh">High tiers</ComboBoxItem>
                 </ComboBox>
-                <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right" TabIndex="6">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
                         <AccessText Margin="6,0" Name="ctLanguageLabel">L_anguage</AccessText>
                         <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button.ContextMenu>
-                        <ContextMenu>
+                        <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
                             <Separator/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
-                <Button Margin="8,8,0,8" Name="ctBackground" DockPanel.Dock="Right" Click="ctBackground_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Margin="8,8,0,8" Name="ctBackground" DockPanel.Dock="Right" Click="ctBackground_Click" VerticalAlignment="Center" HorizontalAlignment="Right" TabIndex="5">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
                         <AccessText Margin="6,0" Name="ctBackgroundLabel">_Background</AccessText>
                         <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button.ContextMenu>
-                        <ContextMenu>
+                        <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
                             <Separator/>
                         </ContextMenu>
                     </Button.ContextMenu>
+                </Button>
+                <Button Margin="2,8,0,8" Name="ctUiZoomIn" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Click="ctUiZoomIn_Click" TabIndex="4">
+                    <Viewbox Stretch="Uniform" Height="23">
+                        <Canvas Width="178" Height="180">
+                            <Canvas.RenderTransform>
+                                <TranslateTransform X="-252" Y="-393"/>
+                            </Canvas.RenderTransform>
+                            <Path Fill="#FFFFFFFF" StrokeThickness="35" Stroke="#FF333333" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat">
+                                <Path.Data>
+                                    <CombinedGeometry>
+                                        <CombinedGeometry.Geometry1>
+                                            <PathGeometry Figures="m 403.24232 437.1969 c 0 40.63952 -32.94484 73.58437 -73.58436 73.58437 -40.63952 0 -73.58437 -32.94485 -73.58437 -73.58437 0 -40.63952 32.94485 -73.58437 73.58437 -73.58437 40.63952 0 73.58436 32.94485 73.58436 73.58437 z" FillRule="nonzero"/>
+                                        </CombinedGeometry.Geometry1>
+                                        <CombinedGeometry.Geometry2>
+                                            <RectangleGeometry Rect="323,530,14,60"/>
+                                        </CombinedGeometry.Geometry2>
+                                    </CombinedGeometry>
+                                </Path.Data>
+                                <Path.RenderTransform>
+                                    <MatrixTransform Matrix="0.47860653 0.47860653 -0.47860653 0.47860653 409.59166 98.335539"/>
+                                </Path.RenderTransform>
+                            </Path>
+                            <Path Fill="#FF333333" StrokeThickness="0">
+                                <Path.Data>
+                                    <PathGeometry Figures="m 351.21658 441.59165 0 16.84375 -16.84375 0 0 13.84376 16.84375 0 0 16.84375 13.8125 0 0 -16.84375 16.84375 0 0 -13.84376 -16.84375 0 0 -16.84375 -13.8125 0 z" FillRule="nonzero"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button Margin="8,8,0,8" Name="ctUiZoomOut" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Click="ctUiZoomOut_Click" TabIndex="3">
+                    <Viewbox Stretch="Uniform" Height="23">
+                        <Canvas Width="178" Height="180">
+                            <Canvas.RenderTransform>
+                                <TranslateTransform X="-252" Y="-393"/>
+                            </Canvas.RenderTransform>
+                            <Path Fill="#FFFFFFFF" StrokeThickness="35" Stroke="#FF333333" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat">
+                                <Path.Data>
+                                    <CombinedGeometry>
+                                        <CombinedGeometry.Geometry1>
+                                            <PathGeometry Figures="m 403.24232 437.1969 c 0 40.63952 -32.94484 73.58437 -73.58436 73.58437 -40.63952 0 -73.58437 -32.94485 -73.58437 -73.58437 0 -40.63952 32.94485 -73.58437 73.58437 -73.58437 40.63952 0 73.58436 32.94485 73.58436 73.58437 z" FillRule="nonzero"/>
+                                        </CombinedGeometry.Geometry1>
+                                        <CombinedGeometry.Geometry2>
+                                            <RectangleGeometry Rect="323,530,14,60"/>
+                                        </CombinedGeometry.Geometry2>
+                                    </CombinedGeometry>
+                                </Path.Data>
+                                <Path.RenderTransform>
+                                    <MatrixTransform Matrix="0.47860653 0.47860653 -0.47860653 0.47860653 409.59166 98.335539"/>
+                                </Path.RenderTransform>
+                            </Path>
+                            <Path Fill="#FF333333" StrokeThickness="0">
+                                <Path.Data>
+                                    <PathGeometry Figures="m 334.37283 458.4354 0 13.84376 47.53126 0 0 -13.84375 z" FillRule="nonzero"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                    </Viewbox>
                 </Button>
             </DockPanel>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
@@ -329,7 +389,7 @@
                 <Button Name="ctSaveToFolder" Margin="0,8,8,8" Click="ctSaveToFolder_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
                     <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save to _folder...</AccessText>
                     <Button.ContextMenu>
-                        <ContextMenu>
+                        <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
                             <!-- Available: BIJNOPQTVWXYZ -->
                             <MenuItem Header="All icons to _game folder" Name="ctSaveIcons_AllToGameFolder" Click="SaveIcons_AllToGameFolder"/>
                             <MenuItem Header="_All icons..." Name="ctBrowseAndSaveIcons_All" Click="BrowseAndSaveIcons_All"/>
