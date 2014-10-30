@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <item>
   <TranslationCredits>
-    <Translation>Перевод на русский: Romkyns</Translation>
-    <Old>English translation by Romkyns</Old>
+    <Translation>Перевод на русский: Роман</Translation>
+    <Old>English translation by Roman</Old>
   </TranslationCredits>
   <MainWindow>
     <BackgroundCheckered>
@@ -1640,12 +1640,12 @@
       <Old>&amp;Use anyway</Old>
     </GameNotFound_Ignore>
     <IconsSaved>
-      <Translation encoding="c-literal">Иконки сохранены в папку ”{0}”!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию в теме Tank Icon Maker на игровом форуме.</Translation>
-      <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
+      <Translation encoding="c-literal">Иконки сохранены в папку ”{0}”!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию на сайте Tank Icon Maker.</Translation>
+      <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Old>
     </IconsSaved>
     <IconsSavedGoToForum>
       <Translation>Открыть &amp;инструкцию в браузере</Translation>
-      <Old>Open &amp;forum in browser</Old>
+      <Old>Open &amp;website in browser</Old>
     </IconsSavedGoToForum>
     <IconsSaveSkipped>
       <IsNumber>
@@ -1665,6 +1665,10 @@
       <Translation encoding="c-literal">Не удалось сохранить иконки так как произошла ошибка.\r\n\r\nПодробности:\r\n • {0}</Translation>
       <Old encoding="c-literal">The icons could not be saved due to an error.\n\nError message:\n • {0}</Old>
     </IconsSaveError>
+    <VisitWebsiteBtn>
+      <Translation>Открыть сайт проекта</Translation>
+      <Old>Visit project website</Old>
+    </VisitWebsiteBtn>
     <Upvote_BuiltInOnly>
       <Translation>По причине безопасности, плюсануть можно только встроенные стили.</Translation>
       <Old>For security reasons, only built-in styles can be upvoted.</Old>
