@@ -102,7 +102,7 @@ namespace TankIconMaker
     {
         public Translation() : base(Language.EnglishUK) { }
 
-        public TrString TranslationCredits = "English translation by Romkyns"; // never shown for English
+        public TrString TranslationCredits = "English translation by Roman"; // never shown for English
 
         public MainWindowTranslation MainWindow = new MainWindowTranslation();
         public AddWindowTranslation AddWindow = new AddWindowTranslation();
@@ -630,10 +630,11 @@ namespace TankIconMaker
         public TrString GameNotFound_Prompt = "This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?";
         public TrString GameNotFound_Ignore = "&Use anyway";
         [LingoNotes("The save path is substituted for \"{0}\".")]
-        public TrString IconsSaved = "Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.";
-        public TrString IconsSavedGoToForum = "Open &forum in browser";
+        public TrString IconsSaved = "Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.";
+        public TrString IconsSavedGoToForum = "Open &website in browser";
         public TrStringNum IconsSaveSkipped = new TrStringNum("Note that 1 image was skipped due to errors.", "Note that {0} images were skipped due to errors.");
         public TrString IconsSaveError = "The icons could not be saved due to an error.\n\nError message:\n • {0}";
+        public TrString VisitWebsiteBtn = "Visit project website";
         public TrString Upvote_BuiltInOnly = "For security reasons, only built-in styles can be upvoted.";
         public TrString Upvote_NotAvailable = "This style does not currently have an associated post on World of Tanks forums.";
         public TrString Upvote_Prompt = "To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}";

@@ -1158,12 +1158,7 @@ namespace TankIconMaker
                                     CancelButton = 0,
                                 }.Show();
                                 if (choice == 1)
-                                {
-                                    string url = "http://forum.worldoftanks.eu/index.php?/topic/318315-";
-                                    if (App.Translation.Language == RT.Util.Lingo.Language.Russian)
-                                        url = "http://forum.worldoftanks.ru/index.php?/topic/274782-tank-icon-maker";
-                                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-                                }
+                                    visitProjectWebsite("savehelp");
                             }
                             else
                             {
@@ -1293,13 +1288,24 @@ namespace TankIconMaker
             string version = assembly.GetName().Version.Major.ToString().PadLeft(3, '0');
             string copyright = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).OfType<AssemblyCopyrightAttribute>().Select(c => c.Copyright).FirstOrDefault();
             var icon = Icon as BitmapSource;
-            new DlgMessage()
+            var choice = new DlgMessage()
             {
-                Message = "Tank Icon Maker\n" + App.Translation.Misc.ProgramVersion.Fmt(version) + "\nBy Romkyns\n\n" + copyright
+                Message = "Tank Icon Maker\n" + App.Translation.Misc.ProgramVersion.Fmt(version) + "\nBy Roman Starkov\n\n" + copyright
                     + (App.Translation.Language == RT.Util.Lingo.Language.EnglishUK ? "" : ("\n\n" + App.Translation.TranslationCredits)),
                 Caption = "Tank Icon Maker",
+                Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.VisitWebsiteBtn },
+                AcceptButton = 0,
+                CancelButton = 0,
                 Image = icon == null ? null : icon.ToBitmapGdi().GetBitmapCopy()
             }.Show();
+            if (choice == 1)
+                visitProjectWebsite("about");
+        }
+
+        private void visitProjectWebsite(string what)
+        {
+            Process.Start(new ProcessStartInfo("http://roman.st/TankIconMaker/go/{0}?lang={1}".Fmt(
+                what, App.Translation.Language.GetIsoLanguageCode().SubstringSafe(0, 2))) { UseShellExecute = true });
         }
 
         private void AddGamePath(object _, RoutedEventArgs __)
