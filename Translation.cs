@@ -299,6 +299,10 @@ namespace TankIconMaker
         public MemberDescriptionTr Y = new MemberDescriptionTr { DisplayName = "Y", Description = "Specifies the vertical coordinate of the anchor point. “Baseline” specifies whether this is pixel-perfect or baseline-consistent." };
         public MemberDescriptionTr Width = new MemberDescriptionTr { DisplayName = "Width", Description = "When greater than zero, specifies that the text must not be wider than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown." };
         public MemberDescriptionTr Height = new MemberDescriptionTr { DisplayName = "Height", Description = "When greater than zero, specifies that the text must not be taller than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown." };
+        public MemberDescriptionTr Format = new MemberDescriptionTr { DisplayName = "Format", Description = "A standard .NET format string to tweak the displayed value. Examples: \"{0} seconds\" appends the word \"seconds\" to the value. \"{0:0.00}\" rounds numeric values to 2 d.p. \"{0:#,0}\" adds thousands separators and rounds to whole numbers. \"{0:0000}\" pads the number with zeroes." };
+
+        public TrString FormatStringInvalidNum = "The format string \"{0}\" is not valid, or not compatible with the numeric value \"{1}\".";
+        public TrString FormatStringInvalid = "The format string \"{0}\" is not valid.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerPropertyText)]
