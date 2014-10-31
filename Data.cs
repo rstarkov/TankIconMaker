@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using RT.Util.ExtensionMethods;
-using RT.Util.Lingo;
-using RT.Util.Xml;
 using WotDataLib;
 
 namespace TankIconMaker
