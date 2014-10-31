@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Media;
 using System.Xml.Linq;
 using RT.Util.Lingo;
-using RT.Util.Xml;
+using RT.Util.Serialization;
 using WotDataLib;
 
 namespace TankIconMaker.Layers
@@ -43,9 +42,9 @@ namespace TankIconMaker.Layers
 
         #region Old
         // Old stuff, to be deleted eventually...
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private int Left, Right, Top, Bottom;
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private bool LeftAnchor, RightAnchor, TopAnchor, BottomAnchor;
         #endregion
 
@@ -97,9 +96,9 @@ namespace TankIconMaker.Layers
             });
         }
 
-        protected override void AfterXmlDeclassify(XElement xml)
+        protected override void AfterDeserialize(XElement xml)
         {
-            base.AfterXmlDeclassify(xml);
+            base.AfterDeserialize(xml);
 
             // At one point, a field called "ConvertedFromOld" was introduced instead of increasing Version to 2. The following is a fix for this.
             if (xml.Element("ConvertedFromOld") != null && xml.Element("ConvertedFromOld").Value == "True")

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using RT.Util.Lingo;
-using RT.Util.Xml;
-using WotDataLib;
+using RT.Util.Serialization;
 
 namespace TankIconMaker.Effects
 {
@@ -28,7 +27,7 @@ namespace TankIconMaker.Effects
         public int ShiftY { get; set; }
         public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectShadow.ShiftY); }
 
-        [XmlIgnore]
+        [ClassifyIgnore]
         private GaussianBlur _blur;
 
         public ShadowEffect()

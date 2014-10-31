@@ -3,13 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
 using RT.Util.Lingo;
-using RT.Util.Xml;
-using WotDataLib;
+using RT.Util.Serialization;
 using WpfCrutches;
 
 namespace TankIconMaker
 {
-    abstract class EffectBase : IHasTreeViewItem, IHasTypeNameDescription, IXmlClassifyProcess2, INotifyPropertyChanged
+    abstract class EffectBase : IHasTreeViewItem, IHasTypeNameDescription, IClassifyXmlObjectProcessor, INotifyPropertyChanged
     {
         /// <summary>Describes what this effect type does as concisely as possible.</summary>
         [Browsable(false)]
@@ -29,7 +28,7 @@ namespace TankIconMaker
         public Visibility NameVisibility { get { return string.IsNullOrEmpty(Name) ? Visibility.Collapsed : Visibility.Visible; } }
 
         /// <summary>Keeps track of the layer that this effect belongs to. This value is kept up-to-date automatically.</summary>
-        [Browsable(false), XmlIgnore]
+        [Browsable(false), ClassifyIgnore]
         public LayerBase Layer;
 
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
@@ -57,22 +56,22 @@ namespace TankIconMaker
         /// </summary>
         public int SavedByVersion;
 
-        void IXmlClassifyProcess2.BeforeXmlClassify(XElement xml) { BeforeXmlClassify(xml); }
-        protected virtual void BeforeXmlClassify(XElement xml)
+        void IClassifyObjectProcessor<XElement>.BeforeSerialize() { BeforeSerialize(); }
+        protected virtual void BeforeSerialize()
         {
             SavedByVersion = Version;
         }
 
-        void IXmlClassifyProcess2.AfterXmlClassify(XElement xml) { AfterXmlClassify(xml); }
-        protected virtual void AfterXmlClassify(XElement xml) { }
+        void IClassifyObjectProcessor<XElement>.AfterSerialize(XElement xml) { AfterSerialize(xml); }
+        protected virtual void AfterSerialize(XElement xml) { }
 
-        void IXmlClassifyProcess2.BeforeXmlDeclassify(XElement xml) { BeforeXmlDeclassify(xml); }
-        protected virtual void BeforeXmlDeclassify(XElement xml) { }
+        void IClassifyObjectProcessor<XElement>.BeforeDeserialize(XElement xml) { BeforeDeserialize(xml); }
+        protected virtual void BeforeDeserialize(XElement xml) { }
 
-        void IXmlClassifyProcess2.AfterXmlDeclassify(XElement xml) { AfterXmlDeclassify(xml); }
-        protected virtual void AfterXmlDeclassify(XElement xml) { }
+        void IClassifyObjectProcessor<XElement>.AfterDeserialize(XElement xml) { AfterDeserialize(xml); }
+        protected virtual void AfterDeserialize(XElement xml) { }
 
-        [XmlIgnore, Browsable(false)]
+        [ClassifyIgnore, Browsable(false)]
         public TreeViewItem TreeViewItem { get; set; }
 
         protected void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }

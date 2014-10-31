@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
-using RT.Util.Xml;
+using RT.Util.Serialization;
 using D = System.Drawing;
 using W = System.Windows.Media;
 
@@ -11,13 +11,13 @@ namespace TankIconMaker
     /// <summary>
     /// Enables <see cref="XmlClassify"/> to save color properties as strings of a human-editable form.
     /// </summary>
-    sealed class colorTypeOptions : XmlClassifyTypeOptions,
-        IXmlClassifySubstitute<W.Color, string>,
-        IXmlClassifySubstitute<D.Color, string>
+    sealed class colorTypeOptions : ClassifyTypeOptions,
+        IClassifySubstitute<W.Color, string>,
+        IClassifySubstitute<D.Color, string>
     {
         public W.Color FromSubstitute(string instance)
         {
-            return (this as IXmlClassifySubstitute<D.Color, string>).FromSubstitute(instance).ToColorWpf();
+            return (this as IClassifySubstitute<D.Color, string>).FromSubstitute(instance).ToColorWpf();
         }
 
         public string ToSubstitute(W.Color instance)
@@ -25,7 +25,8 @@ namespace TankIconMaker
             return ToSubstitute(instance.ToColorGdi());
         }
 
-        D.Color IXmlClassifySubstitute<D.Color, string>.FromSubstitute(string instance)
+        D.Color IClassifySubstitute<D.Color, string>.FromSubstitute(string instance) { return FromSubstituteD(instance); }
+        private D.Color FromSubstituteD(string instance)
         {
             try
             {
@@ -54,11 +55,14 @@ namespace TankIconMaker
     /// Filters lists of <see cref="LayerBase"/> objects before XmlClassify attempts to decode them, removing all
     /// entries pertaining to layer types that no longer exist in the assembly and hence can't possibly be instantiated.
     /// </summary>
-    sealed class listLayerBaseOptions : XmlClassifyTypeOptions, IXmlClassifyProcessXml
+    sealed class listLayerBaseOptions : ClassifyTypeOptions, IClassifyXmlObjectProcessor
     {
-        public void XmlPreprocess(XElement xml)
+        void IClassifyObjectProcessor<XElement>.AfterSerialize(XElement element) { }
+        void IClassifyObjectProcessor<XElement>.AfterDeserialize(XElement element) { }
+        void IClassifyObjectProcessor<XElement>.BeforeSerialize() { }
+        void IClassifyObjectProcessor<XElement>.BeforeDeserialize(XElement element)
         {
-            foreach (var item in xml.Nodes().OfType<XElement>().Where(e => e.Name == "item").ToArray())
+            foreach (var item in element.Nodes().OfType<XElement>().Where(e => e.Name == "item").ToArray())
             {
                 var type = item.Attribute("type");
                 if (type == null)
@@ -67,21 +71,20 @@ namespace TankIconMaker
                     item.Remove();
             }
         }
-
-        public void XmlPostprocess(XElement xml)
-        {
-        }
     }
 
     /// <summary>
     /// Filters lists of <see cref="EffectBase"/> objects before XmlClassify attempts to decode them, removing all
     /// entries pertaining to layer types that no longer exist in the assembly and hence can't possibly be instantiated.
     /// </summary>
-    sealed class listEffectBaseOptions : XmlClassifyTypeOptions, IXmlClassifyProcessXml
+    sealed class listEffectBaseOptions : ClassifyTypeOptions, IClassifyXmlObjectProcessor
     {
-        public void XmlPreprocess(XElement xml)
+        void IClassifyObjectProcessor<XElement>.AfterSerialize(XElement element) { }
+        void IClassifyObjectProcessor<XElement>.AfterDeserialize(XElement element) { }
+        void IClassifyObjectProcessor<XElement>.BeforeSerialize() { }
+        void IClassifyObjectProcessor<XElement>.BeforeDeserialize(XElement element)
         {
-            foreach (var item in xml.Nodes().OfType<XElement>().Where(e => e.Name == "item").ToArray())
+            foreach (var item in element.Nodes().OfType<XElement>().Where(e => e.Name == "item").ToArray())
             {
                 var type = item.Attribute("type");
                 if (type == null)
@@ -89,10 +92,6 @@ namespace TankIconMaker
                 else if (!App.EffectTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
                     item.Remove();
             }
-        }
-
-        public void XmlPostprocess(XElement xml)
-        {
         }
     }
 }

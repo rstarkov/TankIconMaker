@@ -21,7 +21,7 @@ using RT.Util.Dialogs;
 using RT.Util.ExtensionMethods;
 using RT.Util.Forms;
 using RT.Util.Lingo;
-using RT.Util.Xml;
+using RT.Util.Serialization;
 using TankIconMaker.Layers;
 using WotDataLib;
 using WpfCrutches;
@@ -310,7 +310,7 @@ namespace TankIconMaker
                     XDocument doc;
                     using (var stream = assy.GetManifestResourceStream(resourceName))
                         doc = XDocument.Load(stream);
-                    var style = XmlClassify.ObjectFromXElement<Style>(doc.Root);
+                    var style = ClassifyXml.Deserialize<Style>(doc.Root);
                     style.Kind = style.Name == "Original" ? StyleKind.Original : style.Name == "Current" ? StyleKind.Current : StyleKind.BuiltIn;
                     _builtinStyles.Add(style);
                 }
@@ -1716,7 +1716,7 @@ namespace TankIconMaker
             Style style;
             try
             {
-                style = XmlClassify.LoadObjectFromXmlFile<Style>(dlg.FileName);
+                style = ClassifyXml.DeserializeFile<Style>(dlg.FileName);
                 style.Kind = StyleKind.User;
             }
             catch
@@ -1742,7 +1742,7 @@ namespace TankIconMaker
             var filename = dlg.FileName;
             if (!filename.ToLower().EndsWith(".xml"))
                 filename += ".xml";
-            XmlClassify.SaveObjectToXmlFile(App.Settings.ActiveStyle, filename);
+            ClassifyXml.SerializeToFile(App.Settings.ActiveStyle, filename);
             DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
         }
 

@@ -4,13 +4,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading;
 using System.Windows;
 using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Lingo;
-using RT.Util.Xml;
+using RT.Util.Serialization;
 using WotDataLib;
 using WpfCrutches;
 using D = System.Drawing;
@@ -52,6 +50,14 @@ namespace TankIconMaker
         [STAThread]
         static int Main(string[] args)
         {
+            // Configure Classify. This goes before the post-build check because it depends on it
+            Classify.DefaultOptions = new ClassifyOptions()
+                .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
+                .AddTypeOptions(typeof(Filename), new filenameTypeOptions())
+                .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
+                .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
+
             if (args.Length == 2 && args[0] == "--post-build-check")
                 return RT.Util.Ut.RunPostBuildChecks(args[1], Assembly.GetExecutingAssembly());
 
@@ -92,14 +98,6 @@ namespace TankIconMaker
 #else
             var dummy = App.Translation.Prompt.ExceptionGlobal; // to keep Lingo happy that the string is used
 #endif
-
-            // Configure XmlClassify
-            XmlClassify.DefaultOptions = new XmlClassifyOptions()
-                .AddTypeOptions(typeof(W.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(D.Color), new colorTypeOptions())
-                .AddTypeOptions(typeof(Filename), new filenameTypeOptions())
-                .AddTypeOptions(typeof(ObservableCollection<LayerBase>), new listLayerBaseOptions())
-                .AddTypeOptions(typeof(ObservableCollection<EffectBase>), new listEffectBaseOptions());
 
             // Find all the layer and effect types in the assembly (required before settings are loaded)
             App.LayerTypes = findTypes<LayerBase>("layer");
@@ -171,9 +169,9 @@ namespace TankIconMaker
         private static void PostBuildCheck(IPostBuildReporter rep)
         {
             Lingo.PostBuildStep<Translation>(rep, Assembly.GetExecutingAssembly());
-            XmlClassify.PostBuildStep<Settings>(rep);
-            XmlClassify.PostBuildStep<Style>(rep);
-            XmlClassify.PostBuildStep<GameVersionConfig>(rep);
+            Classify.PostBuildStep<Settings>(rep);
+            Classify.PostBuildStep<Style>(rep);
+            Classify.PostBuildStep<GameVersionConfig>(rep);
         }
     }
 }
