@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 using Ookii.Dialogs.Wpf;
-using RT.Util.Xml;
+using RT.Util.Serialization;
 using WotDataLib;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
@@ -58,7 +58,7 @@ namespace TankIconMaker
         public override string ToString() { return this; }
     }
 
-    class filenameTypeOptions : XmlClassifyTypeOptions, IXmlClassifySubstitute<Filename, string>
+    class filenameTypeOptions : ClassifyTypeOptions, IClassifySubstitute<Filename, string>
     {
         public Filename FromSubstitute(string instance) { return instance; }
         public string ToSubstitute(Filename instance) { return instance; }

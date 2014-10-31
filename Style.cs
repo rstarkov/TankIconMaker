@@ -4,13 +4,13 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
-using RT.Util.Xml;
+using RT.Util.Serialization;
 
 namespace TankIconMaker
 {
     enum StyleKind { Original, Current, BuiltIn, User }
 
-    sealed class Style : INotifyPropertyChanged, IComparable<Style>, IXmlClassifyProcess2
+    sealed class Style : INotifyPropertyChanged, IComparable<Style>, IClassifyXmlObjectProcessor
     {
         /// <summary>The name of the style (chosen by the artist).</summary>
         public string Name { get { return _Name; } set { _Name = value; NotifyPropertyChanged("Name"); NotifyPropertyChanged("Display"); } }
@@ -52,7 +52,7 @@ namespace TankIconMaker
         public string ForumLink { get; set; }
 
         /// <summary>Determines whether this style is a built-in one. Not saved as a setting.</summary>
-        [XmlIgnore]
+        [ClassifyIgnore]
         public StyleKind Kind { get; set; }
 
         public Style()
@@ -110,7 +110,7 @@ namespace TankIconMaker
             return result;
         }
 
-        public void AfterXmlDeclassify(XElement xml)
+        public void AfterDeserialize(XElement xml)
         {
             foreach (var layer in Layers)
                 layer.ParentStyle = this;
@@ -118,9 +118,9 @@ namespace TankIconMaker
             Layers.CollectionChanged += updateLayerStyle;
         }
 
-        public void AfterXmlClassify(XElement xml) { }
-        public void BeforeXmlClassify(XElement xml) { }
-        public void BeforeXmlDeclassify(XElement xml) { }
+        public void AfterSerialize(XElement xml) { }
+        public void BeforeSerialize() { }
+        public void BeforeDeserialize(XElement xml) { }
     }
 
     /// <summary>Thrown from a layer or effect implementation to report an error that the user can fix or needs to know about.</summary>

@@ -4,8 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Xml.Linq;
 using RT.Util.Lingo;
-using RT.Util.Xml;
-using WotDataLib;
+using RT.Util.Serialization;
 
 namespace TankIconMaker.Effects
 {
@@ -74,11 +73,11 @@ namespace TankIconMaker.Effects
 
         #region Old
         // Old stuff, to be deleted eventually...
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private int Left, Right, Top, Bottom;
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private bool LeftAnchor, RightAnchor, TopAnchor, BottomAnchor;
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private SizeModeOld SizeMode;
         enum SizeModeOld { NoChange, ByPercentage, BySizeWidthOnly, BySizeHeightOnly, BySizeWidthHeightStretch, ByPosLeftRight, ByPosTopBottom, ByPosAllFit, ByPosAllStretch, }
         #endregion
@@ -203,9 +202,9 @@ namespace TankIconMaker.Effects
             return result.ToBitmapRam();
         }
 
-        protected override void AfterXmlDeclassify(XElement xml)
+        protected override void AfterDeserialize(XElement xml)
         {
-            base.AfterXmlDeclassify(xml);
+            base.AfterDeserialize(xml);
 
             // At one point, a field called "ConvertedFromOld" was introduced instead of increasing Version to 2. The following is a fix for this.
             if (xml.Element("ConvertedFromOld") != null && xml.Element("ConvertedFromOld").Value == "True")

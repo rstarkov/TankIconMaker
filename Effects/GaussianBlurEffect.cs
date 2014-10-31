@@ -1,7 +1,6 @@
 ﻿using System;
 using RT.Util.Lingo;
-using RT.Util.Xml;
-using WotDataLib;
+using RT.Util.Serialization;
 
 namespace TankIconMaker.Effects
 {
@@ -18,7 +17,7 @@ namespace TankIconMaker.Effects
         public BlurEdgeMode Edge { get; set; }
         public static MemberTr EdgeTr(Translation tr) { return new MemberTr(tr.Category.Blur, tr.EffectGaussianBlur.Edge); }
 
-        [XmlIgnore]
+        [ClassifyIgnore]
         private GaussianBlur _blur;
 
         public GaussianBlurEffect()

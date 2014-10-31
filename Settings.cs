@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
+using System.Xml.Linq;
 using RT.Util;
 using RT.Util.Forms;
 using RT.Util.Lingo;
-using RT.Util.Xml;
+using RT.Util.Serialization;
 using WotDataLib;
 using WpfCrutches;
 
@@ -17,7 +17,7 @@ namespace TankIconMaker
     /// <see cref="SaveThreaded"/>, which is designed to be callable efficiently multiple times in a row.
     /// </summary>
     [Settings("TankIconMaker2", SettingsKind.UserSpecific)]
-    sealed class Settings : SettingsThreadedBase, IXmlClassifyProcess
+    sealed class Settings : SettingsThreadedBase, IClassifyXmlObjectProcessor
     {
         /// <summary>Stores the program version that was used to save this settings file.</summary>
         public int SavedByVersion = 17; // this feature was introduced in v018, so default to 17 for "everything before that".
@@ -94,7 +94,10 @@ namespace TankIconMaker
 
         #region Upgrade-related
 
-        void IXmlClassifyProcess.AfterXmlDeclassify()
+        void IClassifyObjectProcessor<XElement>.AfterSerialize(XElement element) { }
+        void IClassifyObjectProcessor<XElement>.BeforeDeserialize(XElement element) { }
+        void IClassifyObjectProcessor<XElement>.BeforeSerialize() { }
+        void IClassifyObjectProcessor<XElement>.AfterDeserialize(XElement element)
         {
             // Some people have strange broken styles in their settings, probably added due to some bug in an earlier version of the program.
             Styles.RemoveWhere(style => style.Layers == null || style.Layers.Count == 0);
@@ -121,16 +124,12 @@ namespace TankIconMaker
             SelectedStyleNameAndAuthor = null;
         }
 
-        void IXmlClassifyProcess.BeforeXmlClassify()
-        {
-        }
-
         // Fields obsoleted in v019
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private ObservableSortedList<TimGameInstallation> GameInstalls;
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private string SelectedGamePath;
-        [XmlIgnoreIfDefault]
+        [ClassifyIgnoreIfDefault]
         private string SelectedStyleNameAndAuthor;
 
         #endregion

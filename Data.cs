@@ -74,7 +74,7 @@ namespace TankIconMaker
 
     class TimGameInstallation : GameInstallation, INotifyPropertyChanged
     {
-        private TimGameInstallation() { } // for XmlClassify
+        private TimGameInstallation() { } // for Classify
 
         public TimGameInstallation(string path)
             : base(path)
