@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using RT.Util;
 using RT.Util.Dialogs;
@@ -68,8 +70,8 @@ namespace TankIconMaker
             CompositePath.Tests();
 #endif
 
-#if !DEBUG
             Thread.CurrentThread.Name = "Main";
+#if !DEBUG
             AppDomain.CurrentDomain.UnhandledException += (_, ea) =>
             {
                 var errorInfo = new StringBuilder("Thread: " + Thread.CurrentThread.Name);
@@ -97,6 +99,7 @@ namespace TankIconMaker
             };
 #else
             var dummy = App.Translation.Prompt.ExceptionGlobal; // to keep Lingo happy that the string is used
+            var dummy2 = new StringBuilder(); // to keep the "using" clause used
 #endif
 
             // Find all the layer and effect types in the assembly (required before settings are loaded)

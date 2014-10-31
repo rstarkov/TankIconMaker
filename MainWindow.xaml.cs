@@ -286,7 +286,7 @@ namespace TankIconMaker
         {
             return types.Select(type =>
             {
-                var obj = (T) type.Constructor();
+                var obj = type.Constructor();
                 return new TypeInfo<T>
                 {
                     Type = type.Type,
@@ -750,7 +750,7 @@ namespace TankIconMaker
                 if (copy)
                     try
                     {
-                        Clipboard.SetText(message.ToString(), TextDataFormat.UnicodeText);
+                        Clipboard.SetText(message, TextDataFormat.UnicodeText);
                         DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_Copied);
                     }
                     catch { DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_CopyFail); }
@@ -1302,7 +1302,7 @@ namespace TankIconMaker
                 visitProjectWebsite("about");
         }
 
-        private void visitProjectWebsite(string what)
+        private static void visitProjectWebsite(string what)
         {
             Process.Start(new ProcessStartInfo("http://roman.st/TankIconMaker/go/{0}?lang={1}".Fmt(
                 what, App.Translation.Language.GetIsoLanguageCode().SubstringSafe(0, 2))) { UseShellExecute = true });
@@ -1905,7 +1905,7 @@ namespace TankIconMaker
             dc.PushTransform(new ScaleTransform(0.83, 0.83)); dc.PushTransform(new TranslateTransform(0, 3)); dc.DrawGeometry(Brushes.Red, null, _triangle); dc.Pop(); dc.Pop();
             dc.PushTransform(new ScaleTransform(0.5, 0.5)); dc.PushTransform(new TranslateTransform(0, 16)); dc.DrawGeometry(Brushes.White, null, _triangle); dc.Pop(); dc.Pop();
 
-            var exclamation = new FormattedText("!", System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Arial Black"), 55, Brushes.Black);
+            var exclamation = new FormattedText("!", System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Arial Black"), 55, Brushes.Black);
             dc.DrawText(exclamation, new Point(-exclamation.Width / 2, 11 - exclamation.Height / 2));
 
             dc.Pop(); dc.Pop();
