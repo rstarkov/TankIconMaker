@@ -101,6 +101,22 @@
       <Translation>_Bearbeiten</Translation>
       <Old>_Modify</Old>
     </ctLayersModify>
+    <ctLayersCopy>
+      <Translation>_Kopie</Translation>
+      <Old>_Copy</Old>
+    </ctLayersCopy>
+    <ctLayersCopyChild>
+      <Translation>Ko_pie töchterlich</Translation>
+      <Old>C_opy child</Old>
+   </ctLayersCopyChild>
+    <ctLayersPaste>
+      <Translation>_Einfügen</Translation>
+      <Old>_Paste</Old>
+    </ctLayersPaste>
+    <ctLayersPasteChild>
+      <Translation>Einfügen _töchterlich</Translation>
+      <Old>P_aste child</Old>
+    </ctLayersPasteChild>
     <ctLayersDelete>
       <Translation>_Löschen</Translation>
       <Old>_Delete</Old>

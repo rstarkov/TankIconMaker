@@ -235,6 +235,9 @@
                         <KeyBinding Command="src:TankLayerCommands.AddLayer" Key="Insert" />
                         <KeyBinding Command="src:TankLayerCommands.AddEffect" Modifiers="Alt" Key="Insert" />
                         <KeyBinding Command="src:TankLayerCommands.Rename" Key="F2" />
+                        <KeyBinding Command="src:TankLayerCommands.Copy" Modifiers="Ctrl" Key="C" />
+                        <KeyBinding Command="src:TankLayerCommands.CopyChild" Modifiers="Ctrl+Alt" Key="C" />
+                        <KeyBinding Command="src:TankLayerCommands.Paste" Modifiers="Ctrl" Key="V" />
                         <KeyBinding Command="src:TankLayerCommands.Delete" Key="Delete" />
                         <KeyBinding Command="src:TankLayerCommands.MoveUp" Modifiers="Ctrl" Key="Up" />
                         <KeyBinding Command="src:TankLayerCommands.MoveDown" Modifiers="Ctrl" Key="Down" />
@@ -247,6 +250,9 @@
                             <MenuItem Header="Add _effect..." Name="ctLayersAddEffect"  Command="src:TankLayerCommands.AddEffect" InputGestureText="Alt+Insert" />
                             <Separator/>
                             <MenuItem Header="_Modify" Name="ctLayersModify"  Command="src:TankLayerCommands.Rename" InputGestureText="F2" />
+                            <MenuItem Header="_Copy" Name="ctLayersCopy" Command="src:TankLayerCommands.Copy" InputGestureText="Ctrl+C" />
+                            <MenuItem Header="C_opy child" Name="ctLayersCopyChild" Command="src:TankLayerCommands.CopyChild" InputGestureText="Ctrl+Alt+C"/>
+                            <MenuItem Header="_Paste" Name="ctLayersPaste" Command="src:TankLayerCommands.Paste" InputGestureText="Ctrl+V" />
                             <MenuItem Header="_Delete" Name="ctLayersDelete"  Command="src:TankLayerCommands.Delete" InputGestureText="Delete" />
                             <MenuItem Header="Move _up" Name="ctLayersMoveUp"  Command="src:TankLayerCommands.MoveUp" InputGestureText="Ctrl+↑" />
                             <MenuItem Header="Move d_own" Name="ctLayersMoveDown"  Command="src:TankLayerCommands.MoveDown" InputGestureText="Ctrl+↓" />
