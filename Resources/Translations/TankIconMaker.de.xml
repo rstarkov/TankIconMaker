@@ -94,7 +94,7 @@
       <Old>Add _layer...</Old>
     </ctLayersAddLayer>
     <ctLayersAddEffect>
-      <Translation>_Effekt hinzufügen...</Translation>
+      <Translation>Effekt hi_nzufügen...</Translation>
       <Old>Add _effect...</Old>
     </ctLayersAddEffect>
     <ctLayersModify>
@@ -102,21 +102,17 @@
       <Old>_Modify</Old>
     </ctLayersModify>
     <ctLayersCopy>
-      <Translation>_Kopie</Translation>
+      <Translation>_Kopieren</Translation>
       <Old>_Copy</Old>
     </ctLayersCopy>
-    <ctLayersCopyChild>
-      <Translation>Ko_pie töchterlich</Translation>
-      <Old>C_opy child</Old>
-   </ctLayersCopyChild>
+    <ctLayersCopyEffects>
+      <Translation>E_ffekte kopieren</Translation>
+      <Old>Copy e_ffects</Old>
+    </ctLayersCopyEffects>
     <ctLayersPaste>
       <Translation>_Einfügen</Translation>
       <Old>_Paste</Old>
     </ctLayersPaste>
-    <ctLayersPasteChild>
-      <Translation>Einfügen _töchterlich</Translation>
-      <Old>P_aste child</Old>
-    </ctLayersPasteChild>
     <ctLayersDelete>
       <Translation>_Löschen</Translation>
       <Old>_Delete</Old>

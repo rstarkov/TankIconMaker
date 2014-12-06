@@ -105,24 +105,20 @@
       <Translation>_Копировать</Translation>
       <Old>_Copy</Old>
     </ctLayersCopy>
-    <ctLayersCopyChild>
-      <Translation>К_опировать дочерние</Translation>
-      <Old>C_opy child</Old>
-    </ctLayersCopyChild>
+    <ctLayersCopyEffects>
+      <Translation>К_опировать эффекты</Translation>
+      <Old>Copy e_ffects</Old>
+    </ctLayersCopyEffects>
     <ctLayersPaste>
       <Translation>_Вставить</Translation>
       <Old>_Paste</Old>
     </ctLayersPaste>
-    <ctLayersPasteChild>
-      <Translation>Вставить _дочерние</Translation>
-      <Old>P_aste child</Old>
-    </ctLayersPasteChild>
     <ctLayersDelete>
       <Translation>_Удалить</Translation>
       <Old>_Delete</Old>
     </ctLayersDelete>
     <ctLayersMoveUp>
-      <Translation>Сдвинуть _вверх</Translation>
+      <Translation>Сдвинуть вв_ерх</Translation>
       <Old>Move _up</Old>
     </ctLayersMoveUp>
     <ctLayersMoveDown>
@@ -130,7 +126,7 @@
       <Old>Move d_own</Old>
     </ctLayersMoveDown>
     <ctLayersToggleVisibility>
-      <Translation>В_кл/выкл видимость</Translation>
+      <Translation>Вкл/в_ыкл видимость</Translation>
       <Old>Toggle _visibility</Old>
     </ctLayersToggleVisibility>
     <ctZoomCheckbox>
