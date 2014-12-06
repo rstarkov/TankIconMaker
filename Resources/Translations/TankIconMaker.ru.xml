@@ -101,6 +101,22 @@
       <Translation>_Переименовать</Translation>
       <Old>_Modify</Old>
     </ctLayersModify>
+    <ctLayersCopy>
+      <Translation>_Копировать</Translation>
+      <Old>_Copy</Old>
+    </ctLayersCopy>
+    <ctLayersCopyChild>
+      <Translation>К_опировать дочерние</Translation>
+      <Old>C_opy child</Old>
+    </ctLayersCopyChild>
+    <ctLayersPaste>
+      <Translation>_Вставить</Translation>
+      <Old>_Paste</Old>
+    </ctLayersPaste>
+    <ctLayersPasteChild>
+      <Translation>Вставить _дочерние</Translation>
+      <Old>P_aste child</Old>
+    </ctLayersPasteChild>
     <ctLayersDelete>
       <Translation>_Удалить</Translation>
       <Old>_Delete</Old>

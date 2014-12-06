@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
@@ -122,6 +123,9 @@ namespace TankIconMaker
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.Rename, cmdLayer_Rename, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.Delete, cmdLayer_Delete, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.Copy, cmdLayer_Copy, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.CopyChild, cmdLayer_CopyChild, (_, a) => { a.CanExecute = isLayerSelected(); }));
+            CommandBindings.Add(new CommandBinding(TankLayerCommands.Paste, cmdLayer_Paste, (_, a) => { a.CanExecute = isLayerOrEffectInClipboard();}));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveUp, cmdLayer_MoveUp, (_, a) => { a.CanExecute = cmdLayer_MoveUp_IsAvailable(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.MoveDown, cmdLayer_MoveDown, (_, a) => { a.CanExecute = cmdLayer_MoveDown_IsAvailable(); }));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.ToggleVisibility, cmdLayer_ToggleVisibility, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
@@ -1001,7 +1005,7 @@ namespace TankIconMaker
             foreach (var item in menu.Items.OfType<MenuItem>().Where(i => i.Tag != null))
             {
                 item.IsChecked = App.Settings.Background.EqualsNoCase(item.Tag as string);
-                item.Click += delegate { App.Settings.Background = item.Tag as string; ApplyBackground(); };
+                item.Click += delegate(object sender, RoutedEventArgs e) { App.Settings.Background = ((MenuItem)e.OriginalSource).Tag as string; ApplyBackground(); };
             }
             menu.IsOpen = true;
         }
@@ -1465,6 +1469,38 @@ namespace TankIconMaker
             SaveSettings();
         }
 
+        private bool isLayerOrEffectInClipboard()
+        {
+            IDataObject iData = Clipboard.GetDataObject();
+
+            // Determines whether the data is in a format you can use.
+            if (iData.GetDataPresent(DataFormats.Text))
+            {
+                string clipboardData = (string)iData.GetData(DataFormats.Text);
+                if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Layers") || clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Effects") || clipboardData.StartsWith("<item type=\"TankIconMaker.Effects"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool isEffectInClipboard()
+        {
+            IDataObject iData = Clipboard.GetDataObject();
+
+            // Determines whether the data is in a format you can use.
+            if (iData.GetDataPresent(DataFormats.Text))
+            {
+                string clipboardData = (string)iData.GetData(DataFormats.Text);
+                if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Effects") || clipboardData.StartsWith("<item type=\"TankIconMaker.Effects"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private bool isLayerOrEffectSelected()
         {
             return ctLayersTree.SelectedItem is LayerBase || ctLayersTree.SelectedItem is EffectBase;
@@ -1473,6 +1509,12 @@ namespace TankIconMaker
         private bool isLayerSelected()
         {
             return ctLayersTree.SelectedItem is LayerBase;
+        }
+
+
+        private bool isEffectSelected()
+        {
+            return ctLayersTree.SelectedItem is EffectBase;
         }
 
         private void cmdLayer_AddEffect(object sender, ExecutedRoutedEventArgs e)
@@ -1522,6 +1564,80 @@ namespace TankIconMaker
                 effect = ctLayersTree.SelectedItem as EffectBase;
                 effect.Name = newName;
             }
+            SaveSettings();
+        }
+
+        private void cmdLayer_Copy(object sender, ExecutedRoutedEventArgs e)
+        {
+            var style = App.Settings.ActiveStyle;
+            LayerBase layer = ctLayersTree.SelectedItem as LayerBase;
+            EffectBase effect = ctLayersTree.SelectedItem as EffectBase;
+            XElement element = ClassifyXml.Serialize(ctLayersTree.SelectedItem);
+            Clipboard.SetDataObject(element.ToString());
+        }
+
+        private void cmdLayer_CopyChild(object sender, ExecutedRoutedEventArgs e)
+        {
+            var style = App.Settings.ActiveStyle;
+            LayerBase layer = ctLayersTree.SelectedItem as LayerBase;
+            if (layer != null)
+            {
+                System.Text.StringBuilder elements = new System.Text.StringBuilder();
+                foreach (EffectBase childEffect in layer.Effects)
+                {
+                    XElement element = ClassifyXml.Serialize(childEffect);
+                    elements.AppendLine(element.ToString());
+                }
+                Clipboard.SetDataObject(elements.ToString());
+            }
+        }
+
+        private void cmdLayer_Paste(object sender, ExecutedRoutedEventArgs e)
+        {
+            Style style = GetEditableStyle();
+            LayerBase curLayer = ctLayersTree.SelectedItem as LayerBase;
+            EffectBase curEffect = ctLayersTree.SelectedItem as EffectBase;
+            if (curEffect != null)
+                curLayer = curEffect.Layer;
+
+            IDataObject iData = Clipboard.GetDataObject();
+            string clipboardData = (string)iData.GetData(DataFormats.Text);
+            if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Layers"))
+            {
+                LayerBase layer = (LayerBase)ClassifyXml.Deserialize<LayerBase>(XElement.Parse(clipboardData));
+                if (curLayer != null)
+                    style.Layers.Insert(style.Layers.IndexOf(curLayer) + 1, layer);
+                else
+                    style.Layers.Add(layer);
+                layer.TreeViewItem.IsSelected = true;
+                layer.TreeViewItem.BringIntoView();
+            }
+            else
+            {
+                Regex reg = new Regex(@"<item [\s\S]*?</item>");
+                foreach (Match m in reg.Matches(clipboardData))
+                {
+                    EffectBase effect = (EffectBase)ClassifyXml.Deserialize<EffectBase>(XElement.Parse(m.Value));
+                    if (curEffect != null)
+                        curEffect.Layer.Effects.Insert(curEffect.Layer.Effects.IndexOf(curEffect) + 1, effect);
+                    else if (curLayer != null)
+                        curLayer.Effects.Add(effect);
+                    else
+                        return;
+                    if (!effect.Layer.TreeViewItem.IsExpanded)
+                        effect.Layer.TreeViewItem.IsExpanded = true;
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        effect.TreeViewItem.IsSelected = true;
+                        effect.TreeViewItem.BringIntoView();
+                        UpdateIcons();
+                    }, DispatcherPriority.Background);
+
+                }
+            }
+
+            _renderResults.Clear();
+            UpdateIcons();
             SaveSettings();
         }
 
@@ -1824,6 +1940,9 @@ namespace TankIconMaker
         public static RoutedCommand AddLayer = new RoutedCommand();
         public static RoutedCommand AddEffect = new RoutedCommand();
         public static RoutedCommand Rename = new RoutedCommand();
+        public static RoutedCommand Copy = new RoutedCommand();
+        public static RoutedCommand CopyChild = new RoutedCommand();
+        public static RoutedCommand Paste = new RoutedCommand();
         public static RoutedCommand Delete = new RoutedCommand();
         public static RoutedCommand MoveUp = new RoutedCommand();
         public static RoutedCommand MoveDown = new RoutedCommand();
