@@ -1475,15 +1475,10 @@ namespace TankIconMaker
             IDataObject iData = Clipboard.GetDataObject();
 
             // Determines whether the data is in a format you can use.
-            if (iData.GetDataPresent(DataFormats.Text))
-            {
-                string clipboardData = (string) iData.GetData(DataFormats.Text);
-                if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Layers") || clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Effects") || clipboardData.StartsWith("<item type=\"TankIconMaker.Effects"))
-                {
-                    return true;
-                }
-            }
-            return false;
+            if (!iData.GetDataPresent(DataFormats.Text))
+                return false;
+            string clipboardData = (string) iData.GetData(DataFormats.Text);
+            return Regex.IsMatch(clipboardData, @"^<({0}|{1}|{2})\b".Fmt(clipboard_LayerRoot, clipboard_EffectRoot, clipboard_EffectListRoot));
         }
 
         private bool isLayerOrEffectSelected()
@@ -1552,12 +1547,14 @@ namespace TankIconMaker
             SaveSettings();
         }
 
+        private const string clipboard_LayerRoot = "TankIconMaker_Layer";
+        private const string clipboard_EffectRoot = "TankIconMaker_Effect";
+        private const string clipboard_EffectListRoot = "TankIconMaker_EffectList";
+
         private void cmdLayer_Copy(object sender, ExecutedRoutedEventArgs e)
         {
-            var style = App.Settings.ActiveStyle;
-            LayerBase layer = ctLayersTree.SelectedItem as LayerBase;
-            EffectBase effect = ctLayersTree.SelectedItem as EffectBase;
-            XElement element = ClassifyXml.Serialize(ctLayersTree.SelectedItem);
+            var fmt = ClassifyXmlFormat.Create(ctLayersTree.SelectedItem is LayerBase ? clipboard_LayerRoot : clipboard_EffectRoot);
+            XElement element = ClassifyXml.Serialize(ctLayersTree.SelectedItem, format: fmt);
             Ut.ClipboardSet(element.ToString());
         }
 
@@ -1565,16 +1562,8 @@ namespace TankIconMaker
         {
             var style = App.Settings.ActiveStyle;
             LayerBase layer = ctLayersTree.SelectedItem as LayerBase;
-            if (layer != null)
-            {
-                System.Text.StringBuilder elements = new System.Text.StringBuilder();
-                foreach (EffectBase childEffect in layer.Effects)
-                {
-                    XElement element = ClassifyXml.Serialize(childEffect);
-                    elements.AppendLine(element.ToString());
-                }
-                Ut.ClipboardSet(elements.ToString());
-            }
+            XElement element = ClassifyXml.Serialize(layer.Effects.ToList(), format: ClassifyXmlFormat.Create(clipboard_EffectListRoot));
+            Ut.ClipboardSet(element.ToString());
         }
 
         private void cmdLayer_Paste(object sender, ExecutedRoutedEventArgs e)
@@ -1589,7 +1578,7 @@ namespace TankIconMaker
             {
                 IDataObject iData = Clipboard.GetDataObject();
                 string clipboardData = (string) iData.GetData(DataFormats.Text);
-                if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Layers"))
+                if (Regex.IsMatch(clipboardData, @"^<{0}\b".Fmt(clipboard_LayerRoot)))
                 {
                     LayerBase layer = (LayerBase) ClassifyXml.Deserialize<LayerBase>(XElement.Parse(clipboardData));
                     if (curLayer != null)
@@ -1601,27 +1590,30 @@ namespace TankIconMaker
                 }
                 else
                 {
-                    Regex reg = new Regex(@"<item [\s\S]*?</item>");
+                    List<EffectBase> effects;
+                    if (Regex.IsMatch(clipboardData, @"^<{0}\b".Fmt(clipboard_EffectRoot)))
+                        effects = new List<EffectBase> { ClassifyXml.Deserialize<EffectBase>(XElement.Parse(clipboardData)) };
+                    else if (Regex.IsMatch(clipboardData, @"^<{0}\b".Fmt(clipboard_EffectListRoot)))
+                        effects = ClassifyXml.Deserialize<List<EffectBase>>(XElement.Parse(clipboardData));
+                    else
+                        throw new Exception(); // caught by the generic "cannot paste" handler below
+
                     EffectBase insertBefore = null;
                     if (curEffect != null && curEffect != curLayer.Effects.Last())
                         insertBefore = curLayer.Effects[curLayer.Effects.IndexOf(curEffect) + 1];
-                    foreach (Match m in reg.Matches(clipboardData))
+                    foreach (var effect in effects)
                     {
-                        EffectBase effect = (EffectBase) ClassifyXml.Deserialize<EffectBase>(XElement.Parse(m.Value));
                         if (insertBefore != null)
                             curEffect.Layer.Effects.Insert(curEffect.Layer.Effects.IndexOf(insertBefore), effect);
                         else
                             curLayer.Effects.Add(effect);
-                        if (!effect.Layer.TreeViewItem.IsExpanded)
-                            effect.Layer.TreeViewItem.IsExpanded = true;
-                        Dispatcher.BeginInvoke((Action) delegate
-                        {
-                            effect.TreeViewItem.IsSelected = true;
-                            effect.TreeViewItem.BringIntoView();
-                            UpdateIcons();
-                        }, DispatcherPriority.Background);
-
                     }
+                    curLayer.TreeViewItem.IsExpanded = true;
+                    Dispatcher.BeginInvoke((Action) delegate
+                    {
+                        effects.Last().TreeViewItem.IsSelected = true;
+                        effects.Last().TreeViewItem.BringIntoView();
+                    }, DispatcherPriority.Background);
                 }
             }
             catch
