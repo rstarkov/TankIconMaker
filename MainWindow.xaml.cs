@@ -1615,11 +1615,14 @@ namespace TankIconMaker
             else
             {
                 Regex reg = new Regex(@"<item [\s\S]*?</item>");
+                EffectBase insertBefore = null;
+                if (curEffect != null && curEffect != curLayer.Effects.Last())
+                    insertBefore = curLayer.Effects[curLayer.Effects.IndexOf(curEffect) + 1];
                 foreach (Match m in reg.Matches(clipboardData))
                 {
                     EffectBase effect = (EffectBase) ClassifyXml.Deserialize<EffectBase>(XElement.Parse(m.Value));
-                    if (curEffect != null)
-                        curEffect.Layer.Effects.Insert(curEffect.Layer.Effects.IndexOf(curEffect) + 1, effect);
+                    if (insertBefore != null)
+                        curEffect.Layer.Effects.Insert(curEffect.Layer.Effects.IndexOf(insertBefore), effect);
                     else if (curLayer != null)
                         curLayer.Effects.Add(effect);
                     else
