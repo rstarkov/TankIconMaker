@@ -1486,22 +1486,6 @@ namespace TankIconMaker
             return false;
         }
 
-        private bool isEffectInClipboard()
-        {
-            IDataObject iData = Clipboard.GetDataObject();
-
-            // Determines whether the data is in a format you can use.
-            if (iData.GetDataPresent(DataFormats.Text))
-            {
-                string clipboardData = (string) iData.GetData(DataFormats.Text);
-                if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Effects") || clipboardData.StartsWith("<item type=\"TankIconMaker.Effects"))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private bool isLayerOrEffectSelected()
         {
             return ctLayersTree.SelectedItem is LayerBase || ctLayersTree.SelectedItem is EffectBase;
