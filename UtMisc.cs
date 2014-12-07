@@ -390,7 +390,7 @@ namespace TankIconMaker
             if (App.Translation.Language == Language.EnglishUK || App.Translation.Language == Language.EnglishUS)
                 lang = "En";
             else
-                lang = App.Translation.Language.GetIsoLanguageCode().ToString();
+                lang = App.Translation.Language.GetIsoLanguageCode();
             if (dictionary.ContainsKey(lang))
                 return dictionary[lang];
             else if (dictionary.ContainsKey("En"))
@@ -440,7 +440,6 @@ namespace TankIconMaker
                 _threads = new Thread[_maximumConcurrencyLevel];
                 for (int i = 0; i < _threads.Length; i++)
                 {
-                    int local = i;
                     _threads[i] = new Thread(() =>
                     {
                         foreach (Task t in _tasks.GetConsumingEnumerable())
