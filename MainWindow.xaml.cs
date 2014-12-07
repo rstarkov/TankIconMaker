@@ -1002,10 +1002,11 @@ namespace TankIconMaker
                 menu.Items.Add(menuitem);
             }
 
-            foreach (var item in menu.Items.OfType<MenuItem>().Where(i => i.Tag != null))
+            foreach (var itemForeach in menu.Items.OfType<MenuItem>().Where(i => i.Tag != null))
             {
+                var item = itemForeach; // C# 5 fixed this but it's still causing issues for some
                 item.IsChecked = App.Settings.Background.EqualsNoCase(item.Tag as string);
-                item.Click += delegate(object sender, RoutedEventArgs e) { App.Settings.Background = ((MenuItem) e.OriginalSource).Tag as string; ApplyBackground(); };
+                item.Click += delegate { App.Settings.Background = item.Tag as string; ApplyBackground(); };
             }
             menu.IsOpen = true;
         }
