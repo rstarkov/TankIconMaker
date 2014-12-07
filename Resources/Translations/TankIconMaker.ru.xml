@@ -1722,8 +1722,8 @@
       <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
     </StyleImport_Fail>
     <StyleExport_Success>
-      <Translation>Стиль успешно экспортирован.</Translation>
-      <Old>The style has been exported.</Old>
+      <Translation>Стили успешно экспортированы.</Translation>
+      <Old>The styles have been exported.</Old>
     </StyleExport_Success>
     <ExceptionGlobal>
       <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>
