@@ -249,11 +249,12 @@
                             <MenuItem Header="Add _layer..." Name="ctLayersAddLayer"  Command="src:TankLayerCommands.AddLayer" InputGestureText="Insert" />
                             <MenuItem Header="Add _effect..." Name="ctLayersAddEffect"  Command="src:TankLayerCommands.AddEffect" InputGestureText="Alt+Insert" />
                             <Separator/>
-                            <MenuItem Header="_Modify" Name="ctLayersModify"  Command="src:TankLayerCommands.Rename" InputGestureText="F2" />
                             <MenuItem Header="_Copy" Name="ctLayersCopy" Command="src:TankLayerCommands.Copy" InputGestureText="Ctrl+C" />
                             <MenuItem Header="Copy e_ffects" Name="ctLayersCopyEffects" Command="src:TankLayerCommands.CopyEffects" InputGestureText="Ctrl+Alt+C"/>
                             <MenuItem Header="_Paste" Name="ctLayersPaste" Command="src:TankLayerCommands.Paste" InputGestureText="Ctrl+V" />
                             <MenuItem Header="_Delete" Name="ctLayersDelete"  Command="src:TankLayerCommands.Delete" InputGestureText="Delete" />
+                            <Separator/>
+                            <MenuItem Header="_Rename" Name="ctLayersRename"  Command="src:TankLayerCommands.Rename" InputGestureText="F2" />
                             <MenuItem Header="Move _up" Name="ctLayersMoveUp"  Command="src:TankLayerCommands.MoveUp" InputGestureText="Ctrl+↑" />
                             <MenuItem Header="Move d_own" Name="ctLayersMoveDown"  Command="src:TankLayerCommands.MoveDown" InputGestureText="Ctrl+↓" />
                             <Separator/>
