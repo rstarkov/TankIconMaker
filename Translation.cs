@@ -596,6 +596,8 @@ namespace TankIconMaker
         public TrString RenderWithWarnings = "Some of the tank icons rendered with warnings; make sure you view \"All tanks\" and click each image with a warning icon for details.";
         public TrString RenderIconOK = "This icon rendered without any problems.";
         public TrString RenderIconFail = "Could not render this icon: {0}";
+
+        public TrString ClipboardError = "Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]

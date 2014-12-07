@@ -1783,6 +1783,10 @@
       <Translation>Не удалось нарисовать данную иконку: {0}</Translation>
       <Old>Could not render this icon: {0}</Old>
     </RenderIconFail>
+    <ClipboardError>
+      <Translation>Не удалось скопировать в буфер обмена: возможно буфер используется другой программой. Попробуйте еще раз через несколько секунд.</Translation>
+      <Old>Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.</Old>
+    </ClipboardError>
   </Error>
   <Misc>
     <ProgramVersion>
