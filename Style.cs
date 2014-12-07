@@ -20,6 +20,10 @@ namespace TankIconMaker
         public string Author { get { return _Author; } set { _Author = value; NotifyPropertyChanged("Author"); NotifyPropertyChanged("Display"); } }
         private string _Author;
 
+        /// <summary>The name of the author of this style.</summary>
+        public string Directory { get { return _Directory; } set { _Directory = value; NotifyPropertyChanged("Directory"); NotifyPropertyChanged("Display"); } }
+        private string _Directory;
+
         /// <summary>Icon width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
         public int IconWidth = 80;
         /// <summary>Icon height; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>

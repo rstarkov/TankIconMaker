@@ -85,6 +85,18 @@
       <Translation>_Löschen</Translation>
       <Old>D_elete</Old>
     </ctStyleDelete>
+    <ctStyleBulkSave>
+      <Translation>out of date</Translation>
+      <Old>Bulk _save</Old>
+    </ctStyleBulkSave>
+    <ctSaveFormatHelp>
+      <Translation>out of date</Translation>
+      <Old>Save format help</Old>
+    </ctSaveFormatHelp>
+    <IconsetPath>
+      <Translation>out of date</Translation>
+      <Old>Save path (format is declared in Save as...-Save format help)</Old>
+    </IconsetPath>
     <ctLayersLabel>
       <Translation>_Ebenen:</Translation>
       <Old>_Layers:</Old>
@@ -230,8 +242,8 @@
       <Old>_Save</Old>
     </ctSaveLabel>
     <ctSaveToFolderLabel>
-      <Translation>_In Ordner speichern...</Translation>
-      <Old>Save to _folder...</Old>
+      <Translation>out of date</Translation>
+      <Old>Save _as...</Old>
     </ctSaveToFolderLabel>
     <ctSaveIcons_AllToGameFolder>
       <Translation>Alle Symbole ins Spiel_verzeichnis</Translation>
@@ -1528,6 +1540,26 @@
       <Old>Tier: None</Old>
     </TierNone>
   </Selector>
+  <CheckList>
+    <BulkSave>
+      <Translation>out of date</Translation>
+      <Old>Bulk save</Old>
+    </BulkSave>
+    <BulkExport>
+      <Translation>out of date</Translation>
+      <Old>Bulk export</Old>
+    </BulkExport>
+    <Name>
+      <Translation>out of date</Translation>
+      <Old>Name</Old>
+    </Name>  
+  </CheckList>
+  <SaveFormat>
+    <SaveFormatHelp>
+      <Translation>out of date</Translation>
+      <Old>When saving using Save or "Bulk save" button style will be saved to folder declared in Iconset Save Path field. If this field is empty, icons will be saved to WOT game folder as current iconset.&#x0a;Available macro:&#x0a;{GamePath} - Game path&#x0a;{VersionName} - Game version&#x0a;{StyleName} - Style name&#x0a;{Author} - Style author&#x0a;%UserProfile% - User profile path&#x0a;&#x0a;Examples:&#x0a;Icons\{StyleName} - icons will be saved inside "Tank Icon Maker" folder, to Icons folder&#x0a;{GamePath}\res_mods\{VersionName}\gui\maps\icons\vehicle\contour - will be saved as current iconset (simular to empty field)&#x0a;%UserProfile%\Tank Icon Maker\{StyleName} - will be save to user's profile folder Tank Icon Maker\{StyleName}</Old>
+    </SaveFormatHelp>
+  </SaveFormat>
   <DlgMessage>
     <OK>
       <Translation>&amp;OK</Translation>

@@ -107,6 +107,8 @@ namespace TankIconMaker
                     style.Name = "<unknown>";
                 if (style.Author == null)
                     style.Author = "<unknown>";
+                if (style.Directory == null)
+                    style.Directory = "";
             }
 
             // Added in v019

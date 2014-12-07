@@ -144,6 +144,7 @@ namespace TankIconMaker
         public SelectorTranslation Selector = new SelectorTranslation();
         public DlgMessageTranslation DlgMessage = new DlgMessageTranslation();
         public CheckListTranslation CheckList = new CheckListTranslation();
+        public SaveFormatTranslation SaveFormat = new SaveFormatTranslation();
         public PromptTranslation Prompt = new PromptTranslation();
         public ErrorTranslation Error = new ErrorTranslation();
         public MiscTranslation Misc = new MiscTranslation();
@@ -607,6 +608,12 @@ namespace TankIconMaker
         public TrString BulkSave = "Bulk save";
         public TrString BulkExport = "Bulk export";
         public TrString Name = "Name";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
+    sealed class SaveFormatTranslation
+    {
+        public TrString SaveFormatHelp = "When saving using Save or \"Bulk save\" button style will be saved to folder declared in Iconset Save Path field. If this field is empty, icons will be saved to WOT game folder as current iconset.\nAvailable macro:\n{GamePath} - Game path\n{VersionName} - Game version\n{StyleName} - Style name\n{Author} - Style author\n%UserProfile% - User profile path\n\nExamples:\nIcons\\{StyleName} - icons will be saved inside \"Tank Icon Maker\" folder, to Icons folder\n{GamePath}\\res_mods\\{VersionName}\\gui\\maps\\icons\\vehicle\\contour - will be saved as current iconset (simular to empty field)\n%UserProfile%\\Tank Icon Maker\\{StyleName} - will be save to user's profile folder Tank Icon Maker\\{StyleName}";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]

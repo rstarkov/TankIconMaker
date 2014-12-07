@@ -394,7 +394,7 @@
                     <AccessText Margin="8,0" Name="ctSaveLabel">_Save</AccessText>
                 </Button>
                 <Button Name="ctSaveToFolder" Margin="0,8,8,8" Click="ctSaveToFolder_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
-                    <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save to _folder...</AccessText>
+                    <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save _as...</AccessText>
                     <Button.ContextMenu>
                         <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
                             <!-- Available: BIJNOPQTVWXYZ -->
@@ -414,12 +414,16 @@
                             <MenuItem Header="Only U_K..." Name="ctBrowseAndSaveIcons_UK" Click="BrowseAndSaveIcons_UK"/>
                             <MenuItem Header="Only _China..." Name="ctBrowseAndSaveIcons_China" Click="BrowseAndSaveIcons_China"/>
                             <MenuItem Header="Only _Japan..." Name="ctBrowseAndSaveIcons_Japan" Click="BrowseAndSaveIcons_Japan"/>
+                            <Separator/>
+                            <MenuItem Header="Bulk _save" Name="ctStyleBulkSave" Command="src:TankStyleCommands.BulkSave"/>
+                            <MenuItem Header="Save format help" Name="ctSaveFormatHelp" Command="src:TankStyleCommands.BulkSaveFormat"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
                 <Button Name="ctReload" Margin="0,8,8,8" Click="ctReload_Click">
                     <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>
+                <TextBox Height="23" Margin="0,8,8,8" Name="IconsetPath" KeyUp="cmdStyle_ChangeDirectory" Width="400" ToolTip="Save path (format is declared in Save as...-Save format help)" />
                 <Button Name="ctAbout" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8" Click="ctAbout_Click">
                     <AccessText Margin="8,0" Name="ctAboutLabel">About...</AccessText>
                 </Button>
