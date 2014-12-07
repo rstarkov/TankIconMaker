@@ -1623,10 +1623,8 @@ namespace TankIconMaker
                     EffectBase effect = (EffectBase) ClassifyXml.Deserialize<EffectBase>(XElement.Parse(m.Value));
                     if (insertBefore != null)
                         curEffect.Layer.Effects.Insert(curEffect.Layer.Effects.IndexOf(insertBefore), effect);
-                    else if (curLayer != null)
-                        curLayer.Effects.Add(effect);
                     else
-                        return;
+                        curLayer.Effects.Add(effect);
                     if (!effect.Layer.TreeViewItem.IsExpanded)
                         effect.Layer.TreeViewItem.IsExpanded = true;
                     Dispatcher.BeginInvoke((Action) delegate
