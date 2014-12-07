@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Controls.Primitives;
-using System.ComponentModel;
 
 namespace TankIconMaker
 {
-    /// <summary>
-    /// Interaction logic for CheckList.xaml
-    /// </summary>
     public partial class CheckList : Window
     {
         int checkAllState = 0;
@@ -34,7 +21,7 @@ namespace TankIconMaker
         {
             DialogResult = true;
         }
-        
+
         private void chkSelectAll_Checked(object sender, RoutedEventArgs e)
         {
             if (skipEvent)
@@ -125,7 +112,7 @@ namespace TankIconMaker
             wnd.Title = title;
             wnd.ctOkBtn.Text = App.Translation.Prompt.PromptWindowOK;
             wnd.ctCancelBtn.Text = App.Translation.Prompt.Cancel;
-            
+
             wnd.checkList = new ObservableCollection<CheckData>(values);
             wnd.updateCheckListHeader();
             wnd.CheckGrid.Columns[0].Header = App.Translation.CheckList.Name;
