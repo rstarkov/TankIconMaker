@@ -1573,7 +1573,7 @@ namespace TankIconMaker
             LayerBase layer = ctLayersTree.SelectedItem as LayerBase;
             EffectBase effect = ctLayersTree.SelectedItem as EffectBase;
             XElement element = ClassifyXml.Serialize(ctLayersTree.SelectedItem);
-            Clipboard.SetDataObject(element.ToString());
+            Ut.ClipboardSet(element.ToString());
         }
 
         private void cmdLayer_CopyEffects(object sender, ExecutedRoutedEventArgs e)
@@ -1588,7 +1588,7 @@ namespace TankIconMaker
                     XElement element = ClassifyXml.Serialize(childEffect);
                     elements.AppendLine(element.ToString());
                 }
-                Clipboard.SetDataObject(elements.ToString());
+                Ut.ClipboardSet(elements.ToString());
             }
         }
 

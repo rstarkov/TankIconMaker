@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Windows;
 using Microsoft.Win32;
 using RT.Util;
+using RT.Util.Dialogs;
 using RT.Util.ExtensionMethods;
 using RT.Util.Lingo;
 using WotDataLib;
@@ -397,6 +396,23 @@ namespace TankIconMaker
                 return dictionary["En"];
             else
                 return dictionary.Values.First();
+        }
+
+        /// <summary>
+        /// Attempts to copy the specified text to clipboard, correctly handling the case where the clipboard may be
+        /// temporarily locked by another application (such as TeamViewer). Waits for the clipboard to become available
+        /// for up to 1 second; shows a dialog on failure.
+        /// </summary>
+        public static void ClipboardSet(string text)
+        {
+            bool success = false;
+            for (int retries = 0; retries < 10; retries++)
+            {
+                try { Clipboard.SetText(text); success = true; break; }
+                catch { Thread.Sleep(100); }
+            }
+            if (!success)
+                DlgMessage.ShowWarning(App.Translation.Error.ClipboardError);
         }
     }
 
