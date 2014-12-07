@@ -3,7 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Check list" Height="415" Width="607" MinHeight="120" MinWidth="250">
     <Grid>
-        <DataGrid GridLinesVisibility="None" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" Margin="0 0 0 30" HorizontalAlignment="Stretch" Name="CheckGrid" Width="Auto" CanUserAddRows="False" CanUserDeleteRows="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" GridLinesVisibility="None" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CheckGrid" Width="Auto" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" IsReadOnly="True" />
                 <DataGridTemplateColumn IsReadOnly="False" MinWidth="40">
@@ -17,7 +22,7 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsActiveBool, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="chk_Checked" Unchecked="chk_Unchecked"/>
+                            <CheckBox Margin="0,5,0,0" IsChecked="{Binding IsActiveBool, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="chk_Checked" Unchecked="chk_Unchecked"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellStyle>
@@ -29,11 +34,12 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0">
-            <Button Margin="4,0" IsDefault="True" Click="ok">
+
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <Button Margin="8,0,0,0" IsDefault="True" Click="ok">
                 <AccessText Margin="16,2" Name="ctOkBtn">_OK</AccessText>
             </Button>
-            <Button Margin="4,0" IsCancel="True">
+            <Button Margin="8,0,0,0" IsCancel="True">
                 <AccessText Margin="16,2" Name="ctCancelBtn">_Cancel</AccessText>
             </Button>
         </WrapPanel>

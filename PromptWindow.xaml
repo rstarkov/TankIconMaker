@@ -22,10 +22,10 @@
         <Label Grid.Row="0" Name="lblName"  Padding="3,0,0,3" Target="{Binding ElementName=ctName}">_Name:</Label>
         <TextBox Grid.Row="1" Name="ctName" Margin="0,0,0,8" />
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
-            <Button Margin="4,0" IsDefault="True" Click="ok">
+            <Button Margin="8,0,0,0" IsDefault="True" Click="ok">
                 <AccessText Margin="16,2" Name="ctOkBtn">_OK</AccessText>
             </Button>
-            <Button Margin="4,0" IsCancel="True">
+            <Button Margin="8,0,0,0" IsCancel="True">
                 <AccessText Margin="16,2" Name="ctCancelBtn">_Cancel</AccessText>
             </Button>
         </WrapPanel>
