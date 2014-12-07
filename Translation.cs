@@ -143,6 +143,7 @@ namespace TankIconMaker
 
         public SelectorTranslation Selector = new SelectorTranslation();
         public DlgMessageTranslation DlgMessage = new DlgMessageTranslation();
+        public CheckListTranslation CheckList = new CheckListTranslation();
         public PromptTranslation Prompt = new PromptTranslation();
         public ErrorTranslation Error = new ErrorTranslation();
         public MiscTranslation Misc = new MiscTranslation();
@@ -601,6 +602,14 @@ namespace TankIconMaker
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
+    sealed class CheckListTranslation
+    {
+        public TrString BulkSave = "Bulk save";
+        public TrString BulkExport = "Bulk export";
+        public TrString Name = "Name";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
     sealed class PromptTranslation
     {
         public TrString RenameLayer_Title = "Rename layer";
@@ -622,6 +631,8 @@ namespace TankIconMaker
         public TrString Centerable_Prompt = "Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.";
         public TrString Centerable_Yes = "Centerable";
         public TrString Centerable_No = "Fixed-width";
+        public TrString ExportFormat_Title = "Name format";
+        public TrString ExportFormat_Label = "Format";
 
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
         public TrString Cancel = "Cancel";
@@ -647,7 +658,7 @@ namespace TankIconMaker
         public TrString DeleteStyle_Prompt = "Delete this style?\r\n\r\n{0}";
         public TrString DeleteStyle_Yes = "&Delete";
         public TrString StyleImport_Fail = "Could not load the file for some reason. It might be of the wrong format.";
-        public TrString StyleExport_Success = "The style has been exported.";
+        public TrString StyleExport_Success = "The styles have been exported.";
         public TrString ExceptionGlobal = "An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.";
         public TrString ExceptionInRender = "A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.";
         public TrString ErrorToClipboard_Copy = "Copy report to &clipboard";

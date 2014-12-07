@@ -1094,6 +1094,20 @@ namespace TankIconMaker
             ReloadData();
         }
 
+        public static string FixFileName(string filename)
+        {
+            var builder = new System.Text.StringBuilder();
+            var invalid = System.IO.Path.GetInvalidFileNameChars();
+            foreach (var cur in filename)
+            {
+                if (!invalid.Contains(cur))
+                {
+                    builder.Append(cur);
+                }
+            }
+            return builder.ToString();
+        }
+
         string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
 
         private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false)
@@ -1761,14 +1775,25 @@ namespace TankIconMaker
 
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            var style = App.Settings.ActiveStyle; // because it will have changed by the time we're ready to remove it from the list of styles
-            if (DlgMessage.ShowQuestion(App.Translation.Prompt.DeleteStyle_Prompt.Fmt(style.Name), App.Translation.Prompt.DeleteStyle_Yes, App.Translation.Prompt.Cancel) == 1)
+            List<CheckData> stylesToDelete = new List<CheckData>();
+            int i = 0;
+            foreach (Style style in App.Settings.Styles)
+            {
+                stylesToDelete.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
+                ++i;
+            }
+            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToDelete);
+            if (names.Count == 0)
+            {
                 return;
-            if (ctStyleDropdown.SelectedIndex < ctStyleDropdown.Items.Count - 1)
-                ctStyleDropdown.SelectedIndex++;
-            else
-                ctStyleDropdown.SelectedIndex--;
-            App.Settings.Styles.Remove(style);
+            }
+            ctStyleDropdown.SelectedIndex = 0;
+            for (i = names.Count - 1; i >= 0; --i)
+            {
+                Style style = App.Settings.Styles[int.Parse(names[i])];
+                App.Settings.Styles.Remove(style);
+            }
+
             SaveSettings();
         }
 
@@ -1809,42 +1834,74 @@ namespace TankIconMaker
             var dlg = new VistaOpenFileDialog();
             dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
             dlg.FilterIndex = 0;
-            dlg.Multiselect = false;
+            dlg.Multiselect = true;
             dlg.CheckFileExists = true;
             if (dlg.ShowDialog() != true)
                 return;
-
-            Style style;
-            try
+            Style style = null;
+            foreach (string fileName in dlg.FileNames)
             {
-                style = ClassifyXml.DeserializeFile<Style>(dlg.FileName);
-                style.Kind = StyleKind.User;
+                try
+                {
+                    style = ClassifyXml.DeserializeFile<Style>(fileName);
+                    style.Kind = StyleKind.User;
+                }
+                catch
+                {
+                    DlgMessage.ShowWarning(App.Translation.Prompt.StyleImport_Fail);
+                    return;
+                }
+                App.Settings.Styles.Add(style);
             }
-            catch
-            {
-                DlgMessage.ShowWarning(App.Translation.Prompt.StyleImport_Fail);
-                return;
-            }
-
-            App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
             SaveSettings();
         }
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
-            var dlg = new VistaSaveFileDialog();
-            dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
-            dlg.FilterIndex = 0;
-            dlg.CheckPathExists = true;
-            if (dlg.ShowDialog() != true)
+            List<CheckData> stylesToSave = new List<CheckData>();
+            int i = 0;
+            foreach (Style style in App.Settings.Styles)
+            {
+                stylesToSave.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
+                ++i;
+            }
+            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToSave);
+            if (names.Count == 0)
+            {
                 return;
+            }
+            else if (names.Count == 1)
+            {
+                var dlg = new VistaSaveFileDialog();
+                dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
+                dlg.FilterIndex = 0;
+                dlg.CheckPathExists = true;
+                if (dlg.ShowDialog() != true)
+                    return;
 
-            var filename = dlg.FileName;
-            if (!filename.ToLower().EndsWith(".xml"))
-                filename += ".xml";
-            ClassifyXml.SerializeToFile(App.Settings.ActiveStyle, filename);
-            DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+                var filename = dlg.FileName;
+                if (!filename.ToLower().EndsWith(".xml"))
+                    filename += ".xml";
+                ClassifyXml.SerializeToFile(App.Settings.Styles[int.Parse(names[0])], filename);
+                DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+            }
+            else
+            {
+                var dlg = new VistaFolderBrowserDialog();
+                dlg.ShowNewFolderButton = true;
+                if (dlg.ShowDialog() != true)
+                    return;
+
+                string format = PromptWindow.ShowPrompt(this, "{StyleName} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
+                var filepath = dlg.SelectedPath;
+                foreach (string name in names)
+                {
+                    Style style = App.Settings.Styles[int.Parse(name)];
+                    ClassifyXml.SerializeToFile(style, Path.Combine(filepath, FixFileName(format.Replace("{StyleName}", style.Name).Replace("{Author}", style.Author))));
+                }
+                DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+            }
         }
 
         private void cmdStyle_IconWidth(object sender, ExecutedRoutedEventArgs e)
