@@ -1,0 +1,9 @@
+﻿<Window x:Class="TankIconMaker.ProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProgressWindow" Height="96" Width="300">
+    <Grid>
+        <Label Content="" Height="27" HorizontalAlignment="Left" Name="label" VerticalAlignment="Top" Width="278" />
+        <ProgressBar Height="24" HorizontalAlignment="Left" Margin="0,33,0,0" Name="progressBar" VerticalAlignment="Top" Width="278" />
+    </Grid>
+</Window>

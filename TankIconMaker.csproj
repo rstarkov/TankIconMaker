@@ -92,6 +92,10 @@
     <Compile Include="Effects\PixelOutlineEffect.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Layers\TestLayer.cs" />
+    <Compile Include="ProgressDialog.cs" />
+    <Compile Include="ProgressWindow.xaml.cs">
+      <DependentUpon>ProgressWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Selector.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>
@@ -148,6 +152,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ProgressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PromptWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

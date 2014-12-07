@@ -140,6 +140,8 @@ namespace TankIconMaker
             CommandBindings.Add(new CommandBinding(TankStyleCommands.IconWidth, cmdStyle_IconWidth));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.IconHeight, cmdStyle_IconHeight));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Centerable, cmdStyle_Centerable));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.BulkSave, cmdStyle_BulkSave));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.BulkSaveFormat, cmdStyle_BulkSaveFormat));
 
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
@@ -541,6 +543,71 @@ namespace TankIconMaker
         }
 
         /// <summary>
+        /// Begins an icon update immediately. The icons are not rendered in the background.
+        /// </summary>
+        private void UpdateIconsSynchronous()
+        {
+            _rendering.Value = true;
+            foreach (var image in ctIconsPanel.Children.OfType<TankImageControl>())
+                image.Opacity = 0.7;
+            _otherWarnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
+
+            _updateIconsTimer.Stop();
+            _cancelRender.Cancel();
+            _cancelRender = new CancellationTokenSource();
+            var cancelToken = _cancelRender.Token; // must be a local so that the task lambda captures it; _cancelRender could get reassigned before a task gets to check for cancellation of the old one
+
+            if (_dataMissing)
+                return;
+
+            var context = LoadContext(cached: true);
+            var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
+            var renderTasks = ListRenderTasks(context);
+
+            var style = App.Settings.ActiveStyle;
+            foreach (var layer in style.Layers)
+                TestLayer(style, layer);
+
+            //var tasks = new List<Action>();
+            for (int i = 0; i < renderTasks.Count; i++)
+            {
+                if (i >= images.Count)
+                    images.Add(CreateTankImageControl(style));
+                RenderTask renderTask = renderTasks[i];
+                TankImageControl image = images[i];
+
+                image.ToolTip = renderTasks[i].TankId;
+                if (_renderResults.ContainsKey(renderTask.TankId))
+                {
+                    image.Source = _renderResults[renderTask.TankId].Image;
+                    image.RenderTask = _renderResults[renderTask.TankId];
+                    image.Opacity = 1;
+                }
+                else
+                {
+                    //tasks.Add(() =>
+                    //{
+                    try
+                    {
+                        RenderTank(style, renderTask);
+                        _renderResults[renderTask.TankId] = renderTask;
+                        image.Source = renderTask.Image;
+                        image.RenderTask = renderTask;
+                        image.Opacity = 1;
+                    }
+                    catch { }
+                    //});
+                }
+            }
+
+            // Remove unused images
+            foreach (var image in images.Skip(renderTasks.Count))
+                ctIconsPanel.Children.Remove(image);
+            UpdateIconsCompleted();
+            GC.WaitForPendingFinalizers();
+        }
+
+        /// <summary>
         /// Called on the GUI thread whenever all the icon renders are completed.
         /// </summary>
         private void UpdateIconsCompleted()
@@ -790,6 +857,16 @@ namespace TankIconMaker
             ctIconsPanel.Children.Clear();
             App.Settings.ActiveStyle = (Style) ctStyleDropdown.SelectedItem;
             ctUpvote.Visibility = App.Settings.ActiveStyle.Kind == StyleKind.BuiltIn ? Visibility.Visible : Visibility.Collapsed;
+            if (_builtinStyles.Contains(App.Settings.ActiveStyle))
+            {
+                IconsetPath.IsEnabled = false;
+                IconsetPath.Text = "";
+            }
+            else
+            {
+                IconsetPath.IsEnabled = true;
+                IconsetPath.Text = App.Settings.ActiveStyle.Directory;
+            }
             SaveSettings();
             ctLayersTree.ItemsSource = App.Settings.ActiveStyle.Layers;
             if (App.Settings.ActiveStyle.Layers.Count > 0)
@@ -1110,7 +1187,7 @@ namespace TankIconMaker
 
         string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
 
-        private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false)
+        private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false, bool disableWarnings = false)
         {
             var context = LoadContext(cached: true);
             var path = folder ?? Path.Combine(context.Installation.Path, Ut.ExpandPath(context, context.VersionConfig.PathDestination));
@@ -1118,7 +1195,7 @@ namespace TankIconMaker
             try
             {
                 if (!_overwriteAccepted.EqualsNoCase(path) && (promptEvenIfEmpty || (Directory.Exists(path) && Directory.GetFileSystemEntries(path).Any())))
-                    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
+                    if (disableWarnings || DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
                         .Fmt(path, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
                         return;
                 _overwriteAccepted = path;
@@ -1155,7 +1232,7 @@ namespace TankIconMaker
                     }
                     finally
                     {
-                        Dispatcher.Invoke((Action) (() =>
+                        Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalStatusHide();
 
@@ -1167,15 +1244,23 @@ namespace TankIconMaker
                             if (exception == null)
                             {
                                 int skipped = renders.Values.Count(rr => rr.Exception != null);
-                                int choice = new DlgMessage
+                                int choice;
+                                if (disableWarnings)
                                 {
-                                    Message = App.Translation.Prompt.IconsSaved.Fmt(path) +
-                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
-                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
-                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
-                                    AcceptButton = 0,
-                                    CancelButton = 0,
-                                }.Show();
+                                    choice = 0;
+                                }
+                                else
+                                {
+                                    choice = new DlgMessage
+                                    {
+                                        Message = App.Translation.Prompt.IconsSaved.Fmt(path) +
+                                            (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                                        Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                                        Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                                        AcceptButton = 0,
+                                        CancelButton = 0,
+                                    }.Show();
+                                }
                                 if (choice == 1)
                                     visitProjectWebsite("savehelp");
                             }
@@ -1197,6 +1282,13 @@ namespace TankIconMaker
 
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
+            if (!string.IsNullOrEmpty(IconsetPath.Text))
+            {
+                string savepath = IconsetPath.Text.Replace("{VersionName}", FixFileName(ActiveInstallation.GameVersionName)).Replace("{GamePath}", FixFileName(ActiveInstallation.Path)).Replace("{StyleName}", FixFileName(App.Settings.ActiveStyle.Name)).Replace("{Author}", FixFileName(App.Settings.ActiveStyle.Author));
+                savepath = Environment.ExpandEnvironmentVariables(savepath);
+                saveIcons(savepath, filter: null);
+                return;
+            }
             if (!_saveIconsToFolder)
             {
                 saveIcons(folder: null, filter: null);
@@ -1759,6 +1851,7 @@ namespace TankIconMaker
             var style = new Style();
             style.Name = name;
             style.Author = App.Translation.Misc.NameOfNewStyleAuthor;
+            style.Directory = "";
             style.IconWidth = 80;
             style.IconHeight = 24;
             style.Centerable = true;
@@ -1827,6 +1920,53 @@ namespace TankIconMaker
             App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
             SaveSettings();
+        }
+
+        private void cmdStyle_BulkSave(object sender, ExecutedRoutedEventArgs e)
+        {
+            List<CheckData> stylesToSave = new List<CheckData>();
+            int i = 0;
+            foreach (Style style in App.Settings.Styles)
+            {
+                stylesToSave.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = true });
+                ++i;
+            }
+            Style activestyle = App.Settings.ActiveStyle;
+            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkSave, stylesToSave);
+            if (names.Count == 0)
+            {
+                return;
+            }
+            ProgressDialog progress = new ProgressDialog();
+            progress.Show(names.Count, App.Translation.CheckList.BulkSave);
+            foreach (string name in names)
+            {
+                Style style = App.Settings.Styles[int.Parse(name)];
+                progress.Next(string.Format("{0} ({1})", style.Name, style.Author));
+                string savepath = style.Directory.Replace("{VersionName}", FixFileName(ActiveInstallation.GameVersionName)).Replace("{GamePath}", FixFileName(ActiveInstallation.Path)).Replace("{StyleName}", FixFileName(style.Name)).Replace("{Author}", FixFileName(style.Author));
+                savepath = Environment.ExpandEnvironmentVariables(savepath);
+                App.Settings.ActiveStyle = style;
+                ctStyleDropdown.SelectedItem = style;
+                UpdateIconsSynchronous();
+                saveIcons(savepath, filter: null, disableWarnings: true);
+            }
+            progress.Close();
+            App.Settings.ActiveStyle = activestyle;
+            ctStyleDropdown.SelectedItem = activestyle;
+            UpdateIcons();
+        }
+
+        private void cmdStyle_BulkSaveFormat(object sender, ExecutedRoutedEventArgs e)
+        {
+            var choice = new DlgMessage()
+            {
+                Message = App.Translation.SaveFormat.SaveFormatHelp,
+                Caption = "Info",
+                Buttons = new string[] { App.Translation.DlgMessage.OK },
+                AcceptButton = 0,
+                CancelButton = 0
+            }.Show();
+
         }
 
         private void cmdStyle_Import(object sender, ExecutedRoutedEventArgs e)
@@ -1965,6 +2105,15 @@ namespace TankIconMaker
             UpdateIcons();
         }
 
+        private void cmdStyle_ChangeDirectory(object sender, KeyEventArgs e)
+        {
+            var directory = IconsetPath.Text;
+            if (IconsetPath == null)
+                return;
+            App.Settings.ActiveStyle.Directory = IconsetPath.Text.Replace('/', '\\');
+            SaveSettings();
+        }
+
         private abstract class Warning
         {
             public string Text { get; protected set; }
@@ -2003,6 +2152,8 @@ namespace TankIconMaker
         public static RoutedCommand IconWidth = new RoutedCommand();
         public static RoutedCommand IconHeight = new RoutedCommand();
         public static RoutedCommand Centerable = new RoutedCommand();
+        public static RoutedCommand BulkSave = new RoutedCommand();
+        public static RoutedCommand BulkSaveFormat = new RoutedCommand();
     }
 
     /// <summary>
