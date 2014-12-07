@@ -97,10 +97,10 @@
       <Translation>Effekt hi_nzufügen...</Translation>
       <Old>Add _effect...</Old>
     </ctLayersAddEffect>
-    <ctLayersModify>
+    <ctLayersRename>
       <Translation>_Bearbeiten</Translation>
       <Old>_Modify</Old>
-    </ctLayersModify>
+    </ctLayersRename>
     <ctLayersCopy>
       <Translation>_Kopieren</Translation>
       <Old>_Copy</Old>

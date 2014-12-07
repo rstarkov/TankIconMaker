@@ -97,10 +97,6 @@
       <Translation>Добавить э_ффект...</Translation>
       <Old>Add _effect...</Old>
     </ctLayersAddEffect>
-    <ctLayersModify>
-      <Translation>_Переименовать</Translation>
-      <Old>_Modify</Old>
-    </ctLayersModify>
     <ctLayersCopy>
       <Translation>_Копировать</Translation>
       <Old>_Copy</Old>
@@ -117,6 +113,10 @@
       <Translation>_Удалить</Translation>
       <Old>_Delete</Old>
     </ctLayersDelete>
+    <ctLayersRename>
+      <Translation>_Переименовать</Translation>
+      <Old>_Rename</Old>
+    </ctLayersRename>
     <ctLayersMoveUp>
       <Translation>Сдвинуть вв_ерх</Translation>
       <Old>Move _up</Old>
