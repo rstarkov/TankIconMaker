@@ -1697,6 +1697,10 @@
       <Translation>&amp;Открыть в браузере</Translation>
       <Old>&amp;Open in browser</Old>
     </Upvote_Open>
+    <PasteLayerEffect_Error>
+      <Translation>Не удалось вставить слой либо эффект. Если вы вставляете XML-текст, то в нем, наверное, имеется ошибка.</Translation>
+      <Old>Cannot paste layer or effect. If you are pasting raw XML, there is probably an error in it.</Old>
+    </PasteLayerEffect_Error>
     <DeleteLayerEffect_Prompt>
       <Translation>Удалить выбранный слой/эффект?</Translation>
       <Old>Delete the selected layer/effect?</Old>

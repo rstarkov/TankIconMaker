@@ -1601,41 +1601,48 @@ namespace TankIconMaker
             if (curEffect != null)
                 curLayer = curEffect.Layer;
 
-            IDataObject iData = Clipboard.GetDataObject();
-            string clipboardData = (string) iData.GetData(DataFormats.Text);
-            if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Layers"))
+            try
             {
-                LayerBase layer = (LayerBase) ClassifyXml.Deserialize<LayerBase>(XElement.Parse(clipboardData));
-                if (curLayer != null)
-                    style.Layers.Insert(style.Layers.IndexOf(curLayer) + 1, layer);
-                else
-                    style.Layers.Add(layer);
-                layer.TreeViewItem.IsSelected = true;
-                layer.TreeViewItem.BringIntoView();
-            }
-            else
-            {
-                Regex reg = new Regex(@"<item [\s\S]*?</item>");
-                EffectBase insertBefore = null;
-                if (curEffect != null && curEffect != curLayer.Effects.Last())
-                    insertBefore = curLayer.Effects[curLayer.Effects.IndexOf(curEffect) + 1];
-                foreach (Match m in reg.Matches(clipboardData))
+                IDataObject iData = Clipboard.GetDataObject();
+                string clipboardData = (string) iData.GetData(DataFormats.Text);
+                if (clipboardData.StartsWith("<item fulltype=\"TankIconMaker.Layers"))
                 {
-                    EffectBase effect = (EffectBase) ClassifyXml.Deserialize<EffectBase>(XElement.Parse(m.Value));
-                    if (insertBefore != null)
-                        curEffect.Layer.Effects.Insert(curEffect.Layer.Effects.IndexOf(insertBefore), effect);
+                    LayerBase layer = (LayerBase) ClassifyXml.Deserialize<LayerBase>(XElement.Parse(clipboardData));
+                    if (curLayer != null)
+                        style.Layers.Insert(style.Layers.IndexOf(curLayer) + 1, layer);
                     else
-                        curLayer.Effects.Add(effect);
-                    if (!effect.Layer.TreeViewItem.IsExpanded)
-                        effect.Layer.TreeViewItem.IsExpanded = true;
-                    Dispatcher.BeginInvoke((Action) delegate
-                    {
-                        effect.TreeViewItem.IsSelected = true;
-                        effect.TreeViewItem.BringIntoView();
-                        UpdateIcons();
-                    }, DispatcherPriority.Background);
-
+                        style.Layers.Add(layer);
+                    layer.TreeViewItem.IsSelected = true;
+                    layer.TreeViewItem.BringIntoView();
                 }
+                else
+                {
+                    Regex reg = new Regex(@"<item [\s\S]*?</item>");
+                    EffectBase insertBefore = null;
+                    if (curEffect != null && curEffect != curLayer.Effects.Last())
+                        insertBefore = curLayer.Effects[curLayer.Effects.IndexOf(curEffect) + 1];
+                    foreach (Match m in reg.Matches(clipboardData))
+                    {
+                        EffectBase effect = (EffectBase) ClassifyXml.Deserialize<EffectBase>(XElement.Parse(m.Value));
+                        if (insertBefore != null)
+                            curEffect.Layer.Effects.Insert(curEffect.Layer.Effects.IndexOf(insertBefore), effect);
+                        else
+                            curLayer.Effects.Add(effect);
+                        if (!effect.Layer.TreeViewItem.IsExpanded)
+                            effect.Layer.TreeViewItem.IsExpanded = true;
+                        Dispatcher.BeginInvoke((Action) delegate
+                        {
+                            effect.TreeViewItem.IsSelected = true;
+                            effect.TreeViewItem.BringIntoView();
+                            UpdateIcons();
+                        }, DispatcherPriority.Background);
+
+                    }
+                }
+            }
+            catch
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.PasteLayerEffect_Error, App.Translation.DlgMessage.OK);
             }
 
             _renderResults.Clear();

@@ -641,6 +641,7 @@ namespace TankIconMaker
         public TrString Upvote_NotAvailable = "This style does not currently have an associated post on World of Tanks forums.";
         public TrString Upvote_Prompt = "To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}";
         public TrString Upvote_Open = "&Open in browser";
+        public TrString PasteLayerEffect_Error = "Cannot paste layer or effect. If you are pasting raw XML, there is probably an error in it.";
         public TrString DeleteLayerEffect_Prompt = "Delete the selected layer/effect?";
         public TrString DeleteLayerEffect_Yes = "&Delete";
         public TrString DeleteStyle_Prompt = "Delete this style?\r\n\r\n{0}";
