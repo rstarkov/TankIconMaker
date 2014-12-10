@@ -3,18 +3,21 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using RT.Util.Forms;
 
 namespace TankIconMaker
 {
-    public partial class CheckList : Window
+    partial class CheckListWindow : ManagedWindow
     {
         int checkAllState = 0;
         bool skipEvent = false;
         ObservableCollection<CheckData> checkList;
 
-        public CheckList()
+        public CheckListWindow()
+            : base(App.Settings.CheckListWindow)
         {
             InitializeComponent();
+            MainWindow.ApplyUiZoom(this);
         }
 
         private void ok(object sender, RoutedEventArgs e)
@@ -108,7 +111,7 @@ namespace TankIconMaker
 
         public static List<string> ShowCheckList(Window owner, string title, List<CheckData> values)
         {
-            var wnd = new CheckList { Owner = owner };
+            var wnd = new CheckListWindow { Owner = owner };
             wnd.Title = title;
             wnd.ctOkBtn.Text = App.Translation.Prompt.PromptWindowOK;
             wnd.ctCancelBtn.Text = App.Translation.Prompt.Cancel;
