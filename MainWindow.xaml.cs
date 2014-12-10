@@ -1775,11 +1775,11 @@ namespace TankIconMaker
 
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            List<CheckData> stylesToDelete = new List<CheckData>();
+            List<CheckListItem> stylesToDelete = new List<CheckListItem>();
             int i = 0;
             foreach (Style style in App.Settings.Styles)
             {
-                stylesToDelete.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
+                stylesToDelete.Add(new CheckListItem { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
                 ++i;
             }
             List<string> names = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToDelete);
@@ -1859,11 +1859,11 @@ namespace TankIconMaker
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
-            List<CheckData> stylesToSave = new List<CheckData>();
+            List<CheckListItem> stylesToSave = new List<CheckListItem>();
             int i = 0;
             foreach (Style style in App.Settings.Styles)
             {
-                stylesToSave.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
+                stylesToSave.Add(new CheckListItem { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
                 ++i;
             }
             List<string> names = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToSave);

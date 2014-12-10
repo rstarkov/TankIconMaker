@@ -79,8 +79,8 @@
       <DependentUpon>AnchorEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bitmap.cs" />
-    <Compile Include="CheckList.xaml.cs">
-      <DependentUpon>CheckList.xaml</DependentUpon>
+    <Compile Include="CheckListWindow.xaml.cs">
+      <DependentUpon>CheckListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Effects\ClipEffect.cs" />
     <Compile Include="Effects\NormalizeEffect.cs" />
@@ -123,7 +123,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CheckList.xaml">
+    <Page Include="CheckListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

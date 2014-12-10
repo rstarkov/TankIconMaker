@@ -11,7 +11,7 @@ namespace TankIconMaker
     {
         int checkAllState = 0;
         bool skipEvent = false;
-        ObservableCollection<CheckData> checkList;
+        ObservableCollection<CheckListItem> checkList;
 
         public CheckListWindow()
             : base(App.Settings.CheckListWindow)
@@ -33,7 +33,7 @@ namespace TankIconMaker
             skipEvent = true;
             for (int i = 0; i < CheckGrid.Items.Count; i++)
             {
-                checkList[i] = new CheckData { Id = checkList[i].Id, Name = checkList[i].Name, IsActiveBool = true };
+                checkList[i] = new CheckListItem { Id = checkList[i].Id, Name = checkList[i].Name, IsActiveBool = true };
             }
             skipEvent = false;
         }
@@ -53,7 +53,7 @@ namespace TankIconMaker
             skipEvent = true;
             for (int i = 0; i < CheckGrid.Items.Count; i++)
             {
-                checkList[i] = new CheckData { Id = checkList[i].Id, Name = checkList[i].Name, IsActiveBool = false };
+                checkList[i] = new CheckListItem { Id = checkList[i].Id, Name = checkList[i].Name, IsActiveBool = false };
             }
             skipEvent = false;
         }
@@ -109,14 +109,14 @@ namespace TankIconMaker
             }
         }
 
-        public static List<string> ShowCheckList(Window owner, string title, List<CheckData> values)
+        public static List<string> ShowCheckList(Window owner, string title, List<CheckListItem> values)
         {
             var wnd = new CheckListWindow { Owner = owner };
             wnd.Title = title;
             wnd.ctOkBtn.Text = App.Translation.Prompt.PromptWindowOK;
             wnd.ctCancelBtn.Text = App.Translation.Prompt.Cancel;
 
-            wnd.checkList = new ObservableCollection<CheckData>(values);
+            wnd.checkList = new ObservableCollection<CheckListItem>(values);
             wnd.updateCheckListHeader();
             wnd.CheckGrid.Columns[0].Header = App.Translation.CheckList.Name;
             wnd.CheckGrid.ItemsSource = wnd.checkList;
@@ -125,7 +125,7 @@ namespace TankIconMaker
             if (wnd.ShowDialog() != true)
                 return checkedIds;
 
-            foreach (CheckData chkd in wnd.checkList)
+            foreach (CheckListItem chkd in wnd.checkList)
             {
                 if (chkd.IsActiveBool)
                 {
@@ -136,7 +136,7 @@ namespace TankIconMaker
         }
     }
 
-    public class CheckData
+    public class CheckListItem
     {
         public string Id { set; get; }
         public string Name { set; get; }
