@@ -1782,7 +1782,7 @@ namespace TankIconMaker
                 stylesToDelete.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
                 ++i;
             }
-            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToDelete);
+            List<string> names = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToDelete);
             if (names.Count == 0)
             {
                 return;
@@ -1866,7 +1866,7 @@ namespace TankIconMaker
                 stylesToSave.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
                 ++i;
             }
-            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToSave);
+            List<string> names = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToSave);
             if (names.Count == 0)
             {
                 return;
