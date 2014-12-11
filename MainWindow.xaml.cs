@@ -1867,11 +1867,12 @@ namespace TankIconMaker
                 if (dlg.ShowDialog() != true)
                     return;
 
-                string format = PromptWindow.ShowPrompt(this, "{StyleName} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
+                string format = PromptWindow.ShowPrompt(this, "{Name} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
                 if (format == null)
                     return;
+                var path = format.Replace('/', '\\').Split('\\');
                 foreach (var style in stylesToExport)
-                    ClassifyXml.SerializeToFile(style, Path.Combine(dlg.SelectedPath, format.Replace("{StyleName}", style.Name).Replace("{Author}", style.Author).FilenameCharactersEscape()));
+                    ClassifyXml.SerializeToFile(style, Path.Combine(dlg.SelectedPath, Path.Combine(path.Select(p => p.Replace("{Name}", style.Name).Replace("{Author}", style.Author).FilenameCharactersEscape()).ToArray())));
                 DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, stylesToExport.Count));
             }
         }
