@@ -23,7 +23,7 @@
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" IsReadOnly="True" />
                 <DataGridTemplateColumn IsReadOnly="False" MinWidth="40">
                     <DataGridTemplateColumn.Header>
-                        <CheckBox Name="chkSelectAll" Checked="chkSelectAll_Checked" Unchecked="chkSelectAll_Unchecked" IsChecked="True"></CheckBox>
+                        <CheckBox Name="chkSelectAll"/>
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
@@ -32,7 +32,7 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Margin="0,5,0,0" IsChecked="{Binding IsActiveBool, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="chk_Checked" Unchecked="chk_Unchecked"/>
+                            <CheckBox Margin="0,5,0,0" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="checkedChanged" Unchecked="checkedChanged"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellStyle>

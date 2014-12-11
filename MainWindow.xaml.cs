@@ -1775,25 +1775,14 @@ namespace TankIconMaker
 
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            List<CheckListItem> stylesToDelete = new List<CheckListItem>();
-            int i = 0;
-            foreach (Style style in App.Settings.Styles)
-            {
-                stylesToDelete.Add(new CheckListItem { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
-                ++i;
-            }
-            List<string> names = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToDelete);
-            if (names.Count == 0)
-            {
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
+            var stylesToDelete = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, allStyles).ToHashSet();
+            if (stylesToDelete.Count == 0)
                 return;
-            }
             ctStyleDropdown.SelectedIndex = 0;
-            for (i = names.Count - 1; i >= 0; --i)
-            {
-                Style style = App.Settings.Styles[int.Parse(names[i])];
-                App.Settings.Styles.Remove(style);
-            }
-
+            App.Settings.Styles.RemoveWhere(style => stylesToDelete.Contains(style));
             SaveSettings();
         }
 
@@ -1859,19 +1848,14 @@ namespace TankIconMaker
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
-            List<CheckListItem> stylesToSave = new List<CheckListItem>();
-            int i = 0;
-            foreach (Style style in App.Settings.Styles)
-            {
-                stylesToSave.Add(new CheckListItem { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
-                ++i;
-            }
-            List<string> names = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToSave);
-            if (names.Count == 0)
-            {
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
+
+            var stylesToExport = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, allStyles).ToHashSet();
+            if (stylesToExport.Count == 0)
                 return;
-            }
-            else if (names.Count == 1)
+            else if (stylesToExport.Count == 1)
             {
                 var dlg = new VistaSaveFileDialog();
                 dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
@@ -1883,7 +1867,7 @@ namespace TankIconMaker
                 var filename = dlg.FileName;
                 if (!filename.ToLower().EndsWith(".xml"))
                     filename += ".xml";
-                ClassifyXml.SerializeToFile(App.Settings.Styles[int.Parse(names[0])], filename);
+                ClassifyXml.SerializeToFile(stylesToExport.First(), filename);
                 DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
             }
             else
@@ -1895,11 +1879,8 @@ namespace TankIconMaker
 
                 string format = PromptWindow.ShowPrompt(this, "{StyleName} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
                 var filepath = dlg.SelectedPath;
-                foreach (string name in names)
-                {
-                    Style style = App.Settings.Styles[int.Parse(name)];
+                foreach (var style in stylesToExport)
                     ClassifyXml.SerializeToFile(style, Path.Combine(filepath, FixFileName(format.Replace("{StyleName}", style.Name).Replace("{Author}", style.Author))));
-                }
                 DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
             }
         }

@@ -1,23 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
+using System.Windows.Data;
 using RT.Util.Forms;
+using WpfCrutches;
 
 namespace TankIconMaker
 {
     partial class CheckListWindow : ManagedWindow
     {
-        int checkAllState = 0;
-        bool skipEvent = false;
-        ObservableCollection<CheckListItem> checkList;
+        private ObservableCollection<CheckListItem> _checkItems;
+        private ObservableValue<bool?> _checkAll = new ObservableValue<bool?>(null);
 
-        public CheckListWindow()
+        private CheckListWindow(string title, IEnumerable<CheckListItem> items)
             : base(App.Settings.CheckListWindow)
         {
             InitializeComponent();
             MainWindow.ApplyUiZoom(this);
+
+            Title = title;
+            ctOkBtn.Text = App.Translation.Prompt.PromptWindowOK;
+            ctCancelBtn.Text = App.Translation.Prompt.Cancel;
+            CheckGrid.Columns[0].Header = App.Translation.CheckList.Name;
+
+            _checkItems = new ObservableCollection<CheckListItem>(items);
+            CheckGrid.ItemsSource = _checkItems;
+
+            BindingOperations.SetBinding(chkSelectAll, CheckBox.IsCheckedProperty, LambdaBinding.New(
+                new Binding { Source = _checkAll, Path = new PropertyPath("Value") },
+                (bool? checkAll) => checkAll,
+                (bool? checkAll) => { setAllCheckboxes(checkAll); return checkAll; }
+            ));
         }
 
         private void ok(object sender, RoutedEventArgs e)
@@ -25,121 +41,41 @@ namespace TankIconMaker
             DialogResult = true;
         }
 
-        private void chkSelectAll_Checked(object sender, RoutedEventArgs e)
+        private void setAllCheckboxes(bool? check)
         {
-            if (skipEvent)
+            if (check == null)
                 return;
-            checkAllState = 1;
-            skipEvent = true;
-            for (int i = 0; i < CheckGrid.Items.Count; i++)
-            {
-                checkList[i] = new CheckListItem { Id = checkList[i].Id, Name = checkList[i].Name, IsActiveBool = true };
-            }
-            skipEvent = false;
+            foreach (var item in _checkItems)
+                item.IsChecked = check.Value;
         }
 
-        private void chkSelectAll_Unchecked(object sender, RoutedEventArgs e)
+        private void checkedChanged(object sender, RoutedEventArgs e)
         {
-            if (skipEvent)
-                return;
-            if (checkAllState == -1)
-            {
-                CheckBox chkAll = CheckGrid.Columns[1].Header as CheckBox;
-                chkAll.IsChecked = true;
-                checkAllState = 1;
-                return;
-            }
-            checkAllState = 0;
-            skipEvent = true;
-            for (int i = 0; i < CheckGrid.Items.Count; i++)
-            {
-                checkList[i] = new CheckListItem { Id = checkList[i].Id, Name = checkList[i].Name, IsActiveBool = false };
-            }
-            skipEvent = false;
+            int checkedCount = _checkItems.Count(item => item.IsChecked);
+            _checkAll.Value = checkedCount == 0 ? false : checkedCount == _checkItems.Count ? true : (bool?) null;
         }
 
-        private void chk_Checked(object sender, RoutedEventArgs e)
+        public static IEnumerable<TItem> ShowCheckList<TItem>(Window owner, string title, IEnumerable<CheckListItem<TItem>> items)
         {
-            if (skipEvent)
-                return;
-            skipEvent = true;
-            CheckBox chkAll = CheckGrid.Columns[1].Header as CheckBox;
-            updateCheckListHeader();
-            skipEvent = false;
-        }
+            var wnd = new CheckListWindow(title, items) { Owner = owner };
 
-        private void chk_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (skipEvent)
-                return;
-            skipEvent = true;
-            updateCheckListHeader();
-            skipEvent = false;
-        }
-
-        private void updateCheckListHeader()
-        {
-            CheckBox chkAll = CheckGrid.Columns[1].Header as CheckBox;
-            if (chkAll == null)
-            {
-                return;
-            }
-            int trues = 0;
-            for (int i = 0; i < CheckGrid.Items.Count; i++)
-            {
-                if (checkList[i].IsActiveBool)
-                {
-                    ++trues;
-                }
-            }
-            if (trues == 0)
-            {
-                chkAll.IsChecked = false;
-                checkAllState = 0;
-            }
-            else if (trues < CheckGrid.Items.Count)
-            {
-                chkAll.IsChecked = null;
-                checkAllState = -1;
-            }
-            else
-            {
-                chkAll.IsChecked = true;
-                checkAllState = 1;
-            }
-        }
-
-        public static List<string> ShowCheckList(Window owner, string title, List<CheckListItem> values)
-        {
-            var wnd = new CheckListWindow { Owner = owner };
-            wnd.Title = title;
-            wnd.ctOkBtn.Text = App.Translation.Prompt.PromptWindowOK;
-            wnd.ctCancelBtn.Text = App.Translation.Prompt.Cancel;
-
-            wnd.checkList = new ObservableCollection<CheckListItem>(values);
-            wnd.updateCheckListHeader();
-            wnd.CheckGrid.Columns[0].Header = App.Translation.CheckList.Name;
-            wnd.CheckGrid.ItemsSource = wnd.checkList;
-
-            List<string> checkedIds = new List<string>();
             if (wnd.ShowDialog() != true)
-                return checkedIds;
+                return Enumerable.Empty<TItem>();
 
-            foreach (CheckListItem chkd in wnd.checkList)
-            {
-                if (chkd.IsActiveBool)
-                {
-                    checkedIds.Add(chkd.Id);
-                }
-            }
-            return checkedIds;
+            return wnd._checkItems.OfType<CheckListItem<TItem>>().Where(cli => cli.IsChecked).Select(cli => cli.Item);
         }
     }
 
-    public class CheckListItem
+    public class CheckListItem : INotifyPropertyChanged
     {
-        public string Id { set; get; }
-        public string Name { set; get; }
-        public bool IsActiveBool { set; get; }
+        public string Name { get; set; }
+        public bool IsChecked { get { return _isChecked; } set { _isChecked = value; PropertyChanged(this, new PropertyChangedEventArgs("IsChecked")); } }
+        private bool _isChecked;
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+    }
+
+    public class CheckListItem<TItem> : CheckListItem
+    {
+        public TItem Item { set; get; }
     }
 }
