@@ -1627,6 +1627,14 @@
       <Translation>Фиксированная ширина</Translation>
       <Old>Fixed-width</Old>
     </Centerable_No>
+    <ExportFormat_Title>
+      <Translation>Экспорт стилей</Translation>
+      <Old>Export styles</Old>
+    </ExportFormat_Title>
+    <ExportFormat_Label>
+      <Translation>Шаблон имени файла (папки поддерживаются):</Translation>
+      <Old>File name template (subfolders supported):</Old>
+    </ExportFormat_Label>
     <Cancel>
       <Translation>Отмена</Translation>
       <Old>Cancel</Old>
