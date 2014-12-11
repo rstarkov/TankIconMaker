@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using RT.Util.Dialogs;
 using RT.Util.Forms;
 using WpfCrutches;
 
@@ -14,20 +15,24 @@ namespace TankIconMaker
     {
         private ObservableCollection<CheckListItem> _checkItems;
         private ObservableValue<bool?> _checkAll = new ObservableValue<bool?>(null);
+        private string _promptSure;
+        private string _promptSureYes;
 
-        private CheckListWindow(string title, IEnumerable<CheckListItem> items)
+        private CheckListWindow(IEnumerable<CheckListItem> items, string prompt, string okButton, string columnTitle, string promptSure)
             : base(App.Settings.CheckListWindow)
         {
             InitializeComponent();
             MainWindow.ApplyUiZoom(this);
 
-            Title = title;
-            ctOkBtn.Text = App.Translation.Prompt.PromptWindowOK;
+            ctPrompt.Content = prompt;
+            ctOkBtn.Text = okButton;
             ctCancelBtn.Text = App.Translation.Prompt.Cancel;
-            CheckGrid.Columns[0].Header = App.Translation.CheckList.Name;
+            ctGrid.Columns[0].Header = columnTitle;
+            _promptSure = promptSure;
+            _promptSureYes = okButton.Replace('_', '&');
 
             _checkItems = new ObservableCollection<CheckListItem>(items);
-            CheckGrid.ItemsSource = _checkItems;
+            ctGrid.ItemsSource = _checkItems;
 
             BindingOperations.SetBinding(chkSelectAll, CheckBox.IsCheckedProperty, LambdaBinding.New(
                 new Binding { Source = _checkAll, Path = new PropertyPath("Value") },
@@ -38,6 +43,9 @@ namespace TankIconMaker
 
         private void ok(object sender, RoutedEventArgs e)
         {
+            if (_promptSure != null && _checkItems.Count(item => item.IsChecked) > 0)
+                if (DlgMessage.ShowWarning(_promptSure, _promptSureYes, App.Translation.Prompt.Cancel) != 0)
+                    return;
             DialogResult = true;
         }
 
@@ -55,9 +63,9 @@ namespace TankIconMaker
             _checkAll.Value = checkedCount == 0 ? false : checkedCount == _checkItems.Count ? true : (bool?) null;
         }
 
-        public static IEnumerable<TItem> ShowCheckList<TItem>(Window owner, string title, IEnumerable<CheckListItem<TItem>> items)
+        public static IEnumerable<TItem> ShowCheckList<TItem>(Window owner, IEnumerable<CheckListItem<TItem>> items, string prompt, string okButton, string columnTitle, string promptSure = null)
         {
-            var wnd = new CheckListWindow(title, items) { Owner = owner };
+            var wnd = new CheckListWindow(items, prompt, okButton, columnTitle, promptSure) { Owner = owner };
 
             if (wnd.ShowDialog() != true)
                 return Enumerable.Empty<TItem>();

@@ -4,7 +4,7 @@
         xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
         xmlns:src="clr-namespace:TankIconMaker"
         x:ClassModifier="internal"
-        Title="Check list" ShowInTaskbar="False"
+        Title="Tank Icon Maker" ShowInTaskbar="False"
         Height="415" Width="607" MinHeight="120" MinWidth="250"
         TextOptions.TextFormattingMode="Display"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
@@ -14,12 +14,17 @@
     </Window.Resources>
     <Grid LayoutTransform="{StaticResource UiZoomer}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Margin="10" Padding="0" Name="ctPrompt">
+            Placeholder
+        </Label>
 
-        <DataGrid Grid.Row="0" GridLinesVisibility="None" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CheckGrid" Width="Auto"
-                  CanUserAddRows="False" CanUserDeleteRows="False" Background="White">
+        <DataGrid Grid.Row="1" GridLinesVisibility="None" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="ctGrid" Width="Auto"
+                  HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" Background="White" Margin="10,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" IsReadOnly="True" />
                 <DataGridTemplateColumn IsReadOnly="False" MinWidth="40">
@@ -46,7 +51,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
             <Button Margin="8,0,0,0" IsDefault="True" Click="ok">
                 <AccessText Margin="16,2" Name="ctOkBtn">_OK</AccessText>
             </Button>

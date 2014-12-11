@@ -143,7 +143,6 @@ namespace TankIconMaker
 
         public SelectorTranslation Selector = new SelectorTranslation();
         public DlgMessageTranslation DlgMessage = new DlgMessageTranslation();
-        public CheckListTranslation CheckList = new CheckListTranslation();
         public PromptTranslation Prompt = new PromptTranslation();
         public ErrorTranslation Error = new ErrorTranslation();
         public MiscTranslation Misc = new MiscTranslation();
@@ -602,14 +601,6 @@ namespace TankIconMaker
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
-    sealed class CheckListTranslation
-    {
-        public TrString BulkSave = "Bulk save";
-        public TrString BulkExport = "Bulk export";
-        public TrString Name = "Name";
-    }
-
-    [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
     sealed class PromptTranslation
     {
         public TrString RenameLayer_Title = "Rename layer";
@@ -653,12 +644,19 @@ namespace TankIconMaker
         public TrString Upvote_Prompt = "To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}";
         public TrString Upvote_Open = "&Open in browser";
         public TrString PasteLayerEffect_Error = "Cannot paste layer or effect. If you are pasting raw XML, there is probably an error in it.";
+
         public TrString DeleteLayerEffect_Prompt = "Delete the selected layer/effect?";
         public TrString DeleteLayerEffect_Yes = "&Delete";
-        public TrString DeleteStyle_Prompt = "Delete this style?\r\n\r\n{0}";
-        public TrString DeleteStyle_Yes = "&Delete";
+        public TrString BulkStyles_ColumnTitle = "Style";
+        public TrString DeleteStyle_Prompt = "Select styles to delete:";
+        public TrString DeleteStyle_Yes = "_Delete";
+        public TrString DeleteStyle_PromptSure = "Are you sure you wish to delete these styles?";
+        public TrStringNum DeleteStyle_Success = new TrStringNum("Style deleted.", "{0} styles deleted.");
         public TrString StyleImport_Fail = "Could not load the file for some reason. It might be of the wrong format.";
-        public TrString StyleExport_Success = "The styles have been exported.";
+        public TrString StyleExport_Prompt = "Select styles to export:";
+        public TrString StyleExport_Yes = "_Export";
+        public TrStringNum StyleExport_Success = new TrStringNum("The style has been exported.", "{0} styles have been exported.");
+
         public TrString ExceptionGlobal = "An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.";
         public TrString ExceptionInRender = "A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.";
         public TrString ErrorToClipboard_Copy = "Copy report to &clipboard";
