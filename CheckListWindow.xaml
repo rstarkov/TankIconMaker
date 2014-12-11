@@ -18,7 +18,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" GridLinesVisibility="None" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CheckGrid" Width="Auto" CanUserAddRows="False" CanUserDeleteRows="False">
+        <DataGrid Grid.Row="0" GridLinesVisibility="None" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CheckGrid" Width="Auto"
+                  CanUserAddRows="False" CanUserDeleteRows="False" Background="White">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" IsReadOnly="True" />
                 <DataGridTemplateColumn IsReadOnly="False" MinWidth="40">
