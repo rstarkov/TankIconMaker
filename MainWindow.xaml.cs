@@ -1778,12 +1778,15 @@ namespace TankIconMaker
             var allStyles = App.Settings.Styles
                 .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
                 .ToList();
-            var stylesToDelete = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, allStyles).ToHashSet();
+            var tr = App.Translation.Prompt;
+            var stylesToDelete = CheckListWindow.ShowCheckList(this, allStyles, tr.DeleteStyle_Prompt, tr.DeleteStyle_Yes, tr.BulkStyles_ColumnTitle, tr.DeleteStyle_PromptSure).ToHashSet();
             if (stylesToDelete.Count == 0)
                 return;
-            ctStyleDropdown.SelectedIndex = 0;
+            if (stylesToDelete.Contains(App.Settings.ActiveStyle))
+                ctStyleDropdown.SelectedIndex = 0;
             App.Settings.Styles.RemoveWhere(style => stylesToDelete.Contains(style));
             SaveSettings();
+            DlgMessage.ShowInfo(tr.DeleteStyle_Success.Fmt(App.Translation.Language, stylesToDelete.Count));
         }
 
         private void cmdStyle_ChangeName(object sender, ExecutedRoutedEventArgs e)
@@ -1852,7 +1855,8 @@ namespace TankIconMaker
                 .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
                 .ToList();
 
-            var stylesToExport = CheckListWindow.ShowCheckList(this, App.Translation.CheckList.BulkExport, allStyles).ToHashSet();
+            var tr = App.Translation.Prompt;
+            var stylesToExport = CheckListWindow.ShowCheckList(this, allStyles, tr.StyleExport_Prompt, tr.StyleExport_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
             if (stylesToExport.Count == 0)
                 return;
             else if (stylesToExport.Count == 1)
@@ -1868,7 +1872,7 @@ namespace TankIconMaker
                 if (!filename.ToLower().EndsWith(".xml"))
                     filename += ".xml";
                 ClassifyXml.SerializeToFile(stylesToExport.First(), filename);
-                DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+                DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, 1));
             }
             else
             {
@@ -1881,7 +1885,7 @@ namespace TankIconMaker
                 var filepath = dlg.SelectedPath;
                 foreach (var style in stylesToExport)
                     ClassifyXml.SerializeToFile(style, Path.Combine(filepath, FixFileName(format.Replace("{StyleName}", style.Name).Replace("{Author}", style.Author))));
-                DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+                DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, stylesToExport.Count));
             }
         }
 
