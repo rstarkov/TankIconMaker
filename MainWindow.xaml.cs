@@ -1094,20 +1094,6 @@ namespace TankIconMaker
             ReloadData();
         }
 
-        public static string FixFileName(string filename)
-        {
-            var builder = new System.Text.StringBuilder();
-            var invalid = System.IO.Path.GetInvalidFileNameChars();
-            foreach (var cur in filename)
-            {
-                if (!invalid.Contains(cur))
-                {
-                    builder.Append(cur);
-                }
-            }
-            return builder.ToString();
-        }
-
         string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
 
         private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false)
@@ -1882,9 +1868,10 @@ namespace TankIconMaker
                     return;
 
                 string format = PromptWindow.ShowPrompt(this, "{StyleName} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
-                var filepath = dlg.SelectedPath;
+                if (format == null)
+                    return;
                 foreach (var style in stylesToExport)
-                    ClassifyXml.SerializeToFile(style, Path.Combine(filepath, FixFileName(format.Replace("{StyleName}", style.Name).Replace("{Author}", style.Author))));
+                    ClassifyXml.SerializeToFile(style, Path.Combine(dlg.SelectedPath, format.Replace("{StyleName}", style.Name).Replace("{Author}", style.Author).FilenameCharactersEscape()));
                 DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, stylesToExport.Count));
             }
         }
