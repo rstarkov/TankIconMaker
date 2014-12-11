@@ -24,10 +24,10 @@ namespace TankIconMaker
             InitializeComponent();
             MainWindow.ApplyUiZoom(this);
 
-            ctPrompt.Content = prompt;
+            ctPrompt.Text = prompt;
             ctOkBtn.Text = okButton;
             ctCancelBtn.Text = App.Translation.Prompt.Cancel;
-            ctGrid.Columns[0].Header = columnTitle;
+            ctGrid.Columns[1].Header = columnTitle;
             _promptSure = promptSure;
             _promptSureYes = okButton.Replace('_', '&');
 
