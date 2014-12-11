@@ -79,6 +79,9 @@
       <DependentUpon>AnchorEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bitmap.cs" />
+    <Compile Include="CheckListWindow.xaml.cs">
+      <DependentUpon>CheckListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Effects\ClipEffect.cs" />
     <Compile Include="Effects\NormalizeEffect.cs" />
     <Compile Include="Effects\FlipEffect.cs" />
@@ -117,6 +120,10 @@
     <Compile Include="UtMisc.cs" />
     <Compile Include="UtSerialize.cs" />
     <Page Include="AddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CheckListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

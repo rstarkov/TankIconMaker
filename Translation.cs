@@ -622,6 +622,8 @@ namespace TankIconMaker
         public TrString Centerable_Prompt = "Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.";
         public TrString Centerable_Yes = "Centerable";
         public TrString Centerable_No = "Fixed-width";
+        public TrString ExportFormat_Title = "Export styles";
+        public TrString ExportFormat_Label = "File name template (subfolders supported):";
 
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
         public TrString Cancel = "Cancel";
@@ -642,12 +644,19 @@ namespace TankIconMaker
         public TrString Upvote_Prompt = "To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}";
         public TrString Upvote_Open = "&Open in browser";
         public TrString PasteLayerEffect_Error = "Cannot paste layer or effect. If you are pasting raw XML, there is probably an error in it.";
+
         public TrString DeleteLayerEffect_Prompt = "Delete the selected layer/effect?";
         public TrString DeleteLayerEffect_Yes = "&Delete";
-        public TrString DeleteStyle_Prompt = "Delete this style?\r\n\r\n{0}";
-        public TrString DeleteStyle_Yes = "&Delete";
+        public TrString BulkStyles_ColumnTitle = "Style";
+        public TrString DeleteStyle_Prompt = "Select styles to delete:";
+        public TrString DeleteStyle_Yes = "_Delete";
+        public TrString DeleteStyle_PromptSure = "Are you sure you wish to delete these styles?";
+        public TrStringNum DeleteStyle_Success = new TrStringNum("Style deleted.", "{0} styles deleted.");
         public TrString StyleImport_Fail = "Could not load the file for some reason. It might be of the wrong format.";
-        public TrString StyleExport_Success = "The style has been exported.";
+        public TrString StyleExport_Prompt = "Select styles to export:";
+        public TrString StyleExport_Yes = "_Export";
+        public TrStringNum StyleExport_Success = new TrStringNum("The style has been exported.", "{0} styles have been exported.");
+
         public TrString ExceptionGlobal = "An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.";
         public TrString ExceptionInRender = "A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.";
         public TrString ErrorToClipboard_Copy = "Copy report to &clipboard";

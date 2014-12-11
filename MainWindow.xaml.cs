@@ -1761,15 +1761,18 @@ namespace TankIconMaker
 
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            var style = App.Settings.ActiveStyle; // because it will have changed by the time we're ready to remove it from the list of styles
-            if (DlgMessage.ShowQuestion(App.Translation.Prompt.DeleteStyle_Prompt.Fmt(style.Name), App.Translation.Prompt.DeleteStyle_Yes, App.Translation.Prompt.Cancel) == 1)
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
+            var tr = App.Translation.Prompt;
+            var stylesToDelete = CheckListWindow.ShowCheckList(this, allStyles, tr.DeleteStyle_Prompt, tr.DeleteStyle_Yes, tr.BulkStyles_ColumnTitle, tr.DeleteStyle_PromptSure).ToHashSet();
+            if (stylesToDelete.Count == 0)
                 return;
-            if (ctStyleDropdown.SelectedIndex < ctStyleDropdown.Items.Count - 1)
-                ctStyleDropdown.SelectedIndex++;
-            else
-                ctStyleDropdown.SelectedIndex--;
-            App.Settings.Styles.Remove(style);
+            if (stylesToDelete.Contains(App.Settings.ActiveStyle))
+                ctStyleDropdown.SelectedIndex = 0;
+            App.Settings.Styles.RemoveWhere(style => stylesToDelete.Contains(style));
             SaveSettings();
+            DlgMessage.ShowInfo(tr.DeleteStyle_Success.Fmt(App.Translation.Language, stylesToDelete.Count));
         }
 
         private void cmdStyle_ChangeName(object sender, ExecutedRoutedEventArgs e)
@@ -1809,42 +1812,69 @@ namespace TankIconMaker
             var dlg = new VistaOpenFileDialog();
             dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
             dlg.FilterIndex = 0;
-            dlg.Multiselect = false;
+            dlg.Multiselect = true;
             dlg.CheckFileExists = true;
             if (dlg.ShowDialog() != true)
                 return;
-
-            Style style;
-            try
+            Style style = null;
+            foreach (string fileName in dlg.FileNames)
             {
-                style = ClassifyXml.DeserializeFile<Style>(dlg.FileName);
-                style.Kind = StyleKind.User;
+                try
+                {
+                    style = ClassifyXml.DeserializeFile<Style>(fileName);
+                    style.Kind = StyleKind.User;
+                }
+                catch
+                {
+                    DlgMessage.ShowWarning(App.Translation.Prompt.StyleImport_Fail);
+                    return;
+                }
+                App.Settings.Styles.Add(style);
             }
-            catch
-            {
-                DlgMessage.ShowWarning(App.Translation.Prompt.StyleImport_Fail);
-                return;
-            }
-
-            App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
             SaveSettings();
         }
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
-            var dlg = new VistaSaveFileDialog();
-            dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
-            dlg.FilterIndex = 0;
-            dlg.CheckPathExists = true;
-            if (dlg.ShowDialog() != true)
-                return;
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
 
-            var filename = dlg.FileName;
-            if (!filename.ToLower().EndsWith(".xml"))
-                filename += ".xml";
-            ClassifyXml.SerializeToFile(App.Settings.ActiveStyle, filename);
-            DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+            var tr = App.Translation.Prompt;
+            var stylesToExport = CheckListWindow.ShowCheckList(this, allStyles, tr.StyleExport_Prompt, tr.StyleExport_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
+            if (stylesToExport.Count == 0)
+                return;
+            else if (stylesToExport.Count == 1)
+            {
+                var dlg = new VistaSaveFileDialog();
+                dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
+                dlg.FilterIndex = 0;
+                dlg.CheckPathExists = true;
+                if (dlg.ShowDialog() != true)
+                    return;
+
+                var filename = dlg.FileName;
+                if (!filename.ToLower().EndsWith(".xml"))
+                    filename += ".xml";
+                ClassifyXml.SerializeToFile(stylesToExport.First(), filename);
+                DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, 1));
+            }
+            else
+            {
+                var dlg = new VistaFolderBrowserDialog();
+                dlg.ShowNewFolderButton = true;
+                if (dlg.ShowDialog() != true)
+                    return;
+
+                string format = PromptWindow.ShowPrompt(this, "{Name} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
+                if (format == null)
+                    return;
+                var path = format.Replace('/', '\\').Split('\\');
+                foreach (var style in stylesToExport)
+                    ClassifyXml.SerializeToFile(style, Path.Combine(dlg.SelectedPath, Path.Combine(path.Select(p => p.Replace("{Name}", style.Name).Replace("{Author}", style.Author).FilenameCharactersEscape()).ToArray())));
+                DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, stylesToExport.Count));
+            }
         }
 
         private void cmdStyle_IconWidth(object sender, ExecutedRoutedEventArgs e)
