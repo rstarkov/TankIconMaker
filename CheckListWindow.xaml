@@ -5,7 +5,7 @@
         xmlns:src="clr-namespace:TankIconMaker"
         x:ClassModifier="internal"
         Title="Tank Icon Maker" ShowInTaskbar="False"
-        Height="415" Width="607" MinHeight="120" MinWidth="250"
+        Height="415" Width="607" MinHeight="200" MinWidth="260"
         TextOptions.TextFormattingMode="Display"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
@@ -18,36 +18,51 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
-        <Label Grid.Row="0" Margin="10" Padding="0" Name="ctPrompt">
+
+        <TextBlock Grid.Row="0" Margin="10" Padding="0" Name="ctPrompt" TextWrapping="Wrap">
             Placeholder
-        </Label>
+        </TextBlock>
 
         <DataGrid Grid.Row="1" GridLinesVisibility="None" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="ctGrid" Width="Auto"
                   HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" Background="White" Margin="10,0">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="FontWeight" Value="Normal"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" IsReadOnly="True" />
-                <DataGridTemplateColumn IsReadOnly="False" MinWidth="40">
+                <DataGridTemplateColumn IsReadOnly="False" MinWidth="35">
                     <DataGridTemplateColumn.Header>
                         <CheckBox Name="chkSelectAll"/>
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
                         </Style>
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Margin="0,5,0,0" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="checkedChanged" Unchecked="checkedChanged"/>
+                            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="checkedChanged" Unchecked="checkedChanged"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="DataGridCell">
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                            </Style.Resources>
                             <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
                         </Style>
                     </DataGridTemplateColumn.CellStyle>
                 </DataGridTemplateColumn>
-
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
 
