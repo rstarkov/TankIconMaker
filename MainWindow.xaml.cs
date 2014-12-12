@@ -1171,20 +1171,6 @@ namespace TankIconMaker
             ReloadData();
         }
 
-        public static string FixFileName(string filename)
-        {
-            var builder = new System.Text.StringBuilder();
-            var invalid = System.IO.Path.GetInvalidFileNameChars();
-            foreach (var cur in filename)
-            {
-                if (!invalid.Contains(cur))
-                {
-                    builder.Append(cur);
-                }
-            }
-            return builder.ToString();
-        }
-
         string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
 
         private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false, bool disableWarnings = false)
@@ -1232,7 +1218,7 @@ namespace TankIconMaker
                     }
                     finally
                     {
-                        Dispatcher.Invoke((Action)(() =>
+                        Dispatcher.Invoke((Action) (() =>
                         {
                             GlobalStatusHide();
 
@@ -1284,7 +1270,11 @@ namespace TankIconMaker
         {
             if (!string.IsNullOrEmpty(IconsetPath.Text))
             {
-                string savepath = IconsetPath.Text.Replace("{VersionName}", FixFileName(ActiveInstallation.GameVersionName)).Replace("{GamePath}", FixFileName(ActiveInstallation.Path)).Replace("{StyleName}", FixFileName(App.Settings.ActiveStyle.Name)).Replace("{Author}", FixFileName(App.Settings.ActiveStyle.Author));
+                string savepath = IconsetPath.Text
+                    .Replace("{VersionName}", ActiveInstallation.GameVersionName.FilenameCharactersEscape())
+                    .Replace("{GamePath}", ActiveInstallation.Path.FilenameCharactersEscape())
+                    .Replace("{StyleName}", App.Settings.ActiveStyle.Name.FilenameCharactersEscape())
+                    .Replace("{Author}", App.Settings.ActiveStyle.Author.FilenameCharactersEscape());
                 savepath = Environment.ExpandEnvironmentVariables(savepath);
                 saveIcons(savepath, filter: null);
                 return;
@@ -1868,26 +1858,18 @@ namespace TankIconMaker
 
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            List<CheckData> stylesToDelete = new List<CheckData>();
-            int i = 0;
-            foreach (Style style in App.Settings.Styles)
-            {
-                stylesToDelete.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
-                ++i;
-            }
-            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToDelete);
-            if (names.Count == 0)
-            {
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
+            var tr = App.Translation.Prompt;
+            var stylesToDelete = CheckListWindow.ShowCheckList(this, allStyles, tr.DeleteStyle_Prompt, tr.DeleteStyle_Yes, tr.BulkStyles_ColumnTitle, tr.DeleteStyle_PromptSure).ToHashSet();
+            if (stylesToDelete.Count == 0)
                 return;
-            }
-            ctStyleDropdown.SelectedIndex = 0;
-            for (i = names.Count - 1; i >= 0; --i)
-            {
-                Style style = App.Settings.Styles[int.Parse(names[i])];
-                App.Settings.Styles.Remove(style);
-            }
-
+            if (stylesToDelete.Contains(App.Settings.ActiveStyle))
+                ctStyleDropdown.SelectedIndex = 0;
+            App.Settings.Styles.RemoveWhere(style => stylesToDelete.Contains(style));
             SaveSettings();
+            DlgMessage.ShowInfo(tr.DeleteStyle_Success.Fmt(App.Translation.Language, stylesToDelete.Count));
         }
 
         private void cmdStyle_ChangeName(object sender, ExecutedRoutedEventArgs e)
@@ -1924,26 +1906,25 @@ namespace TankIconMaker
 
         private void cmdStyle_BulkSave(object sender, ExecutedRoutedEventArgs e)
         {
-            List<CheckData> stylesToSave = new List<CheckData>();
-            int i = 0;
-            foreach (Style style in App.Settings.Styles)
-            {
-                stylesToSave.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = true });
-                ++i;
-            }
-            Style activestyle = App.Settings.ActiveStyle;
-            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkSave, stylesToSave);
-            if (names.Count == 0)
-            {
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
+            var tr = App.Translation.Prompt;
+            var stylesToSave = CheckListWindow.ShowCheckList(this, allStyles, tr.BulkSave_Prompt, tr.BulkSave_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
+            if (stylesToSave.Count == 0)
                 return;
-            }
+
+            var activeStyle = App.Settings.ActiveStyle;
             ProgressDialog progress = new ProgressDialog();
-            progress.Show(names.Count, App.Translation.CheckList.BulkSave);
-            foreach (string name in names)
+            progress.Show(stylesToSave.Count, tr.BulkSave_Progress);
+            foreach (var style in stylesToSave)
             {
-                Style style = App.Settings.Styles[int.Parse(name)];
                 progress.Next(string.Format("{0} ({1})", style.Name, style.Author));
-                string savepath = style.Directory.Replace("{VersionName}", FixFileName(ActiveInstallation.GameVersionName)).Replace("{GamePath}", FixFileName(ActiveInstallation.Path)).Replace("{StyleName}", FixFileName(style.Name)).Replace("{Author}", FixFileName(style.Author));
+                string savepath = style.Directory
+                    .Replace("{VersionName}", ActiveInstallation.GameVersionName.FilenameCharactersEscape())
+                    .Replace("{GamePath}", ActiveInstallation.Path.FilenameCharactersEscape())
+                    .Replace("{StyleName}", style.Name.FilenameCharactersEscape())
+                    .Replace("{Author}", style.Author.FilenameCharactersEscape());
                 savepath = Environment.ExpandEnvironmentVariables(savepath);
                 App.Settings.ActiveStyle = style;
                 ctStyleDropdown.SelectedItem = style;
@@ -1951,8 +1932,8 @@ namespace TankIconMaker
                 saveIcons(savepath, filter: null, disableWarnings: true);
             }
             progress.Close();
-            App.Settings.ActiveStyle = activestyle;
-            ctStyleDropdown.SelectedItem = activestyle;
+            App.Settings.ActiveStyle = activeStyle;
+            ctStyleDropdown.SelectedItem = activeStyle;
             UpdateIcons();
         }
 
@@ -1999,19 +1980,15 @@ namespace TankIconMaker
 
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
-            List<CheckData> stylesToSave = new List<CheckData>();
-            int i = 0;
-            foreach (Style style in App.Settings.Styles)
-            {
-                stylesToSave.Add(new CheckData { Id = i.ToString(), Name = string.Format("{0} ({1})", style.Name, style.Author), IsActiveBool = style == App.Settings.ActiveStyle ? true : false });
-                ++i;
-            }
-            List<string> names = CheckList.ShowCheckList(this, App.Translation.CheckList.BulkExport, stylesToSave);
-            if (names.Count == 0)
-            {
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
+
+            var tr = App.Translation.Prompt;
+            var stylesToExport = CheckListWindow.ShowCheckList(this, allStyles, tr.StyleExport_Prompt, tr.StyleExport_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
+            if (stylesToExport.Count == 0)
                 return;
-            }
-            else if (names.Count == 1)
+            else if (stylesToExport.Count == 1)
             {
                 var dlg = new VistaSaveFileDialog();
                 dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
@@ -2023,8 +2000,8 @@ namespace TankIconMaker
                 var filename = dlg.FileName;
                 if (!filename.ToLower().EndsWith(".xml"))
                     filename += ".xml";
-                ClassifyXml.SerializeToFile(App.Settings.Styles[int.Parse(names[0])], filename);
-                DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+                ClassifyXml.SerializeToFile(stylesToExport.First(), filename);
+                DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, 1));
             }
             else
             {
@@ -2033,14 +2010,13 @@ namespace TankIconMaker
                 if (dlg.ShowDialog() != true)
                     return;
 
-                string format = PromptWindow.ShowPrompt(this, "{StyleName} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
-                var filepath = dlg.SelectedPath;
-                foreach (string name in names)
-                {
-                    Style style = App.Settings.Styles[int.Parse(name)];
-                    ClassifyXml.SerializeToFile(style, Path.Combine(filepath, FixFileName(format.Replace("{StyleName}", style.Name).Replace("{Author}", style.Author))));
-                }
-                DlgMessage.ShowInfo(App.Translation.Prompt.StyleExport_Success);
+                string format = PromptWindow.ShowPrompt(this, "{Name} ({Author}).xml", App.Translation.Prompt.ExportFormat_Title, App.Translation.Prompt.ExportFormat_Label);
+                if (format == null)
+                    return;
+                var path = format.Replace('/', '\\').Split('\\');
+                foreach (var style in stylesToExport)
+                    ClassifyXml.SerializeToFile(style, Path.Combine(dlg.SelectedPath, Path.Combine(path.Select(p => p.Replace("{Name}", style.Name).Replace("{Author}", style.Author).FilenameCharactersEscape()).ToArray())));
+                DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, stylesToExport.Count));
             }
         }
 

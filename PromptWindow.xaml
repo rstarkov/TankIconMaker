@@ -5,7 +5,7 @@
         xmlns:src="clr-namespace:TankIconMaker"
         x:ClassModifier="internal"
         Title="Rename" ShowInTaskbar="False" ResizeMode="NoResize"
-        SizeToContent="Height" Width="350"
+        SizeToContent="WidthAndHeight"  Width="350" MinWidth="350"
         TextOptions.TextFormattingMode="Display"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
@@ -20,12 +20,12 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Name="lblName"  Padding="3,0,0,3" Target="{Binding ElementName=ctName}">_Name:</Label>
-        <TextBox Grid.Row="1" Name="ctName" Margin="0,0,0,8" />
+        <TextBox Grid.Row="1" Name="ctName" Margin="0,0,0,10" />
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
-            <Button Margin="4,0" IsDefault="True" Click="ok">
+            <Button Margin="10,0,0,0" IsDefault="True" Click="ok">
                 <AccessText Margin="16,2" Name="ctOkBtn">_OK</AccessText>
             </Button>
-            <Button Margin="4,0" IsCancel="True">
+            <Button Margin="10,0,0,0" IsCancel="True">
                 <AccessText Margin="16,2" Name="ctCancelBtn">_Cancel</AccessText>
             </Button>
         </WrapPanel>
