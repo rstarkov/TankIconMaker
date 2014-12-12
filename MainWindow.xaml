@@ -304,7 +304,7 @@
                 </ComboBox>
                 <Button Margin="8" Name="ctLanguage" DockPanel.Dock="Right" Click="ctLanguage_Click" VerticalAlignment="Center" HorizontalAlignment="Right" TabIndex="6">
                     <StackPanel Orientation="Horizontal" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                        <AccessText Margin="6,0" Name="ctLanguageLabel">L_anguage</AccessText>
+                        <AccessText Margin="6,0" Name="ctLanguageLabel">Lang_uage</AccessText>
                         <Path Fill="Black" Stroke="Black"  Margin="0,0,3,0" Data="M 0.25,0.5 L 2.5,3.5 4.75,0.5 Z"  SnapsToDevicePixels="True" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button.ContextMenu>
