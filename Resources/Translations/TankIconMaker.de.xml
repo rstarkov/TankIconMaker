@@ -97,10 +97,6 @@
       <Translation>Effekt hi_nzufügen...</Translation>
       <Old>Add _effect...</Old>
     </ctLayersAddEffect>
-    <ctLayersRename>
-      <Translation>_Bearbeiten</Translation>
-      <Old>_Modify</Old>
-    </ctLayersRename>
     <ctLayersCopy>
       <Translation>_Kopieren</Translation>
       <Old>_Copy</Old>
@@ -117,6 +113,10 @@
       <Translation>_Löschen</Translation>
       <Old>_Delete</Old>
     </ctLayersDelete>
+    <ctLayersRename>
+      <Translation>U_mbenennen</Translation>
+      <Old>_Rename</Old>
+    </ctLayersRename>
     <ctLayersMoveUp>
       <Translation>Nach _oben</Translation>
       <Old>Move _up</Old>
@@ -1627,6 +1627,14 @@
       <Translation>Festbreite</Translation>
       <Old>Fixed-width</Old>
     </Centerable_No>
+    <ExportFormat_Title>
+      <Translation>Designs exportieren</Translation>
+      <Old>Export styles</Old>
+    </ExportFormat_Title>
+    <ExportFormat_Label>
+      <Translation>Dateinamenvorlage (Unterordner erlaubt):</Translation>
+      <Old>File name template (subfolders supported):</Old>
+    </ExportFormat_Label>
     <Cancel>
       <Translation>Abbrechen</Translation>
       <Old>Cancel</Old>
@@ -1696,6 +1704,10 @@
       <Translation>Im &amp;Browser öffnen</Translation>
       <Old>&amp;Open in browser</Old>
     </Upvote_Open>
+    <PasteLayerEffect_Error>
+      <Translation>Ebene oder Effekt kann nicht eingefügt werden. Wenn Sie rohes XML einfügen, enthält es wahrscheinlich einen Fehler.</Translation>
+      <Old>Cannot paste layer or effect. If you are pasting raw XML, there is probably an error in it.</Old>
+    </PasteLayerEffect_Error>
     <DeleteLayerEffect_Prompt>
       <Translation>Ausgewählte Ebene oder Effekt löschen?</Translation>
       <Old>Delete the selected layer/effect?</Old>
@@ -1704,21 +1716,59 @@
       <Translation>&amp;Löschen</Translation>
       <Old>&amp;Delete</Old>
     </DeleteLayerEffect_Yes>
+    <BulkStyles_ColumnTitle>
+      <Translation>Design</Translation>
+      <Old>Style</Old>
+    </BulkStyles_ColumnTitle>
     <DeleteStyle_Prompt>
-      <Translation encoding="c-literal">Dieses Design löschen?\r\n\r\n{0}</Translation>
-      <Old encoding="c-literal">Delete this style?\r\n\r\n{0}</Old>
+      <Translation>Designs zum Löschen auswählen:</Translation>
+      <Old>Select styles to delete:</Old>
     </DeleteStyle_Prompt>
     <DeleteStyle_Yes>
-      <Translation>&amp;Löschen</Translation>
-      <Old>&amp;Delete</Old>
+      <Translation>_Löschen</Translation>
+      <Old>_Delete</Old>
     </DeleteStyle_Yes>
+    <DeleteStyle_PromptSure>
+      <Translation>Diese Designs wirklich löschen?</Translation>
+      <Old>Are you sure you wish to delete these styles?</Old>
+    </DeleteStyle_PromptSure>
+    <DeleteStyle_Success>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Design gelöscht.</item>
+        <item>{0} Designs gelöscht.</item>
+      </Translations>
+      <Old>
+        <item>Style deleted.</item>
+        <item>{0} styles deleted.</item>
+      </Old>
+    </DeleteStyle_Success>
     <StyleImport_Fail>
       <Translation>Die Datei konnte aus irgend einem Grund nicht geöffnet werden. Vielleicht ist sie im falschen Format.</Translation>
       <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
     </StyleImport_Fail>
+    <StyleExport_Prompt>
+      <Translation>Designs zum Export auswählen:</Translation>
+      <Old>Select styles to export:</Old>
+    </StyleExport_Prompt>
+    <StyleExport_Yes>
+      <Translation>_Export</Translation>
+      <Old>_Export</Old>
+    </StyleExport_Yes>
     <StyleExport_Success>
-      <Translation>Das Design wurde exportiert.</Translation>
-      <Old>The style has been exported.</Old>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Das Design wurde exportiert.</item>
+        <item>{0} Designs wurden exportiert.</item>
+      </Translations>
+      <Old>
+        <item>The style has been exported.</item>
+        <item>{0} styles have been exported.</item>
+      </Old>
     </StyleExport_Success>
     <ExceptionGlobal>
       <Translation encoding="c-literal">Ein Fehler ist aufgetreten. Das ist nicht Ihr Fehler; der Programmierer hat Mist gebaut!\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
@@ -1782,6 +1832,10 @@
       <Translation>Dieses Symbol konnte nicht erzeugt werden: {0}</Translation>
       <Old>Could not render this icon: {0}</Old>
     </RenderIconFail>
+    <ClipboardError>
+      <Translation>Kopieren nicht möglich: Eine andere Anwendung verwendet wahrscheinlich gerade die Zwischenablage. Bitte versuchen Sie es in ein paar Sekunden erneut.</Translation>
+      <Old>Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.</Old>
+    </ClipboardError>
   </Error>
   <Misc>
     <ProgramVersion>
