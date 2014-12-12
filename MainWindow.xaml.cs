@@ -1851,7 +1851,7 @@ namespace TankIconMaker
 
             _rendering.Value = true;
             GlobalStatusShow(tr.BulkSave_Progress);
-            var progress = new ProgressDialog();
+            var lastGuiUpdate = DateTime.UtcNow;
             var tasks = new List<Action>();
             var context = LoadContext(cached: true);
             int tasksRemaining = 0;
@@ -1877,7 +1877,11 @@ namespace TankIconMaker
                         {
                             RenderTank(style, renderTask);
                             Ut.SaveImage(renderTask.Image, Path.Combine(savepath, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
-                            progress.Next(string.Format("{0} ({1}) — {2}", style.Name, style.Author, renderTask.TankId));
+                            if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
+                            {
+                                lastGuiUpdate = DateTime.UtcNow;
+                                Dispatcher.Invoke(new Action(() => GlobalStatusShow(tr.BulkSave_Progress + "\n{0:0}%".Fmt(100 - tasksRemaining / (double) tasks.Count * 100))));
+                            }
                         }
                         finally
                         {
@@ -1887,14 +1891,12 @@ namespace TankIconMaker
                                 {
                                     _rendering.Value = false;
                                     GlobalStatusHide();
-                                    progress.Close();
                                     GC.Collect(); // Clean up all those temporary images we've just created and won't be doing again for a while. (this keeps "private bytes" when idle ~30 MB lower)
                                 }));
                         }
                     });
                 }
             }
-            progress.Show(tasks.Count, tr.BulkSave_Progress);
             foreach (var task in tasks)
                 Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None, PriorityScheduler.Lowest);
         }
