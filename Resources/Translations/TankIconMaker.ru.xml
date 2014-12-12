@@ -1540,20 +1540,6 @@
       <Old>Tier: None</Old>
     </TierNone>
   </Selector>
-  <CheckList>
-    <BulkSave>
-      <Translation>Массовое сохранение</Translation>
-      <Old>Bulk save</Old>
-    </BulkSave>
-    <BulkExport>
-      <Translation>Массовый экспорт</Translation>
-      <Old>Bulk export</Old>
-    </BulkExport>
-    <Name>
-      <Translation>Наименование</Translation>
-      <Old>Name</Old>
-    </Name>  
-  </CheckList>
   <SaveFormat>
     <SaveFormatHelp>
       <Translation>При сохранении через кнопки Сохранить или Массовое сохранение стиль будет сохранен по пути, указанном в поле пути сохранения набора иконок. Если поле не заполнено, иконки будут сохранены, как текущий набор иконок WOT.&#x0a;Доступные макросы:&#x0a;{GamePath} - Путь к игре&#x0a;{VersionName} - Версия игры&#x0a;{StyleName} - Название стиля&#x0a;{Author} - Автор стиля&#x0a;%UserProfile% - Путь к папке пользователя&#x0a;&#x0a;Примеры:&#x0a;Icons\{StyleName} - иконки будут сохранены в папку Tank Icon Maker, подпапку Icons&#x0a;{GamePath}\res_mods\{VersionName}\gui\maps\icons\vehicle\contour - будут сохранены, как текущий набор иконок (аналогично пустому полю)&#x0a;%UserProfile%\Tank Icon Maker\{StyleName} - будут сохранены в папку пользователя по адресу Tank Icon Maker\{StyleName}</Translation>
@@ -1659,6 +1645,14 @@
       <Translation>Фиксированная ширина</Translation>
       <Old>Fixed-width</Old>
     </Centerable_No>
+    <ExportFormat_Title>
+      <Translation>Экспорт стилей</Translation>
+      <Old>Export styles</Old>
+    </ExportFormat_Title>
+    <ExportFormat_Label>
+      <Translation>Шаблон имени файла (папки поддерживаются):</Translation>
+      <Old>File name template (subfolders supported):</Old>
+    </ExportFormat_Label>
     <Cancel>
       <Translation>Отмена</Translation>
       <Old>Cancel</Old>
@@ -1741,21 +1735,61 @@
       <Translation>&amp;Удалить</Translation>
       <Old>&amp;Delete</Old>
     </DeleteLayerEffect_Yes>
+    <BulkStyles_ColumnTitle>
+      <Translation>Стиль</Translation>
+      <Old>Style</Old>
+    </BulkStyles_ColumnTitle>
     <DeleteStyle_Prompt>
-      <Translation encoding="c-literal">Удалить этот стиль?\r\n\r\n{0}</Translation>
-      <Old encoding="c-literal">Delete this style?\r\n\r\n{0}</Old>
+      <Translation>Выберите стили, которые необходимо удалить:</Translation>
+      <Old>Select styles to delete:</Old>
     </DeleteStyle_Prompt>
     <DeleteStyle_Yes>
-      <Translation>&amp;Удалить</Translation>
-      <Old>&amp;Delete</Old>
+      <Translation>_Удалить</Translation>
+      <Old>_Delete</Old>
     </DeleteStyle_Yes>
+    <DeleteStyle_PromptSure>
+      <Translation>Вы уверены, что хотите удалить эти стили?</Translation>
+      <Old>Are you sure you wish to delete these styles?</Old>
+    </DeleteStyle_PromptSure>
+    <DeleteStyle_Success>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Стиль удален.</item>
+        <item>{0} стиля удалено.</item>
+        <item>{0] стилей удалено.</item>
+      </Translations>
+      <Old>
+        <item>Style deleted.</item>
+        <item>{0} styles deleted.</item>
+      </Old>
+    </DeleteStyle_Success>
     <StyleImport_Fail>
       <Translation>Не удалось загрузить указанный файл. Возможно файл разрушен либо не является файлом стиля иконок.</Translation>
       <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
     </StyleImport_Fail>
+    <StyleExport_Prompt>
+      <Translation>Выберите стили, которые необходимо экспортировать:</Translation>
+      <Old>Select styles to export:</Old>
+    </StyleExport_Prompt>
+    <StyleExport_Yes>
+      <Translation>_Экспорт</Translation>
+      <Old>_Export</Old>
+    </StyleExport_Yes>
     <StyleExport_Success>
-      <Translation>Стили успешно экспортированы.</Translation>
-      <Old>The styles have been exported.</Old>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Стиль успешно экспортирован.</item>
+        <item>{0} стиля успешно экспортированы.</item>
+        <item>{0} стилей успешно экспортированы.</item>
+      </Translations>
+      <Old>
+        <item>The style has been exported.</item>
+        <item>{0} styles have been exported.</item>
+      </Old>
     </StyleExport_Success>
     <ExceptionGlobal>
       <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>

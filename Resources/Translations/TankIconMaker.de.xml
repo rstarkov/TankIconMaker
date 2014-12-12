@@ -1540,20 +1540,6 @@
       <Old>Tier: None</Old>
     </TierNone>
   </Selector>
-  <CheckList>
-    <BulkSave>
-      <Translation>out of date</Translation>
-      <Old>Bulk save</Old>
-    </BulkSave>
-    <BulkExport>
-      <Translation>out of date</Translation>
-      <Old>Bulk export</Old>
-    </BulkExport>
-    <Name>
-      <Translation>out of date</Translation>
-      <Old>Name</Old>
-    </Name>  
-  </CheckList>
   <SaveFormat>
     <SaveFormatHelp>
       <Translation>out of date</Translation>
