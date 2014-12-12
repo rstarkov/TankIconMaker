@@ -543,71 +543,6 @@ namespace TankIconMaker
         }
 
         /// <summary>
-        /// Begins an icon update immediately. The icons are not rendered in the background.
-        /// </summary>
-        private void UpdateIconsSynchronous()
-        {
-            _rendering.Value = true;
-            foreach (var image in ctIconsPanel.Children.OfType<TankImageControl>())
-                image.Opacity = 0.7;
-            _otherWarnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
-
-            _updateIconsTimer.Stop();
-            _cancelRender.Cancel();
-            _cancelRender = new CancellationTokenSource();
-            var cancelToken = _cancelRender.Token; // must be a local so that the task lambda captures it; _cancelRender could get reassigned before a task gets to check for cancellation of the old one
-
-            if (_dataMissing)
-                return;
-
-            var context = LoadContext(cached: true);
-            var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
-            var renderTasks = ListRenderTasks(context);
-
-            var style = App.Settings.ActiveStyle;
-            foreach (var layer in style.Layers)
-                TestLayer(style, layer);
-
-            //var tasks = new List<Action>();
-            for (int i = 0; i < renderTasks.Count; i++)
-            {
-                if (i >= images.Count)
-                    images.Add(CreateTankImageControl(style));
-                RenderTask renderTask = renderTasks[i];
-                TankImageControl image = images[i];
-
-                image.ToolTip = renderTasks[i].TankId;
-                if (_renderResults.ContainsKey(renderTask.TankId))
-                {
-                    image.Source = _renderResults[renderTask.TankId].Image;
-                    image.RenderTask = _renderResults[renderTask.TankId];
-                    image.Opacity = 1;
-                }
-                else
-                {
-                    //tasks.Add(() =>
-                    //{
-                    try
-                    {
-                        RenderTank(style, renderTask);
-                        _renderResults[renderTask.TankId] = renderTask;
-                        image.Source = renderTask.Image;
-                        image.RenderTask = renderTask;
-                        image.Opacity = 1;
-                    }
-                    catch { }
-                    //});
-                }
-            }
-
-            // Remove unused images
-            foreach (var image in images.Skip(renderTasks.Count))
-                ctIconsPanel.Children.Remove(image);
-            UpdateIconsCompleted();
-            GC.WaitForPendingFinalizers();
-        }
-
-        /// <summary>
         /// Called on the GUI thread whenever all the icon renders are completed.
         /// </summary>
         private void UpdateIconsCompleted()
@@ -1914,27 +1849,54 @@ namespace TankIconMaker
             if (stylesToSave.Count == 0)
                 return;
 
-            var activeStyle = App.Settings.ActiveStyle;
-            ProgressDialog progress = new ProgressDialog();
-            progress.Show(stylesToSave.Count, tr.BulkSave_Progress);
-            foreach (var style in stylesToSave)
+            _rendering.Value = true;
+            GlobalStatusShow(tr.BulkSave_Progress);
+            var progress = new ProgressDialog();
+            var tasks = new List<Action>();
+            var context = LoadContext(cached: true);
+            int tasksRemaining = 0;
+            foreach (var styleF in stylesToSave)
             {
-                progress.Next(string.Format("{0} ({1})", style.Name, style.Author));
+                var style = styleF; // foreach variable scope fix
+                var renderTasks = ListRenderTasks(context, true);
+                tasksRemaining += renderTasks.Count;
                 string savepath = style.Directory
                     .Replace("{VersionName}", ActiveInstallation.GameVersionName.FilenameCharactersEscape())
                     .Replace("{GamePath}", ActiveInstallation.Path.FilenameCharactersEscape())
                     .Replace("{StyleName}", style.Name.FilenameCharactersEscape())
                     .Replace("{Author}", style.Author.FilenameCharactersEscape());
                 savepath = Environment.ExpandEnvironmentVariables(savepath);
-                App.Settings.ActiveStyle = style;
-                ctStyleDropdown.SelectedItem = style;
-                UpdateIconsSynchronous();
-                saveIcons(savepath, filter: null, disableWarnings: true);
+                Directory.CreateDirectory(savepath);
+
+                foreach (var renderTaskF in renderTasks)
+                {
+                    var renderTask = renderTaskF; // foreach variable scope fix
+                    tasks.Add(() =>
+                    {
+                        try
+                        {
+                            RenderTank(style, renderTask);
+                            Ut.SaveImage(renderTask.Image, Path.Combine(savepath, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
+                            progress.Next(string.Format("{0} ({1}) — {2}", style.Name, style.Author, renderTask.TankId));
+                        }
+                        finally
+                        {
+                            Interlocked.Decrement(ref tasksRemaining);
+                            if (tasksRemaining == 0)
+                                Dispatcher.Invoke(new Action(() =>
+                                {
+                                    _rendering.Value = false;
+                                    GlobalStatusHide();
+                                    progress.Close();
+                                    GC.Collect(); // Clean up all those temporary images we've just created and won't be doing again for a while. (this keeps "private bytes" when idle ~30 MB lower)
+                                }));
+                        }
+                    });
+                }
             }
-            progress.Close();
-            App.Settings.ActiveStyle = activeStyle;
-            ctStyleDropdown.SelectedItem = activeStyle;
-            UpdateIcons();
+            progress.Show(tasks.Count, tr.BulkSave_Progress);
+            foreach (var task in tasks)
+                Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None, PriorityScheduler.Lowest);
         }
 
         private void cmdStyle_BulkSaveFormat(object sender, ExecutedRoutedEventArgs e)
