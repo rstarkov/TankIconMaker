@@ -387,47 +387,57 @@
                 <WrapPanel Name="ctIconsPanel" Orientation="Vertical" Margin="15" RenderOptions.BitmapScalingMode="NearestNeighbor">
                 </WrapPanel>
             </ScrollViewer>
-            <DockPanel Grid.Row="2" Background="#87FFFFFF">
-                <Image Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
+            <Grid Grid.Row="2" Background="#87FFFFFF">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Name="ctWarning" Margin="8,0,0,0" Cursor="Hand" Visibility="Collapsed" Source="pack://application:,,,/Resources/Graphics/warning.png" Height="24" MouseUp="ctWarning_MouseUp"
                        ToolTip="Indicates that a problem has occurred. Click this icon to view details of the problem." />
-                <Button Name="ctSave" Margin="8,8,8,8" Click="ctSave_Click">
+                <Button Grid.Column="1" Name="ctSave" Margin="8,8,0,8" Click="ctSave_Click">
                     <AccessText Margin="8,0" Name="ctSaveLabel">_Save</AccessText>
                 </Button>
-                <Button Name="ctSaveToFolder" Margin="0,8,8,8" Click="ctSaveToFolder_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
-                    <AccessText Margin="8,0" Name="ctSaveToFolderLabel">Save _as...</AccessText>
+                <Button Grid.Column="2" Name="ctSaveAs" Margin="8,8,0,8" Click="ctSaveAs_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
+                    <AccessText Margin="8,0" Name="ctSaveAsLabel">Save _as...</AccessText>
                     <Button.ContextMenu>
                         <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
-                            <!-- Available: BIJNOPQTVWXYZ -->
-                            <MenuItem Header="All icons to _game folder" Name="ctSaveIcons_AllToGameFolder" Click="SaveIcons_AllToGameFolder"/>
-                            <MenuItem Header="_All icons..." Name="ctBrowseAndSaveIcons_All" Click="BrowseAndSaveIcons_All"/>
-                            <Separator/>
-                            <MenuItem Header="Only _light tank icons..." Name="ctBrowseAndSaveIcons_Light" Click="BrowseAndSaveIcons_Light"/>
-                            <MenuItem Header="Only _medium tank icons..." Name="ctBrowseAndSaveIcons_Medium" Click="BrowseAndSaveIcons_Medium"/>
-                            <MenuItem Header="Only _heavy tank icons..." Name="ctBrowseAndSaveIcons_Heavy" Click="BrowseAndSaveIcons_Heavy"/>
-                            <MenuItem Header="Only a_rtillery icons..." Name="ctBrowseAndSaveIcons_Artillery" Click="BrowseAndSaveIcons_Artillery"/>
-                            <MenuItem Header="Only _destroyer icons..." Name="ctBrowseAndSaveIcons_Destroyer" Click="BrowseAndSaveIcons_Destroyer"/>
-                            <Separator/>
-                            <MenuItem Header="Only _USSR..." Name="ctBrowseAndSaveIcons_USSR" Click="BrowseAndSaveIcons_USSR"/>
-                            <MenuItem Header="Only G_ermany..." Name="ctBrowseAndSaveIcons_Germany" Click="BrowseAndSaveIcons_Germany"/>
-                            <MenuItem Header="Only U_SA..." Name="ctBrowseAndSaveIcons_USA" Click="BrowseAndSaveIcons_USA"/>
-                            <MenuItem Header="Only _France..." Name="ctBrowseAndSaveIcons_France" Click="BrowseAndSaveIcons_France"/>
-                            <MenuItem Header="Only U_K..." Name="ctBrowseAndSaveIcons_UK" Click="BrowseAndSaveIcons_UK"/>
-                            <MenuItem Header="Only _China..." Name="ctBrowseAndSaveIcons_China" Click="BrowseAndSaveIcons_China"/>
-                            <MenuItem Header="Only _Japan..." Name="ctBrowseAndSaveIcons_Japan" Click="BrowseAndSaveIcons_Japan"/>
-                            <Separator/>
-                            <MenuItem Header="Bulk _save" Name="ctStyleBulkSave" Command="src:TankStyleCommands.BulkSave"/>
-                            <MenuItem Header="Save format help" Name="ctSaveFormatHelp" Command="src:TankStyleCommands.BulkSaveFormat"/>
+                            <!-- Taken: AFGS -->
+                            <MenuItem Header="Save to _game folder" Name="ctSaveIconsToGameFolder" Click="ctSaveIconsToGameFolder_Click"/>
+                            <MenuItem Header="Save to _folder..." Name="ctSaveIconsToSpecifiedFolder" Click="ctSaveIconsToSpecifiedFolder_Click"/>
+                            <MenuItem Header="Bulk _save" Name="ctBulkSaveIcons" Click="ctBulkSaveIcons_Click"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
-                <Button Name="ctReload" Margin="0,8,8,8" Click="ctReload_Click">
+                <Grid Grid.Column="3" Width="auto" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Fill="White" Opacity="0.8" Margin="6,10,0,10">
+                        <Rectangle.Effect>
+                            <BlurEffect Radius="10"/>
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <TextBlock Grid.Column="0" Name="ctPathTemplateLabel" Margin="8,8,0,8" VerticalAlignment="Center" >Path:</TextBlock>
+                    <TextBlock Grid.Column="1" Name="ctPathTemplate" Margin="8,8,0,8" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                               Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=PathTemplate}"/>
+                    <Button Grid.Column="2"  Name="ctEditPathTemplate" Margin="8,8,16,8" Click="ctEditPathTemplate_Click">
+                        <AccessText Margin="4,0" Name="ctEditPathTemplateLabel">_...</AccessText>
+                    </Button>
+                </Grid>
+                <Button Grid.Column="4" Name="ctReload" Margin="0,8,0,8" Click="ctReload_Click">
                     <AccessText Margin="8,0" Name="ctReloadLabel">_Reload data</AccessText>
                 </Button>
-                <TextBox Height="23" Margin="0,8,8,8" Name="IconsetPath" KeyUp="cmdStyle_ChangeDirectory" Width="400" ToolTip="Save path (format is declared in Save as...-Save format help)" />
-                <Button Name="ctAbout" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8" Click="ctAbout_Click">
+                <Button Grid.Column="5" Name="ctAbout" Margin="8" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ctAbout_Click">
                     <AccessText Margin="8,0" Name="ctAboutLabel">About...</AccessText>
                 </Button>
-            </DockPanel>
+            </Grid>
         </Grid>
 
         <Border Grid.ColumnSpan="2" Name="ctGlobalStatusBox" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8" BorderBrush="#FF5C5C5C"

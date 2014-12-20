@@ -10,6 +10,8 @@ namespace TankIconMaker
         MainWindow,
         [LingoGroup("Add window", "Strings used directly in the \"Add layer\" and \"Add effect\" dialogs.")]
         AddWindow,
+        [LingoGroup("Path template window", "Strings used directly in the \"Path template\" window.")]
+        PathTemplateWindow,
         [LingoGroup("Property categories", "Strings used to group properties into categories in the property grid.")]
         PropertyCategory,
         [LingoGroup("Message box defaults", "Strings used in the message boxes by default for some of the messages.")]
@@ -106,6 +108,7 @@ namespace TankIconMaker
 
         public MainWindowTranslation MainWindow = new MainWindowTranslation();
         public AddWindowTranslation AddWindow = new AddWindowTranslation();
+        public PathTemplateWindowTranslation PathTemplateWindow = new PathTemplateWindowTranslation();
 
         public LayerAndEffectTranslation LayerAndEffect = new LayerAndEffectTranslation();
 
@@ -143,7 +146,6 @@ namespace TankIconMaker
 
         public SelectorTranslation Selector = new SelectorTranslation();
         public DlgMessageTranslation DlgMessage = new DlgMessageTranslation();
-        public SaveFormatTranslation SaveFormat = new SaveFormatTranslation();
         public PromptTranslation Prompt = new PromptTranslation();
         public ErrorTranslation Error = new ErrorTranslation();
         public MiscTranslation Misc = new MiscTranslation();
@@ -204,6 +206,8 @@ namespace TankIconMaker
         public TrString BackgroundChangeCheckered2 = "Ch_ange checkered color #2...";
         public TrString BackgroundChangeSolid = "C_hange solid color...";
         public TrString BackgroundRestoreDefaults = "_Restore defaults";
+
+        public TrString PathTemplate_Standard = "(standard)";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
@@ -219,6 +223,11 @@ namespace TankIconMaker
 
         public TrString BtnAdd = "_Add";
         public TrString BtnCancel = "_Cancel";
+    }
+
+    partial class PathTemplateWindowTranslation
+    {
+        public TrString Title = "Edit Icon Path Template";
     }
 
     #region Layer translations
@@ -599,12 +608,6 @@ namespace TankIconMaker
         public TrString RenderIconFail = "Could not render this icon: {0}";
 
         public TrString ClipboardError = "Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.";
-    }
-
-    [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
-    sealed class SaveFormatTranslation
-    {
-        public TrString SaveFormatHelp = "When saving using Save or \"Bulk save\" button style will be saved to folder declared in Iconset Save Path field. If this field is empty, icons will be saved to WOT game folder as current iconset.\nAvailable macro:\n{GamePath} - Game path\n{VersionName} - Game version\n{StyleName} - Style name\n{Author} - Style author\n%UserProfile% - User profile path\n\nExamples:\nIcons\\{StyleName} - icons will be saved inside \"Tank Icon Maker\" folder, to Icons folder\n{GamePath}\\res_mods\\{VersionName}\\gui\\maps\\icons\\vehicle\\contour - will be saved as current iconset (simular to empty field)\n%UserProfile%\\Tank Icon Maker\\{StyleName} - will be save to user's profile folder Tank Icon Maker\\{StyleName}";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]

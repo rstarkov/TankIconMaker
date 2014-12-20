@@ -110,6 +110,9 @@ namespace TankIconMaker
             using (var translationFileGenerator = new Lingo.TranslationFileGenerator(PathUtil.AppPathCombine(@"..\..\Translation.g.cs")))
             {
                 translationFileGenerator.TranslateWindow(this, App.Translation.MainWindow);
+                var wnd = new PathTemplateWindow();
+                translationFileGenerator.TranslateWindow(wnd, App.Translation.PathTemplateWindow);
+                wnd.Close();
             }
 #endif
             using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)
@@ -140,8 +143,6 @@ namespace TankIconMaker
             CommandBindings.Add(new CommandBinding(TankStyleCommands.IconWidth, cmdStyle_IconWidth));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.IconHeight, cmdStyle_IconHeight));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Centerable, cmdStyle_Centerable));
-            CommandBindings.Add(new CommandBinding(TankStyleCommands.BulkSave, cmdStyle_BulkSave));
-            CommandBindings.Add(new CommandBinding(TankStyleCommands.BulkSaveFormat, cmdStyle_BulkSaveFormat));
 
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
@@ -224,6 +225,11 @@ namespace TankIconMaker
                 new Binding { Source = UiZoomObservable, Path = new PropertyPath("Value") },
                 (double zoom) => zoom >= 0.5
             ));
+            BindingOperations.SetBinding(ctPathTemplate, TextBlock.TextProperty, LambdaBinding.New(
+                new Binding { Path = new PropertyPath("PathTemplate") },
+                (string template) => string.IsNullOrEmpty(template) ? (string) App.Translation.MainWindow.PathTemplate_Standard : template
+            ));
+
 
 
             // Another day, another WPF crutch... http://stackoverflow.com/questions/3921712
@@ -673,8 +679,6 @@ namespace TankIconMaker
                 });
                 renderTask.Exception = e;
             }
-            // The tank info is no longer needed; drop the reference so it can get GC'd (it could potentially be large)
-            renderTask.Tank = null;
         }
 
         /// <summary>
@@ -792,18 +796,9 @@ namespace TankIconMaker
             ctIconsPanel.Children.Clear();
             App.Settings.ActiveStyle = (Style) ctStyleDropdown.SelectedItem;
             ctUpvote.Visibility = App.Settings.ActiveStyle.Kind == StyleKind.BuiltIn ? Visibility.Visible : Visibility.Collapsed;
-            if (_builtinStyles.Contains(App.Settings.ActiveStyle))
-            {
-                IconsetPath.IsEnabled = false;
-                IconsetPath.Text = "";
-            }
-            else
-            {
-                IconsetPath.IsEnabled = true;
-                IconsetPath.Text = App.Settings.ActiveStyle.Directory;
-            }
             SaveSettings();
             ctLayersTree.ItemsSource = App.Settings.ActiveStyle.Layers;
+            ctPathTemplate.DataContext = App.Settings.ActiveStyle;
             if (App.Settings.ActiveStyle.Layers.Count > 0)
             {
                 App.Settings.ActiveStyle.Layers[0].TreeViewItem.IsSelected = true;
@@ -1106,26 +1101,25 @@ namespace TankIconMaker
             ReloadData();
         }
 
-        string _overwriteAccepted = null; // icon path for which the user has last confirmed that the overwrite is OK
+        HashSet<string> _overwriteAccepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // icon path for which the user has confirmed that overwriting is OK
 
-        private void saveIcons(string folder, object filter, bool promptEvenIfEmpty = false, bool disableWarnings = false)
+        private void saveIcons(string pathTemplate)
         {
             var context = LoadContext(cached: true);
-            var path = folder ?? Path.Combine(context.Installation.Path, Ut.ExpandPath(context, context.VersionConfig.PathDestination));
+            var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
+            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, "<country>", "<class>");
 
             try
             {
-                if (!_overwriteAccepted.EqualsNoCase(path) && (promptEvenIfEmpty || (Directory.Exists(path) && Directory.GetFileSystemEntries(path).Any())))
-                    if (disableWarnings || DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                        .Fmt(path, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("<") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
+                    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
+                        .Fmt(pathPartial, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
                         return;
-                _overwriteAccepted = path;
-                Directory.CreateDirectory(path);
+                _overwriteAccepted.Add(pathPartial);
 
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
-                var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-                var renderTasks = ListRenderTasks(context, all: true).Where(rt => filter == null || rt.Tank.Class.Equals(filter) || rt.Tank.Country.Equals(filter)).ToList();
+                var renderTasks = ListRenderTasks(context, all: true);
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
@@ -1144,7 +1138,11 @@ namespace TankIconMaker
                         {
                             var render = renders[renderTask.TankId];
                             if (render.Exception == null)
+                            {
+                                var path = Ut.ExpandIconPath(pathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
+                                Directory.CreateDirectory(path);
                                 Ut.SaveImage(render.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
+                            }
                         }
                     }
                     catch (Exception e)
@@ -1166,22 +1164,15 @@ namespace TankIconMaker
                             {
                                 int skipped = renders.Values.Count(rr => rr.Exception != null);
                                 int choice;
-                                if (disableWarnings)
+                                choice = new DlgMessage
                                 {
-                                    choice = 0;
-                                }
-                                else
-                                {
-                                    choice = new DlgMessage
-                                    {
-                                        Message = App.Translation.Prompt.IconsSaved.Fmt(path) +
-                                            (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
-                                        Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
-                                        Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
-                                        AcceptButton = 0,
-                                        CancelButton = 0,
-                                    }.Show();
-                                }
+                                    Message = App.Translation.Prompt.IconsSaved.Fmt(pathPartial) +
+                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                                    AcceptButton = 0,
+                                    CancelButton = 0,
+                                }.Show();
                                 if (choice == 1)
                                     visitProjectWebsite("savehelp");
                             }
@@ -1199,57 +1190,25 @@ namespace TankIconMaker
             }
         }
 
-        private bool _saveIconsToFolder = false;
-
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
-            if (!string.IsNullOrEmpty(IconsetPath.Text))
-            {
-                string savepath = IconsetPath.Text
-                    .Replace("{VersionName}", ActiveInstallation.GameVersionName.FilenameCharactersEscape())
-                    .Replace("{GamePath}", ActiveInstallation.Path.FilenameCharactersEscape())
-                    .Replace("{StyleName}", App.Settings.ActiveStyle.Name.FilenameCharactersEscape())
-                    .Replace("{Author}", App.Settings.ActiveStyle.Author.FilenameCharactersEscape());
-                savepath = Environment.ExpandEnvironmentVariables(savepath);
-                saveIcons(savepath, filter: null);
-                return;
-            }
-            if (!_saveIconsToFolder)
-            {
-                saveIcons(folder: null, filter: null);
-            }
-            else
-            {
-                if (App.Settings.SaveToFolderPath == null)
-                    BrowseAndSaveIcons_All();
-                else
-                    saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderFilter, promptEvenIfEmpty: true /* so the user knows which folder is selected */);
-            }
+            saveIcons(App.Settings.ActiveStyle.PathTemplate);
         }
 
-        private void ctSaveToFolder_Click(object _, RoutedEventArgs __)
+        private void ctSaveAs_Click(object _, RoutedEventArgs __)
         {
-            var menu = ctSaveToFolder.ContextMenu;
-            menu.PlacementTarget = ctSaveToFolder;
+            var menu = ctSaveAs.ContextMenu;
+            menu.PlacementTarget = ctSaveAs;
             menu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            ctSaveIcons_AllToGameFolder.IsChecked = !_saveIconsToFolder;
-            ctBrowseAndSaveIcons_All.IsChecked = _saveIconsToFolder && App.Settings.SaveToFolderFilter == null;
-            ctBrowseAndSaveIcons_Light.IsChecked = _saveIconsToFolder && Class.Light.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_Medium.IsChecked = _saveIconsToFolder && Class.Medium.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_Heavy.IsChecked = _saveIconsToFolder && Class.Heavy.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_Artillery.IsChecked = _saveIconsToFolder && Class.Artillery.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_Destroyer.IsChecked = _saveIconsToFolder && Class.Destroyer.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_USSR.IsChecked = _saveIconsToFolder && Country.USSR.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_Germany.IsChecked = _saveIconsToFolder && Country.Germany.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_USA.IsChecked = _saveIconsToFolder && Country.USA.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_France.IsChecked = _saveIconsToFolder && Country.France.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_UK.IsChecked = _saveIconsToFolder && Country.UK.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_China.IsChecked = _saveIconsToFolder && Country.China.Equals(App.Settings.SaveToFolderFilter);
-            ctBrowseAndSaveIcons_Japan.IsChecked = _saveIconsToFolder && Country.Japan.Equals(App.Settings.SaveToFolderFilter);
             menu.IsOpen = true;
         }
 
-        private void BrowseAndSaveToFolder(object filter) // filter is either null or a Class/Country value
+        private void ctSaveIconsToGameFolder_Click(object _ = null, RoutedEventArgs __ = null)
+        {
+            saveIcons("");
+        }
+
+        private void ctSaveIconsToSpecifiedFolder_Click(object _ = null, RoutedEventArgs __ = null)
         {
             var dlg = new VistaFolderBrowserDialog();
             dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
@@ -1257,32 +1216,20 @@ namespace TankIconMaker
                 dlg.SelectedPath = App.Settings.SaveToFolderPath;
             if (dlg.ShowDialog() != true)
                 return;
-            _saveIconsToFolder = true;
-            _overwriteAccepted = null; // force the prompt
+            _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
-            App.Settings.SaveToFolderFilter = filter;
             SaveSettings();
-            saveIcons(App.Settings.SaveToFolderPath, App.Settings.SaveToFolderFilter);
+            saveIcons(App.Settings.SaveToFolderPath);
         }
 
-        private void SaveIcons_AllToGameFolder(object _ = null, RoutedEventArgs __ = null)
+        private void ctEditPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            _saveIconsToFolder = false;
-            saveIcons(folder: null, filter: null);
+            var value = PathTemplateWindow.Show(this, App.Settings.ActiveStyle.PathTemplate, LoadContext(cached: true), App.Settings.ActiveStyle);
+            if (value == null)
+                return;
+            var style = GetEditableStyle();
+            style.PathTemplate = value;
         }
-        private void BrowseAndSaveIcons_All(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(null); }
-        private void BrowseAndSaveIcons_Light(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Light); }
-        private void BrowseAndSaveIcons_Medium(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Medium); }
-        private void BrowseAndSaveIcons_Heavy(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Heavy); }
-        private void BrowseAndSaveIcons_Artillery(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Artillery); }
-        private void BrowseAndSaveIcons_Destroyer(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Class.Destroyer); }
-        private void BrowseAndSaveIcons_USSR(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.USSR); }
-        private void BrowseAndSaveIcons_Germany(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.Germany); }
-        private void BrowseAndSaveIcons_USA(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.USA); }
-        private void BrowseAndSaveIcons_France(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.France); }
-        private void BrowseAndSaveIcons_UK(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.UK); }
-        private void BrowseAndSaveIcons_China(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.China); }
-        private void BrowseAndSaveIcons_Japan(object _ = null, RoutedEventArgs __ = null) { BrowseAndSaveToFolder(Country.Japan); }
 
         private ObservableValue<double> UiZoomObservable = new ObservableValue<double>(1);
 
@@ -1776,7 +1723,7 @@ namespace TankIconMaker
             var style = new Style();
             style.Name = name;
             style.Author = App.Translation.Misc.NameOfNewStyleAuthor;
-            style.Directory = "";
+            style.PathTemplate = "";
             style.IconWidth = 80;
             style.IconHeight = 24;
             style.Centerable = true;
@@ -1839,7 +1786,7 @@ namespace TankIconMaker
             SaveSettings();
         }
 
-        private void cmdStyle_BulkSave(object sender, ExecutedRoutedEventArgs e)
+        private void ctBulkSaveIcons_Click(object sender, RoutedEventArgs e)
         {
             var allStyles = App.Settings.Styles
                 .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
@@ -1860,13 +1807,6 @@ namespace TankIconMaker
                 var style = styleF; // foreach variable scope fix
                 var renderTasks = ListRenderTasks(context, true);
                 tasksRemaining += renderTasks.Count;
-                string savepath = style.Directory
-                    .Replace("{VersionName}", ActiveInstallation.GameVersionName.FilenameCharactersEscape())
-                    .Replace("{GamePath}", ActiveInstallation.Path.FilenameCharactersEscape())
-                    .Replace("{StyleName}", style.Name.FilenameCharactersEscape())
-                    .Replace("{Author}", style.Author.FilenameCharactersEscape());
-                savepath = Environment.ExpandEnvironmentVariables(savepath);
-                Directory.CreateDirectory(savepath);
 
                 foreach (var renderTaskF in renderTasks)
                 {
@@ -1875,8 +1815,10 @@ namespace TankIconMaker
                     {
                         try
                         {
+                            var path = Ut.ExpandIconPath(style.PathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
                             RenderTank(style, renderTask);
-                            Ut.SaveImage(renderTask.Image, Path.Combine(savepath, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
+                            Directory.CreateDirectory(path);
+                            Ut.SaveImage(renderTask.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
                             if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
                             {
                                 lastGuiUpdate = DateTime.UtcNow;
@@ -1899,19 +1841,6 @@ namespace TankIconMaker
             }
             foreach (var task in tasks)
                 Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None, PriorityScheduler.Lowest);
-        }
-
-        private void cmdStyle_BulkSaveFormat(object sender, ExecutedRoutedEventArgs e)
-        {
-            var choice = new DlgMessage()
-            {
-                Message = App.Translation.SaveFormat.SaveFormatHelp,
-                Caption = "Info",
-                Buttons = new string[] { App.Translation.DlgMessage.OK },
-                AcceptButton = 0,
-                CancelButton = 0
-            }.Show();
-
         }
 
         private void cmdStyle_Import(object sender, ExecutedRoutedEventArgs e)
@@ -2045,15 +1974,6 @@ namespace TankIconMaker
             UpdateIcons();
         }
 
-        private void cmdStyle_ChangeDirectory(object sender, KeyEventArgs e)
-        {
-            var directory = IconsetPath.Text;
-            if (IconsetPath == null)
-                return;
-            App.Settings.ActiveStyle.Directory = IconsetPath.Text.Replace('/', '\\');
-            SaveSettings();
-        }
-
         private abstract class Warning
         {
             public string Text { get; protected set; }
@@ -2092,8 +2012,6 @@ namespace TankIconMaker
         public static RoutedCommand IconWidth = new RoutedCommand();
         public static RoutedCommand IconHeight = new RoutedCommand();
         public static RoutedCommand Centerable = new RoutedCommand();
-        public static RoutedCommand BulkSave = new RoutedCommand();
-        public static RoutedCommand BulkSaveFormat = new RoutedCommand();
     }
 
     /// <summary>
@@ -2103,7 +2021,7 @@ namespace TankIconMaker
     {
         /// <summary>System Id of the tank that this task is for.</summary>
         public string TankId;
-        /// <summary>All the tank data pertaining to this render task. This is set to null immediately after a render.</summary>
+        /// <summary>All the tank data pertaining to this render task.</summary>
         public Tank Tank;
 
         /// <summary>Image rendered by the maker for a tank.</summary>
