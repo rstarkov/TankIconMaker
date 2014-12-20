@@ -29,6 +29,10 @@
       <Translation>_Восстановить стандартные цвета</Translation>
       <Old>_Restore defaults</Old>
     </BackgroundRestoreDefaults>
+    <PathTemplate_Standard>
+      <Translation>(стандартный)</Translation>
+      <Old>(standard)</Old>
+    </PathTemplate_Standard>
     <ctGameDirLabel>
       <Translation>_Папка с игрой:</Translation>
       <Old>Game _directory:</Old>
@@ -46,7 +50,7 @@
       <Old>Im_port</Old>
     </ctStyleImportLabel>
     <ctStyleExportLabel>
-      <Translation>Э_кспорт</Translation>
+      <Translation>Экспор_т</Translation>
       <Old>E_xport</Old>
     </ctStyleExportLabel>
     <ctUpvote>
@@ -85,18 +89,6 @@
       <Translation>_Удалить</Translation>
       <Old>D_elete</Old>
     </ctStyleDelete>
-    <ctStyleBulkSave>
-      <Translation>Массовое _сохранение</Translation>
-      <Old>Bulk _save</Old>
-    </ctStyleBulkSave>
-    <ctSaveFormatHelp>
-      <Translation>Формат сохранения</Translation>
-      <Old>Save format help</Old>
-    </ctSaveFormatHelp>
-    <IconsetPath>
-      <Translation>Путь сохранения (формат описан в пункте меню Сохранить-Формат сохранения)</Translation>
-      <Old>Save path (format is declared in Save as...-Save format help)</Old>
-    </IconsetPath>
     <ctLayersLabel>
       <Translation>С_лои:</Translation>
       <Old>_Layers:</Old>
@@ -241,66 +233,34 @@
       <Translation>_Сохранить</Translation>
       <Old>_Save</Old>
     </ctSaveLabel>
-    <ctSaveToFolderLabel>
-      <Translation>Сохра_нить как...</Translation>
+    <ctSaveAsLabel>
+      <Translation>Сохранить _как...</Translation>
       <Old>Save _as...</Old>
-    </ctSaveToFolderLabel>
-    <ctSaveIcons_AllToGameFolder>
-      <Translation>Все иконки в _игровую папку</Translation>
-      <Old>All icons to _game folder</Old>
-    </ctSaveIcons_AllToGameFolder>
-    <ctBrowseAndSaveIcons_All>
-      <Translation>_Все иконки...</Translation>
-      <Old>_All icons...</Old>
-    </ctBrowseAndSaveIcons_All>
-    <ctBrowseAndSaveIcons_Light>
-      <Translation>Только иконки _легких танков...</Translation>
-      <Old>Only _light tank icons...</Old>
-    </ctBrowseAndSaveIcons_Light>
-    <ctBrowseAndSaveIcons_Medium>
-      <Translation>Только иконки _средних танков...</Translation>
-      <Old>Only _medium tank icons...</Old>
-    </ctBrowseAndSaveIcons_Medium>
-    <ctBrowseAndSaveIcons_Heavy>
-      <Translation>Только иконки _тяжелых танков...</Translation>
-      <Old>Only _heavy tank icons...</Old>
-    </ctBrowseAndSaveIcons_Heavy>
-    <ctBrowseAndSaveIcons_Artillery>
-      <Translation>Только иконки _артиллерии...</Translation>
-      <Old>Only a_rtillery icons...</Old>
-    </ctBrowseAndSaveIcons_Artillery>
-    <ctBrowseAndSaveIcons_Destroyer>
-      <Translation>Только иконки _ПТ...</Translation>
-      <Old>Only _destroyer icons...</Old>
-    </ctBrowseAndSaveIcons_Destroyer>
-    <ctBrowseAndSaveIcons_USSR>
-      <Translation>Только иконки ССС_Р...</Translation>
-      <Old>Only _USSR...</Old>
-    </ctBrowseAndSaveIcons_USSR>
-    <ctBrowseAndSaveIcons_Germany>
-      <Translation>Только иконки _Германии...</Translation>
-      <Old>Only G_ermany...</Old>
-    </ctBrowseAndSaveIcons_Germany>
-    <ctBrowseAndSaveIcons_USA>
-      <Translation>Только иконки С_ША...</Translation>
-      <Old>Only U_SA...</Old>
-    </ctBrowseAndSaveIcons_USA>
-    <ctBrowseAndSaveIcons_France>
-      <Translation>Только иконки _Франции...</Translation>
-      <Old>Only _France...</Old>
-    </ctBrowseAndSaveIcons_France>
-    <ctBrowseAndSaveIcons_UK>
-      <Translation>Только иконки Велико_британии...</Translation>
-      <Old>Only U_K...</Old>
-    </ctBrowseAndSaveIcons_UK>
-    <ctBrowseAndSaveIcons_China>
-      <Translation>Только иконки _Китая...</Translation>
-      <Old>Only _China...</Old>
-    </ctBrowseAndSaveIcons_China>
-    <ctBrowseAndSaveIcons_Japan>
-      <Translation>Только иконки _Японии...</Translation>
-      <Old>Only _Japan...</Old>
-    </ctBrowseAndSaveIcons_Japan>
+    </ctSaveAsLabel>
+    <ctSaveIconsToGameFolder>
+      <Translation>Сохранить в _игровую папку</Translation>
+      <Old>Save to _game folder</Old>
+    </ctSaveIconsToGameFolder>
+    <ctSaveIconsToSpecifiedFolder>
+      <Translation>Сохранить в _папку...</Translation>
+      <Old>Save to _folder...</Old>
+    </ctSaveIconsToSpecifiedFolder>
+    <ctBulkSaveIcons>
+      <Translation>_Массовое сохранение</Translation>
+      <Old>Bulk _save</Old>
+    </ctBulkSaveIcons>
+    <ctBulkSaveIconsToFolder>
+      <Translation>М_ассовое сохранение в папку...</Translation>
+      <Old>Bulk s_ave to folder...</Old>
+    </ctBulkSaveIconsToFolder>
+    <ctPathTemplateLabel>
+      <Translation>Путь:</Translation>
+      <Old>Path:</Old>
+    </ctPathTemplateLabel>
+    <ctEditPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEditPathTemplateLabel>
     <ctReloadLabel>
       <Translation>_Обновить данные</Translation>
       <Old>_Reload data</Old>
@@ -344,6 +304,68 @@
       <Old>_Cancel</Old>
     </BtnCancel>
   </AddWindow>
+  <PathTemplateWindow>
+    <Title>
+      <Translation>Редактирование шаблона сохранения иконок</Translation>
+      <Old>Edit Icon Path Template</Old>
+    </Title>
+    <ctHelp>
+      <Translation>Данный шаблон указывает путь, по которому будут сохранены иконки. Путь указывается относительно папки с выбранным клиентом World of Tanks, однако абсолютные пути тоже допускаются. Если шаблон пуст, то используется стандартный путь, который работает для замены иконок в базовом клиенте WoT без каких-либо модов. Все нестандартные шаблоны могут иметь эффект только если у вас установлены соответствующие моды.</Translation>
+      <Old>This template specifies which path the icons are to be saved to. It is relative to the selected game installation directory. Leave blank to save the icons to the standard location, which works in an unmodified World of Tanks client and requires no mods. Any non-standard paths will only have an effect if you have the appropriate mods installed.</Old>
+    </ctHelp>
+    <ctExpandsToLbl>
+      <Translation>Результат:</Translation>
+      <Old>Preview:</Old>
+    </ctExpandsToLbl>
+    <ctTemplateElements>
+      <Translation>Используйте следующие элементы подстановки:</Translation>
+      <Old>Use the following template elements to construct the path:</Old>
+    </ctTemplateElements>
+    <ctModsPathHelp>
+      <Translation encoding="c-literal">Полный путь к подпапке res_mods\\... для выбранной версии игры.\r\nТекущее значение: “{cur}”</Translation>
+      <Old encoding="c-literal">Full path to the res_mods\\... subfolder for the currently selected game version.\nCurrent value: “{cur}”</Old>
+    </ctModsPathHelp>
+    <ctTimPathHelp>
+      <Translation encoding="c-literal">Полный путь к папке, в которой находится Tank Icon Maker.\r\nТекущее значение: “{cur}”</Translation>
+      <Old encoding="c-literal">Full path to the folder containing Tank Icon Maker.\nCurrent value: “{cur}”</Old>
+    </ctTimPathHelp>
+    <ctGamePathHelp>
+      <Translation encoding="c-literal">Полный путь к папке, в которой находится клиент World of Tanks.\r\nТекущее значение: “{cur}”</Translation>
+      <Old encoding="c-literal">Full path to the location where World of Tanks is installed.\nCurrent value: “{cur}”</Old>
+    </ctGamePathHelp>
+    <ctGameVersionHelp>
+      <Translation encoding="c-literal">Версия игры, которая находится в выбранной папке WoT. Например, “0.9.5”, “0.9.5 Common Test”.\r\nТекущее значение: “{cur}”</Translation>
+      <Old encoding="c-literal">Version identifier for the selected WoT folder. Examples: “0.9.5”, “0.9.5 Common Test”.\nCurrent value: “{cur}”</Old>
+    </ctGameVersionHelp>
+    <ctTankClassHelp>
+      <Translation>Указывает класс танка для каждой конкретной иконки (heavy = тяжелый, medium = средний и т.д.)</Translation>
+      <Old>Specifies the tank class for a given icon (heavy, medium etc.). Varies for each icon.</Old>
+    </ctTankClassHelp>
+    <ctTankCountryHelp>
+      <Translation>Указывает страну танка для каждой конкретной иконки.</Translation>
+      <Old>Specifies the tank country for a given icon. Varies for each icon.</Old>
+    </ctTankCountryHelp>
+    <ctStyleNameHelp>
+      <Translation>Название выбранного стиля. Текущее значение: “{cur}”</Translation>
+      <Old>The name of the selected style. Current value: “{cur}”</Old>
+    </ctStyleNameHelp>
+    <ctStyleAuthorHelp>
+      <Translation>Автор выбранного стиля. Текущее значение: “{cur}”</Translation>
+      <Old>The author of the selected style. Current value: “{cur}”</Old>
+    </ctStyleAuthorHelp>
+    <ctEnvVarsHelp>
+      <Translation>Все переменные среды в шаблоне будут заменены соответствующими значениями. %UserProfile% указывает путь к профилю пользователя. %AppData% указывает путь к папке, содержащей настройки программ. Документация по другим переменным среды доступна в сети.</Translation>
+      <Old>All environment variables are expanded to their values. %UserProfile% expands to the user's profile folder path. %AppData% expands to the primary folder containing application settings. Many other environment variables are documented in online sources.</Old>
+    </ctEnvVarsHelp>
+    <ctOkBtn>
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>О_тмена</Translation>
+      <Old>_Cancel</Old>
+    </ctCancelBtn>
+  </PathTemplateWindow>
   <LayerAndEffect>
     <LayerVisible>
       <DisplayName>
@@ -1540,12 +1562,6 @@
       <Old>Tier: None</Old>
     </TierNone>
   </Selector>
-  <SaveFormat>
-    <SaveFormatHelp>
-      <Translation>При сохранении через кнопки Сохранить или Массовое сохранение стиль будет сохранен по пути, указанном в поле пути сохранения набора иконок. Если поле не заполнено, иконки будут сохранены, как текущий набор иконок WOT.&#x0a;Доступные макросы:&#x0a;{GamePath} - Путь к игре&#x0a;{VersionName} - Версия игры&#x0a;{StyleName} - Название стиля&#x0a;{Author} - Автор стиля&#x0a;%UserProfile% - Путь к папке пользователя&#x0a;&#x0a;Примеры:&#x0a;Icons\{StyleName} - иконки будут сохранены в папку Tank Icon Maker, подпапку Icons&#x0a;{GamePath}\res_mods\{VersionName}\gui\maps\icons\vehicle\contour - будут сохранены, как текущий набор иконок (аналогично пустому полю)&#x0a;%UserProfile%\Tank Icon Maker\{StyleName} - будут сохранены в папку пользователя по адресу Tank Icon Maker\{StyleName}</Translation>
-      <Old>When saving using Save or "Bulk save" button style will be saved to folder declared in Iconset Save Path field. If this field is empty, icons will be saved to WOT game folder as current iconset.&#x0a;Available macro:&#x0a;{GamePath} - Game path&#x0a;{VersionName} - Game version&#x0a;{StyleName} - Style name&#x0a;{Author} - Style author&#x0a;%UserProfile% - User profile path&#x0a;&#x0a;Examples:&#x0a;Icons\{StyleName} - icons will be saved inside "Tank Icon Maker" folder, to Icons folder&#x0a;{GamePath}\res_mods\{VersionName}\gui\maps\icons\vehicle\contour - will be saved as current iconset (simular to empty field)&#x0a;%UserProfile%\Tank Icon Maker\{StyleName} - will be save to user's profile folder Tank Icon Maker\{StyleName}</Old>
-    </SaveFormatHelp>
-  </SaveFormat>
   <DlgMessage>
     <OK>
       <Translation>&amp;ОК</Translation>
@@ -1739,6 +1755,10 @@
       <Translation>Стиль</Translation>
       <Old>Style</Old>
     </BulkStyles_ColumnTitle>
+    <BulkStyles_PathColumn>
+      <Translation>Путь сохранения иконок</Translation>
+      <Old>Icon save path</Old>
+    </BulkStyles_PathColumn>
     <DeleteStyle_Prompt>
       <Translation>Выберите стили, которые необходимо удалить:</Translation>
       <Old>Select styles to delete:</Old>
@@ -1791,6 +1811,18 @@
         <item>{0} styles have been exported.</item>
       </Old>
     </StyleExport_Success>
+    <BulkSave_Prompt>
+      <Translation encoding="c-literal">Вы выбрали массовое сохранение иконок нескольких стилей. Все существующие иконки будут перезаписаны без каких-либо предупреждений!\r\n\r\nВыберите стили, чьи иконки необходимо сохранить:</Translation>
+      <Old encoding="c-literal">You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:</Old>
+    </BulkSave_Prompt>
+    <BulkSave_Yes>
+      <Translation>_Сохранить</Translation>
+      <Old>_Save</Old>
+    </BulkSave_Yes>
+    <BulkSave_Progress>
+      <Translation>Сохранение...</Translation>
+      <Old>Saving icons...</Old>
+    </BulkSave_Progress>
     <ExceptionGlobal>
       <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>
       <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
