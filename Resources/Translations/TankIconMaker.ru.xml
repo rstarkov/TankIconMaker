@@ -323,7 +323,7 @@
     </ctTemplateElements>
     <ctIconsPathHelp>
       <Translation encoding="c-literal">Относительный путь к подпапке res_mods, из которой клиент без модов загружает все иконки. Это – стандартный путь сохранения, используемый когда вышеуказанный шаблон пуст.\r\nТекущее значение: “{cur}”</Translation>
-      <Old encoding="c-literal">Relative path to the res_mods\... subfolder from where the unmodified client loads the icons. This is the standard save path, used when the template above is blank.\nCurrent value: “{cur}”</Old>
+      <Old encoding="c-literal">Relative path to the res_mods\\... subfolder from where the unmodified client loads the icons. This is the standard save path, used when the template above is blank.\nCurrent value: “{cur}”</Old>
     </ctIconsPathHelp>
     <ctTimPathHelp>
       <Translation encoding="c-literal">Полный путь к папке, в которой находится Tank Icon Maker.\r\nТекущее значение: “{cur}”</Translation>
