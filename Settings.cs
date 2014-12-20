@@ -29,8 +29,10 @@ namespace TankIconMaker
         public ManagedWindow.Settings MainWindow = new ManagedWindow.Settings();
         /// <summary>AddWindow-related settings.</summary>
         public ManagedWindow.Settings AddWindow = new ManagedWindow.Settings();
-        /// <summary>RenameWindow-related settings.</summary>
+        /// <summary>Settings for all the short prompts shown using the PromptWindow.</summary>
         public ManagedWindow.Settings RenameWindow = new ManagedWindow.Settings();
+        /// <summary>Settings for the path template edit prompts.</summary>
+        public ManagedWindow.Settings PathTemplateWindow = new ManagedWindow.Settings();
         /// <summary>CheckListWindow-related settings.</summary>
         public ManagedWindow.Settings CheckListWindow = new ManagedWindow.Settings();
         /// <summary>Translation window related settings.</summary>
@@ -43,8 +45,6 @@ namespace TankIconMaker
         public DisplayFilter DisplayFilter = DisplayFilter.All;
         /// <summary>The path last used with the "Save to folder" command.</summary>
         public string SaveToFolderPath = null;
-        /// <summary>The filter last used with the "Save to folder" command. Null for "all", or a <see cref="Class"/> or <see cref="Country"/> value.</summary>
-        public object SaveToFolderFilter = null;
 
         /// <summary>Specifies the name of the selected background file, or ":checkered" / ":solid" for these special backgrounds.</summary>
         public string Background = "Ruinberg (Руинберг).jpg";
@@ -109,8 +109,8 @@ namespace TankIconMaker
                     style.Name = "<unknown>";
                 if (style.Author == null)
                     style.Author = "<unknown>";
-                if (style.Directory == null)
-                    style.Directory = "";
+                if (style.PathTemplate == null)
+                    style.PathTemplate = "";
             }
 
             // Added in v019

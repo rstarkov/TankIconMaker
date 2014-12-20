@@ -20,9 +20,9 @@ namespace TankIconMaker
         public string Author { get { return _Author; } set { _Author = value; NotifyPropertyChanged("Author"); NotifyPropertyChanged("Display"); } }
         private string _Author;
 
-        /// <summary>The name of the author of this style.</summary>
-        public string Directory { get { return _Directory; } set { _Directory = value; NotifyPropertyChanged("Directory"); NotifyPropertyChanged("Display"); } }
-        private string _Directory;
+        /// <summary>A template for the path where the icons are to be saved.</summary>
+        public string PathTemplate { get { return _PathTemplate; } set { _PathTemplate = value; NotifyPropertyChanged("PathTemplate"); } }
+        private string _PathTemplate;
 
         /// <summary>Icon width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
         public int IconWidth = 80;

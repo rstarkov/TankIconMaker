@@ -92,6 +92,9 @@
     <Compile Include="Effects\PixelOutlineEffect.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Layers\TestLayer.cs" />
+    <Compile Include="PathTemplateWindow.xaml.cs">
+      <DependentUpon>PathTemplateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Selector.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>
@@ -148,6 +151,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PathTemplateWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PromptWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

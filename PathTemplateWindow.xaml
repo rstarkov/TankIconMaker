@@ -1,0 +1,69 @@
+﻿<rtf:ManagedWindow x:Class="TankIconMaker.PathTemplateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
+        xmlns:src="clr-namespace:TankIconMaker"
+        x:ClassModifier="internal"
+        ShowInTaskbar="False"
+        SizeToContent="Height" ResizeMode="CanResize" Width="900"
+        TextOptions.TextFormattingMode="Display"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
+    <Window.Resources>
+        <ScaleTransform x:Key="UiZoomer" CenterX="0" CenterY="0" ScaleX="1" ScaleY="1" />
+    </Window.Resources>
+    <StackPanel Margin="10" LayoutTransform="{StaticResource UiZoomer}">
+        <TextBlock Name="ctHelp" Padding="3,0" TextWrapping="Wrap">This template specifies which path the icons are to be saved to. It is relative to the selected game installation directory. Leave blank to save the icons to the standard location, which works in an unmodified World of Tanks client and requires no mods. Any non-standard paths will only have an effect if you have the appropriate mods installed.</TextBlock>
+        <TextBox Name="ctValue" Margin="0,16,0,5" TextChanged="ctValue_TextChanged" />
+        <DockPanel>
+            <TextBlock Name="ctExpandsToLbl" FontWeight="Bold" Margin="3,0,8,0">Preview:</TextBlock>
+            <TextBlock Name="ctExpandsTo" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+        </DockPanel>
+        <TextBlock Name="ctTemplateElements" Margin="3,25,3,0" TextWrapping="Wrap">Use the following template elements to construct the path:</TextBlock>
+        <Grid Margin="20,15,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0">{ModsPath}</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Name="ctModsPathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Full path to the res_mods\... subfolder for the currently selected game version.&#x0a;Current value: &#8220;{cur}&#8221;"/>
+            <TextBlock Grid.Row="1" Grid.Column="0">{TimPath}</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Name="ctTimPathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Full path to the folder containing Tank Icon Maker.&#x0a;Current value: &#8220;{cur}&#8221;"/>
+            <TextBlock Grid.Row="2" Grid.Column="0">{GamePath}</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Name="ctGamePathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Full path to the location where World of Tanks is installed.&#x0a;Current value: &#8220;{cur}&#8221;"/>
+            <TextBlock Grid.Row="3" Grid.Column="0">{GameVersion}</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" Name="ctGameVersionHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Version identifier for the selected WoT folder. Examples: &#8220;0.9.5&#8221;, &#8220;0.9.5 Common Test&#8221;.&#x0a;Current value: &#8220;{cur}&#8221;"/>
+            <TextBlock Grid.Row="4" Grid.Column="0">{TankClass}</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" Name="ctTankClassHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Specifies the tank class for a given icon (heavy, medium etc.). Varies for each icon."/>
+            <TextBlock Grid.Row="5" Grid.Column="0">{TankCountry}</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="1" Name="ctTankCountryHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Specifies the tank country for a given icon. Varies for each icon."/>
+            <TextBlock Grid.Row="6" Grid.Column="0">{StyleName}</TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="1" Name="ctStyleNameHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="The name of the selected style. Current value: &#8220;{cur}&#8221;"/>
+            <TextBlock Grid.Row="7" Grid.Column="0">{StyleAuthor}</TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="1" Name="ctStyleAuthorHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="The author of the selected style. Current value: &#8220;{cur}&#8221;"/>
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="%UserProfile%&#x0a;%AppData%&#x0a;..."/>
+            <TextBlock Grid.Row="8" Grid.Column="1" Name="ctEnvVarsHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="All environment variables are expanded to their values. %UserProfile% expands to the user's profile folder path. %AppData% expands to the primary folder containing application settings. Many other environment variables are documented in online sources."/>
+        </Grid>
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
+            <Button Margin="10,0,0,0" IsDefault="True" Click="ok">
+                <AccessText Margin="16,2" Name="ctOkBtn">_OK</AccessText>
+            </Button>
+            <Button Margin="10,0,0,0" IsCancel="True">
+                <AccessText Margin="16,2" Name="ctCancelBtn">_Cancel</AccessText>
+            </Button>
+        </WrapPanel>
+    </StackPanel>
+</rtf:ManagedWindow>
