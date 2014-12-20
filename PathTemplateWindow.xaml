@@ -28,7 +28,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="0" />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
@@ -38,8 +38,8 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0">{ModsPath}</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" Name="ctModsPathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Full path to the res_mods\... subfolder for the currently selected game version.&#x0a;Current value: &#8220;{cur}&#8221;"/>
+            <TextBlock Grid.Row="0" Grid.Column="0">{IconsPath}</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Name="ctIconsPathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Relative path to the res_mods\... subfolder from where the unmodified client loads the icons. This is the standard save path, used when the template above is blank.&#x0a;Current value: &#8220;{cur}&#8221;"/>
             <TextBlock Grid.Row="1" Grid.Column="0">{TimPath}</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1" Name="ctTimPathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Full path to the folder containing Tank Icon Maker.&#x0a;Current value: &#8220;{cur}&#8221;"/>
             <TextBlock Grid.Row="2" Grid.Column="0">{GamePath}</TextBlock>
