@@ -1190,6 +1190,55 @@ namespace TankIconMaker
             }
         }
 
+        private void bulkSaveIcons(IEnumerable<Style> stylesToSave)
+        {
+            _rendering.Value = true;
+            GlobalStatusShow(tr.BulkSave_Progress);
+            var lastGuiUpdate = DateTime.UtcNow;
+            var tasks = new List<Action>();
+            var context = LoadContext(cached: true);
+            int tasksRemaining = 0;
+            foreach (var styleF in stylesToSave)
+            {
+                var style = styleF; // foreach variable scope fix
+                var renderTasks = ListRenderTasks(context, true);
+                tasksRemaining += renderTasks.Count;
+
+                foreach (var renderTaskF in renderTasks)
+                {
+                    var renderTask = renderTaskF; // foreach variable scope fix
+                    tasks.Add(() =>
+                    {
+                        try
+                        {
+                            var path = Ut.ExpandIconPath(style.PathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
+                            RenderTank(style, renderTask);
+                            Directory.CreateDirectory(path);
+                            Ut.SaveImage(renderTask.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
+                            if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
+                            {
+                                lastGuiUpdate = DateTime.UtcNow;
+                                Dispatcher.Invoke(new Action(() => GlobalStatusShow(tr.BulkSave_Progress + "\n{0:0}%".Fmt(100 - tasksRemaining / (double) tasks.Count * 100))));
+                            }
+                        }
+                        finally
+                        {
+                            Interlocked.Decrement(ref tasksRemaining);
+                            if (tasksRemaining == 0)
+                                Dispatcher.Invoke(new Action(() =>
+                                {
+                                    _rendering.Value = false;
+                                    GlobalStatusHide();
+                                    GC.Collect(); // Clean up all those temporary images we've just created and won't be doing again for a while. (this keeps "private bytes" when idle ~30 MB lower)
+                                }));
+                        }
+                    });
+                }
+            }
+            foreach (var task in tasks)
+                Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None, PriorityScheduler.Lowest);
+        }
+
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
             saveIcons(App.Settings.ActiveStyle.PathTemplate);
@@ -1220,6 +1269,18 @@ namespace TankIconMaker
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
             SaveSettings();
             saveIcons(App.Settings.SaveToFolderPath);
+        }
+
+        private void ctBulkSaveIcons_Click(object sender, RoutedEventArgs e)
+        {
+            var allStyles = App.Settings.Styles
+                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .ToList();
+            var tr = App.Translation.Prompt;
+            var stylesToSave = CheckListWindow.ShowCheckList(this, allStyles, tr.BulkSave_Prompt, tr.BulkSave_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
+            if (stylesToSave.Count == 0)
+                return;
+            bulkSaveIcons(stylesToSave);
         }
 
         private void ctEditPathTemplate_Click(object _, RoutedEventArgs __)
@@ -1784,63 +1845,6 @@ namespace TankIconMaker
             App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
             SaveSettings();
-        }
-
-        private void ctBulkSaveIcons_Click(object sender, RoutedEventArgs e)
-        {
-            var allStyles = App.Settings.Styles
-                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
-                .ToList();
-            var tr = App.Translation.Prompt;
-            var stylesToSave = CheckListWindow.ShowCheckList(this, allStyles, tr.BulkSave_Prompt, tr.BulkSave_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
-            if (stylesToSave.Count == 0)
-                return;
-
-            _rendering.Value = true;
-            GlobalStatusShow(tr.BulkSave_Progress);
-            var lastGuiUpdate = DateTime.UtcNow;
-            var tasks = new List<Action>();
-            var context = LoadContext(cached: true);
-            int tasksRemaining = 0;
-            foreach (var styleF in stylesToSave)
-            {
-                var style = styleF; // foreach variable scope fix
-                var renderTasks = ListRenderTasks(context, true);
-                tasksRemaining += renderTasks.Count;
-
-                foreach (var renderTaskF in renderTasks)
-                {
-                    var renderTask = renderTaskF; // foreach variable scope fix
-                    tasks.Add(() =>
-                    {
-                        try
-                        {
-                            var path = Ut.ExpandIconPath(style.PathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
-                            RenderTank(style, renderTask);
-                            Directory.CreateDirectory(path);
-                            Ut.SaveImage(renderTask.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
-                            if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
-                            {
-                                lastGuiUpdate = DateTime.UtcNow;
-                                Dispatcher.Invoke(new Action(() => GlobalStatusShow(tr.BulkSave_Progress + "\n{0:0}%".Fmt(100 - tasksRemaining / (double) tasks.Count * 100))));
-                            }
-                        }
-                        finally
-                        {
-                            Interlocked.Decrement(ref tasksRemaining);
-                            if (tasksRemaining == 0)
-                                Dispatcher.Invoke(new Action(() =>
-                                {
-                                    _rendering.Value = false;
-                                    GlobalStatusHide();
-                                    GC.Collect(); // Clean up all those temporary images we've just created and won't be doing again for a while. (this keeps "private bytes" when idle ~30 MB lower)
-                                }));
-                        }
-                    });
-                }
-            }
-            foreach (var task in tasks)
-                Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None, PriorityScheduler.Lowest);
         }
 
         private void cmdStyle_Import(object sender, ExecutedRoutedEventArgs e)
