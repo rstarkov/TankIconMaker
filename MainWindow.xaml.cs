@@ -287,6 +287,7 @@ namespace TankIconMaker
                 ctLayerProperties.SelectedObject = wasSelected;
 
                 ctLayersTree.ItemsSource = null;
+                ctPathTemplate.DataContext = null;
                 ctStyleDropdown_SelectionChanged();
 
                 ReloadData();
