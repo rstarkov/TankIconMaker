@@ -59,5 +59,10 @@ namespace TankIconMaker
         {
             ctExpandsTo.Text = Ut.ExpandIconPath(ctValue.Text, _context, _style, Country.USSR, Class.Heavy);
         }
+
+        private void SelectAll(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            (sender as TextBox).SelectAll();
+        }
     }
 }

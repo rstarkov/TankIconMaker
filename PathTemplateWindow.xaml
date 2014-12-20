@@ -38,23 +38,23 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0">{IconsPath}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="0" Grid.Column="0" MouseDoubleClick="SelectAll">{IconsPath}</TextBox>
             <TextBlock Grid.Row="0" Grid.Column="1" Name="ctIconsPathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Relative path to the res_mods\... subfolder from where the unmodified client loads the icons. This is the standard save path, used when the template above is blank.&#x0a;Current value: &#8220;{cur}&#8221;"/>
-            <TextBlock Grid.Row="1" Grid.Column="0">{TimPath}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="1" Grid.Column="0" MouseDoubleClick="SelectAll">{TimPath}</TextBox>
             <TextBlock Grid.Row="1" Grid.Column="1" Name="ctTimPathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Full path to the folder containing Tank Icon Maker.&#x0a;Current value: &#8220;{cur}&#8221;"/>
-            <TextBlock Grid.Row="2" Grid.Column="0">{GamePath}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="2" Grid.Column="0" MouseDoubleClick="SelectAll">{GamePath}</TextBox>
             <TextBlock Grid.Row="2" Grid.Column="1" Name="ctGamePathHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Full path to the location where World of Tanks is installed.&#x0a;Current value: &#8220;{cur}&#8221;"/>
-            <TextBlock Grid.Row="3" Grid.Column="0">{GameVersion}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="3" Grid.Column="0" MouseDoubleClick="SelectAll">{GameVersion}</TextBox>
             <TextBlock Grid.Row="3" Grid.Column="1" Name="ctGameVersionHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Version identifier for the selected WoT folder. Examples: &#8220;0.9.5&#8221;, &#8220;0.9.5 Common Test&#8221;.&#x0a;Current value: &#8220;{cur}&#8221;"/>
-            <TextBlock Grid.Row="4" Grid.Column="0">{TankClass}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="4" Grid.Column="0" MouseDoubleClick="SelectAll">{TankClass}</TextBox>
             <TextBlock Grid.Row="4" Grid.Column="1" Name="ctTankClassHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Specifies the tank class for a given icon (heavy, medium etc.). Varies for each icon."/>
-            <TextBlock Grid.Row="5" Grid.Column="0">{TankCountry}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="5" Grid.Column="0" MouseDoubleClick="SelectAll">{TankCountry}</TextBox>
             <TextBlock Grid.Row="5" Grid.Column="1" Name="ctTankCountryHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="Specifies the tank country for a given icon. Varies for each icon."/>
-            <TextBlock Grid.Row="6" Grid.Column="0">{StyleName}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="6" Grid.Column="0" MouseDoubleClick="SelectAll">{StyleName}</TextBox>
             <TextBlock Grid.Row="6" Grid.Column="1" Name="ctStyleNameHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="The name of the selected style. Current value: &#8220;{cur}&#8221;"/>
-            <TextBlock Grid.Row="7" Grid.Column="0">{StyleAuthor}</TextBlock>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="7" Grid.Column="0" MouseDoubleClick="SelectAll">{StyleAuthor}</TextBox>
             <TextBlock Grid.Row="7" Grid.Column="1" Name="ctStyleAuthorHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="The author of the selected style. Current value: &#8220;{cur}&#8221;"/>
-            <TextBlock Grid.Row="8" Grid.Column="0" Text="%UserProfile%&#x0a;%AppData%&#x0a;..."/>
+            <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" Grid.Row="8" Grid.Column="0"  MouseDoubleClick="SelectAll" Text="%UserProfile%&#x0a;%AppData%&#x0a;..."/>
             <TextBlock Grid.Row="8" Grid.Column="1" Name="ctEnvVarsHelp" Margin="16,0,0,16" TextWrapping="Wrap" Text="All environment variables are expanded to their values. %UserProfile% expands to the user's profile folder path. %AppData% expands to the primary folder containing application settings. Many other environment variables are documented in online sources."/>
         </Grid>
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
