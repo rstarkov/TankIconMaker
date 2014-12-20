@@ -658,6 +658,7 @@ namespace TankIconMaker
         public TrString DeleteLayerEffect_Prompt = "Delete the selected layer/effect?";
         public TrString DeleteLayerEffect_Yes = "&Delete";
         public TrString BulkStyles_ColumnTitle = "Style";
+        public TrString BulkStyles_PathColumn = "Icon save path";
         public TrString DeleteStyle_Prompt = "Select styles to delete:";
         public TrString DeleteStyle_Yes = "_Delete";
         public TrString DeleteStyle_PromptSure = "Are you sure you wish to delete these styles?";
@@ -666,7 +667,7 @@ namespace TankIconMaker
         public TrString StyleExport_Prompt = "Select styles to export:";
         public TrString StyleExport_Yes = "_Export";
         public TrStringNum StyleExport_Success = new TrStringNum("The style has been exported.", "{0} styles have been exported.");
-        public TrString BulkSave_Prompt = "Select styles you wish to save the icons for:";
+        public TrString BulkSave_Prompt = "You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:";
         public TrString BulkSave_Yes = "_Save";
         public TrString BulkSave_Progress = "Saving icons...";
 

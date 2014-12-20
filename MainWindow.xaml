@@ -406,10 +406,11 @@
                     <AccessText Margin="8,0" Name="ctSaveAsLabel">Save _as...</AccessText>
                     <Button.ContextMenu>
                         <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
-                            <!-- Taken: AFGS -->
+                            <!-- Taken: ACFGS -->
                             <MenuItem Header="Save to _game folder" Name="ctSaveIconsToGameFolder" Click="ctSaveIconsToGameFolder_Click"/>
                             <MenuItem Header="Save to _folder..." Name="ctSaveIconsToSpecifiedFolder" Click="ctSaveIconsToSpecifiedFolder_Click"/>
                             <MenuItem Header="Bulk _save" Name="ctBulkSaveIcons" Click="ctBulkSaveIcons_Click"/>
+                            <MenuItem Header="Bulk s_ave to folder..." Name="ctBulkSaveIconsToFolder" Click="ctBulkSaveIconsToFolder_Click"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>

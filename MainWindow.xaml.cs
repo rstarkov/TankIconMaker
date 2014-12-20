@@ -1190,10 +1190,10 @@ namespace TankIconMaker
             }
         }
 
-        private void bulkSaveIcons(IEnumerable<Style> stylesToSave)
+        private void bulkSaveIcons(IEnumerable<Style> stylesToSave, string overridePathTemplate = null)
         {
             _rendering.Value = true;
-            GlobalStatusShow(tr.BulkSave_Progress);
+            GlobalStatusShow(App.Translation.Prompt.BulkSave_Progress);
             var lastGuiUpdate = DateTime.UtcNow;
             var tasks = new List<Action>();
             var context = LoadContext(cached: true);
@@ -1211,14 +1211,14 @@ namespace TankIconMaker
                     {
                         try
                         {
-                            var path = Ut.ExpandIconPath(style.PathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
+                            var path = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
                             RenderTank(style, renderTask);
                             Directory.CreateDirectory(path);
                             Ut.SaveImage(renderTask.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
                             if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
                             {
                                 lastGuiUpdate = DateTime.UtcNow;
-                                Dispatcher.Invoke(new Action(() => GlobalStatusShow(tr.BulkSave_Progress + "\n{0:0}%".Fmt(100 - tasksRemaining / (double) tasks.Count * 100))));
+                                Dispatcher.Invoke(new Action(() => GlobalStatusShow(App.Translation.Prompt.BulkSave_Progress + "\n{0:0}%".Fmt(100 - tasksRemaining / (double) tasks.Count * 100))));
                             }
                         }
                         finally
@@ -1271,16 +1271,47 @@ namespace TankIconMaker
             saveIcons(App.Settings.SaveToFolderPath);
         }
 
-        private void ctBulkSaveIcons_Click(object sender, RoutedEventArgs e)
+        private List<Style> getBulkSaveStyles(string overridePathTemplate = null)
         {
+            var context = LoadContext(cached: true);
             var allStyles = App.Settings.Styles
-                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .Select(style => new CheckListItem<Style>
+                {
+                    Item = style,
+                    Column1 = string.Format("{0} ({1})", style.Name, style.Author),
+                    Column2 = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style, "<country>", "<class>"),
+                    IsChecked = style == App.Settings.ActiveStyle ? true : false
+                })
                 .ToList();
             var tr = App.Translation.Prompt;
-            var stylesToSave = CheckListWindow.ShowCheckList(this, allStyles, tr.BulkSave_Prompt, tr.BulkSave_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
+            return CheckListWindow.ShowCheckList(this, allStyles, tr.BulkSave_Prompt, tr.BulkSave_Yes, new string[] { tr.BulkStyles_ColumnTitle, tr.BulkStyles_PathColumn }).ToList();
+        }
+
+        private void ctBulkSaveIcons_Click(object sender, RoutedEventArgs e)
+        {
+            var stylesToSave = getBulkSaveStyles();
             if (stylesToSave.Count == 0)
                 return;
             bulkSaveIcons(stylesToSave);
+        }
+
+        private void ctBulkSaveIconsToFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new VistaFolderBrowserDialog();
+            dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
+            if (App.Settings.BulkSaveToFolderPath != null && Directory.Exists(App.Settings.BulkSaveToFolderPath))
+                dlg.SelectedPath = App.Settings.BulkSaveToFolderPath;
+            if (dlg.ShowDialog() != true)
+                return;
+
+            var overridePathTemplate = dlg.SelectedPath + "\\{StyleName} ({StyleAuthor})";
+            var stylesToSave = getBulkSaveStyles(overridePathTemplate);
+            if (stylesToSave.Count == 0)
+                return;
+
+            App.Settings.BulkSaveToFolderPath = dlg.SelectedPath;
+            SaveSettings();
+            bulkSaveIcons(stylesToSave, overridePathTemplate);
         }
 
         private void ctEditPathTemplate_Click(object _, RoutedEventArgs __)
@@ -1802,10 +1833,10 @@ namespace TankIconMaker
         private void cmdStyle_Delete(object sender, ExecutedRoutedEventArgs e)
         {
             var allStyles = App.Settings.Styles
-                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .Select(style => new CheckListItem<Style> { Item = style, Column1 = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
                 .ToList();
             var tr = App.Translation.Prompt;
-            var stylesToDelete = CheckListWindow.ShowCheckList(this, allStyles, tr.DeleteStyle_Prompt, tr.DeleteStyle_Yes, tr.BulkStyles_ColumnTitle, tr.DeleteStyle_PromptSure).ToHashSet();
+            var stylesToDelete = CheckListWindow.ShowCheckList(this, allStyles, tr.DeleteStyle_Prompt, tr.DeleteStyle_Yes, new string[] { tr.BulkStyles_ColumnTitle }, tr.DeleteStyle_PromptSure).ToHashSet();
             if (stylesToDelete.Count == 0)
                 return;
             if (stylesToDelete.Contains(App.Settings.ActiveStyle))
@@ -1878,11 +1909,11 @@ namespace TankIconMaker
         private void cmdStyle_Export(object sender, ExecutedRoutedEventArgs e)
         {
             var allStyles = App.Settings.Styles
-                .Select(style => new CheckListItem<Style> { Item = style, Name = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
+                .Select(style => new CheckListItem<Style> { Item = style, Column1 = string.Format("{0} ({1})", style.Name, style.Author), IsChecked = style == App.Settings.ActiveStyle ? true : false })
                 .ToList();
 
             var tr = App.Translation.Prompt;
-            var stylesToExport = CheckListWindow.ShowCheckList(this, allStyles, tr.StyleExport_Prompt, tr.StyleExport_Yes, tr.BulkStyles_ColumnTitle).ToHashSet();
+            var stylesToExport = CheckListWindow.ShowCheckList(this, allStyles, tr.StyleExport_Prompt, tr.StyleExport_Yes, new string[] { tr.BulkStyles_ColumnTitle }).ToHashSet();
             if (stylesToExport.Count == 0)
                 return;
             else if (stylesToExport.Count == 1)

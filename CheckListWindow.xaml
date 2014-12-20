@@ -62,7 +62,8 @@
                         </Style>
                     </DataGridTemplateColumn.CellStyle>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Column1}" Header="Name" Width="*" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Column2}" Header="Name" Width="*" IsReadOnly="True" Visibility="Collapsed" />
             </DataGrid.Columns>
         </DataGrid>
 

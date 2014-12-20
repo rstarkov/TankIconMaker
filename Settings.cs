@@ -45,6 +45,8 @@ namespace TankIconMaker
         public DisplayFilter DisplayFilter = DisplayFilter.All;
         /// <summary>The path last used with the "Save to folder" command.</summary>
         public string SaveToFolderPath = null;
+        /// <summary>The path last used with the "Bulk save to folder" command.</summary>
+        public string BulkSaveToFolderPath = null;
 
         /// <summary>Specifies the name of the selected background file, or ":checkered" / ":solid" for these special backgrounds.</summary>
         public string Background = "Ruinberg (Руинберг).jpg";
