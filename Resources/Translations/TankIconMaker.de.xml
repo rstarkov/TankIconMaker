@@ -249,6 +249,10 @@
       <Translation>_Massenspeichern</Translation>
       <Old>Bulk _save</Old>
     </ctBulkSaveIcons>
+    <ctBulkSaveIconsToFolder>
+      <Translation>M_assenspeichern in Verzeichnis...</Translation>
+      <Old>Bulk s_ave to folder...</Old>
+    </ctBulkSaveIconsToFolder>
     <ctPathTemplateLabel>
       <Translation>Pfad:</Translation>
       <Old>Path:</Old>
@@ -1750,6 +1754,10 @@
       <Translation>Design</Translation>
       <Old>Style</Old>
     </BulkStyles_ColumnTitle>
+    <BulkStyles_PathColumn>
+      <Translation>Zielpfad</Translation>
+      <Old>Icon save path</Old>
+    </BulkStyles_PathColumn>
     <DeleteStyle_Prompt>
       <Translation>Designs zum Löschen auswählen:</Translation>
       <Old>Select styles to delete:</Old>
@@ -1801,8 +1809,8 @@
       </Old>
     </StyleExport_Success>
     <BulkSave_Prompt>
-      <Translation>Designs auswählen, für die die Symbole gespeichert werden sollen:</Translation>
-      <Old>Select styles you wish to save the icons for:</Old>
+      <Translation encoding="c-literal">Hiermit werden Panzersymbole für mehrere Designs gespeichert. Bereits existierende Symbol werden ohne weitere Bestätigung überschrieben!\r\n\r\nDesigns auswählen, für die die Symbole gespeichert werden sollen:</Translation>
+      <Old encoding="c-literal">You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:</Old>
     </BulkSave_Prompt>
     <BulkSave_Yes>
       <Translation>_Speichern</Translation>
