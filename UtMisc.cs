@@ -375,17 +375,17 @@ namespace TankIconMaker
         }
 
         /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
-        public static string ExpandIconPath(string path, WotContext context, Style style, Country country, Class class_)
+        public static string ExpandIconPath(string path, WotContext context, Style style, Country country, Class class_, bool fragment = false)
         {
-            return ExpandIconPath(path, context, style, country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "none"), class_.Pick("light", "medium", "heavy", "destroyer", "artillery", "none"));
+            return ExpandIconPath(path, context, style, country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "none"), class_.Pick("light", "medium", "heavy", "destroyer", "artillery", "none"), fragment);
         }
 
         /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
-        public static string ExpandIconPath(string path, WotContext context, Style style, string country, string class_)
+        public static string ExpandIconPath(string path, WotContext context, Style style, string country, string class_, bool fragment = false)
         {
             if (path == "")
-                path = "{ModsPath}";
-            path = path.Replace("{ModsPath}", Path.Combine(context.Installation.Path, Ut.ExpandPath(context, context.VersionConfig.PathDestination)) + @"\");
+                path = "{IconsPath}";
+            path = path.Replace("{IconsPath}", Ut.ExpandPath(context, context.VersionConfig.PathDestination) + @"\");
             path = path.Replace("{TimPath}", PathUtil.AppPath + @"\");
             path = path.Replace("{GamePath}", context.Installation.Path + @"\");
             path = path.Replace("{GameVersion}", context.Installation.GameVersionName);
@@ -397,7 +397,7 @@ namespace TankIconMaker
             path = path.Replace(@"\\", @"\").Replace(@"\\", @"\").Replace(@"\\", @"\");
             if (path.EndsWith(@"\") && !path.EndsWith(@":\"))
                 path = path.Substring(0, path.Length - 1);
-            return path;
+            return fragment ? path : Path.Combine(context.Installation.Path, path);
         }
 
         public static void RemoveWhere<T>(this ICollection<T> collection, Func<T, bool> predicate)

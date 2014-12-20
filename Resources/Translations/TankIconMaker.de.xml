@@ -321,10 +321,6 @@
       <Translation>Die folgenden Vorlagenelemente stehen zur Konstruktion des Pfades zur Verfügung:</Translation>
       <Old>Use the following template elements to construct the path:</Old>
     </ctTemplateElements>
-    <ctModsPathHelp>
-      <Translation encoding="c-literal">Vollständiger Pfad zum res_mods\\...-Unterordner der aktuellen Spielversion.\r\nAktueller Wert: „{cur}“</Translation>
-      <Old encoding="c-literal">Full path to the res_mods\\... subfolder for the currently selected game version.\nCurrent value: “{cur}”</Old>
-    </ctModsPathHelp>
     <ctTimPathHelp>
       <Translation encoding="c-literal">Vollständiger Pfad zum Ordner von Tank Icon Maker.\r\nAktueller Wert: „{cur}“</Translation>
       <Old encoding="c-literal">Full path to the folder containing Tank Icon Maker.\nCurrent value: “{cur}”</Old>

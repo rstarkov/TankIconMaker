@@ -32,12 +32,12 @@ namespace TankIconMaker
             ctValue.Focus();
             ctValue_TextChanged(null, null);
 
-            ctModsPathHelp.Text = ctModsPathHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{ModsPath}", _context, _style, Country.USSR, Class.Heavy));
-            ctTimPathHelp.Text = ctTimPathHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{TimPath}", _context, _style, Country.USSR, Class.Heavy));
-            ctGamePathHelp.Text = ctGamePathHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{GamePath}", _context, _style, Country.USSR, Class.Heavy));
-            ctGameVersionHelp.Text = ctGameVersionHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{GameVersion}", _context, _style, Country.USSR, Class.Heavy));
-            ctStyleNameHelp.Text = ctStyleNameHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{StyleName}", _context, _style, Country.USSR, Class.Heavy));
-            ctStyleAuthorHelp.Text = ctStyleAuthorHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{StyleAuthor}", _context, _style, Country.USSR, Class.Heavy));
+            ctIconsPathHelp.Text = ctIconsPathHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{IconsPath}", _context, _style, "", "", fragment: true));
+            ctTimPathHelp.Text = ctTimPathHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{TimPath}", _context, _style, "", "", fragment: true));
+            ctGamePathHelp.Text = ctGamePathHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{GamePath}", _context, _style, "", "", fragment: true));
+            ctGameVersionHelp.Text = ctGameVersionHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{GameVersion}", _context, _style, "", "", fragment: true));
+            ctStyleNameHelp.Text = ctStyleNameHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{StyleName}", _context, _style, "", "", fragment: true));
+            ctStyleAuthorHelp.Text = ctStyleAuthorHelp.Text.Replace("{cur}", Ut.ExpandIconPath("{StyleAuthor}", _context, _style, "", "", fragment: true));
         }
 
         private void ok(object sender, RoutedEventArgs e)
