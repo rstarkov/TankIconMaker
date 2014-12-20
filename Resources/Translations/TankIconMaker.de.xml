@@ -321,6 +321,10 @@
       <Translation>Die folgenden Vorlagenelemente stehen zur Konstruktion des Pfades zur Verfügung:</Translation>
       <Old>Use the following template elements to construct the path:</Old>
     </ctTemplateElements>
+    <ctIconsPathHelp>
+      <Translation encoding="c-literal">Relativer Pfad zum res_mods\\...-Unterordner, wo der unmodifizierte Client die Symbole erwartet. Dies ist der Standardzielpfad, der verwendet wird, wenn die Vorlage leer ist.\r\nAktueller Wert: „{cur}“</Translation>
+      <Old encoding="c-literal">Relative path to the res_mods\\... subfolder from where the unmodified client loads the icons. This is the standard save path, used when the template above is blank.\nCurrent value: “{cur}”</Old>
+    </ctIconsPathHelp>
     <ctTimPathHelp>
       <Translation encoding="c-literal">Vollständiger Pfad zum Ordner von Tank Icon Maker.\r\nAktueller Wert: „{cur}“</Translation>
       <Old encoding="c-literal">Full path to the folder containing Tank Icon Maker.\nCurrent value: “{cur}”</Old>
