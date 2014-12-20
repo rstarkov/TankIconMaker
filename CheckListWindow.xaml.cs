@@ -18,27 +18,11 @@ namespace TankIconMaker
         private string _promptSure;
         private string _promptSureYes;
 
-        private CheckListWindow(IEnumerable<CheckListItem> items, string prompt, string okButton, string columnTitle, string promptSure)
+        private CheckListWindow()
             : base(App.Settings.CheckListWindow)
         {
             InitializeComponent();
             MainWindow.ApplyUiZoom(this);
-
-            ctPrompt.Text = prompt;
-            ctOkBtn.Text = okButton;
-            ctCancelBtn.Text = App.Translation.Prompt.Cancel;
-            ctGrid.Columns[1].Header = columnTitle;
-            _promptSure = promptSure;
-            _promptSureYes = okButton.Replace('_', '&');
-
-            _checkItems = new ObservableCollection<CheckListItem>(items);
-            ctGrid.ItemsSource = _checkItems;
-
-            BindingOperations.SetBinding(chkSelectAll, CheckBox.IsCheckedProperty, LambdaBinding.New(
-                new Binding { Source = _checkAll, Path = new PropertyPath("Value") },
-                (bool? checkAll) => checkAll,
-                (bool? checkAll) => { setAllCheckboxes(checkAll); return checkAll; }
-            ));
         }
 
         private void ok(object sender, RoutedEventArgs e)
@@ -63,9 +47,30 @@ namespace TankIconMaker
             _checkAll.Value = checkedCount == 0 ? false : checkedCount == _checkItems.Count ? true : (bool?) null;
         }
 
-        public static IEnumerable<TItem> ShowCheckList<TItem>(Window owner, IEnumerable<CheckListItem<TItem>> items, string prompt, string okButton, string columnTitle, string promptSure = null)
+        public static IEnumerable<TItem> ShowCheckList<TItem>(Window owner, IEnumerable<CheckListItem<TItem>> items, string prompt, string okButton, string[] columnTitles, string promptSure = null)
         {
-            var wnd = new CheckListWindow(items, prompt, okButton, columnTitle, promptSure) { Owner = owner };
+            var wnd = new CheckListWindow() { Owner = owner };
+            wnd.ctPrompt.Text = prompt;
+            wnd.ctOkBtn.Text = okButton;
+            wnd.ctCancelBtn.Text = App.Translation.Prompt.Cancel;
+            for (int i = 0; i < columnTitles.Length; i++)
+            {
+                wnd.ctGrid.Columns[i + 1].Header = columnTitles[i];
+                wnd.ctGrid.Columns[i + 1].Visibility = Visibility.Visible;
+                if (i != columnTitles.Length - 1) // mark all columns except for the last one as auto width
+                    wnd.ctGrid.Columns[i + 1].Width = DataGridLength.Auto;
+            }
+            wnd._promptSure = promptSure;
+            wnd._promptSureYes = okButton.Replace('_', '&');
+
+            wnd._checkItems = new ObservableCollection<CheckListItem>(items);
+            wnd.ctGrid.ItemsSource = wnd._checkItems;
+
+            BindingOperations.SetBinding(wnd.chkSelectAll, CheckBox.IsCheckedProperty, LambdaBinding.New(
+                new Binding { Source = wnd._checkAll, Path = new PropertyPath("Value") },
+                (bool? checkAll) => checkAll,
+                (bool? checkAll) => { wnd.setAllCheckboxes(checkAll); return checkAll; }
+            ));
 
             if (wnd.ShowDialog() != true)
                 return Enumerable.Empty<TItem>();
@@ -76,7 +81,8 @@ namespace TankIconMaker
 
     public class CheckListItem : INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        public string Column1 { get; set; }
+        public string Column2 { get; set; }
         public bool IsChecked { get { return _isChecked; } set { _isChecked = value; PropertyChanged(this, new PropertyChangedEventArgs("IsChecked")); } }
         private bool _isChecked;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
