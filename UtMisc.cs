@@ -397,7 +397,7 @@ namespace TankIconMaker
             path = path.Replace(@"\\", @"\").Replace(@"\\", @"\").Replace(@"\\", @"\");
             if (path.EndsWith(@"\") && !path.EndsWith(@":\"))
                 path = path.Substring(0, path.Length - 1);
-            return fragment ? path : Path.Combine(context.Installation.Path, path);
+            return fragment ? path : Path.GetFullPath(Path.Combine(context.Installation.Path, path));
         }
 
         public static void RemoveWhere<T>(this ICollection<T> collection, Func<T, bool> predicate)
