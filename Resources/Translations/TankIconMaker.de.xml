@@ -1074,6 +1074,476 @@
       </Description>
     </ShiftY>
   </EffectShift>
+  <EffectChannels>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Channels</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Specifies the channels affected by effect.</Old>
+    </EffectDescription>
+    <AChannel>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Alpha channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Enable effect for alpha channel.</Old>
+      </Description>
+    </AChannel>
+    <RChannel>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Red channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Enable effect for red channel.</Old>
+      </Description>
+    </RChannel>
+    <GChannel>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Green channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Enable effect for green channel.</Old>
+      </Description>
+    </GChannel>
+    <BChannel>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Blue channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Enable effect for blue channel.</Old>
+      </Description>
+    </BChannel>
+  </EffectChannels>
+  <EffectBrightnessContrast>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Brightness / Contrast</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>The Brightness-Contrast tool adjusts the brightness and contrast levels for the active layer.</Old>
+    </EffectDescription>
+    <Brightness>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired brightness percentage.</Old>
+      </Description>
+    </Brightness>
+    <Contrast>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Contrast %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired contrast percentage.</Old>
+      </Description>
+    </Contrast>
+  </EffectBrightnessContrast>
+  <EffectHueSaturationBrightness>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Hue / Saturation / Brightness</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>The Hue-Saturation-Brightness tool is used to adjust hue, saturation and brightness levels on active layer.</Old>
+    </EffectDescription>
+    <Hue>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Hue %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired hue percentage.</Old>
+      </Description>
+    </Hue>
+    <Saturation>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Saturation %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired saturation percentage.</Old>
+      </Description>
+    </Saturation>
+    <Brightness>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired brightness percentage.</Old>
+      </Description>
+    </Brightness>
+  </EffectHueSaturationBrightness>
+  <EffectGamma>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Gamma Correction</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>The Gamma Correction tool is used to adjust the image's channel values.</Old>
+    </EffectDescription>
+    <gammaRed>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Gamma Red</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired red channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </gammaRed>
+    <gammaGreen>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Gamma Blue</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired green channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </gammaGreen>
+    <gammaBlue>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Gamma Green</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects the desired blue channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </gammaBlue>
+  </EffectGamma>
+  <EffectLevel>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Level</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>The Level tool can change the intensity range of the active layer, making the image darker or lighter.</Old>
+    </EffectDescription>
+    <BlackPoint>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Black Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>All pixels with this value or less will be black.</Old>
+      </Description>
+    </BlackPoint>
+    <WhitePoint>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>White Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>All pixels with this value or higher will be white.</Old>
+      </Description>
+    </WhitePoint>
+    <MidPoint>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Mid Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects output image gamma.</Old>
+      </Description>
+    </MidPoint>
+  </EffectLevel>
+  <EffectInvert>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Invert</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>The Invert tool can invert the colors of image.</Old>
+    </EffectDescription>
+  </EffectInvert>
+  <EffectAdaptiveBlur>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Blur: Adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Blur images, except close to the edges as defined by an edge detection on the image.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur sigma. Specifies the edge of bluring.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveBlur>
+  <EffectAdaptiveSharpen>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Sharpen: Adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Sharpen images, except close to the edges as defined by an edge detection on the image.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Sharpen sigma. Specifies the edge of sharpening.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveSharpen>
+  <EffectSharpen>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Sharpen</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Sharpen current layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Sharpen sigma. Specifies the strength of sharpening.</Old>
+      </Description>
+    </Sigma>
+  </EffectSharpen>
+  <EffectSelectiveBlur>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Blur: Selective</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Blurs those pixels that are less than or equal to the threshold in contrast.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur sigma. Specifies the edge of bluring.</Old>
+      </Description>
+    </Sigma>
+    <Threshold>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur threshold. Specifies the threshold in contrast.</Old>
+      </Description>
+    </Threshold>
+  </EffectSelectiveBlur>
+  <EffectMotionBlur>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Blur: Motion</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Blur images, simulation the motion blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur sigma. Specifies the strength of bluring.</Old>
+      </Description>
+    </Sigma>
+    <Angle>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur angle. Specifies the angle of bluring.</Old>
+      </Description>
+    </Angle>
+  </EffectMotionBlur>
+  <EffectRadialBlur>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Blur: Radial</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Blur images, simulation the rotation blur.</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Blur angle. Specifies the angle of rotation.</Old>
+      </Description>
+    </Angle>
+  </EffectRadialBlur>
+  <EffectWave>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Wave</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Waves the current layer.</Old>
+    </EffectDescription>
+    <Amplitude>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Amplitude</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects wave amplitude.</Old>
+      </Description>
+    </Amplitude>
+    <Length>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Length</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects wave length.</Old>
+      </Description>
+    </Length>
+  </EffectWave>
+  <EffectRotate>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Rotate</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Rotates the current layer.</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Rotate</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects rotation angle.</Old>
+      </Description>
+    </Angle>
+    <RotateX>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects rotation y coordinate.</Old>
+      </Description>
+    </RotateX>
+    <RotateY>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects rotation y coordinate.</Old>
+      </Description>
+    </RotateY>
+  </EffectRotate>
   <EffectSizePos>
     <EffectName>
       <Translation>Größe / Position</Translation>

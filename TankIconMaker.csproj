@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ThirdParty\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Magick.NET-AnyCPU">
+      <HintPath>ThirdParty\Magick.NET-AnyCPU.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>ThirdParty\Ookii.Dialogs.Wpf.dll</HintPath>
@@ -83,6 +86,19 @@
       <DependentUpon>CheckListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Effects\ClipEffect.cs" />
+    <Compile Include="Effects\IMAdaptiveBlur.cs" />
+    <Compile Include="Effects\IMAdaptiveSharpen.cs" />
+    <Compile Include="Effects\IMGammaEffect.cs" />
+    <Compile Include="Effects\IMBrightnessContrastEffect.cs" />
+    <Compile Include="Effects\IMInvertEffect.cs" />
+    <Compile Include="Effects\IMLevelEffect.cs" />
+    <Compile Include="Effects\IMModulateEffect.cs" />
+    <Compile Include="Effects\IMMotionBlur.cs" />
+    <Compile Include="Effects\IMRadialBlurEffect.cs" />
+    <Compile Include="Effects\IMRotateEffect.cs" />
+    <Compile Include="Effects\IMSelectiveBlur.cs" />
+    <Compile Include="Effects\IMSharpenEffect.cs" />
+    <Compile Include="Effects\IMWaveEffect.cs" />
     <Compile Include="Effects\NormalizeEffect.cs" />
     <Compile Include="Effects\FlipEffect.cs" />
     <Compile Include="Effects\SizePosEffect.cs" />

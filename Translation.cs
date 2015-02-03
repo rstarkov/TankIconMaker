@@ -61,6 +61,34 @@ namespace TankIconMaker
         EffectShift,
         [LingoGroup("Effect: Size / Position", "Strings used in the property grid for the \"Size / Position\" effect.")]
         EffectSizePos,
+        [LingoGroup("Effect: Specify Channel", "Strings used in the property grid for the Magick effects.")]
+        EffectChannels,
+        [LingoGroup("Effect: Brightness / Contrast", "Strings used in the property grid for the \"Brightness / Contrast\" effects.")]
+        EffectBrightnessContrast,
+        [LingoGroup("Effect: Hue / Saturation/ Brightness", "Strings used in the property grid for the \"Hue / Saturation/ Brightness\" effects.")]
+        EffectHueSaturationBrightness,
+        [LingoGroup("Effect: Gamma", "Strings used in the property grid for the \"Gamma\" effects.")]
+        EffectGamma,
+        [LingoGroup("Effect: Level", "Strings used in the property grid for the \"Level\" effects.")]
+        EffectLevel,
+        [LingoGroup("Effect: Invert", "Strings used in the property grid for the \"Invert\" effects.")]
+        EffectInvert,
+        [LingoGroup("Effect: Adaptive blur", "Strings used in the property grid for the \"Adaptive blur\" effects.")]
+        EffectAdaptiveBlur,
+        [LingoGroup("Effect: Adaptive sharpen", "Strings used in the property grid for the \"Adaptive sharpen\" effects.")]
+        EffectAdaptiveSharpen,
+        [LingoGroup("Effect: Sharpen", "Strings used in the property grid for the \"Sharpen\" effects.")]
+        EffectSharpen,
+        [LingoGroup("Effect: Selective blur", "Strings used in the property grid for the \"Selective blur\" effects.")]
+        EffectSelectiveBlur,
+        [LingoGroup("Effect: Motion blur", "Strings used in the property grid for the \"Motion blur\" effects.")]
+        EffectMotionBlur,
+        [LingoGroup("Effect: Radial blur", "Strings used in the property grid for the \"Radial blur\" effects.")]
+        EffectRadialBlur,
+        [LingoGroup("Effect: Wave", "Strings used in the property grid for the \"Wave\" effects.")]
+        EffectWave,
+        [LingoGroup("Effect: Rotate", "Strings used in the property grid for the \"Rotate\" effects.")]
+        EffectRotate,
 
         [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
         Selector,
@@ -131,6 +159,20 @@ namespace TankIconMaker
         public EffectShadowTranslation EffectShadow = new EffectShadowTranslation();
         public EffectShiftTranslation EffectShift = new EffectShiftTranslation();
         public EffectSizePosTranslation EffectSizePos = new EffectSizePosTranslation();
+        public EffectChannelsTranslation EffectChannels = new EffectChannelsTranslation();
+        public EffectBrightnessContrastTranslation EffectBrightnessContrast = new EffectBrightnessContrastTranslation();
+        public EffectHueSaturationBrightnessTranslation EffectHueSaturationBrightness = new EffectHueSaturationBrightnessTranslation();
+        public EffectGammaTranslation EffectGamma = new EffectGammaTranslation();
+        public EffectLevelTranslation EffectLevel = new EffectLevelTranslation();
+        public EffectInvertTranslation EffectInvert = new EffectInvertTranslation();
+        public EffectAdaptiveBlurTranslation EffectAdaptiveBlur = new EffectAdaptiveBlurTranslation();
+        public EffectAdaptiveSharpenTranslation EffectAdaptiveSharpen = new EffectAdaptiveSharpenTranslation();
+        public EffectSharpenTranslation EffectSharpen = new EffectSharpenTranslation();
+        public EffectSelectiveBlurTranslation EffectSelectiveBlur = new EffectSelectiveBlurTranslation();
+        public EffectMotionBlurTranslation EffectMotionBlur = new EffectMotionBlurTranslation();
+        public EffectRadialBlurTranslation EffectRadialBlur = new EffectRadialBlurTranslation();
+        public EffectWaveTranslation EffectWave = new EffectWaveTranslation();
+        public EffectRotateTranslation EffectRotate = new EffectRotateTranslation();
 
         public BoolWithPassthroughTranslation BoolWithPassthrough = new BoolWithPassthroughTranslation();
         public ImageBuiltInStyleTranslation ImageBuiltInStyle = new ImageBuiltInStyleTranslation();
@@ -196,6 +238,19 @@ namespace TankIconMaker
         public TrString Clip = "Clip";
         public TrString Blur = "Blur";
         public TrString Shift = "Shift";
+        public TrString Channels = "Channels";
+        public TrString BrightnessContrast = "Brightness / contrast";
+        public TrString HueSaturationBrightness = "Hue / saturation / brightness";
+        public TrString Gamma = "Gamma";
+        public TrString Level = "Level";
+        public TrString AdaptiveBlur = "Adaptive blur";
+        public TrString AdaptiveSharpen = "Adaptive sharpen";
+        public TrString Sharpen = "Sharpen";
+        public TrString SelectiveBlur = "Selective blur";
+        public TrString MotionBlur = "Motion blur";
+        public TrString RadialBlur = "Radial blur";
+        public TrString Wave = "Wave";
+        public TrString Rotate = "Rotate";
     }
 
     partial class MainWindowTranslation
@@ -432,6 +487,151 @@ namespace TankIconMaker
 
         public MemberDescriptionTr ShiftX = new MemberDescriptionTr { DisplayName = "Horizontal", Description = "Horizontal shift amount, in pixels." };
         public MemberDescriptionTr ShiftY = new MemberDescriptionTr { DisplayName = "Vertical", Description = "Vertical shift amount, in pixels." };
+    }
+    
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectChannels)]
+    sealed class EffectChannelsTranslation
+    {
+        public TrString EffectName = "Channels";
+        public TrString EffectDescription = "Specifies the channels affected by effect.";
+
+        public MemberDescriptionTr AChannel = new MemberDescriptionTr { DisplayName = "Alpha channel", Description = "Enable effect for alpha channel." };
+        public MemberDescriptionTr RChannel = new MemberDescriptionTr { DisplayName = "Red channel", Description = "Enable effect for red channel." };
+        public MemberDescriptionTr GChannel = new MemberDescriptionTr { DisplayName = "Green channel", Description = "Enable effect for green channel." };
+        public MemberDescriptionTr BChannel = new MemberDescriptionTr { DisplayName = "Blue channel", Description = "Enable effect for blue channel." };
+    }
+
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectBrightnessContrast)]
+    sealed class EffectBrightnessContrastTranslation
+    {
+        public TrString EffectName = "Brightness / Contrast";
+        public TrString EffectDescription = "The Brightness-Contrast effect adjusts the brightness and contrast levels for the target layer.";
+
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects the desired brightness percentage." };
+        public MemberDescriptionTr Contrast = new MemberDescriptionTr { DisplayName = "Contrast %", Description = "Selects the desired contrast percentage." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectHueSaturationBrightness)]
+    sealed class EffectHueSaturationBrightnessTranslation
+    {
+        public TrString EffectName = "Hue / Saturation / Brightness";
+        public TrString EffectDescription = "The Hue-Saturation-Brightness effect is used to adjust hue, saturation and brightness levels on target layer.";
+
+        public MemberDescriptionTr Hue = new MemberDescriptionTr { DisplayName = "Hue %", Description = "Selects the desired hue percentage." };
+        public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation %", Description = "Selects the desired saturation percentage." };
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects the desired brightness percentage." };
+    }
+    
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectGamma)]
+    sealed class EffectGammaTranslation
+    {
+        public TrString EffectName = "Gamma Correction";
+        public TrString EffectDescription = "The Gamma Correction effect is used to adjust the image's channel values.";
+
+        public MemberDescriptionTr gammaRed = new MemberDescriptionTr { DisplayName = "Gamma Red", Description = "Selects the desired red channel adjustment (reasonable values are between 0.8 to 2.3)." };
+        public MemberDescriptionTr gammaGreen = new MemberDescriptionTr { DisplayName = "Gamma Green", Description = "Selects the desired green channel adjustment (reasonable values are between 0.8 to 2.3)." };
+        public MemberDescriptionTr gammaBlue = new MemberDescriptionTr { DisplayName = "Gamma Blue", Description = "Selects the desired blue channel adjustment (reasonable values are between 0.8 to 2.3)." };
+    }
+    
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectLevel)]
+    sealed class EffectLevelTranslation
+    {
+        public TrString EffectName = "Level";
+        public TrString EffectDescription = "The Level effect can change the intensity range of the target layer, making the image darker or lighter.";
+
+        public MemberDescriptionTr BlackPoint = new MemberDescriptionTr { DisplayName = "Black Point", Description = "All pixels with this value or less will be black." };
+        public MemberDescriptionTr WhitePoint = new MemberDescriptionTr { DisplayName = "White Point", Description = "All pixels with this value or higher will be white." };
+        public MemberDescriptionTr MidPoint = new MemberDescriptionTr { DisplayName = "Mid Point", Description = "Selects output image gamma." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectInvert)]
+    sealed class EffectInvertTranslation
+    {
+        public TrString EffectName = "Invert";
+        public TrString EffectDescription = "The Invert effect can invert the colors of image.";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveBlur)]
+    sealed class EffectAdaptiveBlurTranslation
+    {
+        public TrString EffectName = "Blur: adaptive";
+        public TrString EffectDescription = "Blur images, except close to the edges as defined by an edge detection on the image.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Blur sigma. Specifies the edge of bluring." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveSharpen)]
+    sealed class EffectAdaptiveSharpenTranslation
+    {
+        public TrString EffectName = "Sharpen: adaptive";
+        public TrString EffectDescription = "Sharpen images, except close to the edges as defined by an edge detection on the image.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Sharpen radius. Larger values result in more sharpen." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Sharpen sigma. Specifies the edge of sharpening." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectSharpen)]
+    sealed class EffectSharpenTranslation
+    {
+        public TrString EffectName = "Sharpen";
+        public TrString EffectDescription = "Sharpen current layer.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Sharpen radius. Larger values result in more sharpen." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Sharpen sigma. Specifies the strength of sharpening." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectSelectiveBlur)]
+    sealed class EffectSelectiveBlurTranslation
+    {
+        public TrString EffectName = "Blur: selective";
+        public TrString EffectDescription = "Blurs those pixels that are less than or equal to the threshold in contrast.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Blur sigma. Specifies the edge of bluring." };
+        public MemberDescriptionTr Threshold = new MemberDescriptionTr { DisplayName = "Threshold", Description = "Blur threshold. Specifies the threshold in contrast." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectMotionBlur)]
+    sealed class EffectMotionBlurTranslation
+    {
+        public TrString EffectName = "Blur: Motion";
+        public TrString EffectDescription = "Blur images, simulation the motion blur.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Blur sigma. Specifies the strength of bluring." };
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Blur angle. Specifies the angle of bluring." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectRadialBlur)]
+    sealed class EffectRadialBlurTranslation
+    {
+        public TrString EffectName = "Blur: Radial";
+        public TrString EffectDescription = "Blur images, simulation the rotation blur.";
+
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Blur angle. Specifies the angle of rotation." };
+    }
+    
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectWave)]
+    sealed class EffectWaveTranslation
+    {
+        public TrString EffectName = "Wave";
+        public TrString EffectDescription = "Waves the current layer.";
+
+        public MemberDescriptionTr Amplitude = new MemberDescriptionTr { DisplayName = "Amplitude", Description = "Selects wave amplitude." };
+        public MemberDescriptionTr Length = new MemberDescriptionTr { DisplayName = "Length", Description = "Selects wave length." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectRotate)]
+    sealed class EffectRotateTranslation
+    {
+        public TrString EffectName = "Rotate";
+        public TrString EffectDescription = "Rotates the current layer.";
+
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Selects rotation angle." };
+        public MemberDescriptionTr RotateX = new MemberDescriptionTr { DisplayName = "X", Description = "Selects rotation x coordinate." };
+        public MemberDescriptionTr RotateY = new MemberDescriptionTr { DisplayName = "Y", Description = "Selects rotation y coordinate." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]
