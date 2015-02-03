@@ -1074,6 +1074,476 @@
       </Description>
     </ShiftY>
   </EffectShift>
+  <EffectChannels>
+    <EffectName>
+      <Translation>Каналы</Translation>
+      <Old>Channels</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Выбор каналов, задействованных в эффекте.</Translation>
+      <Old>Specifies the channels affected by effect.</Old>
+    </EffectDescription>
+    <AChannel>
+      <DisplayName>
+        <Translation>Альфа канал</Translation>
+        <Old>Alpha channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для альфа канала.</Translation>
+        <Old>Enable effect for alpha channel.</Old>
+      </Description>
+    </AChannel>
+    <RChannel>
+      <DisplayName>
+        <Translation>Красный канал</Translation>
+        <Old>Red channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для красного канала.</Translation>
+        <Old>Enable effect for red channel.</Old>
+      </Description>
+    </RChannel>
+    <GChannel>
+      <DisplayName>
+        <Translation>Красный канал</Translation>
+        <Old>Green channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для зеленого канала.</Translation>
+        <Old>Enable effect for green channel.</Old>
+      </Description>
+    </GChannel>
+    <BChannel>
+      <DisplayName>
+        <Translation>Синий канал</Translation>
+        <Old>Blue channel</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для синего канала.</Translation>
+        <Old>Enable effect for blue channel.</Old>
+      </Description>
+    </BChannel>
+  </EffectChannels>
+  <EffectBrightnessContrast>
+    <EffectName>
+      <Translation>Яркость / Контрастность</Translation>
+      <Old>Brightness / Contrast</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Инструмент Яркость-Контрастность позволяет настроить уровни яркости и контрастности для целевого слоя.</Translation>
+      <Old>The Brightness-Contrast effect adjusts the brightness and contrast levels for the target layer.</Old>
+    </EffectDescription>
+    <Brightness>
+      <DisplayName>
+        <Translation>Яркость %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемый процент яркости.</Translation>
+        <Old>Selects the desired brightness percentage.</Old>
+      </Description>
+    </Brightness>
+    <Contrast>
+      <DisplayName>
+        <Translation>Контрастность %</Translation>
+        <Old>Contrast %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемый процент контрастности.</Translation>
+        <Old>Selects the desired contrast percentage.</Old>
+      </Description>
+    </Contrast>
+  </EffectBrightnessContrast>
+  <EffectHueSaturationBrightness>
+    <EffectName>
+      <Translation>Цветовой тон / Насыщенность / Яркость</Translation>
+      <Old>Hue / Saturation / Brightness</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Эффект Цветовой тон-Насыщенность-Яркость позволяет настроить цвет, яркость и насыщенность для целевого слоя.</Translation>
+      <Old>The Hue-Saturation-Brightness effect is used to adjust hue, saturation and brightness levels on target layer.</Old>
+    </EffectDescription>
+    <Hue>
+      <DisplayName>
+        <Translation>Цветовой тон %</Translation>
+        <Old>Hue %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемый процент поворота цветового тона.</Translation>
+        <Old>Selects the desired hue percentage.</Old>
+      </Description>
+    </Hue>
+    <Saturation>
+      <DisplayName>
+        <Translation>Насыщенность %</Translation>
+        <Old>Saturation %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемый процент насыщенности.</Translation>
+        <Old>Selects the desired saturation percentage.</Old>
+      </Description>
+    </Saturation>
+    <Brightness>
+      <DisplayName>
+        <Translation>Яркость %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемый процент яркости.</Translation>
+        <Old>Selects the desired brightness percentage.</Old>
+      </Description>
+    </Brightness>
+  </EffectHueSaturationBrightness>
+  <EffectGamma>
+    <EffectName>
+      <Translation>Гамма Коррекция</Translation>
+      <Old>Gamma Correction</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Эффект Гамма Коррекции позволяет настроить значения яркости каналов изображения.</Translation>
+      <Old>The Gamma Correction effect is used to adjust the image's channel values.</Old>
+    </EffectDescription>
+    <gammaRed>
+      <DisplayName>
+        <Translation>Гамма Красного</Translation>
+        <Old>Gamma Red</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемое усиление красного канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
+        <Old>Selects the desired red channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </gammaRed>
+    <gammaGreen>
+      <DisplayName>
+        <Translation>Гамма Зеленого</Translation>
+        <Old>Gamma Blue</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемое усиление зеленого канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
+        <Old>Selects the desired green channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </gammaGreen>
+    <gammaBlue>
+      <DisplayName>
+        <Translation>Гамма Синего</Translation>
+        <Old>Gamma Green</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемое усиление синего канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
+        <Old>Selects the desired blue channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </gammaBlue>
+  </EffectGamma>
+  <EffectLevel>
+    <EffectName>
+      <Translation>Уровни</Translation>
+      <Old>Level</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Эффект Уровни позволяет настроить диапазон интенсивности для целевого слоя, делая изображение темнее или светлее.</Translation>
+      <Old>The Level effect can change the intensity range of the target layer, making the image darker or lighter.</Old>
+    </EffectDescription>
+    <BlackPoint>
+      <DisplayName>
+        <Translation>Черная точка</Translation>
+        <Old>Black Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Все пиксели со значением яркости ниже или равно станут черными.</Translation>
+        <Old>All pixels with this value or less will be black.</Old>
+      </Description>
+    </BlackPoint>
+    <WhitePoint>
+      <DisplayName>
+        <Translation>Белая точка</Translation>
+        <Old>White Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Все пиксели со значением яркости выше или равно станут белыми.</Translation>
+        <Old>All pixels with this value or higher will be white.</Old>
+      </Description>
+    </WhitePoint>
+    <MidPoint>
+      <DisplayName>
+        <Translation>Средняя точка</Translation>
+        <Old>Mid Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задаёт желаемую гамму выходного изображения.</Translation>
+        <Old>Selects output image gamma.</Old>
+      </Description>
+    </MidPoint>
+  </EffectLevel>
+  <EffectInvert>
+    <EffectName>
+      <Translation>Инверсия</Translation>
+      <Old>Invert</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Эффект Инверсия позволяет обратить цвета изображения.</Translation>
+      <Old>The Invert effect can invert the colors of image.</Old>
+    </EffectDescription>
+  </EffectInvert>
+  <EffectAdaptiveBlur>
+    <EffectName>
+      <Translation>Размытие: адаптивное</Translation>
+      <Old>Blur: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает изображение за исключением граней, согласно настройкам выявления граней.</Translation>
+      <Old>Blur images, except close to the edges as defined by an edge detection on the image.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус размытия. При увеличении усиливает размытие.</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сигма</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сигма размытия. Задаёт перепад граней, которых размытие не коснётся.</Translation>
+        <Old>Blur sigma. Specifies the edge of bluring.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveBlur>
+  <EffectAdaptiveSharpen>
+    <EffectName>
+      <Translation>Резкость: адаптивная</Translation>
+      <Old>Sharpen: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Увеличивает резкость за исключением областей вблизи граней, согласно настройкам выявления граней.</Translation>
+      <Old>Sharpen images, except close to the edges as defined by an edge detection on the image.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус резкости. Более высокие значения означают большую резкость.</Translation>
+        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сигма</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сигма резкости. Задаёт перепад граней, окружения которых резкость не коснётся</Translation>
+        <Old>Sharpen sigma. Specifies the edge of sharpening.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveSharpen>
+  <EffectSharpen>
+    <EffectName>
+      <Translation>Резкость</Translation>
+      <Old>Sharpen</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Делает более резким целевой уровень.</Translation>
+      <Old>Sharpen current layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус рекзости. Большее значение означает большую резкость.</Translation>
+        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сигма</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сигма резкости. Задаёт силу резкости.</Translation>
+        <Old>Sharpen sigma. Specifies the strength of sharpening.</Old>
+      </Description>
+    </Sigma>
+  </EffectSharpen>
+  <EffectSelectiveBlur>
+    <EffectName>
+      <Translation>Размытие: селективное</Translation>
+      <Old>Blur: selective</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает пиксели, контрастность в которых ниже заданого порога.</Translation>
+      <Old>Blurs those pixels that are less than or equal to the threshold in contrast.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус размытия. При увеличении усиливает размытие.</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сигма</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сигма размытия. Задаёт грань размытия.</Translation>
+        <Old>Blur sigma. Specifies the edge of bluring.</Old>
+      </Description>
+    </Sigma>
+    <Threshold>
+      <DisplayName>
+        <Translation>Порог</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Порог размытия. Задаёт порог контрастности для размытия.</Translation>
+        <Old>Blur threshold. Specifies the threshold in contrast.</Old>
+      </Description>
+    </Threshold>
+  </EffectSelectiveBlur>
+  <EffectMotionBlur>
+    <EffectName>
+      <Translation>Размытие: в движении</Translation>
+      <Old>Blur: Motion</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает картинку, симулируя размытие в движении.</Translation>
+      <Old>Blur images, simulation the motion blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус размытия. Большее значение означает большее размытие.</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сигма</Translation>
+        <Old>Sigma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сигма размытия. Задаёт силу размытия.</Translation>
+        <Old>Blur sigma. Specifies the strength of bluring.</Old>
+      </Description>
+    </Sigma>
+    <Angle>
+      <DisplayName>
+        <Translation>Угол</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Угол размытия. Задаёт направление размытия.</Translation>
+        <Old>Blur angle. Specifies the angle of bluring.</Old>
+      </Description>
+    </Angle>
+  </EffectMotionBlur>
+  <EffectRadialBlur>
+    <EffectName>
+      <Translation>Размытие: во вращении</Translation>
+      <Old>Blur: Radial</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает картинку, симулируя размытие во вращении.</Translation>
+      <Old>Blur images, simulation the rotation blur.</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Угол</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Угол размытия. Задаёт угол поворота.</Translation>
+        <Old>Blur angle. Specifies the angle of rotation.</Old>
+      </Description>
+    </Angle>
+  </EffectRadialBlur>
+  <EffectWave>
+    <EffectName>
+      <Translation>Волна</Translation>
+      <Old>Wave</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Делает волнистым текущий слой.</Translation>
+      <Old>Waves the current layer.</Old>
+    </EffectDescription>
+    <Amplitude>
+      <DisplayName>
+        <Translation>Амплитуда</Translation>
+        <Old>Amplitude</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задаёт амплитуду волн.</Translation>
+        <Old>Selects wave amplitude.</Old>
+      </Description>
+    </Amplitude>
+    <Length>
+      <DisplayName>
+        <Translation>Длина</Translation>
+        <Old>Length</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает длину волн.</Translation>
+        <Old>Selects wave length.</Old>
+      </Description>
+    </Length>
+  </EffectWave>
+  <EffectRotate>
+    <EffectName>
+      <Translation>Поворот</Translation>
+      <Old>Rotate</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Поворачивает текущий слой.</Translation>
+      <Old>Rotates the current layer.</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Угол</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает угол поворота.</Translation>
+        <Old>Selects rotation angle.</Old>
+      </Description>
+    </Angle>
+    <RotateX>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает координату Х точки вращения.</Translation>
+        <Old>Selects rotation x coordinate.</Old>
+      </Description>
+    </RotateX>
+    <RotateY>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает координату Y точки вращения.</Translation>
+        <Old>Selects rotation y coordinate.</Old>
+      </Description>
+    </RotateY>
+  </EffectRotate>
   <EffectSizePos>
     <EffectName>
       <Translation>Размер / Положение</Translation>
