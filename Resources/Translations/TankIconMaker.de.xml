@@ -1569,10 +1569,20 @@
         <Old>Brightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Out of date.</Translation>
+        <Translation>Out of date</Translation>
         <Old>Selects brightness level.</Old>
       </Description>
     </Brightness>
+    <CompensateSaturation>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Compensate saturation</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Compensate or not saturation on dark images.</Old>
+      </Description>
+    </CompensateSaturation>
   </EffectBrightnessAdjustment>
   <EffectSizePos>
     <EffectName>

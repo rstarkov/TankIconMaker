@@ -1573,6 +1573,16 @@
         <Old>Selects brightness level.</Old>
       </Description>
     </Brightness>
+    <CompensateSaturation>
+      <DisplayName>
+        <Translation>Фикс насыщенности</Translation>
+        <Old>Compensate saturation</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Компенсировать или нет насыщенность на темных изображениях.</Translation>
+        <Old>Compensate or not saturation on dark images.</Old>
+      </Description>
+    </CompensateSaturation>
   </EffectBrightnessAdjustment>
   <EffectSizePos>
     <EffectName>

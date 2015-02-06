@@ -23,11 +23,16 @@ namespace TankIconMaker.Effects
         private double _Brightness;
         public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.BrightnessAdjustment, tr.EffectBrightnessAdjustment.Brightness); }
 
+        public bool CompensateSaturation { get { return _CompensateSaturation; } set { _CompensateSaturation = value; } }
+        private bool _CompensateSaturation;
+        public static MemberTr CompensateSaturationTr(Translation tr) { return new MemberTr(tr.Category.BrightnessAdjustment, tr.EffectBrightnessAdjustment.CompensateSaturation); }
+
 
         public IMBrightnessAdjustmentEffect()
         {
             _Strength = 100;
             _Brightness = 50;
+            CompensateSaturation = true;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
@@ -69,8 +74,14 @@ namespace TankIconMaker.Effects
                         return layer;
                     averagebrigthness /= pixels;
                     image.BackgroundColor = MagickColor.Transparent;
-                    double compensatevalue = ((Brightness / (double)averagebrigthness - 1) * (Strength / 100) + 1) * 100;
-                    image.Modulate(new Percentage(compensatevalue), new Percentage(100), new Percentage(100));
+                    double fixedStrength = Strength / 100;
+                    double compensatevalue = ((Brightness / (double)averagebrigthness - 1) * (fixedStrength) + 1) * 100;
+                    double compensatesaturation = 100;
+                    if (CompensateSaturation && compensatevalue < 100)
+                    {
+                        compensatesaturation = (100 - (100 - (compensatevalue * compensatevalue / 100)) * fixedStrength);
+                    }
+                    image.Modulate(new Percentage(compensatevalue), new Percentage(compensatesaturation), new Percentage(100));
                     image.Label = compensatevalue.ToString("0.0");
                 }
                 catch (Exception e)

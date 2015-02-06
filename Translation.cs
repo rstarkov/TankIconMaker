@@ -646,6 +646,7 @@ namespace TankIconMaker
 
         public MemberDescriptionTr Strength = new MemberDescriptionTr { DisplayName = "Strength %", Description = "Selects effect's strength." };
         public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects brightness level." };
+        public MemberDescriptionTr CompensateSaturation = new MemberDescriptionTr { DisplayName = "Compensate saturation", Description = "Compensate or not saturation on dark images." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]
