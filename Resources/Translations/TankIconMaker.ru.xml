@@ -1245,8 +1245,8 @@
     </EffectDescription>
     <BlackPoint>
       <DisplayName>
-        <Translation>Черная точка</Translation>
-        <Old>Black Point</Old>
+        <Translation>Черная точка %</Translation>
+        <Old>Black Point %</Old>
       </DisplayName>
       <Description>
         <Translation>Все пиксели со значением яркости ниже или равно станут черными.</Translation>
@@ -1255,8 +1255,8 @@
     </BlackPoint>
     <WhitePoint>
       <DisplayName>
-        <Translation>Белая точка</Translation>
-        <Old>White Point</Old>
+        <Translation>Белая точка %</Translation>
+        <Old>White Point %</Old>
       </DisplayName>
       <Description>
         <Translation>Все пиксели со значением яркости выше или равно станут белыми.</Translation>
@@ -1544,6 +1544,36 @@
       </Description>
     </RotateY>
   </EffectRotate>
+  <EffectBrightnessAdjustment>
+    <EffectName>
+      <Translation>Выравнивание яркости</Translation>
+      <Old>Brightness adjustment</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Выравнивает все изображения до определенной яркости.</Translation>
+      <Old>Adjusts every image to selected brightness.</Old>
+    </EffectDescription>
+    <Strength>
+      <DisplayName>
+        <Translation>Сила %</Translation>
+        <Old>Strength %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает силу эффекта.</Translation>
+        <Old>Selects effect's strength.</Old>
+      </Description>
+    </Strength>
+    <Brightness>
+      <DisplayName>
+        <Translation>Яркость %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает уровень яркости.</Translation>
+        <Old>Selects brightness level.</Old>
+      </Description>
+    </Brightness>
+  </EffectBrightnessAdjustment>
   <EffectSizePos>
     <EffectName>
       <Translation>Размер / Положение</Translation>

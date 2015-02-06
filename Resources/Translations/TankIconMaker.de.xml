@@ -1246,7 +1246,7 @@
     <BlackPoint>
       <DisplayName>
         <Translation>Out of date</Translation>
-        <Old>Black Point</Old>
+        <Old>Black Point %</Old>
       </DisplayName>
       <Description>
         <Translation>Out of date</Translation>
@@ -1256,7 +1256,7 @@
     <WhitePoint>
       <DisplayName>
         <Translation>Out of date</Translation>
-        <Old>White Point</Old>
+        <Old>White Point %</Old>
       </DisplayName>
       <Description>
         <Translation>Out of date</Translation>
@@ -1544,6 +1544,36 @@
       </Description>
     </RotateY>
   </EffectRotate>
+  <EffectBrightnessAdjustment>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Brightness adjustment</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Adjusts every image to selected brightness.</Old>
+    </EffectDescription>
+    <Strength>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Strength %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Selects effect's strength.</Old>
+      </Description>
+    </Strength>
+    <Brightness>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date.</Translation>
+        <Old>Selects brightness level.</Old>
+      </Description>
+    </Brightness>
+  </EffectBrightnessAdjustment>
   <EffectSizePos>
     <EffectName>
       <Translation>Größe / Position</Translation>

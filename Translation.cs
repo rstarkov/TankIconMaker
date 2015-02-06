@@ -89,6 +89,8 @@ namespace TankIconMaker
         EffectWave,
         [LingoGroup("Effect: Rotate", "Strings used in the property grid for the \"Rotate\" effects.")]
         EffectRotate,
+        [LingoGroup("Effect: Average brightness", "Strings used in the property grid for the \"Average brightness\" effects.")]
+        EffectBrightnessAdjustment,
 
         [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
         Selector,
@@ -173,6 +175,7 @@ namespace TankIconMaker
         public EffectRadialBlurTranslation EffectRadialBlur = new EffectRadialBlurTranslation();
         public EffectWaveTranslation EffectWave = new EffectWaveTranslation();
         public EffectRotateTranslation EffectRotate = new EffectRotateTranslation();
+        public EffectBrightnessAdjustmentTranslation EffectBrightnessAdjustment = new EffectBrightnessAdjustmentTranslation();
 
         public BoolWithPassthroughTranslation BoolWithPassthrough = new BoolWithPassthroughTranslation();
         public ImageBuiltInStyleTranslation ImageBuiltInStyle = new ImageBuiltInStyleTranslation();
@@ -251,6 +254,7 @@ namespace TankIconMaker
         public TrString RadialBlur = "Radial blur";
         public TrString Wave = "Wave";
         public TrString Rotate = "Rotate";
+        public TrString BrightnessAdjustment = "Brightness adjustment";
     }
 
     partial class MainWindowTranslation
@@ -540,8 +544,8 @@ namespace TankIconMaker
         public TrString EffectName = "Level";
         public TrString EffectDescription = "The Level effect can change the intensity range of the target layer, making the image darker or lighter.";
 
-        public MemberDescriptionTr BlackPoint = new MemberDescriptionTr { DisplayName = "Black Point", Description = "All pixels with this value or less will be black." };
-        public MemberDescriptionTr WhitePoint = new MemberDescriptionTr { DisplayName = "White Point", Description = "All pixels with this value or higher will be white." };
+        public MemberDescriptionTr BlackPoint = new MemberDescriptionTr { DisplayName = "Black Point %", Description = "All pixels with this value or less will be black." };
+        public MemberDescriptionTr WhitePoint = new MemberDescriptionTr { DisplayName = "White Point %", Description = "All pixels with this value or higher will be white." };
         public MemberDescriptionTr MidPoint = new MemberDescriptionTr { DisplayName = "Mid Point", Description = "Selects output image gamma." };
     }
 
@@ -632,6 +636,16 @@ namespace TankIconMaker
         public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Selects rotation angle." };
         public MemberDescriptionTr RotateX = new MemberDescriptionTr { DisplayName = "X", Description = "Selects rotation x coordinate." };
         public MemberDescriptionTr RotateY = new MemberDescriptionTr { DisplayName = "Y", Description = "Selects rotation y coordinate." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectBrightnessAdjustment)]
+    sealed class EffectBrightnessAdjustmentTranslation
+    {
+        public TrString EffectName = "Brightness adjustment";
+        public TrString EffectDescription = "Adjusts every image to selected brightness.";
+
+        public MemberDescriptionTr Strength = new MemberDescriptionTr { DisplayName = "Strength %", Description = "Selects effect's strength." };
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects brightness level." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]
