@@ -92,6 +92,7 @@
     <Compile Include="Effects\IMBrightnessContrastEffect.cs" />
     <Compile Include="Effects\IMInvertEffect.cs" />
     <Compile Include="Effects\IMLevelEffect.cs" />
+    <Compile Include="Effects\IMBrightnessAdjustmentEffect.cs" />
     <Compile Include="Effects\IMModulateEffect.cs" />
     <Compile Include="Effects\IMMotionBlur.cs" />
     <Compile Include="Effects\IMRadialBlurEffect.cs" />
