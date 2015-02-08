@@ -9,7 +9,7 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMBrightnessAdjustmentEffect : EffectBase
+    class BrightnessAdjustmentEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectBrightnessAdjustment.EffectName; } }
@@ -28,7 +28,7 @@ namespace TankIconMaker.Effects
         public static MemberTr CompensateSaturationTr(Translation tr) { return new MemberTr(tr.Category.BrightnessAdjustment, tr.EffectBrightnessAdjustment.CompensateSaturation); }
 
 
-        public IMBrightnessAdjustmentEffect()
+        public BrightnessAdjustmentEffect()
         {
             _Strength = 100;
             _Brightness = 50;

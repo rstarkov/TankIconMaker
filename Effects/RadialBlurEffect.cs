@@ -9,11 +9,11 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMInvertEffect : EffectBase
+    class RadialBlurEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return App.Translation.EffectInvert.EffectName; } }
-        public override string TypeDescription { get { return App.Translation.EffectInvert.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectRadialBlur.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectRadialBlur.EffectDescription; } }
 
         public bool ChannelA { get; set; }
         public static MemberTr ChannelATr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.AChannel); }
@@ -27,19 +27,41 @@ namespace TankIconMaker.Effects
         public bool ChannelB { get; set; }
         public static MemberTr ChannelBTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.BChannel); }
 
-        public IMInvertEffect()
+        public double Angle { get { return _Angle; } set { _Angle = Math.Min(360.0, Math.Max(-360.0, value)); } }
+        private double _Angle;
+        public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.RadialBlur, tr.EffectRadialBlur.Angle); }
+
+        public RadialBlurEffect()
         {
             ChannelA = false;
             ChannelR = true;
             ChannelG = true;
             ChannelB = true;
+            Angle = 0;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            if (!(ChannelA || ChannelR || ChannelG || ChannelB))
+            if (Angle == 0)
             {
                 return layer;
+            }
+            Channels channels = Channels.Undefined;
+            if (ChannelA)
+            {
+                channels = channels | Channels.Alpha;
+            }
+            if (ChannelR)
+            {
+                channels = channels | Channels.Red;
+            }
+            if (ChannelG)
+            {
+                channels = channels | Channels.Green;
+            }
+            if (ChannelB)
+            {
+                channels = channels | Channels.Blue;
             }
             BitmapWpf bitmapwpf = layer.ToBitmapWpf();
             BitmapSource bitmapsource = bitmapwpf.UnderlyingImage;
@@ -55,24 +77,8 @@ namespace TankIconMaker.Effects
             {
                 #region Convertion by itself
                 image.BackgroundColor = MagickColor.Transparent;
-                Channels channels = Channels.Undefined;
-                if (ChannelA)
-                {
-                    channels = channels | Channels.Alpha;
-                }
-                if (ChannelR)
-                {
-                    channels = channels | Channels.Red;
-                }
-                if (ChannelG)
-                {
-                    channels = channels | Channels.Green;
-                }
-                if (ChannelB)
-                {
-                    channels = channels | Channels.Blue;
-                }
-                image.Negate(channels);
+                image.FilterType = FilterType.Lanczos;
+                image.RotationalBlur(Angle, channels);
                 #endregion
                 BitmapSource converted = image.ToBitmapSource();
                 layer.CopyPixelsFrom(converted);

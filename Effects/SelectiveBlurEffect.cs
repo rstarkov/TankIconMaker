@@ -9,11 +9,11 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMSharpenEffect : EffectBase
+    class SelectiveBlurEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return App.Translation.EffectSharpen.EffectName; } }
-        public override string TypeDescription { get { return App.Translation.EffectSharpen.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectSelectiveBlur.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectSelectiveBlur.EffectDescription; } }
 
         public bool ChannelA { get; set; }
         public static MemberTr ChannelATr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.AChannel); }
@@ -29,13 +29,17 @@ namespace TankIconMaker.Effects
 
         public double Radius { get { return _Radius; } set { _Radius = Math.Max(0.0, value); } }
         private double _Radius;
-        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Sharpen, tr.EffectSharpen.Radius); }
+        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.SelectiveBlur, tr.EffectSelectiveBlur.Radius); }
 
         public double Sigma { get { return _Sigma; } set { _Sigma = Math.Max(0.0, value); } }
         private double _Sigma;
-        public static MemberTr SigmaTr(Translation tr) { return new MemberTr(tr.Category.Sharpen, tr.EffectSharpen.Sigma); }
+        public static MemberTr SigmaTr(Translation tr) { return new MemberTr(tr.Category.SelectiveBlur, tr.EffectSelectiveBlur.Sigma); }
 
-        public IMSharpenEffect()
+        public double Threshold { get { return _Threshold; } set { _Threshold = Math.Min(255.0, Math.Max(0.0, value)); } }
+        private double _Threshold;
+        public static MemberTr ThresholdTr(Translation tr) { return new MemberTr(tr.Category.SelectiveBlur, tr.EffectSelectiveBlur.Threshold); }
+
+        public SelectiveBlurEffect()
         {
             ChannelA = false;
             ChannelR = true;
@@ -43,14 +47,11 @@ namespace TankIconMaker.Effects
             ChannelB = true;
             Radius = 0;
             Sigma = 1;
+            Threshold = 1;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            if (!(ChannelA || ChannelR || ChannelG || ChannelB))
-            {
-                return layer;
-            }
             BitmapWpf bitmapwpf = layer.ToBitmapWpf();
             BitmapSource bitmapsource = bitmapwpf.UnderlyingImage;
             System.Drawing.Bitmap bitmap;
@@ -83,7 +84,7 @@ namespace TankIconMaker.Effects
                     channels = channels | Channels.Blue;
                 }
                 image.FilterType = FilterType.Lanczos;
-                image.Sharpen(Radius, Sigma, channels);
+                image.SelectiveBlur(Radius, Sigma, Threshold, channels);
                 #endregion
                 BitmapSource converted = image.ToBitmapSource();
                 layer.CopyPixelsFrom(converted);

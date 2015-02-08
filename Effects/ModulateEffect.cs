@@ -9,7 +9,7 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMModulateEffect : EffectBase
+    class ModulateEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectHueSaturationBrightness.EffectName; } }
@@ -27,7 +27,7 @@ namespace TankIconMaker.Effects
         private double _Brightness;
         public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.HueSaturationBrightness, tr.EffectHueSaturationBrightness.Brightness); }
 
-        public IMModulateEffect()
+        public ModulateEffect()
         {
             _Hue = 100;
             _Saturation = 100;
