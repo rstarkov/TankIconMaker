@@ -9,11 +9,11 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMBrightnessContrastEffect : EffectBase
+    class SharpenEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return App.Translation.EffectBrightnessContrast.EffectName; } }
-        public override string TypeDescription { get { return App.Translation.EffectBrightnessContrast.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectSharpen.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectSharpen.EffectDescription; } }
 
         public bool ChannelA { get; set; }
         public static MemberTr ChannelATr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.AChannel); }
@@ -27,27 +27,27 @@ namespace TankIconMaker.Effects
         public bool ChannelB { get; set; }
         public static MemberTr ChannelBTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.BChannel); }
 
-        public double Brightness { get { return _Brightness; } set { _Brightness = Math.Min(100.0, Math.Max(-100.0, value)); } }
-        private double _Brightness;
-        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.BrightnessContrast, tr.EffectBrightnessContrast.Brightness); }
+        public double Radius { get { return _Radius; } set { _Radius = Math.Max(0.0, value); } }
+        private double _Radius;
+        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Sharpen, tr.EffectSharpen.Radius); }
 
-        public double Contrast { get { return _Contrast; } set { _Contrast = Math.Min(100.0, Math.Max(-100.0, value)); } }
-        private double _Contrast;
-        public static MemberTr ContrastTr(Translation tr) { return new MemberTr(tr.Category.BrightnessContrast, tr.EffectBrightnessContrast.Contrast); }
+        public double Sigma { get { return _Sigma; } set { _Sigma = Math.Max(0.0, value); } }
+        private double _Sigma;
+        public static MemberTr SigmaTr(Translation tr) { return new MemberTr(tr.Category.Sharpen, tr.EffectSharpen.Sigma); }
 
-        public IMBrightnessContrastEffect()
+        public SharpenEffect()
         {
             ChannelA = false;
             ChannelR = true;
             ChannelG = true;
             ChannelB = true;
-            _Brightness = 0;
-            _Contrast = 0;
+            Radius = 0;
+            Sigma = 1;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            if ( !(ChannelA || ChannelR || ChannelG || ChannelB) || (_Brightness == 0 && _Contrast == 0))
+            if (!(ChannelA || ChannelR || ChannelG || ChannelB))
             {
                 return layer;
             }
@@ -66,23 +66,24 @@ namespace TankIconMaker.Effects
                 #region Convertion by itself
                 image.BackgroundColor = MagickColor.Transparent;
                 Channels channels = Channels.Undefined;
-                if(ChannelA)
+                if (ChannelA)
                 {
                     channels = channels | Channels.Alpha;
                 }
-                if(ChannelR)
+                if (ChannelR)
                 {
                     channels = channels | Channels.Red;
                 }
-                if(ChannelG)
+                if (ChannelG)
                 {
                     channels = channels | Channels.Green;
                 }
-                if(ChannelB)
+                if (ChannelB)
                 {
                     channels = channels | Channels.Blue;
                 }
-                image.BrightnessContrast(new Percentage(Brightness), new Percentage(Contrast), channels);
+                image.FilterType = FilterType.Lanczos;
+                image.Sharpen(Radius, Sigma, channels);
                 #endregion
                 BitmapSource converted = image.ToBitmapSource();
                 layer.CopyPixelsFrom(converted);

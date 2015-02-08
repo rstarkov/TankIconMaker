@@ -9,7 +9,7 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMLevelEffect : EffectBase
+    class LevelEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectLevel.EffectName; } }
@@ -39,7 +39,7 @@ namespace TankIconMaker.Effects
         private double _MidPoint;
         public static MemberTr MidPointTr(Translation tr) { return new MemberTr(tr.Category.Level, tr.EffectLevel.MidPoint); }
 
-        public IMLevelEffect()
+        public LevelEffect()
         {
             ChannelA = false;
             ChannelR = true;

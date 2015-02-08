@@ -9,7 +9,7 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMRotateEffect : EffectBase
+    class RotateEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectRotate.EffectName; } }
@@ -27,7 +27,7 @@ namespace TankIconMaker.Effects
         private double _RotateY;
         public static MemberTr RotateYTr(Translation tr) { return new MemberTr(tr.Category.Rotate, tr.EffectRotate.RotateY); }
 
-        public IMRotateEffect()
+        public RotateEffect()
         {
             Angle = 0;
             RotateX = 40;

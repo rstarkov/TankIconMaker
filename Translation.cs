@@ -533,6 +533,7 @@ namespace TankIconMaker
         public TrString EffectName = "Gamma Correction";
         public TrString EffectDescription = "The Gamma Correction effect is used to adjust the image's channel values.";
 
+        public MemberDescriptionTr gamma = new MemberDescriptionTr { DisplayName = "Gamma", Description = "Selects the desired adjustment (reasonable values are between 0.8 to 2.3)." };
         public MemberDescriptionTr gammaRed = new MemberDescriptionTr { DisplayName = "Gamma Red", Description = "Selects the desired red channel adjustment (reasonable values are between 0.8 to 2.3)." };
         public MemberDescriptionTr gammaGreen = new MemberDescriptionTr { DisplayName = "Gamma Green", Description = "Selects the desired green channel adjustment (reasonable values are between 0.8 to 2.3)." };
         public MemberDescriptionTr gammaBlue = new MemberDescriptionTr { DisplayName = "Gamma Blue", Description = "Selects the desired blue channel adjustment (reasonable values are between 0.8 to 2.3)." };

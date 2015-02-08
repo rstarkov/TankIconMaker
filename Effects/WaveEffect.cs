@@ -9,7 +9,7 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMWaveEffect : EffectBase
+    class WaveEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectWave.EffectName; } }
@@ -23,7 +23,7 @@ namespace TankIconMaker.Effects
         private double _Length;
         public static MemberTr LengthTr(Translation tr) { return new MemberTr(tr.Category.Wave, tr.EffectWave.Length); }
 
-        public IMWaveEffect()
+        public WaveEffect()
         {
             Amplitude = 0;
             Length = 1;

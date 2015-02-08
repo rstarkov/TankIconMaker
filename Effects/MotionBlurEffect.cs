@@ -9,7 +9,7 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMMotionBlurEffect : EffectBase
+    class MotionBlurEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectMotionBlur.EffectName; } }
@@ -27,7 +27,7 @@ namespace TankIconMaker.Effects
         private double _Angle;
         public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.MotionBlur, tr.EffectMotionBlur.Angle); }
 
-        public IMMotionBlurEffect()
+        public MotionBlurEffect()
         {
             Radius = 0;
             Sigma = 1;

@@ -9,7 +9,7 @@ using ImageMagick;
 
 namespace TankIconMaker.Effects
 {
-    class IMAdaptiveBlurEffect : EffectBase
+    class AdaptiveBlurEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectAdaptiveBlur.EffectName; } }
@@ -23,7 +23,7 @@ namespace TankIconMaker.Effects
         private double _Sigma;
         public static MemberTr SigmaTr(Translation tr) { return new MemberTr(tr.Category.AdaptiveBlur, tr.EffectAdaptiveBlur.Sigma); }
 
-        public IMAdaptiveBlurEffect()
+        public AdaptiveBlurEffect()
         {
             Radius = 0;
             Sigma = 1;
