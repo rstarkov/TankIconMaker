@@ -1,11 +1,8 @@
-﻿using RT.Util.Lingo;
-using WotDataLib;
-using System;
+﻿using System;
 using System.IO;
-using D = System.Drawing;
 using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using ImageMagick;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
@@ -47,7 +44,7 @@ namespace TankIconMaker.Effects
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            if ( !(ChannelA || ChannelR || ChannelG || ChannelB) || (_Brightness == 0 && _Contrast == 0))
+            if (!(ChannelA || ChannelR || ChannelG || ChannelB) || (_Brightness == 0 && _Contrast == 0))
             {
                 return layer;
             }
@@ -66,19 +63,19 @@ namespace TankIconMaker.Effects
                 #region Convertion by itself
                 image.BackgroundColor = MagickColor.Transparent;
                 Channels channels = Channels.Undefined;
-                if(ChannelA)
+                if (ChannelA)
                 {
                     channels = channels | Channels.Alpha;
                 }
-                if(ChannelR)
+                if (ChannelR)
                 {
                     channels = channels | Channels.Red;
                 }
-                if(ChannelG)
+                if (ChannelG)
                 {
                     channels = channels | Channels.Green;
                 }
-                if(ChannelB)
+                if (ChannelB)
                 {
                     channels = channels | Channels.Blue;
                 }

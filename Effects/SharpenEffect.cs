@@ -1,11 +1,8 @@
-﻿using RT.Util.Lingo;
-using WotDataLib;
-using System;
+﻿using System;
 using System.IO;
-using D = System.Drawing;
 using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using ImageMagick;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {

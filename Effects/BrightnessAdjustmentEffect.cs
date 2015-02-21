@@ -1,11 +1,9 @@
-﻿using RT.Util.Lingo;
-using WotDataLib;
-using System;
+﻿using System;
 using System.IO;
-using D = System.Drawing;
 using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using ImageMagick;
+using RT.Util.Lingo;
+using D = System.Drawing;
 
 namespace TankIconMaker.Effects
 {
@@ -75,7 +73,7 @@ namespace TankIconMaker.Effects
                     averagebrigthness /= pixels;
                     image.BackgroundColor = MagickColor.Transparent;
                     double fixedStrength = Strength / 100;
-                    double compensatevalue = ((Brightness / (double)averagebrigthness - 1) * (fixedStrength) + 1) * 100;
+                    double compensatevalue = ((Brightness / (double) averagebrigthness - 1) * (fixedStrength) + 1) * 100;
                     double compensatesaturation = 100;
                     if (CompensateSaturation && compensatevalue < 100)
                     {
@@ -88,7 +86,7 @@ namespace TankIconMaker.Effects
                 {
                     return layer;
                 }
-                #endregion
+                    #endregion
                 BitmapSource converted = image.ToBitmapSource();
                 layer.CopyPixelsFrom(converted);
             }
