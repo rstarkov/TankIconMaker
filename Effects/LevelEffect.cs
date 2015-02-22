@@ -13,16 +13,16 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return App.Translation.EffectLevel.EffectDescription; } }
 
         public bool ChannelA { get; set; }
-        public static MemberTr ChannelATr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.AChannel); }
+        public static MemberTr ChannelATr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelA); }
 
         public bool ChannelR { get; set; }
-        public static MemberTr ChannelRTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.RChannel); }
+        public static MemberTr ChannelRTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelR); }
 
         public bool ChannelG { get; set; }
-        public static MemberTr ChannelGTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.GChannel); }
+        public static MemberTr ChannelGTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelG); }
 
         public bool ChannelB { get; set; }
-        public static MemberTr ChannelBTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.BChannel); }
+        public static MemberTr ChannelBTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelB); }
 
         public double BlackPoint { get { return _BlackPoint; } set { _BlackPoint = Math.Min(_WhitePoint, Math.Max(0, value)); } }
         private double _BlackPoint;

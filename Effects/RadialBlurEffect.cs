@@ -13,20 +13,20 @@ namespace TankIconMaker.Effects
         public override string TypeDescription { get { return App.Translation.EffectRadialBlur.EffectDescription; } }
 
         public bool ChannelA { get; set; }
-        public static MemberTr ChannelATr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.AChannel); }
+        public static MemberTr ChannelATr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelA); }
 
         public bool ChannelR { get; set; }
-        public static MemberTr ChannelRTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.RChannel); }
+        public static MemberTr ChannelRTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelR); }
 
         public bool ChannelG { get; set; }
-        public static MemberTr ChannelGTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.GChannel); }
+        public static MemberTr ChannelGTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelG); }
 
         public bool ChannelB { get; set; }
-        public static MemberTr ChannelBTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.EffectChannels.BChannel); }
+        public static MemberTr ChannelBTr(Translation tr) { return new MemberTr(tr.Category.Channels, tr.LayerAndEffect.ChannelB); }
 
         public double Angle { get { return _Angle; } set { _Angle = Math.Min(360.0, Math.Max(-360.0, value)); } }
         private double _Angle;
-        public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.RadialBlur, tr.EffectRadialBlur.Angle); }
+        public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.Blur, tr.EffectRadialBlur.Angle); }
 
         public RadialBlurEffect()
         {
