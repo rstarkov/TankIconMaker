@@ -161,7 +161,6 @@ namespace TankIconMaker
         public EffectShadowTranslation EffectShadow = new EffectShadowTranslation();
         public EffectShiftTranslation EffectShift = new EffectShiftTranslation();
         public EffectSizePosTranslation EffectSizePos = new EffectSizePosTranslation();
-        public EffectChannelsTranslation EffectChannels = new EffectChannelsTranslation();
         public EffectBrightnessContrastTranslation EffectBrightnessContrast = new EffectBrightnessContrastTranslation();
         public EffectHueSaturationBrightnessTranslation EffectHueSaturationBrightness = new EffectHueSaturationBrightnessTranslation();
         public EffectGammaTranslation EffectGamma = new EffectGammaTranslation();
@@ -240,18 +239,13 @@ namespace TankIconMaker
         public TrString Debug = "Debug";
         public TrString Clip = "Clip";
         public TrString Blur = "Blur";
+        public TrString Sharpen = "Sharpen";
         public TrString Shift = "Shift";
         public TrString Channels = "Channels";
         public TrString BrightnessContrast = "Brightness / contrast";
         public TrString HueSaturationBrightness = "Hue / saturation / brightness";
         public TrString Gamma = "Gamma";
         public TrString Level = "Level";
-        public TrString AdaptiveBlur = "Adaptive blur";
-        public TrString AdaptiveSharpen = "Adaptive sharpen";
-        public TrString Sharpen = "Sharpen";
-        public TrString SelectiveBlur = "Selective blur";
-        public TrString MotionBlur = "Motion blur";
-        public TrString RadialBlur = "Radial blur";
         public TrString Wave = "Wave";
         public TrString Rotate = "Rotate";
         public TrString BrightnessAdjustment = "Brightness adjustment";
@@ -298,6 +292,11 @@ namespace TankIconMaker
         public MemberDescriptionTr LayerVisibleFor = new MemberDescriptionTr { DisplayName = "Visible for", Description = "Allows you to hide this layer for some of the tanks, depending on their properties." };
         public MemberDescriptionTr EffectVisible = new MemberDescriptionTr { DisplayName = "Visible", Description = "Allows you to hide this effect temporarily without deleting it." };
         public MemberDescriptionTr EffectVisibleFor = new MemberDescriptionTr { DisplayName = "Visible for", Description = "Allows you to hide this effect for some of the tanks, depending on their properties." };
+
+        public MemberDescriptionTr ChannelA = new MemberDescriptionTr { DisplayName = "Alpha", Description = "Apply the effect to the alpha channel (image opacity)." };
+        public MemberDescriptionTr ChannelR = new MemberDescriptionTr { DisplayName = "Red", Description = "Apply the effect to the red channel." };
+        public MemberDescriptionTr ChannelG = new MemberDescriptionTr { DisplayName = "Green", Description = "Apply the effect to the green channel." };
+        public MemberDescriptionTr ChannelB = new MemberDescriptionTr { DisplayName = "Blue", Description = "Apply the effect to the blue channel." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerBkgDarkAgent)]
@@ -493,19 +492,6 @@ namespace TankIconMaker
         public MemberDescriptionTr ShiftY = new MemberDescriptionTr { DisplayName = "Vertical", Description = "Vertical shift amount, in pixels." };
     }
     
-    [LingoStringClass, LingoInGroup(TranslationGroup.EffectChannels)]
-    sealed class EffectChannelsTranslation
-    {
-        public TrString EffectName = "Channels";
-        public TrString EffectDescription = "Specifies the channels affected by effect.";
-
-        public MemberDescriptionTr AChannel = new MemberDescriptionTr { DisplayName = "Alpha channel", Description = "Enable effect for alpha channel." };
-        public MemberDescriptionTr RChannel = new MemberDescriptionTr { DisplayName = "Red channel", Description = "Enable effect for red channel." };
-        public MemberDescriptionTr GChannel = new MemberDescriptionTr { DisplayName = "Green channel", Description = "Enable effect for green channel." };
-        public MemberDescriptionTr BChannel = new MemberDescriptionTr { DisplayName = "Blue channel", Description = "Enable effect for blue channel." };
-    }
-
-
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectBrightnessContrast)]
     sealed class EffectBrightnessContrastTranslation
     {
@@ -561,20 +547,20 @@ namespace TankIconMaker
     sealed class EffectAdaptiveBlurTranslation
     {
         public TrString EffectName = "Blur: adaptive";
-        public TrString EffectDescription = "Blur images, except close to the edges as defined by an edge detection on the image.";
+        public TrString EffectDescription = "Blurs the layer, but avoids blurring sharp edges within the image.";
 
         public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
-        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Blur sigma. Specifies the edge of bluring." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Specifies the edge detection threshold. Larger values preserve more subtle edges." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveSharpen)]
     sealed class EffectAdaptiveSharpenTranslation
     {
         public TrString EffectName = "Sharpen: adaptive";
-        public TrString EffectDescription = "Sharpen images, except close to the edges as defined by an edge detection on the image.";
+        public TrString EffectDescription = "Sharpens the layer, but avoids sharpening the edges within the image.";
 
-        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Sharpen radius. Larger values result in more sharpen." };
-        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Sharpen sigma. Specifies the edge of sharpening." };
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Sharpen radius. Larger values increase the amount of sharpening." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Specifies the edge detection threshold. Larger values preserve more subtle edges." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSharpen)]
