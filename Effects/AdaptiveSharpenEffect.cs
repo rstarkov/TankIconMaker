@@ -45,47 +45,28 @@ namespace TankIconMaker.Effects
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             if (!(ChannelA || ChannelR || ChannelG || ChannelB))
-            {
                 return layer;
-            }
-            BitmapWpf bitmapwpf = layer.ToBitmapWpf();
-            BitmapSource bitmapsource = bitmapwpf.UnderlyingImage;
-            System.Drawing.Bitmap bitmap;
-            using (MemoryStream outStream = new MemoryStream())
+
+            using (var image = layer.ToMagickImage())
             {
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapsource));
-                encoder.Save(outStream);
-                bitmap = new System.Drawing.Bitmap(outStream);
-            }
-            using (MagickImage image = new MagickImage(bitmap))
-            {
-                #region Convertion by itself
                 image.BackgroundColor = MagickColor.Transparent;
-                Channels channels = Channels.Undefined;
+
+                var channels = Channels.Undefined;
                 if (ChannelA)
-                {
                     channels = channels | Channels.Alpha;
-                }
                 if (ChannelR)
-                {
                     channels = channels | Channels.Red;
-                }
                 if (ChannelG)
-                {
                     channels = channels | Channels.Green;
-                }
                 if (ChannelB)
-                {
                     channels = channels | Channels.Blue;
-                }
+
                 image.FilterType = FilterType.Lanczos;
                 image.AdaptiveSharpen(Radius, Sigma, channels);
-                #endregion
-                BitmapSource converted = image.ToBitmapSource();
-                layer.CopyPixelsFrom(converted);
+
+                layer.CopyPixelsFrom(image.ToBitmapSource());
+                return layer;
             }
-            return layer;
         }
     }
 }
