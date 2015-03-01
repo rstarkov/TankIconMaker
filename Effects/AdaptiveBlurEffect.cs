@@ -28,27 +28,15 @@ namespace TankIconMaker.Effects
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            BitmapWpf bitmapwpf = layer.ToBitmapWpf();
-            BitmapSource bitmapsource = bitmapwpf.UnderlyingImage;
-            System.Drawing.Bitmap bitmap;
-            using (MemoryStream outStream = new MemoryStream())
+            using (var image = layer.ToMagickImage())
             {
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapsource));
-                encoder.Save(outStream);
-                bitmap = new System.Drawing.Bitmap(outStream);
-            }
-            using (MagickImage image = new MagickImage(bitmap))
-            {
-                #region Convertion by itself
                 image.BackgroundColor = MagickColor.Transparent;
                 image.FilterType = FilterType.Lanczos;
                 image.AdaptiveBlur(Radius, Sigma);
-                #endregion
-                BitmapSource converted = image.ToBitmapSource();
-                layer.CopyPixelsFrom(converted);
+
+                layer.CopyPixelsFrom(image.ToBitmapSource());
+                return layer;
             }
-            return layer;
         }
     }
 }

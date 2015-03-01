@@ -36,28 +36,17 @@ namespace TankIconMaker.Effects
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
             if (Strength == 0)
-            {
                 return layer;
-            }
-            BitmapWpf bitmapwpf = layer.ToBitmapWpf();
-            BitmapSource bitmapsource = bitmapwpf.UnderlyingImage;
-            System.Drawing.Bitmap bitmap;
-            using (MemoryStream outStream = new MemoryStream())
-            {
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapsource));
-                encoder.Save(outStream);
-                bitmap = new System.Drawing.Bitmap(outStream);
-            }
-            using (MagickImage image = new MagickImage(bitmap))
+
+            var bitmap = layer.ToBitmapGdi().Bitmap;
+            using (var image = layer.ToMagickImage())
             {
                 try
                 {
-                    #region Convertion by itself
                     double averagebrigthness = 0, pixels = 0;
-                    for (int i = 0; i < bitmap.Width; ++i)
+                    for (int i = 0; i < image.Width; ++i)
                     {
-                        for (int j = 0; j < bitmap.Height; ++j)
+                        for (int j = 0; j < image.Height; ++j)
                         {
                             D.Color color = bitmap.GetPixel(i, j);
                             if (color.A != 0)
@@ -86,11 +75,10 @@ namespace TankIconMaker.Effects
                 {
                     return layer;
                 }
-                    #endregion
-                BitmapSource converted = image.ToBitmapSource();
-                layer.CopyPixelsFrom(converted);
+
+                layer.CopyPixelsFrom(image.ToBitmapSource());
+                return layer;
             }
-            return layer;
         }
     }
 }
