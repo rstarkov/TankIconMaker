@@ -40,23 +40,30 @@ namespace TankIconMaker.Effects
             int totalAlpha = 0;
             long totalBrightness = 0;
 
-            var bitmap = layer.ToBitmapGdi().Bitmap;
-            using (var image = layer.ToMagickImage())
-            {
-                for (int i = 0; i < image.Width; ++i)
+            using (layer.UseRead())
+                unsafe
                 {
-                    for (int j = 0; j < image.Height; ++j)
+                    for (int y = 0; y < layer.Height; y++)
                     {
-                        D.Color color = bitmap.GetPixel(i, j);
-                        if (color.A != 0)
+                        byte* linePtr = layer.Data + y * layer.Stride;
+                        byte* lineEndPtr = linePtr + layer.Width * 4;
+                        while (linePtr < lineEndPtr)
                         {
-                            totalBrightness += (color.R + color.G + color.B) * color.A;
-                            totalAlpha += color.A;
+                            int brightness = 0;
+                            brightness += *(linePtr++); // blue
+                            brightness += *(linePtr++); // green
+                            brightness += *(linePtr++); // red
+                            byte alpha = *(linePtr++);
+                            totalBrightness += brightness * alpha;
+                            totalAlpha += alpha;
                         }
                     }
                 }
-                if (totalAlpha == 0)
-                    return layer;
+            if (totalAlpha == 0)
+                return layer;
+
+            using (var image = layer.ToMagickImage())
+            {
                 var averageBrightness = (double) totalBrightness * 100.0 / (double) totalAlpha / 255.0 / 3.0;
                 image.BackgroundColor = MagickColor.Transparent;
                 double fixedStrength = Strength / 100;
