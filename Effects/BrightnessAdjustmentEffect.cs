@@ -25,7 +25,6 @@ namespace TankIconMaker.Effects
         private bool _CompensateSaturation;
         public static MemberTr CompensateSaturationTr(Translation tr) { return new MemberTr(tr.Category.BrightnessAdjustment, tr.EffectBrightnessAdjustment.CompensateSaturation); }
 
-
         public BrightnessAdjustmentEffect()
         {
             _Strength = 100;
@@ -41,7 +40,7 @@ namespace TankIconMaker.Effects
             var bitmap = layer.ToBitmapGdi().Bitmap;
             using (var image = layer.ToMagickImage())
             {
-                double averagebrigthness = 0, pixels = 0;
+                double totalBrightness = 0, totalAlpha = 0;
                 for (int i = 0; i < image.Width; ++i)
                 {
                     for (int j = 0; j < image.Height; ++j)
@@ -49,18 +48,18 @@ namespace TankIconMaker.Effects
                         D.Color color = bitmap.GetPixel(i, j);
                         if (color.A != 0)
                         {
-                            double pixelStrength = color.A / 255.0;
-                            averagebrigthness += (color.R + color.G + color.B) / 7.65 * pixelStrength; // () / 3 / 255 * 100
-                            pixels += pixelStrength;
+                            double alpha = color.A / 255.0;
+                            totalBrightness += (color.R + color.G + color.B) / 7.65 * alpha; // () / 3 / 255 * 100
+                            totalAlpha += alpha;
                         }
                     }
                 }
-                if (pixels == 0)
+                if (totalAlpha == 0)
                     return layer;
-                averagebrigthness /= pixels;
+                totalBrightness /= totalAlpha;
                 image.BackgroundColor = MagickColor.Transparent;
                 double fixedStrength = Strength / 100;
-                double compensatevalue = ((Brightness / (double) averagebrigthness - 1) * (fixedStrength) + 1) * 100;
+                double compensatevalue = ((Brightness / (double) totalBrightness - 1) * (fixedStrength) + 1) * 100;
                 double compensatesaturation = 100;
                 if (CompensateSaturation && compensatevalue < 100)
                     compensatesaturation = (100 - (100 - (compensatevalue * compensatevalue / 100)) * fixedStrength);
