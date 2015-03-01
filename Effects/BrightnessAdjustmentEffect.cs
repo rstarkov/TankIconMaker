@@ -41,40 +41,30 @@ namespace TankIconMaker.Effects
             var bitmap = layer.ToBitmapGdi().Bitmap;
             using (var image = layer.ToMagickImage())
             {
-                try
+                double averagebrigthness = 0, pixels = 0;
+                for (int i = 0; i < image.Width; ++i)
                 {
-                    double averagebrigthness = 0, pixels = 0;
-                    for (int i = 0; i < image.Width; ++i)
+                    for (int j = 0; j < image.Height; ++j)
                     {
-                        for (int j = 0; j < image.Height; ++j)
+                        D.Color color = bitmap.GetPixel(i, j);
+                        if (color.A != 0)
                         {
-                            D.Color color = bitmap.GetPixel(i, j);
-                            if (color.A != 0)
-                            {
-                                double pixelStrength = color.A / 255.0;
-                                averagebrigthness += (color.R + color.G + color.B) / 7.65 * pixelStrength; // () / 3 / 255 * 100
-                                pixels += pixelStrength;
-                            }
+                            double pixelStrength = color.A / 255.0;
+                            averagebrigthness += (color.R + color.G + color.B) / 7.65 * pixelStrength; // () / 3 / 255 * 100
+                            pixels += pixelStrength;
                         }
                     }
-                    if (pixels == 0)
-                        return layer;
-                    averagebrigthness /= pixels;
-                    image.BackgroundColor = MagickColor.Transparent;
-                    double fixedStrength = Strength / 100;
-                    double compensatevalue = ((Brightness / (double) averagebrigthness - 1) * (fixedStrength) + 1) * 100;
-                    double compensatesaturation = 100;
-                    if (CompensateSaturation && compensatevalue < 100)
-                    {
-                        compensatesaturation = (100 - (100 - (compensatevalue * compensatevalue / 100)) * fixedStrength);
-                    }
-                    image.Modulate(new Percentage(compensatevalue), new Percentage(compensatesaturation), new Percentage(100));
-                    image.Label = compensatevalue.ToString("0.0");
                 }
-                catch (Exception e)
-                {
+                if (pixels == 0)
                     return layer;
-                }
+                averagebrigthness /= pixels;
+                image.BackgroundColor = MagickColor.Transparent;
+                double fixedStrength = Strength / 100;
+                double compensatevalue = ((Brightness / (double) averagebrigthness - 1) * (fixedStrength) + 1) * 100;
+                double compensatesaturation = 100;
+                if (CompensateSaturation && compensatevalue < 100)
+                    compensatesaturation = (100 - (100 - (compensatevalue * compensatevalue / 100)) * fixedStrength);
+                image.Modulate(new Percentage(compensatevalue), new Percentage(compensatesaturation), new Percentage(100));
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());
                 return layer;
