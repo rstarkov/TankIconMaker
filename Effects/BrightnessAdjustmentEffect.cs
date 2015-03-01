@@ -38,11 +38,11 @@ namespace TankIconMaker.Effects
                 return layer;
 
             int totalAlpha = 0;
+            long totalBrightness = 0;
 
             var bitmap = layer.ToBitmapGdi().Bitmap;
             using (var image = layer.ToMagickImage())
             {
-                double totalBrightness = 0;
                 for (int i = 0; i < image.Width; ++i)
                 {
                     for (int j = 0; j < image.Height; ++j)
@@ -50,17 +50,17 @@ namespace TankIconMaker.Effects
                         D.Color color = bitmap.GetPixel(i, j);
                         if (color.A != 0)
                         {
-                            totalBrightness += (color.R + color.G + color.B) / 7.65 * (color.A / 255.0); // () / 3 / 255 * 100
+                            totalBrightness += (color.R + color.G + color.B) * color.A;
                             totalAlpha += color.A;
                         }
                     }
                 }
                 if (totalAlpha == 0)
                     return layer;
-                totalBrightness /= (totalAlpha / 255.0);
+                var averageBrightness = (double) totalBrightness * 100.0 / (double) totalAlpha / 255.0 / 3.0;
                 image.BackgroundColor = MagickColor.Transparent;
                 double fixedStrength = Strength / 100;
-                double compensatevalue = ((Brightness / (double) totalBrightness - 1) * (fixedStrength) + 1) * 100;
+                double compensatevalue = ((Brightness / averageBrightness - 1) * (fixedStrength) + 1) * 100;
                 double compensatesaturation = 100;
                 if (CompensateSaturation && compensatevalue < 100)
                     compensatesaturation = (100 - (100 - (compensatevalue * compensatevalue / 100)) * fixedStrength);
