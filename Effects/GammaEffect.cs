@@ -12,11 +12,7 @@ namespace TankIconMaker.Effects
         public override string TypeName { get { return App.Translation.EffectGamma.EffectName; } }
         public override string TypeDescription { get { return App.Translation.EffectGamma.EffectDescription; } }
 
-        public double Gamma { get { return _Gamma; } set { _Gamma = Math.Min(9.999, Math.Max(0.001, value)); } }
-        private double _Gamma;
-        public static MemberTr GammaTr(Translation tr) { return new MemberTr(tr.Category.Gamma, tr.EffectGamma.gamma); }
-
-        /*public double GammaRed { get { return _GammaRed; } set { _GammaRed = Math.Min(9.999, Math.Max(0.001, value)); } }
+        public double GammaRed { get { return _GammaRed; } set { _GammaRed = Math.Min(9.999, Math.Max(0.001, value)); } }
         private double _GammaRed;
         public static MemberTr GammaRedTr(Translation tr) { return new MemberTr(tr.Category.Gamma, tr.EffectGamma.gammaRed); }
 
@@ -26,25 +22,24 @@ namespace TankIconMaker.Effects
 
         public double GammaBlue { get { return _GammaBlue; } set { _GammaBlue = Math.Min(9.999, Math.Max(0.001, value)); } }
         private double _GammaBlue;
-        public static MemberTr GammaBlueTr(Translation tr) { return new MemberTr(tr.Category.Gamma, tr.EffectGamma.gammaBlue); }*/
+        public static MemberTr GammaBlueTr(Translation tr) { return new MemberTr(tr.Category.Gamma, tr.EffectGamma.gammaBlue); }
 
         public GammaEffect()
         {
-            _Gamma = 1;
-            /*_GammaRed = 1;
+            _GammaRed = 1;
             _GammaGreen = 1;
-            _GammaBlue = 1;*/
+            _GammaBlue = 1;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
         {
-            if (Gamma == 1/*GammaRed == 1 && GammaGreen == 1 && GammaBlue == 1*/)
+            if (GammaRed == 1 && GammaGreen == 1 && GammaBlue == 1)
                 return layer;
 
             using (var image = layer.ToMagickImage())
             {
                 image.BackgroundColor = MagickColor.Transparent;
-                image.Gamma(Gamma/*GammaRed, GammaGreen, GammaBlue*/);
+                image.Gamma(GammaRed, GammaGreen, GammaBlue);
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());
                 return layer;
