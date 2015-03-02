@@ -49,13 +49,10 @@ namespace TankIconMaker.Effects
                         byte* lineEndPtr = linePtr + layer.Width * 4;
                         while (linePtr < lineEndPtr)
                         {
-                            int brightness = 0;
-                            brightness += *(linePtr++); // blue
-                            brightness += *(linePtr++); // green
-                            brightness += *(linePtr++); // red
-                            byte alpha = *(linePtr++);
-                            totalBrightness += brightness * alpha;
-                            totalAlpha += alpha;
+                            int brightness = *(linePtr) * 722 + *(linePtr + 1) * 7152 + *(linePtr + 2) * 2126;
+                            totalBrightness += brightness * *(linePtr + 3);
+                            totalAlpha += *(linePtr + 3);
+                            linePtr += 4;
                         }
                     }
                 }
@@ -64,7 +61,7 @@ namespace TankIconMaker.Effects
 
             using (var image = layer.ToMagickImage())
             {
-                var averageBrightness = (double) totalBrightness * 100.0 / (double) totalAlpha / 255.0 / 3.0;
+                var averageBrightness = (double) totalBrightness * 100.0 / (double) totalAlpha / 255.0 / 10000.0;
                 image.BackgroundColor = MagickColor.Transparent;
                 double fixedStrength = Strength / 100;
                 double compensatevalue = ((Brightness / averageBrightness - 1) * (fixedStrength) + 1) * 100;
