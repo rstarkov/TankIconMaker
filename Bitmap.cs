@@ -235,34 +235,16 @@ namespace TankIconMaker
 
         public MagickImage ToMagickImage()
         {
-            // Get the pixel data while removing the Stride padding and performing a BGRA -> RGBA conversion
+            // Copy the pixel data while eliminating the Stride
             var data = new byte[Width * Height * 4];
             using (UseRead())
-            {
                 fixed (byte* dataPtr = data)
-                {
-                    byte* dataEnd = dataPtr + data.Length;
                     for (int y = 0; y < Height; y++)
-                    {
-                        uint* sourcePtr = (uint*) (Data + y * Stride);
-                        uint* destPtr = ((uint*) dataPtr) + y * Width;
-                        uint* destPtrEnd = destPtr + Width;
-                        while (destPtr < destPtrEnd)
-                        {
-                            if (sourcePtr < Data || sourcePtr > DataEnd - 4)
-                                throw new Exception();
-                            if (destPtr < dataPtr || destPtr > dataEnd - 4)
-                                throw new Exception();
-                            uint src = *sourcePtr++;
-                            *destPtr++ = (src & 0xFF00FF00) | ((src >> 16) & 0xFF) | ((src & 0xFF) << 16);
-                        }
-                    }
-                }
-            }
-            // Construct a MagickImage by reading the RGBA pixel data
-            // Cannot read BGRA data due to a bug in Magick.NET (https://magick.codeplex.com/workitem/1344)
+                        Ut.MemCpy(dataPtr + y * Width * 4, Data + y * Stride, Width * 4);
+
+            // Construct a MagickImage by reading the BGRA pixel data
             // Cannot use GetWritablePixels due to an occasional access violation exception that's proved too elusive to track down within the available time.
-            return new MagickImage(data, new MagickReadSettings { Width = Width, Height = Height, Format = MagickFormat.Rgba });
+            return new MagickImage(data, new MagickReadSettings { Width = Width, Height = Height, Format = MagickFormat.Bgra });
         }
 
         public void DrawImage(BitmapBase image, int destX = 0, int destY = 0, bool below = false)
