@@ -34,7 +34,7 @@ namespace TankIconMaker.Effects
 
         public SharpenEffect()
         {
-            ChannelA = false;
+            ChannelA = true;
             ChannelR = true;
             ChannelG = true;
             ChannelB = true;

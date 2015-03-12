@@ -1280,8 +1280,8 @@
       <Old>Blur: adaptive</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Размывает изображение за исключением граней, согласно настройкам выявления граней.</Translation>
-      <Old>Blurs the layer, but avoids blurring sharp edges within the image.</Old>
+      <Translation>Размывает изображение, избегая грани.</Translation>
+      <Old>Blurs the layer, avoiding sharp edges within the image.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1289,18 +1289,18 @@
         <Old>Radius</Old>
       </DisplayName>
       <Description>
-        <Translation>Радиус размытия. При увеличении усиливает размытие.</Translation>
-        <Old>Blur radius. Larger values result in more blur.</Old>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
       </Description>
     </Radius>
     <Sigma>
       <DisplayName>
-        <Translation>Сигма</Translation>
-        <Old>Sigma</Old>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
       </DisplayName>
       <Description>
-        <Translation>Сигма размытия. Задаёт перепад граней, которых размытие не коснётся.</Translation>
-        <Old>Blur sigma. Specifies the edge of bluring.</Old>
+        <Translation>Сила размытия. Чем выше значение, тем сильнее размытие. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
       </Description>
     </Sigma>
   </EffectAdaptiveBlur>
@@ -1310,8 +1310,8 @@
       <Old>Sharpen: adaptive</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Увеличивает резкость за исключением областей вблизи граней, согласно настройкам выявления граней.</Translation>
-      <Old>Sharpen images, except close to the edges as defined by an edge detection on the image.</Old>
+      <Translation>Увеличивает резкость только в тех частях изображения, где обнаружены грани.</Translation>
+      <Old>Sharpens the layer, limiting the effect so that only edges within the image are sharpened, leaving other areas unaffected.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1319,18 +1319,18 @@
         <Old>Radius</Old>
       </DisplayName>
       <Description>
-        <Translation>Радиус резкости. Более высокие значения означают большую резкость.</Translation>
-        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
       </Description>
     </Radius>
     <Sigma>
       <DisplayName>
-        <Translation>Сигма</Translation>
-        <Old>Sigma</Old>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
       </DisplayName>
       <Description>
-        <Translation>Сигма резкости. Задаёт перепад граней, окружения которых резкость не коснётся</Translation>
-        <Old>Sharpen sigma. Specifies the edge of sharpening.</Old>
+        <Translation>Сила эффекта. Чем выше значение, тем больше увеличивается резкость. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
       </Description>
     </Sigma>
   </EffectAdaptiveSharpen>
@@ -1340,8 +1340,8 @@
       <Old>Sharpen</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Делает более резким целевой уровень.</Translation>
-      <Old>Sharpen current layer.</Old>
+      <Translation>Увеличивает резкость целевого уровня.</Translation>
+      <Old>Sharpens the layer.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1349,18 +1349,18 @@
         <Old>Radius</Old>
       </DisplayName>
       <Description>
-        <Translation>Радиус рекзости. Большее значение означает большую резкость.</Translation>
-        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
       </Description>
     </Radius>
     <Sigma>
       <DisplayName>
-        <Translation>Сигма</Translation>
-        <Old>Sigma</Old>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
       </DisplayName>
       <Description>
-        <Translation>Сигма резкости. Задаёт силу резкости.</Translation>
-        <Old>Sharpen sigma. Specifies the strength of sharpening.</Old>
+        <Translation>Сила эффекта. Чем выше значение, тем больше увеличивается резкость. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
       </Description>
     </Sigma>
   </EffectSharpen>
@@ -1371,7 +1371,7 @@
     </EffectName>
     <EffectDescription>
       <Translation>Размывает пиксели, контрастность в которых ниже заданого порога.</Translation>
-      <Old>Blurs those pixels that are less than or equal to the threshold in contrast.</Old>
+      <Old>Blurs the layer, avoiding the edges and high contrast areas.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1379,18 +1379,18 @@
         <Old>Radius</Old>
       </DisplayName>
       <Description>
-        <Translation>Радиус размытия. При увеличении усиливает размытие.</Translation>
-        <Old>Blur radius. Larger values result in more blur.</Old>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
       </Description>
     </Radius>
     <Sigma>
       <DisplayName>
-        <Translation>Сигма</Translation>
-        <Old>Sigma</Old>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
       </DisplayName>
       <Description>
-        <Translation>Сигма размытия. Задаёт грань размытия.</Translation>
-        <Old>Blur sigma. Specifies the edge of bluring.</Old>
+        <Translation>Сила размытия. Чем выше значение, тем сильнее размытие. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
       </Description>
     </Sigma>
     <Threshold>
@@ -1399,8 +1399,8 @@
         <Old>Threshold</Old>
       </DisplayName>
       <Description>
-        <Translation>Порог размытия. Задаёт порог контрастности для размытия.</Translation>
-        <Old>Blur threshold. Specifies the threshold in contrast.</Old>
+        <Translation>Задаёт порог контрастности, определяющий какие области изображения будут размыты.</Translation>
+        <Old>Specifies the contrast threshold, which determines what areas of the image are blurred.</Old>
       </Description>
     </Threshold>
   </EffectSelectiveBlur>
@@ -1419,18 +1419,18 @@
         <Old>Radius</Old>
       </DisplayName>
       <Description>
-        <Translation>Радиус размытия. Большее значение означает большее размытие.</Translation>
-        <Old>Blur radius. Larger values result in more blur.</Old>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
       </Description>
     </Radius>
     <Sigma>
       <DisplayName>
-        <Translation>Сигма</Translation>
-        <Old>Sigma</Old>
+        <Translation>Длина</Translation>
+        <Old>Distance</Old>
       </DisplayName>
       <Description>
-        <Translation>Сигма размытия. Задаёт силу размытия.</Translation>
-        <Old>Blur sigma. Specifies the strength of bluring.</Old>
+        <Translation>Задает длину размытия. Чем выше значение, тем длинее след размытия. Допускаются дробные значения.</Translation>
+        <Old>Specifies the length of the motion blur trail. Higher values result in more blur. Fractional values are permitted.</Old>
       </Description>
     </Sigma>
     <Angle>
@@ -1439,8 +1439,8 @@
         <Old>Angle</Old>
       </DisplayName>
       <Description>
-        <Translation>Угол размытия. Задаёт направление размытия.</Translation>
-        <Old>Blur angle. Specifies the angle of bluring.</Old>
+        <Translation>Угол размытия. Задаёт направление размытия в градусах.</Translation>
+        <Old>Specifies the direction of the motion blur trail, in degrees.</Old>
       </Description>
     </Angle>
   </EffectMotionBlur>
@@ -1460,7 +1460,7 @@
       </DisplayName>
       <Description>
         <Translation>Угол размытия. Задаёт угол поворота.</Translation>
-        <Old>Blur angle. Specifies the angle of rotation.</Old>
+        <Old>Blur rotation angle, in degrees.</Old>
       </Description>
     </Angle>
   </EffectRadialBlur>

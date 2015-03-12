@@ -34,7 +34,7 @@ namespace TankIconMaker.Effects
 
         public AdaptiveSharpenEffect()
         {
-            ChannelA = false;
+            ChannelA = true;
             ChannelR = true;
             ChannelG = true;
             ChannelB = true;
