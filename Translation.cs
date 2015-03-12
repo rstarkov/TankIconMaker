@@ -533,24 +533,14 @@ namespace TankIconMaker
         public TrString EffectDescription = "Inverts the colors within the layer.";
     }
 
-    [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveBlur)]
-    sealed class EffectAdaptiveBlurTranslation
-    {
-        public TrString EffectName = "Blur: adaptive";
-        public TrString EffectDescription = "Blurs the layer, but avoids blurring sharp edges within the image.";
-
-        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
-        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Specifies the edge detection threshold. Larger values preserve more subtle edges." };
-    }
-
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveSharpen)]
     sealed class EffectAdaptiveSharpenTranslation
     {
         public TrString EffectName = "Sharpen: adaptive";
-        public TrString EffectDescription = "Sharpens the layer, but avoids sharpening the edges within the image.";
+        public TrString EffectDescription = "Sharpens the layer, limiting the effect so that only edges within the image are sharpened, leaving other areas unaffected.";
 
-        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Sharpen radius. Larger values increase the amount of sharpening." };
-        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Specifies the edge detection threshold. Larger values preserve more subtle edges." };
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSharpen)]
@@ -559,8 +549,18 @@ namespace TankIconMaker
         public TrString EffectName = "Sharpen";
         public TrString EffectDescription = "Sharpens the layer.";
 
-        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Sharpen radius. Larger values result in more sharpen." };
-        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Sharpen sigma. Specifies the strength of sharpening." };
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveBlur)]
+    sealed class EffectAdaptiveBlurTranslation
+    {
+        public TrString EffectName = "Blur: adaptive";
+        public TrString EffectDescription = "Blurs the layer, avoiding sharp edges within the image.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSelectiveBlur)]
@@ -569,9 +569,9 @@ namespace TankIconMaker
         public TrString EffectName = "Blur: selective";
         public TrString EffectDescription = "Blurs the layer, avoiding the edges and high contrast areas.";
 
-        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
-        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Blur sigma. Specifies the edge of bluring." };
-        public MemberDescriptionTr Threshold = new MemberDescriptionTr { DisplayName = "Threshold", Description = "Blur threshold. Specifies the threshold in contrast." };
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted." };
+        public MemberDescriptionTr Threshold = new MemberDescriptionTr { DisplayName = "Threshold", Description = "Specifies the contrast threshold, which determines what areas of the image are blurred." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectMotionBlur)]
@@ -580,9 +580,9 @@ namespace TankIconMaker
         public TrString EffectName = "Blur: Motion";
         public TrString EffectDescription = "Blur images, simulation the motion blur.";
 
-        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
-        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Blur sigma. Specifies the strength of bluring." };
-        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Blur angle. Specifies the angle of bluring." };
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Distance", Description = "Specifies the length of the motion blur trail. Higher values result in more blur. Fractional values are permitted." };
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Specifies the direction of the motion blur trail, in degrees." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectRadialBlur)]
@@ -591,7 +591,7 @@ namespace TankIconMaker
         public TrString EffectName = "Blur: Radial";
         public TrString EffectDescription = "Blur images, simulation the rotation blur.";
 
-        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Blur angle. Specifies the angle of rotation." };
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Blur rotation angle, in degrees." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectWave)]

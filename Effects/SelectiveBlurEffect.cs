@@ -38,7 +38,7 @@ namespace TankIconMaker.Effects
 
         public SelectiveBlurEffect()
         {
-            ChannelA = false;
+            ChannelA = true;
             ChannelR = true;
             ChannelG = true;
             ChannelB = true;
