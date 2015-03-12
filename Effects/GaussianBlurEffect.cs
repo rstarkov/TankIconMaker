@@ -12,10 +12,10 @@ namespace TankIconMaker.Effects
 
         public double Radius { get { return _Radius; } set { _Radius = Math.Max(1.0, value); } }
         private double _Radius = 2.5;
-        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Blur, tr.EffectGaussianBlur.Radius); }
+        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectGaussianBlur.Radius); }
 
         public BlurEdgeMode Edge { get; set; }
-        public static MemberTr EdgeTr(Translation tr) { return new MemberTr(tr.Category.Blur, tr.EffectGaussianBlur.Edge); }
+        public static MemberTr EdgeTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectGaussianBlur.Edge); }
 
         [ClassifyIgnore]
         private GaussianBlur _blur;

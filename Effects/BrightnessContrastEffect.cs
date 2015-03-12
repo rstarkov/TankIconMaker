@@ -26,11 +26,11 @@ namespace TankIconMaker.Effects
 
         public double Brightness { get { return _Brightness; } set { _Brightness = Math.Min(100.0, Math.Max(-100.0, value)); } }
         private double _Brightness;
-        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.BrightnessContrast, tr.EffectBrightnessContrast.Brightness); }
+        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessContrast.Brightness); }
 
         public double Contrast { get { return _Contrast; } set { _Contrast = Math.Min(100.0, Math.Max(-100.0, value)); } }
         private double _Contrast;
-        public static MemberTr ContrastTr(Translation tr) { return new MemberTr(tr.Category.BrightnessContrast, tr.EffectBrightnessContrast.Contrast); }
+        public static MemberTr ContrastTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessContrast.Contrast); }
 
         public BrightnessContrastEffect()
         {

@@ -65,7 +65,7 @@ namespace TankIconMaker
         EffectChannels,
         [LingoGroup("Effect: Brightness / Contrast", "Strings used in the property grid for the \"Brightness / Contrast\" effects.")]
         EffectBrightnessContrast,
-        [LingoGroup("Effect: Hue / Saturation/ Brightness", "Strings used in the property grid for the \"Hue / Saturation/ Brightness\" effects.")]
+        [LingoGroup("Effect: Hue / Saturation / Brightness", "Strings used in the property grid for the \"Hue / Saturation/ Brightness\" effects.")]
         EffectHueSaturationBrightness,
         [LingoGroup("Effect: Gamma", "Strings used in the property grid for the \"Gamma\" effects.")]
         EffectGamma,
@@ -238,17 +238,8 @@ namespace TankIconMaker
         public TrString TextSource = "Text source";
         public TrString Debug = "Debug";
         public TrString Clip = "Clip";
-        public TrString Blur = "Blur";
-        public TrString Sharpen = "Sharpen";
         public TrString Shift = "Shift";
         public TrString Channels = "Channels";
-        public TrString BrightnessContrast = "Brightness / contrast";
-        public TrString HueSaturationBrightness = "Hue / saturation / brightness";
-        public TrString Gamma = "Gamma";
-        public TrString Level = "Level";
-        public TrString Wave = "Wave";
-        public TrString Rotate = "Rotate";
-        public TrString BrightnessAdjustment = "Brightness adjustment";
     }
 
     partial class MainWindowTranslation
@@ -491,12 +482,12 @@ namespace TankIconMaker
         public MemberDescriptionTr ShiftX = new MemberDescriptionTr { DisplayName = "Horizontal", Description = "Horizontal shift amount, in pixels." };
         public MemberDescriptionTr ShiftY = new MemberDescriptionTr { DisplayName = "Vertical", Description = "Vertical shift amount, in pixels." };
     }
-    
+
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectBrightnessContrast)]
     sealed class EffectBrightnessContrastTranslation
     {
         public TrString EffectName = "Brightness / Contrast";
-        public TrString EffectDescription = "The Brightness-Contrast effect adjusts the brightness and contrast levels for the target layer.";
+        public TrString EffectDescription = "Adjusts the brightness and contrast of the target layer.";
 
         public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects the desired brightness percentage." };
         public MemberDescriptionTr Contrast = new MemberDescriptionTr { DisplayName = "Contrast %", Description = "Selects the desired contrast percentage." };
@@ -506,29 +497,29 @@ namespace TankIconMaker
     sealed class EffectHueSaturationBrightnessTranslation
     {
         public TrString EffectName = "Hue / Saturation / Brightness";
-        public TrString EffectDescription = "The Hue-Saturation-Brightness effect is used to adjust hue, saturation and brightness levels on target layer.";
+        public TrString EffectDescription = "Adjusts hue, saturation and brightness of target layer.";
 
         public MemberDescriptionTr Hue = new MemberDescriptionTr { DisplayName = "Hue %", Description = "Selects the desired hue percentage." };
         public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation %", Description = "Selects the desired saturation percentage." };
         public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects the desired brightness percentage." };
     }
-    
+
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectGamma)]
     sealed class EffectGammaTranslation
     {
         public TrString EffectName = "Gamma Correction";
-        public TrString EffectDescription = "The Gamma Correction effect is used to adjust the image's channel values.";
+        public TrString EffectDescription = "Adjusts the gamma value (brightness curve) of each channel within the layer.";
 
-        public MemberDescriptionTr gammaRed = new MemberDescriptionTr { DisplayName = "Gamma Red", Description = "Selects the desired red channel adjustment (reasonable values are between 0.8 to 2.3)." };
-        public MemberDescriptionTr gammaGreen = new MemberDescriptionTr { DisplayName = "Gamma Green", Description = "Selects the desired green channel adjustment (reasonable values are between 0.8 to 2.3)." };
-        public MemberDescriptionTr gammaBlue = new MemberDescriptionTr { DisplayName = "Gamma Blue", Description = "Selects the desired blue channel adjustment (reasonable values are between 0.8 to 2.3)." };
+        public MemberDescriptionTr GammaRed = new MemberDescriptionTr { DisplayName = "Red gamma", Description = "Selects the desired red channel gamma adjustment (reasonable values are between 0.8 to 2.3)." };
+        public MemberDescriptionTr GammaGreen = new MemberDescriptionTr { DisplayName = "Green gamma", Description = "Selects the desired green channel gamma adjustment (reasonable values are between 0.8 to 2.3)." };
+        public MemberDescriptionTr GammaBlue = new MemberDescriptionTr { DisplayName = "Blue gamma", Description = "Selects the desired blue channel gamma adjustment (reasonable values are between 0.8 to 2.3)." };
     }
-    
+
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectLevel)]
     sealed class EffectLevelTranslation
     {
-        public TrString EffectName = "Level";
-        public TrString EffectDescription = "The Level effect can change the intensity range of the target layer, making the image darker or lighter.";
+        public TrString EffectName = "Levels";
+        public TrString EffectDescription = "Remaps the brightness of all pixels according to a curve specified by three configurable points.";
 
         public MemberDescriptionTr BlackPoint = new MemberDescriptionTr { DisplayName = "Black Point %", Description = "All pixels with this value or less will be black." };
         public MemberDescriptionTr WhitePoint = new MemberDescriptionTr { DisplayName = "White Point %", Description = "All pixels with this value or higher will be white." };
@@ -539,7 +530,7 @@ namespace TankIconMaker
     sealed class EffectInvertTranslation
     {
         public TrString EffectName = "Invert";
-        public TrString EffectDescription = "The Invert effect can invert the colors of image.";
+        public TrString EffectDescription = "Inverts the colors within the layer.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveBlur)]
@@ -566,7 +557,7 @@ namespace TankIconMaker
     sealed class EffectSharpenTranslation
     {
         public TrString EffectName = "Sharpen";
-        public TrString EffectDescription = "Sharpen current layer.";
+        public TrString EffectDescription = "Sharpens the layer.";
 
         public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Sharpen radius. Larger values result in more sharpen." };
         public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Sharpen sigma. Specifies the strength of sharpening." };
@@ -576,7 +567,7 @@ namespace TankIconMaker
     sealed class EffectSelectiveBlurTranslation
     {
         public TrString EffectName = "Blur: selective";
-        public TrString EffectDescription = "Blurs those pixels that are less than or equal to the threshold in contrast.";
+        public TrString EffectDescription = "Blurs the layer, avoiding the edges and high contrast areas.";
 
         public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Blur radius. Larger values result in more blur." };
         public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Sigma", Description = "Blur sigma. Specifies the edge of bluring." };
@@ -602,7 +593,7 @@ namespace TankIconMaker
 
         public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Blur angle. Specifies the angle of rotation." };
     }
-    
+
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectWave)]
     sealed class EffectWaveTranslation
     {

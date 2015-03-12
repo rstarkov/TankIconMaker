@@ -14,15 +14,15 @@ namespace TankIconMaker.Effects
 
         public double Angle { get { return _Angle; } set { _Angle = Math.Min(360.0, Math.Max(-360.0, value)); } }
         private double _Angle;
-        public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.Rotate, tr.EffectRotate.Angle); }
+        public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectRotate.Angle); }
 
         public double RotateX { get { return _RotateX; } set { _RotateX = value; } }
         private double _RotateX;
-        public static MemberTr RotateXTr(Translation tr) { return new MemberTr(tr.Category.Rotate, tr.EffectRotate.RotateX); }
+        public static MemberTr RotateXTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectRotate.RotateX); }
 
         public double RotateY { get { return _RotateY; } set { _RotateY = value; } }
         private double _RotateY;
-        public static MemberTr RotateYTr(Translation tr) { return new MemberTr(tr.Category.Rotate, tr.EffectRotate.RotateY); }
+        public static MemberTr RotateYTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectRotate.RotateY); }
 
         public RotateEffect()
         {

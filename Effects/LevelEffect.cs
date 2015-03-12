@@ -26,15 +26,15 @@ namespace TankIconMaker.Effects
 
         public double BlackPoint { get { return _BlackPoint; } set { _BlackPoint = Math.Min(_WhitePoint, Math.Max(0, value)); } }
         private double _BlackPoint;
-        public static MemberTr BlackPointTr(Translation tr) { return new MemberTr(tr.Category.Level, tr.EffectLevel.BlackPoint); }
+        public static MemberTr BlackPointTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectLevel.BlackPoint); }
 
         public double WhitePoint { get { return _WhitePoint; } set { _WhitePoint = Math.Min(100.0, Math.Max(_BlackPoint, value)); } }
         private double _WhitePoint;
-        public static MemberTr WhitePointTr(Translation tr) { return new MemberTr(tr.Category.Level, tr.EffectLevel.WhitePoint); }
+        public static MemberTr WhitePointTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectLevel.WhitePoint); }
 
         public double MidPoint { get { return _MidPoint; } set { _MidPoint = Math.Min(9.999, Math.Max(0.001, value)); } }
         private double _MidPoint;
-        public static MemberTr MidPointTr(Translation tr) { return new MemberTr(tr.Category.Level, tr.EffectLevel.MidPoint); }
+        public static MemberTr MidPointTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectLevel.MidPoint); }
 
         public LevelEffect()
         {

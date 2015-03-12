@@ -14,11 +14,11 @@ namespace TankIconMaker.Effects
 
         public double Amplitude { get { return _Amplitude; } set { _Amplitude = Math.Max(0.0, value); } }
         private double _Amplitude;
-        public static MemberTr AmplitudeTr(Translation tr) { return new MemberTr(tr.Category.Wave, tr.EffectWave.Amplitude); }
+        public static MemberTr AmplitudeTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectWave.Amplitude); }
 
         public double Length { get { return _Length; } set { _Length = Math.Max(0.001, value); } }
         private double _Length;
-        public static MemberTr LengthTr(Translation tr) { return new MemberTr(tr.Category.Wave, tr.EffectWave.Length); }
+        public static MemberTr LengthTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectWave.Length); }
 
         public WaveEffect()
         {

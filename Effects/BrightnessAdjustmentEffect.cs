@@ -15,15 +15,15 @@ namespace TankIconMaker.Effects
 
         public double Strength { get { return _Strength; } set { _Strength = Math.Min(100.0, Math.Max(0.0, value)); } }
         private double _Strength;
-        public static MemberTr StrengthTr(Translation tr) { return new MemberTr(tr.Category.BrightnessAdjustment, tr.EffectBrightnessAdjustment.Strength); }
+        public static MemberTr StrengthTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.Strength); }
 
         public double Brightness { get { return _Brightness; } set { _Brightness = Math.Min(100.0, Math.Max(0.0, value)); } }
         private double _Brightness;
-        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.BrightnessAdjustment, tr.EffectBrightnessAdjustment.Brightness); }
+        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.Brightness); }
 
         public bool CompensateSaturation { get { return _CompensateSaturation; } set { _CompensateSaturation = value; } }
         private bool _CompensateSaturation;
-        public static MemberTr CompensateSaturationTr(Translation tr) { return new MemberTr(tr.Category.BrightnessAdjustment, tr.EffectBrightnessAdjustment.CompensateSaturation); }
+        public static MemberTr CompensateSaturationTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.CompensateSaturation); }
 
         public BrightnessAdjustmentEffect()
         {
