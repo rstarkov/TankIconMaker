@@ -407,11 +407,51 @@
         <Old>Allows you to hide this effect for some of the tanks, depending on their properties.</Old>
       </Description>
     </EffectVisibleFor>
+    <ChannelA>
+      <DisplayName>
+        <Translation>Alpha</Translation>
+        <Old>Alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Den Effekt auf den Alpha-Kanal (Durchsichtigkeit) anwenden.</Translation>
+        <Old>Apply the effect to the alpha channel (image opacity).</Old>
+      </Description>
+    </ChannelA>
+    <ChannelR>
+      <DisplayName>
+        <Translation>Rot</Translation>
+        <Old>Red</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Den Effekt auf den Rot-Kanal anwenden.</Translation>
+        <Old>Apply the effect to the red channel.</Old>
+      </Description>
+    </ChannelR>
+    <ChannelG>
+      <DisplayName>
+        <Translation>Grün</Translation>
+        <Old>Green</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Den Effekt auf den Grün-Kanal anwenden.</Translation>
+        <Old>Apply the effect to the green channel.</Old>
+      </Description>
+    </ChannelG>
+    <ChannelB>
+      <DisplayName>
+        <Translation>Blau</Translation>
+        <Old>Blue</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Den Effekt auf den Blau-Kanal anwenden.</Translation>
+        <Old>Apply the effect to the blue channel.</Old>
+      </Description>
+    </ChannelB>
   </LayerAndEffect>
   <BkgDarkAgentLayer>
     <LayerName>
-      <Translation>Hintergrund / Dark Agent</Translation>
-      <Old>Background / Dark Agent</Old>
+      <Translation>Hintergrund: Dark Agent</Translation>
+      <Old>Background: Dark Agent</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Zeichnet einen Hintergrund mit einem glasähnlichen Design, inspiriert durch die Symbolsammlung von Black_Spy.</Translation>
@@ -430,8 +470,8 @@
   </BkgDarkAgentLayer>
   <TankImageLayer>
     <LayerName>
-      <Translation>Bild / Standard</Translation>
-      <Old>Image / Standard</Old>
+      <Translation>Bild: Standard</Translation>
+      <Old>Image: standard</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Zeichnet eine der vielen Arten von Standardbildern für diesen Panzer.</Translation>
@@ -454,8 +494,8 @@
   </TankImageLayer>
   <CurrentImageLayer>
     <LayerName>
-      <Translation>Bild / Aktuell</Translation>
-      <Old>Image / Current</Old>
+      <Translation>Bild: aktuell</Translation>
+      <Old>Image: current</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Zeichnet das Symbol, das aktuell im Ausgabeverzeichnis gespeichert ist.</Translation>
@@ -468,8 +508,8 @@
   </CurrentImageLayer>
   <CustomImageLayer>
     <LayerName>
-      <Translation>Bild / Nach Eigenschaften</Translation>
-      <Old>Image / By properties</Old>
+      <Translation>Bild: nach Eigenschaften</Translation>
+      <Old>Image: by properties</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Zeichnet ein Bild, das aus einer Datei eingelesen wird, deren Namen basierend auf Panzereigenschaften ausgewählt wird.</Translation>
@@ -492,8 +532,8 @@
   </CustomImageLayer>
   <FilenamePatternImageLayer>
     <LayerName>
-      <Translation>Bild / Nach Dateinamenschablone</Translation>
-      <Old>Image / By filename template</Old>
+      <Translation>Bild: nach Dateinamenschablone</Translation>
+      <Old>Image: by filename template</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Zeichnet ein Bild, das aus einer Datei eingelesen wird, deren Name einer Schablone entspricht, in der Platzhalter durch verschiedene Panzereigenschaften eingesetzt werden.</Translation>
@@ -656,8 +696,8 @@
   </TextLayer>
   <PropertyTextLayer>
     <LayerName>
-      <Translation>Text / Eigenschaften</Translation>
-      <Old>Text / Property</Old>
+      <Translation>Text: Eigenschaft</Translation>
+      <Old>Text: property</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Stellt eine bestimmte Panzereigenschaft in Form von Text dar.</Translation>
@@ -676,8 +716,8 @@
   </PropertyTextLayer>
   <CustomTextLayer>
     <LayerName>
-      <Translation>Text / Benutzerdefiniert</Translation>
-      <Old>Text / Custom</Old>
+      <Translation>Text: benutzerdefiniert</Translation>
+      <Old>Text: custom</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Zeichnet einen vorgegebenen Text, basierend auf einer bestimmten Panzereigenschaft.</Translation>
@@ -1074,516 +1114,6 @@
       </Description>
     </ShiftY>
   </EffectShift>
-  <EffectChannels>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Channels</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Specifies the channels affected by effect.</Old>
-    </EffectDescription>
-    <AChannel>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Alpha channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Enable effect for alpha channel.</Old>
-      </Description>
-    </AChannel>
-    <RChannel>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Red channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Enable effect for red channel.</Old>
-      </Description>
-    </RChannel>
-    <GChannel>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Green channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Enable effect for green channel.</Old>
-      </Description>
-    </GChannel>
-    <BChannel>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Blue channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Enable effect for blue channel.</Old>
-      </Description>
-    </BChannel>
-  </EffectChannels>
-  <EffectBrightnessContrast>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Brightness / Contrast</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>The Brightness-Contrast tool adjusts the brightness and contrast levels for the active layer.</Old>
-    </EffectDescription>
-    <Brightness>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Brightness %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired brightness percentage.</Old>
-      </Description>
-    </Brightness>
-    <Contrast>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Contrast %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired contrast percentage.</Old>
-      </Description>
-    </Contrast>
-  </EffectBrightnessContrast>
-  <EffectHueSaturationBrightness>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Hue / Saturation / Brightness</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>The Hue-Saturation-Brightness tool is used to adjust hue, saturation and brightness levels on active layer.</Old>
-    </EffectDescription>
-    <Hue>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Hue %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired hue percentage.</Old>
-      </Description>
-    </Hue>
-    <Saturation>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Saturation %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired saturation percentage.</Old>
-      </Description>
-    </Saturation>
-    <Brightness>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Brightness %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired brightness percentage.</Old>
-      </Description>
-    </Brightness>
-  </EffectHueSaturationBrightness>
-  <EffectGamma>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Gamma Correction</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>The Gamma Correction tool is used to adjust the image's channel values.</Old>
-    </EffectDescription>
-    <gammaRed>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Gamma Red</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired red channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
-      </Description>
-    </gammaRed>
-    <gammaGreen>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Gamma Blue</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired green channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
-      </Description>
-    </gammaGreen>
-    <gammaBlue>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Gamma Green</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the desired blue channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
-      </Description>
-    </gammaBlue>
-  </EffectGamma>
-  <EffectLevel>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Level</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>The Level tool can change the intensity range of the active layer, making the image darker or lighter.</Old>
-    </EffectDescription>
-    <BlackPoint>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Black Point %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>All pixels with this value or less will be black.</Old>
-      </Description>
-    </BlackPoint>
-    <WhitePoint>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>White Point %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>All pixels with this value or higher will be white.</Old>
-      </Description>
-    </WhitePoint>
-    <MidPoint>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Mid Point</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects output image gamma.</Old>
-      </Description>
-    </MidPoint>
-  </EffectLevel>
-  <EffectInvert>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Invert</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>The Invert tool can invert the colors of image.</Old>
-    </EffectDescription>
-  </EffectInvert>
-  <EffectAdaptiveBlur>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Blur: Adaptive</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Blur images, except close to the edges as defined by an edge detection on the image.</Old>
-    </EffectDescription>
-    <Radius>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Radius</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur radius. Larger values result in more blur.</Old>
-      </Description>
-    </Radius>
-    <Sigma>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Sigma</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur sigma. Specifies the edge of bluring.</Old>
-      </Description>
-    </Sigma>
-  </EffectAdaptiveBlur>
-  <EffectAdaptiveSharpen>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Sharpen: Adaptive</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Sharpen images, except close to the edges as defined by an edge detection on the image.</Old>
-    </EffectDescription>
-    <Radius>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Radius</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
-      </Description>
-    </Radius>
-    <Sigma>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Sigma</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Sharpen sigma. Specifies the edge of sharpening.</Old>
-      </Description>
-    </Sigma>
-  </EffectAdaptiveSharpen>
-  <EffectSharpen>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Sharpen</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Sharpen current layer.</Old>
-    </EffectDescription>
-    <Radius>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Radius</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Sharpen radius. Larger values result in more sharpen.</Old>
-      </Description>
-    </Radius>
-    <Sigma>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Sigma</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Sharpen sigma. Specifies the strength of sharpening.</Old>
-      </Description>
-    </Sigma>
-  </EffectSharpen>
-  <EffectSelectiveBlur>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Blur: Selective</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Blurs those pixels that are less than or equal to the threshold in contrast.</Old>
-    </EffectDescription>
-    <Radius>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Radius</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur radius. Larger values result in more blur.</Old>
-      </Description>
-    </Radius>
-    <Sigma>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Sigma</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur sigma. Specifies the edge of bluring.</Old>
-      </Description>
-    </Sigma>
-    <Threshold>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Threshold</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur threshold. Specifies the threshold in contrast.</Old>
-      </Description>
-    </Threshold>
-  </EffectSelectiveBlur>
-  <EffectMotionBlur>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Blur: Motion</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Blur images, simulation the motion blur.</Old>
-    </EffectDescription>
-    <Radius>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Radius</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur radius. Larger values result in more blur.</Old>
-      </Description>
-    </Radius>
-    <Sigma>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Sigma</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur sigma. Specifies the strength of bluring.</Old>
-      </Description>
-    </Sigma>
-    <Angle>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Angle</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur angle. Specifies the angle of bluring.</Old>
-      </Description>
-    </Angle>
-  </EffectMotionBlur>
-  <EffectRadialBlur>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Blur: Radial</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Blur images, simulation the rotation blur.</Old>
-    </EffectDescription>
-    <Angle>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Angle</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Blur angle. Specifies the angle of rotation.</Old>
-      </Description>
-    </Angle>
-  </EffectRadialBlur>
-  <EffectWave>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Wave</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Waves the current layer.</Old>
-    </EffectDescription>
-    <Amplitude>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Amplitude</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects wave amplitude.</Old>
-      </Description>
-    </Amplitude>
-    <Length>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Length</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects wave length.</Old>
-      </Description>
-    </Length>
-  </EffectWave>
-  <EffectRotate>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Rotate</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Rotates the current layer.</Old>
-    </EffectDescription>
-    <Angle>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Rotate</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects rotation angle.</Old>
-      </Description>
-    </Angle>
-    <RotateX>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>X</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects rotation y coordinate.</Old>
-      </Description>
-    </RotateX>
-    <RotateY>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Y</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects rotation y coordinate.</Old>
-      </Description>
-    </RotateY>
-  </EffectRotate>
-  <EffectBrightnessAdjustment>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Brightness adjustment</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Adjusts every image to selected brightness.</Old>
-    </EffectDescription>
-    <Strength>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Strength %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects effect's strength.</Old>
-      </Description>
-    </Strength>
-    <Brightness>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Brightness %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects brightness level.</Old>
-      </Description>
-    </Brightness>
-    <CompensateSaturation>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Compensate saturation</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Compensate or not saturation on dark images.</Old>
-      </Description>
-    </CompensateSaturation>
-  </EffectBrightnessAdjustment>
   <EffectSizePos>
     <EffectName>
       <Translation>Größe / Position</Translation>
@@ -1734,6 +1264,466 @@
       </Description>
     </ShowAnchor>
   </EffectSizePos>
+  <EffectBrightnessContrast>
+    <EffectName>
+      <Translation>Helligkeit / Kontrast</Translation>
+      <Old>Brightness / Contrast</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Passt Helligkeit und Kontrast der Zielebene an.</Translation>
+      <Old>Adjusts the brightness and contrast of the target layer.</Old>
+    </EffectDescription>
+    <Brightness>
+      <DisplayName>
+        <Translation>Helligkeit %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Helligkeitsanpassung, zwischen −100% und +100%. Null bedeutet keine Änderung.</Translation>
+        <Old>Brightness adjustment, from −100% to +100%. Zero means no change.</Old>
+      </Description>
+    </Brightness>
+    <Contrast>
+      <DisplayName>
+        <Translation>Kontrast %</Translation>
+        <Old>Contrast %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Kontrastanpassung, zwischen −100% und +100%. Null bedeutet keine Änderung.</Translation>
+        <Old>Contrast adjustment, from −100% to +100%. Zero means no change.</Old>
+      </Description>
+    </Contrast>
+  </EffectBrightnessContrast>
+  <EffectHueSaturationBrightness>
+    <EffectName>
+      <Translation>Hue / Saturation / Brightness</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Adjusts hue, saturation and brightness of target layer.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Hue>
+      <DisplayName>
+        <Translation>Hue %</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Selects the desired hue percentage.</Translation>
+        <Old null="1" />
+      </Description>
+    </Hue>
+    <Saturation>
+      <DisplayName>
+        <Translation>Saturation %</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Selects the desired saturation percentage.</Translation>
+        <Old null="1" />
+      </Description>
+    </Saturation>
+    <Brightness>
+      <DisplayName>
+        <Translation>Brightness %</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Selects the desired brightness percentage.</Translation>
+        <Old null="1" />
+      </Description>
+    </Brightness>
+  </EffectHueSaturationBrightness>
+  <EffectGamma>
+    <EffectName>
+      <Translation>Gammakorrektur</Translation>
+      <Old>Gamma correction</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Passt den Gammawert (Helligkeitskurve) jedes Kanals in dieser Ebene an.</Translation>
+      <Old>Adjusts the gamma value (brightness curve) of each channel within the layer.</Old>
+    </EffectDescription>
+    <GammaRed>
+      <DisplayName>
+        <Translation>Rot-Gamma</Translation>
+        <Old>Red gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Gamma-Anpassungsgrad des Rotkanals (typische Werte liegen zwischen 0,8 und 2,3).</Translation>
+        <Old>Selects the desired red channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </GammaRed>
+    <GammaGreen>
+      <DisplayName>
+        <Translation>Grün-Gamma</Translation>
+        <Old>Green gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Gamma-Anpassungsgrad des Grünkanals (typische Werte liegen zwischen 0,8 und 2,3).</Translation>
+        <Old>Selects the desired green channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </GammaGreen>
+    <GammaBlue>
+      <DisplayName>
+        <Translation>Blau-Gamma</Translation>
+        <Old>Blue gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Gamma-Anpassungsgrad des Blaukanals (typische Werte liegen zwischen 0,8 und 2,3).</Translation>
+        <Old>Selects the desired blue channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+      </Description>
+    </GammaBlue>
+  </EffectGamma>
+  <EffectLevel>
+    <EffectName>
+      <Translation>Pegel</Translation>
+      <Old>Levels</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Transformiert die Helligkeit aller Pixel entsprechend einer Kurve, die durch drei konfigurierbare Punkte bestimmt wird.</Translation>
+      <Old>Remaps the brightness of all pixels according to a curve specified by three configurable points.</Old>
+    </EffectDescription>
+    <BlackPoint>
+      <DisplayName>
+        <Translation>Schwarz-Punkt %</Translation>
+        <Old>Black Point %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Alle Pixel mit diesem oder einem geringeren Wert werden zu Schwarz.</Translation>
+        <Old>All pixels with this value or less will be black.</Old>
+      </Description>
+    </BlackPoint>
+    <WhitePoint>
+      <DisplayName>
+        <Translation>Weiß-Punkt %</Translation>
+        <Old>White Point %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Alle Pixel mit diesem oder einem höheren Wert werden zu Weiß.</Translation>
+        <Old>All pixels with this value or higher will be white.</Old>
+      </Description>
+    </WhitePoint>
+    <MidPoint>
+      <DisplayName>
+        <Translation>Mittelpunkt</Translation>
+        <Old>Mid Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt das Gamma des Ausgabebilds.</Translation>
+        <Old>Selects output image gamma.</Old>
+      </Description>
+    </MidPoint>
+  </EffectLevel>
+  <EffectInvert>
+    <EffectName>
+      <Translation>Invertieren</Translation>
+      <Old>Invert</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Invertiert die Farben in der Ebene.</Translation>
+      <Old>Inverts the colors within the layer.</Old>
+    </EffectDescription>
+  </EffectInvert>
+  <EffectAdaptiveBlur>
+    <EffectName>
+      <Translation>Unschärfe: adaptiv</Translation>
+      <Old>Blur: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Wendet Unschärfe auf die Teile der Ebene an, die keine scharfen Kanten enthalten.</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Verarbeitungsradius. Empfohlener Wert: 0, wodurch der optimale Radius automatisch ermittelt wird.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Stärke</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Stärke des Unschärfeeffekts. Höhere Werte führen zu mehr Unschärfe. Nachkommawerte sind erlaubt.</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveBlur>
+  <EffectAdaptiveSharpen>
+    <EffectName>
+      <Translation>Schärfe: adaptiv</Translation>
+      <Old>Sharpen: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Wendet Schärfe auf die Teile der Ebene an, die scharfe Kanten enthalten. Glatte Bereiche bleiben unbetroffen.</Translation>
+      <Old>Sharpens the layer in areas that contain sharp edges. Smooth areas remain unaffected.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Verarbeitungsradius. Empfohlener Wert: 0, wodurch der optimale Radius automatisch ermittelt wird.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Stärke</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Stärke des Schärfeeffekts. Nachkommawerte sind erlaubt.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveSharpen>
+  <EffectSharpen>
+    <EffectName>
+      <Translation>Schärfe</Translation>
+      <Old>Sharpen</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Wendet Schärfe auf die Ebene an.</Translation>
+      <Old>Sharpens the layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Verarbeitungsradius. Empfohlener Wert: 0, wodurch der optimale Radius automatisch ermittelt wird.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Stärke</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Stärke des Schärfeeffekts. Nachkommawerte sind erlaubt.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectSharpen>
+  <EffectSelectiveBlur>
+    <EffectName>
+      <Translation>Unschärfe: selektiv</Translation>
+      <Old>Blur: selective</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Wendet Unschärfe auf die Teile der Ebene an, die keine scharfen Kanten und keinen hohen Kontrast enthalten.</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges or high contrast.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Verarbeitungsradius. Empfohlener Wert: 0, wodurch der optimale Radius automatisch ermittelt wird.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Stärke</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Stärke des Unschärfeeffekts. Höhere Werte führen zu mehr Unschärfe. Nachkommawerte sind erlaubt.</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+    <Threshold>
+      <DisplayName>
+        <Translation>Grenzwert</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Kontrastgrenzwert, der festlegt, auf welche Bereiche des Bildes der Unschärfeeffekt angewendet wird.</Translation>
+        <Old>Specifies the contrast threshold, which determines what areas of the image are blurred.</Old>
+      </Description>
+    </Threshold>
+  </EffectSelectiveBlur>
+  <EffectMotionBlur>
+    <EffectName>
+      <Translation>Unschärfe: Bewegung</Translation>
+      <Old>Blur: motion</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Wendet eine Unschärfe auf die Ebene an, die lineare Bewegung simuliert.</Translation>
+      <Old>Blurs the layer, simulating linear motion blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Verarbeitungsradius. Empfohlener Wert: 0, wodurch der optimale Radius automatisch ermittelt wird.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Distanz</Translation>
+        <Old>Distance</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Länge der Bewegungsspur. Höhere Werte führen zu mehr Unschärfe. Nachkommawerte sind erlaubt.</Translation>
+        <Old>Specifies the length of the motion blur trail. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+    <Angle>
+      <DisplayName>
+        <Translation>Winkel</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Richtung der Bewegung in Grad.</Translation>
+        <Old>Specifies the direction of the motion blur trail, in degrees.</Old>
+      </Description>
+    </Angle>
+  </EffectMotionBlur>
+  <EffectRadialBlur>
+    <EffectName>
+      <Translation>Unschärfe: Drehung</Translation>
+      <Old>Blur: radial</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Wendet eine Unschärfe auf die Ebene an, die eine drehende Bewegung simuliert.</Translation>
+      <Old>Blurs the layer, simulating rotational motion blur</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Winkel</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Rotationswinkel in Grad.</Translation>
+        <Old>Blur rotation angle, in degrees.</Old>
+      </Description>
+    </Angle>
+  </EffectRadialBlur>
+  <EffectWave>
+    <EffectName>
+      <Translation>Welle</Translation>
+      <Old>Wave</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Verzerrt die Ebene in Form einer Welle.</Translation>
+      <Old>Distorts the layer in the shape of a wave.</Old>
+    </EffectDescription>
+    <Amplitude>
+      <DisplayName>
+        <Translation>Amplitude</Translation>
+        <Old>Amplitude</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Wellenamplitude.</Translation>
+        <Old>Selects wave amplitude.</Old>
+      </Description>
+    </Amplitude>
+    <Length>
+      <DisplayName>
+        <Translation>Länge</Translation>
+        <Old>Length</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Wellenlänge.</Translation>
+        <Old>Selects wave length.</Old>
+      </Description>
+    </Length>
+  </EffectWave>
+  <EffectRotate>
+    <EffectName>
+      <Translation>Rotieren</Translation>
+      <Old>Rotate</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Rotiert die Ebene.</Translation>
+      <Old>Rotates the layer.</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Winkel</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Rotationswinkel in Grad.</Translation>
+        <Old>Rotation angle in degrees.</Old>
+      </Description>
+    </Angle>
+    <RotateX>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Die X-Koordinate des Zentrums der Rotation.</Translation>
+        <Old>The X coordinate of the center of rotation.</Old>
+      </Description>
+    </RotateX>
+    <RotateY>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Die Y-Koordinate des Zentrums der Rotation.</Translation>
+        <Old>The Y coordinate of the center of rotation.</Old>
+      </Description>
+    </RotateY>
+  </EffectRotate>
+  <EffectBrightnessAdjustment>
+    <EffectName>
+      <Translation>Helligkeitsanpassung</Translation>
+      <Old>Brightness adjustment</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Passt jedes Bild auf die angegebene Helligkeit an.</Translation>
+      <Old>Adjusts every image to selected brightness.</Old>
+    </EffectDescription>
+    <Strength>
+      <DisplayName>
+        <Translation>Stärke %</Translation>
+        <Old>Strength %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Stärke des Effekts.</Translation>
+        <Old>Selects effect's strength.</Old>
+      </Description>
+    </Strength>
+    <Brightness>
+      <DisplayName>
+        <Translation>Helligkeit %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt das Helligkeitsniveau.</Translation>
+        <Old>Selects brightness level.</Old>
+      </Description>
+    </Brightness>
+    <CompensateSaturation>
+      <DisplayName>
+        <Translation>Sättigung kompensieren</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Sättigung in dunklen Bildern kompensieren oder nicht.</Translation>
+        <Old null="1" />
+      </Description>
+    </CompensateSaturation>
+  </EffectBrightnessAdjustment>
   <BoolWithPassthrough>
     <Yes>
       <Translation>Ja</Translation>
@@ -1937,14 +1927,14 @@
       <Translation>Zuschneiden</Translation>
       <Old>Clip</Old>
     </Clip>
-    <Blur>
-      <Translation>Weichzeichnen</Translation>
-      <Old>Blur</Old>
-    </Blur>
     <Shift>
       <Translation>Verschieben</Translation>
       <Old>Shift</Old>
     </Shift>
+    <Channels>
+      <Translation>Kanäle</Translation>
+      <Old>Channels</Old>
+    </Channels>
   </Category>
   <Selector>
     <By>
