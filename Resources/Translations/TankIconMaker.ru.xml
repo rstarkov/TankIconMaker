@@ -1279,8 +1279,8 @@
         <Old>Brightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемый процент яркости.</Translation>
-        <Old>Selects the desired brightness percentage.</Old>
+        <Translation>Изменение яркости, от −100% до +100%. Ноль означает оставить без изменений. В отличие от эффекта Тон / Насыщенность / Яркость, данный параметр может негативно повлиять на качество изображения при большом изменении яркости.</Translation>
+        <Old>Brightness shift, from −100% to +100%. Zero means no change. Unlike the Hue / Saturation / Lightness effect, this parameter may distort the image contrast detrimentally when a large brightness shift is configured.</Old>
       </Description>
     </Brightness>
     <Contrast>
@@ -1290,27 +1290,27 @@
       </DisplayName>
       <Description>
         <Translation>Задает желаемый процент контрастности.</Translation>
-        <Old>Selects the desired contrast percentage.</Old>
+        <Old>Contrast adjustment, from −100% to +100%. Zero means no change.</Old>
       </Description>
     </Contrast>
   </EffectBrightnessContrast>
-  <EffectHueSaturationBrightness>
+  <EffectHueSaturationLightness>
     <EffectName>
-      <Translation>Цветовой тон / Насыщенность / Яркость</Translation>
-      <Old>Hue / Saturation / Brightness</Old>
+      <Translation>Тон / Насыщенность / Яркость</Translation>
+      <Old>Hue / Saturation / Lightness</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Подстраивает цвет, яркость и насыщенность целевого слоя.</Translation>
-      <Old>Adjusts hue, saturation and brightness of target layer.</Old>
+      <Translation>Изменяет цветовой тон, насыщенность и яркость целевого слоя.</Translation>
+      <Old>Adjusts the hue, saturation and lightness of the target layer.</Old>
     </EffectDescription>
     <Hue>
       <DisplayName>
-        <Translation>Цветовой тон %</Translation>
-        <Old>Hue %</Old>
+        <Translation> Тон</Translation>
+        <Old> Hue shift</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемый процент поворота цветового тона.</Translation>
-        <Old>Selects the desired hue percentage.</Old>
+        <Translation>Указывает градус сдвига цветового тона. 0, +360 и −360 оставляют тон без изменений, а +180 либо −180 меняют цвет на противоположный.</Translation>
+        <Old>Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite.</Old>
       </Description>
     </Hue>
     <Saturation>
@@ -1319,21 +1319,21 @@
         <Old>Saturation %</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемый процент насыщенности.</Translation>
-        <Old>Selects the desired saturation percentage.</Old>
+        <Translation>Множитель насыщенности, выраженный как процент от изначального значения. 0 меняет насыщенность на ноль (оттенки серого), 100 оставляет без изменений. Допустимы значения &gt;100.</Translation>
+        <Old>Saturation scale, expressed as a percentage of the original saturation. 0 scales the saturation to zero (grayscale), 100 means no change, larger values scale it accordingly.</Old>
       </Description>
     </Saturation>
-    <Brightness>
+    <Lightness>
       <DisplayName>
         <Translation>Яркость %</Translation>
-        <Old>Brightness %</Old>
+        <Old>Lightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемый процент яркости.</Translation>
-        <Old>Selects the desired brightness percentage.</Old>
+        <Translation>Множитель яркости, выраженный как процент от изначального значения. 0 меняет яркость на ноль (черный), 100 оставляет без изменений. Допустимы значения &gt;100.</Translation>
+        <Old>Lightness scale, expressed as a percentage of the original lightness. 0 scales the lightness to zero (black), 100 means no change, larger values scale it accordingly.</Old>
       </Description>
-    </Brightness>
-  </EffectHueSaturationBrightness>
+    </Lightness>
+  </EffectHueSaturationLightness>
   <EffectGamma>
     <EffectName>
       <Translation>Гамма коррекция</Translation>
@@ -1349,8 +1349,8 @@
         <Old>Red gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемую коррекцию красного канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
-        <Old>Selects the desired red channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Гамма коррекция красного канала. Рекомендуются значения в диапазоне от 0.8 до 2.3.</Translation>
+        <Old>Gamma adjustment for the red channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
       </Description>
     </GammaRed>
     <GammaGreen>
@@ -1359,8 +1359,8 @@
         <Old>Green gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемую коррекцию зеленого канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
-        <Old>Selects the desired green channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Гамма коррекция зеленого канала. Рекомендуются значения в диапазоне от 0.8 до 2.3.</Translation>
+        <Old>Gamma adjustment for the green channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
       </Description>
     </GammaGreen>
     <GammaBlue>
@@ -1369,8 +1369,8 @@
         <Old>Blue gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемую коррекцию синего канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
-        <Old>Selects the desired blue channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Гамма коррекция синего канала. Рекомендуются значения в диапазоне от 0.8 до 2.3.</Translation>
+        <Old>Gamma adjustment for the blue channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
       </Description>
     </GammaBlue>
   </EffectGamma>

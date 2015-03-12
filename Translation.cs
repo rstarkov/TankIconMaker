@@ -61,35 +61,35 @@ namespace TankIconMaker
         EffectShift,
         [LingoGroup("Effect: Size / Position", "Strings used in the property grid for the \"Size / Position\" effect.")]
         EffectSizePos,
-        [LingoGroup("Effect: Specify Channel", "Strings used in the property grid for the Magick effects.")]
+        [LingoGroup("Effect: channels (shared)", "Strings used in the property grid for specifying the affected channels in various effects.")]
         EffectChannels,
-        [LingoGroup("Effect: Brightness / Contrast", "Strings used in the property grid for the \"Brightness / Contrast\" effects.")]
+        [LingoGroup("Effect: Brightness / Contrast", "Strings used in the property grid for the \"Brightness / Contrast\" effect.")]
         EffectBrightnessContrast,
-        [LingoGroup("Effect: Hue / Saturation / Brightness", "Strings used in the property grid for the \"Hue / Saturation/ Brightness\" effects.")]
-        EffectHueSaturationBrightness,
-        [LingoGroup("Effect: Gamma", "Strings used in the property grid for the \"Gamma\" effects.")]
+        [LingoGroup("Effect: Hue / Saturation / Lightness", "Strings used in the property grid for the \"Hue / Saturation/ Lightness\" effect.")]
+        EffectHueSaturationLightness,
+        [LingoGroup("Effect: Gamma", "Strings used in the property grid for the \"Gamma\" effect.")]
         EffectGamma,
-        [LingoGroup("Effect: Level", "Strings used in the property grid for the \"Level\" effects.")]
+        [LingoGroup("Effect: Level", "Strings used in the property grid for the \"Level\" effect.")]
         EffectLevel,
-        [LingoGroup("Effect: Invert", "Strings used in the property grid for the \"Invert\" effects.")]
+        [LingoGroup("Effect: Invert", "Strings used in the property grid for the \"Invert\" effect.")]
         EffectInvert,
-        [LingoGroup("Effect: Adaptive blur", "Strings used in the property grid for the \"Adaptive blur\" effects.")]
+        [LingoGroup("Effect: Adaptive blur", "Strings used in the property grid for the \"Adaptive blur\" effect.")]
         EffectAdaptiveBlur,
-        [LingoGroup("Effect: Adaptive sharpen", "Strings used in the property grid for the \"Adaptive sharpen\" effects.")]
+        [LingoGroup("Effect: Adaptive sharpen", "Strings used in the property grid for the \"Adaptive sharpen\" effect.")]
         EffectAdaptiveSharpen,
-        [LingoGroup("Effect: Sharpen", "Strings used in the property grid for the \"Sharpen\" effects.")]
+        [LingoGroup("Effect: Sharpen", "Strings used in the property grid for the \"Sharpen\" effect.")]
         EffectSharpen,
-        [LingoGroup("Effect: Selective blur", "Strings used in the property grid for the \"Selective blur\" effects.")]
+        [LingoGroup("Effect: Selective blur", "Strings used in the property grid for the \"Selective blur\" effect.")]
         EffectSelectiveBlur,
-        [LingoGroup("Effect: Motion blur", "Strings used in the property grid for the \"Motion blur\" effects.")]
+        [LingoGroup("Effect: Motion blur", "Strings used in the property grid for the \"Motion blur\" effect.")]
         EffectMotionBlur,
-        [LingoGroup("Effect: Radial blur", "Strings used in the property grid for the \"Radial blur\" effects.")]
+        [LingoGroup("Effect: Radial blur", "Strings used in the property grid for the \"Radial blur\" effect.")]
         EffectRadialBlur,
-        [LingoGroup("Effect: Wave", "Strings used in the property grid for the \"Wave\" effects.")]
+        [LingoGroup("Effect: Wave", "Strings used in the property grid for the \"Wave\" effect.")]
         EffectWave,
-        [LingoGroup("Effect: Rotate", "Strings used in the property grid for the \"Rotate\" effects.")]
+        [LingoGroup("Effect: Rotate", "Strings used in the property grid for the \"Rotate\" effect.")]
         EffectRotate,
-        [LingoGroup("Effect: Average brightness", "Strings used in the property grid for the \"Average brightness\" effects.")]
+        [LingoGroup("Effect: Average brightness", "Strings used in the property grid for the \"Brightness adjustment\" effect.")]
         EffectBrightnessAdjustment,
 
         [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
@@ -162,7 +162,7 @@ namespace TankIconMaker
         public EffectShiftTranslation EffectShift = new EffectShiftTranslation();
         public EffectSizePosTranslation EffectSizePos = new EffectSizePosTranslation();
         public EffectBrightnessContrastTranslation EffectBrightnessContrast = new EffectBrightnessContrastTranslation();
-        public EffectHueSaturationBrightnessTranslation EffectHueSaturationBrightness = new EffectHueSaturationBrightnessTranslation();
+        public EffectHueSaturationLightnessTranslation EffectHueSaturationLightness = new EffectHueSaturationLightnessTranslation();
         public EffectGammaTranslation EffectGamma = new EffectGammaTranslation();
         public EffectLevelTranslation EffectLevel = new EffectLevelTranslation();
         public EffectInvertTranslation EffectInvert = new EffectInvertTranslation();
@@ -489,19 +489,19 @@ namespace TankIconMaker
         public TrString EffectName = "Brightness / Contrast";
         public TrString EffectDescription = "Adjusts the brightness and contrast of the target layer.";
 
-        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Brightness adjustment, from −100% to +100%. Zero means no change." };
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Brightness shift, from −100% to +100%. Zero means no change. Unlike the Hue / Saturation / Lightness effect, this parameter may distort the image contrast detrimentally when a large brightness shift is configured." };
         public MemberDescriptionTr Contrast = new MemberDescriptionTr { DisplayName = "Contrast %", Description = "Contrast adjustment, from −100% to +100%. Zero means no change." };
     }
 
-    [LingoStringClass, LingoInGroup(TranslationGroup.EffectHueSaturationBrightness)]
-    sealed class EffectHueSaturationBrightnessTranslation
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectHueSaturationLightness)]
+    sealed class EffectHueSaturationLightnessTranslation
     {
-        public TrString EffectName = "Hue / Saturation / Brightness";
-        public TrString EffectDescription = "Adjusts hue, saturation and brightness of target layer.";
+        public TrString EffectName = "Hue / Saturation / Lightness";
+        public TrString EffectDescription = "Adjusts the hue, saturation and lightness of the target layer.";
 
-        public MemberDescriptionTr Hue = new MemberDescriptionTr { DisplayName = "Hue %", Description = "Selects the desired hue percentage." };
-        public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation %", Description = "Selects the desired saturation percentage." };
-        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects the desired brightness percentage." };
+        public MemberDescriptionTr Hue = new MemberDescriptionTr { DisplayName = " Hue shift", Description = "Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite." };
+        public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation %", Description = "Saturation scale, expressed as a percentage of the original saturation. 0 scales the saturation to zero (grayscale), 100 means no change, larger values scale it accordingly." };
+        public MemberDescriptionTr Lightness = new MemberDescriptionTr { DisplayName = "Lightness %", Description = "Lightness scale, expressed as a percentage of the original lightness. 0 scales the lightness to zero (black), 100 means no change, larger values scale it accordingly." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectGamma)]
@@ -510,9 +510,9 @@ namespace TankIconMaker
         public TrString EffectName = "Gamma correction";
         public TrString EffectDescription = "Adjusts the gamma value (brightness curve) of each channel within the layer.";
 
-        public MemberDescriptionTr GammaRed = new MemberDescriptionTr { DisplayName = "Red gamma", Description = "Selects the desired red channel gamma adjustment (reasonable values are between 0.8 to 2.3)." };
-        public MemberDescriptionTr GammaGreen = new MemberDescriptionTr { DisplayName = "Green gamma", Description = "Selects the desired green channel gamma adjustment (reasonable values are between 0.8 to 2.3)." };
-        public MemberDescriptionTr GammaBlue = new MemberDescriptionTr { DisplayName = "Blue gamma", Description = "Selects the desired blue channel gamma adjustment (reasonable values are between 0.8 to 2.3)." };
+        public MemberDescriptionTr GammaRed = new MemberDescriptionTr { DisplayName = "Red gamma", Description = "Gamma adjustment for the red channel. Reasonable values are between approximately 0.8 to 2.3." };
+        public MemberDescriptionTr GammaGreen = new MemberDescriptionTr { DisplayName = "Green gamma", Description = "Gamma adjustment for the green channel. Reasonable values are between approximately 0.8 to 2.3." };
+        public MemberDescriptionTr GammaBlue = new MemberDescriptionTr { DisplayName = "Blue gamma", Description = "Gamma adjustment for the blue channel. Reasonable values are between approximately 0.8 to 2.3." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectLevel)]
