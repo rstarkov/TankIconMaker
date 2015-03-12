@@ -450,8 +450,8 @@
   </LayerAndEffect>
   <BkgDarkAgentLayer>
     <LayerName>
-      <Translation>Фон / Dark Agent</Translation>
-      <Old>Background / Dark Agent</Old>
+      <Translation>Фон: Dark Agent</Translation>
+      <Old>Background: Dark Agent</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует фон, используя "стеклянный" стиль, основанный на иконках от Black_Spy.</Translation>
@@ -470,8 +470,8 @@
   </BkgDarkAgentLayer>
   <TankImageLayer>
     <LayerName>
-      <Translation>Изображение / Стандартное</Translation>
-      <Old>Image / Standard</Old>
+      <Translation>Изображение: стандартное</Translation>
+      <Old>Image: standard</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует один из нескольких типов стандартных изображений для этого танка.</Translation>
@@ -494,8 +494,8 @@
   </TankImageLayer>
   <CurrentImageLayer>
     <LayerName>
-      <Translation>Изображение / Текущее</Translation>
-      <Old>Image / Current</Old>
+      <Translation>Изображение: текущее</Translation>
+      <Old>Image: current</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует иконку, которая в данный момент используется в игре для этого танка.</Translation>
@@ -508,8 +508,8 @@
   </CurrentImageLayer>
   <CustomImageLayer>
     <LayerName>
-      <Translation>Изображение / По свойствам</Translation>
-      <Old>Image / By properties</Old>
+      <Translation>Изображение: по свойствам</Translation>
+      <Old>Image: by properties</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует одно из нескольких изображений, загруженных из пользовательских файлов, в зависимости от свойств танка.</Translation>
@@ -532,8 +532,8 @@
   </CustomImageLayer>
   <FilenamePatternImageLayer>
     <LayerName>
-      <Translation>Изображение / По имени файла</Translation>
-      <Old>Image / By filename template</Old>
+      <Translation>Изображение: по имени файла</Translation>
+      <Old>Image: by filename template</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует изображение, загруженное из файла, чье имя получено в результате подстановки свойств танка в шаблон.</Translation>
@@ -696,8 +696,8 @@
   </TextLayer>
   <PropertyTextLayer>
     <LayerName>
-      <Translation>Текст / Свойство танка</Translation>
-      <Old>Text / Property</Old>
+      <Translation>Текст: свойство танка</Translation>
+      <Old>Text: property</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Отображает указанное свойство танка в виде текста.</Translation>
@@ -716,8 +716,8 @@
   </PropertyTextLayer>
   <CustomTextLayer>
     <LayerName>
-      <Translation>Текст / Фикс. по свойству</Translation>
-      <Old>Text / Custom</Old>
+      <Translation>Текст: фикс. по свойству</Translation>
+      <Old>Text: custom</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Отображает фиксированную строку, выбранную на основании указанного свойства танка.</Translation>
@@ -1114,6 +1114,156 @@
       </Description>
     </ShiftY>
   </EffectShift>
+  <EffectSizePos>
+    <EffectName>
+      <Translation>Размер / Положение</Translation>
+      <Old>Size / Position</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Изменяет размер либо положение слоя. Данный эффект всегда применяется первым, вне зависимости от порядка эффектов.</Translation>
+      <Old>Adjusts this layer's size and/or position. This effect is always applied before any other effects.</Old>
+    </EffectDescription>
+    <Anchor>
+      <DisplayName>
+        <Translation>Привязка</Translation>
+        <Old>Anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, как расположить слой по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
+        <Old>Specifies how to position the layer relative to the “X” and “Y” co-ordinates.</Old>
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает горизонтальную координату точки привязки.</Translation>
+        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает вертикальную координату точки привязки.</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point.</Old>
+      </Description>
+    </Y>
+    <PositionByPixels>
+      <DisplayName>
+        <Translation> По пикселям</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если опция включена, края слоя задаются видимыми пикселями (см. также «Порог прозрачности»). В противном случае используется полный размер слоя.</Translation>
+        <Old>When checked, the edge of the layer is defined by the visible pixels (see also "Transparency threshold"). Otherwise the complete layer size is used.</Old>
+      </Description>
+    </PositionByPixels>
+    <SizeByPixels>
+      <DisplayName>
+        <Translation> По пикселям</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Если опция включена, края слоя задаются видимыми пикселями (см. также «Порог прозрачности»). В противном случае используется полный размер слоя.</Translation>
+        <Old>If checked, transparent areas on the outside of the image will be ignored in size calculations. See also "Transparency threshold".</Old>
+      </Description>
+    </SizeByPixels>
+    <Percentage>
+      <DisplayName>
+        <Translation>Растянуть в %</Translation>
+        <Old>Resize %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда выбран Режим «По %», задает желаемый процент изменения размера.</Translation>
+        <Old>When Mode is "By %", selects the desired resize percentage.</Old>
+      </Description>
+    </Percentage>
+    <Width>
+      <DisplayName>
+        <Translation>Растянуть по ширине</Translation>
+        <Old>Resize to width</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда выбран один из режимов «По размеру», задает желаемую ширину, в пикселях.</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired width, in pixels.</Old>
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>Растянуть по высоте</Translation>
+        <Old>Resize to height</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Когда выбран один из режимов «По размеру», задает желаемую высоту, в пикселях.</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired height, in pixels.</Old>
+      </Description>
+    </Height>
+    <SizeMode>
+      <DisplayName>
+        <Translation>Режим</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает один из нескольких режимов изменения размера, который определяет, каким образом вычисляется новый размер слоя.</Translation>
+        <Old>Selects one of several different resize modes, which determines how the image size is calculated.</Old>
+      </Description>
+    </SizeMode>
+    <GrowShrinkMode>
+      <DisplayName>
+        <Translation>Увеличить/уменьшить</Translation>
+        <Old>Grow/shrink</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, разрешить ли только увеличение слоя, только уменьшение, либо и то, и другое.</Translation>
+        <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
+      </Description>
+    </GrowShrinkMode>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>Порог прозрачности</Translation>
+        <Old>Transparency threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>При использовании "По пикселям", указывает максимальную величину прозрачности (альфа-канала), при которой пиксель считается невидимым.</Translation>
+        <Old>When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ShowLayerBorders>
+      <DisplayName>
+        <Translation>Граница слоя</Translation>
+        <Old>Show layer borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Рисует прямоугольник, указывающий границы слоя. Эти границы используются для вычислений координат когда опция "По пикселям" отключена.</Translation>
+        <Old>If enabled, draws a rectangle to show the layer borders. These borders are used when "Use pixels" is disabled.</Old>
+      </Description>
+    </ShowLayerBorders>
+    <ShowPixelBorders>
+      <DisplayName>
+        <Translation>Граница пикселей</Translation>
+        <Old>Show pixel borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Рисует прямоугольник, указывающий границы видимых пикселей. Используйте «Порог прозрачности» для настройки чувствительности. Эти границы используются для вычислений координат когда опция "По пикселям" включена.</Translation>
+        <Old>If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using "Transparency threshold". These borders are used when "Use pixels" is enabled.</Old>
+      </Description>
+    </ShowPixelBorders>
+    <ShowAnchor>
+      <DisplayName>
+        <Translation>Точка привязки</Translation>
+        <Old>Show anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Отображает перекрестие в точке привязки.</Translation>
+        <Old>If enabled, draws a cross-hair at the anchor position.</Old>
+      </Description>
+    </ShowAnchor>
+  </EffectSizePos>
   <EffectBrightnessContrast>
     <EffectName>
       <Translation>Яркость / Контрастность</Translation>
@@ -1187,7 +1337,7 @@
   <EffectGamma>
     <EffectName>
       <Translation>Гамма коррекция</Translation>
-      <Old>Gamma Correction</Old>
+      <Old>Gamma correction</Old>
     </EffectName>
     <EffectDescription>
       <Translation>Позволяет скорректировать кривую яркости каналов изображения.</Translation>
@@ -1407,11 +1557,11 @@
   <EffectMotionBlur>
     <EffectName>
       <Translation>Размытие: в движении</Translation>
-      <Old>Blur: Motion</Old>
+      <Old>Blur: motion</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Размывает картинку, симулируя размытие в движении.</Translation>
-      <Old>Blur images, simulation the motion blur.</Old>
+      <Translation>Размывает слой, симулируя размытие в движении.</Translation>
+      <Old>Blurs the layer, simulating linear motion blur.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1447,11 +1597,11 @@
   <EffectRadialBlur>
     <EffectName>
       <Translation>Размытие: во вращении</Translation>
-      <Old>Blur: Radial</Old>
+      <Old>Blur: radial</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Размывает картинку, симулируя размытие во вращении.</Translation>
-      <Old>Blur images, simulation the rotation blur.</Old>
+      <Translation>Размывает слой, симулируя размытие во вращении.</Translation>
+      <Old>Blurs the layer, simulating rotational motion blur</Old>
     </EffectDescription>
     <Angle>
       <DisplayName>
@@ -1470,8 +1620,8 @@
       <Old>Wave</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Делает волнистым текущий слой.</Translation>
-      <Old>Waves the current layer.</Old>
+      <Translation>Делает слой волнистым.</Translation>
+      <Old>Distorts the layer in the shape of a wave.</Old>
     </EffectDescription>
     <Amplitude>
       <DisplayName>
@@ -1500,8 +1650,8 @@
       <Old>Rotate</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Поворачивает текущий слой.</Translation>
-      <Old>Rotates the current layer.</Old>
+      <Translation>Поворачивает слой на указанный угол.</Translation>
+      <Old>Rotates the layer.</Old>
     </EffectDescription>
     <Angle>
       <DisplayName>
@@ -1509,8 +1659,8 @@
         <Old>Angle</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает угол поворота.</Translation>
-        <Old>Selects rotation angle.</Old>
+        <Translation>Задает угол поворота в градусах.</Translation>
+        <Old>Rotation angle in degrees.</Old>
       </Description>
     </Angle>
     <RotateX>
@@ -1520,7 +1670,7 @@
       </DisplayName>
       <Description>
         <Translation>Задает координату Х точки вращения.</Translation>
-        <Old>Selects rotation x coordinate.</Old>
+        <Old>The X coordinate of the center of rotation.</Old>
       </Description>
     </RotateX>
     <RotateY>
@@ -1530,7 +1680,7 @@
       </DisplayName>
       <Description>
         <Translation>Задает координату Y точки вращения.</Translation>
-        <Old>Selects rotation y coordinate.</Old>
+        <Old>The Y coordinate of the center of rotation.</Old>
       </Description>
     </RotateY>
   </EffectRotate>
@@ -1574,156 +1724,6 @@
       </Description>
     </CompensateSaturation>
   </EffectBrightnessAdjustment>
-  <EffectSizePos>
-    <EffectName>
-      <Translation>Размер / Положение</Translation>
-      <Old>Size / Position</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Изменяет размер либо положение слоя. Данный эффект всегда применяется первым, вне зависимости от порядка эффектов.</Translation>
-      <Old>Adjusts this layer's size and/or position. This effect is always applied before any other effects.</Old>
-    </EffectDescription>
-    <Anchor>
-      <DisplayName>
-        <Translation>Привязка</Translation>
-        <Old>Anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Указывает, как расположить слой по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
-        <Old>Specifies how to position the layer relative to the “X” and “Y” co-ordinates.</Old>
-      </Description>
-    </Anchor>
-    <X>
-      <DisplayName>
-        <Translation>X</Translation>
-        <Old>X</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Указывает горизонтальную координату точки привязки.</Translation>
-        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
-      </Description>
-    </X>
-    <Y>
-      <DisplayName>
-        <Translation>Y</Translation>
-        <Old>Y</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Указывает вертикальную координату точки привязки.</Translation>
-        <Old>Specifies the vertical coordinate of the anchor point.</Old>
-      </Description>
-    </Y>
-    <PositionByPixels>
-      <DisplayName>
-        <Translation> По пикселям</Translation>
-        <Old>Use pixels</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Если опция включена, края слоя задаются видимыми пикселями (см. также «Порог прозрачности»). В противном случае используется полный размер слоя.</Translation>
-        <Old>When checked, the edge of the layer is defined by the visible pixels (see also "Transparency threshold"). Otherwise the complete layer size is used.</Old>
-      </Description>
-    </PositionByPixels>
-    <SizeByPixels>
-      <DisplayName>
-        <Translation> По пикселям</Translation>
-        <Old>Use pixels</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Если опция включена, края слоя задаются видимыми пикселями (см. также «Порог прозрачности»). В противном случае используется полный размер слоя.</Translation>
-        <Old>If checked, transparent areas on the outside of the image will be ignored in size calculations. See also "Transparency threshold".</Old>
-      </Description>
-    </SizeByPixels>
-    <Percentage>
-      <DisplayName>
-        <Translation>Растянуть в %</Translation>
-        <Old>Resize %</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда выбран Режим «По %», задает желаемый процент изменения размера.</Translation>
-        <Old>When Mode is "By %", selects the desired resize percentage.</Old>
-      </Description>
-    </Percentage>
-    <Width>
-      <DisplayName>
-        <Translation>Растянуть по ширине</Translation>
-        <Old>Resize to width</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда выбран один из режимов «По размеру», задает желаемую ширину, в пикселях.</Translation>
-        <Old>When Mode is one of "By size" modes, selects the desired width, in pixels.</Old>
-      </Description>
-    </Width>
-    <Height>
-      <DisplayName>
-        <Translation>Растянуть по высоте</Translation>
-        <Old>Resize to height</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Когда выбран один из режимов «По размеру», задает желаемую высоту, в пикселях.</Translation>
-        <Old>When Mode is one of "By size" modes, selects the desired height, in pixels.</Old>
-      </Description>
-    </Height>
-    <SizeMode>
-      <DisplayName>
-        <Translation>Режим</Translation>
-        <Old>Mode</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Указывает один из нескольких режимов изменения размера, который определяет, каким образом вычисляется новый размер слоя.</Translation>
-        <Old>Selects one of several different resize modes, which determines how the image size is calculated.</Old>
-      </Description>
-    </SizeMode>
-    <GrowShrinkMode>
-      <DisplayName>
-        <Translation>Увеличить/уменьшить</Translation>
-        <Old>Grow/shrink</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Указывает, разрешить ли только увеличение слоя, только уменьшение, либо и то, и другое.</Translation>
-        <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
-      </Description>
-    </GrowShrinkMode>
-    <PixelAlphaThreshold>
-      <DisplayName>
-        <Translation>Порог прозрачности</Translation>
-        <Old>Transparency threshold</Old>
-      </DisplayName>
-      <Description>
-        <Translation>При использовании "По пикселям", указывает максимальную величину прозрачности (альфа-канала), при которой пиксель считается невидимым.</Translation>
-        <Old>When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
-      </Description>
-    </PixelAlphaThreshold>
-    <ShowLayerBorders>
-      <DisplayName>
-        <Translation>Граница слоя</Translation>
-        <Old>Show layer borders</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Рисует прямоугольник, указывающий границы слоя. Эти границы используются для вычислений координат когда опция "По пикселям" отключена.</Translation>
-        <Old>If enabled, draws a rectangle to show the layer borders. These borders are used when "Use pixels" is disabled.</Old>
-      </Description>
-    </ShowLayerBorders>
-    <ShowPixelBorders>
-      <DisplayName>
-        <Translation>Граница пикселей</Translation>
-        <Old>Show pixel borders</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Рисует прямоугольник, указывающий границы видимых пикселей. Используйте «Порог прозрачности» для настройки чувствительности. Эти границы используются для вычислений координат когда опция "По пикселям" включена.</Translation>
-        <Old>If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using "Transparency threshold". These borders are used when "Use pixels" is enabled.</Old>
-      </Description>
-    </ShowPixelBorders>
-    <ShowAnchor>
-      <DisplayName>
-        <Translation>Точка привязки</Translation>
-        <Old>Show anchor</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Отображает перекрестие в точке привязки.</Translation>
-        <Old>If enabled, draws a cross-hair at the anchor position.</Old>
-      </Description>
-    </ShowAnchor>
-  </EffectSizePos>
   <BoolWithPassthrough>
     <Yes>
       <Translation>Да</Translation>
