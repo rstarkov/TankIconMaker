@@ -1,4 +1,4 @@
-﻿﻿using RT.Util.Lingo;
+﻿using RT.Util.Lingo;
 using TankIconMaker.Effects;
 using WpfCrutches;
 
@@ -537,7 +537,7 @@ namespace TankIconMaker
     sealed class EffectAdaptiveSharpenTranslation
     {
         public TrString EffectName = "Sharpen: adaptive";
-        public TrString EffectDescription = "Sharpens the layer, limiting the effect so that only edges within the image are sharpened, leaving other areas unaffected.";
+        public TrString EffectDescription = "Sharpens the layer in areas that contain sharp edges. Smooth areas remain unaffected.";
 
         public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
         public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
@@ -557,7 +557,7 @@ namespace TankIconMaker
     sealed class EffectAdaptiveBlurTranslation
     {
         public TrString EffectName = "Blur: adaptive";
-        public TrString EffectDescription = "Blurs the layer, avoiding sharp edges within the image.";
+        public TrString EffectDescription = "Blurs the layer in areas that don’t contain sharp edges.";
 
         public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
         public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted." };
@@ -567,7 +567,7 @@ namespace TankIconMaker
     sealed class EffectSelectiveBlurTranslation
     {
         public TrString EffectName = "Blur: selective";
-        public TrString EffectDescription = "Blurs the layer, avoiding the edges and high contrast areas.";
+        public TrString EffectDescription = "Blurs the layer in areas that don’t contain sharp edges or high contrast.";
 
         public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
         public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted." };
