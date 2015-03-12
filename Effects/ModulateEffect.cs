@@ -14,15 +14,15 @@ namespace TankIconMaker.Effects
 
         public double Hue { get { return _Hue; } set { _Hue = Math.Min(200.0, Math.Max(0.0, value)); } }
         private double _Hue;
-        public static MemberTr HueTr(Translation tr) { return new MemberTr(tr.Category.HueSaturationBrightness, tr.EffectHueSaturationBrightness.Hue); }
+        public static MemberTr HueTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectHueSaturationBrightness.Hue); }
 
         public double Saturation { get { return _Saturation; } set { _Saturation = Math.Max(0.0, value); } }
         private double _Saturation;
-        public static MemberTr SaturationTr(Translation tr) { return new MemberTr(tr.Category.HueSaturationBrightness, tr.EffectHueSaturationBrightness.Saturation); }
+        public static MemberTr SaturationTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectHueSaturationBrightness.Saturation); }
 
         public double Brightness { get { return _Brightness; } set { _Brightness = Math.Max(0.0, value); } }
         private double _Brightness;
-        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.HueSaturationBrightness, tr.EffectHueSaturationBrightness.Brightness); }
+        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectHueSaturationBrightness.Brightness); }
 
         public ModulateEffect()
         {

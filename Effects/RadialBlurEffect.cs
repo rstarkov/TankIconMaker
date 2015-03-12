@@ -26,11 +26,11 @@ namespace TankIconMaker.Effects
 
         public double Angle { get { return _Angle; } set { _Angle = Math.Min(360.0, Math.Max(-360.0, value)); } }
         private double _Angle;
-        public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.Blur, tr.EffectRadialBlur.Angle); }
+        public static MemberTr AngleTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectRadialBlur.Angle); }
 
         public RadialBlurEffect()
         {
-            ChannelA = false;
+            ChannelA = true;
             ChannelR = true;
             ChannelG = true;
             ChannelB = true;

@@ -407,6 +407,46 @@
         <Old>Allows you to hide this effect for some of the tanks, depending on their properties.</Old>
       </Description>
     </EffectVisibleFor>
+    <ChannelA>
+      <DisplayName>
+        <Translation>Альфа</Translation>
+        <Old>Alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для альфа канала (прозрачность).</Translation>
+        <Old>Apply the effect to the alpha channel (image opacity).</Old>
+      </Description>
+    </ChannelA>
+    <ChannelR>
+      <DisplayName>
+        <Translation>Красный</Translation>
+        <Old>Red</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для красного канала.</Translation>
+        <Old>Apply the effect to the red channel.</Old>
+      </Description>
+    </ChannelR>
+    <ChannelG>
+      <DisplayName>
+        <Translation>Зеленый</Translation>
+        <Old>Green</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для зеленого канала.</Translation>
+        <Old>Apply the effect to the green channel.</Old>
+      </Description>
+    </ChannelG>
+    <ChannelB>
+      <DisplayName>
+        <Translation>Синий</Translation>
+        <Old>Blue</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для синего канала.</Translation>
+        <Old>Apply the effect to the blue channel.</Old>
+      </Description>
+    </ChannelB>
   </LayerAndEffect>
   <BkgDarkAgentLayer>
     <LayerName>
@@ -1074,64 +1114,14 @@
       </Description>
     </ShiftY>
   </EffectShift>
-  <EffectChannels>
-    <EffectName>
-      <Translation>Каналы</Translation>
-      <Old>Channels</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Выбор каналов, задействованных в эффекте.</Translation>
-      <Old>Specifies the channels affected by effect.</Old>
-    </EffectDescription>
-    <AChannel>
-      <DisplayName>
-        <Translation>Альфа канал</Translation>
-        <Old>Alpha channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Использовать эффект для альфа канала.</Translation>
-        <Old>Enable effect for alpha channel.</Old>
-      </Description>
-    </AChannel>
-    <RChannel>
-      <DisplayName>
-        <Translation>Красный канал</Translation>
-        <Old>Red channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Использовать эффект для красного канала.</Translation>
-        <Old>Enable effect for red channel.</Old>
-      </Description>
-    </RChannel>
-    <GChannel>
-      <DisplayName>
-        <Translation>Красный канал</Translation>
-        <Old>Green channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Использовать эффект для зеленого канала.</Translation>
-        <Old>Enable effect for green channel.</Old>
-      </Description>
-    </GChannel>
-    <BChannel>
-      <DisplayName>
-        <Translation>Синий канал</Translation>
-        <Old>Blue channel</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Использовать эффект для синего канала.</Translation>
-        <Old>Enable effect for blue channel.</Old>
-      </Description>
-    </BChannel>
-  </EffectChannels>
   <EffectBrightnessContrast>
     <EffectName>
       <Translation>Яркость / Контрастность</Translation>
       <Old>Brightness / Contrast</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Инструмент Яркость-Контрастность позволяет настроить уровни яркости и контрастности для целевого слоя.</Translation>
-      <Old>The Brightness-Contrast effect adjusts the brightness and contrast levels for the target layer.</Old>
+      <Translation>Подстраивает уровни яркости и контрастности целевого слоя.</Translation>
+      <Old>Adjusts the brightness and contrast of the target layer.</Old>
     </EffectDescription>
     <Brightness>
       <DisplayName>
@@ -1160,8 +1150,8 @@
       <Old>Hue / Saturation / Brightness</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Эффект Цветовой тон-Насыщенность-Яркость позволяет настроить цвет, яркость и насыщенность для целевого слоя.</Translation>
-      <Old>The Hue-Saturation-Brightness effect is used to adjust hue, saturation and brightness levels on target layer.</Old>
+      <Translation>Подстраивает цвет, яркость и насыщенность целевого слоя.</Translation>
+      <Old>Adjusts hue, saturation and brightness of target layer.</Old>
     </EffectDescription>
     <Hue>
       <DisplayName>
@@ -1196,52 +1186,52 @@
   </EffectHueSaturationBrightness>
   <EffectGamma>
     <EffectName>
-      <Translation>Гамма Коррекция</Translation>
+      <Translation>Гамма коррекция</Translation>
       <Old>Gamma Correction</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Эффект Гамма Коррекции позволяет настроить значения яркости каналов изображения.</Translation>
-      <Old>The Gamma Correction effect is used to adjust the image's channel values.</Old>
+      <Translation>Позволяет скорректировать кривую яркости каналов изображения.</Translation>
+      <Old>Adjusts the gamma value (brightness curve) of each channel within the layer.</Old>
     </EffectDescription>
-    <gammaRed>
+    <GammaRed>
       <DisplayName>
-        <Translation>Гамма Красного</Translation>
-        <Old>Gamma Red</Old>
+        <Translation>Гамма красного</Translation>
+        <Old>Red gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемое усиление красного канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
-        <Old>Selects the desired red channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Задает желаемую коррекцию красного канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
+        <Old>Selects the desired red channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
       </Description>
-    </gammaRed>
-    <gammaGreen>
+    </GammaRed>
+    <GammaGreen>
       <DisplayName>
-        <Translation>Гамма Зеленого</Translation>
-        <Old>Gamma Blue</Old>
+        <Translation>Гамма зеленого</Translation>
+        <Old>Green gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемое усиление зеленого канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
-        <Old>Selects the desired green channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Задает желаемую коррекцию зеленого канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
+        <Old>Selects the desired green channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
       </Description>
-    </gammaGreen>
-    <gammaBlue>
+    </GammaGreen>
+    <GammaBlue>
       <DisplayName>
-        <Translation>Гамма Синего</Translation>
-        <Old>Gamma Green</Old>
+        <Translation>Гамма синего</Translation>
+        <Old>Blue gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает желаемое усиление синего канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
-        <Old>Selects the desired blue channel adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Задает желаемую коррекцию синего канала (рекомендуются значения в диапазоне от 0.8 до 2.3).</Translation>
+        <Old>Selects the desired blue channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
       </Description>
-    </gammaBlue>
+    </GammaBlue>
   </EffectGamma>
   <EffectLevel>
     <EffectName>
       <Translation>Уровни</Translation>
-      <Old>Level</Old>
+      <Old>Levels</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Эффект Уровни позволяет настроить диапазон интенсивности для целевого слоя, делая изображение темнее или светлее.</Translation>
-      <Old>The Level effect can change the intensity range of the target layer, making the image darker or lighter.</Old>
+      <Translation>Модифицирует диапазон интенсивности целевого слоя, делая изображение темнее или светлее.</Translation>
+      <Old>Remaps the brightness of all pixels according to a curve specified by three configurable points.</Old>
     </EffectDescription>
     <BlackPoint>
       <DisplayName>
@@ -1280,8 +1270,8 @@
       <Old>Invert</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Эффект Инверсия позволяет обратить цвета изображения.</Translation>
-      <Old>The Invert effect can invert the colors of image.</Old>
+      <Translation>Обращает цвета целевого слоя.</Translation>
+      <Old>Inverts the colors within the layer.</Old>
     </EffectDescription>
   </EffectInvert>
   <EffectAdaptiveBlur>
@@ -1291,7 +1281,7 @@
     </EffectName>
     <EffectDescription>
       <Translation>Размывает изображение за исключением граней, согласно настройкам выявления граней.</Translation>
-      <Old>Blur images, except close to the edges as defined by an edge detection on the image.</Old>
+      <Old>Blurs the layer, but avoids blurring sharp edges within the image.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1937,14 +1927,14 @@
       <Translation>Обрезка</Translation>
       <Old>Clip</Old>
     </Clip>
-    <Blur>
-      <Translation>Размытие</Translation>
-      <Old>Blur</Old>
-    </Blur>
     <Shift>
       <Translation>Смещение</Translation>
       <Old>Shift</Old>
     </Shift>
+    <Channels>
+      <Translation>Каналы</Translation>
+      <Old>Channels</Old>
+    </Channels>
   </Category>
   <Selector>
     <By>

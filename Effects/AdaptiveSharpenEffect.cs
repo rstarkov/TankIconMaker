@@ -26,11 +26,11 @@ namespace TankIconMaker.Effects
 
         public double Radius { get { return _Radius; } set { _Radius = Math.Max(0.0, value); } }
         private double _Radius;
-        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Sharpen, tr.EffectAdaptiveSharpen.Radius); }
+        public static MemberTr RadiusTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectAdaptiveSharpen.Radius); }
 
         public double Sigma { get { return _Sigma; } set { _Sigma = Math.Max(0.0, value); } }
         private double _Sigma;
-        public static MemberTr SigmaTr(Translation tr) { return new MemberTr(tr.Category.Sharpen, tr.EffectAdaptiveSharpen.Sigma); }
+        public static MemberTr SigmaTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectAdaptiveSharpen.Sigma); }
 
         public AdaptiveSharpenEffect()
         {
