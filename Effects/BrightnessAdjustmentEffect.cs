@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Windows.Media.Imaging;
+using System.ComponentModel;
 using ImageMagick;
 using RT.Util.Lingo;
-using D = System.Drawing;
 
 namespace TankIconMaker.Effects
 {
@@ -21,15 +19,22 @@ namespace TankIconMaker.Effects
         private double _Brightness;
         public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.Brightness); }
 
-        public bool CompensateSaturation { get { return _CompensateSaturation; } set { _CompensateSaturation = value; } }
-        private bool _CompensateSaturation;
-        public static MemberTr CompensateSaturationTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.CompensateSaturation); }
+        public SaturationMode Saturation { get; set; }
+        public static MemberTr SaturationTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.Saturation); }
+
+        [TypeConverter(typeof(EffectBrightnessAdjustmentTranslation.SaturationModeTranslation.Conv))]
+        public enum SaturationMode
+        {
+            NoChange,
+            Reduce,
+            Zero,
+        }
 
         public BrightnessAdjustmentEffect()
         {
             _Strength = 100;
-            _Brightness = 50;
-            CompensateSaturation = true;
+            _Brightness = 30;
+            Saturation = SaturationMode.Reduce;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
@@ -63,12 +68,12 @@ namespace TankIconMaker.Effects
             {
                 var averageBrightness = (double) totalBrightness * 100.0 / (double) totalAlpha / 255.0 / 10000.0;
                 image.BackgroundColor = MagickColor.Transparent;
-                double fixedStrength = Strength / 100;
-                double compensatevalue = ((Brightness / averageBrightness - 1) * (fixedStrength) + 1) * 100;
-                double compensatesaturation = 100;
-                if (CompensateSaturation && compensatevalue < 100)
-                    compensatesaturation = (100 - (100 - (compensatevalue * compensatevalue / 100)) * fixedStrength);
-                image.Modulate(new Percentage(compensatevalue), new Percentage(compensatesaturation), new Percentage(100));
+                double strength = Strength / 100;
+                double scaleValue = 1 + (Brightness / averageBrightness - 1) * strength;
+                double scaleSaturation = Saturation == SaturationMode.Zero ? 0 : 1;
+                if (Saturation == SaturationMode.Reduce && scaleValue < 1)
+                    scaleSaturation = 1 - (1 - scaleValue * scaleValue) * strength;
+                image.Modulate(new Percentage(100 * scaleValue), new Percentage(100 * scaleSaturation), new Percentage(100));
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());
                 return layer;

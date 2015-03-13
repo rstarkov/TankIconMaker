@@ -826,12 +826,12 @@
   </EffectColorize>
   <EffectNormalize>
     <EffectName>
-      <Translation>Нормализация</Translation>
-      <Old>Normalize</Old>
+      <Translation>Выравнивание (нормализация)</Translation>
+      <Old>Equalize (normalize)</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Нормализует яркость изображения с помощью автоматической подстройки контраста (т.е. черные цвета остаются черными). Также может нормализовать прозрачность и обесцветить изображение.</Translation>
-      <Old>Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.</Old>
+      <Translation>Нормализует яркость изображения с помощью автоматической подстройки контраста (т.е. черные цвета остаются черными). Таким образом яркость всех иконок становится примерно одинаковой. Имеет функцию нормализации прозрачности. Это старая версия эффекта Выравнивание, который в предыдущих версиях назывался “Нормализация”.</Translation>
+      <Old>Normalizes the brightness or alpha channel of each image, to make them similar across all icons regardless of the original image brightness. This is the older Equalize effect and is less effective.</Old>
     </EffectDescription>
     <Grayscale>
       <DisplayName>
@@ -1686,12 +1686,12 @@
   </EffectRotate>
   <EffectBrightnessAdjustment>
     <EffectName>
-      <Translation>Выравнивание яркости</Translation>
-      <Old>Brightness adjustment</Old>
+      <Translation>Выравнивание яркости (улучшенное)</Translation>
+      <Old>Equalize brightness (improved)</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Выравнивает все изображения до определенной яркости.</Translation>
-      <Old>Adjusts every image to selected brightness.</Old>
+      <Translation>Нормализует яркость слоя до указанного значения, таким образом выравнивая яркость во всех иконках. Это новый, улучшенный вариант эффекта Выравнивание.</Translation>
+      <Old>Normalizes the brightness of each image to the specified value, so that the brightness is identical across all icons regardless of the original image brightness. This is the new and improved variant of the Equalize effect.</Old>
     </EffectDescription>
     <Strength>
       <DisplayName>
@@ -1699,8 +1699,8 @@
         <Old>Strength %</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает силу эффекта.</Translation>
-        <Old>Selects effect's strength.</Old>
+        <Translation>Сила эффекта. Значения ниже 100% не выравнивают яркость полностью, а оставляют некоторые различия.</Translation>
+        <Old>Effect strength. Values below 100% do not achieve full brightness equalization and preserve the original variation to some extent.</Old>
       </Description>
     </Strength>
     <Brightness>
@@ -1709,20 +1709,34 @@
         <Old>Brightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Задает уровень яркости.</Translation>
-        <Old>Selects brightness level.</Old>
+        <Translation>Желаемый уровень яркости. Яркость изображения будет изменена таким образом, чтобы среднее значение яркости всех пикселей равнялось заданному.</Translation>
+        <Old>Desired average image brightness. The image brightness is adjusted so that the average brightness of all pixels is equal to this value.</Old>
       </Description>
     </Brightness>
-    <CompensateSaturation>
+    <Saturation>
       <DisplayName>
-        <Translation>Фикс насыщенности</Translation>
-        <Old>Compensate saturation</Old>
+        <Translation>Насыщенность</Translation>
+        <Old>Saturation</Old>
       </DisplayName>
       <Description>
-        <Translation>Компенсировать или нет насыщенность на темных изображениях.</Translation>
-        <Old>Compensate or not saturation on dark images.</Old>
+        <Translation>Режим коррекции насыщенности. “Уменьшить” слегка уменьшает насыщенность тех слоев, чья яркость была снижена, чтобы улучшить внешний вид более ярких областей.</Translation>
+        <Old>Saturation adjustment mode. “Reduce” tones down the saturation somewhat, but only when the layer brightness is being reduced by this effect, to improve the appearance of the brighter areas of the image.</Old>
       </Description>
-    </CompensateSaturation>
+    </Saturation>
+    <SaturationMode>
+      <NoChange>
+        <Translation>Не менять</Translation>
+        <Old>No change</Old>
+      </NoChange>
+      <Reduce>
+        <Translation>Уменьшить</Translation>
+        <Old>Reduce</Old>
+      </Reduce>
+      <Zero>
+        <Translation>Обнулить (оттенки серого)</Translation>
+        <Old>Zero (grayscale)</Old>
+      </Zero>
+    </SaturationMode>
   </EffectBrightnessAdjustment>
   <BoolWithPassthrough>
     <Yes>
