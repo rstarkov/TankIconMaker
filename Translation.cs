@@ -45,7 +45,7 @@ namespace TankIconMaker
         EffectClip,
         [LingoGroup("Effect: Colorize", "Strings used in the property grid for the \"Colorize\" effect.")]
         EffectColorize,
-        [LingoGroup("Effect: Normalize", "Strings used in the property grid for the \"Normalize\" effect.")]
+        [LingoGroup("Effect: Equalize (normalize)", "Strings used in the property grid for the \"Equalize (normalize)\" effect.")]
         EffectNormalize,
         [LingoGroup("Effect: Flip", "Strings used in the property grid for the \"Flip\" effect.")]
         EffectFlip,
@@ -89,7 +89,7 @@ namespace TankIconMaker
         EffectWave,
         [LingoGroup("Effect: Rotate", "Strings used in the property grid for the \"Rotate\" effect.")]
         EffectRotate,
-        [LingoGroup("Effect: Average brightness", "Strings used in the property grid for the \"Brightness adjustment\" effect.")]
+        [LingoGroup("Effect: Equalize brightness", "Strings used in the property grid for the \"Equalize brightness\" effect.")]
         EffectBrightnessAdjustment,
 
         [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
@@ -408,8 +408,8 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectNormalize)]
     sealed class EffectNormalizeTranslation
     {
-        public TrString EffectName = "Normalize";
-        public TrString EffectDescription = "Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.";
+        public TrString EffectName = "Equalize (normalize)";
+        public TrString EffectDescription = "Normalizes the brightness or alpha channel of each image, to make them similar across all icons regardless of the original image brightness. This is the older Equalize effect and is less effective.";
 
         public MemberDescriptionTr Grayscale = new MemberDescriptionTr { DisplayName = "Grayscale", Description = "When enabled, the image is made grayscale (i.e. fully desaturated)" };
         public MemberDescriptionTr NormalizeBrightness = new MemberDescriptionTr { DisplayName = "Normalize brightness", Description = "When enabled, the brightness in the layer is normalized such that the brightest pixel receives the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly." };
@@ -618,12 +618,27 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectBrightnessAdjustment)]
     sealed class EffectBrightnessAdjustmentTranslation
     {
-        public TrString EffectName = "Brightness adjustment";
-        public TrString EffectDescription = "Adjusts every image to selected brightness.";
+        public TrString EffectName = "Equalize brightness (improved)";
+        public TrString EffectDescription = "Normalizes the brightness of each image to the specified value, so that the brightness is identical across all icons regardless of the original image brightness. This is the new and improved variant of the Equalize effect.";
 
-        public MemberDescriptionTr Strength = new MemberDescriptionTr { DisplayName = "Strength %", Description = "Selects effect's strength." };
-        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Selects brightness level." };
-        public MemberDescriptionTr CompensateSaturation = new MemberDescriptionTr { DisplayName = "Compensate saturation", Description = "Compensate or not saturation on dark images." };
+        public MemberDescriptionTr Strength = new MemberDescriptionTr { DisplayName = "Strength %", Description = "Effect strength. Values below 100% do not achieve full brightness equalization and preserve the original variation to some extent." };
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Desired average image brightness. The image brightness is adjusted so that the average brightness of all pixels is equal to this value." };
+        public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation", Description = "Saturation adjustment mode. “Reduce” tones down the saturation somewhat, but only when the layer brightness is being reduced by this effect, to improve the appearance of the brighter areas of the image." };
+
+        public SaturationModeTranslation SaturationMode = new SaturationModeTranslation();
+
+        [LingoStringClass]
+        public sealed class SaturationModeTranslation
+        {
+            public TrString NoChange = "No change";
+            public TrString Reduce = "Reduce";
+            public TrString Zero = "Zero (grayscale)";
+
+            public class Conv : LingoEnumConverter<BrightnessAdjustmentEffect.SaturationMode, SaturationModeTranslation>
+            {
+                public Conv() : base(() => App.Translation.EffectBrightnessAdjustment.SaturationMode) { }
+            }
+        }
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]
