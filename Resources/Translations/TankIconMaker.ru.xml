@@ -1430,8 +1430,8 @@
       <Old>Blur: adaptive</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Размывает изображение, избегая грани.</Translation>
-      <Old>Blurs the layer, avoiding sharp edges within the image.</Old>
+      <Translation>Размывает изображение в тех областях, где отсутствуют грани.</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1460,8 +1460,8 @@
       <Old>Sharpen: adaptive</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Увеличивает резкость только в тех частях изображения, где обнаружены грани.</Translation>
-      <Old>Sharpens the layer, limiting the effect so that only edges within the image are sharpened, leaving other areas unaffected.</Old>
+      <Translation>Увеличивает резкость только в тех областях изображения, где обнаружены грани.</Translation>
+      <Old>Sharpens the layer in areas that contain sharp edges. Smooth areas remain unaffected.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
@@ -1520,8 +1520,8 @@
       <Old>Blur: selective</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Размывает пиксели, контрастность в которых ниже заданого порога.</Translation>
-      <Old>Blurs the layer, avoiding the edges and high contrast areas.</Old>
+      <Translation>Размывает изображение в тех областях, где контрастность изображения ниже заданого порога.</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges or high contrast.</Old>
     </EffectDescription>
     <Radius>
       <DisplayName>
