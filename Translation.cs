@@ -47,10 +47,10 @@ namespace TankIconMaker
         EffectColorize,
         [LingoGroup("Effect: Equalize (normalize)", "Strings used in the property grid for the \"Equalize (normalize)\" effect.")]
         EffectNormalize,
+        [LingoGroup("Effect: Equalize brightness", "Strings used in the property grid for the \"Equalize brightness\" effect.")]
+        EffectBrightnessAdjustment,
         [LingoGroup("Effect: Flip", "Strings used in the property grid for the \"Flip\" effect.")]
         EffectFlip,
-        [LingoGroup("Effect: Blur: Gaussian", "Strings used in the property grid for the \"Blur: Gaussian\" effect.")]
-        EffectGaussianBlur,
         [LingoGroup("Effect: Opacity", "Strings used in the property grid for the \"Opacity\" effect.")]
         EffectOpacity,
         [LingoGroup("Effect: Outline", "Strings used in the property grid for the \"Outline\" effect.")]
@@ -73,24 +73,24 @@ namespace TankIconMaker
         EffectLevel,
         [LingoGroup("Effect: Invert", "Strings used in the property grid for the \"Invert\" effect.")]
         EffectInvert,
-        [LingoGroup("Effect: Adaptive blur", "Strings used in the property grid for the \"Adaptive blur\" effect.")]
-        EffectAdaptiveBlur,
-        [LingoGroup("Effect: Adaptive sharpen", "Strings used in the property grid for the \"Adaptive sharpen\" effect.")]
-        EffectAdaptiveSharpen,
         [LingoGroup("Effect: Sharpen", "Strings used in the property grid for the \"Sharpen\" effect.")]
         EffectSharpen,
-        [LingoGroup("Effect: Selective blur", "Strings used in the property grid for the \"Selective blur\" effect.")]
+        [LingoGroup("Effect: Sharpen: adaptive", "Strings used in the property grid for the \"Sharpen: adaptive\" effect.")]
+        EffectAdaptiveSharpen,
+        [LingoGroup("Effect: Blur: Gaussian", "Strings used in the property grid for the \"Blur: Gaussian\" effect.")]
+        EffectGaussianBlur,
+        [LingoGroup("Effect: Blur: adaptive", "Strings used in the property grid for the \"Blur: adaptive\" effect.")]
+        EffectAdaptiveBlur,
+        [LingoGroup("Effect: Blur: selective", "Strings used in the property grid for the \"Blur: selective\" effect.")]
         EffectSelectiveBlur,
-        [LingoGroup("Effect: Motion blur", "Strings used in the property grid for the \"Motion blur\" effect.")]
+        [LingoGroup("Effect: Blur: motion", "Strings used in the property grid for the \"Blur: motion\" effect.")]
         EffectMotionBlur,
-        [LingoGroup("Effect: Radial blur", "Strings used in the property grid for the \"Radial blur\" effect.")]
+        [LingoGroup("Effect: Blur: radial", "Strings used in the property grid for the \"Blur: radial\" effect.")]
         EffectRadialBlur,
         [LingoGroup("Effect: Wave", "Strings used in the property grid for the \"Wave\" effect.")]
         EffectWave,
         [LingoGroup("Effect: Rotate", "Strings used in the property grid for the \"Rotate\" effect.")]
         EffectRotate,
-        [LingoGroup("Effect: Equalize brightness", "Strings used in the property grid for the \"Equalize brightness\" effect.")]
-        EffectBrightnessAdjustment,
 
         [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
         Selector,
