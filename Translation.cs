@@ -48,7 +48,7 @@ namespace TankIconMaker
         [LingoGroup("Effect: Equalize (normalize)", "Strings used in the property grid for the \"Equalize (normalize)\" effect.")]
         EffectNormalize,
         [LingoGroup("Effect: Equalize brightness", "Strings used in the property grid for the \"Equalize brightness\" effect.")]
-        EffectBrightnessAdjustment,
+        EffectNormalizeBrightness,
         [LingoGroup("Effect: Flip", "Strings used in the property grid for the \"Flip\" effect.")]
         EffectFlip,
         [LingoGroup("Effect: Opacity", "Strings used in the property grid for the \"Opacity\" effect.")]
@@ -174,7 +174,7 @@ namespace TankIconMaker
         public EffectRadialBlurTranslation EffectRadialBlur = new EffectRadialBlurTranslation();
         public EffectWaveTranslation EffectWave = new EffectWaveTranslation();
         public EffectRotateTranslation EffectRotate = new EffectRotateTranslation();
-        public EffectBrightnessAdjustmentTranslation EffectBrightnessAdjustment = new EffectBrightnessAdjustmentTranslation();
+        public EffectNormalizeBrightnessTranslation EffectNormalizeBrightness = new EffectNormalizeBrightnessTranslation();
 
         public BoolWithPassthroughTranslation BoolWithPassthrough = new BoolWithPassthroughTranslation();
         public ImageBuiltInStyleTranslation ImageBuiltInStyle = new ImageBuiltInStyleTranslation();
@@ -615,8 +615,8 @@ namespace TankIconMaker
         public MemberDescriptionTr RotateY = new MemberDescriptionTr { DisplayName = "Y", Description = "The Y coordinate of the center of rotation." };
     }
 
-    [LingoStringClass, LingoInGroup(TranslationGroup.EffectBrightnessAdjustment)]
-    sealed class EffectBrightnessAdjustmentTranslation
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectNormalizeBrightness)]
+    sealed class EffectNormalizeBrightnessTranslation
     {
         public TrString EffectName = "Equalize brightness (improved)";
         public TrString EffectDescription = "Normalizes the brightness of each image to the specified value, so that the brightness is identical across all icons regardless of the original image brightness. This is the new and improved variant of the Equalize effect.";
@@ -634,9 +634,9 @@ namespace TankIconMaker
             public TrString Reduce = "Reduce";
             public TrString Zero = "Zero (grayscale)";
 
-            public class Conv : LingoEnumConverter<BrightnessAdjustmentEffect.SaturationMode, SaturationModeTranslation>
+            public class Conv : LingoEnumConverter<NormalizeBrightnessEffect.SaturationMode, SaturationModeTranslation>
             {
-                public Conv() : base(() => App.Translation.EffectBrightnessAdjustment.SaturationMode) { }
+                public Conv() : base(() => App.Translation.EffectNormalizeBrightness.SaturationMode) { }
             }
         }
     }

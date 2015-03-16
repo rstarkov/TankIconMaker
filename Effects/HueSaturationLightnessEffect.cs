@@ -4,7 +4,7 @@ using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
-    class ModulateEffect : EffectBase
+    class HueSaturationLightnessEffect : EffectBase
     {
         public override int Version { get { return 1; } }
         public override string TypeName { get { return App.Translation.EffectHueSaturationLightness.EffectName; } }
@@ -22,7 +22,7 @@ namespace TankIconMaker.Effects
         private double _Lightness;
         public static MemberTr LightnessTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectHueSaturationLightness.Lightness); }
 
-        public ModulateEffect()
+        public HueSaturationLightnessEffect()
         {
             _Hue = 0;
             _Saturation = 100;

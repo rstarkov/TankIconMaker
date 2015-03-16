@@ -1684,7 +1684,7 @@
       </Description>
     </RotateY>
   </EffectRotate>
-  <EffectBrightnessAdjustment>
+  <EffectNormalizeBrightness>
     <EffectName>
       <Translation>Helligkeitsanpassung</Translation>
       <Old>Brightness adjustment</Old>
@@ -1723,7 +1723,7 @@
         <Old null="1" />
       </Description>
     </CompensateSaturation>
-  </EffectBrightnessAdjustment>
+  </EffectNormalizeBrightness>
   <BoolWithPassthrough>
     <Yes>
       <Translation>Ja</Translation>

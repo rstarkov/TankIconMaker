@@ -1684,7 +1684,7 @@
       </Description>
     </RotateY>
   </EffectRotate>
-  <EffectBrightnessAdjustment>
+  <EffectNormalizeBrightness>
     <EffectName>
       <Translation>Выравнивание яркости (улучшенное)</Translation>
       <Old>Equalize brightness (improved)</Old>
@@ -1737,7 +1737,7 @@
         <Old>Zero (grayscale)</Old>
       </Zero>
     </SaturationMode>
-  </EffectBrightnessAdjustment>
+  </EffectNormalizeBrightness>
   <BoolWithPassthrough>
     <Yes>
       <Translation>Да</Translation>

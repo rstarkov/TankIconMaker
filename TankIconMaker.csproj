@@ -92,8 +92,8 @@
     <Compile Include="Effects\BrightnessContrastEffect.cs" />
     <Compile Include="Effects\InvertEffect.cs" />
     <Compile Include="Effects\LevelEffect.cs" />
-    <Compile Include="Effects\BrightnessAdjustmentEffect.cs" />
-    <Compile Include="Effects\ModulateEffect.cs" />
+    <Compile Include="Effects\NormalizeBrightnessEffect.cs" />
+    <Compile Include="Effects\HueSaturationLightnessEffect.cs" />
     <Compile Include="Effects\MotionBlurEffect.cs" />
     <Compile Include="Effects\RadialBlurEffect.cs" />
     <Compile Include="Effects\RotateEffect.cs" />
