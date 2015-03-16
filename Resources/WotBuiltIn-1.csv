@@ -10,6 +10,7 @@ WOT-BUILTIN,2
 ussr-Observer,none,0,none,special
 # Unknown tank is not actually listed in the game data, so add it
 unknown,none,0,none,special
+noImage,none,0,none,special
 
 # Remove training tanks, since these share the icon with the "real" tank
 china-Ch04_T34_1_training,,,,,,del
