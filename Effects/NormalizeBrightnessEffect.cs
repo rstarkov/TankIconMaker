@@ -5,24 +5,24 @@ using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
-    class BrightnessAdjustmentEffect : EffectBase
+    class NormalizeBrightnessEffect : EffectBase
     {
         public override int Version { get { return 1; } }
-        public override string TypeName { get { return App.Translation.EffectBrightnessAdjustment.EffectName; } }
-        public override string TypeDescription { get { return App.Translation.EffectBrightnessAdjustment.EffectDescription; } }
+        public override string TypeName { get { return App.Translation.EffectNormalizeBrightness.EffectName; } }
+        public override string TypeDescription { get { return App.Translation.EffectNormalizeBrightness.EffectDescription; } }
 
         public double Strength { get { return _Strength; } set { _Strength = Math.Min(100.0, Math.Max(0.0, value)); } }
         private double _Strength;
-        public static MemberTr StrengthTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.Strength); }
+        public static MemberTr StrengthTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectNormalizeBrightness.Strength); }
 
         public double Brightness { get { return _Brightness; } set { _Brightness = Math.Min(100.0, Math.Max(0.0, value)); } }
         private double _Brightness;
-        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.Brightness); }
+        public static MemberTr BrightnessTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectNormalizeBrightness.Brightness); }
 
         public SaturationMode Saturation { get; set; }
-        public static MemberTr SaturationTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectBrightnessAdjustment.Saturation); }
+        public static MemberTr SaturationTr(Translation tr) { return new MemberTr(tr.Category.Settings, tr.EffectNormalizeBrightness.Saturation); }
 
-        [TypeConverter(typeof(EffectBrightnessAdjustmentTranslation.SaturationModeTranslation.Conv))]
+        [TypeConverter(typeof(EffectNormalizeBrightnessTranslation.SaturationModeTranslation.Conv))]
         public enum SaturationMode
         {
             NoChange,
@@ -30,7 +30,7 @@ namespace TankIconMaker.Effects
             Zero,
         }
 
-        public BrightnessAdjustmentEffect()
+        public NormalizeBrightnessEffect()
         {
             _Strength = 100;
             _Brightness = 30;

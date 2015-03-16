@@ -89,6 +89,10 @@ namespace TankIconMaker
                 var type = item.Attribute("type");
                 if (type == null)
                     item.Remove();
+                else if (type.Value == "TankIconMaker.Effects.BrightnessAdjustmentEffect")
+                    type.Value = "TankIconMaker.Effects.NormalizeBrightnessEffect";
+                else if (type.Value == "TankIconMaker.Effects.ModulateEffect")
+                    type.Value = "TankIconMaker.Effects.HueSaturationLightnessEffect";
                 else if (!App.EffectTypes.Any(lt => lt.Type.Name == type.Value || lt.Type.FullName == type.Value))
                     item.Remove();
             }
