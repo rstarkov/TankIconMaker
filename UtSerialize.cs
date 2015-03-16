@@ -55,12 +55,12 @@ namespace TankIconMaker
     /// Filters lists of <see cref="LayerBase"/> objects before XmlClassify attempts to decode them, removing all
     /// entries pertaining to layer types that no longer exist in the assembly and hence can't possibly be instantiated.
     /// </summary>
-    sealed class listLayerBaseOptions : ClassifyTypeOptions, IClassifyXmlObjectProcessor
+    sealed class listLayerBaseOptions : ClassifyTypeOptions, IClassifyXmlTypeProcessor
     {
-        void IClassifyObjectProcessor<XElement>.AfterSerialize(XElement element) { }
-        void IClassifyObjectProcessor<XElement>.AfterDeserialize(XElement element) { }
-        void IClassifyObjectProcessor<XElement>.BeforeSerialize() { }
-        void IClassifyObjectProcessor<XElement>.BeforeDeserialize(XElement element)
+        void IClassifyTypeProcessor<XElement>.AfterSerialize(object obj, XElement element) { }
+        void IClassifyTypeProcessor<XElement>.AfterDeserialize(object obj, XElement element) { }
+        void IClassifyTypeProcessor<XElement>.BeforeSerialize(object obj) { }
+        void IClassifyTypeProcessor<XElement>.BeforeDeserialize(XElement element)
         {
             foreach (var item in element.Nodes().OfType<XElement>().Where(e => e.Name == "item").ToArray())
             {
@@ -77,12 +77,12 @@ namespace TankIconMaker
     /// Filters lists of <see cref="EffectBase"/> objects before XmlClassify attempts to decode them, removing all
     /// entries pertaining to layer types that no longer exist in the assembly and hence can't possibly be instantiated.
     /// </summary>
-    sealed class listEffectBaseOptions : ClassifyTypeOptions, IClassifyXmlObjectProcessor
+    sealed class listEffectBaseOptions : ClassifyTypeOptions, IClassifyXmlTypeProcessor
     {
-        void IClassifyObjectProcessor<XElement>.AfterSerialize(XElement element) { }
-        void IClassifyObjectProcessor<XElement>.AfterDeserialize(XElement element) { }
-        void IClassifyObjectProcessor<XElement>.BeforeSerialize() { }
-        void IClassifyObjectProcessor<XElement>.BeforeDeserialize(XElement element)
+        void IClassifyTypeProcessor<XElement>.AfterSerialize(object obj, XElement element) { }
+        void IClassifyTypeProcessor<XElement>.AfterDeserialize(object obj, XElement element) { }
+        void IClassifyTypeProcessor<XElement>.BeforeSerialize(object obj) { }
+        void IClassifyTypeProcessor<XElement>.BeforeDeserialize(XElement element)
         {
             foreach (var item in element.Nodes().OfType<XElement>().Where(e => e.Name == "item").ToArray())
             {
