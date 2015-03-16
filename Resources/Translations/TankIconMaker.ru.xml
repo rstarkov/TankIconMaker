@@ -407,11 +407,51 @@
         <Old>Allows you to hide this effect for some of the tanks, depending on their properties.</Old>
       </Description>
     </EffectVisibleFor>
+    <ChannelA>
+      <DisplayName>
+        <Translation>Альфа</Translation>
+        <Old>Alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для альфа канала (прозрачность).</Translation>
+        <Old>Apply the effect to the alpha channel (image opacity).</Old>
+      </Description>
+    </ChannelA>
+    <ChannelR>
+      <DisplayName>
+        <Translation>Красный</Translation>
+        <Old>Red</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для красного канала.</Translation>
+        <Old>Apply the effect to the red channel.</Old>
+      </Description>
+    </ChannelR>
+    <ChannelG>
+      <DisplayName>
+        <Translation>Зеленый</Translation>
+        <Old>Green</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для зеленого канала.</Translation>
+        <Old>Apply the effect to the green channel.</Old>
+      </Description>
+    </ChannelG>
+    <ChannelB>
+      <DisplayName>
+        <Translation>Синий</Translation>
+        <Old>Blue</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Использовать эффект для синего канала.</Translation>
+        <Old>Apply the effect to the blue channel.</Old>
+      </Description>
+    </ChannelB>
   </LayerAndEffect>
   <BkgDarkAgentLayer>
     <LayerName>
-      <Translation>Фон / Dark Agent</Translation>
-      <Old>Background / Dark Agent</Old>
+      <Translation>Фон: Dark Agent</Translation>
+      <Old>Background: Dark Agent</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует фон, используя "стеклянный" стиль, основанный на иконках от Black_Spy.</Translation>
@@ -430,8 +470,8 @@
   </BkgDarkAgentLayer>
   <TankImageLayer>
     <LayerName>
-      <Translation>Изображение / Стандартное</Translation>
-      <Old>Image / Standard</Old>
+      <Translation>Изображение: стандартное</Translation>
+      <Old>Image: standard</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует один из нескольких типов стандартных изображений для этого танка.</Translation>
@@ -454,8 +494,8 @@
   </TankImageLayer>
   <CurrentImageLayer>
     <LayerName>
-      <Translation>Изображение / Текущее</Translation>
-      <Old>Image / Current</Old>
+      <Translation>Изображение: текущее</Translation>
+      <Old>Image: current</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует иконку, которая в данный момент используется в игре для этого танка.</Translation>
@@ -468,8 +508,8 @@
   </CurrentImageLayer>
   <CustomImageLayer>
     <LayerName>
-      <Translation>Изображение / По свойствам</Translation>
-      <Old>Image / By properties</Old>
+      <Translation>Изображение: по свойствам</Translation>
+      <Old>Image: by properties</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует одно из нескольких изображений, загруженных из пользовательских файлов, в зависимости от свойств танка.</Translation>
@@ -492,8 +532,8 @@
   </CustomImageLayer>
   <FilenamePatternImageLayer>
     <LayerName>
-      <Translation>Изображение / По имени файла</Translation>
-      <Old>Image / By filename template</Old>
+      <Translation>Изображение: по имени файла</Translation>
+      <Old>Image: by filename template</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Рисует изображение, загруженное из файла, чье имя получено в результате подстановки свойств танка в шаблон.</Translation>
@@ -656,8 +696,8 @@
   </TextLayer>
   <PropertyTextLayer>
     <LayerName>
-      <Translation>Текст / Свойство танка</Translation>
-      <Old>Text / Property</Old>
+      <Translation>Текст: свойство танка</Translation>
+      <Old>Text: property</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Отображает указанное свойство танка в виде текста.</Translation>
@@ -676,8 +716,8 @@
   </PropertyTextLayer>
   <CustomTextLayer>
     <LayerName>
-      <Translation>Текст / Фикс. по свойству</Translation>
-      <Old>Text / Custom</Old>
+      <Translation>Текст: фикс. по свойству</Translation>
+      <Old>Text: custom</Old>
     </LayerName>
     <LayerDescription>
       <Translation>Отображает фиксированную строку, выбранную на основании указанного свойства танка.</Translation>
@@ -786,12 +826,12 @@
   </EffectColorize>
   <EffectNormalize>
     <EffectName>
-      <Translation>Нормализация</Translation>
-      <Old>Normalize</Old>
+      <Translation>Выравнивание (нормализация)</Translation>
+      <Old>Equalize (normalize)</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Нормализует яркость изображения с помощью автоматической подстройки контраста (т.е. черные цвета остаются черными). Также может нормализовать прозрачность и обесцветить изображение.</Translation>
-      <Old>Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.</Old>
+      <Translation>Нормализует яркость изображения с помощью автоматической подстройки контраста (т.е. черные цвета остаются черными). Таким образом яркость всех иконок становится примерно одинаковой. Имеет функцию нормализации прозрачности. Это старая версия эффекта Выравнивание, который в предыдущих версиях назывался “Нормализация”.</Translation>
+      <Old>Normalizes the brightness or alpha channel of each image, to make them similar across all icons regardless of the original image brightness. This is the older Equalize effect and is less effective.</Old>
     </EffectDescription>
     <Grayscale>
       <DisplayName>
@@ -1224,6 +1264,480 @@
       </Description>
     </ShowAnchor>
   </EffectSizePos>
+  <EffectBrightnessContrast>
+    <EffectName>
+      <Translation>Яркость / Контрастность</Translation>
+      <Old>Brightness / Contrast</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Подстраивает уровни яркости и контрастности целевого слоя.</Translation>
+      <Old>Adjusts the brightness and contrast of the target layer.</Old>
+    </EffectDescription>
+    <Brightness>
+      <DisplayName>
+        <Translation>Яркость %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Изменение яркости, от −100% до +100%. Ноль означает оставить без изменений. В отличие от эффекта Тон / Насыщенность / Яркость, данный параметр может негативно повлиять на качество изображения при большом изменении яркости.</Translation>
+        <Old>Brightness shift, from −100% to +100%. Zero means no change. Unlike the Hue / Saturation / Lightness effect, this parameter may distort the image contrast detrimentally when a large brightness shift is configured.</Old>
+      </Description>
+    </Brightness>
+    <Contrast>
+      <DisplayName>
+        <Translation>Контрастность %</Translation>
+        <Old>Contrast %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает желаемый процент контрастности.</Translation>
+        <Old>Contrast adjustment, from −100% to +100%. Zero means no change.</Old>
+      </Description>
+    </Contrast>
+  </EffectBrightnessContrast>
+  <EffectHueSaturationLightness>
+    <EffectName>
+      <Translation>Тон / Насыщенность / Яркость</Translation>
+      <Old>Hue / Saturation / Lightness</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Изменяет цветовой тон, насыщенность и яркость целевого слоя.</Translation>
+      <Old>Adjusts the hue, saturation and lightness of the target layer.</Old>
+    </EffectDescription>
+    <Hue>
+      <DisplayName>
+        <Translation> Тон</Translation>
+        <Old> Hue shift</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает градус сдвига цветового тона. 0, +360 и −360 оставляют тон без изменений, а +180 либо −180 меняют цвет на противоположный.</Translation>
+        <Old>Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite.</Old>
+      </Description>
+    </Hue>
+    <Saturation>
+      <DisplayName>
+        <Translation>Насыщенность %</Translation>
+        <Old>Saturation %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Множитель насыщенности, выраженный как процент от изначального значения. 0 меняет насыщенность на ноль (оттенки серого), 100 оставляет без изменений. Допустимы значения &gt;100.</Translation>
+        <Old>Saturation scale, expressed as a percentage of the original saturation. 0 scales the saturation to zero (grayscale), 100 means no change, larger values scale it accordingly.</Old>
+      </Description>
+    </Saturation>
+    <Lightness>
+      <DisplayName>
+        <Translation>Яркость %</Translation>
+        <Old>Lightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Множитель яркости, выраженный как процент от изначального значения. 0 меняет яркость на ноль (черный), 100 оставляет без изменений. Допустимы значения &gt;100.</Translation>
+        <Old>Lightness scale, expressed as a percentage of the original lightness. 0 scales the lightness to zero (black), 100 means no change, larger values scale it accordingly.</Old>
+      </Description>
+    </Lightness>
+  </EffectHueSaturationLightness>
+  <EffectGamma>
+    <EffectName>
+      <Translation>Гамма коррекция</Translation>
+      <Old>Gamma correction</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Позволяет скорректировать кривую яркости каналов изображения.</Translation>
+      <Old>Adjusts the gamma value (brightness curve) of each channel within the layer.</Old>
+    </EffectDescription>
+    <GammaRed>
+      <DisplayName>
+        <Translation>Гамма красного</Translation>
+        <Old>Red gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Гамма коррекция красного канала. Рекомендуются значения в диапазоне от 0.8 до 2.3.</Translation>
+        <Old>Gamma adjustment for the red channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
+      </Description>
+    </GammaRed>
+    <GammaGreen>
+      <DisplayName>
+        <Translation>Гамма зеленого</Translation>
+        <Old>Green gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Гамма коррекция зеленого канала. Рекомендуются значения в диапазоне от 0.8 до 2.3.</Translation>
+        <Old>Gamma adjustment for the green channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
+      </Description>
+    </GammaGreen>
+    <GammaBlue>
+      <DisplayName>
+        <Translation>Гамма синего</Translation>
+        <Old>Blue gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Гамма коррекция синего канала. Рекомендуются значения в диапазоне от 0.8 до 2.3.</Translation>
+        <Old>Gamma adjustment for the blue channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
+      </Description>
+    </GammaBlue>
+  </EffectGamma>
+  <EffectLevel>
+    <EffectName>
+      <Translation>Уровни</Translation>
+      <Old>Levels</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Модифицирует диапазон интенсивности целевого слоя, делая изображение темнее или светлее.</Translation>
+      <Old>Remaps the brightness of all pixels according to a curve specified by three configurable points.</Old>
+    </EffectDescription>
+    <BlackPoint>
+      <DisplayName>
+        <Translation>Черная точка %</Translation>
+        <Old>Black Point %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Все пиксели со значением яркости ниже или равно станут черными.</Translation>
+        <Old>All pixels with this value or less will be black.</Old>
+      </Description>
+    </BlackPoint>
+    <WhitePoint>
+      <DisplayName>
+        <Translation>Белая точка %</Translation>
+        <Old>White Point %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Все пиксели со значением яркости выше или равно станут белыми.</Translation>
+        <Old>All pixels with this value or higher will be white.</Old>
+      </Description>
+    </WhitePoint>
+    <MidPoint>
+      <DisplayName>
+        <Translation>Средняя точка</Translation>
+        <Old>Mid Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задаёт желаемую гамму выходного изображения.</Translation>
+        <Old>Selects output image gamma.</Old>
+      </Description>
+    </MidPoint>
+  </EffectLevel>
+  <EffectInvert>
+    <EffectName>
+      <Translation>Инверсия</Translation>
+      <Old>Invert</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Обращает цвета целевого слоя.</Translation>
+      <Old>Inverts the colors within the layer.</Old>
+    </EffectDescription>
+  </EffectInvert>
+  <EffectAdaptiveBlur>
+    <EffectName>
+      <Translation>Размытие: адаптивное</Translation>
+      <Old>Blur: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает изображение в тех областях, где отсутствуют грани.</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сила размытия. Чем выше значение, тем сильнее размытие. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveBlur>
+  <EffectAdaptiveSharpen>
+    <EffectName>
+      <Translation>Резкость: адаптивная</Translation>
+      <Old>Sharpen: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Увеличивает резкость только в тех областях изображения, где обнаружены грани.</Translation>
+      <Old>Sharpens the layer in areas that contain sharp edges. Smooth areas remain unaffected.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сила эффекта. Чем выше значение, тем больше увеличивается резкость. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveSharpen>
+  <EffectSharpen>
+    <EffectName>
+      <Translation>Резкость</Translation>
+      <Old>Sharpen</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Увеличивает резкость целевого уровня.</Translation>
+      <Old>Sharpens the layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сила эффекта. Чем выше значение, тем больше увеличивается резкость. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectSharpen>
+  <EffectSelectiveBlur>
+    <EffectName>
+      <Translation>Размытие: селективное</Translation>
+      <Old>Blur: selective</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает изображение в тех областях, где контрастность изображения ниже заданого порога.</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges or high contrast.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сила размытия. Чем выше значение, тем сильнее размытие. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+    <Threshold>
+      <DisplayName>
+        <Translation>Порог</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задаёт порог контрастности, определяющий какие области изображения будут размыты.</Translation>
+        <Old>Specifies the contrast threshold, which determines what areas of the image are blurred.</Old>
+      </Description>
+    </Threshold>
+  </EffectSelectiveBlur>
+  <EffectMotionBlur>
+    <EffectName>
+      <Translation>Размытие: в движении</Translation>
+      <Old>Blur: motion</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает слой, симулируя размытие в движении.</Translation>
+      <Old>Blurs the layer, simulating linear motion blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Длина</Translation>
+        <Old>Distance</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает длину размытия. Чем выше значение, тем длинее след размытия. Допускаются дробные значения.</Translation>
+        <Old>Specifies the length of the motion blur trail. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+    <Angle>
+      <DisplayName>
+        <Translation>Угол</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Угол размытия. Задаёт направление размытия в градусах.</Translation>
+        <Old>Specifies the direction of the motion blur trail, in degrees.</Old>
+      </Description>
+    </Angle>
+  </EffectMotionBlur>
+  <EffectRadialBlur>
+    <EffectName>
+      <Translation>Размытие: во вращении</Translation>
+      <Old>Blur: radial</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Размывает слой, симулируя размытие во вращении.</Translation>
+      <Old>Blurs the layer, simulating rotational motion blur</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Угол</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Угол размытия. Задаёт угол поворота.</Translation>
+        <Old>Blur rotation angle, in degrees.</Old>
+      </Description>
+    </Angle>
+  </EffectRadialBlur>
+  <EffectWave>
+    <EffectName>
+      <Translation>Волна</Translation>
+      <Old>Wave</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Делает слой волнистым.</Translation>
+      <Old>Distorts the layer in the shape of a wave.</Old>
+    </EffectDescription>
+    <Amplitude>
+      <DisplayName>
+        <Translation>Амплитуда</Translation>
+        <Old>Amplitude</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задаёт амплитуду волн.</Translation>
+        <Old>Selects wave amplitude.</Old>
+      </Description>
+    </Amplitude>
+    <Length>
+      <DisplayName>
+        <Translation>Длина</Translation>
+        <Old>Length</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает длину волн.</Translation>
+        <Old>Selects wave length.</Old>
+      </Description>
+    </Length>
+  </EffectWave>
+  <EffectRotate>
+    <EffectName>
+      <Translation>Поворот</Translation>
+      <Old>Rotate</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Поворачивает слой на указанный угол.</Translation>
+      <Old>Rotates the layer.</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Угол</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает угол поворота в градусах.</Translation>
+        <Old>Rotation angle in degrees.</Old>
+      </Description>
+    </Angle>
+    <RotateX>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old>X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает координату Х точки вращения.</Translation>
+        <Old>The X coordinate of the center of rotation.</Old>
+      </Description>
+    </RotateX>
+    <RotateY>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old>Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает координату Y точки вращения.</Translation>
+        <Old>The Y coordinate of the center of rotation.</Old>
+      </Description>
+    </RotateY>
+  </EffectRotate>
+  <EffectNormalizeBrightness>
+    <EffectName>
+      <Translation>Выравнивание яркости (улучшенное)</Translation>
+      <Old>Equalize brightness (improved)</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Нормализует яркость слоя до указанного значения, таким образом выравнивая яркость во всех иконках. Это новый, улучшенный вариант эффекта Выравнивание.</Translation>
+      <Old>Normalizes the brightness of each image to the specified value, so that the brightness is identical across all icons regardless of the original image brightness. This is the new and improved variant of the Equalize effect.</Old>
+    </EffectDescription>
+    <Strength>
+      <DisplayName>
+        <Translation>Сила %</Translation>
+        <Old>Strength %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сила эффекта. Значения ниже 100% не выравнивают яркость полностью, а оставляют некоторые различия.</Translation>
+        <Old>Effect strength. Values below 100% do not achieve full brightness equalization and preserve the original variation to some extent.</Old>
+      </Description>
+    </Strength>
+    <Brightness>
+      <DisplayName>
+        <Translation>Яркость %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Желаемый уровень яркости. Яркость изображения будет изменена таким образом, чтобы среднее значение яркости всех пикселей равнялось заданному.</Translation>
+        <Old>Desired average image brightness. The image brightness is adjusted so that the average brightness of all pixels is equal to this value.</Old>
+      </Description>
+    </Brightness>
+    <Saturation>
+      <DisplayName>
+        <Translation>Насыщенность</Translation>
+        <Old>Saturation</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Режим коррекции насыщенности. “Уменьшить” слегка уменьшает насыщенность тех слоев, чья яркость была снижена, чтобы улучшить внешний вид более ярких областей.</Translation>
+        <Old>Saturation adjustment mode. “Reduce” tones down the saturation somewhat, but only when the layer brightness is being reduced by this effect, to improve the appearance of the brighter areas of the image.</Old>
+      </Description>
+    </Saturation>
+    <SaturationMode>
+      <NoChange>
+        <Translation>Не менять</Translation>
+        <Old>No change</Old>
+      </NoChange>
+      <Reduce>
+        <Translation>Уменьшить</Translation>
+        <Old>Reduce</Old>
+      </Reduce>
+      <Zero>
+        <Translation>Обнулить (оттенки серого)</Translation>
+        <Old>Zero (grayscale)</Old>
+      </Zero>
+    </SaturationMode>
+  </EffectNormalizeBrightness>
   <BoolWithPassthrough>
     <Yes>
       <Translation>Да</Translation>
@@ -1427,14 +1941,14 @@
       <Translation>Обрезка</Translation>
       <Old>Clip</Old>
     </Clip>
-    <Blur>
-      <Translation>Размытие</Translation>
-      <Old>Blur</Old>
-    </Blur>
     <Shift>
       <Translation>Смещение</Translation>
       <Old>Shift</Old>
     </Shift>
+    <Channels>
+      <Translation>Каналы</Translation>
+      <Old>Channels</Old>
+    </Channels>
   </Category>
   <Selector>
     <By>

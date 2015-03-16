@@ -1,4 +1,4 @@
-﻿﻿using RT.Util.Lingo;
+﻿using RT.Util.Lingo;
 using TankIconMaker.Effects;
 using WpfCrutches;
 
@@ -45,12 +45,12 @@ namespace TankIconMaker
         EffectClip,
         [LingoGroup("Effect: Colorize", "Strings used in the property grid for the \"Colorize\" effect.")]
         EffectColorize,
-        [LingoGroup("Effect: Normalize", "Strings used in the property grid for the \"Normalize\" effect.")]
+        [LingoGroup("Effect: Equalize (normalize)", "Strings used in the property grid for the \"Equalize (normalize)\" effect.")]
         EffectNormalize,
+        [LingoGroup("Effect: Equalize brightness", "Strings used in the property grid for the \"Equalize brightness\" effect.")]
+        EffectNormalizeBrightness,
         [LingoGroup("Effect: Flip", "Strings used in the property grid for the \"Flip\" effect.")]
         EffectFlip,
-        [LingoGroup("Effect: Blur: Gaussian", "Strings used in the property grid for the \"Blur: Gaussian\" effect.")]
-        EffectGaussianBlur,
         [LingoGroup("Effect: Opacity", "Strings used in the property grid for the \"Opacity\" effect.")]
         EffectOpacity,
         [LingoGroup("Effect: Outline", "Strings used in the property grid for the \"Outline\" effect.")]
@@ -61,6 +61,36 @@ namespace TankIconMaker
         EffectShift,
         [LingoGroup("Effect: Size / Position", "Strings used in the property grid for the \"Size / Position\" effect.")]
         EffectSizePos,
+        [LingoGroup("Effect: channels (shared)", "Strings used in the property grid for specifying the affected channels in various effects.")]
+        EffectChannels,
+        [LingoGroup("Effect: Brightness / Contrast", "Strings used in the property grid for the \"Brightness / Contrast\" effect.")]
+        EffectBrightnessContrast,
+        [LingoGroup("Effect: Hue / Saturation / Lightness", "Strings used in the property grid for the \"Hue / Saturation/ Lightness\" effect.")]
+        EffectHueSaturationLightness,
+        [LingoGroup("Effect: Gamma", "Strings used in the property grid for the \"Gamma\" effect.")]
+        EffectGamma,
+        [LingoGroup("Effect: Level", "Strings used in the property grid for the \"Level\" effect.")]
+        EffectLevel,
+        [LingoGroup("Effect: Invert", "Strings used in the property grid for the \"Invert\" effect.")]
+        EffectInvert,
+        [LingoGroup("Effect: Sharpen", "Strings used in the property grid for the \"Sharpen\" effect.")]
+        EffectSharpen,
+        [LingoGroup("Effect: Sharpen: adaptive", "Strings used in the property grid for the \"Sharpen: adaptive\" effect.")]
+        EffectAdaptiveSharpen,
+        [LingoGroup("Effect: Blur: Gaussian", "Strings used in the property grid for the \"Blur: Gaussian\" effect.")]
+        EffectGaussianBlur,
+        [LingoGroup("Effect: Blur: adaptive", "Strings used in the property grid for the \"Blur: adaptive\" effect.")]
+        EffectAdaptiveBlur,
+        [LingoGroup("Effect: Blur: selective", "Strings used in the property grid for the \"Blur: selective\" effect.")]
+        EffectSelectiveBlur,
+        [LingoGroup("Effect: Blur: motion", "Strings used in the property grid for the \"Blur: motion\" effect.")]
+        EffectMotionBlur,
+        [LingoGroup("Effect: Blur: radial", "Strings used in the property grid for the \"Blur: radial\" effect.")]
+        EffectRadialBlur,
+        [LingoGroup("Effect: Wave", "Strings used in the property grid for the \"Wave\" effect.")]
+        EffectWave,
+        [LingoGroup("Effect: Rotate", "Strings used in the property grid for the \"Rotate\" effect.")]
+        EffectRotate,
 
         [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
         Selector,
@@ -131,6 +161,20 @@ namespace TankIconMaker
         public EffectShadowTranslation EffectShadow = new EffectShadowTranslation();
         public EffectShiftTranslation EffectShift = new EffectShiftTranslation();
         public EffectSizePosTranslation EffectSizePos = new EffectSizePosTranslation();
+        public EffectBrightnessContrastTranslation EffectBrightnessContrast = new EffectBrightnessContrastTranslation();
+        public EffectHueSaturationLightnessTranslation EffectHueSaturationLightness = new EffectHueSaturationLightnessTranslation();
+        public EffectGammaTranslation EffectGamma = new EffectGammaTranslation();
+        public EffectLevelTranslation EffectLevel = new EffectLevelTranslation();
+        public EffectInvertTranslation EffectInvert = new EffectInvertTranslation();
+        public EffectAdaptiveBlurTranslation EffectAdaptiveBlur = new EffectAdaptiveBlurTranslation();
+        public EffectAdaptiveSharpenTranslation EffectAdaptiveSharpen = new EffectAdaptiveSharpenTranslation();
+        public EffectSharpenTranslation EffectSharpen = new EffectSharpenTranslation();
+        public EffectSelectiveBlurTranslation EffectSelectiveBlur = new EffectSelectiveBlurTranslation();
+        public EffectMotionBlurTranslation EffectMotionBlur = new EffectMotionBlurTranslation();
+        public EffectRadialBlurTranslation EffectRadialBlur = new EffectRadialBlurTranslation();
+        public EffectWaveTranslation EffectWave = new EffectWaveTranslation();
+        public EffectRotateTranslation EffectRotate = new EffectRotateTranslation();
+        public EffectNormalizeBrightnessTranslation EffectNormalizeBrightness = new EffectNormalizeBrightnessTranslation();
 
         public BoolWithPassthroughTranslation BoolWithPassthrough = new BoolWithPassthroughTranslation();
         public ImageBuiltInStyleTranslation ImageBuiltInStyle = new ImageBuiltInStyleTranslation();
@@ -194,8 +238,8 @@ namespace TankIconMaker
         public TrString TextSource = "Text source";
         public TrString Debug = "Debug";
         public TrString Clip = "Clip";
-        public TrString Blur = "Blur";
         public TrString Shift = "Shift";
+        public TrString Channels = "Channels";
     }
 
     partial class MainWindowTranslation
@@ -239,12 +283,17 @@ namespace TankIconMaker
         public MemberDescriptionTr LayerVisibleFor = new MemberDescriptionTr { DisplayName = "Visible for", Description = "Allows you to hide this layer for some of the tanks, depending on their properties." };
         public MemberDescriptionTr EffectVisible = new MemberDescriptionTr { DisplayName = "Visible", Description = "Allows you to hide this effect temporarily without deleting it." };
         public MemberDescriptionTr EffectVisibleFor = new MemberDescriptionTr { DisplayName = "Visible for", Description = "Allows you to hide this effect for some of the tanks, depending on their properties." };
+
+        public MemberDescriptionTr ChannelA = new MemberDescriptionTr { DisplayName = "Alpha", Description = "Apply the effect to the alpha channel (image opacity)." };
+        public MemberDescriptionTr ChannelR = new MemberDescriptionTr { DisplayName = "Red", Description = "Apply the effect to the red channel." };
+        public MemberDescriptionTr ChannelG = new MemberDescriptionTr { DisplayName = "Green", Description = "Apply the effect to the green channel." };
+        public MemberDescriptionTr ChannelB = new MemberDescriptionTr { DisplayName = "Blue", Description = "Apply the effect to the blue channel." };
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerBkgDarkAgent)]
     sealed class BkgDarkAgentLayerTranslation
     {
-        public TrString LayerName = "Background / Dark Agent";
+        public TrString LayerName = "Background: Dark Agent";
         public TrString LayerDescription = "Draws a background using a glassy style inspired by Black_Spy’s icon set.";
 
         public MemberDescriptionTr BackColor = new MemberDescriptionTr { DisplayName = "Background color", Description = "Background color." };
@@ -253,7 +302,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerTankImage)]
     sealed class TankImageLayerTranslation
     {
-        public TrString LayerName = "Image / Standard";
+        public TrString LayerName = "Image: standard";
         public TrString LayerDescription = "Draws one of the several types of standard images for this tank.";
 
         public MemberDescriptionTr Style = new MemberDescriptionTr { DisplayName = "Type", Description = "Specifies which of the standard image types to draw." };
@@ -264,7 +313,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerCurrentImage)]
     sealed class CurrentImageLayerTranslation
     {
-        public TrString LayerName = "Image / Current";
+        public TrString LayerName = "Image: current";
         public TrString LayerDescription = "Draws the icon that’s currently saved in the output directory.";
 
         public TrString MissingImageWarning = "There is no current image for this tank.";
@@ -273,7 +322,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerCustomImage)]
     sealed class CustomImageLayerTranslation
     {
-        public TrString LayerName = "Image / By properties";
+        public TrString LayerName = "Image: by properties";
         public TrString LayerDescription = "Draws an image loaded from a file whose name is selected based on tank properties.";
 
         public MemberDescriptionTr ImageFile = new MemberDescriptionTr { DisplayName = "Image file", Description = "Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT installation directory." };
@@ -285,7 +334,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerFilenamePatternImage)]
     sealed class FilenamePatternImageLayerTranslation
     {
-        public TrString LayerName = "Image / By filename template";
+        public TrString LayerName = "Image: by filename template";
         public TrString LayerDescription = "Draws an image loaded from a file whose name is generated by substituting various tank properties into a filename template.";
 
         public MemberDescriptionTr Pattern = new MemberDescriptionTr { DisplayName = "Template", Description = "Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.\n\nExtra property names are also supported, for example {NameShort}. The property name may also include the language, the author, or both, for example {NameShort/En}, {NameShort/Wargaming} or {NameShort/En/Wargaming}." };
@@ -318,7 +367,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerPropertyText)]
     sealed class PropertyTextLayerTranslation
     {
-        public TrString LayerName = "Text / Property";
+        public TrString LayerName = "Text: property";
         public TrString LayerDescription = "Draws a specified property of a tank as text.";
 
         public MemberDescriptionTr Property = new MemberDescriptionTr { DisplayName = "Property", Description = "Specifies the property to be used as the text source." };
@@ -327,7 +376,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerCustomText)]
     sealed class CustomTextLayerTranslation
     {
-        public TrString LayerName = "Text / Custom";
+        public TrString LayerName = "Text: custom";
         public TrString LayerDescription = "Draws a fixed string based on a specified property of a tank.";
 
         public MemberDescriptionTr Text = new MemberDescriptionTr { DisplayName = "Text", Description = "The string to be displayed." };
@@ -359,8 +408,8 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectNormalize)]
     sealed class EffectNormalizeTranslation
     {
-        public TrString EffectName = "Normalize";
-        public TrString EffectDescription = "Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.";
+        public TrString EffectName = "Equalize (normalize)";
+        public TrString EffectDescription = "Normalizes the brightness or alpha channel of each image, to make them similar across all icons regardless of the original image brightness. This is the older Equalize effect and is less effective.";
 
         public MemberDescriptionTr Grayscale = new MemberDescriptionTr { DisplayName = "Grayscale", Description = "When enabled, the image is made grayscale (i.e. fully desaturated)" };
         public MemberDescriptionTr NormalizeBrightness = new MemberDescriptionTr { DisplayName = "Normalize brightness", Description = "When enabled, the brightness in the layer is normalized such that the brightest pixel receives the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly." };
@@ -432,6 +481,164 @@ namespace TankIconMaker
 
         public MemberDescriptionTr ShiftX = new MemberDescriptionTr { DisplayName = "Horizontal", Description = "Horizontal shift amount, in pixels." };
         public MemberDescriptionTr ShiftY = new MemberDescriptionTr { DisplayName = "Vertical", Description = "Vertical shift amount, in pixels." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectBrightnessContrast)]
+    sealed class EffectBrightnessContrastTranslation
+    {
+        public TrString EffectName = "Brightness / Contrast";
+        public TrString EffectDescription = "Adjusts the brightness and contrast of the target layer.";
+
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Brightness shift, from −100% to +100%. Zero means no change. Unlike the Hue / Saturation / Lightness effect, this parameter may distort the image contrast detrimentally when a large brightness shift is configured." };
+        public MemberDescriptionTr Contrast = new MemberDescriptionTr { DisplayName = "Contrast %", Description = "Contrast adjustment, from −100% to +100%. Zero means no change." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectHueSaturationLightness)]
+    sealed class EffectHueSaturationLightnessTranslation
+    {
+        public TrString EffectName = "Hue / Saturation / Lightness";
+        public TrString EffectDescription = "Adjusts the hue, saturation and lightness of the target layer.";
+
+        public MemberDescriptionTr Hue = new MemberDescriptionTr { DisplayName = " Hue shift", Description = "Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite." };
+        public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation %", Description = "Saturation scale, expressed as a percentage of the original saturation. 0 scales the saturation to zero (grayscale), 100 means no change, larger values scale it accordingly." };
+        public MemberDescriptionTr Lightness = new MemberDescriptionTr { DisplayName = "Lightness %", Description = "Lightness scale, expressed as a percentage of the original lightness. 0 scales the lightness to zero (black), 100 means no change, larger values scale it accordingly." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectGamma)]
+    sealed class EffectGammaTranslation
+    {
+        public TrString EffectName = "Gamma correction";
+        public TrString EffectDescription = "Adjusts the gamma value (brightness curve) of each channel within the layer.";
+
+        public MemberDescriptionTr GammaRed = new MemberDescriptionTr { DisplayName = "Red gamma", Description = "Gamma adjustment for the red channel. Reasonable values are between approximately 0.8 to 2.3." };
+        public MemberDescriptionTr GammaGreen = new MemberDescriptionTr { DisplayName = "Green gamma", Description = "Gamma adjustment for the green channel. Reasonable values are between approximately 0.8 to 2.3." };
+        public MemberDescriptionTr GammaBlue = new MemberDescriptionTr { DisplayName = "Blue gamma", Description = "Gamma adjustment for the blue channel. Reasonable values are between approximately 0.8 to 2.3." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectLevel)]
+    sealed class EffectLevelTranslation
+    {
+        public TrString EffectName = "Levels";
+        public TrString EffectDescription = "Remaps the brightness of all pixels according to a curve specified by three configurable points.";
+
+        public MemberDescriptionTr BlackPoint = new MemberDescriptionTr { DisplayName = "Black Point %", Description = "All pixels with this value or less will be black." };
+        public MemberDescriptionTr WhitePoint = new MemberDescriptionTr { DisplayName = "White Point %", Description = "All pixels with this value or higher will be white." };
+        public MemberDescriptionTr MidPoint = new MemberDescriptionTr { DisplayName = "Mid Point", Description = "Selects output image gamma." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectInvert)]
+    sealed class EffectInvertTranslation
+    {
+        public TrString EffectName = "Invert";
+        public TrString EffectDescription = "Inverts the colors within the layer.";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveSharpen)]
+    sealed class EffectAdaptiveSharpenTranslation
+    {
+        public TrString EffectName = "Sharpen: adaptive";
+        public TrString EffectDescription = "Sharpens the layer in areas that contain sharp edges. Smooth areas remain unaffected.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectSharpen)]
+    sealed class EffectSharpenTranslation
+    {
+        public TrString EffectName = "Sharpen";
+        public TrString EffectDescription = "Sharpens the layer.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveBlur)]
+    sealed class EffectAdaptiveBlurTranslation
+    {
+        public TrString EffectName = "Blur: adaptive";
+        public TrString EffectDescription = "Blurs the layer in areas that don’t contain sharp edges.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectSelectiveBlur)]
+    sealed class EffectSelectiveBlurTranslation
+    {
+        public TrString EffectName = "Blur: selective";
+        public TrString EffectDescription = "Blurs the layer in areas that don’t contain sharp edges or high contrast.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted." };
+        public MemberDescriptionTr Threshold = new MemberDescriptionTr { DisplayName = "Threshold", Description = "Specifies the contrast threshold, which determines what areas of the image are blurred." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectMotionBlur)]
+    sealed class EffectMotionBlurTranslation
+    {
+        public TrString EffectName = "Blur: motion";
+        public TrString EffectDescription = "Blurs the layer, simulating linear motion blur.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Distance", Description = "Specifies the length of the motion blur trail. Higher values result in more blur. Fractional values are permitted." };
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Specifies the direction of the motion blur trail, in degrees." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectRadialBlur)]
+    sealed class EffectRadialBlurTranslation
+    {
+        public TrString EffectName = "Blur: radial";
+        public TrString EffectDescription = "Blurs the layer, simulating rotational motion blur";
+
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Blur rotation angle, in degrees." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectWave)]
+    sealed class EffectWaveTranslation
+    {
+        public TrString EffectName = "Wave";
+        public TrString EffectDescription = "Distorts the layer in the shape of a wave.";
+
+        public MemberDescriptionTr Amplitude = new MemberDescriptionTr { DisplayName = "Amplitude", Description = "Selects wave amplitude." };
+        public MemberDescriptionTr Length = new MemberDescriptionTr { DisplayName = "Length", Description = "Selects wave length." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectRotate)]
+    sealed class EffectRotateTranslation
+    {
+        public TrString EffectName = "Rotate";
+        public TrString EffectDescription = "Rotates the layer.";
+
+        public MemberDescriptionTr Angle = new MemberDescriptionTr { DisplayName = "Angle", Description = "Rotation angle in degrees." };
+        public MemberDescriptionTr RotateX = new MemberDescriptionTr { DisplayName = "X", Description = "The X coordinate of the center of rotation." };
+        public MemberDescriptionTr RotateY = new MemberDescriptionTr { DisplayName = "Y", Description = "The Y coordinate of the center of rotation." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectNormalizeBrightness)]
+    sealed class EffectNormalizeBrightnessTranslation
+    {
+        public TrString EffectName = "Equalize brightness (improved)";
+        public TrString EffectDescription = "Normalizes the brightness of each image to the specified value, so that the brightness is identical across all icons regardless of the original image brightness. This is the new and improved variant of the Equalize effect.";
+
+        public MemberDescriptionTr Strength = new MemberDescriptionTr { DisplayName = "Strength %", Description = "Effect strength. Values below 100% do not achieve full brightness equalization and preserve the original variation to some extent." };
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Desired average image brightness. The image brightness is adjusted so that the average brightness of all pixels is equal to this value." };
+        public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation", Description = "Saturation adjustment mode. “Reduce” tones down the saturation somewhat, but only when the layer brightness is being reduced by this effect, to improve the appearance of the brighter areas of the image." };
+
+        public SaturationModeTranslation SaturationMode = new SaturationModeTranslation();
+
+        [LingoStringClass]
+        public sealed class SaturationModeTranslation
+        {
+            public TrString NoChange = "No change";
+            public TrString Reduce = "Reduce";
+            public TrString Zero = "Zero (grayscale)";
+
+            public class Conv : LingoEnumConverter<NormalizeBrightnessEffect.SaturationMode, SaturationModeTranslation>
+            {
+                public Conv() : base(() => App.Translation.EffectNormalizeBrightness.SaturationMode) { }
+            }
+        }
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]
