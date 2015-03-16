@@ -18,18 +18,18 @@
     <IntermediateOutputPath>builds\$(Configuration)\obj-$(AssemblyName)\</IntermediateOutputPath>
     <BaseIntermediateOutputPath>builds\$(Configuration)\obj-$(AssemblyName)\</BaseIntermediateOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
@@ -39,6 +39,9 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ThirdParty\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET-AnyCPU">
+      <HintPath>ThirdParty\Magick.NET-AnyCPU.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ookii.Dialogs.Wpf">
@@ -83,6 +86,20 @@
       <DependentUpon>CheckListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Effects\ClipEffect.cs" />
+    <Compile Include="Effects\AdaptiveBlurEffect.cs" />
+    <Compile Include="Effects\AdaptiveSharpenEffect.cs" />
+    <Compile Include="Effects\GammaEffect.cs" />
+    <Compile Include="Effects\BrightnessContrastEffect.cs" />
+    <Compile Include="Effects\InvertEffect.cs" />
+    <Compile Include="Effects\LevelEffect.cs" />
+    <Compile Include="Effects\NormalizeBrightnessEffect.cs" />
+    <Compile Include="Effects\HueSaturationLightnessEffect.cs" />
+    <Compile Include="Effects\MotionBlurEffect.cs" />
+    <Compile Include="Effects\RadialBlurEffect.cs" />
+    <Compile Include="Effects\RotateEffect.cs" />
+    <Compile Include="Effects\SelectiveBlurEffect.cs" />
+    <Compile Include="Effects\SharpenEffect.cs" />
+    <Compile Include="Effects\WaveEffect.cs" />
     <Compile Include="Effects\NormalizeEffect.cs" />
     <Compile Include="Effects\FlipEffect.cs" />
     <Compile Include="Effects\SizePosEffect.cs" />
@@ -195,6 +212,7 @@
     <EmbeddedResource Include="Resources\BuiltInStyles\Original.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent 2.xml" />
+    <EmbeddedResource Include="Resources\BuiltInStyles\Dark Agent Tree.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\DemoStyle.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\Current.xml" />
     <EmbeddedResource Include="Resources\BuiltInStyles\HARDicons Colored.xml" />

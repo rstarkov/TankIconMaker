@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows;
 using System.Threading;
-using D = System.Drawing;
-using System.Windows.Media.Imaging;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using ImageMagick;
+using D = System.Drawing;
 
 namespace TankIconMaker
 {
@@ -231,6 +232,20 @@ namespace TankIconMaker
         }
 
         public abstract BitmapBase ToBitmapSame();
+
+        public MagickImage ToMagickImage()
+        {
+            // Copy the pixel data while eliminating the Stride
+            var data = new byte[Width * Height * 4];
+            using (UseRead())
+                fixed (byte* dataPtr = data)
+                    for (int y = 0; y < Height; y++)
+                        Ut.MemCpy(dataPtr + y * Width * 4, Data + y * Stride, Width * 4);
+
+            // Construct a MagickImage by reading the BGRA pixel data
+            // Cannot use GetWritablePixels due to an occasional access violation exception that's proved too elusive to track down within the available time.
+            return new MagickImage(data, new MagickReadSettings { Width = Width, Height = Height, Format = MagickFormat.Bgra });
+        }
 
         public void DrawImage(BitmapBase image, int destX = 0, int destY = 0, bool below = false)
         {

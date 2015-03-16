@@ -7,8 +7,9 @@ WOT-BUILTIN,2
 
 
 # Observer has special properties and is only present in 0.8.0+
-ussr-Observer,none,0,none,special,#265
+ussr-Observer,none,0,none,special
 # Unknown tank is not actually listed in the game data, so add it
+unknown,none,0,none,special
 noImage,none,0,none,special
 
 # Remove training tanks, since these share the icon with the "real" tank
@@ -25,7 +26,6 @@ usa-Sexton_I,,,,,,del
 usa-T23,,,,,,del
 china-Ch01_Type59_Gold,,,,,,del
 germany-Env_Artillery,,,,,,del
-germany-G04_PzVI_Tiger_IA,,,,,,del
 
 # Korean internet cafe rental tanks
 china-Ch11_110_IGR,,,,,,del
@@ -75,6 +75,7 @@ ussr-R106_KV85_IGR,,,,,,del
 ussr-SU-152_IGR,,,,,,del
 ussr-T-44_IGR,,,,,,del
 ussr-Valentine_LL_IGR,,,,,,del
+usa-A35_Pershing_IGR,,,,,,del
 
 
 # EXAMPLES #

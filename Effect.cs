@@ -45,8 +45,9 @@ namespace TankIconMaker
         }
 
         /// <summary>
-        /// Applies the effect to the specified layer. Returns the resulting image. If the layer is writable, may modify it
-        /// directly and return the same instance, instead of creating a new one.
+        /// Applies the effect to the specified layer. Returns the resulting image. The caller must make sure that the layer
+        /// is writable, because all Apply methods expect to be able to modify the layer if necessary and return it, instead of
+        /// creating a new instance.
         /// </summary>
         public abstract BitmapBase Apply(Tank tank, BitmapBase layer);
 
