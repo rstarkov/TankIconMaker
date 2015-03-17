@@ -1279,8 +1279,8 @@
         <Old>Brightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Helligkeitsanpassung, zwischen −100% und +100%. Null bedeutet keine Änderung.</Translation>
-        <Old>Brightness adjustment, from −100% to +100%. Zero means no change.</Old>
+        <Translation>Helligkeitsverlagerung, zwischen −100% und +100%. Null bedeutet keine Änderung. Eine hohe Helligkeitsverlagerung könnte den Bildkontrast nachteilig beeinträchtigen, anders als beim „Farbton/Sättigung/Helligkeit“-Effekt.</Translation>
+        <Old>Brightness shift, from −100% to +100%. Zero means no change. Unlike with the Hue / Saturation / Lightness effect, a large brightness shift may distort the image contrast detrimentally.</Old>
       </Description>
     </Brightness>
     <Contrast>
@@ -1294,46 +1294,46 @@
       </Description>
     </Contrast>
   </EffectBrightnessContrast>
-  <EffectHueSaturationBrightness>
+  <EffectHueSaturationLightness>
     <EffectName>
-      <Translation>Hue / Saturation / Brightness</Translation>
-      <Old null="1" />
+      <Translation>Farbton / Sättigung / Helligkeit</Translation>
+      <Old>Hue / Saturation / Lightness</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Adjusts hue, saturation and brightness of target layer.</Translation>
-      <Old null="1" />
+      <Translation>Passt Farbton, Sättigung und Helligkeit der Zielebene an.</Translation>
+      <Old>Adjusts the hue, saturation and lightness of the target layer.</Old>
     </EffectDescription>
     <Hue>
       <DisplayName>
-        <Translation>Hue %</Translation>
-        <Old null="1" />
+        <Translation>Farbtonverlagerung</Translation>
+        <Old>Hue shift</Old>
       </DisplayName>
       <Description>
-        <Translation>Selects the desired hue percentage.</Translation>
-        <Old null="1" />
+        <Translation>Bestimmt, wie weit (in Grad) der Farbton verlagert wird. 0, +360 und −360 bedeuten keine Veränderung, während +180 und −180 jede Farbe in ihre Komplementärfarbe umkehrt.</Translation>
+        <Old>Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite.</Old>
       </Description>
     </Hue>
     <Saturation>
       <DisplayName>
-        <Translation>Saturation %</Translation>
-        <Old null="1" />
+        <Translation>Sättigung %</Translation>
+        <Old>Saturation %</Old>
       </DisplayName>
       <Description>
-        <Translation>Selects the desired saturation percentage.</Translation>
-        <Old null="1" />
+        <Translation>Sättigungsskalierung als Prozentsatz der ursprünglichen Sättigung. 0 setzt die Sättigung auf null (Grautöne), 100 nimmt keine Änderung vor, und höhere Werte skalieren die Sättigung entsprechend.</Translation>
+        <Old>Saturation scale, expressed as a percentage of the original saturation. 0 scales the saturation to zero (grayscale), 100 means no change, larger values scale it accordingly.</Old>
       </Description>
     </Saturation>
-    <Brightness>
+    <Lightness>
       <DisplayName>
-        <Translation>Brightness %</Translation>
-        <Old null="1" />
+        <Translation>Helligkeit %</Translation>
+        <Old>Lightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Selects the desired brightness percentage.</Translation>
-        <Old null="1" />
+        <Translation>Helligkeitsskalierung als Prozentsatz der ursprünglichen Helligkeit. 0 setzt die Helligkeit auf null (Schwarz), 100 nimmt keine Änderung vor, und höhere Werte skalieren die Helligkeit entsprechend.</Translation>
+        <Old>Lightness scale, expressed as a percentage of the original lightness. 0 scales the lightness to zero (black), 100 means no change, larger values scale it accordingly.</Old>
       </Description>
-    </Brightness>
-  </EffectHueSaturationBrightness>
+    </Lightness>
+  </EffectHueSaturationLightness>
   <EffectGamma>
     <EffectName>
       <Translation>Gammakorrektur</Translation>
@@ -1349,8 +1349,8 @@
         <Old>Red gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Bestimmt den Gamma-Anpassungsgrad des Rotkanals (typische Werte liegen zwischen 0,8 und 2,3).</Translation>
-        <Old>Selects the desired red channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Gamma-Anpassungsgrad für den Rotkanal. Typische Werte liegen zwischen 0,8 und 2,3.</Translation>
+        <Old>Gamma adjustment for the red channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
       </Description>
     </GammaRed>
     <GammaGreen>
@@ -1359,8 +1359,8 @@
         <Old>Green gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Bestimmt den Gamma-Anpassungsgrad des Grünkanals (typische Werte liegen zwischen 0,8 und 2,3).</Translation>
-        <Old>Selects the desired green channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Gamma-Anpassungsgrad für den Grünkanal. Typische Werte liegen zwischen 0,8 und 2,3.</Translation>
+        <Old>Gamma adjustment for the green channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
       </Description>
     </GammaGreen>
     <GammaBlue>
@@ -1369,8 +1369,8 @@
         <Old>Blue gamma</Old>
       </DisplayName>
       <Description>
-        <Translation>Bestimmt den Gamma-Anpassungsgrad des Blaukanals (typische Werte liegen zwischen 0,8 und 2,3).</Translation>
-        <Old>Selects the desired blue channel gamma adjustment (reasonable values are between 0.8 to 2.3).</Old>
+        <Translation>Gamma-Anpassungsgrad für den Blaukanal. Typische Werte liegen zwischen 0,8 und 2,3.</Translation>
+        <Old>Gamma adjustment for the blue channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
       </Description>
     </GammaBlue>
   </EffectGamma>
@@ -1716,11 +1716,11 @@
     <CompensateSaturation>
       <DisplayName>
         <Translation>Sättigung kompensieren</Translation>
-        <Old null="1" />
+        <Old>Compensate saturation</Old>
       </DisplayName>
       <Description>
         <Translation>Sättigung in dunklen Bildern kompensieren oder nicht.</Translation>
-        <Old null="1" />
+        <Old>Compensate or not saturation on dark images.</Old>
       </Description>
     </CompensateSaturation>
   </EffectNormalizeBrightness>
