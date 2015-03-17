@@ -489,7 +489,7 @@ namespace TankIconMaker
         public TrString EffectName = "Brightness / Contrast";
         public TrString EffectDescription = "Adjusts the brightness and contrast of the target layer.";
 
-        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Brightness shift, from −100% to +100%. Zero means no change. Unlike the Hue / Saturation / Lightness effect, this parameter may distort the image contrast detrimentally when a large brightness shift is configured." };
+        public MemberDescriptionTr Brightness = new MemberDescriptionTr { DisplayName = "Brightness %", Description = "Brightness shift, from −100% to +100%. Zero means no change. Unlike with the Hue / Saturation / Lightness effect, a large brightness shift may distort the image contrast detrimentally." };
         public MemberDescriptionTr Contrast = new MemberDescriptionTr { DisplayName = "Contrast %", Description = "Contrast adjustment, from −100% to +100%. Zero means no change." };
     }
 
@@ -499,7 +499,7 @@ namespace TankIconMaker
         public TrString EffectName = "Hue / Saturation / Lightness";
         public TrString EffectDescription = "Adjusts the hue, saturation and lightness of the target layer.";
 
-        public MemberDescriptionTr Hue = new MemberDescriptionTr { DisplayName = " Hue shift", Description = "Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite." };
+        public MemberDescriptionTr Hue = new MemberDescriptionTr { DisplayName = "Hue shift", Description = "Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite." };
         public MemberDescriptionTr Saturation = new MemberDescriptionTr { DisplayName = "Saturation %", Description = "Saturation scale, expressed as a percentage of the original saturation. 0 scales the saturation to zero (grayscale), 100 means no change, larger values scale it accordingly." };
         public MemberDescriptionTr Lightness = new MemberDescriptionTr { DisplayName = "Lightness %", Description = "Lightness scale, expressed as a percentage of the original lightness. 0 scales the lightness to zero (black), 100 means no change, larger values scale it accordingly." };
     }
