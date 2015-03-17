@@ -826,12 +826,12 @@
   </EffectColorize>
   <EffectNormalize>
     <EffectName>
-      <Translation>Normalisierung</Translation>
-      <Old>Normalize</Old>
+      <Translation>Vereinheitlichung (Normalisierung)</Translation>
+      <Old>Equalize (normalize)</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Verstellt den Kontrast, um die Helligkeit oder die Deckkraft zu normalisieren. Es kann außerdem das Bild in Graustufen umgewandelt werden.</Translation>
-      <Old>Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.</Old>
+      <Translation>Normalisiert die Helligkeit oder die Deckkraft jedes Bildes, um sie von Symbol zu Symbol zu vereinheitlichen. Dies ist der ältere, weniger effektive Ausgleichen-Effekt.</Translation>
+      <Old>Normalizes the brightness or alpha channel of each image, to make them similar across all icons regardless of the original image brightness. This is the older Equalize effect and is less effective.</Old>
     </EffectDescription>
     <Grayscale>
       <DisplayName>
@@ -1686,12 +1686,12 @@
   </EffectRotate>
   <EffectNormalizeBrightness>
     <EffectName>
-      <Translation>Helligkeitsanpassung</Translation>
-      <Old>Brightness adjustment</Old>
+      <Translation>Helligkeitsvereinheitlichung (verbessert)</Translation>
+      <Old>Equalize brightness (improved)</Old>
     </EffectName>
     <EffectDescription>
-      <Translation>Passt jedes Bild auf die angegebene Helligkeit an.</Translation>
-      <Old>Adjusts every image to selected brightness.</Old>
+      <Translation>Normalisiert die Helligkeit jedes Bildes auf den angegeben Wert, sodass die Helligkeit in allen Symbolen gleich ist, ungeachtet der ursprünglichen Bildhelligkeit. Dies ist eine neue, verbesserte Variante des Effektes „Vereinheitlichung“.</Translation>
+      <Old>Normalizes the brightness of each image to the specified value, so that the brightness is identical across all icons regardless of the original image brightness. This is the new and improved variant of the Equalize effect.</Old>
     </EffectDescription>
     <Strength>
       <DisplayName>
@@ -1699,8 +1699,8 @@
         <Old>Strength %</Old>
       </DisplayName>
       <Description>
-        <Translation>Bestimmt die Stärke des Effekts.</Translation>
-        <Old>Selects effect's strength.</Old>
+        <Translation>Stärke des Effekts. Werte unter 100% erzielen keine vollständige Helligkeitsvereinheitlichung und bewahren zum Teil die ursprüngliche Variation.</Translation>
+        <Old>Effect strength. Values below 100% do not achieve full brightness equalization and preserve the original variation to some extent.</Old>
       </Description>
     </Strength>
     <Brightness>
@@ -1709,20 +1709,34 @@
         <Old>Brightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Bestimmt das Helligkeitsniveau.</Translation>
-        <Old>Selects brightness level.</Old>
+        <Translation>Gewünschte durchschnittliche Bildhelligkeit. Die Bildhelligkeit wird angepasst, sodass die durchschnittliche Helligkeit aller Pixel auf diesen Wert fällt.</Translation>
+        <Old>Desired average image brightness. The image brightness is adjusted so that the average brightness of all pixels is equal to this value.</Old>
       </Description>
     </Brightness>
-    <CompensateSaturation>
+    <Saturation>
       <DisplayName>
-        <Translation>Sättigung kompensieren</Translation>
-        <Old>Compensate saturation</Old>
+        <Translation>Sättigung</Translation>
+        <Old>Saturation</Old>
       </DisplayName>
       <Description>
-        <Translation>Sättigung in dunklen Bildern kompensieren oder nicht.</Translation>
-        <Old>Compensate or not saturation on dark images.</Old>
+        <Translation>Sättigungsanpassungsmodus. „Reduzieren“ verringert die Sättigung teilweise, um die helleren Regionen des Bildes zu verbessern – aber nur, wenn die Helligkeit der Ebene durch diesen Effekt verringert wird.</Translation>
+        <Old>Saturation adjustment mode. “Reduce” tones down the saturation somewhat, but only when the layer brightness is being reduced by this effect, to improve the appearance of the brighter areas of the image.</Old>
       </Description>
-    </CompensateSaturation>
+    </Saturation>
+    <SaturationMode>
+      <NoChange>
+        <Translation>Keine Änderung</Translation>
+        <Old>No change</Old>
+      </NoChange>
+      <Reduce>
+        <Translation>Reduzieren</Translation>
+        <Old>Reduce</Old>
+      </Reduce>
+      <Zero>
+        <Translation>Null (Graustufen)</Translation>
+        <Old>Zero (grayscale)</Old>
+      </Zero>
+    </SaturationMode>
   </EffectNormalizeBrightness>
   <BoolWithPassthrough>
     <Yes>
