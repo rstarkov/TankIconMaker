@@ -1524,6 +1524,36 @@
       </Description>
     </Sigma>
   </EffectSharpen>
+  <EffectUnsharpMask>
+    <EffectName>
+      <Translation>Out of date</Translation>
+      <Old>Sharpen: unsharp mask</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Out of date</Translation>
+      <Old>Sharpens the layer using unsharp mask filter.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Verarbeitungsradius. Empfohlener Wert: 0, wodurch der optimale Radius automatisch ermittelt wird.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Stärke</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Stärke des Unschärfeeffekts. Höhere Werte führen zu mehr Unschärfe. Nachkommawerte sind erlaubt.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectUnsharpMask>
   <EffectSelectiveBlur>
     <EffectName>
       <Translation>Unschärfe: selektiv</Translation>

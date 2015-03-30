@@ -1524,6 +1524,36 @@
       </Description>
     </Sigma>
   </EffectSharpen>
+  <EffectUnsharpMask>
+    <EffectName>
+      <Translation>Резкость: нерезкая маска</Translation>
+      <Old>Sharpen: unsharp mask</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Увеличивает резкость целевого уровня с помощью фильтра нерезкая маска.</Translation>
+      <Old>Sharpens the layer using unsharp mask filter.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сила эффекта. Чем выше значение, тем больше увеличивается резкость. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectUnsharpMask>
   <EffectSelectiveBlur>
     <EffectName>
       <Translation>Размытие: селективное</Translation>
