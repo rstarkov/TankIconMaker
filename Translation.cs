@@ -77,6 +77,8 @@ namespace TankIconMaker
         EffectSharpen,
         [LingoGroup("Effect: Sharpen: adaptive", "Strings used in the property grid for the \"Sharpen: adaptive\" effect.")]
         EffectAdaptiveSharpen,
+        [LingoGroup("Effect: Sharpen: unsharp mask", "Strings used in the property grid for the \"Sharpen: unsharp mask\" effect.")]
+        EffectUnsharpMaskTranslation,
         [LingoGroup("Effect: Blur: Gaussian", "Strings used in the property grid for the \"Blur: Gaussian\" effect.")]
         EffectGaussianBlur,
         [LingoGroup("Effect: Blur: adaptive", "Strings used in the property grid for the \"Blur: adaptive\" effect.")]
@@ -171,6 +173,7 @@ namespace TankIconMaker
         public EffectAdaptiveBlurTranslation EffectAdaptiveBlur = new EffectAdaptiveBlurTranslation();
         public EffectAdaptiveSharpenTranslation EffectAdaptiveSharpen = new EffectAdaptiveSharpenTranslation();
         public EffectSharpenTranslation EffectSharpen = new EffectSharpenTranslation();
+        public EffectUnsharpMaskTranslation EffectUnsharpMask = new EffectUnsharpMaskTranslation();
         public EffectSelectiveBlurTranslation EffectSelectiveBlur = new EffectSelectiveBlurTranslation();
         public EffectMotionBlurTranslation EffectMotionBlur = new EffectMotionBlurTranslation();
         public EffectRadialBlurTranslation EffectRadialBlur = new EffectRadialBlurTranslation();
@@ -551,6 +554,16 @@ namespace TankIconMaker
     {
         public TrString EffectName = "Sharpen";
         public TrString EffectDescription = "Sharpens the layer.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectUnsharpMaskTranslation)]
+    sealed class EffectUnsharpMaskTranslation
+    {
+        public TrString EffectName = "Sharpen: unsharp mask";
+        public TrString EffectDescription = "Sharpens the layer using unsharp mask filter.";
 
         public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
         public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
