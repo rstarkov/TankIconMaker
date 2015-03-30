@@ -1223,6 +1223,16 @@
         <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
       </Description>
     </GrowShrinkMode>
+    <Filter>
+      <DisplayName>
+        <Translation>Фильтр</Translation>
+        <Old>Filter</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Определяет используемый фильтр для увеличения/уменьшения.</Translation>
+        <Old>Specifies the resizing filter.</Old>
+      </Description>
+    </Filter>
     <PixelAlphaThreshold>
       <DisplayName>
         <Translation>Порог прозрачности</Translation>
@@ -1850,6 +1860,24 @@
       <Old>Shrink only</Old>
     </ShrinkOnly>
   </GrowShrinkMode>
+  <Filter>
+    <Auto>
+      <Translation>Авто</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <Lanczos>
+      <Translation>Lanczos</Translation>
+      <Old>Lanczos</Old>
+    </Lanczos>
+    <Mitchell>
+      <Translation>Mitchell</Translation>
+      <Old>Mitchell</Old>
+    </Mitchell>
+    <Bicubic>
+      <Translation>Bicubic</Translation>
+      <Old>Bicubic</Old>
+    </Bicubic>
+  </Filter>
   <OpacityStyle>
     <Auto>
       <Translation>Авто</Translation>

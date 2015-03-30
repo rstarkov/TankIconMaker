@@ -200,6 +200,14 @@ namespace TankIconMaker
             }
         }
 
+        public void Clear()
+        {
+            using (UseWrite())
+            {
+                Ut.MemSet(this.Data, 0, (int)(this.DataEnd - this.Data));
+            }
+        }
+
         public BitmapBase AsWritable()
         {
             return IsReadOnly ? ToBitmapRam() : this;
@@ -612,6 +620,459 @@ namespace TankIconMaker
                     yTop++;
                     yBtm--;
                 }
+            }
+        }
+
+        internal struct Contributor
+        {
+            public int pixel;
+            public double weight;
+        }
+
+        internal struct ContributorEntry
+        {
+
+            public int n;
+            public Contributor[] p;
+        }
+
+        public void SizePos(double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, TankIconMaker.Effects.Filter defaultFilter = TankIconMaker.Effects.Filter.Auto)
+        {
+            if (Width <= 0 || Height <= 0)
+            {
+                return;
+            }
+            int i = 0, j = 0, k = 0;
+            PixelRect pureImg = this.PreciseSize(0);
+            if (pureImg.Width <= 0 || pureImg.Height <= 0)
+            {
+                //nothing
+                return;
+            }
+            int outWidth = (int)Math.Round(pureImg.Width * scaleWidth);
+            int outHeight = (int)Math.Round(pureImg.Height * scaleHeight);
+            BitmapBase temp;
+            BitmapBase result;
+            if (scaleWidth == 1 && scaleHeight == 1)
+            {
+                //no resize needed
+                if (inX != outX || inY != outY)
+                {
+                    temp = new BitmapRam(outX - inX + Width, outY - inY + Height);
+                    temp.DrawImage(this, outX - inX, outY - inY);
+                    this.New(outX - inX + Width, outY - inY + Height);
+                    this.CopyPixelsFrom(temp);
+                    return;
+                }
+                else
+                    return;
+            }
+
+            byte* DataFixed;
+            int DataOffset;
+            if (pureImg.Left != 0 || pureImg.Top != 0)
+            {
+                DataOffset = pureImg.Left * 4 + pureImg.Top * Stride;
+                // Resample looks better if transprent pixels is cropped. Especially if the image is square
+                // Data+DataOffset, pureImg.Width, pureImg.Height instead of Data, Width, Height works like left-top cropping
+            }
+            else
+            {
+                DataOffset = 0;
+            }
+
+            double width = 0, center = 0, weight = 0, intensity = 0;
+            int left = 0, right = 0;
+
+            ContributorEntry[] contrib = new ContributorEntry[outWidth];
+
+            ResamplingFilter filter = GetResampleFilter(defaultFilter);
+
+
+            #region horizontal resampling
+            if (scaleWidth == 1)
+            {
+                temp = this;
+            }
+            else
+            {
+                temp = new BitmapRam(outWidth, pureImg.Height);
+                if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
+                {
+                    if (scaleWidth < 1f)
+                    {
+                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Lanczos);
+                    }
+                    else
+                    {
+                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Mitchell);
+                    }
+                }
+
+                if (scaleWidth < 1f)
+                {
+                    #region downsampling
+                    width = (filter.Radius / scaleWidth);
+
+                    for (i = 0; i < outWidth; ++i)
+                    {
+                        contrib[i].n = 0;
+                        contrib[i].p = new Contributor[(int)Math.Floor(2 * width + 1)];
+                        center = ((i + 0.5) / scaleWidth);
+                        left = (int)(center - width);
+                        right = (int)(center + width);
+
+                        for (j = left; j <= right; j++)
+                        {
+
+                            weight = filter.GetValue((center - j - 0.5) * scaleWidth);
+
+                            if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
+                                continue;
+
+                            contrib[i].p[contrib[i].n].pixel = j;
+                            contrib[i].p[contrib[i].n].weight = weight;
+                            contrib[i].n++;
+                        }
+                    }
+                    #endregion
+                }
+                else
+                {
+                    #region upsampling
+                    for (i = 0; i < outWidth; i++)
+                    {
+
+                        contrib[i].n = 0;
+                        contrib[i].p = new Contributor[(int)Math.Floor(2 * filter.Radius + 1)];
+                        center = ((i + 0.5) / scaleWidth);
+                        left = (int)Math.Floor(center - filter.Radius);
+                        right = (int)Math.Ceiling(center + filter.Radius);
+
+                        for (j = left; j <= right; j++)
+                        {
+
+                            weight = filter.GetValue(center - j - 0.5);
+
+                            if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
+                                continue;
+
+                            contrib[i].p[contrib[i].n].pixel = j;
+                            contrib[i].p[contrib[i].n].weight = weight;
+                            contrib[i].n++;
+                        }
+                    }
+                    #endregion
+                }
+
+                #region redrawing
+                using (this.UseRead())
+                using (temp.UseWrite())
+                {
+                    DataFixed = Data + DataOffset;
+                    for (k = 0; k < pureImg.Height; ++k)
+                    {
+                        for (i = 0; i < outWidth; ++i)
+                        {
+                            for (int channel = 0; channel < 4; ++channel)
+                            {
+                                intensity = 0;
+
+                                double wsum = 0;
+
+                                for (j = 0; j < contrib[i].n; ++j)
+                                {
+
+                                    weight = contrib[i].p[j].weight;
+
+                                    if (channel != 3)
+                                    {
+                                        weight *= DataFixed[contrib[i].p[j].pixel * 4 + k * Stride + 3] / 255d;
+                                    }
+
+                                    if (weight == 0)
+                                        continue;
+
+                                    wsum += weight;
+
+                                    intensity += (DataFixed[contrib[i].p[j].pixel * 4 + k * Stride + channel] * weight);
+                                }
+
+                                temp.Data[i * 4 + k * temp.Stride + channel] = (byte)Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                            }
+                        }
+                    }
+                }
+                #endregion
+                DataOffset = 0;
+            }
+            #endregion
+
+            #region vertical resampling
+            if (scaleHeight == 1)
+            {
+                result = temp;
+            }
+            else
+            {
+                result = new BitmapRam(outWidth, outHeight);
+                contrib = new ContributorEntry[outHeight];
+
+                if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
+                {
+                    if (scaleHeight < 1f)
+                    {
+                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Lanczos);
+                    }
+                    else
+                    {
+                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Mitchell);
+                    }
+                }
+
+                if (scaleHeight < 1f)
+                {
+                    #region downsampling
+                    width = (filter.Radius / scaleHeight);
+
+                    for (i = 0; i < outHeight; i++)
+                    {
+
+                        contrib[i].n = 0;
+                        contrib[i].p = new Contributor[(int)Math.Floor(2 * width + 1)];
+                        center = ((i + 0.5) / scaleHeight);
+                        left = (int)(center - width);
+                        right = (int)(center + width);
+
+                        for (j = left; j <= right; j++)
+                        {
+
+                            weight = filter.GetValue((center - j - 0.5) * scaleHeight);
+
+                            if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
+                                continue;
+
+                            contrib[i].p[contrib[i].n].pixel = j;
+                            contrib[i].p[contrib[i].n].weight = weight;
+                            contrib[i].n++;
+                        }
+                    }
+                    #endregion
+                }
+                else
+                {
+                    #region upsampling
+                    for (i = 0; i < outHeight; i++)
+                    {
+
+                        contrib[i].n = 0;
+                        contrib[i].p = new Contributor[(int)Math.Floor(2 * filter.Radius + 1)];
+                        center = ((i + 0.5) / scaleHeight);
+                        left = (int)(center - filter.Radius);
+                        right = (int)(center + filter.Radius);
+
+                        for (j = left; j <= right; j++)
+                        {
+
+                            weight = filter.GetValue(center - j - 0.5);
+
+                            if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
+                                continue;
+
+                            contrib[i].p[contrib[i].n].pixel = j;
+                            contrib[i].p[contrib[i].n].weight = weight;
+                            contrib[i].n++;
+                        }
+                    }
+                    #endregion
+                }
+
+                #region redrawing
+                using (temp.UseRead())
+                using (result.UseWrite())
+                {
+                    DataFixed = temp.Data + DataOffset;
+                    for (k = 0; k < outWidth; ++k)
+                    {
+                        for (i = 0; i < outHeight; ++i)
+                        {
+                            for (int channel = 0; channel < 4; ++channel)
+                            {
+
+                                intensity = 0;
+                                double wsum = 0;
+
+                                for (j = 0; j < contrib[i].n; j++)
+                                {
+
+                                    weight = contrib[i].p[j].weight;
+
+                                    if (channel != 3)
+                                    {
+                                        weight *= DataFixed[k * 4 + contrib[i].p[j].pixel * temp.Stride + 3] / 255d;
+                                    }
+
+                                    if (weight == 0)
+                                        continue;
+
+                                    wsum += weight;
+
+                                    intensity += (DataFixed[k * 4 + contrib[i].p[j].pixel * temp.Stride + channel] * weight);
+                                }
+
+                                result.Data[k * 4 + i * result.Stride + channel] = (byte)Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                            }
+                        }
+                    }
+                }
+                #endregion
+            }
+            #endregion
+            this.Clear();
+
+            //At this point image will be resized and moved to another BitmapRam anyway
+            int drawX = outX - (int)Math.Round((inX - pureImg.Left) * scaleWidth);
+            int drawY = outY - (int)Math.Round((inY - pureImg.Top) * scaleHeight);
+            if (drawX + outWidth > Width || drawY + outHeight > Height)
+            {
+                New(drawX + outWidth, drawY + outHeight);
+            }
+            this.DrawImage(result, drawX, drawY);
+            
+        }
+
+        public void New(int width, int height)
+        {
+            this.Width = width;
+            this.Height = height;
+            Stride = Width * 4 + (16 - (Width * 4) % 16) % 16;
+            //Hope you know better solution than this
+            if (this is BitmapRam)
+            {
+                typeof(BitmapRam).GetField("_bytes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, new byte[Stride * Height]);
+            }
+            else if (this is BitmapGdi)
+            {
+                typeof(BitmapGdi).GetField("_bytes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, new SharedPinnedByteArray(Stride * Height));
+                SharedPinnedByteArray bytes = typeof(BitmapGdi).GetField("_bytes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this) as SharedPinnedByteArray;
+                D.Bitmap Bitmap = new D.Bitmap(Width, Height, Stride, D.Imaging.PixelFormat.Format32bppArgb, bytes.Address);
+                Bitmap.SetResolution(96, 96);
+                typeof(BitmapGdi).GetField("Bitmap", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, Bitmap);
+            }
+            else if (this is BitmapWpf)
+            {
+                typeof(BitmapWpf).GetField("_bitmap", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, new WriteableBitmap(Width, Height, 96, 96, PixelFormats.Bgra32, null));
+            }
+
+        }
+
+        private ResamplingFilter GetResampleFilter(TankIconMaker.Effects.Filter filter = TankIconMaker.Effects.Filter.Lanczos)
+        {
+            switch (filter)
+            {
+                case TankIconMaker.Effects.Filter.Lanczos: return new LanczosFilter();
+                case TankIconMaker.Effects.Filter.Mitchell: return new MitchellFilter();
+                case TankIconMaker.Effects.Filter.Bicubic: return new BicubicFilter();
+                default: return new BicubicFilter();
+            }
+        }
+
+        abstract class ResamplingFilter
+        {
+            public double Radius;
+            public abstract double GetValue(double x);
+        }
+
+        class LanczosFilter : ResamplingFilter
+        {
+            public LanczosFilter()
+            {
+                Radius = 3;
+            }
+
+            double Sinc(double x)
+            {
+                if (x == 0)
+                {
+                    return 1;
+                }
+                x *= Math.PI;
+                return (Math.Sin(x) / x);
+            }
+
+            public override double GetValue(double x)
+            {
+                if (x < 0)
+                {
+                    x = -x;
+                }
+                if (x < Radius)
+                {
+                    return (Sinc(x) * Sinc(x / Radius));
+                }
+                return 0;
+            }
+        }
+
+        class BicubicFilter : ResamplingFilter
+        {
+            public BicubicFilter()
+            {
+                Radius = 2;
+            }
+
+            double Sinc(double x)
+            {
+                if (x == 0)
+                {
+                    return 1;
+                }
+                x *= Math.PI;
+                return (Math.Sin(x) / x);
+            }
+
+            public static double Bicubic(double x, double B = 0, double C = 0.5)
+            {
+                // Catmull_Rom,GIMP (0, 1/2) (default)
+                // Mitchell (1/3, 1/3)
+                // Photoshop (0, 3/4)
+                // Faststone (0, 1)
+                // B-Spline (1, 0)
+                // HighQualityBicubic (?, ?)
+                if (x < 0)
+                {
+                    x = -x;
+                }
+                double x2 = x * x;
+                if (x < 1)
+                {
+                    x = (((12 - 9 * B - 6 * C) * (x * x2)) + ((-18 + 12 * B + 6 * C) * x2) + (6 - 2 * B));
+                    return (x / 6);
+                }
+                if (x < 2)
+                {
+
+                    x = (((-B - 6 * C) * (x * x2)) + ((6 * B + 30 * C) * x2) + ((-12 * B - 48 * C) * x) + (8 * B + 24 * C));
+                    return (x / 6);
+                }
+                return 0;
+            }
+
+            public override double GetValue(double x)
+            {
+                return Bicubic(x);
+            }
+        }
+
+        class MitchellFilter : ResamplingFilter
+        {
+            public MitchellFilter()
+            {
+                Radius = 2;
+            }
+            public override double GetValue(double x)
+            {
+                return BicubicFilter.Bicubic(x, 1 / 3d, 1 / 3d);
             }
         }
 
