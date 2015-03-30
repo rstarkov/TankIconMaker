@@ -1223,6 +1223,16 @@
         <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
       </Description>
     </GrowShrinkMode>
+    <Filter>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Filter</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Specifies the resizing filter.</Old>
+      </Description>
+    </Filter>
     <PixelAlphaThreshold>
       <DisplayName>
         <Translation>Transparenz-Grenzwert</Translation>
@@ -1850,6 +1860,24 @@
       <Old>Shrink only</Old>
     </ShrinkOnly>
   </GrowShrinkMode>
+  <Filter>
+    <Auto>
+      <Translation>Automatisch</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <Lanczos>
+      <Translation>Out of date</Translation>
+      <Old>Lanczos</Old>
+    </Lanczos>
+    <Mitchell>
+      <Translation>Out of date</Translation>
+      <Old>Mitchell</Old>
+    </Mitchell>
+    <Bicubic>
+      <Translation>Out of date</Translation>
+      <Old>Bicubic</Old>
+    </Bicubic>
+  </Filter>
   <OpacityStyle>
     <Auto>
       <Translation>Automatisch</Translation>
