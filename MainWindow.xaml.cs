@@ -1108,11 +1108,11 @@ namespace TankIconMaker
         {
             var context = LoadContext(cached: true);
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, "<country>", "<class>");
+            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, null, null);
 
             try
             {
-                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("<") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
+                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
                     if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
                         .Fmt(pathPartial, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
                         return;
@@ -1280,7 +1280,7 @@ namespace TankIconMaker
                 {
                     Item = style,
                     Column1 = string.Format("{0} ({1})", style.Name, style.Author),
-                    Column2 = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style, "<country>", "<class>"),
+                    Column2 = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style, null, null),
                     IsChecked = style == App.Settings.ActiveStyle ? true : false
                 })
                 .ToList();
