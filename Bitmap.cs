@@ -623,32 +623,28 @@ namespace TankIconMaker
             }
         }
 
-        internal struct Contributor
+        private struct Contributor
         {
-            public int pixel;
-            public double weight;
+            public int Pixel;
+            public double Weight;
         }
 
-        internal struct ContributorEntry
+        private struct ContributorEntry
         {
-
-            public int n;
-            public Contributor[] p;
+            public int N;
+            public Contributor[] P;
         }
 
         public void SizePos(double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, TankIconMaker.Effects.Filter defaultFilter = TankIconMaker.Effects.Filter.Auto)
         {
             if (Width <= 0 || Height <= 0)
-            {
                 return;
-            }
+
             int i = 0, j = 0, k = 0;
             PixelRect pureImg = this.PreciseSize(0);
             if (pureImg.Width <= 0 || pureImg.Height <= 0)
-            {
-                //nothing
                 return;
-            }
+
             int outWidth = (int) Math.Round(pureImg.Width * scaleWidth);
             int outHeight = (int) Math.Round(pureImg.Height * scaleHeight);
             BitmapBase temp;
@@ -716,8 +712,8 @@ namespace TankIconMaker
 
                     for (i = 0; i < outWidth; ++i)
                     {
-                        contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int) Math.Floor(2 * width + 1)];
+                        contrib[i].N = 0;
+                        contrib[i].P = new Contributor[(int) Math.Floor(2 * width + 1)];
                         center = ((i + 0.5) / scaleWidth);
                         left = (int) (center - width);
                         right = (int) (center + width);
@@ -730,9 +726,9 @@ namespace TankIconMaker
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
                                 continue;
 
-                            contrib[i].p[contrib[i].n].pixel = j;
-                            contrib[i].p[contrib[i].n].weight = weight;
-                            contrib[i].n++;
+                            contrib[i].P[contrib[i].N].Pixel = j;
+                            contrib[i].P[contrib[i].N].Weight = weight;
+                            contrib[i].N++;
                         }
                     }
                     #endregion
@@ -743,8 +739,8 @@ namespace TankIconMaker
                     for (i = 0; i < outWidth; i++)
                     {
 
-                        contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
+                        contrib[i].N = 0;
+                        contrib[i].P = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
                         center = ((i + 0.5) / scaleWidth);
                         left = (int) Math.Floor(center - filter.Radius);
                         right = (int) Math.Ceiling(center + filter.Radius);
@@ -757,9 +753,9 @@ namespace TankIconMaker
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
                                 continue;
 
-                            contrib[i].p[contrib[i].n].pixel = j;
-                            contrib[i].p[contrib[i].n].weight = weight;
-                            contrib[i].n++;
+                            contrib[i].P[contrib[i].N].Pixel = j;
+                            contrib[i].P[contrib[i].N].Weight = weight;
+                            contrib[i].N++;
                         }
                     }
                     #endregion
@@ -780,14 +776,14 @@ namespace TankIconMaker
 
                                 double wsum = 0;
 
-                                for (j = 0; j < contrib[i].n; ++j)
+                                for (j = 0; j < contrib[i].N; ++j)
                                 {
 
-                                    weight = contrib[i].p[j].weight;
+                                    weight = contrib[i].P[j].Weight;
 
                                     if (channel != 3)
                                     {
-                                        weight *= DataFixed[contrib[i].p[j].pixel * 4 + k * Stride + 3] / 255d;
+                                        weight *= DataFixed[contrib[i].P[j].Pixel * 4 + k * Stride + 3] / 255d;
                                     }
 
                                     if (weight == 0)
@@ -795,7 +791,7 @@ namespace TankIconMaker
 
                                     wsum += weight;
 
-                                    intensity += (DataFixed[contrib[i].p[j].pixel * 4 + k * Stride + channel] * weight);
+                                    intensity += (DataFixed[contrib[i].P[j].Pixel * 4 + k * Stride + channel] * weight);
                                 }
 
                                 temp.Data[i * 4 + k * temp.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
@@ -838,8 +834,8 @@ namespace TankIconMaker
                     for (i = 0; i < outHeight; i++)
                     {
 
-                        contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int) Math.Floor(2 * width + 1)];
+                        contrib[i].N = 0;
+                        contrib[i].P = new Contributor[(int) Math.Floor(2 * width + 1)];
                         center = ((i + 0.5) / scaleHeight);
                         left = (int) (center - width);
                         right = (int) (center + width);
@@ -852,9 +848,9 @@ namespace TankIconMaker
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
                                 continue;
 
-                            contrib[i].p[contrib[i].n].pixel = j;
-                            contrib[i].p[contrib[i].n].weight = weight;
-                            contrib[i].n++;
+                            contrib[i].P[contrib[i].N].Pixel = j;
+                            contrib[i].P[contrib[i].N].Weight = weight;
+                            contrib[i].N++;
                         }
                     }
                     #endregion
@@ -865,8 +861,8 @@ namespace TankIconMaker
                     for (i = 0; i < outHeight; i++)
                     {
 
-                        contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
+                        contrib[i].N = 0;
+                        contrib[i].P = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
                         center = ((i + 0.5) / scaleHeight);
                         left = (int) (center - filter.Radius);
                         right = (int) (center + filter.Radius);
@@ -879,9 +875,9 @@ namespace TankIconMaker
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
                                 continue;
 
-                            contrib[i].p[contrib[i].n].pixel = j;
-                            contrib[i].p[contrib[i].n].weight = weight;
-                            contrib[i].n++;
+                            contrib[i].P[contrib[i].N].Pixel = j;
+                            contrib[i].P[contrib[i].N].Weight = weight;
+                            contrib[i].N++;
                         }
                     }
                     #endregion
@@ -902,14 +898,14 @@ namespace TankIconMaker
                                 intensity = 0;
                                 double wsum = 0;
 
-                                for (j = 0; j < contrib[i].n; j++)
+                                for (j = 0; j < contrib[i].N; j++)
                                 {
 
-                                    weight = contrib[i].p[j].weight;
+                                    weight = contrib[i].P[j].Weight;
 
                                     if (channel != 3)
                                     {
-                                        weight *= DataFixed[k * 4 + contrib[i].p[j].pixel * temp.Stride + 3] / 255d;
+                                        weight *= DataFixed[k * 4 + contrib[i].P[j].Pixel * temp.Stride + 3] / 255d;
                                     }
 
                                     if (weight == 0)
@@ -917,7 +913,7 @@ namespace TankIconMaker
 
                                     wsum += weight;
 
-                                    intensity += (DataFixed[k * 4 + contrib[i].p[j].pixel * temp.Stride + channel] * weight);
+                                    intensity += (DataFixed[k * 4 + contrib[i].P[j].Pixel * temp.Stride + channel] * weight);
                                 }
 
                                 result.Data[k * 4 + i * result.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
