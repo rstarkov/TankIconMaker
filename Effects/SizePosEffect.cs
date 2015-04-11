@@ -182,8 +182,9 @@ namespace TankIconMaker.Effects
                         }
                         if (ShowPixelBorders && !emptyPixels)
                         {
+                            image.FillColor = ImageMagick.MagickColor.Transparent;
                             image.StrokeColor = new ImageMagick.MagickColor("red");
-                            image.Draw(new ImageMagick.DrawableRectangle(0, 0, layer.Width - 1, layer.Height - 1));
+                            image.Draw(new ImageMagick.DrawableRectangle(pixels.Left, pixels.Top, pixels.Right, pixels.Bottom));
                         }
                         layer.CopyPixelsFrom(image.ToBitmapSource());
                     }
