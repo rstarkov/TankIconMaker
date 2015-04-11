@@ -204,7 +204,7 @@ namespace TankIconMaker
         {
             using (UseWrite())
             {
-                Ut.MemSet(this.Data, 0, (int)(this.DataEnd - this.Data));
+                Ut.MemSet(this.Data, 0, (int) (this.DataEnd - this.Data));
             }
         }
 
@@ -649,8 +649,8 @@ namespace TankIconMaker
                 //nothing
                 return;
             }
-            int outWidth = (int)Math.Round(pureImg.Width * scaleWidth);
-            int outHeight = (int)Math.Round(pureImg.Height * scaleHeight);
+            int outWidth = (int) Math.Round(pureImg.Width * scaleWidth);
+            int outHeight = (int) Math.Round(pureImg.Height * scaleHeight);
             BitmapBase temp;
             BitmapBase result;
             if (scaleWidth == 1 && scaleHeight == 1)
@@ -717,10 +717,10 @@ namespace TankIconMaker
                     for (i = 0; i < outWidth; ++i)
                     {
                         contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int)Math.Floor(2 * width + 1)];
+                        contrib[i].p = new Contributor[(int) Math.Floor(2 * width + 1)];
                         center = ((i + 0.5) / scaleWidth);
-                        left = (int)(center - width);
-                        right = (int)(center + width);
+                        left = (int) (center - width);
+                        right = (int) (center + width);
 
                         for (j = left; j <= right; j++)
                         {
@@ -744,10 +744,10 @@ namespace TankIconMaker
                     {
 
                         contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int)Math.Floor(2 * filter.Radius + 1)];
+                        contrib[i].p = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
                         center = ((i + 0.5) / scaleWidth);
-                        left = (int)Math.Floor(center - filter.Radius);
-                        right = (int)Math.Ceiling(center + filter.Radius);
+                        left = (int) Math.Floor(center - filter.Radius);
+                        right = (int) Math.Ceiling(center + filter.Radius);
 
                         for (j = left; j <= right; j++)
                         {
@@ -798,7 +798,7 @@ namespace TankIconMaker
                                     intensity += (DataFixed[contrib[i].p[j].pixel * 4 + k * Stride + channel] * weight);
                                 }
 
-                                temp.Data[i * 4 + k * temp.Stride + channel] = (byte)Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                                temp.Data[i * 4 + k * temp.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
                             }
                         }
                     }
@@ -839,10 +839,10 @@ namespace TankIconMaker
                     {
 
                         contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int)Math.Floor(2 * width + 1)];
+                        contrib[i].p = new Contributor[(int) Math.Floor(2 * width + 1)];
                         center = ((i + 0.5) / scaleHeight);
-                        left = (int)(center - width);
-                        right = (int)(center + width);
+                        left = (int) (center - width);
+                        right = (int) (center + width);
 
                         for (j = left; j <= right; j++)
                         {
@@ -866,10 +866,10 @@ namespace TankIconMaker
                     {
 
                         contrib[i].n = 0;
-                        contrib[i].p = new Contributor[(int)Math.Floor(2 * filter.Radius + 1)];
+                        contrib[i].p = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
                         center = ((i + 0.5) / scaleHeight);
-                        left = (int)(center - filter.Radius);
-                        right = (int)(center + filter.Radius);
+                        left = (int) (center - filter.Radius);
+                        right = (int) (center + filter.Radius);
 
                         for (j = left; j <= right; j++)
                         {
@@ -920,7 +920,7 @@ namespace TankIconMaker
                                     intensity += (DataFixed[k * 4 + contrib[i].p[j].pixel * temp.Stride + channel] * weight);
                                 }
 
-                                result.Data[k * 4 + i * result.Stride + channel] = (byte)Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                                result.Data[k * 4 + i * result.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
                             }
                         }
                     }
@@ -931,14 +931,14 @@ namespace TankIconMaker
             this.Clear();
 
             //At this point image will be resized and moved to another BitmapRam anyway
-            int drawX = outX - (int)Math.Round((inX - pureImg.Left) * scaleWidth);
-            int drawY = outY - (int)Math.Round((inY - pureImg.Top) * scaleHeight);
+            int drawX = outX - (int) Math.Round((inX - pureImg.Left) * scaleWidth);
+            int drawY = outY - (int) Math.Round((inY - pureImg.Top) * scaleHeight);
             if (drawX + outWidth > Width || drawY + outHeight > Height)
             {
                 New(drawX + outWidth, drawY + outHeight);
             }
             this.DrawImage(result, drawX, drawY);
-            
+
         }
 
         public void New(int width, int height)
