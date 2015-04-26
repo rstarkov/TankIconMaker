@@ -105,12 +105,16 @@
                         <Rectangle Width="10" Height="4" Fill="Red" Stroke="DarkRed" SnapsToDevicePixels="True"/>
                     </Button>
                 </Grid>
-                <TextBlock Padding="3,6,0,0" Name="ctGameInstallationWarning" Foreground="Maroon" FontWeight="Bold" TextWrapping="Wrap">
+                <TextBlock Padding="3,6,0,0" Name="ctGameInstallationWarning" Foreground="Maroon" FontWeight="Bold" TextWrapping="Wrap" MouseDown="ctGameInstallationWarning_MouseDown">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Cursor" Value="Hand"/>
                             <Style.Triggers>
                                 <Trigger Property="Text" Value="">
                                     <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                                <Trigger Property="Tag" Value="{x:Null}">
+                                    <Setter Property="Cursor" Value="Arrow"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>

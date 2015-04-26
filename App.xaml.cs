@@ -74,28 +74,11 @@ namespace TankIconMaker
 #if !DEBUG
             AppDomain.CurrentDomain.UnhandledException += (_, ea) =>
             {
-                var errorInfo = new StringBuilder("Thread: " + Thread.CurrentThread.Name);
-                var excp = ea.ExceptionObject;
-                while (excp != null)
-                {
-                    errorInfo.AppendFormat("\n\nException: {0}", excp.GetType());
-                    var exception = excp as Exception;
-                    if (exception != null)
-                    {
-                        errorInfo.AppendFormat("\nMessage: {0}\n", exception.Message);
-                        errorInfo.AppendLine(Ut.CollapseStackTrace(exception.StackTrace));
-                        excp = exception.InnerException;
-                    }
-                }
                 bool copy = DlgMessage.ShowError(App.Translation.Error.ExceptionGlobal,
                     App.Translation.Error.ErrorToClipboard_Copy, App.Translation.Error.ErrorToClipboard_OK) == 0;
                 if (copy)
-                    try
-                    {
-                        Clipboard.SetText(errorInfo.ToString(), TextDataFormat.UnicodeText);
+                    if (Ut.ClipboardSet(Ut.ExceptionToDebugString(ea.ExceptionObject)))
                         DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_Copied);
-                    }
-                    catch { DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_CopyFail); }
             };
 #else
             var dummy = App.Translation.Error.ExceptionGlobal; // to keep Lingo happy that the string is used
