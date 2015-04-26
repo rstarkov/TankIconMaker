@@ -1223,6 +1223,16 @@
         <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
       </Description>
     </GrowShrinkMode>
+    <Filter>
+      <DisplayName>
+        <Translation>Фильтр</Translation>
+        <Old>Filter</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Определяет используемый фильтр для увеличения/уменьшения.</Translation>
+        <Old>Specifies the resizing filter.</Old>
+      </Description>
+    </Filter>
     <PixelAlphaThreshold>
       <DisplayName>
         <Translation>Порог прозрачности</Translation>
@@ -1514,6 +1524,36 @@
       </Description>
     </Sigma>
   </EffectSharpen>
+  <EffectUnsharpMask>
+    <EffectName>
+      <Translation>Резкость: нерезкая маска</Translation>
+      <Old>Sharpen: unsharp mask</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Увеличивает резкость целевого уровня с помощью фильтра нерезкая маска.</Translation>
+      <Old>Sharpens the layer using unsharp mask filter.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Радиус</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Радиус обработки. Рекомендуемое значение: 0, что выбирает оптимальный радиус автоматически.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Сила</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Сила эффекта. Чем выше значение, тем больше увеличивается резкость. Допускаются дробные значения.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectUnsharpMask>
   <EffectSelectiveBlur>
     <EffectName>
       <Translation>Размытие: селективное</Translation>
@@ -1850,6 +1890,24 @@
       <Old>Shrink only</Old>
     </ShrinkOnly>
   </GrowShrinkMode>
+  <Filter>
+    <Auto>
+      <Translation>Авто</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <Lanczos>
+      <Translation>Lanczos</Translation>
+      <Old>Lanczos</Old>
+    </Lanczos>
+    <Mitchell>
+      <Translation>Mitchell</Translation>
+      <Old>Mitchell</Old>
+    </Mitchell>
+    <Bicubic>
+      <Translation>Bicubic</Translation>
+      <Old>Bicubic</Old>
+    </Bicubic>
+  </Filter>
   <OpacityStyle>
     <Auto>
       <Translation>Авто</Translation>

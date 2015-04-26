@@ -77,6 +77,8 @@ namespace TankIconMaker
         EffectSharpen,
         [LingoGroup("Effect: Sharpen: adaptive", "Strings used in the property grid for the \"Sharpen: adaptive\" effect.")]
         EffectAdaptiveSharpen,
+        [LingoGroup("Effect: Sharpen: unsharp mask", "Strings used in the property grid for the \"Sharpen: unsharp mask\" effect.")]
+        EffectUnsharpMaskTranslation,
         [LingoGroup("Effect: Blur: Gaussian", "Strings used in the property grid for the \"Blur: Gaussian\" effect.")]
         EffectGaussianBlur,
         [LingoGroup("Effect: Blur: adaptive", "Strings used in the property grid for the \"Blur: adaptive\" effect.")]
@@ -107,6 +109,8 @@ namespace TankIconMaker
         EnumSizeMode,
         [LingoGroup("Value: grow/shrink mode", "Strings used for the size/pos grow/shrink mode drop-down.")]
         EnumGrowShrinkMode,
+        [LingoGroup("Value: filter", "Strings used for the size/pos filter drop-down.")]
+        EnumFilter,
         [LingoGroup("Value: opacity style", "Strings used for the opacity effect style drop-down.")]
         EnumOpacityStyle,
         [LingoGroup("Value: blur edge mode", "Strings used for the blur effect edge-handling mode drop-downs.")]
@@ -169,6 +173,7 @@ namespace TankIconMaker
         public EffectAdaptiveBlurTranslation EffectAdaptiveBlur = new EffectAdaptiveBlurTranslation();
         public EffectAdaptiveSharpenTranslation EffectAdaptiveSharpen = new EffectAdaptiveSharpenTranslation();
         public EffectSharpenTranslation EffectSharpen = new EffectSharpenTranslation();
+        public EffectUnsharpMaskTranslation EffectUnsharpMask = new EffectUnsharpMaskTranslation();
         public EffectSelectiveBlurTranslation EffectSelectiveBlur = new EffectSelectiveBlurTranslation();
         public EffectMotionBlurTranslation EffectMotionBlur = new EffectMotionBlurTranslation();
         public EffectRadialBlurTranslation EffectRadialBlur = new EffectRadialBlurTranslation();
@@ -182,6 +187,7 @@ namespace TankIconMaker
         public ClipModeTranslation ClipMode = new ClipModeTranslation();
         public SizeModeTranslation SizeMode = new SizeModeTranslation();
         public GrowShrinkModeTranslation GrowShrinkMode = new GrowShrinkModeTranslation();
+        public FilterTranslation Filter = new FilterTranslation();
         public OpacityStyleTranslation OpacityStyle = new OpacityStyleTranslation();
         public BlurEdgeModeTranslation BlurEdgeMode = new BlurEdgeModeTranslation();
         public TextSmoothingStyleTranslation TextSmoothingStyle = new TextSmoothingStyleTranslation();
@@ -553,6 +559,16 @@ namespace TankIconMaker
         public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
     }
 
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectUnsharpMaskTranslation)]
+    sealed class EffectUnsharpMaskTranslation
+    {
+        public TrString EffectName = "Sharpen: unsharp mask";
+        public TrString EffectDescription = "Sharpens the layer using unsharp mask filter.";
+
+        public MemberDescriptionTr Radius = new MemberDescriptionTr { DisplayName = "Radius", Description = "Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius." };
+        public MemberDescriptionTr Sigma = new MemberDescriptionTr { DisplayName = "Strength", Description = "Specifies the strength of the sharpening effect. Fractional values are permitted." };
+    }
+
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectAdaptiveBlur)]
     sealed class EffectAdaptiveBlurTranslation
     {
@@ -659,6 +675,7 @@ namespace TankIconMaker
         public MemberDescriptionTr Height = new MemberDescriptionTr { DisplayName = "Resize to height", Description = "When Mode is one of \"By size\" modes, selects the desired height, in pixels." };
         public MemberDescriptionTr SizeMode = new MemberDescriptionTr { DisplayName = "Mode", Description = "Selects one of several different resize modes, which determines how the image size is calculated." };
         public MemberDescriptionTr GrowShrinkMode = new MemberDescriptionTr { DisplayName = "Grow/shrink", Description = "Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize." };
+        public MemberDescriptionTr Filter = new MemberDescriptionTr { DisplayName = "Filter", Description = "Specifies the resizing filter." };
 
         public MemberDescriptionTr PixelAlphaThreshold = new MemberDescriptionTr { DisplayName = "Transparency threshold", Description = "When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as \"transparent\". Range 0..255." };
 
@@ -753,6 +770,20 @@ namespace TankIconMaker
         public class Conv : LingoEnumConverter<GrowShrinkMode, GrowShrinkModeTranslation>
         {
             public Conv() : base(() => App.Translation.GrowShrinkMode) { }
+        }
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EnumFilter), LingoInGroup(TranslationGroup.EffectSizePos)]
+    sealed class FilterTranslation
+    {
+        public TrString Auto = "Auto";
+        public TrString Lanczos = "Lanczos";
+        public TrString Mitchell = "Mitchell";
+        public TrString Bicubic = "Bicubic";
+
+        public class Conv : LingoEnumConverter<Filter, FilterTranslation>
+        {
+            public Conv() : base(() => App.Translation.Filter) { }
         }
     }
 
