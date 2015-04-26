@@ -432,7 +432,7 @@
                     <TextBlock Grid.Column="0" Name="ctPathTemplateLabel" Margin="8,8,0,8" VerticalAlignment="Center" >Path:</TextBlock>
                     <TextBlock Grid.Column="1" Name="ctPathTemplate" Margin="8,8,0,8" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
                                Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=PathTemplate}"/>
-                    <Button Grid.Column="2"  Name="ctEditPathTemplate" Margin="8,8,16,8" Click="ctEditPathTemplate_Click">
+                    <Button Grid.Column="2"  Name="ctEditPathTemplate" Margin="8,8,16,8" Click="ctEditPathTemplate_Click" IsEnabled="{Binding ElementName=ctSave, Path=IsEnabled}">
                         <AccessText Margin="4,0" Name="ctEditPathTemplateLabel">_...</AccessText>
                     </Button>
                 </Grid>
