@@ -815,6 +815,14 @@ namespace TankIconMaker
         public TrString RenderIconFail = "Could not render this icon: {0}";
 
         public TrString ClipboardError = "Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.";
+
+        public TrString ExceptionGlobal = "An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.";
+        public TrString ExceptionInRender = "A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.";
+        public TrString ErrorToClipboard_Copy = "Copy report to &clipboard";
+        [LingoNotes("The button that acknowledges the error report and closes it without copying to clipboard.")]
+        public TrString ErrorToClipboard_OK = "OK";
+        public TrString ErrorToClipboard_Copied = "Information about the error is now in your clipboard.";
+        public TrString ErrorToClipboard_CopyFail = "Sorry, couldn't copy the error info to clipboard for some reason.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]
@@ -877,13 +885,6 @@ namespace TankIconMaker
         public TrString BulkSave_Prompt = "You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:";
         public TrString BulkSave_Yes = "_Save";
         public TrString BulkSave_Progress = "Saving icons...";
-
-        public TrString ExceptionGlobal = "An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.";
-        public TrString ExceptionInRender = "A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.";
-        public TrString ErrorToClipboard_Copy = "Copy report to &clipboard";
-        public TrString ErrorToClipboard_OK = "OK";
-        public TrString ErrorToClipboard_Copied = "Information about the error is now in your clipboard.";
-        public TrString ErrorToClipboard_CopyFail = "Sorry, couldn't copy the error info to clipboard for some reason.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.DlgMessage)]

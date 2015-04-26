@@ -755,16 +755,16 @@ namespace TankIconMaker
                     + "Exception details: {0}, {1}\n".Fmt(renderResult.Exception.GetType().Name, renderResult.Exception.Message)
                     + Ut.CollapseStackTrace(renderResult.Exception.StackTrace);
 
-                bool copy = DlgMessage.ShowWarning(warnings + joiner + App.Translation.Prompt.ExceptionInRender + "\n\n" + message,
-                    App.Translation.Prompt.ErrorToClipboard_Copy, App.Translation.Prompt.ErrorToClipboard_OK) == 0;
+                bool copy = DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.ExceptionInRender + "\n\n" + message,
+                    App.Translation.Error.ErrorToClipboard_Copy, App.Translation.Error.ErrorToClipboard_OK) == 0;
 
                 if (copy)
                     try
                     {
                         Clipboard.SetText(message, TextDataFormat.UnicodeText);
-                        DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_Copied);
+                        DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_Copied);
                     }
-                    catch { DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_CopyFail); }
+                    catch { DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_CopyFail); }
             }
         }
 

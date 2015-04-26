@@ -87,18 +87,18 @@ namespace TankIconMaker
                         excp = exception.InnerException;
                     }
                 }
-                bool copy = DlgMessage.ShowError(App.Translation.Prompt.ExceptionGlobal,
-                    App.Translation.Prompt.ErrorToClipboard_Copy, App.Translation.Prompt.ErrorToClipboard_OK) == 0;
+                bool copy = DlgMessage.ShowError(App.Translation.Error.ExceptionGlobal,
+                    App.Translation.Error.ErrorToClipboard_Copy, App.Translation.Error.ErrorToClipboard_OK) == 0;
                 if (copy)
                     try
                     {
                         Clipboard.SetText(errorInfo.ToString(), TextDataFormat.UnicodeText);
-                        DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_Copied);
+                        DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_Copied);
                     }
-                    catch { DlgMessage.ShowInfo(App.Translation.Prompt.ErrorToClipboard_CopyFail); }
+                    catch { DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_CopyFail); }
             };
 #else
-            var dummy = App.Translation.Prompt.ExceptionGlobal; // to keep Lingo happy that the string is used
+            var dummy = App.Translation.Error.ExceptionGlobal; // to keep Lingo happy that the string is used
             var dummy2 = new StringBuilder(); // to keep the "using" clause used
 #endif
 

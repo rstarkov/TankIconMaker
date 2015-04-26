@@ -2334,30 +2334,6 @@
       <Translation>Symbole werden gespeichert...</Translation>
       <Old>Saving icons...</Old>
     </BulkSave_Progress>
-    <ExceptionGlobal>
-      <Translation encoding="c-literal">Ein Fehler ist aufgetreten. Das ist nicht Ihr Fehler; der Programmierer hat Mist gebaut!\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
-      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
-    </ExceptionGlobal>
-    <ExceptionInRender>
-      <Translation>Eine Ebene oder ein Effekt hat beim Erzeugen des Bildes eine Exception ausgelöst. Es handelt sich hierbei um einen Bug im Programm; bitte berichten Sie uns davon.</Translation>
-      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
-    </ExceptionInRender>
-    <ErrorToClipboard_Copy>
-      <Translation>&amp;Bericht in die Zwischenablage kopieren</Translation>
-      <Old>Copy report to &amp;clipboard</Old>
-    </ErrorToClipboard_Copy>
-    <ErrorToClipboard_OK>
-      <Translation>OK</Translation>
-      <Old>OK</Old>
-    </ErrorToClipboard_OK>
-    <ErrorToClipboard_Copied>
-      <Translation>Informationen bezüglich des Fehlers sind jetzt in der Zwischenablage.</Translation>
-      <Old>Information about the error is now in your clipboard.</Old>
-    </ErrorToClipboard_Copied>
-    <ErrorToClipboard_CopyFail>
-      <Translation>Leider konnte die Fehlerinformation aus irgend welchen Gründen nicht in die Zwischenablage kopiert werden.</Translation>
-      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
-    </ErrorToClipboard_CopyFail>
   </Prompt>
   <Error>
     <DataMissing_NoBuiltinData>
@@ -2400,6 +2376,30 @@
       <Translation>Kopieren nicht möglich: Eine andere Anwendung verwendet wahrscheinlich gerade die Zwischenablage. Bitte versuchen Sie es in ein paar Sekunden erneut.</Translation>
       <Old>Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.</Old>
     </ClipboardError>
+    <ExceptionGlobal>
+      <Translation encoding="c-literal">Ein Fehler ist aufgetreten. Das ist nicht Ihr Fehler; der Programmierer hat Mist gebaut!\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionGlobal>
+    <ExceptionInRender>
+      <Translation>Eine Ebene oder ein Effekt hat beim Erzeugen des Bildes eine Exception ausgelöst. Es handelt sich hierbei um einen Bug im Programm; bitte berichten Sie uns davon.</Translation>
+      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
+    </ExceptionInRender>
+    <ErrorToClipboard_Copy>
+      <Translation>&amp;Bericht in die Zwischenablage kopieren</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
+    </ErrorToClipboard_Copy>
+    <ErrorToClipboard_OK>
+      <Translation>OK</Translation>
+      <Old>OK</Old>
+    </ErrorToClipboard_OK>
+    <ErrorToClipboard_Copied>
+      <Translation>Informationen bezüglich des Fehlers sind jetzt in der Zwischenablage.</Translation>
+      <Old>Information about the error is now in your clipboard.</Old>
+    </ErrorToClipboard_Copied>
+    <ErrorToClipboard_CopyFail>
+      <Translation>Leider konnte die Fehlerinformation aus irgend welchen Gründen nicht in die Zwischenablage kopiert werden.</Translation>
+      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
+    </ErrorToClipboard_CopyFail>
   </Error>
   <Misc>
     <ProgramVersion>

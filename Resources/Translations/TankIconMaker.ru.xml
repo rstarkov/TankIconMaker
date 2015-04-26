@@ -2337,30 +2337,6 @@
       <Translation>Сохранение...</Translation>
       <Old>Saving icons...</Old>
     </BulkSave_Progress>
-    <ExceptionGlobal>
-      <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>
-      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
-    </ExceptionGlobal>
-    <ExceptionInRender>
-      <Translation>В одном из слоев либо эффектов произошла ошибка. Пожалуйста сообщите разработчику.</Translation>
-      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
-    </ExceptionInRender>
-    <ErrorToClipboard_Copy>
-      <Translation>&amp;Копировать в буфер обмена</Translation>
-      <Old>Copy report to &amp;clipboard</Old>
-    </ErrorToClipboard_Copy>
-    <ErrorToClipboard_OK>
-      <Translation>ОК</Translation>
-      <Old>OK</Old>
-    </ErrorToClipboard_OK>
-    <ErrorToClipboard_Copied>
-      <Translation>Информация об этой ошибке скопирована в буфер обмена.</Translation>
-      <Old>Information about the error is now in your clipboard.</Old>
-    </ErrorToClipboard_Copied>
-    <ErrorToClipboard_CopyFail>
-      <Translation>К сожалению попытка скопировать информацию об ошибке не удалась.</Translation>
-      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
-    </ErrorToClipboard_CopyFail>
   </Prompt>
   <Error>
     <DataMissing_NoBuiltinData>
@@ -2403,6 +2379,30 @@
       <Translation>Не удалось скопировать в буфер обмена: возможно буфер используется другой программой. Попробуйте еще раз через несколько секунд.</Translation>
       <Old>Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.</Old>
     </ClipboardError>
+    <ExceptionGlobal>
+      <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionGlobal>
+    <ExceptionInRender>
+      <Translation>В одном из слоев либо эффектов произошла ошибка. Пожалуйста сообщите разработчику.</Translation>
+      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
+    </ExceptionInRender>
+    <ErrorToClipboard_Copy>
+      <Translation>&amp;Копировать в буфер обмена</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
+    </ErrorToClipboard_Copy>
+    <ErrorToClipboard_OK>
+      <Translation>ОК</Translation>
+      <Old>OK</Old>
+    </ErrorToClipboard_OK>
+    <ErrorToClipboard_Copied>
+      <Translation>Информация об этой ошибке скопирована в буфер обмена.</Translation>
+      <Old>Information about the error is now in your clipboard.</Old>
+    </ErrorToClipboard_Copied>
+    <ErrorToClipboard_CopyFail>
+      <Translation>К сожалению попытка скопировать информацию об ошибке не удалась.</Translation>
+      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
+    </ErrorToClipboard_CopyFail>
   </Error>
   <Misc>
     <ProgramVersion>
