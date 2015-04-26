@@ -1279,8 +1279,8 @@
         <Old>Brightness %</Old>
       </DisplayName>
       <Description>
-        <Translation>Изменение яркости, от −100% до +100%. Ноль означает оставить без изменений. В отличие от эффекта Тон / Насыщенность / Яркость, данный параметр может негативно повлиять на качество изображения при большом изменении яркости.</Translation>
-        <Old>Brightness shift, from −100% to +100%. Zero means no change. Unlike the Hue / Saturation / Lightness effect, this parameter may distort the image contrast detrimentally when a large brightness shift is configured.</Old>
+        <Translation>Изменение яркости, от −100% до +100%. Ноль означает оставить без изменений. В отличие от эффекта Тон / Насыщенность / Яркость, большое изменение яркости может негативно повлиять на качество изображения.</Translation>
+        <Old>Brightness shift, from −100% to +100%. Zero means no change. Unlike with the Hue / Saturation / Lightness effect, a large brightness shift may distort the image contrast detrimentally.</Old>
       </Description>
     </Brightness>
     <Contrast>
@@ -1306,7 +1306,7 @@
     <Hue>
       <DisplayName>
         <Translation> Тон</Translation>
-        <Old> Hue shift</Old>
+        <Old>Hue shift</Old>
       </DisplayName>
       <Description>
         <Translation>Указывает градус сдвига цветового тона. 0, +360 и −360 оставляют тон без изменений, а +180 либо −180 меняют цвет на противоположный.</Translation>
@@ -2339,10 +2339,6 @@
     </BulkSave_Progress>
   </Prompt>
   <Error>
-    <DataMissing_NoBuiltinData>
-      <Translation>Для данной версии World of Tanks файл со встроенными свойствами танков не найден.</Translation>
-      <Old>Found no built-in property data file for this version of World of Tanks.</Old>
-    </DataMissing_NoBuiltinData>
     <DataMissing_NoWotInstallation>
       <Translation>Не удалось обнаружить поддерживаемую версию World of Tanks по указанному пути.</Translation>
       <Old>Failed to detect a supported World of Tanks installation at this path.</Old>
@@ -2376,13 +2372,21 @@
       <Old>Could not render this icon: {0}</Old>
     </RenderIconFail>
     <ClipboardError>
-      <Translation>Не удалось скопировать в буфер обмена: возможно буфер используется другой программой. Попробуйте еще раз через несколько секунд.</Translation>
-      <Old>Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.</Old>
+      <Translation encoding="c-literal">Не удалось скопировать в буфер обмена: возможно буфер используется другой программой.\r\n\r\nПопробовать еще раз?</Translation>
+      <Old encoding="c-literal">Could not copy to clipboard: another application is probably using the clipboard right now.\n\nTry again?</Old>
     </ClipboardError>
+    <ClipboardError_Retry>
+      <Translation>&amp;Повторить</Translation>
+      <Old>&amp;Retry</Old>
+    </ClipboardError_Retry>
     <ExceptionGlobal>
-      <Translation encoding="c-literal">Произошла ошибка. Вашей вины тут нет; наверное разработчик что-то напутал!\r\n\r\nПожалуйста сообщите разработчику.</Translation>
-      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+      <Translation encoding="c-literal">Произошла ошибка. Наверное разработчик что-то напутал!\r\n\r\nПожалуйста отправьте информацию об этой ошибке разработчику.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
     </ExceptionGlobal>
+    <ExceptionLoadingGameData>
+      <Translation encoding="c-literal">Не удалось загрузить игровые данные. Наверное разработчик что-то напутал!\r\n\r\nПожалуйста отправьте информацию об этой ошибке разработчику.</Translation>
+      <Old encoding="c-literal">Could not load game data. This is probably a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionLoadingGameData>
     <ExceptionInRender>
       <Translation>В одном из слоев либо эффектов произошла ошибка. Пожалуйста сообщите разработчику.</Translation>
       <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
@@ -2399,10 +2403,6 @@
       <Translation>Информация об этой ошибке скопирована в буфер обмена.</Translation>
       <Old>Information about the error is now in your clipboard.</Old>
     </ErrorToClipboard_Copied>
-    <ErrorToClipboard_CopyFail>
-      <Translation>К сожалению попытка скопировать информацию об ошибке не удалась.</Translation>
-      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
-    </ErrorToClipboard_CopyFail>
   </Error>
   <Misc>
     <ProgramVersion>

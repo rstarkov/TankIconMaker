@@ -803,7 +803,6 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.Errors)]
     sealed class ErrorTranslation
     {
-        public TrString DataMissing_NoBuiltinData = "Found no built-in property data file for this version of World of Tanks.";
         public TrString DataMissing_NoWotInstallation = "Failed to detect a supported World of Tanks installation at this path.";
         public TrString DataMissing_WotVersionTooOld = "This version of World of Tanks ({0}) is not supported because no suitable configuration files are available.";
         public TrString DataMissing_NoInstallationSelected = "Select a game installation above or add a new one using the green [+] button.";
@@ -814,15 +813,16 @@ namespace TankIconMaker
         public TrString RenderIconOK = "This icon rendered without any problems.";
         public TrString RenderIconFail = "Could not render this icon: {0}";
 
-        public TrString ClipboardError = "Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.";
+        public TrString ClipboardError = "Could not copy to clipboard: another application is probably using the clipboard right now.\n\nTry again?";
+        public TrString ClipboardError_Retry = "&Retry";
 
-        public TrString ExceptionGlobal = "An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.";
+        public TrString ExceptionGlobal = "An error has occurred. This is a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.";
+        public TrString ExceptionLoadingGameData = "Could not load game data. This is probably a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.";
         public TrString ExceptionInRender = "A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.";
         public TrString ErrorToClipboard_Copy = "Copy report to &clipboard";
         [LingoNotes("The button that acknowledges the error report and closes it without copying to clipboard.")]
         public TrString ErrorToClipboard_OK = "OK";
         public TrString ErrorToClipboard_Copied = "Information about the error is now in your clipboard.";
-        public TrString ErrorToClipboard_CopyFail = "Sorry, couldn't copy the error info to clipboard for some reason.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.Prompts)]

@@ -166,7 +166,8 @@ namespace TankIconMaker
                     needEllipsis = false;
                 }
             }
-            return result.ToString();
+            var str = result.ToString();
+            return str.EndsWith("\r\n") ? str.Substring(0, str.Length - 2) : str;
         }
 
         public static int ModPositive(int value, int modulus)
@@ -427,18 +428,40 @@ namespace TankIconMaker
         /// <summary>
         /// Attempts to copy the specified text to clipboard, correctly handling the case where the clipboard may be
         /// temporarily locked by another application (such as TeamViewer). Waits for the clipboard to become available
-        /// for up to 1 second; shows a dialog on failure.
+        /// for up to 1 second; shows a dialog on failure with the option to retry.
         /// </summary>
-        public static void ClipboardSet(string text)
+        public static bool ClipboardSet(string text)
         {
-            bool success = false;
-            for (int retries = 0; retries < 10; retries++)
+            while (true)
             {
-                try { Clipboard.SetText(text); success = true; break; }
-                catch { Thread.Sleep(100); }
+                for (int retries = 0; retries < 10; retries++)
+                {
+                    try { Clipboard.SetText(text, TextDataFormat.UnicodeText); return true; }
+                    catch { Thread.Sleep(100); }
+                }
+                if (1 == DlgMessage.ShowWarning(App.Translation.Error.ClipboardError, App.Translation.Error.ClipboardError_Retry, App.Translation.Prompt.Cancel))
+                    return false;
             }
-            if (!success)
-                DlgMessage.ShowWarning(App.Translation.Error.ClipboardError);
+        }
+
+        /// <summary>
+        /// Constructs a string describing an exception for the purpose of sending an error report to developers.
+        /// </summary>
+        public static string ExceptionToDebugString(object exception)
+        {
+            var errorInfo = new StringBuilder("Thread: " + Thread.CurrentThread.Name + "\n");
+            while (exception != null)
+            {
+                errorInfo.AppendFormat("\nException: {0}", exception.GetType());
+                var excp = exception as Exception;
+                if (excp != null)
+                {
+                    errorInfo.AppendFormat("\nMessage: {0}\n", excp.Message);
+                    errorInfo.AppendLine(Ut.CollapseStackTrace(excp.StackTrace));
+                    exception = excp.InnerException;
+                }
+            }
+            return errorInfo.ToString();
         }
     }
 

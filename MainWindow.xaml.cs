@@ -337,27 +337,25 @@ namespace TankIconMaker
             get { return ctGamePath.Items.Count == 0 ? null : (TimGameInstallation) ctGamePath.SelectedItem; }
         }
 
-        [Obsolete("Use LoadContext instead!")] // to make sure this is not used accidentally; the correct use is to LoadContext(cached: true)
+        [Obsolete("Use CurContext instead!")] // this warning ensures that CurContext is never directly modified by accident. Only ReloadData is allowed to do that, because it's the one that displays all the warnings to the user if the context cannot be loaded.
         private WotContext _context;
 
         /// <summary>
-        /// Returns a WotContext based on the currently selected game installation and the last loaded game data.
-        /// Returns null if a context cannot be obtained, e.g. due to missing data or configuration. Use the cached context
-        /// except when all data must be reloaded off disk; store the cache in a local and pass to all the methods that need to
-        /// finish the operation.
+        /// Returns a WotContext based on the currently selected game installation and the last loaded game data. Null if there
+        /// was a problem preventing a context being created. Do not reference this property off the GUI thread. Store the referenced
+        /// instance in a local and pass _that_ to any background threads. The property will change if the user does certain things
+        /// while the backround tasks are running, but the WotContext instance itself is immutable.
         /// </summary>
-        private WotContext LoadContext(bool cached)
+        public WotContext CurContext
         {
-#pragma warning disable 618 // this method is the only one allowed to use "_context"
-            if (cached && _context != null && ActiveInstallation != null && _context.Installation.GameVersionId == ActiveInstallation.GameVersionId)
+            get
+            {
+#pragma warning disable 618
+                if (_context != null && _context.Installation.GameVersionId != ActiveInstallation.GameVersionId)
+                    throw new Exception("CurContext used without a reload"); // this shouldn't be possible; this is just a bug-detecting assertion.
                 return _context;
-            _context = null;
-            if (ActiveInstallation.GameVersionId != null)
-                try { _context = WotData.Load(PathUtil.AppPathCombine("Data"), ActiveInstallation, App.Settings.DefaultPropertyAuthor, PathUtil.AppPathCombine("Data", "Exported")); }
-                catch (WotDataException) { }
-            FilenameEditor.LastContext = _context; // bit of a hack to give these instances access to the context, see comment on the field.
-            return _context;
 #pragma warning restore 618
+            }
         }
 
         /// <summary>
@@ -369,69 +367,91 @@ namespace TankIconMaker
             _renderResults.Clear();
             ZipCache.Clear();
             ImageCache.Clear();
+            _warnings.Clear();
+#pragma warning disable 618 // ReloadData is the only method allowed to modify _context
+            _context = null;
+#pragma warning restore 618
 
             foreach (var gameInstallation in App.Settings.GameInstallations.ToList()) // grab a list of all items because the source auto-resorts on changes
                 gameInstallation.Reload();
 
             // Disable parts of the UI if some of the data is unavailable, and show warnings as appropriate
-            _warnings.RemoveWhere(w => w is Warning_DataLoadWarning);
-            WotContext context = null;
             if (ActiveInstallation == null || ActiveInstallation.GameVersionId == null)
             {
                 // This means we don't have a valid WoT installation available. So we still can't show the correct lists of properties
                 // in the drop-downs, and also can't render tanks because we don't know which ones.
                 _dataMissing.Value = true;
-                _warnings.Add(new Warning_DataLoadWarning(App.Translation.Error.DataMissing_NoWotInstallation));
                 if (ActiveInstallation == null)
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoInstallationSelected;
                 else if (!Directory.Exists(ActiveInstallation.Path))
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_DirNotFound;
                 else
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoWotInstallation;
+                ctGameInstallationWarning.Tag = null;
             }
             else
             {
-                // Resolve the data to see if it's fine
-                context = LoadContext(cached: false);
-                // Update the list of warnings
-                _warnings.RemoveWhere(w => w is Warning_DataLoadWarning);
-                foreach (var warning in context.Warnings)
-                    _warnings.Add(new Warning_DataLoadWarning(warning));
+                // Attempt to load the data
+                try
+                {
+#pragma warning disable 618 // ReloadData is the only method allowed to modify _context
+                    _context = WotData.Load(PathUtil.AppPathCombine("Data"), ActiveInstallation, App.Settings.DefaultPropertyAuthor, PathUtil.AppPathCombine("Data", "Exported"));
+#pragma warning restore 618
+                }
+                catch (WotDataUserError e)
+                {
+                    _dataMissing.Value = true;
+                    ctGameInstallationWarning.Text = e.Message;
+                    ctGameInstallationWarning.Tag = null;
+                }
+                catch (Exception e)
+                {
+                    _dataMissing.Value = true;
+                    ctGameInstallationWarning.Text = "Error loading game data from this path. Click this message for details.";
+                    ctGameInstallationWarning.Tag = Ut.ExceptionToDebugString(e);
+                }
+            }
+
+            // CurContext is now set as appropriate: either null or a reloaded context
+            if (CurContext != null)
+            {
                 // See how complete of a context we managed to get
-                if (context.VersionConfig == null)
+                if (CurContext.VersionConfig == null)
                 {
                     // The WoT installation is valid, but we don't have a suitable version config. Can list the right properties, but can't really render.
                     _dataMissing.Value = true;
-                    var msg = App.Translation.Error.DataMissing_WotVersionTooOld.Fmt(ActiveInstallation.GameVersionName + " #" + ActiveInstallation.GameVersionId);
-                    _warnings.Add(new Warning_DataLoadWarning(msg));
-                    ctGameInstallationWarning.Text = msg;
-                }
-                else if (context.Tanks == null)
-                {
-                    // Everything's fine with the installation but we don't have any built-in data files for this version. Can edit styles but not render.
-                    _dataMissing.Value = true;
-                    _warnings.Add(new Warning_DataLoadWarning(App.Translation.Error.DataMissing_NoBuiltinData));
-                    ctGameInstallationWarning.Text = null;
+                    ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_WotVersionTooOld.Fmt(ActiveInstallation.GameVersionName + " #" + ActiveInstallation.GameVersionId);
+                    ctGameInstallationWarning.Tag = null;
                 }
                 else
                 {
                     // Everything's fine.
                     _dataMissing.Value = false;
-                    ctGameInstallationWarning.Text = null;
+                    ctGameInstallationWarning.Text = "";
+                    ctGameInstallationWarning.Tag = null;
+                    // Show any non-fatal data loading warnings
+                    foreach (var warning in CurContext.Warnings)
+                        _warnings.Add(new Warning_DataLoadWarning(warning));
                 }
             }
+            FilenameEditor.LastContext = CurContext; // this is a bit of a hack to give FilenameEditor instances access to the context, see comment on the field.
+
+            // Just some self-tests for any bugs in the above
+            if (CurContext == null && !_dataMissing) throw new Exception();
+            if (_dataMissing != (ctGameInstallationWarning.Text != "")) throw new Exception(); // must show installation warning iff UI set to the dataMissing state
+            if (ctGameInstallationWarning.Text == null && ctGameInstallationWarning.Tag != null) throw new Exception();
 
             // Update the list of data sources currently available. This list is used by drop-downs which offer the user to select a property.
             foreach (var item in App.DataSources.Where(ds => ds.GetType() == typeof(DataSourceInfo)).ToArray())
             {
-                var extra = context == null ? null : context.ExtraProperties.FirstOrDefault(df => df.PropertyId == item.PropertyId);
+                var extra = CurContext == null ? null : CurContext.ExtraProperties.FirstOrDefault(df => df.PropertyId == item.PropertyId);
                 if (extra == null)
                     App.DataSources.Remove(item);
                 else
                     item.UpdateFrom(extra);
             }
-            if (context != null)
-                foreach (var extra in context.ExtraProperties)
+            if (CurContext != null)
+                foreach (var extra in CurContext.ExtraProperties)
                 {
                     if (!App.DataSources.Any(item => extra.PropertyId == item.PropertyId))
                         App.DataSources.Add(new DataSourceInfo(extra));
@@ -492,7 +512,7 @@ namespace TankIconMaker
             if (_dataMissing)
                 return;
 
-            var context = LoadContext(cached: true);
+            var context = CurContext;
             var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
             var renderTasks = ListRenderTasks(context);
 
@@ -573,7 +593,7 @@ namespace TankIconMaker
         {
             // Test missing extra properties
             _warnings.RemoveWhere(w => w is Warning_LayerTest_MissingExtra);
-            var context = LoadContext(cached: true);
+            var context = CurContext;
             if (context == null)
                 return;
             try
@@ -732,7 +752,7 @@ namespace TankIconMaker
                 return;
 
             var warnings = renderResult.WarningsCount == 0 ? "" : string.Join("\n\n", renderResult.Warnings.Select(s => "• " + s));
-            var joiner = renderResult.WarningsCount == 0 ? "" : "\n\n";
+            var joiner = renderResult.WarningsCount == 0 ? "" : "\n\n• ";
 
             if (renderResult.Exception == null && renderResult.WarningsCount == 0)
                 DlgMessage.ShowInfo(App.Translation.Error.RenderIconOK);
@@ -745,24 +765,17 @@ namespace TankIconMaker
 
             else
             {
-                string hint = "";
+                string details = "";
                 if (renderResult.Exception is InvalidOperationException && renderResult.Exception.Message.Contains("belongs to a different thread than its parent Freezable"))
-                    hint = "Possible cause: the maker reuses a WPF drawing primitive (like Brush) for different tanks without calling Freeze() on it.\n";
+                    details = "Possible cause: a layer or effect reuses a WPF drawing primitive (like Brush) for different tanks without calling Freeze() on it.\n";
 
-                string message = hint
-                    + "Exception details: {0}, {1}\n".Fmt(renderResult.Exception.GetType().Name, renderResult.Exception.Message)
-                    + Ut.CollapseStackTrace(renderResult.Exception.StackTrace);
+                details += Ut.ExceptionToDebugString(renderResult.Exception);
 
-                bool copy = DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.ExceptionInRender + "\n\n" + message,
+                bool copy = DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.ExceptionInRender,
                     App.Translation.Error.ErrorToClipboard_Copy, App.Translation.Error.ErrorToClipboard_OK) == 0;
-
                 if (copy)
-                    try
-                    {
-                        Clipboard.SetText(message, TextDataFormat.UnicodeText);
+                    if (Ut.ClipboardSet(details))
                         DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_Copied);
-                    }
-                    catch { DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_CopyFail); }
             }
         }
 
@@ -939,6 +952,19 @@ namespace TankIconMaker
             }
         }
 
+        private void ctGameInstallationWarning_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var str = ctGameInstallationWarning.Tag as string;
+            if (string.IsNullOrEmpty(str))
+                return;
+
+            bool copy = DlgMessage.ShowWarning(App.Translation.Error.ExceptionLoadingGameData,
+                App.Translation.Error.ErrorToClipboard_Copy, App.Translation.Error.ErrorToClipboard_OK) == 0;
+            if (copy)
+                if (Ut.ClipboardSet(str))
+                    DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_Copied);
+        }
+
         private void ctLayerProperties_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
             if (App.Settings.ActiveStyle.Kind != StyleKind.User)
@@ -1104,7 +1130,7 @@ namespace TankIconMaker
 
         private void saveIcons(string pathTemplate)
         {
-            var context = LoadContext(cached: true);
+            var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
             var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, "<country>", "<class>");
 
@@ -1195,7 +1221,7 @@ namespace TankIconMaker
             GlobalStatusShow(App.Translation.Prompt.BulkSave_Progress);
             var lastGuiUpdate = DateTime.UtcNow;
             var tasks = new List<Action>();
-            var context = LoadContext(cached: true);
+            var context = CurContext;
             int tasksRemaining = 0;
             foreach (var styleF in stylesToSave)
             {
@@ -1272,7 +1298,7 @@ namespace TankIconMaker
 
         private List<Style> getBulkSaveStyles(string overridePathTemplate = null)
         {
-            var context = LoadContext(cached: true);
+            var context = CurContext;
             var allStyles = App.Settings.Styles
                 .Select(style => new CheckListItem<Style>
                 {
@@ -1315,7 +1341,7 @@ namespace TankIconMaker
 
         private void ctEditPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, App.Settings.ActiveStyle.PathTemplate, LoadContext(cached: true), App.Settings.ActiveStyle);
+            var value = PathTemplateWindow.Show(this, App.Settings.ActiveStyle.PathTemplate, CurContext, App.Settings.ActiveStyle);
             if (value == null)
                 return;
             var style = GetEditableStyle();
