@@ -55,7 +55,8 @@ namespace TankIconMaker.Layers
 
             if (image == null)
             {
-                tank.AddWarning(App.Translation.TankImageLayer.MissingImageWarning);
+                if (tank.TankId != "unknown")
+                    tank.AddWarning(App.Translation.TankImageLayer.MissingImageWarning);
                 return null;
             }
             return image;
