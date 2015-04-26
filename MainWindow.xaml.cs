@@ -39,8 +39,7 @@ namespace TankIconMaker
         private static BitmapImage _warningImage;
         private ObservableValue<bool> _rendering = new ObservableValue<bool>(false);
         private ObservableValue<bool> _dataMissing = new ObservableValue<bool>(false);
-        private ObservableCollection<string> _dataWarnings = new ObservableCollection<string>();
-        private ObservableCollection<Warning> _otherWarnings = new ObservableCollection<Warning>();
+        private ObservableCollection<Warning> _warnings = new ObservableCollection<Warning>();
 
         private LanguageHelperWpfOld<Translation> _translationHelper;
 
@@ -204,9 +203,8 @@ namespace TankIconMaker
                 (int count) => count > 0
             ));
             BindingOperations.SetBinding(ctWarning, Image.VisibilityProperty, LambdaBinding.New(
-                new Binding { Source = _dataWarnings, Path = new PropertyPath("Count") },
-                new Binding { Source = _otherWarnings, Path = new PropertyPath("Count") },
-                (int dataCount, int otherCount) => dataCount + otherCount == 0 ? Visibility.Collapsed : Visibility.Visible
+                new Binding { Source = _warnings, Path = new PropertyPath("Count") },
+                (int warningCount) => warningCount == 0 ? Visibility.Collapsed : Visibility.Visible
             ));
             BindingOperations.SetBinding(ctSave, Button.IsEnabledProperty, LambdaBinding.New(
                 new Binding { Source = _rendering, Path = new PropertyPath("Value") },
@@ -376,14 +374,14 @@ namespace TankIconMaker
                 gameInstallation.Reload();
 
             // Disable parts of the UI if some of the data is unavailable, and show warnings as appropriate
-            _otherWarnings.RemoveWhere(w => w is Warning_DataMissing);
+            _warnings.RemoveWhere(w => w is Warning_DataLoadWarning);
             WotContext context = null;
             if (ActiveInstallation == null || ActiveInstallation.GameVersionId == null)
             {
                 // This means we don't have a valid WoT installation available. So we still can't show the correct lists of properties
                 // in the drop-downs, and also can't render tanks because we don't know which ones.
                 _dataMissing.Value = true;
-                _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoWotInstallation));
+                _warnings.Add(new Warning_DataLoadWarning(App.Translation.Error.DataMissing_NoWotInstallation));
                 if (ActiveInstallation == null)
                     ctGameInstallationWarning.Text = App.Translation.Error.DataMissing_NoInstallationSelected;
                 else if (!Directory.Exists(ActiveInstallation.Path))
@@ -396,23 +394,23 @@ namespace TankIconMaker
                 // Resolve the data to see if it's fine
                 context = LoadContext(cached: false);
                 // Update the list of warnings
-                _dataWarnings.Clear();
+                _warnings.RemoveWhere(w => w is Warning_DataLoadWarning);
                 foreach (var warning in context.Warnings)
-                    _dataWarnings.Add(warning);
+                    _warnings.Add(new Warning_DataLoadWarning(warning));
                 // See how complete of a context we managed to get
                 if (context.VersionConfig == null)
                 {
                     // The WoT installation is valid, but we don't have a suitable version config. Can list the right properties, but can't really render.
                     _dataMissing.Value = true;
                     var msg = App.Translation.Error.DataMissing_WotVersionTooOld.Fmt(ActiveInstallation.GameVersionName + " #" + ActiveInstallation.GameVersionId);
-                    _otherWarnings.Add(new Warning_DataMissing(msg));
+                    _warnings.Add(new Warning_DataLoadWarning(msg));
                     ctGameInstallationWarning.Text = msg;
                 }
                 else if (context.Tanks == null)
                 {
                     // Everything's fine with the installation but we don't have any built-in data files for this version. Can edit styles but not render.
                     _dataMissing.Value = true;
-                    _otherWarnings.Add(new Warning_DataMissing(App.Translation.Error.DataMissing_NoBuiltinData));
+                    _warnings.Add(new Warning_DataLoadWarning(App.Translation.Error.DataMissing_NoBuiltinData));
                     ctGameInstallationWarning.Text = null;
                 }
                 else
@@ -484,7 +482,7 @@ namespace TankIconMaker
             _rendering.Value = true;
             foreach (var image in ctIconsPanel.Children.OfType<TankImageControl>())
                 image.Opacity = 0.7;
-            _otherWarnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
+            _warnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
 
             _updateIconsTimer.Stop();
             _cancelRender.Cancel();
@@ -558,9 +556,9 @@ namespace TankIconMaker
 
             // Update the warning messages
             if (_renderResults.Values.Any(rr => rr.Exception != null))
-                _otherWarnings.Add(new Warning_RenderedWithErrWarn(App.Translation.Error.RenderWithErrors));
+                _warnings.Add(new Warning_RenderedWithErrWarn(App.Translation.Error.RenderWithErrors));
             else if (_renderResults.Values.Any(rr => rr.WarningsCount > 0))
-                _otherWarnings.Add(new Warning_RenderedWithErrWarn(App.Translation.Error.RenderWithWarnings));
+                _warnings.Add(new Warning_RenderedWithErrWarn(App.Translation.Error.RenderWithWarnings));
 
             // Clean up all those temporary images we've just created and won't be doing again for a while.
             // (this keeps "private bytes" when idle 10-15 MB lower)
@@ -574,7 +572,7 @@ namespace TankIconMaker
         private void TestLayer(Style style, LayerBase layer)
         {
             // Test missing extra properties
-            _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingExtra);
+            _warnings.RemoveWhere(w => w is Warning_LayerTest_MissingExtra);
             var context = LoadContext(cached: true);
             if (context == null)
                 return;
@@ -587,14 +585,14 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 if (!(e is StyleUserError))
-                    _otherWarnings.Add(new Warning_LayerTest_MissingExtra(("The layer {0} is buggy: it throws a {1} when presented with a tank that is missing some \"extra\" properties. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
+                    _warnings.Add(new Warning_LayerTest_MissingExtra(("The layer {0} is buggy: it throws a {1} when presented with a tank that is missing some \"extra\" properties. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
                 // The maker must not throw when properties are missing: firstly, for configurable properties the user could select "None"
                 // from the drop-down, and secondly, hard-coded properties could simply be missing altogether.
                 // (although this could, of course, be a bug in TankIconMaker itself)
             }
 
             // Test unexpected property values
-            _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_UnexpectedProperty);
+            _warnings.RemoveWhere(w => w is Warning_LayerTest_UnexpectedProperty);
             try
             {
                 var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, context);
@@ -605,13 +603,13 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 if (!(e is StyleUserError))
-                    _otherWarnings.Add(new Warning_LayerTest_UnexpectedProperty(("The layer {0} is buggy: it throws a {1} possibly due to a property value it didn't expect. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
+                    _warnings.Add(new Warning_LayerTest_UnexpectedProperty(("The layer {0} is buggy: it throws a {1} possibly due to a property value it didn't expect. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
                 // The maker must not throw for unexpected property values: it could issue a warning using tank.AddWarning.
                 // (although this could, of course, be a bug in TankIconMaker itself)
             }
 
             // Test missing images
-            _otherWarnings.RemoveWhere(w => w is Warning_LayerTest_MissingImage);
+            _warnings.RemoveWhere(w => w is Warning_LayerTest_MissingImage);
             try
             {
                 var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, context);
@@ -621,7 +619,7 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 if (!(e is StyleUserError))
-                    _otherWarnings.Add(new Warning_LayerTest_MissingImage(("The layer {0} is buggy: it throws a {1} when some of the standard images cannot be found. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
+                    _warnings.Add(new Warning_LayerTest_MissingImage(("The layer {0} is buggy: it throws a {1} when some of the standard images cannot be found. Please report this to the developer.").Fmt(layer.GetType().Name, e.GetType().Name)));
                 // The maker must not throw if the images are missing: it could issue a warning using tank.AddWarning though.
                 // (although this could, of course, be a bug in TankIconMaker itself)
             }
@@ -1094,7 +1092,7 @@ namespace TankIconMaker
 
         private void ctWarning_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DlgMessage.ShowWarning(string.Join("\n\n", _dataWarnings.Concat(_otherWarnings.Select(w => w.Text)).Select(s => "• " + s)));
+            DlgMessage.ShowWarning(string.Join("\n\n", _warnings.Select(w => "• " + w.Text)));
         }
 
         private void ctReload_Click(object sender, RoutedEventArgs e)
@@ -2019,7 +2017,7 @@ namespace TankIconMaker
         private sealed class Warning_LayerTest_UnexpectedProperty : Warning { public Warning_LayerTest_UnexpectedProperty(string text) { Text = text; } }
         private sealed class Warning_LayerTest_MissingImage : Warning { public Warning_LayerTest_MissingImage(string text) { Text = text; } }
         private sealed class Warning_RenderedWithErrWarn : Warning { public Warning_RenderedWithErrWarn(string text) { Text = text; } }
-        private sealed class Warning_DataMissing : Warning { public Warning_DataMissing(string text) { Text = text; } }
+        private sealed class Warning_DataLoadWarning : Warning { public Warning_DataLoadWarning(string text) { Text = text; } }
     }
 
     static class TankLayerCommands
