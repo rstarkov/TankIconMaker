@@ -390,8 +390,10 @@ namespace TankIconMaker
             path = path.Replace("{TimPath}", PathUtil.AppPath + @"\");
             path = path.Replace("{GamePath}", context.Installation.Path + @"\");
             path = path.Replace("{GameVersion}", context.Installation.GameVersionName);
-            path = path.Replace("{TankClass}", class_);
-            path = path.Replace("{TankCountry}", country);
+            if (class_ != null)
+                path = path.Replace("{TankClass}", class_);
+            if (country != null)
+                path = path.Replace("{TankCountry}", country);
             path = path.Replace("{StyleName}", style.Name);
             path = path.Replace("{StyleAuthor}", style.Author);
             path = Environment.ExpandEnvironmentVariables(path);

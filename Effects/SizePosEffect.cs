@@ -27,6 +27,15 @@ namespace TankIconMaker.Effects
         ShrinkOnly,
     }
 
+    [TypeConverter(typeof(FilterTranslation.Conv))]
+    enum Filter
+    {
+        Auto, //Lanczos for downsampling and Mitchell for upsampling
+        Lanczos,
+        Mitchell,
+        Bicubic
+    }
+
     class SizePosEffect : EffectBase
     {
         public override int Version { get { return 3; } }
@@ -59,6 +68,8 @@ namespace TankIconMaker.Effects
         public static MemberTr SizeMode2Tr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.SizeMode); }
         public GrowShrinkMode GrowShrinkMode { get; set; }
         public static MemberTr GrowShrinkModeTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.GrowShrinkMode); }
+        public Filter Filter { get; set; }
+        public static MemberTr FilterTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Filter); }
 
         public int PixelAlphaThreshold { get { return _PixelAlphaThreshold; } set { _PixelAlphaThreshold = Math.Min(255, Math.Max(0, value)); } }
         private int _PixelAlphaThreshold;
@@ -94,6 +105,7 @@ namespace TankIconMaker.Effects
             Height = 18;
             SizeMode2 = SizeMode2.NoChange;
             GrowShrinkMode = GrowShrinkMode.GrowAndShrink;
+            Filter = Filter.Auto;
         }
 
         public override BitmapBase Apply(Tank tank, BitmapBase layer)
@@ -153,53 +165,44 @@ namespace TankIconMaker.Effects
             // Location of the top left corner of the whole scaled layer image
             double x = tgtX - (PositionByPixels ? pixels.Left * scaleWidth : 0);
             double y = tgtY - (PositionByPixels ? pixels.Top * scaleHeight : 0);
+            int offsetX = (PositionByPixels ? pixels.Left : 0);
+            int offsetY = (PositionByPixels ? pixels.Top : 0);
 
-            var src = layer.ToBitmapGdi();
-            if (ShowLayerBorders || ShowPixelBorders)
-                using (var dc = System.Drawing.Graphics.FromImage(src.Bitmap))
-                {
-                    if (ShowLayerBorders)
-                        dc.DrawRectangle(System.Drawing.Pens.Aqua, 0, 0, layer.Width - 1, layer.Height - 1);
-                    if (ShowPixelBorders && !emptyPixels)
-                        dc.DrawRectangle(System.Drawing.Pens.Red, pixels.Left, pixels.Top, pixels.Width - 1, pixels.Height - 1);
-                }
-
-#if true
-            // Using GDI: sharp-ish downscaling, but imprecise boundaries
-            var result = new BitmapGdi(Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight));
-            using (var dc = Graphics.FromImage(result.Bitmap))
             {
-                dc.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                dc.DrawImage(src.Bitmap, (float) x, (float) y, (float) (src.Width * scaleWidth), (float) (src.Height * scaleHeight));
-                if (ShowAnchor)
-                    using (var pen = new Pen(Color.FromArgb(120, Color.Yellow), 0))
+                if (ShowLayerBorders || ShowPixelBorders)
+                {
+                    using (var image = layer.ToMagickImage())
                     {
-                        dc.DrawLine(pen, X - 1, Y, X + 1, Y);
-                        dc.DrawLine(pen, X, Y - 1, X, Y + 1);
+                        image.StrokeWidth = 1;
+                        if (ShowLayerBorders)
+                        {
+                            image.FillColor = ImageMagick.MagickColor.Transparent;
+                            image.StrokeColor = new ImageMagick.MagickColor("aqua");
+                            image.Draw(new ImageMagick.DrawableRectangle(0, 0, layer.Width - 1, layer.Height - 1));
+                        }
+                        if (ShowPixelBorders && !emptyPixels)
+                        {
+                            image.FillColor = ImageMagick.MagickColor.Transparent;
+                            image.StrokeColor = new ImageMagick.MagickColor("red");
+                            image.Draw(new ImageMagick.DrawableRectangle(pixels.Left, pixels.Top, pixels.Right, pixels.Bottom));
+                        }
+                        layer.CopyPixelsFrom(image.ToBitmapSource());
                     }
-            }
-#else
-            // Using WPF: precise boundaries but rather blurry downscaling
-            var result = Ut.NewBitmapWpf(dc =>
-            {
-                var img = src.ToBitmapWpf().UnderlyingImage;
-
-                var group = new System.Windows.Media.DrawingGroup();
-                System.Windows.Media.RenderOptions.SetBitmapScalingMode(group, System.Windows.Media.BitmapScalingMode.Fant);
-                group.Children.Add(new System.Windows.Media.ImageDrawing(img, new System.Windows.Rect(x, y, src.Width * scaleWidth, src.Height * scaleHeight)));
-                dc.DrawDrawing(group);
-
-                if (ShowTargetPosition)
-                {
-                    var pen = new System.Windows.Media.Pen(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(200, 255, 255, 0)), 1);
-                    dc.DrawLine(pen, new System.Windows.Point(X - 1 + 0.5, Y + 0.5), new System.Windows.Point(X + 1 + 0.5, Y + 0.5));
-                    dc.DrawLine(pen, new System.Windows.Point(X + 0.5, Y - 1 + 0.5), new System.Windows.Point(X + 0.5, Y + 1 + 0.5));
                 }
-            }, Math.Max(layer.Width, Layer.Style.IconWidth), Math.Max(layer.Height, Layer.Style.IconHeight));
-#endif
-
-            GC.KeepAlive(src);
-            return result.ToBitmapRam();
+                layer.SizePos(scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Filter);
+                if (ShowAnchor)
+                {
+                    using (var image = layer.ToMagickImage())
+                    {
+                        image.StrokeWidth = 1;
+                        image.StrokeColor = new ImageMagick.MagickColor(255, 255, 0, 120);
+                        image.Draw(new ImageMagick.DrawableLine(X - 1, Y, X + 1, Y));
+                        image.Draw(new ImageMagick.DrawableLine(X, Y - 1, X, Y + 1));
+                        layer.CopyPixelsFrom(image.ToBitmapSource());
+                    }
+                }
+                return layer;
+            }
         }
 
         protected override void AfterDeserialize(XElement xml)

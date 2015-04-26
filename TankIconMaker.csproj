@@ -99,6 +99,7 @@
     <Compile Include="Effects\RotateEffect.cs" />
     <Compile Include="Effects\SelectiveBlurEffect.cs" />
     <Compile Include="Effects\SharpenEffect.cs" />
+    <Compile Include="Effects\UnsharpMaskEffect.cs" />
     <Compile Include="Effects\WaveEffect.cs" />
     <Compile Include="Effects\NormalizeEffect.cs" />
     <Compile Include="Effects\FlipEffect.cs" />
