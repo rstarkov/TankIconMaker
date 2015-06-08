@@ -189,7 +189,7 @@ namespace TankIconMaker.Effects
                         layer.CopyPixelsFrom(image.ToBitmapSource());
                     }
                 }
-                layer.SizePos(scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Filter);
+                layer = layer.SizePos(scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight), Filter);
                 if (ShowAnchor)
                 {
                     using (var image = layer.ToMagickImage())
