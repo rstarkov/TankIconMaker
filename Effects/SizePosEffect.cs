@@ -180,7 +180,7 @@ namespace TankIconMaker.Effects
             }
 #else
             // Using WPF: precise boundaries but rather blurry downscaling
-            var result = Ut.NewBitmapWpf(dc =>
+            var result = Ut.NewBitmapWpf(Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight), dc =>
             {
                 var img = src.ToBitmapWpf().UnderlyingImage;
 
@@ -189,13 +189,13 @@ namespace TankIconMaker.Effects
                 group.Children.Add(new System.Windows.Media.ImageDrawing(img, new System.Windows.Rect(x, y, src.Width * scaleWidth, src.Height * scaleHeight)));
                 dc.DrawDrawing(group);
 
-                if (ShowTargetPosition)
+                if (ShowAnchor)
                 {
                     var pen = new System.Windows.Media.Pen(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(200, 255, 255, 0)), 1);
                     dc.DrawLine(pen, new System.Windows.Point(X - 1 + 0.5, Y + 0.5), new System.Windows.Point(X + 1 + 0.5, Y + 0.5));
                     dc.DrawLine(pen, new System.Windows.Point(X + 0.5, Y - 1 + 0.5), new System.Windows.Point(X + 0.5, Y + 1 + 0.5));
                 }
-            }, Math.Max(layer.Width, Layer.Style.IconWidth), Math.Max(layer.Height, Layer.Style.IconHeight));
+            });
 #endif
 
             GC.KeepAlive(src);
