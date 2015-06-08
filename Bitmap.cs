@@ -638,12 +638,12 @@ namespace TankIconMaker
         public BitmapBase SizePos(double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, int maxWidth = 0, int maxHeight = 0, TankIconMaker.Effects.Filter defaultFilter = TankIconMaker.Effects.Filter.Auto)
         {
             if (Width <= 0 || Height <= 0)
-                return this.Clone();
+                return this.ToBitmapSame();
 
             int i = 0, j = 0, k = 0;
             PixelRect pureImg = this.PreciseSize(0);
             if (pureImg.Width <= 0 || pureImg.Height <= 0)
-                return this.Clone();
+                return this.ToBitmapSame();
 
             int outWidth = (int) Math.Round(pureImg.Width * scaleWidth);
             int outHeight = (int) Math.Round(pureImg.Height * scaleHeight);
@@ -655,17 +655,17 @@ namespace TankIconMaker
                 {
                     if (maxWidth == 0 && maxHeight == 0)
                     {
-                        temp = BitmapBase.CreateInstance(this.GetType(), outX - inX + Width, outY - inY + Height);
+                        temp = new BitmapRam(outX - inX + Width, outY - inY + Height);
                     }
                     else
                     {
-                        temp = BitmapBase.CreateInstance(this.GetType(), Math.Min(outX - inX + Width, maxWidth), Math.Min(outY - inY + Height, maxHeight));
+                        temp = new BitmapRam(Math.Min(outX - inX + Width, maxWidth), Math.Min(outY - inY + Height, maxHeight));
                     }
                     temp.DrawImage(this, outX - inX, outY - inY);
                     return temp;
                 }
                 else
-                    return this.Clone();
+                    return this.ToBitmapSame();
             }
 
             byte* DataFixed;
@@ -695,7 +695,7 @@ namespace TankIconMaker
             }
             else
             {
-                temp = BitmapBase.CreateInstance(this.GetType(), outWidth, pureImg.Height);
+                temp = new BitmapRam(outWidth, pureImg.Height);
                 if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
                 {
                     if (scaleWidth < 1f)
@@ -814,7 +814,7 @@ namespace TankIconMaker
             }
             else
             {
-                temp2 = BitmapBase.CreateInstance(this.GetType(), outWidth, outHeight);
+                temp2 = new BitmapRam(outWidth, outHeight);
                 contrib = new ContributorEntry[outHeight];
 
                 if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
@@ -934,28 +934,13 @@ namespace TankIconMaker
             int drawY = outY - (int)Math.Round((inY - pureImg.Top) * scaleHeight);
             if (maxWidth == 0 && maxHeight == 0)
             {
-                result = BitmapBase.CreateInstance(this.GetType(), Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
+                result = new BitmapRam(Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
             }
             else
             {
-                result = BitmapBase.CreateInstance(this.GetType(), Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
+                result = new BitmapRam(Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
             }
             result.DrawImage(temp2, drawX, drawY);
-            return result;
-        }
-
-        public BitmapBase Clone()
-        {
-            object[] args = { this.Width, this.Height };
-            BitmapBase New = (BitmapBase)Activator.CreateInstance(this.GetType(), args);
-            New.CopyPixelsFrom(this);
-            return New;
-        }
-
-        public static BitmapBase CreateInstance(Type type, int width, int height)
-        {
-            object[] args = { width, height };
-            BitmapBase result = (BitmapBase)Activator.CreateInstance(type, args);
             return result;
         }
 
