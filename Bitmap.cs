@@ -635,33 +635,37 @@ namespace TankIconMaker
             public Contributor[] P;
         }
 
-        public void SizePos(double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, TankIconMaker.Effects.Filter defaultFilter = TankIconMaker.Effects.Filter.Auto)
+        public BitmapBase SizePos(double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, int maxWidth = 0, int maxHeight = 0, TankIconMaker.Effects.Filter defaultFilter = TankIconMaker.Effects.Filter.Auto)
         {
             if (Width <= 0 || Height <= 0)
-                return;
+                return this.Clone();
 
             int i = 0, j = 0, k = 0;
             PixelRect pureImg = this.PreciseSize(0);
             if (pureImg.Width <= 0 || pureImg.Height <= 0)
-                return;
+                return this.Clone();
 
             int outWidth = (int) Math.Round(pureImg.Width * scaleWidth);
             int outHeight = (int) Math.Round(pureImg.Height * scaleHeight);
-            BitmapBase temp;
-            BitmapBase result;
+            BitmapBase temp, temp2;
             if (scaleWidth == 1 && scaleHeight == 1)
             {
                 //no resize needed
                 if (inX != outX || inY != outY)
                 {
-                    temp = new BitmapRam(outX - inX + Width, outY - inY + Height);
+                    if (maxWidth == 0 && maxHeight == 0)
+                    {
+                        temp = BitmapBase.CreateInstance(this.GetType(), outX - inX + Width, outY - inY + Height);
+                    }
+                    else
+                    {
+                        temp = BitmapBase.CreateInstance(this.GetType(), Math.Min(outX - inX + Width, maxWidth), Math.Min(outY - inY + Height, maxHeight));
+                    }
                     temp.DrawImage(this, outX - inX, outY - inY);
-                    this.New(outX - inX + Width, outY - inY + Height);
-                    this.CopyPixelsFrom(temp);
-                    return;
+                    return temp;
                 }
                 else
-                    return;
+                    return this.Clone();
             }
 
             byte* DataFixed;
@@ -684,7 +688,6 @@ namespace TankIconMaker
 
             ResamplingFilter filter = GetResampleFilter(defaultFilter);
 
-
             #region horizontal resampling
             if (scaleWidth == 1)
             {
@@ -692,7 +695,7 @@ namespace TankIconMaker
             }
             else
             {
-                temp = new BitmapRam(outWidth, pureImg.Height);
+                temp = BitmapBase.CreateInstance(this.GetType(), outWidth, pureImg.Height);
                 if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
                 {
                     if (scaleWidth < 1f)
@@ -807,11 +810,11 @@ namespace TankIconMaker
             #region vertical resampling
             if (scaleHeight == 1)
             {
-                result = temp;
+                temp2 = temp;
             }
             else
             {
-                result = new BitmapRam(outWidth, outHeight);
+                temp2 = BitmapBase.CreateInstance(this.GetType(), outWidth, outHeight);
                 contrib = new ContributorEntry[outHeight];
 
                 if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
@@ -885,7 +888,7 @@ namespace TankIconMaker
 
                 #region redrawing
                 using (temp.UseRead())
-                using (result.UseWrite())
+                using (temp2.UseWrite())
                 {
                     DataFixed = temp.Data + DataOffset;
                     for (k = 0; k < outWidth; ++k)
@@ -916,7 +919,7 @@ namespace TankIconMaker
                                     intensity += (DataFixed[k * 4 + contrib[i].P[j].Pixel * temp.Stride + channel] * weight);
                                 }
 
-                                result.Data[k * 4 + i * result.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                                temp2.Data[k * 4 + i * temp2.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
                             }
                         }
                     }
@@ -924,42 +927,36 @@ namespace TankIconMaker
                 #endregion
             }
             #endregion
-            this.Clear();
 
-            //At this point image will be resized and moved to another BitmapRam anyway
+            BitmapBase result;
+            //At this point image will be resized and moved to another BitmapBase anyway
             int drawX = outX - (int) Math.Round((inX - pureImg.Left) * scaleWidth);
-            int drawY = outY - (int) Math.Round((inY - pureImg.Top) * scaleHeight);
-            if (drawX + outWidth > Width || drawY + outHeight > Height)
+            int drawY = outY - (int)Math.Round((inY - pureImg.Top) * scaleHeight);
+            if (maxWidth == 0 && maxHeight == 0)
             {
-                New(drawX + outWidth, drawY + outHeight);
+                result = BitmapBase.CreateInstance(this.GetType(), Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
             }
-            this.DrawImage(result, drawX, drawY);
-
+            else
+            {
+                result = BitmapBase.CreateInstance(this.GetType(), Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
+            }
+            result.DrawImage(temp2, drawX, drawY);
+            return result;
         }
 
-        public void New(int width, int height)
+        public BitmapBase Clone()
         {
-            this.Width = width;
-            this.Height = height;
-            Stride = Width * 4 + (16 - (Width * 4) % 16) % 16;
-            //Hope you know better solution than this
-            if (this is BitmapRam)
-            {
-                typeof(BitmapRam).GetField("_bytes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, new byte[Stride * Height]);
-            }
-            else if (this is BitmapGdi)
-            {
-                typeof(BitmapGdi).GetField("_bytes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, new SharedPinnedByteArray(Stride * Height));
-                SharedPinnedByteArray bytes = typeof(BitmapGdi).GetField("_bytes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this) as SharedPinnedByteArray;
-                D.Bitmap Bitmap = new D.Bitmap(Width, Height, Stride, D.Imaging.PixelFormat.Format32bppArgb, bytes.Address);
-                Bitmap.SetResolution(96, 96);
-                typeof(BitmapGdi).GetField("Bitmap", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, Bitmap);
-            }
-            else if (this is BitmapWpf)
-            {
-                typeof(BitmapWpf).GetField("_bitmap", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(this, new WriteableBitmap(Width, Height, 96, 96, PixelFormats.Bgra32, null));
-            }
+            object[] args = { this.Width, this.Height };
+            BitmapBase New = (BitmapBase)Activator.CreateInstance(this.GetType(), args);
+            New.CopyPixelsFrom(this);
+            return New;
+        }
 
+        public static BitmapBase CreateInstance(Type type, int width, int height)
+        {
+            object[] args = { width, height };
+            BitmapBase result = (BitmapBase)Activator.CreateInstance(type, args);
+            return result;
         }
 
         private ResamplingFilter GetResampleFilter(TankIconMaker.Effects.Filter filter = TankIconMaker.Effects.Filter.Lanczos)
