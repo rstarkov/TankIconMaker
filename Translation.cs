@@ -780,6 +780,8 @@ namespace TankIconMaker
         public TrString Lanczos = "Lanczos";
         public TrString Mitchell = "Mitchell";
         public TrString Bicubic = "Bicubic";
+        public TrString Sinc256 = "Sinc256";
+        public TrString Sinc1024 = "Sinc1024";
 
         public class Conv : LingoEnumConverter<Filter, FilterTranslation>
         {

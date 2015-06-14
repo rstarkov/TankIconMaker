@@ -30,10 +30,12 @@ namespace TankIconMaker.Effects
     [TypeConverter(typeof(FilterTranslation.Conv))]
     enum Filter
     {
-        Auto, //Lanczos for downsampling and Mitchell for upsampling
-        Lanczos,
+        Auto, // Lanczos for downsampling and Mitchell for upsampling
         Mitchell,
         Bicubic,
+        Lanczos,
+        Sinc256,
+        Sinc1024,
     }
 
     class SizePosEffect : EffectBase
@@ -192,9 +194,11 @@ namespace TankIconMaker.Effects
             switch (Filter)
             {
                 case Filter.Auto: filter = null; break;
-                case Filter.Lanczos: filter = new BitmapResampler.LanczosFilter(); break;
                 case Filter.Mitchell: filter = new BitmapResampler.MitchellFilter(); break;
-                case Filter.Bicubic: filter = new BitmapResampler.BicubicFilter(); break;
+                case Filter.Bicubic: filter = new BitmapResampler.CatmullRomFilter(); break;
+                case Filter.Lanczos: filter = new BitmapResampler.LanczosFilter(); break;
+                case Filter.Sinc256: filter = new BitmapResampler.LanczosFilter(8); break;
+                case Filter.Sinc1024: filter = new BitmapResampler.LanczosFilter(16); break;
                 default: throw new Exception("SizePosEffect.Filter 4107");
             }
             layer = BitmapResampler.SizePos(layer, scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight), filter);
