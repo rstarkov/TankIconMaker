@@ -284,103 +284,99 @@ namespace TankIconMaker
             return final;
         }
 
+        /// <summary>Implements a resampling filter.</summary>
         public abstract class Filter
         {
-            public double Radius;
+            public double Radius { get; protected set; }
             public abstract double GetValue(double x);
         }
 
+        /// <summary>
+        ///     Implements filters based on the Lanczos kernel. This includes the filters commonly known as "lanczos3" (radius
+        ///     = 3) and "sinc256" (radius = 8).</summary>
         public class LanczosFilter : Filter
         {
-            public LanczosFilter()
+            public LanczosFilter(int radius = 3)
             {
-                Radius = 3;
+                Radius = radius;
             }
 
-            double Sinc(double x)
+            private double sinc(double x)
             {
                 if (x == 0)
-                {
                     return 1;
-                }
                 x *= Math.PI;
-                return (Math.Sin(x) / x);
+                return Math.Sin(x) / x;
             }
 
             public override double GetValue(double x)
             {
                 if (x < 0)
-                {
                     x = -x;
-                }
-                if (x < Radius)
-                {
-                    return (Sinc(x) * Sinc(x / Radius));
-                }
-                return 0;
+                if (x >= Radius)
+                    return 0;
+                return sinc(x) * sinc(x / Radius);
             }
         }
 
+        /// <summary>
+        ///     Implements the family of bicubic filters, specifically the Mitchell-Netravali filters with two parameters,
+        ///     which is a generalization of the Keys cubic filters. All of these have a radius of 2.</summary>
+        /// <remarks>
+        ///     For more information see: http://www.imagemagick.org/Usage/filter/#cubics and
+        ///     http://entropymine.com/imageworsener/bicubic/</remarks>
         public class BicubicFilter : Filter
         {
-            public BicubicFilter()
+            public double B { get; private set; }
+            public double C { get; private set; }
+
+            /// <summary>
+            ///     Constructor. See Remarks for common values for B and C. See also <see cref="CatmullRomFilter"/> and <see
+            ///     cref="MitchellFilter"/>.</summary>
+            /// <remarks>
+            ///     <para>
+            ///         Common values for B and C:</para>
+            ///     <list type="bullet">
+            ///         <item>Catmull_Rom, GIMP: B = 0, C = 1/2 (implemented as <see cref="CatmullRomFilter"/>)</item>
+            ///         <item>Mitchell: B = 1/3, C = 1/3 (implemented as <see cref="MitchellFilter"/>)</item>
+            ///         <item>Photoshop: B = 0, C = 3/4</item>
+            ///         <item>B-Spline: B = 1, C = 0 (aka "spline")</item>
+            ///         <item>Faststone: B = 0, C = 1</item></list></remarks>
+            public BicubicFilter(double b, double c)
             {
                 Radius = 2;
+                B = b;
+                C = c;
             }
 
-            double Sinc(double x)
+            public override double GetValue(double x)
             {
-                if (x == 0)
-                {
-                    return 1;
-                }
-                x *= Math.PI;
-                return (Math.Sin(x) / x);
-            }
-
-            public static double Bicubic(double x, double B = 0, double C = 0.5)
-            {
-                // Catmull_Rom,GIMP (0, 1/2) (default)
-                // Mitchell (1/3, 1/3)
-                // Photoshop (0, 3/4)
-                // Faststone (0, 1)
-                // B-Spline (1, 0)
-                // HighQualityBicubic (?, ?)
                 if (x < 0)
-                {
                     x = -x;
-                }
                 double x2 = x * x;
                 if (x < 1)
-                {
-                    x = (((12 - 9 * B - 6 * C) * (x * x2)) + ((-18 + 12 * B + 6 * C) * x2) + (6 - 2 * B));
-                    return (x / 6);
-                }
+                    return (((12 - 9 * B - 6 * C) * (x * x2)) + ((-18 + 12 * B + 6 * C) * x2) + (6 - 2 * B)) / 6;
                 if (x < 2)
-                {
-
-                    x = (((-B - 6 * C) * (x * x2)) + ((6 * B + 30 * C) * x2) + ((-12 * B - 48 * C) * x) + (8 * B + 24 * C));
-                    return (x / 6);
-                }
+                    return (((-B - 6 * C) * (x * x2)) + ((6 * B + 30 * C) * x2) + ((-12 * B - 48 * C) * x) + (8 * B + 24 * C)) / 6;
                 return 0;
             }
+        }
 
-            public override double GetValue(double x)
+        public class CatmullRomFilter : BicubicFilter
+        {
+            public CatmullRomFilter()
+                : base(0, 0.5)
             {
-                return Bicubic(x);
             }
         }
 
-        public class MitchellFilter : Filter
+        public class MitchellFilter : BicubicFilter
         {
             public MitchellFilter()
+                : base(1 / 3.0, 1 / 3.0)
             {
-                Radius = 2;
-            }
-            public override double GetValue(double x)
-            {
-                return BicubicFilter.Bicubic(x, 1 / 3d, 1 / 3d);
             }
         }
+
     }
 }
