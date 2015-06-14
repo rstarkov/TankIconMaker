@@ -33,7 +33,7 @@ namespace TankIconMaker.Effects
         Auto, //Lanczos for downsampling and Mitchell for upsampling
         Lanczos,
         Mitchell,
-        Bicubic
+        Bicubic,
     }
 
     class SizePosEffect : EffectBase
@@ -188,16 +188,16 @@ namespace TankIconMaker.Effects
                     layer.CopyPixelsFrom(image.ToBitmapSource());
                 }
             }
-            BitmapBase.ResamplingFilter filter;
+            BitmapResampler.Filter filter;
             switch (Filter)
             {
                 case Filter.Auto: filter = null; break;
-                case Filter.Lanczos: filter = new BitmapBase.LanczosFilter(); break;
-                case Filter.Mitchell: filter = new BitmapBase.MitchellFilter(); break;
-                case Filter.Bicubic: filter = new BitmapBase.BicubicFilter(); break;
+                case Filter.Lanczos: filter = new BitmapResampler.LanczosFilter(); break;
+                case Filter.Mitchell: filter = new BitmapResampler.MitchellFilter(); break;
+                case Filter.Bicubic: filter = new BitmapResampler.BicubicFilter(); break;
                 default: throw new Exception("SizePosEffect.Filter 4107");
             }
-            layer = layer.SizePos(scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight), filter);
+            layer = BitmapResampler.SizePos(layer, scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight), filter);
             if (ShowAnchor)
             {
                 using (var image = layer.ToMagickImage())
