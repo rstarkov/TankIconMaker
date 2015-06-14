@@ -168,41 +168,48 @@ namespace TankIconMaker.Effects
             int offsetX = (PositionByPixels ? pixels.Left : 0);
             int offsetY = (PositionByPixels ? pixels.Top : 0);
 
+            if (ShowLayerBorders || ShowPixelBorders)
             {
-                if (ShowLayerBorders || ShowPixelBorders)
+                using (var image = layer.ToMagickImage())
                 {
-                    using (var image = layer.ToMagickImage())
+                    image.StrokeWidth = 1;
+                    if (ShowLayerBorders)
                     {
-                        image.StrokeWidth = 1;
-                        if (ShowLayerBorders)
-                        {
-                            image.FillColor = ImageMagick.MagickColor.Transparent;
-                            image.StrokeColor = new ImageMagick.MagickColor("aqua");
-                            image.Draw(new ImageMagick.DrawableRectangle(0, 0, layer.Width - 1, layer.Height - 1));
-                        }
-                        if (ShowPixelBorders && !emptyPixels)
-                        {
-                            image.FillColor = ImageMagick.MagickColor.Transparent;
-                            image.StrokeColor = new ImageMagick.MagickColor("red");
-                            image.Draw(new ImageMagick.DrawableRectangle(pixels.Left, pixels.Top, pixels.Right, pixels.Bottom));
-                        }
-                        layer.CopyPixelsFrom(image.ToBitmapSource());
+                        image.FillColor = ImageMagick.MagickColor.Transparent;
+                        image.StrokeColor = new ImageMagick.MagickColor("aqua");
+                        image.Draw(new ImageMagick.DrawableRectangle(0, 0, layer.Width - 1, layer.Height - 1));
                     }
-                }
-                layer = layer.SizePos(scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight), Filter);
-                if (ShowAnchor)
-                {
-                    using (var image = layer.ToMagickImage())
+                    if (ShowPixelBorders && !emptyPixels)
                     {
-                        image.StrokeWidth = 1;
-                        image.StrokeColor = new ImageMagick.MagickColor(255, 255, 0, 120);
-                        image.Draw(new ImageMagick.DrawableLine(X - 1, Y, X + 1, Y));
-                        image.Draw(new ImageMagick.DrawableLine(X, Y - 1, X, Y + 1));
-                        layer.CopyPixelsFrom(image.ToBitmapSource());
+                        image.FillColor = ImageMagick.MagickColor.Transparent;
+                        image.StrokeColor = new ImageMagick.MagickColor("red");
+                        image.Draw(new ImageMagick.DrawableRectangle(pixels.Left, pixels.Top, pixels.Right, pixels.Bottom));
                     }
+                    layer.CopyPixelsFrom(image.ToBitmapSource());
                 }
-                return layer;
             }
+            BitmapBase.ResamplingFilter filter;
+            switch (Filter)
+            {
+                case Filter.Auto: filter = null; break;
+                case Filter.Lanczos: filter = new BitmapBase.LanczosFilter(); break;
+                case Filter.Mitchell: filter = new BitmapBase.MitchellFilter(); break;
+                case Filter.Bicubic: filter = new BitmapBase.BicubicFilter(); break;
+                default: throw new Exception("SizePosEffect.Filter 4107");
+            }
+            layer = layer.SizePos(scaleWidth, scaleHeight, offsetX, offsetY, tgtX, tgtY, Math.Max(layer.Width, Layer.ParentStyle.IconWidth), Math.Max(layer.Height, Layer.ParentStyle.IconHeight), filter);
+            if (ShowAnchor)
+            {
+                using (var image = layer.ToMagickImage())
+                {
+                    image.StrokeWidth = 1;
+                    image.StrokeColor = new ImageMagick.MagickColor(255, 255, 0, 120);
+                    image.Draw(new ImageMagick.DrawableLine(X - 1, Y, X + 1, Y));
+                    image.Draw(new ImageMagick.DrawableLine(X, Y - 1, X, Y + 1));
+                    layer.CopyPixelsFrom(image.ToBitmapSource());
+                }
+            }
+            return layer;
         }
 
         protected override void AfterDeserialize(XElement xml)

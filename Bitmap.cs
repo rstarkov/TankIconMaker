@@ -635,96 +635,84 @@ namespace TankIconMaker
             public Contributor[] P;
         }
 
-        public BitmapBase SizePos(double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, int maxWidth = 0, int maxHeight = 0, TankIconMaker.Effects.Filter defaultFilter = TankIconMaker.Effects.Filter.Auto)
+        public BitmapBase SizePos(double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, int maxWidth = 0, int maxHeight = 0, ResamplingFilter filter = null)
         {
             if (Width <= 0 || Height <= 0)
                 return this.ToBitmapSame();
 
-            int i = 0, j = 0, k = 0;
             PixelRect pureImg = this.PreciseSize(0);
             if (pureImg.Width <= 0 || pureImg.Height <= 0)
                 return this.ToBitmapSame();
 
             int outWidth = (int) Math.Round(pureImg.Width * scaleWidth);
             int outHeight = (int) Math.Round(pureImg.Height * scaleHeight);
-            BitmapBase temp, temp2;
+
             if (scaleWidth == 1 && scaleHeight == 1)
             {
                 //no resize needed
                 if (inX != outX || inY != outY)
                 {
+                    BitmapBase result;
                     if (maxWidth == 0 && maxHeight == 0)
-                    {
-                        temp = new BitmapRam(outX - inX + Width, outY - inY + Height);
-                    }
+                        result = new BitmapRam(outX - inX + Width, outY - inY + Height);
                     else
-                    {
-                        temp = new BitmapRam(Math.Min(outX - inX + Width, maxWidth), Math.Min(outY - inY + Height, maxHeight));
-                    }
-                    temp.DrawImage(this, outX - inX, outY - inY);
-                    return temp;
+                        result = new BitmapRam(Math.Min(outX - inX + Width, maxWidth), Math.Min(outY - inY + Height, maxHeight));
+
+                    result.DrawImage(this, outX - inX, outY - inY);
+                    return result;
                 }
                 else
                     return this.ToBitmapSame();
             }
 
-            byte* DataFixed;
-            int DataOffset;
+            if (filter == null)
+            {
+                if (scaleWidth < 1f)
+                    filter = new LanczosFilter();
+                else
+                    filter = new MitchellFilter();
+            }
+
+            int transparentOffset;
             if (pureImg.Left != 0 || pureImg.Top != 0)
             {
-                DataOffset = pureImg.Left * 4 + pureImg.Top * Stride;
+                transparentOffset = pureImg.Left * 4 + pureImg.Top * Stride;
                 // Resample looks better if transprent pixels is cropped. Especially if the image is square
                 // Data+DataOffset, pureImg.Width, pureImg.Height instead of Data, Width, Height works like left-top cropping
             }
             else
             {
-                DataOffset = 0;
+                transparentOffset = 0;
             }
 
-            double width = 0, center = 0, weight = 0, intensity = 0;
-            int left = 0, right = 0;
-
-            ContributorEntry[] contrib = new ContributorEntry[outWidth];
-
-            ResamplingFilter filter = GetResampleFilter(defaultFilter);
+            BitmapBase afterHorzResample, afterVertResample;
 
             #region horizontal resampling
             if (scaleWidth == 1)
             {
-                temp = this;
+                afterHorzResample = this;
             }
             else
             {
-                temp = new BitmapRam(outWidth, pureImg.Height);
-                if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
-                {
-                    if (scaleWidth < 1f)
-                    {
-                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Lanczos);
-                    }
-                    else
-                    {
-                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Mitchell);
-                    }
-                }
+                afterHorzResample = new BitmapRam(outWidth, pureImg.Height);
+                var contrib = new ContributorEntry[outWidth];
 
                 if (scaleWidth < 1f)
                 {
                     #region downsampling
-                    width = (filter.Radius / scaleWidth);
+                    double width = filter.Radius / scaleWidth;
 
-                    for (i = 0; i < outWidth; ++i)
+                    for (int i = 0; i < outWidth; ++i)
                     {
                         contrib[i].N = 0;
                         contrib[i].P = new Contributor[(int) Math.Floor(2 * width + 1)];
-                        center = ((i + 0.5) / scaleWidth);
-                        left = (int) (center - width);
-                        right = (int) (center + width);
+                        double center = ((i + 0.5) / scaleWidth);
+                        int left = (int) (center - width);
+                        int right = (int) (center + width);
 
-                        for (j = left; j <= right; j++)
+                        for (int j = left; j <= right; j++)
                         {
-
-                            weight = filter.GetValue((center - j - 0.5) * scaleWidth);
+                            double weight = filter.GetValue((center - j - 0.5) * scaleWidth);
 
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
                                 continue;
@@ -739,19 +727,17 @@ namespace TankIconMaker
                 else
                 {
                     #region upsampling
-                    for (i = 0; i < outWidth; i++)
+                    for (int i = 0; i < outWidth; i++)
                     {
-
                         contrib[i].N = 0;
                         contrib[i].P = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
-                        center = ((i + 0.5) / scaleWidth);
-                        left = (int) Math.Floor(center - filter.Radius);
-                        right = (int) Math.Ceiling(center + filter.Radius);
+                        double center = ((i + 0.5) / scaleWidth);
+                        int left = (int) Math.Floor(center - filter.Radius);
+                        int right = (int) Math.Ceiling(center + filter.Radius);
 
-                        for (j = left; j <= right; j++)
+                        for (int j = left; j <= right; j++)
                         {
-
-                            weight = filter.GetValue(center - j - 0.5);
+                            double weight = filter.GetValue(center - j - 0.5);
 
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
                                 continue;
@@ -766,87 +752,68 @@ namespace TankIconMaker
 
                 #region redrawing
                 using (this.UseRead())
-                using (temp.UseWrite())
+                using (afterHorzResample.UseWrite())
                 {
-                    DataFixed = Data + DataOffset;
-                    for (k = 0; k < pureImg.Height; ++k)
+                    byte* srcBytes = Data + transparentOffset;
+                    for (int srcY = 0; srcY < pureImg.Height; ++srcY)
                     {
-                        for (i = 0; i < outWidth; ++i)
+                        for (int i = 0; i < outWidth; ++i)
                         {
                             for (int channel = 0; channel < 4; ++channel)
                             {
-                                intensity = 0;
-
+                                double intensity = 0;
                                 double wsum = 0;
 
-                                for (j = 0; j < contrib[i].N; ++j)
+                                for (int j = 0; j < contrib[i].N; ++j)
                                 {
-
-                                    weight = contrib[i].P[j].Weight;
+                                    double weight = contrib[i].P[j].Weight;
 
                                     if (channel != 3)
-                                    {
-                                        weight *= DataFixed[contrib[i].P[j].Pixel * 4 + k * Stride + 3] / 255d;
-                                    }
+                                        weight *= srcBytes[contrib[i].P[j].Pixel * 4 + srcY * Stride + 3] / 255d;
 
                                     if (weight == 0)
                                         continue;
 
                                     wsum += weight;
-
-                                    intensity += (DataFixed[contrib[i].P[j].Pixel * 4 + k * Stride + channel] * weight);
+                                    intensity += (srcBytes[contrib[i].P[j].Pixel * 4 + srcY * Stride + channel] * weight);
                                 }
 
-                                temp.Data[i * 4 + k * temp.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                                afterHorzResample.Data[i * 4 + srcY * afterHorzResample.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
                             }
                         }
                     }
                 }
                 #endregion
-                DataOffset = 0;
+                transparentOffset = 0;
             }
             #endregion
 
             #region vertical resampling
             if (scaleHeight == 1)
             {
-                temp2 = temp;
+                afterVertResample = afterHorzResample;
             }
             else
             {
-                temp2 = new BitmapRam(outWidth, outHeight);
-                contrib = new ContributorEntry[outHeight];
-
-                if (defaultFilter == TankIconMaker.Effects.Filter.Auto)
-                {
-                    if (scaleHeight < 1f)
-                    {
-                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Lanczos);
-                    }
-                    else
-                    {
-                        filter = GetResampleFilter(TankIconMaker.Effects.Filter.Mitchell);
-                    }
-                }
+                afterVertResample = new BitmapRam(outWidth, outHeight);
+                var contrib = new ContributorEntry[outHeight];
 
                 if (scaleHeight < 1f)
                 {
                     #region downsampling
-                    width = (filter.Radius / scaleHeight);
+                    double height = filter.Radius / scaleHeight;
 
-                    for (i = 0; i < outHeight; i++)
+                    for (int i = 0; i < outHeight; i++)
                     {
-
                         contrib[i].N = 0;
-                        contrib[i].P = new Contributor[(int) Math.Floor(2 * width + 1)];
-                        center = ((i + 0.5) / scaleHeight);
-                        left = (int) (center - width);
-                        right = (int) (center + width);
+                        contrib[i].P = new Contributor[(int) Math.Floor(2 * height + 1)];
+                        double center = ((i + 0.5) / scaleHeight);
+                        int top = (int) (center - height);
+                        int bottom = (int) (center + height);
 
-                        for (j = left; j <= right; j++)
+                        for (int j = top; j <= bottom; j++)
                         {
-
-                            weight = filter.GetValue((center - j - 0.5) * scaleHeight);
+                            double weight = filter.GetValue((center - j - 0.5) * scaleHeight);
 
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
                                 continue;
@@ -861,19 +828,17 @@ namespace TankIconMaker
                 else
                 {
                     #region upsampling
-                    for (i = 0; i < outHeight; i++)
+                    for (int i = 0; i < outHeight; i++)
                     {
-
                         contrib[i].N = 0;
                         contrib[i].P = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
-                        center = ((i + 0.5) / scaleHeight);
-                        left = (int) (center - filter.Radius);
-                        right = (int) (center + filter.Radius);
+                        double center = ((i + 0.5) / scaleHeight);
+                        int left = (int) (center - filter.Radius);
+                        int right = (int) (center + filter.Radius);
 
-                        for (j = left; j <= right; j++)
+                        for (int j = left; j <= right; j++)
                         {
-
-                            weight = filter.GetValue(center - j - 0.5);
+                            double weight = filter.GetValue(center - j - 0.5);
 
                             if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
                                 continue;
@@ -887,39 +852,34 @@ namespace TankIconMaker
                 }
 
                 #region redrawing
-                using (temp.UseRead())
-                using (temp2.UseWrite())
+                using (afterHorzResample.UseRead())
+                using (afterVertResample.UseWrite())
                 {
-                    DataFixed = temp.Data + DataOffset;
-                    for (k = 0; k < outWidth; ++k)
+                    byte* srcBytes = afterHorzResample.Data + transparentOffset;
+                    for (int srcX = 0; srcX < outWidth; ++srcX)
                     {
-                        for (i = 0; i < outHeight; ++i)
+                        for (int i = 0; i < outHeight; ++i)
                         {
                             for (int channel = 0; channel < 4; ++channel)
                             {
-
-                                intensity = 0;
+                                double intensity = 0;
                                 double wsum = 0;
 
-                                for (j = 0; j < contrib[i].N; j++)
+                                for (int j = 0; j < contrib[i].N; j++)
                                 {
-
-                                    weight = contrib[i].P[j].Weight;
+                                    double weight = contrib[i].P[j].Weight;
 
                                     if (channel != 3)
-                                    {
-                                        weight *= DataFixed[k * 4 + contrib[i].P[j].Pixel * temp.Stride + 3] / 255d;
-                                    }
+                                        weight *= srcBytes[srcX * 4 + contrib[i].P[j].Pixel * afterHorzResample.Stride + 3] / 255d;
 
                                     if (weight == 0)
                                         continue;
 
                                     wsum += weight;
-
-                                    intensity += (DataFixed[k * 4 + contrib[i].P[j].Pixel * temp.Stride + channel] * weight);
+                                    intensity += (srcBytes[srcX * 4 + contrib[i].P[j].Pixel * afterHorzResample.Stride + channel] * weight);
                                 }
 
-                                temp2.Data[k * 4 + i * temp2.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                                afterVertResample.Data[srcX * 4 + i * afterVertResample.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
                             }
                         }
                     }
@@ -928,40 +888,25 @@ namespace TankIconMaker
             }
             #endregion
 
-            BitmapBase result;
+            BitmapBase final;
             //At this point image will be resized and moved to another BitmapBase anyway
             int drawX = outX - (int) Math.Round((inX - pureImg.Left) * scaleWidth);
-            int drawY = outY - (int)Math.Round((inY - pureImg.Top) * scaleHeight);
+            int drawY = outY - (int) Math.Round((inY - pureImg.Top) * scaleHeight);
             if (maxWidth == 0 && maxHeight == 0)
-            {
-                result = new BitmapRam(Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
-            }
+                final = new BitmapRam(Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
             else
-            {
-                result = new BitmapRam(Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
-            }
-            result.DrawImage(temp2, drawX, drawY);
-            return result;
+                final = new BitmapRam(Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
+            final.DrawImage(afterVertResample, drawX, drawY);
+            return final;
         }
 
-        private ResamplingFilter GetResampleFilter(TankIconMaker.Effects.Filter filter = TankIconMaker.Effects.Filter.Lanczos)
-        {
-            switch (filter)
-            {
-                case TankIconMaker.Effects.Filter.Lanczos: return new LanczosFilter();
-                case TankIconMaker.Effects.Filter.Mitchell: return new MitchellFilter();
-                case TankIconMaker.Effects.Filter.Bicubic: return new BicubicFilter();
-                default: return new BicubicFilter();
-            }
-        }
-
-        abstract class ResamplingFilter
+        public abstract class ResamplingFilter
         {
             public double Radius;
             public abstract double GetValue(double x);
         }
 
-        class LanczosFilter : ResamplingFilter
+        public class LanczosFilter : ResamplingFilter
         {
             public LanczosFilter()
             {
@@ -992,7 +937,7 @@ namespace TankIconMaker
             }
         }
 
-        class BicubicFilter : ResamplingFilter
+        public class BicubicFilter : ResamplingFilter
         {
             public BicubicFilter()
             {
@@ -1042,7 +987,7 @@ namespace TankIconMaker
             }
         }
 
-        class MitchellFilter : ResamplingFilter
+        public class MitchellFilter : ResamplingFilter
         {
             public MitchellFilter()
             {
