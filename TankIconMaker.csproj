@@ -82,6 +82,9 @@
       <DependentUpon>AnchorEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bitmap.cs" />
+    <Compile Include="BitmapResampler.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CheckListWindow.xaml.cs">
       <DependentUpon>CheckListWindow.xaml</DependentUpon>
     </Compile>
