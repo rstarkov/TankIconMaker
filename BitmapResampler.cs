@@ -7,16 +7,22 @@ namespace TankIconMaker
 {
     static class BitmapResampler
     {
-        private struct Contributor
+        public struct Contributor
         {
-            public int Pixel;
+            /// <summary>X or Y coordinate of the contributing pixel in the source.</summary>
+            public int Coord;
             public double Weight;
         }
 
-        private struct ContributorEntry
+        public struct ContributorEntry
         {
-            public int N;
-            public Contributor[] P;
+            /// <summary>Number of entries in <see cref="SrcPixel"/>.</summary>
+            public int SrcPixelCount;
+            /// <summary>
+            ///     All the pixels in the source image which contribute to the destination pixel, and the associated weight.
+            ///     Some of the entries at the end of the array may be unused/unpopulated; see <see cref="SrcPixelCount"/> for
+            ///     the actual count.</summary>
+            public Contributor[] SrcPixel;
         }
 
         public static unsafe BitmapBase SizePos(BitmapBase source, double scaleWidth, double scaleHeight, int inX, int inY, int outX, int outY, int maxWidth = 0, int maxHeight = 0, Filter filter = null)
@@ -51,7 +57,7 @@ namespace TankIconMaker
 
             if (filter == null)
             {
-                if (scaleWidth < 1f)
+                if (scaleWidth < 1)
                     filter = new LanczosFilter();
                 else
                     filter = new MitchellFilter();
@@ -79,60 +85,7 @@ namespace TankIconMaker
             else
             {
                 afterHorzResample = new BitmapRam(outWidth, pureImg.Height);
-                var contrib = new ContributorEntry[outWidth];
-
-                if (scaleWidth < 1f)
-                {
-                    #region downsampling
-                    double width = filter.Radius / scaleWidth;
-
-                    for (int i = 0; i < outWidth; ++i)
-                    {
-                        contrib[i].N = 0;
-                        contrib[i].P = new Contributor[(int) Math.Floor(2 * width + 1)];
-                        double center = ((i + 0.5) / scaleWidth);
-                        int left = (int) (center - width);
-                        int right = (int) (center + width);
-
-                        for (int j = left; j <= right; j++)
-                        {
-                            double weight = filter.GetValue((center - j - 0.5) * scaleWidth);
-
-                            if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
-                                continue;
-
-                            contrib[i].P[contrib[i].N].Pixel = j;
-                            contrib[i].P[contrib[i].N].Weight = weight;
-                            contrib[i].N++;
-                        }
-                    }
-                    #endregion
-                }
-                else
-                {
-                    #region upsampling
-                    for (int i = 0; i < outWidth; i++)
-                    {
-                        contrib[i].N = 0;
-                        contrib[i].P = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
-                        double center = ((i + 0.5) / scaleWidth);
-                        int left = (int) Math.Floor(center - filter.Radius);
-                        int right = (int) Math.Ceiling(center + filter.Radius);
-
-                        for (int j = left; j <= right; j++)
-                        {
-                            double weight = filter.GetValue(center - j - 0.5);
-
-                            if ((weight == 0) || (j < 0) || (j >= pureImg.Width))
-                                continue;
-
-                            contrib[i].P[contrib[i].N].Pixel = j;
-                            contrib[i].P[contrib[i].N].Weight = weight;
-                            contrib[i].N++;
-                        }
-                    }
-                    #endregion
-                }
+                ContributorEntry[] contrib = filter.PrecomputeResample(scaleWidth, pureImg.Width, outWidth);
 
                 #region redrawing
                 using (source.UseRead())
@@ -148,18 +101,18 @@ namespace TankIconMaker
                                 double intensity = 0;
                                 double wsum = 0;
 
-                                for (int j = 0; j < contrib[i].N; ++j)
+                                for (int j = 0; j < contrib[i].SrcPixelCount; ++j)
                                 {
-                                    double weight = contrib[i].P[j].Weight;
+                                    double weight = contrib[i].SrcPixel[j].Weight;
 
                                     if (channel != 3)
-                                        weight *= srcBytes[contrib[i].P[j].Pixel * 4 + srcY * source.Stride + 3] / 255d;
+                                        weight *= srcBytes[contrib[i].SrcPixel[j].Coord * 4 + srcY * source.Stride + 3] / 255d;
 
                                     if (weight == 0)
                                         continue;
 
                                     wsum += weight;
-                                    intensity += (srcBytes[contrib[i].P[j].Pixel * 4 + srcY * source.Stride + channel] * weight);
+                                    intensity += (srcBytes[contrib[i].SrcPixel[j].Coord * 4 + srcY * source.Stride + channel] * weight);
                                 }
 
                                 afterHorzResample.Data[i * 4 + srcY * afterHorzResample.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
@@ -180,60 +133,7 @@ namespace TankIconMaker
             else
             {
                 afterVertResample = new BitmapRam(outWidth, outHeight);
-                var contrib = new ContributorEntry[outHeight];
-
-                if (scaleHeight < 1f)
-                {
-                    #region downsampling
-                    double height = filter.Radius / scaleHeight;
-
-                    for (int i = 0; i < outHeight; i++)
-                    {
-                        contrib[i].N = 0;
-                        contrib[i].P = new Contributor[(int) Math.Floor(2 * height + 1)];
-                        double center = ((i + 0.5) / scaleHeight);
-                        int top = (int) (center - height);
-                        int bottom = (int) (center + height);
-
-                        for (int j = top; j <= bottom; j++)
-                        {
-                            double weight = filter.GetValue((center - j - 0.5) * scaleHeight);
-
-                            if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
-                                continue;
-
-                            contrib[i].P[contrib[i].N].Pixel = j;
-                            contrib[i].P[contrib[i].N].Weight = weight;
-                            contrib[i].N++;
-                        }
-                    }
-                    #endregion
-                }
-                else
-                {
-                    #region upsampling
-                    for (int i = 0; i < outHeight; i++)
-                    {
-                        contrib[i].N = 0;
-                        contrib[i].P = new Contributor[(int) Math.Floor(2 * filter.Radius + 1)];
-                        double center = ((i + 0.5) / scaleHeight);
-                        int left = (int) (center - filter.Radius);
-                        int right = (int) (center + filter.Radius);
-
-                        for (int j = left; j <= right; j++)
-                        {
-                            double weight = filter.GetValue(center - j - 0.5);
-
-                            if ((weight == 0) || (j < 0) || (j >= pureImg.Height))
-                                continue;
-
-                            contrib[i].P[contrib[i].N].Pixel = j;
-                            contrib[i].P[contrib[i].N].Weight = weight;
-                            contrib[i].N++;
-                        }
-                    }
-                    #endregion
-                }
+                ContributorEntry[] contrib = filter.PrecomputeResample(scaleHeight, pureImg.Height, outHeight);
 
                 #region redrawing
                 using (afterHorzResample.UseRead())
@@ -249,18 +149,18 @@ namespace TankIconMaker
                                 double intensity = 0;
                                 double wsum = 0;
 
-                                for (int j = 0; j < contrib[i].N; j++)
+                                for (int j = 0; j < contrib[i].SrcPixelCount; j++)
                                 {
-                                    double weight = contrib[i].P[j].Weight;
+                                    double weight = contrib[i].SrcPixel[j].Weight;
 
                                     if (channel != 3)
-                                        weight *= srcBytes[srcX * 4 + contrib[i].P[j].Pixel * afterHorzResample.Stride + 3] / 255d;
+                                        weight *= srcBytes[srcX * 4 + contrib[i].SrcPixel[j].Coord * afterHorzResample.Stride + 3] / 255d;
 
                                     if (weight == 0)
                                         continue;
 
                                     wsum += weight;
-                                    intensity += (srcBytes[srcX * 4 + contrib[i].P[j].Pixel * afterHorzResample.Stride + channel] * weight);
+                                    intensity += (srcBytes[srcX * 4 + contrib[i].SrcPixel[j].Coord * afterHorzResample.Stride + channel] * weight);
                                 }
 
                                 afterVertResample.Data[srcX * 4 + i * afterVertResample.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
@@ -289,6 +189,36 @@ namespace TankIconMaker
         {
             public double Radius { get; protected set; }
             public abstract double GetValue(double x);
+
+            public ContributorEntry[] PrecomputeResample(double scale, int srcWidth, int destWidth)
+            {
+                // all variables are named as if we're scaling horizontally for the sake of readability, but the results work for both orientations
+                var dest = new ContributorEntry[destWidth]; // one entry for every pixel in the resulting (destination) row of pixels
+                double r = scale < 1 ? Radius / scale : Radius; // filter radius in terms of source image pixels
+                double s = scale < 1 ? scale : 1; // filter scale relative to source pixels
+
+                for (int destX = 0; destX < destWidth; destX++)
+                {
+                    dest[destX].SrcPixelCount = 0;
+                    dest[destX].SrcPixel = new Contributor[(int) Math.Floor(2 * r + 1)];
+                    double center = (destX + 0.5) / scale;
+                    int srcFromX = (int) Math.Floor(center - r);
+                    int srcToX = (int) Math.Ceiling(center + r);
+
+                    for (int srcX = srcFromX; srcX <= srcToX; srcX++)
+                    {
+                        double weight = GetValue((center - srcX - 0.5) * s);
+
+                        if ((weight == 0) || (srcX < 0) || (srcX >= srcWidth))
+                            continue;
+
+                        dest[destX].SrcPixel[dest[destX].SrcPixelCount].Coord = srcX;
+                        dest[destX].SrcPixel[dest[destX].SrcPixelCount].Weight = weight;
+                        dest[destX].SrcPixelCount++;
+                    }
+                }
+                return dest;
+            }
         }
 
         /// <summary>
