@@ -77,7 +77,7 @@ namespace TankIconMaker
 
             BitmapBase afterHorzResample, afterVertResample;
 
-            #region horizontal resampling
+            // Horizontal resampling
             if (scaleWidth == 1)
             {
                 afterHorzResample = source;
@@ -86,46 +86,11 @@ namespace TankIconMaker
             {
                 afterHorzResample = new BitmapRam(outWidth, pureImg.Height);
                 ContributorEntry[] contrib = filter.PrecomputeResample(scaleWidth, pureImg.Width, outWidth);
-
-                #region redrawing
-                using (source.UseRead())
-                using (afterHorzResample.UseWrite())
-                {
-                    byte* srcBytes = source.Data + transparentOffset;
-                    for (int srcY = 0; srcY < pureImg.Height; ++srcY)
-                    {
-                        for (int i = 0; i < outWidth; ++i)
-                        {
-                            for (int channel = 0; channel < 4; ++channel)
-                            {
-                                double intensity = 0;
-                                double wsum = 0;
-
-                                for (int j = 0; j < contrib[i].SrcPixelCount; ++j)
-                                {
-                                    double weight = contrib[i].SrcPixel[j].Weight;
-
-                                    if (channel != 3)
-                                        weight *= srcBytes[contrib[i].SrcPixel[j].Coord * 4 + srcY * source.Stride + 3] / 255d;
-
-                                    if (weight == 0)
-                                        continue;
-
-                                    wsum += weight;
-                                    intensity += (srcBytes[contrib[i].SrcPixel[j].Coord * 4 + srcY * source.Stride + channel] * weight);
-                                }
-
-                                afterHorzResample.Data[i * 4 + srcY * afterHorzResample.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
-                            }
-                        }
-                    }
-                }
-                #endregion
+                Resample1D(afterHorzResample, source, transparentOffset, contrib, outWidth, pureImg.Height, true);
                 transparentOffset = 0;
             }
-            #endregion
 
-            #region vertical resampling
+            // Vertical resampling
             if (scaleHeight == 1)
             {
                 afterVertResample = afterHorzResample;
@@ -134,43 +99,8 @@ namespace TankIconMaker
             {
                 afterVertResample = new BitmapRam(outWidth, outHeight);
                 ContributorEntry[] contrib = filter.PrecomputeResample(scaleHeight, pureImg.Height, outHeight);
-
-                #region redrawing
-                using (afterHorzResample.UseRead())
-                using (afterVertResample.UseWrite())
-                {
-                    byte* srcBytes = afterHorzResample.Data + transparentOffset;
-                    for (int srcX = 0; srcX < outWidth; ++srcX)
-                    {
-                        for (int i = 0; i < outHeight; ++i)
-                        {
-                            for (int channel = 0; channel < 4; ++channel)
-                            {
-                                double intensity = 0;
-                                double wsum = 0;
-
-                                for (int j = 0; j < contrib[i].SrcPixelCount; j++)
-                                {
-                                    double weight = contrib[i].SrcPixel[j].Weight;
-
-                                    if (channel != 3)
-                                        weight *= srcBytes[srcX * 4 + contrib[i].SrcPixel[j].Coord * afterHorzResample.Stride + 3] / 255d;
-
-                                    if (weight == 0)
-                                        continue;
-
-                                    wsum += weight;
-                                    intensity += (srcBytes[srcX * 4 + contrib[i].SrcPixel[j].Coord * afterHorzResample.Stride + channel] * weight);
-                                }
-
-                                afterVertResample.Data[srcX * 4 + i * afterVertResample.Stride + channel] = (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
-                            }
-                        }
-                    }
-                }
-                #endregion
+                Resample1D(afterVertResample, afterHorzResample, transparentOffset, contrib, outHeight, outWidth, false);
             }
-            #endregion
 
             BitmapBase final;
             //At this point image will be resized and moved to another BitmapBase anyway
@@ -182,6 +112,45 @@ namespace TankIconMaker
                 final = new BitmapRam(Math.Max(drawX + outWidth, maxWidth), Math.Max(drawY + outHeight, maxHeight));
             final.DrawImage(afterVertResample, drawX, drawY);
             return final;
+        }
+
+        unsafe private static void Resample1D(BitmapBase bmpDest, BitmapBase bmpSrc, int transparentOffset, ContributorEntry[] contrib, int alongSize, int crossSize, bool horz)
+        {
+            using (bmpSrc.UseRead())
+            using (bmpDest.UseWrite())
+            {
+                byte* srcBytes = bmpSrc.Data + transparentOffset;
+                for (int crossCoord = 0; crossCoord < crossSize; ++crossCoord)
+                {
+                    for (int alongCoord = 0; alongCoord < alongSize; ++alongCoord)
+                    {
+                        for (int channel = 0; channel < 4; ++channel)
+                        {
+                            double intensity = 0;
+                            double wsum = 0;
+
+                            for (int j = 0; j < contrib[alongCoord].SrcPixelCount; j++)
+                            {
+                                int contribCoord = contrib[alongCoord].SrcPixel[j].Coord;
+                                int contribOffset = (horz ? contribCoord : crossCoord) * 4 + (horz ? crossCoord : contribCoord) * bmpSrc.Stride;
+                                double weight = contrib[alongCoord].SrcPixel[j].Weight;
+
+                                if (channel != 3)
+                                    weight *= srcBytes[contribOffset + 3] / 255d;
+
+                                if (weight == 0)
+                                    continue;
+
+                                wsum += weight;
+                                intensity += srcBytes[contribOffset + channel] * weight;
+                            }
+
+                            bmpDest.Data[(horz ? alongCoord : crossCoord) * 4 + (horz ? crossCoord : alongCoord) * bmpDest.Stride + channel] =
+                                (byte) Math.Min(Math.Max(intensity / wsum, byte.MinValue), byte.MaxValue);
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>Implements a resampling filter.</summary>
