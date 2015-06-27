@@ -82,7 +82,7 @@ namespace TankIconMaker.Layers
                     if (long.TryParse(text, out numI))
                         try { text = string.Format(Format, numI); }
                         catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(Format, numI)); }
-                    if (decimal.TryParse(text, out numD))
+                    else if (decimal.TryParse(text, out numD))
                         try { text = string.Format(Format, numD); }
                         catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(Format, numD)); }
                     else
