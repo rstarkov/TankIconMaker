@@ -404,12 +404,14 @@ namespace TankIconMaker
                     ctGameInstallationWarning.Text = e.Message;
                     ctGameInstallationWarning.Tag = null;
                 }
+#if !DEBUG
                 catch (Exception e)
                 {
                     _dataMissing.Value = true;
                     ctGameInstallationWarning.Text = "Error loading game data from this path. Click this message for details.";
                     ctGameInstallationWarning.Tag = Ut.ExceptionToDebugString(e);
                 }
+#endif
             }
 
             // CurContext is now set as appropriate: either null or a reloaded context
