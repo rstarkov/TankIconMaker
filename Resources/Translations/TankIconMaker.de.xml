@@ -1223,6 +1223,16 @@
         <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
       </Description>
     </GrowShrinkMode>
+    <Filter>
+      <DisplayName>
+        <Translation>Filter</Translation>
+        <Old>Filter</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Größenänderungsfilter.</Translation>
+        <Old>Specifies the resizing filter.</Old>
+      </Description>
+    </Filter>
     <PixelAlphaThreshold>
       <DisplayName>
         <Translation>Transparenz-Grenzwert</Translation>
@@ -1514,6 +1524,36 @@
       </Description>
     </Sigma>
   </EffectSharpen>
+  <EffectUnsharpMask>
+    <EffectName>
+      <Translation>Schärfe: Unschärfemaske</Translation>
+      <Old>Sharpen: unsharp mask</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Wendet Schärfe auf die Ebene unter Verwendung des Unschärfemaskenfilters an.</Translation>
+      <Old>Sharpens the layer using unsharp mask filter.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Radius</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Verarbeitungsradius. Empfohlener Wert: 0, bei dem automatisch der optimale Radius ausgewählt wird.</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Stärke</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt die Stärke des Schärfeeffekts. Nachkommastellen sind erlaubt.</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectUnsharpMask>
   <EffectSelectiveBlur>
     <EffectName>
       <Translation>Unschärfe: selektiv</Translation>
@@ -1850,6 +1890,32 @@
       <Old>Shrink only</Old>
     </ShrinkOnly>
   </GrowShrinkMode>
+  <Filter>
+    <Auto>
+      <Translation>Automatisch</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <Lanczos>
+      <Translation>Lanczos</Translation>
+      <Old>Lanczos</Old>
+    </Lanczos>
+    <Mitchell>
+      <Translation>Mitchell</Translation>
+      <Old>Mitchell</Old>
+    </Mitchell>
+    <Bicubic>
+      <Translation>Bikubisch</Translation>
+      <Old>Bicubic</Old>
+    </Bicubic>
+    <Sinc256>
+      <Translation>Sinc256</Translation>
+      <Old>Sinc256</Old>
+    </Sinc256>
+    <Sinc1024>
+      <Translation>Sinc1024</Translation>
+      <Old>Sinc1024</Old>
+    </Sinc1024>
+  </Filter>
   <OpacityStyle>
     <Auto>
       <Translation>Automatisch</Translation>
@@ -2336,10 +2402,6 @@
     </BulkSave_Progress>
   </Prompt>
   <Error>
-    <DataMissing_NoBuiltinData>
-      <Translation>Keine eingebaute Eigenschaftendatendatei für diese Version von World of Tanks gefunden.</Translation>
-      <Old>Found no built-in property data file for this version of World of Tanks.</Old>
-    </DataMissing_NoBuiltinData>
     <DataMissing_NoWotInstallation>
       <Translation>Im angegebenen Verzeichnis wurde keine unterstützte Installation von World of Tanks erkannt.</Translation>
       <Old>Failed to detect a supported World of Tanks installation at this path.</Old>
@@ -2373,13 +2435,21 @@
       <Old>Could not render this icon: {0}</Old>
     </RenderIconFail>
     <ClipboardError>
-      <Translation>Kopieren nicht möglich: Eine andere Anwendung verwendet wahrscheinlich gerade die Zwischenablage. Bitte versuchen Sie es in ein paar Sekunden erneut.</Translation>
-      <Old>Could not copy to clipboard: another application is probably using the clipboard right now. Please try again in a few seconds.</Old>
+      <Translation encoding="c-literal">Kopieren nicht möglich: Eine andere Anwendung verwendet wahrscheinlich gerade die Zwischenablage.\r\n\r\nErneut versuchen?</Translation>
+      <Old encoding="c-literal">Could not copy to clipboard: another application is probably using the clipboard right now.\n\nTry again?</Old>
     </ClipboardError>
+    <ClipboardError_Retry>
+      <Translation>&amp;Erneut versuchen</Translation>
+      <Old>&amp;Retry</Old>
+    </ClipboardError_Retry>
     <ExceptionGlobal>
-      <Translation encoding="c-literal">Ein Fehler ist aufgetreten. Das ist nicht Ihr Fehler; der Programmierer hat Mist gebaut!\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
-      <Old encoding="c-literal">An error has occurred. This is not your fault; the programmer has messed up!\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+      <Translation encoding="c-literal">Ein Fehler ist aufgetreten. Das ist ein Fehler in diesem Programm.\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
     </ExceptionGlobal>
+    <ExceptionLoadingGameData>
+      <Translation encoding="c-literal">Die Spieldaten konnten nicht geladen werden. Dies ist wahrscheinlich ein Fehler in diesem Programm.\r\n\r\nBitte schicken Sie einen Fehlerbericht an den Programmierer, damit der Fehler behoben werden kann.</Translation>
+      <Old encoding="c-literal">Could not load game data. This is probably a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionLoadingGameData>
     <ExceptionInRender>
       <Translation>Eine Ebene oder ein Effekt hat beim Erzeugen des Bildes eine Exception ausgelöst. Es handelt sich hierbei um einen Bug im Programm; bitte berichten Sie uns davon.</Translation>
       <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
@@ -2396,10 +2466,6 @@
       <Translation>Informationen bezüglich des Fehlers sind jetzt in der Zwischenablage.</Translation>
       <Old>Information about the error is now in your clipboard.</Old>
     </ErrorToClipboard_Copied>
-    <ErrorToClipboard_CopyFail>
-      <Translation>Leider konnte die Fehlerinformation aus irgend welchen Gründen nicht in die Zwischenablage kopiert werden.</Translation>
-      <Old>Sorry, couldn't copy the error info to clipboard for some reason.</Old>
-    </ErrorToClipboard_CopyFail>
   </Error>
   <Misc>
     <ProgramVersion>
