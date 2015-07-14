@@ -1,5 +1,6 @@
 From Lesic's TIMPack (not all of these are original work):
  - background-slesh-*
+ - background-octagon-*
  - class2-*
  - class3-*
  - country2-*
