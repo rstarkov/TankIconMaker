@@ -2,6 +2,7 @@
 <item>
   <Name>Black_Spy</Name>
   <Author>Black_Spy</Author>
+  <PathTemplate null="1" />
   <IconWidth>80</IconWidth>
   <IconHeight>24</IconHeight>
   <Centerable>False</Centerable>
@@ -83,7 +84,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name null="1" />
           <Visible>True</Visible>
-          <SavedByVersion>2</SavedByVersion>
+          <SavedByVersion>3</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -130,6 +131,7 @@
           <SizeByPixels>True</SizeByPixels>
           <SizeMode2>NoChange</SizeMode2>
           <GrowShrinkMode>GrowAndShrink</GrowShrinkMode>
+          <Filter>Auto</Filter>
           <ShowLayerBorders>False</ShowLayerBorders>
           <ShowPixelBorders>False</ShowPixelBorders>
           <ShowAnchor>False</ShowAnchor>
@@ -137,7 +139,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name null="1" />
           <Visible>False</Visible>
-          <SavedByVersion>2</SavedByVersion>
+          <SavedByVersion>3</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -184,6 +186,7 @@
           <SizeByPixels>True</SizeByPixels>
           <SizeMode2>ByPercentage</SizeMode2>
           <GrowShrinkMode>ShrinkOnly</GrowShrinkMode>
+          <Filter>Auto</Filter>
           <ShowLayerBorders>False</ShowLayerBorders>
           <ShowPixelBorders>False</ShowPixelBorders>
           <ShowAnchor>False</ShowAnchor>
@@ -563,9 +566,10 @@
       <Width>999</Width>
       <Height>999</Height>
       <Baseline>False</Baseline>
+      <Format null="1" />
       <Property>
-        <Name>Tier (Arabic)</Name>
-        <Language null="1" />
+        <FileId>Tier (Arabic)</FileId>
+        <ColumnId null="1" />
         <Author>(built-in)</Author>
       </Property>
     </item>
@@ -779,7 +783,7 @@
         <CountryNone>#FFFFFF</CountryNone>
         <CategNormal>#D2D2D2</CategNormal>
         <CategPremium>#FFFF00</CategPremium>
-        <CategSpecial>#FFFF00</CategSpecial>
+        <CategSpecial>#F26167</CategSpecial>
         <Single>#FFFFFF</Single>
         <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>
@@ -792,9 +796,10 @@
       <Width>999</Width>
       <Height>999</Height>
       <Baseline>True</Baseline>
+      <Format null="1" />
       <Property>
-        <Name>NameShort</Name>
-        <Language>Ru</Language>
+        <FileId>NameShort</FileId>
+        <ColumnId null="1" />
         <Author>Wargaming</Author>
       </Property>
     </item>
@@ -806,7 +811,7 @@
         <item type="TankIconMaker.Effects.SizePosEffect">
           <Name null="1" />
           <Visible>True</Visible>
-          <SavedByVersion>2</SavedByVersion>
+          <SavedByVersion>3</SavedByVersion>
           <VisibleFor>
             <By>Single</By>
             <By2>Single</By2>
@@ -853,6 +858,7 @@
           <SizeByPixels>True</SizeByPixels>
           <SizeMode2>NoChange</SizeMode2>
           <GrowShrinkMode>GrowAndShrink</GrowShrinkMode>
+          <Filter>Auto</Filter>
           <ShowLayerBorders>False</ShowLayerBorders>
           <ShowPixelBorders>False</ShowPixelBorders>
           <ShowAnchor>False</ShowAnchor>
