@@ -173,6 +173,10 @@
       <Translation>Япония</Translation>
       <Old>Japan</Old>
     </ctDisplayModeCountryJapan>
+    <ctDisplayModeCountryCzech>
+      <Translation>Чехия</Translation>
+      <Old>Czech</Old>
+    </ctDisplayModeCountryCzech>
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -1907,6 +1911,14 @@
       <Translation>Bicubic</Translation>
       <Old>Bicubic</Old>
     </Bicubic>
+    <Sinc256>
+      <Translation>Sinc256</Translation>
+      <Old null="1" />
+    </Sinc256>
+    <Sinc1024>
+      <Translation>Sinc1024</Translation>
+      <Old null="1" />
+    </Sinc1024>
   </Filter>
   <OpacityStyle>
     <Auto>
@@ -2101,6 +2113,10 @@
       <Translation>Страна: Япония</Translation>
       <Old>Country: Japan</Old>
     </CountryJapan>
+    <CountryCzech>
+      <Translation>Страна: Чехия</Translation>
+      <Old>Country: Czech</Old>
+    </CountryCzech>
     <CountryNone>
       <Translation>Страна:  без страны</Translation>
       <Old>Country:  None</Old>

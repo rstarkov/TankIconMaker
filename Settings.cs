@@ -147,7 +147,7 @@ namespace TankIconMaker
     {
         All = 0,
         OneOfEach = 1,
-        USSR = 3, Germany, USA, France, UK, China, Japan,
+        USSR = 3, Germany, USA, France, UK, China, Japan, Czech,
         Light = 11, Medium, Heavy, Artillery, Destroyer,
         Normal = 17, Premium, Special,
         TierLow = 21, TierMedHigh, TierHigh,

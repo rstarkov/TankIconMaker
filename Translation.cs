@@ -959,6 +959,7 @@ namespace TankIconMaker
         public TrString CountryChina = "Country: China";
         public TrString CountryUK = "Country: UK";
         public TrString CountryJapan = "Country: Japan";
+        public TrString CountryCzech = "Country: Czech";
         public TrString CountryNone = "Country:  None";
 
         public TrString CategNormal = "Avail.: Normal";
