@@ -91,6 +91,7 @@
     <Compile Include="Effects\ClipEffect.cs" />
     <Compile Include="Effects\AdaptiveBlurEffect.cs" />
     <Compile Include="Effects\AdaptiveSharpenEffect.cs" />
+    <Compile Include="Effects\MaskLayerEffect.cs" />
     <Compile Include="Effects\GammaEffect.cs" />
     <Compile Include="Effects\BrightnessContrastEffect.cs" />
     <Compile Include="Effects\InvertEffect.cs" />

@@ -24,8 +24,9 @@ namespace TankIconMaker.Effects
             return result;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             var color = ColorHSV.FromColor(Color.GetColorWpf(tank));
             layer.Colorize(color.Hue, color.Saturation / 100.0, color.Value / 100.0 - 0.5, color.Alpha / 255.0);
             return layer;

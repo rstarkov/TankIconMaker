@@ -20,8 +20,9 @@ namespace TankIconMaker.Effects
             Style = OpacityStyle.Auto;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             layer.ScaleOpacity(Opacity, Style);
             return layer;
         }

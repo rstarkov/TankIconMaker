@@ -29,8 +29,9 @@ namespace TankIconMaker.Effects
             _Lightness = 100;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             if (Hue == 0 && Saturation == 100 && Lightness == 100)
                 return layer;
 

@@ -39,8 +39,9 @@ namespace TankIconMaker.Effects
             return result;
         }
 
-        public unsafe override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public unsafe override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             using (layer.UseWrite())
             {
                 // Just scale the brightness and alpha channels so as to normalize the maximum value.

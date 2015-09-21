@@ -49,7 +49,7 @@ namespace TankIconMaker
         /// is writable, because all Apply methods expect to be able to modify the layer if necessary and return it, instead of
         /// creating a new instance.
         /// </summary>
-        public abstract BitmapBase Apply(Tank tank, BitmapBase layer);
+        public abstract BitmapBase Apply(RenderTask renderTask, BitmapBase layer);
 
         /// <summary>
         /// Stores the <see cref="Version"/> of the maker as it was at the time of saving settings to XML. This may

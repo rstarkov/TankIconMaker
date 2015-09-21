@@ -25,8 +25,9 @@ namespace TankIconMaker.Effects
             Edge = BlurEdgeMode.Same;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             if (_blur == null || _blur.Radius != Radius)
                 lock (this)
                     if (_blur == null || _blur.Radius != Radius)

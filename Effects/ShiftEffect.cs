@@ -14,8 +14,9 @@ namespace TankIconMaker.Effects
         public int ShiftY { get; set; }
         public static MemberTr ShiftYTr(Translation tr) { return new MemberTr(tr.Category.Shift, tr.EffectShift.ShiftY); }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             if (ShiftX == 0 && ShiftY == 0)
                 return layer;
             var result = new BitmapRam(layer.Width, layer.Height);

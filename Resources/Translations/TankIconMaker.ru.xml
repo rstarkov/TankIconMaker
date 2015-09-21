@@ -1118,6 +1118,46 @@
       </Description>
     </ShiftY>
   </EffectShift>
+  <EffectMaskLayer>
+    <EffectName>
+      <Translation>Слой-маска</Translation>
+      <Old>Mask Layer</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Добавляет прозрачность, используя другой слой как маску.</Translation>
+      <Old>Adjusts layer opacity using another layer as mask.</Old>
+    </EffectDescription>
+    <MaskLayerId>
+      <DisplayName>
+        <Translation>Привязка</Translation>
+        <Old>Mask layer Id</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, как расположить слой по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
+        <Old>Sets the mask layer Identifier.</Old>
+      </Description>
+    </MaskLayerId>
+    <MaskMode>
+      <DisplayName>
+        <Translation>Режим</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает режим слоя-маски.</Translation>
+        <Old>Selects the mask layer mode.</Old>
+      </Description>
+    </MaskMode>
+    <InvertTr>
+      <DisplayName>
+        <Translation>Инверсия</Translation>
+        <Old>Invert</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Указывает, применить инверсию к маске, или нет.</Translation>
+        <Old>Specifies whether to invert the mask or not.</Old>
+      </Description>
+    </InvertTr>
+  </EffectMaskLayer>
   <EffectSizePos>
     <EffectName>
       <Translation>Размер / Положение</Translation>
@@ -1854,6 +1894,20 @@
       <Old>By icon bounds</Old>
     </ByIconBounds>
   </ClipMode>
+  <MaskMode>
+    <Combinated>
+      <Translation>Комбинированный</Translation>
+      <Old>Combinated</Old>
+    </Combinated>
+    <Opacity>
+      <Translation>Прозрачность</Translation>
+      <Old>Opacity</Old>
+    </Opacity>
+    <Grayscale>
+      <Translation>Оттенки серого</Translation>
+      <Old>Grayscale</Old>
+    </Grayscale>
+  </MaskMode>
   <SizeMode>
     <NoChange>
       <Translation>Без изменений</Translation>

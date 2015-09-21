@@ -31,8 +31,9 @@ namespace TankIconMaker.Effects
             RotateY = 12;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             if (Angle == 0)
                 return layer;
 
