@@ -36,6 +36,11 @@ namespace TankIconMaker
         [Browsable(false)]
         public ObservableCollection<EffectBase> Effects { get; set; }
 
+        /// <summary>Id for use in Layer Mask.</summary>
+        private string _Id;
+        public string Id { get { return _Id; } set { _Id = value; NotifyPropertyChanged("Id"); } }
+        public static MemberTr IdTr(Translation tr) { return new MemberTr(tr.Category.General, tr.LayerAndEffect.LayerId); }
+
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
         private bool _Visible;
         public static MemberTr VisibleTr(Translation tr) { return new MemberTr(tr.Category.General, tr.LayerAndEffect.LayerVisible); }

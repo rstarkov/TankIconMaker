@@ -19,8 +19,9 @@ namespace TankIconMaker.Effects
             FlipVert = false;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             if (FlipHorz)
                 layer.FlipHorz();
             if (FlipVert)

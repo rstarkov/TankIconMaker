@@ -59,6 +59,8 @@ namespace TankIconMaker
         EffectShadow,
         [LingoGroup("Effect: Shift", "Strings used in the property grid for the \"Shift\" effect.")]
         EffectShift,
+        [LingoGroup("Effect: Mask layer", "Strings used in the property grid for the \"Mask layer\" effect.")]
+        EffectMaskLayer,
         [LingoGroup("Effect: Size / Position", "Strings used in the property grid for the \"Size / Position\" effect.")]
         EffectSizePos,
         [LingoGroup("Effect: channels (shared)", "Strings used in the property grid for specifying the affected channels in various effects.")]
@@ -105,6 +107,8 @@ namespace TankIconMaker
         EnumSelectBy,
         [LingoGroup("Value: clip mode", "Strings used for the clip effect mode drop-down.")]
         EnumClipMode,
+        [LingoGroup("Value: mask mode", "Strings used for the mask layer effect mask mode drop-down.")]
+        EnumMaskMode,
         [LingoGroup("Value: size mode", "Strings used for the size/pos effect size mode drop-down.")]
         EnumSizeMode,
         [LingoGroup("Value: grow/shrink mode", "Strings used for the size/pos grow/shrink mode drop-down.")]
@@ -164,6 +168,7 @@ namespace TankIconMaker
         public EffectPixelOutlineTranslation EffectPixelOutline = new EffectPixelOutlineTranslation();
         public EffectShadowTranslation EffectShadow = new EffectShadowTranslation();
         public EffectShiftTranslation EffectShift = new EffectShiftTranslation();
+        public EffectMaskLayerTranslation EffectMaskLayer = new EffectMaskLayerTranslation();
         public EffectSizePosTranslation EffectSizePos = new EffectSizePosTranslation();
         public EffectBrightnessContrastTranslation EffectBrightnessContrast = new EffectBrightnessContrastTranslation();
         public EffectHueSaturationLightnessTranslation EffectHueSaturationLightness = new EffectHueSaturationLightnessTranslation();
@@ -186,6 +191,7 @@ namespace TankIconMaker
         public SelectByTranslation SelectBy = new SelectByTranslation();
         public ClipModeTranslation ClipMode = new ClipModeTranslation();
         public SizeModeTranslation SizeMode = new SizeModeTranslation();
+        public MaskModeTranslation MaskMode = new MaskModeTranslation();
         public GrowShrinkModeTranslation GrowShrinkMode = new GrowShrinkModeTranslation();
         public FilterTranslation Filter = new FilterTranslation();
         public OpacityStyleTranslation OpacityStyle = new OpacityStyleTranslation();
@@ -241,6 +247,7 @@ namespace TankIconMaker
         public TrString Font = "Font";
         public TrString Position = "Position";
         public TrString Size = "Size";
+        public TrString Mask = "Mask";
         public TrString TextSource = "Text source";
         public TrString Debug = "Debug";
         public TrString Clip = "Clip";
@@ -285,6 +292,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.LayerEffectAll)]
     sealed class LayerAndEffectTranslation
     {
+        public MemberDescriptionTr LayerId = new MemberDescriptionTr { DisplayName = "Identifier", Description = "Sets the identifier for use in some effects." };
         public MemberDescriptionTr LayerVisible = new MemberDescriptionTr { DisplayName = "Visible", Description = "Allows you to hide this layer temporarily without deleting it." };
         public MemberDescriptionTr LayerVisibleFor = new MemberDescriptionTr { DisplayName = "Visible for", Description = "Allows you to hide this layer for some of the tanks, depending on their properties." };
         public MemberDescriptionTr EffectVisible = new MemberDescriptionTr { DisplayName = "Visible", Description = "Allows you to hide this effect temporarily without deleting it." };
@@ -657,6 +665,17 @@ namespace TankIconMaker
         }
     }
 
+    [LingoStringClass, LingoInGroup(TranslationGroup.EffectMaskLayer)]
+    sealed class EffectMaskLayerTranslation
+    {
+        public TrString EffectName = "Mask Layer";
+        public TrString EffectDescription = "Adjusts layer opacity using another layer as mask.";
+
+        public MemberDescriptionTr MaskLayerId = new MemberDescriptionTr { DisplayName = "Mask layer Id", Description = "Sets the mask layer Identifier." };
+        public MemberDescriptionTr MaskMode = new MemberDescriptionTr { DisplayName = "Mode", Description = "Selects the mask layer mode." };
+        public MemberDescriptionTr InvertTr = new MemberDescriptionTr { DisplayName = "Invert", Description = "Specifies whether to invert the mask or not." };
+    }
+
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]
     sealed class EffectSizePosTranslation
     {
@@ -741,6 +760,19 @@ namespace TankIconMaker
         public class Conv : LingoEnumConverter<ClipMode, ClipModeTranslation>
         {
             public Conv() : base(() => App.Translation.ClipMode) { }
+        }
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.EnumMaskMode), LingoInGroup(TranslationGroup.EffectMaskLayer)]
+    sealed class MaskModeTranslation
+    {
+        public TrString Combinated = "Combinated";
+        public TrString Opacity = "Opacity";
+        public TrString Grayscale = "Grayscale";
+
+        public class Conv : LingoEnumConverter<MaskMode, MaskModeTranslation>
+        {
+            public Conv() : base(() => App.Translation.MaskMode) { }
         }
     }
 

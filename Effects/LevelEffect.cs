@@ -47,8 +47,9 @@ namespace TankIconMaker.Effects
             _MidPoint = 1;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             if (!(ChannelA || ChannelR || ChannelG || ChannelB) || (BlackPoint == 0 && WhitePoint == 255 && MidPoint == 1))
                 return layer;
 

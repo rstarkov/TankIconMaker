@@ -31,8 +31,9 @@ namespace TankIconMaker.Effects
             _GammaBlue = 1;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             if (GammaRed == 1 && GammaGreen == 1 && GammaBlue == 1)
                 return layer;
 

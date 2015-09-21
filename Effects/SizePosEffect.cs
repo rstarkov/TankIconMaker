@@ -110,8 +110,9 @@ namespace TankIconMaker.Effects
             Filter = Filter.Auto;
         }
 
-        public override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             var pixels = PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
             if (ShowPixelBorders || PositionByPixels || (SizeByPixels && SizeMode2 != SizeMode2.NoChange && SizeMode2 != SizeMode2.ByPercentage))
                 pixels = layer.PreciseSize(PixelAlphaThreshold);

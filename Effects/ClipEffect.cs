@@ -43,8 +43,9 @@ namespace TankIconMaker.Effects
             Mode = ClipMode.ByIconBounds;
         }
 
-        public unsafe override BitmapBase Apply(Tank tank, BitmapBase layer)
+        public unsafe override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            Tank tank = renderTask.Tank;
             var bounds =
                 Mode == ClipMode.ByPixels
                     ? layer.PreciseSize(PixelAlphaThreshold)
