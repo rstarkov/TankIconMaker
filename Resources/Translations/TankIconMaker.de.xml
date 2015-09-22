@@ -367,6 +367,16 @@
     </ctCancelBtn>
   </PathTemplateWindow>
   <LayerAndEffect>
+    <LayerId>
+      <DisplayName>
+        <Translation>Out of date</Translation>
+        <Old>Identifier</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Out of date</Translation>
+        <Old>Sets the identifier for use in some effects.</Old>
+      </Description>
+    </LayerId>
     <LayerVisible>
       <DisplayName>
         <Translation>Sichtbar</Translation>
