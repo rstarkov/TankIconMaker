@@ -82,8 +82,8 @@ namespace TankIconMaker.Effects
                             }
                             if (Invert)
                                 alpha = 255m - alpha;
-                            var opacity = layer.Data[i * 4 + maskImg.Stride * j + 3] * (alpha / 255m);
-                            layer.Data[i * 4 + maskImg.Stride * j + 3] = (byte)opacity;
+                            var opacity = layer.Data[i * 4 + layer.Stride * j + 3] * (alpha / 255m);
+                            layer.Data[i * 4 + layer.Stride * j + 3] = (byte)opacity;
                         }
                     }
                 }

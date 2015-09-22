@@ -371,6 +371,16 @@
     </ctCancelBtn>
   </PathTemplateWindow>
   <LayerAndEffect>
+    <LayerId>
+      <DisplayName>
+        <Translation>Идентификатор</Translation>
+        <Old>Identifier</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Задает идентификатор, используемый в некоторых эффектах.</Translation>
+        <Old>Sets the identifier for use in some effects.</Old>
+      </Description>
+    </LayerId>
     <LayerVisible>
       <DisplayName>
         <Translation>Видимость</Translation>
@@ -1129,11 +1139,11 @@
     </EffectDescription>
     <MaskLayerId>
       <DisplayName>
-        <Translation>Привязка</Translation>
+        <Translation>ИД слоя-маски</Translation>
         <Old>Mask layer Id</Old>
       </DisplayName>
       <Description>
-        <Translation>Указывает, как расположить слой по отношению к точке привязки, заданной значениями “X” и “Y”.</Translation>
+        <Translation>Задает Идентификатор слоя-маски.</Translation>
         <Old>Sets the mask layer Identifier.</Old>
       </Description>
     </MaskLayerId>
