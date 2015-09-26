@@ -47,6 +47,10 @@ namespace TankIconMaker.Effects
             if (string.IsNullOrEmpty(MaskLayerId))
                 return layer;
             maskLayer = renderTask.layers.FirstOrDefault(x => x.Id == MaskLayerId);
+            if (renderTask.RenderLayerSequence.Contains(maskLayer))
+            {
+                throw new Exception("Recursive Mask Layer");
+            }
             if (maskLayer == null)
                 throw new Exception("No layer with correspinding Id found");
             var maskImg = renderTask.RenderLayer(maskLayer);
