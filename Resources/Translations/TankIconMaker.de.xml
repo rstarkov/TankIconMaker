@@ -367,16 +367,6 @@
     </ctCancelBtn>
   </PathTemplateWindow>
   <LayerAndEffect>
-    <LayerId>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Identifier</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Sets the identifier for use in some effects.</Old>
-      </Description>
-    </LayerId>
     <LayerVisible>
       <DisplayName>
         <Translation>Sichtbar</Translation>
@@ -1124,46 +1114,6 @@
       </Description>
     </ShiftY>
   </EffectShift>
-  <EffectMaskLayer>
-    <EffectName>
-      <Translation>Out of date</Translation>
-      <Old>Mask Layer</Old>
-    </EffectName>
-    <EffectDescription>
-      <Translation>Out of date</Translation>
-      <Old>Adjusts layer opacity using another layer as mask.</Old>
-    </EffectDescription>
-    <MaskLayerId>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Mask layer Id</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Sets the mask layer Identifier.</Old>
-      </Description>
-    </MaskLayerId>
-    <MaskMode>
-      <DisplayName>
-        <Translation>Режим</Translation>
-        <Old>Mode</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Selects the mask layer mode.</Old>
-      </Description>
-    </MaskMode>
-    <InvertTr>
-      <DisplayName>
-        <Translation>Out of date</Translation>
-        <Old>Invert</Old>
-      </DisplayName>
-      <Description>
-        <Translation>Out of date</Translation>
-        <Old>Specifies whether to invert the mask or not.</Old>
-      </Description>
-    </InvertTr>
-  </EffectMaskLayer>
   <EffectSizePos>
     <EffectName>
       <Translation>Größe / Position</Translation>
@@ -1900,20 +1850,6 @@
       <Old>By icon bounds</Old>
     </ByIconBounds>
   </ClipMode>
-  <MaskMode>
-    <Combinated>
-      <Translation>Out of date</Translation>
-      <Old>Combinated</Old>
-    </Combinated>
-    <Opacity>
-      <Translation>Out of date</Translation>
-      <Old>Opacity</Old>
-    </Opacity>
-    <Grayscale>
-      <Translation>Out of date</Translation>
-      <Old>Grayscale</Old>
-    </Grayscale>
-  </MaskMode>
   <SizeMode>
     <NoChange>
       <Translation>Nicht ändern</Translation>

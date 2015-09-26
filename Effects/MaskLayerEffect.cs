@@ -13,7 +13,7 @@ namespace TankIconMaker.Effects
     [TypeConverter(typeof(MaskModeTranslation.Conv))]
     enum MaskMode
     {
-        Combinated,
+        Combined,
         Opacity,
         Grayscale
     }
@@ -36,7 +36,7 @@ namespace TankIconMaker.Effects
         public MaskLayerEffect()
         {
             MaskLayerId = string.Empty;
-            MaskMode = Effects.MaskMode.Combinated;
+            MaskMode = Effects.MaskMode.Combined;
             Invert = false;
         }
         
@@ -72,7 +72,7 @@ namespace TankIconMaker.Effects
                                             + maskImg.Data[i * 4 + maskImg.Stride * j + 2]
                                             ) / 3;
                                         break;
-                                    case Effects.MaskMode.Combinated:
+                                    case Effects.MaskMode.Combined:
                                         alpha = (maskImg.Data[i * 4 + maskImg.Stride * j]
                                             + maskImg.Data[i * 4 + maskImg.Stride * j + 1]
                                             + maskImg.Data[i * 4 + maskImg.Stride * j + 2]

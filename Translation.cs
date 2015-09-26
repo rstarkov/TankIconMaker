@@ -766,7 +766,7 @@ namespace TankIconMaker
     [LingoStringClass, LingoInGroup(TranslationGroup.EnumMaskMode), LingoInGroup(TranslationGroup.EffectMaskLayer)]
     sealed class MaskModeTranslation
     {
-        public TrString Combinated = "Combinated";
+        public TrString Combined = "Combined";
         public TrString Opacity = "Opacity";
         public TrString Grayscale = "Grayscale";
 
