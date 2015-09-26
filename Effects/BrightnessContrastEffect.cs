@@ -43,8 +43,8 @@ namespace TankIconMaker.Effects
         }
 
         public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
-		{
-			Tank tank = renderTask.Tank;
+        {
+            Tank tank = renderTask.Tank;
             if (!(ChannelA || ChannelR || ChannelG || ChannelB) || (_Brightness == 0 && _Contrast == 0))
                 return layer;
 

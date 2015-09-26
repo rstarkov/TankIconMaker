@@ -1905,10 +1905,10 @@
     </ByIconBounds>
   </ClipMode>
   <MaskMode>
-    <Combinated>
+    <Combined>
       <Translation>Комбинированный</Translation>
-      <Old>Combinated</Old>
-    </Combinated>
+      <Old>Combined</Old>
+    </Combined>
     <Opacity>
       <Translation>Прозрачность</Translation>
       <Old>Opacity</Old>

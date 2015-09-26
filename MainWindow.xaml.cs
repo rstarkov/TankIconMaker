@@ -2045,7 +2045,8 @@ namespace TankIconMaker
         public string TankId;
         /// <summary>All the tank data pertaining to this render task.</summary>
         public Tank Tank;
-        public LayerBase currentLayer { get; private set; }
+        public LayerBase CurrentLayer { get; private set; }
+        public LayerBase RenderStartLayer { get; private set; }
         public IList<LayerBase> layers { get; private set; }
 
         /// <summary>Image rendered by the maker for a tank.</summary>
@@ -2066,6 +2067,7 @@ namespace TankIconMaker
         {
             if (!string.IsNullOrEmpty(layer.Id) && RenderedLayers.ContainsKey(layer.Id))
                 return RenderedLayers[layer.Id];
+            CurrentLayer = layer;
             var img = layer.Draw(this.Tank);
             if (img == null)
                 return null;
@@ -2074,7 +2076,7 @@ namespace TankIconMaker
                 if (effect is Effects.MaskLayerEffect)
                 {
                     string id = (effect as Effects.MaskLayerEffect).MaskLayerId;
-                    if (!string.IsNullOrEmpty(id) && id == currentLayer.Id)
+                    if (!string.IsNullOrEmpty(id) && id == RenderStartLayer.Id)
                     {
                         throw new Exception("Recursive Mask Layer");
                     }
@@ -2107,7 +2109,7 @@ namespace TankIconMaker
                 {
                     foreach (var layer in style.Layers.Where(l => l.Visible && l.VisibleFor.GetValue(this.Tank) == BoolWithPassthrough.Yes))
                     {
-                        currentLayer = layer;
+                        RenderStartLayer = layer;
                         var img = RenderLayer(layer);
                         if (img != null)
                             result.DrawImage(img);
