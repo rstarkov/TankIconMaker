@@ -2045,7 +2045,6 @@ namespace TankIconMaker
         public string TankId;
         /// <summary>All the tank data pertaining to this render task.</summary>
         public Tank Tank;
-        public LayerBase CurrentLayer { get; private set; }
         public LayerBase RenderStartLayer { get; private set; }
         public IList<LayerBase> layers { get; private set; }
 
@@ -2067,7 +2066,6 @@ namespace TankIconMaker
         {
             if (!string.IsNullOrEmpty(layer.Id) && RenderedLayers.ContainsKey(layer.Id))
                 return RenderedLayers[layer.Id];
-            CurrentLayer = layer;
             var img = layer.Draw(this.Tank);
             if (img == null)
                 return null;
