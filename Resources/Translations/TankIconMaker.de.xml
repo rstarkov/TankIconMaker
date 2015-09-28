@@ -173,6 +173,10 @@
       <Translation>Japan</Translation>
       <Old>Japan</Old>
     </ctDisplayModeCountryJapan>
+    <ctDisplayModeCountryCzech>
+      <Translation>Tschechien</Translation>
+      <Old>Czech</Old>
+    </ctDisplayModeCountryCzech>
     <ctDisplayModeClassLight>
       <Translation>Leichte Panzer</Translation>
       <Old>Light tanks</Old>
@@ -2109,6 +2113,10 @@
       <Translation>Land: Japan</Translation>
       <Old>Country: Japan</Old>
     </CountryJapan>
+    <CountryCzech>
+      <Translation>Land: Tschechien</Translation>
+      <Old>Country: Czech</Old>
+    </CountryCzech>
     <CountryNone>
       <Translation>Land: (kein)</Translation>
       <Old>Country:  None</Old>
