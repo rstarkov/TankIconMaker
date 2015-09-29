@@ -371,6 +371,16 @@
     </ctCancelBtn>
   </PathTemplateWindow>
   <LayerAndEffect>
+    <LayerId>
+      <DisplayName>
+        <Translation>Bezeichner</Translation>
+        <Old>Identifier</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Legt einen Bezeichner fest, anhand dessen diese Ebene in Effekten identifiziert werden kann.</Translation>
+        <Old>Sets the identifier for use in some effects.</Old>
+      </Description>
+    </LayerId>
     <LayerVisible>
       <DisplayName>
         <Translation>Sichtbar</Translation>
@@ -1118,6 +1128,46 @@
       </Description>
     </ShiftY>
   </EffectShift>
+  <EffectMaskLayer>
+    <EffectName>
+      <Translation>Maske</Translation>
+      <Old>Mask Layer</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Ändert die Durchsichtigkeit einer Ebene unter Verwendung einer anderen Ebene als Maske.</Translation>
+      <Old>Adjusts layer opacity using another layer as mask.</Old>
+    </EffectDescription>
+    <MaskLayerId>
+      <DisplayName>
+        <Translation>Bez. der Maskenebene</Translation>
+        <Old>Mask layer Id</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Identifiziert die Maskenebene anhand ihres Bezeichners.</Translation>
+        <Old>Sets the mask layer Identifier.</Old>
+      </Description>
+    </MaskLayerId>
+    <MaskMode>
+      <DisplayName>
+        <Translation>Modus</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt den Maskenmodus.</Translation>
+        <Old>Selects the mask layer mode.</Old>
+      </Description>
+    </MaskMode>
+    <InvertTr>
+      <DisplayName>
+        <Translation>Invertieren</Translation>
+        <Old>Invert</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Bestimmt, ob die Maske invertiert wird oder nicht.</Translation>
+        <Old>Specifies whether to invert the mask or not.</Old>
+      </Description>
+    </InvertTr>
+  </EffectMaskLayer>
   <EffectSizePos>
     <EffectName>
       <Translation>Größe / Position</Translation>
@@ -1880,6 +1930,20 @@
       <Old>By size: stretch</Old>
     </BySizeStretch>
   </SizeMode>
+  <MaskMode>
+    <Combined>
+      <Translation>Kombinieren</Translation>
+      <Old>Combined</Old>
+    </Combined>
+    <Opacity>
+      <Translation>Durchsichtigkeit</Translation>
+      <Old>Opacity</Old>
+    </Opacity>
+    <Grayscale>
+      <Translation>Graustufen</Translation>
+      <Old>Grayscale</Old>
+    </Grayscale>
+  </MaskMode>
   <GrowShrinkMode>
     <GrowAndShrink>
       <Translation>Beides erlauben</Translation>
@@ -1999,6 +2063,10 @@
       <Translation>Größe</Translation>
       <Old>Size</Old>
     </Size>
+    <Mask>
+      <Translation>Maske</Translation>
+      <Old>Mask</Old>
+    </Mask>
     <TextSource>
       <Translation>Textquelle</Translation>
       <Old>Text source</Old>
