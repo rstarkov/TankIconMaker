@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Xml.Linq;
+using System.Linq;
+using System.Text.RegularExpressions;
 using RT.Util.Lingo;
 using RT.Util.Serialization;
 
@@ -49,9 +51,9 @@ namespace TankIconMaker.Effects
 
         public Anchor Anchor { get; set; }
         public static MemberTr AnchorTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Anchor); }
-        public int X { get; set; }
+        public string X { get; set; }
         public static MemberTr XTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.X); }
-        public int Y { get; set; }
+        public string Y { get; set; }
         public static MemberTr YTr(Translation tr) { return new MemberTr(tr.Category.Position, tr.EffectSizePos.Y); }
 
         public bool SizeByPixels { get; set; }
@@ -60,11 +62,9 @@ namespace TankIconMaker.Effects
         public double Percentage { get { return _Percentage; } set { _Percentage = Math.Max(0.0, value); } }
         private double _Percentage;
         public static MemberTr PercentageTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Percentage); }
-        public int Width { get { return _Width; } set { _Width = Math.Max(0, value); } }
-        private int _Width;
+        public string Width { get; set; }
         public static MemberTr WidthTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Width); }
-        public int Height { get { return _Height; } set { _Height = Math.Max(0, value); } }
-        private int _Height;
+        public string Height { get; set; }
         public static MemberTr HeightTr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.Height); }
         public SizeMode2 SizeMode2 { get; set; }
         public static MemberTr SizeMode2Tr(Translation tr) { return new MemberTr(tr.Category.Size, tr.EffectSizePos.SizeMode); }
@@ -100,11 +100,11 @@ namespace TankIconMaker.Effects
             PositionByPixels = true;
             SizeByPixels = true;
             PixelAlphaThreshold = 120;
-            X = Y = 0;
+            X = Y = "0";
             Anchor = Anchor.TopLeft;
             Percentage = 50;
-            Width = 30;
-            Height = 18;
+            Width = "30";
+            Height = "18";
             SizeMode2 = SizeMode2.NoChange;
             GrowShrinkMode = GrowShrinkMode.GrowAndShrink;
             Filter = Filter.Auto;
@@ -112,6 +112,11 @@ namespace TankIconMaker.Effects
 
         public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
+            var calculator = new SizeCalculator(renderTask);
+            double ParsedWidth = Math.Max(0, calculator.Parse(Width)),
+                ParsedHeight = Math.Max(0, calculator.Parse(Height)),
+                ParsedX = calculator.Parse(X),
+                ParsedY = calculator.Parse(Y);
             Tank tank = renderTask.Tank;
             var pixels = PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
             if (ShowPixelBorders || PositionByPixels || (SizeByPixels && SizeMode2 != SizeMode2.NoChange && SizeMode2 != SizeMode2.ByPercentage))
@@ -132,17 +137,17 @@ namespace TankIconMaker.Effects
                     scaleWidth = scaleHeight = Percentage / 100.0;
                     break;
                 case SizeMode2.BySizeWidthOnly:
-                    scaleWidth = scaleHeight = Width / (double) sourceWidth;
+                    scaleWidth = scaleHeight = ParsedWidth / (double)sourceWidth;
                     break;
                 case SizeMode2.BySizeHeightOnly:
-                    scaleWidth = scaleHeight = Height / (double) sourceHeight;
+                    scaleWidth = scaleHeight = ParsedHeight / (double)sourceHeight;
                     break;
                 case SizeMode2.BySizeFit:
-                    scaleWidth = scaleHeight = Math.Min(Width / (double) sourceWidth, Height / (double) sourceHeight);
+                    scaleWidth = scaleHeight = Math.Min(ParsedWidth / (double)sourceWidth, ParsedHeight / (double)sourceHeight);
                     break;
                 case SizeMode2.BySizeStretch:
-                    scaleWidth = Width / (double) sourceWidth;
-                    scaleHeight = Height / (double) sourceHeight;
+                    scaleWidth = ParsedWidth / (double)sourceWidth;
+                    scaleHeight = ParsedHeight / (double)sourceHeight;
                     break;
                 default:
                     throw new Exception("7924688");
@@ -163,8 +168,8 @@ namespace TankIconMaker.Effects
             int anchorWidth = (int) Math.Ceiling((PositionByPixels ? pixels.Width : layer.Width) * scaleWidth);
             int anchorHeight = (int) Math.Ceiling((PositionByPixels ? pixels.Height : layer.Height) * scaleHeight);
             // Location of the top left corner of the anchored rectangle
-            int tgtX = X - (anchor.HasFlag(AnchorRaw.Right) ? anchorWidth - 1 : anchor.HasFlag(AnchorRaw.Center) ? (anchorWidth - 1) / 2 : 0);
-            int tgtY = Y - (anchor.HasFlag(AnchorRaw.Bottom) ? anchorHeight - 1 : anchor.HasFlag(AnchorRaw.Mid) ? (anchorHeight - 1) / 2 : 0);
+            int tgtX = (int)ParsedX - (anchor.HasFlag(AnchorRaw.Right) ? anchorWidth - 1 : anchor.HasFlag(AnchorRaw.Center) ? (anchorWidth - 1) / 2 : 0);
+            int tgtY = (int)ParsedY - (anchor.HasFlag(AnchorRaw.Bottom) ? anchorHeight - 1 : anchor.HasFlag(AnchorRaw.Mid) ? (anchorHeight - 1) / 2 : 0);
             // Location of the top left corner of the whole scaled layer image
             double x = tgtX - (PositionByPixels ? pixels.Left * scaleWidth : 0);
             double y = tgtY - (PositionByPixels ? pixels.Top * scaleHeight : 0);
@@ -209,8 +214,8 @@ namespace TankIconMaker.Effects
                 {
                     image.StrokeWidth = 1;
                     image.StrokeColor = new ImageMagick.MagickColor(255, 255, 0, 120);
-                    image.Draw(new ImageMagick.DrawableLine(X - 1, Y, X + 1, Y));
-                    image.Draw(new ImageMagick.DrawableLine(X, Y - 1, X, Y + 1));
+                    image.Draw(new ImageMagick.DrawableLine((int)ParsedX - 1, (int)ParsedY, (int)ParsedX + 1, (int)ParsedY));
+                    image.Draw(new ImageMagick.DrawableLine((int)ParsedX, (int)ParsedY - 1, (int)ParsedX, (int)ParsedY + 1));
                     layer.CopyPixelsFrom(image.ToBitmapSource());
                 }
             }
@@ -233,43 +238,43 @@ namespace TankIconMaker.Effects
 
                 if (LeftAnchor && RightAnchor)
                 {
-                    X = (Left + Right) / 2;
+                    X = ((Left + Right) / 2).ToString();
                     anchor = AnchorRaw.Center;
                 }
                 else if (LeftAnchor)
                 {
-                    X = Left;
+                    X = (Left).ToString();
                     anchor = AnchorRaw.Left;
                 }
                 else if (RightAnchor)
                 {
-                    X = Right;
+                    X = (Right).ToString();
                     anchor = AnchorRaw.Right;
                 }
                 else
                 {
-                    X = 80 / 2; // ok to hard-code 80 because that was the IconWidth of all styles as old as this one
+                    X = (80 / 2).ToString(); // ok to hard-code 80 because that was the IconWidth of all styles as old as this one
                     anchor = AnchorRaw.Center;
                 }
 
                 if (TopAnchor && BottomAnchor)
                 {
-                    Y = (Top + Bottom) / 2;
+                    Y = ((Top + Bottom) / 2).ToString();
                     anchor |= AnchorRaw.Mid;
                 }
                 else if (TopAnchor)
                 {
-                    Y = Top;
+                    Y = Top.ToString();
                     anchor |= AnchorRaw.Top;
                 }
                 else if (BottomAnchor)
                 {
-                    Y = Bottom;
+                    Y = Bottom.ToString();
                     anchor |= AnchorRaw.Bottom;
                 }
                 else
                 {
-                    Y = 24 / 2; // ok to hard-code 24 because that was the IconHeight of all styles as old as this one
+                    Y = (24 / 2).ToString(); // ok to hard-code 24 because that was the IconHeight of all styles as old as this one
                     anchor |= AnchorRaw.Mid;
                 }
 
@@ -294,21 +299,21 @@ namespace TankIconMaker.Effects
                         break;
                     case SizeModeOld.ByPosLeftRight:
                         SizeMode2 = SizeMode2.BySizeWidthOnly;
-                        Width = Right - Left + 1;
+                        Width = (Right - Left + 1).ToString();
                         break;
                     case SizeModeOld.ByPosTopBottom:
                         SizeMode2 = SizeMode2.BySizeHeightOnly;
-                        Height = Bottom - Top + 1;
+                        Height = (Bottom - Top + 1).ToString();
                         break;
                     case SizeModeOld.ByPosAllFit:
                         SizeMode2 = SizeMode2.BySizeFit;
-                        Width = Right - Left + 1;
-                        Height = Bottom - Top + 1;
+                        Width = (Right - Left + 1).ToString();
+                        Height = (Bottom - Top + 1).ToString();
                         break;
                     case SizeModeOld.ByPosAllStretch:
                         SizeMode2 = SizeMode2.BySizeStretch;
-                        Width = Right - Left + 1;
-                        Height = Bottom - Top + 1;
+                        Width = (Right - Left + 1).ToString();
+                        Height = (Bottom - Top + 1).ToString();
                         break;
                 }
             }
@@ -316,6 +321,68 @@ namespace TankIconMaker.Effects
             Left = Right = Top = Bottom = 0;
             LeftAnchor = RightAnchor = TopAnchor = BottomAnchor = false;
             SizeMode = default(SizeModeOld);
+        }
+    }
+
+    class SizeCalculator : Calculator
+    {
+        RenderTask renderTask;
+        public SizeCalculator(RenderTask RenderTask)
+            : base()
+        {
+            renderTask = RenderTask;
+        }
+
+        public override bool GetVariable(string varName, ref double value)
+        {
+            if (!Regex.IsMatch(varName, @"\{\w+\.\w+\}"))
+            {
+                return base.GetVariable(varName, ref value);
+            }
+            varName = varName.Substring(1, varName.Length - 2);
+            var varInfo = varName.Split('.');
+            var layerId = varInfo[0];
+            var layerParam = varInfo[1].ToLower();
+            var varLayer = renderTask.layers.FirstOrDefault(x => x.Id == layerId);
+            if (renderTask.RenderLayerSequence.Contains(varLayer))
+            {
+                throw new Exception("Recursive Layer Size/pos param");
+            }
+            if (varLayer == null)
+                throw new Exception("No layer with correspinding Id found");
+            var varImg = renderTask.RenderLayer(varLayer);
+            var pixels = varImg.PreciseSize();
+            switch (layerParam)
+            {
+                case "width":
+                    value = pixels.Width;
+                    return true;
+                case "height":
+                    value = pixels.Height;
+                    return true;
+                case "top":
+                    value = pixels.Top;
+                    return true;
+                case "left":
+                    value = pixels.Left;
+                    return true;
+                case "right":
+                    value = pixels.Right;
+                    return true;
+                case "bottom":
+                    value = pixels.Bottom;
+                    return true;
+                case "centerhorz":
+                    value = pixels.CenterHorzD;
+                    return true;
+                case "centervert":
+                    value = pixels.CenterVertD;
+                    return true;
+                default:
+                    value = 0;
+                    return false;
+            }
+
         }
     }
 }

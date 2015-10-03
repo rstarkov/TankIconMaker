@@ -85,6 +85,7 @@
     <Compile Include="BitmapResampler.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Calculator.cs" />
     <Compile Include="CheckListWindow.xaml.cs">
       <DependentUpon>CheckListWindow.xaml</DependentUpon>
     </Compile>
