@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Serialization;
 using WpfCrutches;
+using System.Text.RegularExpressions;
 
 namespace TankIconMaker
 {
@@ -38,7 +39,7 @@ namespace TankIconMaker
 
         /// <summary>Id for use in Layer Mask.</summary>
         private string _Id;
-        public string Id { get { return _Id; } set { _Id = value; NotifyPropertyChanged("Id"); } }
+        public string Id { get { return _Id; } set { _Id = Regex.Replace(value.Trim(), @"[\.{}]", ""); NotifyPropertyChanged("Id"); } }
         public static MemberTr IdTr(Translation tr) { return new MemberTr(tr.Category.General, tr.LayerAndEffect.LayerId); }
 
         public bool Visible { get { return _Visible; } set { _Visible = value; NotifyPropertyChanged("Visible"); } }
