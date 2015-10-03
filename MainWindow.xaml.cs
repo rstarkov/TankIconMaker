@@ -2083,6 +2083,7 @@ namespace TankIconMaker
                 if (!string.IsNullOrEmpty(layer.Id))
                     RenderedLayers[layer.Id] = img;
             }
+            RenderLayerSequence.Remove(layer);
             return img;
         }
 
