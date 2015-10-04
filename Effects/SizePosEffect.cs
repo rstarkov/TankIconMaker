@@ -335,7 +335,7 @@ namespace TankIconMaker.Effects
 
         public override bool GetVariable(string varName, ref double value)
         {
-            if (!Regex.IsMatch(varName, @"\{\w+\.\w+\}"))
+            if (!Regex.IsMatch(varName, @"\{[A-Za-z0-9_\-]+\.\w+\}"))
             {
                 return base.GetVariable(varName, ref value);
             }
