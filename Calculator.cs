@@ -189,7 +189,7 @@ class Calculator
         {
             if (Expression[0] >= '0' && Expression[0] <= '9')
             {
-                result = double.Parse(Expression.Replace('.', ','));
+                result = double.Parse(Expression.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
             }
             return result;
         }
