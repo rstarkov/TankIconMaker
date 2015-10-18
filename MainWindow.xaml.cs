@@ -516,9 +516,9 @@ namespace TankIconMaker
 
             var context = CurContext;
             var images = ctIconsPanel.Children.OfType<TankImageControl>().ToList();
-            var renderTasks = ListRenderTasks(context);
-
             var style = App.Settings.ActiveStyle;
+            var renderTasks = ListRenderTasks(context, style);
+
             foreach (var layer in style.Layers)
                 TestLayer(style, layer);
 
@@ -543,7 +543,7 @@ namespace TankIconMaker
                         try
                         {
                             if (cancelToken.IsCancellationRequested) return;
-                            RenderTank(style, renderTask);
+                            renderTask.Render();
                             if (cancelToken.IsCancellationRequested) return;
                             Dispatcher.Invoke(new Action(() =>
                             {
@@ -647,15 +647,6 @@ namespace TankIconMaker
             }
         }
 
-
-        /// <summary>
-        /// Executes a render task. Will handle any exceptions in the maker and draw an appropriate substitute image
-        /// to draw the user's attention to the problem.
-        /// </summary>
-        private static void RenderTank(Style style, RenderTask renderTask)
-        {
-            renderTask.Render(style);
-        }
 
         /// <summary>
         /// Creates a TankImageControl and adds it to the scrollable tank image area. This involves a bunch of properties,
@@ -809,7 +800,7 @@ namespace TankIconMaker
         /// of the tanks if the user chose a smaller subset in the GUI.
         /// </summary>
         /// <param name="all">Forces the method to enumerate all tanks regardless of the GUI setting.</param>
-        private static List<RenderTask> ListRenderTasks(WotContext context, bool all = false)
+        private static List<RenderTask> ListRenderTasks(WotContext context, Style style, bool all = false)
         {
             if (context.Tanks.Count == 0)
                 return new List<RenderTask>(); // happens when there are no built-in data files
@@ -850,7 +841,7 @@ namespace TankIconMaker
             return selection.OrderBy(t => t.Country).ThenBy(t => t.Class).ThenBy(t => t.Tier).ThenBy(t => t.Category).ThenBy(t => t.TankId)
                 .Select(tank =>
                 {
-                    var task = new RenderTask();
+                    var task = new RenderTask(style);
                     task.TankId = tank.TankId;
                     task.Tank = new Tank(
                         tank,
@@ -1102,7 +1093,7 @@ namespace TankIconMaker
 
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
-                var renderTasks = ListRenderTasks(context, all: true);
+                var renderTasks = ListRenderTasks(context, style, all: true);
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
@@ -1115,7 +1106,7 @@ namespace TankIconMaker
                             if (!renders.ContainsKey(renderTask.TankId))
                             {
                                 renders[renderTask.TankId] = renderTask;
-                                RenderTank(style, renderTask);
+                                renderTask.Render();
                             }
                         foreach (var renderTask in renderTasks)
                         {
@@ -1184,7 +1175,7 @@ namespace TankIconMaker
             foreach (var styleF in stylesToSave)
             {
                 var style = styleF; // foreach variable scope fix
-                var renderTasks = ListRenderTasks(context, true);
+                var renderTasks = ListRenderTasks(context, style, true);
                 tasksRemaining += renderTasks.Count;
 
                 foreach (var renderTaskF in renderTasks)
@@ -1195,7 +1186,7 @@ namespace TankIconMaker
                         try
                         {
                             var path = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
-                            RenderTank(style, renderTask);
+                            renderTask.Render();
                             Directory.CreateDirectory(path);
                             Ut.SaveImage(renderTask.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
                             if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
@@ -2045,8 +2036,7 @@ namespace TankIconMaker
         public string TankId;
         /// <summary>All the tank data pertaining to this render task.</summary>
         public Tank Tank;
-        public List<LayerBase> RenderLayerSequence { get; private set; }
-        public IList<LayerBase> layers { get; private set; }
+        private HashSet<LayerBase> RenderLayerSequence = new HashSet<LayerBase>();
 
         /// <summary>Image rendered by the maker for a tank.</summary>
         public BitmapSource Image;
@@ -2055,12 +2045,22 @@ namespace TankIconMaker
         /// <summary>Exception that occurred while rendering this image, or null if none.</summary>
         public Exception Exception;
 
+        public RenderTask(Style style)
+        {
+            style = style;
+        }
+
         public void AddWarning(string warning)
         {
             if (Warnings == null) Warnings = new List<string>();
             Warnings.Add(warning);
         }
         public int WarningsCount { get { return Warnings == null ? 0 : Warnings.Count; } }
+
+        public bool RenderLayerSequenceContains(LayerBase layer)
+        {
+            return RenderLayerSequence.Contains(layer);
+        }
 
         public BitmapBase RenderLayer(LayerBase layer)
         {
@@ -2087,21 +2087,23 @@ namespace TankIconMaker
             return img;
         }
 
-        public void Render(Style Style)
+        /// <summary>
+        /// Executes this render task. Will handle any exceptions in the maker and draw an appropriate substitute image
+        /// to draw the user's attention to the problem.
+        /// </summary>
+        public void Render()
         {
-            style = Style;
-            layers = style.Layers;
             RenderedLayers = new Dictionary<string, BitmapBase>();
             try
             {
-                if (layers.Where(x => !string.IsNullOrEmpty(x.Id)).GroupBy(x => x.Id).Any(x => x.Count() > 1))
+                if (style.Layers.Where(x => !string.IsNullOrEmpty(x.Id)).GroupBy(x => x.Id).Any(x => x.Count() > 1))
                     throw new Exception("Two or more layers with simular Id");
                 var result = new BitmapWpf(style.IconWidth, style.IconHeight);
                 using (result.UseWrite())
                 {
                     foreach (var layer in style.Layers.Where(l => l.Visible && l.VisibleFor.GetValue(this.Tank) == BoolWithPassthrough.Yes))
                     {
-                        RenderLayerSequence = new List<LayerBase>();
+                        RenderLayerSequence.Clear();
                         var img = RenderLayer(layer);
                         if (img != null)
                             result.DrawImage(img);
