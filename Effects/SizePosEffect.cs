@@ -343,13 +343,11 @@ namespace TankIconMaker.Effects
             var varInfo = varName.Split('.');
             var layerId = varInfo[0];
             var layerParam = varInfo[1].ToLower();
-            var varLayer = renderTask.layers.FirstOrDefault(x => x.Id == layerId);
-            if (renderTask.RenderLayerSequence.Contains(varLayer))
-            {
-                throw new Exception("Recursive Layer Size/pos param");
-            }
+            var varLayer = renderTask.style.Layers.FirstOrDefault(x => x.Id == layerId);
+            if (renderTask.RenderLayerSequenceContains(varLayer))
+                throw new Exception("Recursive Layer size/pos parameter");
             if (varLayer == null)
-                throw new Exception("No layer with correspinding Id found");
+                throw new Exception("No layer with corresponding Id found");
             var varImg = renderTask.RenderLayer(varLayer);
             var pixels = varImg.PreciseSize();
             switch (layerParam)
