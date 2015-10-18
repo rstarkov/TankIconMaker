@@ -39,18 +39,18 @@ namespace TankIconMaker.Effects
             MaskMode = Effects.MaskMode.Combined;
             Invert = false;
         }
-        
+
         public unsafe override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
             Tank tank = renderTask.Tank;
             LayerBase maskLayer;
             if (string.IsNullOrEmpty(MaskLayerId))
                 return layer;
-            maskLayer = renderTask.style.Layers.FirstOrDefault(x => x.Id == MaskLayerId);
-            if (renderTask.RenderLayerSequenceContains(maskLayer))
-                throw new Exception("Recursive Mask Layer");
+            maskLayer = renderTask.Style.Layers.FirstOrDefault(x => x.Id == MaskLayerId);
             if (maskLayer == null)
-                throw new Exception("No layer with correspinding Id found");
+                throw new Exception("No layer with Id={0} found".Fmt(MaskLayerId));
+            if (renderTask.IsLayerAlreadyReferenced(maskLayer))
+                throw new Exception("Recursive Mask Layer");
             var maskImg = renderTask.RenderLayer(maskLayer);
             using (layer.UseWrite())
             {
@@ -85,7 +85,7 @@ namespace TankIconMaker.Effects
                             if (Invert)
                                 alpha = 255m - alpha;
                             var opacity = layer.Data[i * 4 + layer.Stride * j + 3] * (alpha / 255m);
-                            layer.Data[i * 4 + layer.Stride * j + 3] = (byte)opacity;
+                            layer.Data[i * 4 + layer.Stride * j + 3] = (byte) opacity;
                         }
                     }
                 }
