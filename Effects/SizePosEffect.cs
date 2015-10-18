@@ -137,17 +137,17 @@ namespace TankIconMaker.Effects
                     scaleWidth = scaleHeight = Percentage / 100.0;
                     break;
                 case SizeMode2.BySizeWidthOnly:
-                    scaleWidth = scaleHeight = ParsedWidth / (double)sourceWidth;
+                    scaleWidth = scaleHeight = ParsedWidth / (double) sourceWidth;
                     break;
                 case SizeMode2.BySizeHeightOnly:
-                    scaleWidth = scaleHeight = ParsedHeight / (double)sourceHeight;
+                    scaleWidth = scaleHeight = ParsedHeight / (double) sourceHeight;
                     break;
                 case SizeMode2.BySizeFit:
-                    scaleWidth = scaleHeight = Math.Min(ParsedWidth / (double)sourceWidth, ParsedHeight / (double)sourceHeight);
+                    scaleWidth = scaleHeight = Math.Min(ParsedWidth / (double) sourceWidth, ParsedHeight / (double) sourceHeight);
                     break;
                 case SizeMode2.BySizeStretch:
-                    scaleWidth = ParsedWidth / (double)sourceWidth;
-                    scaleHeight = ParsedHeight / (double)sourceHeight;
+                    scaleWidth = ParsedWidth / (double) sourceWidth;
+                    scaleHeight = ParsedHeight / (double) sourceHeight;
                     break;
                 default:
                     throw new Exception("7924688");
@@ -168,8 +168,8 @@ namespace TankIconMaker.Effects
             int anchorWidth = (int) Math.Ceiling((PositionByPixels ? pixels.Width : layer.Width) * scaleWidth);
             int anchorHeight = (int) Math.Ceiling((PositionByPixels ? pixels.Height : layer.Height) * scaleHeight);
             // Location of the top left corner of the anchored rectangle
-            int tgtX = (int)ParsedX - (anchor.HasFlag(AnchorRaw.Right) ? anchorWidth - 1 : anchor.HasFlag(AnchorRaw.Center) ? (anchorWidth - 1) / 2 : 0);
-            int tgtY = (int)ParsedY - (anchor.HasFlag(AnchorRaw.Bottom) ? anchorHeight - 1 : anchor.HasFlag(AnchorRaw.Mid) ? (anchorHeight - 1) / 2 : 0);
+            int tgtX = (int) ParsedX - (anchor.HasFlag(AnchorRaw.Right) ? anchorWidth - 1 : anchor.HasFlag(AnchorRaw.Center) ? (anchorWidth - 1) / 2 : 0);
+            int tgtY = (int) ParsedY - (anchor.HasFlag(AnchorRaw.Bottom) ? anchorHeight - 1 : anchor.HasFlag(AnchorRaw.Mid) ? (anchorHeight - 1) / 2 : 0);
             // Location of the top left corner of the whole scaled layer image
             double x = tgtX - (PositionByPixels ? pixels.Left * scaleWidth : 0);
             double y = tgtY - (PositionByPixels ? pixels.Top * scaleHeight : 0);
@@ -214,8 +214,8 @@ namespace TankIconMaker.Effects
                 {
                     image.StrokeWidth = 1;
                     image.StrokeColor = new ImageMagick.MagickColor(255, 255, 0, 120);
-                    image.Draw(new ImageMagick.DrawableLine((int)ParsedX - 1, (int)ParsedY, (int)ParsedX + 1, (int)ParsedY));
-                    image.Draw(new ImageMagick.DrawableLine((int)ParsedX, (int)ParsedY - 1, (int)ParsedX, (int)ParsedY + 1));
+                    image.Draw(new ImageMagick.DrawableLine((int) ParsedX - 1, (int) ParsedY, (int) ParsedX + 1, (int) ParsedY));
+                    image.Draw(new ImageMagick.DrawableLine((int) ParsedX, (int) ParsedY - 1, (int) ParsedX, (int) ParsedY + 1));
                     layer.CopyPixelsFrom(image.ToBitmapSource());
                 }
             }
@@ -326,29 +326,30 @@ namespace TankIconMaker.Effects
 
     class SizeCalculator : Calculator
     {
-        RenderTask renderTask;
-        public SizeCalculator(RenderTask RenderTask)
+        private RenderTask _renderTask;
+
+        public SizeCalculator(RenderTask renderTask)
             : base()
         {
-            renderTask = RenderTask;
+            _renderTask = renderTask;
         }
 
-        public override bool GetVariable(string varName, ref double value)
+        public override bool GetVariable(string varName, out double value)
         {
             if (!Regex.IsMatch(varName, @"\{[A-Za-z0-9_\-]+\.\w+\}"))
             {
-                return base.GetVariable(varName, ref value);
+                return base.GetVariable(varName, out value);
             }
             varName = varName.Substring(1, varName.Length - 2);
             var varInfo = varName.Split('.');
             var layerId = varInfo[0];
             var layerParam = varInfo[1].ToLower();
-            var varLayer = renderTask.style.Layers.FirstOrDefault(x => x.Id == layerId);
-            if (renderTask.RenderLayerSequenceContains(varLayer))
+            var varLayer = _renderTask.Style.Layers.FirstOrDefault(x => x.Id == layerId);
+            if (_renderTask.IsLayerAlreadyReferenced(varLayer))
                 throw new Exception("Recursive Layer size/pos parameter");
             if (varLayer == null)
                 throw new Exception("No layer with corresponding Id found");
-            var varImg = renderTask.RenderLayer(varLayer);
+            var varImg = _renderTask.RenderLayer(varLayer);
             var pixels = varImg.PreciseSize();
             switch (layerParam)
             {

@@ -6,7 +6,7 @@ class Calculator
     public readonly string[] ReservedVariables = new string[] { "PI", "e" };
     public readonly string[] Functions = new string[]{"sqrt","sin","cos","tan","log","ln","abs","exp","deg","log10",
 		"acos","asin","atan","ceil","floor","round","trunc","sihn","cosh","tanh","sign"};
-    protected Dictionary<string, double> Variables = new Dictionary<string, double>();
+    protected Dictionary<string, double> Variables = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
     public readonly string[] Operators = new string[] { "(", ")", "+", "-", "*", "%", "/", "^" };
 
     public Calculator()
@@ -15,27 +15,7 @@ class Calculator
         Variables.Add("e", Math.E);
     }
 
-    public virtual bool SetVariable(string varName, double value)
-    {
-        foreach (string opertr in Operators)
-        {
-            if (varName.Contains(opertr))
-            {
-                return false;
-            }
-        }
-        foreach (string переменная in ReservedVariables)
-        {
-            if (varName == переменная)
-            {
-                return false;
-            }
-        }
-        Variables[varName] = value;
-        return true;
-    }
-
-    public virtual bool GetVariable(string varName, ref double value)
+    public virtual bool GetVariable(string varName, out double value)
     {
         if (Variables.ContainsKey(varName))
         {
@@ -49,12 +29,12 @@ class Calculator
         }
     }
 
-    private int GetClosingBracket(string Expression, int Start, ref int bracketLevel)
+    private int GetClosingBracket(string expression, int start, ref int bracketLevel)
     {
-        int Position = Start;
-        for (int i = Start; i < Expression.Length; ++i)
+        int Position = start;
+        for (int i = start; i < expression.Length; ++i)
         {
-            switch (Expression[i])
+            switch (expression[i])
             {
                 case '(': ++bracketLevel; break;
                 case ')': --bracketLevel; break;
@@ -71,36 +51,32 @@ class Calculator
     /// <summary>
     /// Evaluates the expression
     /// </summary>
-    /// <param name="Expression">Expression to evaluate</param>
-    /// <returns></returns>
-    public double Parse(string Expression)
+    /// <param name="expression">Expression to evaluate</param>
+    public double Parse(string expression)
     {
-        Expression = Expression.Replace(" ", "");
+        expression = expression.Replace(" ", "");
         int bracketLevel = 0;
-        char symbol = Expression[0];
+        char symbol = expression[0];
         if (symbol == '(' &&
-            GetClosingBracket(Expression, 0, ref bracketLevel) == Expression.Length - 1)
-            Expression = Expression.Substring(1, Expression.Length - 2);
+            GetClosingBracket(expression, 0, ref bracketLevel) == expression.Length - 1)
+            expression = expression.Substring(1, expression.Length - 2);
 
         double varValue = 0;
         double result = 0;
         int pos;
-        if (GetVariable(Expression, ref varValue))
-        {
-            result = varValue;
+        if (GetVariable(expression, out varValue))
             return result;
-        }
         string expressionInBracket;
-        if (Expression.Length > 4)
+        if (expression.Length > 4)
         {
-            int pos2 = Expression.IndexOf('(');
+            int pos2 = expression.IndexOf('(');
             if (pos2 != -1 && pos2 <= 5)
             {
-                pos = GetClosingBracket(Expression, pos2, ref bracketLevel);
-                if (pos == Expression.Length - 1)
+                pos = GetClosingBracket(expression, pos2, ref bracketLevel);
+                if (pos == expression.Length - 1)
                 {
-                    expressionInBracket = Expression.Substring(pos2 + 1, pos - pos2 - 1);
-                    string function = Expression.Substring(0, pos2);
+                    expressionInBracket = expression.Substring(pos2 + 1, pos - pos2 - 1);
+                    string function = expression.Substring(0, pos2);
                     switch (function)
                     {
                         case "sqrt":
@@ -152,7 +128,7 @@ class Calculator
                         case "trunc":
                             result = Math.Truncate(Parse(expressionInBracket));
                             return result;
-                        case "sihn":
+                        case "sinh":
                             result = Math.Sinh(Parse(expressionInBracket));
                             return result;
                         case "cosh":
@@ -169,9 +145,9 @@ class Calculator
             }
         }
         pos = 0; int level = 6; bracketLevel = 0;
-        for (int i = Expression.Length - 1; i > -1; --i)
+        for (int i = expression.Length - 1; i > -1; --i)
         {
-            symbol = Expression[i];
+            symbol = expression[i];
             switch (symbol)
             {
                 case '(': ++bracketLevel; break;
@@ -185,17 +161,17 @@ class Calculator
             }
         }
         string leftExpression, rightExpression;
-        if (pos == 0 || pos == Expression.Length - 1)
+        if (pos == 0 || pos == expression.Length - 1)
         {
-            if (Expression[0] >= '0' && Expression[0] <= '9')
+            if (expression[0] >= '0' && expression[0] <= '9')
             {
-                result = double.Parse(Expression.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+                result = double.Parse(expression.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
             }
             return result;
         }
-        leftExpression = Expression.Substring(0, pos);
-        rightExpression = Expression.Substring(pos + 1, Expression.Length - (pos + 1));
-        symbol = Expression[pos];
+        leftExpression = expression.Substring(0, pos);
+        rightExpression = expression.Substring(pos + 1, expression.Length - (pos + 1));
+        symbol = expression[pos];
         switch (symbol)
         {
             case '+':

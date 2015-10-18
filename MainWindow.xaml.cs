@@ -2029,14 +2029,11 @@ namespace TankIconMaker
     sealed class RenderTask
     {
         /// <summary>Current style.</summary>
-        public Style style { get; private set; }
-        /// <summary>Rendered layers with Id != "" used in Mask Layer.</summary>
-        private Dictionary<string, BitmapBase> RenderedLayers;
+        public Style Style { get; private set; }
         /// <summary>System Id of the tank that this task is for.</summary>
         public string TankId;
         /// <summary>All the tank data pertaining to this render task.</summary>
         public Tank Tank;
-        private HashSet<LayerBase> RenderLayerSequence = new HashSet<LayerBase>();
 
         /// <summary>Image rendered by the maker for a tank.</summary>
         public BitmapSource Image;
@@ -2045,9 +2042,14 @@ namespace TankIconMaker
         /// <summary>Exception that occurred while rendering this image, or null if none.</summary>
         public Exception Exception;
 
+        /// <summary>Rendered layers with Id != "" used in Mask Layer.</summary>
+        private Dictionary<string, BitmapBase> _renderedLayers;
+        /// <summary>Layers referenced while rendering a single layer. Used to detect recursive references.</summary>
+        private HashSet<LayerBase> _referencedLayers = new HashSet<LayerBase>();
+
         public RenderTask(Style style)
         {
-            style = style;
+            Style = style;
         }
 
         public void AddWarning(string warning)
@@ -2057,16 +2059,16 @@ namespace TankIconMaker
         }
         public int WarningsCount { get { return Warnings == null ? 0 : Warnings.Count; } }
 
-        public bool RenderLayerSequenceContains(LayerBase layer)
+        public bool IsLayerAlreadyReferenced(LayerBase layer)
         {
-            return RenderLayerSequence.Contains(layer);
+            return _referencedLayers.Contains(layer);
         }
 
         public BitmapBase RenderLayer(LayerBase layer)
         {
-            if (!string.IsNullOrEmpty(layer.Id) && RenderedLayers.ContainsKey(layer.Id))
-                return RenderedLayers[layer.Id];
-            RenderLayerSequence.Add(layer);
+            if (!string.IsNullOrEmpty(layer.Id) && _renderedLayers.ContainsKey(layer.Id))
+                return _renderedLayers[layer.Id];
+            _referencedLayers.Add(layer);
             var img = layer.Draw(this.Tank);
             if (img == null)
                 return null;
@@ -2074,16 +2076,16 @@ namespace TankIconMaker
             {
                 img = effect.Apply(this, img.AsWritable());
                 if (effect is Effects.SizePosEffect)
-                    if (img.Width < style.IconWidth || img.Height < style.IconHeight)
+                    if (img.Width < Style.IconWidth || img.Height < Style.IconHeight)
                     {
                         var imgOrig = img;
-                        img = new BitmapRam(Math.Max(style.IconWidth, img.Width), Math.Max(style.IconHeight, img.Height));
+                        img = new BitmapRam(Math.Max(Style.IconWidth, img.Width), Math.Max(Style.IconHeight, img.Height));
                         img.DrawImage(imgOrig);
                     }
                 if (!string.IsNullOrEmpty(layer.Id))
-                    RenderedLayers[layer.Id] = img;
+                    _renderedLayers[layer.Id] = img;
             }
-            RenderLayerSequence.Remove(layer);
+            _referencedLayers.Remove(layer);
             return img;
         }
 
@@ -2093,26 +2095,26 @@ namespace TankIconMaker
         /// </summary>
         public void Render()
         {
-            RenderedLayers = new Dictionary<string, BitmapBase>();
+            _renderedLayers = new Dictionary<string, BitmapBase>();
             try
             {
-                if (style.Layers.Where(x => !string.IsNullOrEmpty(x.Id)).GroupBy(x => x.Id).Any(x => x.Count() > 1))
+                if (Style.Layers.Where(x => !string.IsNullOrEmpty(x.Id)).GroupBy(x => x.Id).Any(x => x.Count() > 1))
                     throw new Exception("Two or more layers with simular Id");
-                var result = new BitmapWpf(style.IconWidth, style.IconHeight);
+                var result = new BitmapWpf(Style.IconWidth, Style.IconHeight);
                 using (result.UseWrite())
                 {
-                    foreach (var layer in style.Layers.Where(l => l.Visible && l.VisibleFor.GetValue(this.Tank) == BoolWithPassthrough.Yes))
+                    foreach (var layer in Style.Layers.Where(l => l.Visible && l.VisibleFor.GetValue(this.Tank) == BoolWithPassthrough.Yes))
                     {
-                        RenderLayerSequence.Clear();
+                        _referencedLayers.Clear();
                         var img = RenderLayer(layer);
                         if (img != null)
                             result.DrawImage(img);
                     }
                 }
-                if (style.Centerable)
+                if (Style.Centerable)
                 {
                     var width = result.PreciseWidth();
-                    var wantedWidth = Math.Min(width.Right + width.Left + 1, style.IconWidth);
+                    var wantedWidth = Math.Min(width.Right + width.Left + 1, Style.IconWidth);
                     var img = result;
                     result = new BitmapWpf(wantedWidth, img.Height);
                     result.CopyPixelsFrom(img);
@@ -2122,13 +2124,13 @@ namespace TankIconMaker
             }
             catch (Exception e)
             {
-                this.Image = Ut.NewBitmapWpf(style.IconWidth, style.IconHeight, dc =>
+                this.Image = Ut.NewBitmapWpf(Style.IconWidth, Style.IconHeight, dc =>
                 {
-                    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(180, 255, 255, 255)), null, new Rect(0.5, 1.5, style.IconWidth - 1, style.IconHeight - 3));
+                    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(180, 255, 255, 255)), null, new Rect(0.5, 1.5, Style.IconWidth - 1, Style.IconHeight - 3));
                     var pen = new Pen(e is StyleUserError ? Brushes.Green : Brushes.Red, 2);
-                    dc.DrawLine(pen, new Point(1, 2), new Point(style.IconWidth - 1, style.IconHeight - 3));
-                    dc.DrawLine(pen, new Point(style.IconWidth - 1, 2), new Point(1, style.IconHeight - 3));
-                    dc.DrawRectangle(null, new Pen(Brushes.Black, 1), new Rect(0.5, 1.5, style.IconWidth - 1, style.IconHeight - 3));
+                    dc.DrawLine(pen, new Point(1, 2), new Point(Style.IconWidth - 1, Style.IconHeight - 3));
+                    dc.DrawLine(pen, new Point(Style.IconWidth - 1, 2), new Point(1, Style.IconHeight - 3));
+                    dc.DrawRectangle(null, new Pen(Brushes.Black, 1), new Rect(0.5, 1.5, Style.IconWidth - 1, Style.IconHeight - 3));
                 });
                 this.Exception = e;
             }
