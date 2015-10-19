@@ -2,13 +2,13 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Serialization;
 using WpfCrutches;
-using System.Text.RegularExpressions;
 
 namespace TankIconMaker
 {
