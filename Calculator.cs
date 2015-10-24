@@ -62,10 +62,9 @@ class Calculator
             expression = expression.Substring(1, expression.Length - 2);
 
         double varValue = 0;
-        double result = 0;
         int pos;
         if (GetVariable(expression, out varValue))
-            return result;
+            return varValue;
         string expressionInBracket;
         if (expression.Length > 4)
         {
@@ -80,66 +79,46 @@ class Calculator
                     switch (function)
                     {
                         case "sqrt":
-                            result = Math.Sqrt(Parse(expressionInBracket));
-                            return result;
+                            return Math.Sqrt(Parse(expressionInBracket));
                         case "sin":
-                            result = Math.Sin(Parse(expressionInBracket));
-                            return result;
+                            return Math.Sin(Parse(expressionInBracket));
                         case "cos":
-                            result = Math.Cos(Parse(expressionInBracket));
-                            return result;
+                            return Math.Cos(Parse(expressionInBracket));
                         case "tan":
-                            result = Math.Tan(Parse(expressionInBracket));
-                            return result;
+                            return Math.Tan(Parse(expressionInBracket));
                         case "log":
                         case "ln":
-                            result = Math.Log(Parse(expressionInBracket));
-                            return result;
+                            return Math.Log(Parse(expressionInBracket));
                         case "abs":
-                            result = Math.Abs(Parse(expressionInBracket));
-                            return result;
+                            return Math.Abs(Parse(expressionInBracket));
                         case "exp":
-                            result = Math.Exp(Parse(expressionInBracket));
-                            return result;
+                            return Math.Exp(Parse(expressionInBracket));
                         case "deg":
-                            result = Math.PI * Parse(expressionInBracket) / 180.0;
-                            return result;
+                            return Math.PI * Parse(expressionInBracket) / 180.0;
                         case "log10":
-                            result = Math.Log10(Parse(expressionInBracket));
-                            return result;
+                            return Math.Log10(Parse(expressionInBracket));
                         case "acos":
-                            result = Math.Acos(Parse(expressionInBracket));
-                            return result;
+                            return Math.Acos(Parse(expressionInBracket));
                         case "asin":
-                            result = Math.Asin(Parse(expressionInBracket));
-                            return result;
+                            return Math.Asin(Parse(expressionInBracket));
                         case "atan":
-                            result = Math.Atan(Parse(expressionInBracket));
-                            return result;
+                            return Math.Atan(Parse(expressionInBracket));
                         case "ceil":
-                            result = Math.Ceiling(Parse(expressionInBracket));
-                            return result;
+                            return Math.Ceiling(Parse(expressionInBracket));
                         case "floor":
-                            result = Math.Floor(Parse(expressionInBracket));
-                            return result;
+                            return Math.Floor(Parse(expressionInBracket));
                         case "round":
-                            result = Math.Round(Parse(expressionInBracket));
-                            return result;
+                            return Math.Round(Parse(expressionInBracket));
                         case "trunc":
-                            result = Math.Truncate(Parse(expressionInBracket));
-                            return result;
+                            return Math.Truncate(Parse(expressionInBracket));
                         case "sinh":
-                            result = Math.Sinh(Parse(expressionInBracket));
-                            return result;
+                            return Math.Sinh(Parse(expressionInBracket));
                         case "cosh":
-                            result = Math.Cosh(Parse(expressionInBracket));
-                            return result;
+                            return Math.Cosh(Parse(expressionInBracket));
                         case "tanh":
-                            result = Math.Tanh(Parse(expressionInBracket));
-                            return result;
+                            return Math.Tanh(Parse(expressionInBracket));
                         case "sign":
-                            result = Math.Sign(Parse(expressionInBracket));
-                            return result;
+                            return Math.Sign(Parse(expressionInBracket));
                     }
                 }
             }
@@ -164,10 +143,8 @@ class Calculator
         if (pos == 0 || pos == expression.Length - 1)
         {
             if (expression[0] >= '0' && expression[0] <= '9')
-            {
-                result = double.Parse(expression.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
-            }
-            return result;
+                return double.Parse(expression.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+            throw new Exception("Parse expression: expected a number in " + expression);
         }
         leftExpression = expression.Substring(0, pos);
         rightExpression = expression.Substring(pos + 1, expression.Length - (pos + 1));
@@ -175,24 +152,19 @@ class Calculator
         switch (symbol)
         {
             case '+':
-                result = Parse(leftExpression) + Parse(rightExpression);
-                return result;
+                return Parse(leftExpression) + Parse(rightExpression);
             case '-':
-                result = Parse(leftExpression) - Parse(rightExpression);
-                return result;
+                return Parse(leftExpression) - Parse(rightExpression);
             case '*':
-                result = Parse(leftExpression) * Parse(rightExpression);
-                return result;
+                return Parse(leftExpression) * Parse(rightExpression);
             case '/':
-                result = Parse(leftExpression) / Parse(rightExpression);
-                return result;
+                return Parse(leftExpression) / Parse(rightExpression);
             case '%':
-                result = Math.IEEERemainder(Parse(leftExpression), Parse(rightExpression));
-                return result;
+                return Math.IEEERemainder(Parse(leftExpression), Parse(rightExpression));
             case '^':
-                result = Math.Pow(Parse(leftExpression), Parse(rightExpression));
-                return result;
+                return Math.Pow(Parse(leftExpression), Parse(rightExpression));
+            default:
+                throw new Exception("Parse expression: unexpected operator at pos " + pos + " in " + expression);
         }
-        return result;
     }
 }
