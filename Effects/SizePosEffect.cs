@@ -343,9 +343,9 @@ namespace TankIconMaker.Effects
             var layerParam = m.Groups[2].Value.ToLower();
             var varLayer = _renderTask.Style.Layers.FirstOrDefault(x => x.Id == layerId);
             if (varLayer == null)
-                throw new Exception("No layer found with Id = " + layerId);
+                throw new StyleUserError("No layer found with Id = " + layerId);
             if (_renderTask.IsLayerAlreadyReferenced(varLayer))
-                throw new Exception("Recursive Layer size/pos parameter");
+                throw new StyleUserError("Recursive Layer size/pos parameter");
             var varImg = _renderTask.RenderLayer(varLayer);
             var pixels = varImg.PreciseSize();
             switch (layerParam)

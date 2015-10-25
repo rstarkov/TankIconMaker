@@ -6,8 +6,8 @@ namespace TankIconMaker
     class Calculator
     {
         public readonly string[] ReservedVariables = new string[] { "PI", "e" };
-        public readonly string[] Functions = new string[]{"sqrt","sin","cos","tan","log","ln","abs","exp","deg","log10",
-		"acos","asin","atan","ceil","floor","round","trunc","sihn","cosh","tanh","sign"};
+        public readonly string[] Functions = new string[] { "sqrt", "sin", "cos", "tan", "log", "ln", "abs", "exp", "deg", "log10",
+		    "acos", "asin", "atan", "ceil", "floor", "round", "trunc", "sihn", "cosh", "tanh", "sign" };
         protected Dictionary<string, double> Variables = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
         public readonly string[] Operators = new string[] { "(", ")", "+", "-", "*", "%", "/", "^" };
 
@@ -146,7 +146,7 @@ namespace TankIconMaker
             {
                 if (expression[0] >= '0' && expression[0] <= '9')
                     return double.Parse(expression.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
-                throw new Exception("Parse expression: unexpected character in " + expression);
+                throw new StyleUserError("Parse expression: unexpected character or unknown variable in \"{0}\"".Fmt(expression));
             }
             leftExpression = expression.Substring(0, pos);
             rightExpression = expression.Substring(pos + 1, expression.Length - (pos + 1));
@@ -166,7 +166,7 @@ namespace TankIconMaker
                 case '^':
                     return Math.Pow(Parse(leftExpression), Parse(rightExpression));
                 default:
-                    throw new Exception("Parse expression: unexpected operator at pos " + pos + " in " + expression);
+                    throw new StyleUserError("Parse expression: unexpected operator at pos {0} in \"{1}\"".Fmt(pos, expression));
             }
         }
     }
