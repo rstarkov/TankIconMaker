@@ -144,7 +144,7 @@ class Calculator
         {
             if (expression[0] >= '0' && expression[0] <= '9')
                 return double.Parse(expression.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
-            throw new Exception("Parse expression: expected a number in " + expression);
+            throw new Exception("Parse expression: unexpected character in " + expression);
         }
         leftExpression = expression.Substring(0, pos);
         rightExpression = expression.Substring(pos + 1, expression.Length - (pos + 1));

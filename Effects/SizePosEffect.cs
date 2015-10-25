@@ -336,19 +336,16 @@ namespace TankIconMaker.Effects
 
         public override bool GetVariable(string varName, out double value)
         {
-            if (!Regex.IsMatch(varName, @"\{[A-Za-z0-9_\-]+\.\w+\}"))
-            {
+            var m = Regex.Match(varName, @"^([A-Za-z0-9_\-]+)\.(\w+)$");
+            if (!m.Success)
                 return base.GetVariable(varName, out value);
-            }
-            varName = varName.Substring(1, varName.Length - 2);
-            var varInfo = varName.Split('.');
-            var layerId = varInfo[0];
-            var layerParam = varInfo[1].ToLower();
+            var layerId = m.Groups[1].Value;
+            var layerParam = m.Groups[2].Value.ToLower();
             var varLayer = _renderTask.Style.Layers.FirstOrDefault(x => x.Id == layerId);
+            if (varLayer == null)
+                throw new Exception("No layer found with Id = " + layerId);
             if (_renderTask.IsLayerAlreadyReferenced(varLayer))
                 throw new Exception("Recursive Layer size/pos parameter");
-            if (varLayer == null)
-                throw new Exception("No layer with corresponding Id found");
             var varImg = _renderTask.RenderLayer(varLayer);
             var pixels = varImg.PreciseSize();
             switch (layerParam)
