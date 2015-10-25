@@ -1,4 +1,5 @@
-﻿using RT.Util.Lingo;
+﻿using System;
+using RT.Util.Lingo;
 
 namespace TankIconMaker.Effects
 {
@@ -19,7 +20,7 @@ namespace TankIconMaker.Effects
             Tank tank = renderTask.Tank;
             if (ShiftX == 0 && ShiftY == 0)
                 return layer;
-            var result = new BitmapRam(layer.Width, layer.Height);
+            var result = new BitmapRam(Math.Max(1, layer.Width + ShiftX), Math.Max(1, layer.Height + ShiftY));
             result.DrawImage(layer, ShiftX, ShiftY);
             return result;
         }
