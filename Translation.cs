@@ -268,6 +268,8 @@ namespace TankIconMaker
         public TrString BackgroundRestoreDefaults = "_Restore defaults";
 
         public TrString PathTemplate_Standard = "(standard)";
+
+        public TrString ErrorConflictingId = "Two or more layers have the same ID “{0}”. Layer IDs must be unique.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
@@ -674,9 +676,12 @@ namespace TankIconMaker
         public TrString EffectName = "Mask Layer";
         public TrString EffectDescription = "Adjusts layer opacity using another layer as mask.";
 
-        public MemberDescriptionTr MaskLayerId = new MemberDescriptionTr { DisplayName = "Mask layer Id", Description = "Sets the mask layer Identifier." };
+        public MemberDescriptionTr MaskLayerId = new MemberDescriptionTr { DisplayName = "Mask layer ID", Description = "Sets the mask layer identifier." };
         public MemberDescriptionTr MaskMode = new MemberDescriptionTr { DisplayName = "Mode", Description = "Selects the mask layer mode." };
         public MemberDescriptionTr InvertTr = new MemberDescriptionTr { DisplayName = "Invert", Description = "Specifies whether to invert the mask or not." };
+
+        public TrString ErrorInvalidId = "No layer with ID “{0}” found.";
+        public TrString ErrorRecursiveLayerReference = "Recursive layer reference.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]
@@ -1022,8 +1027,8 @@ namespace TankIconMaker
         public TrString Err_LocationMarker = "HERE";
         public TrString Err_ExpectedEndOfExpression = "expected end of expression";
         public TrString Err_UnexpectedEndOfExpression = "unexpected end of expression";
-        public TrString Err_ExpectedOne = "expected “{0}”";
-        public TrString Err_ExpectedTwo = "expected “{0}” or “{1}”";
+        public TrString Err_ExpectedParenthesisOrOperator = "expected “)” or operator";
+        public TrString Err_ExpectedCommaOrParenthesis = "expected “,” or “)”";
         public TrString Err_UnexpectedCharacter = "unexpected character: “{0}”";
         public TrString Err_CannotParseNumber = "cannot parse number: “{0}”";
         public TrString Err_UnknownVariable = "unknown variable: “{0}”";

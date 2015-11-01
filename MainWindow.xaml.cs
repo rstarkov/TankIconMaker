@@ -2111,8 +2111,9 @@ namespace TankIconMaker
             _renderedLayers = new Dictionary<string, BitmapBase>();
             try
             {
-                if (Style.Layers.Where(x => !string.IsNullOrEmpty(x.Id)).GroupBy(x => x.Id).Any(x => x.Count() > 1))
-                    throw new Exception("Two or more layers with simular Id");
+                var conflict = Style.Layers.Where(x => !string.IsNullOrEmpty(x.Id)).GroupBy(x => x.Id).FirstOrDefault(x => x.Count() > 1);
+                if (conflict != null)
+                    throw new StyleUserError(App.Translation.MainWindow.ErrorConflictingId.Fmt(conflict.Key));
                 var result = new BitmapWpf(Style.IconWidth, Style.IconHeight);
                 using (result.UseWrite())
                 {

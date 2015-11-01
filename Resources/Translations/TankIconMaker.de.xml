@@ -33,6 +33,10 @@
       <Translation>(Standard)</Translation>
       <Old>(standard)</Old>
     </PathTemplate_Standard>
+    <ErrorConflictingId>
+      <Translation>Zwei oder mehr Ebenen haben den gleichen Bezeichner, „{0}“. Die Bezeichner müssen eindeutig sein.</Translation>
+      <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
+    </ErrorConflictingId>
     <ctGameDirLabel>
       <Translation>Spielver_zeichnis:</Translation>
       <Old>Game _directory:</Old>
@@ -1167,6 +1171,14 @@
         <Old>Specifies whether to invert the mask or not.</Old>
       </Description>
     </InvertTr>
+    <ErrorInvalidId>
+      <Translation>No layer with ID “{0}” found.</Translation>
+      <Old null="1" />
+    </ErrorInvalidId>
+    <ErrorRecursiveLayerReference>
+      <Translation>Recursive layer reference.</Translation>
+      <Old null="1" />
+    </ErrorRecursiveLayerReference>
   </EffectMaskLayer>
   <EffectSizePos>
     <EffectName>
@@ -2613,4 +2625,131 @@
       <Old>(expand to edit)</Old>
     </ExpandablePropertyDesc>
   </Misc>
+  <Calculator>
+    <CouldNotParseExpression>
+      <Translation>Ausdruck konnte nicht bestimmt werden</Translation>
+      <Old>could not parse expression</Old>
+    </CouldNotParseExpression>
+    <ErrLabel_Error>
+      <Translation>Fehler</Translation>
+      <Old>Error</Old>
+    </ErrLabel_Error>
+    <ErrLabel_Expression>
+      <Translation>Ausdruck</Translation>
+      <Old>Expression</Old>
+    </ErrLabel_Expression>
+    <ErrLabel_Layer>
+      <Translation>Ebene</Translation>
+      <Old>Layer</Old>
+    </ErrLabel_Layer>
+    <ErrLabel_Effect>
+      <Translation>Effekt</Translation>
+      <Old>Effect</Old>
+    </ErrLabel_Effect>
+    <ErrLabel_Property>
+      <Translation>Eigenschaft</Translation>
+      <Old>Property</Old>
+    </ErrLabel_Property>
+    <Err_LocationMarker>
+      <Translation>HIER</Translation>
+      <Old>HERE</Old>
+    </Err_LocationMarker>
+    <Err_ExpectedEndOfExpression>
+      <Translation>Ende des Ausdrucks erwartet</Translation>
+      <Old>expected end of expression</Old>
+    </Err_ExpectedEndOfExpression>
+    <Err_UnexpectedEndOfExpression>
+      <Translation>unerwartetes Ende des Ausdrucks</Translation>
+      <Old>unexpected end of expression</Old>
+    </Err_UnexpectedEndOfExpression>
+    <Err_ExpectedParenthesisOrOperator>
+      <Translation>Klammer-Zu oder Operator erwartet</Translation>
+      <Old>expected “)” or operator</Old>
+    </Err_ExpectedParenthesisOrOperator>
+    <Err_ExpectedCommaOrParenthesis>
+      <Translation>Komma oder Klammer-Zu erwartet</Translation>
+      <Old>expected “,” or “)”</Old>
+    </Err_ExpectedCommaOrParenthesis>
+    <Err_UnexpectedCharacter>
+      <Translation>unerwartetes Zeichen: „{0}“</Translation>
+      <Old>unexpected character: “{0}”</Old>
+    </Err_UnexpectedCharacter>
+    <Err_CannotParseNumber>
+      <Translation>Zahl kann nicht bestimmt werden: „{0}“</Translation>
+      <Old>cannot parse number: “{0}”</Old>
+    </Err_CannotParseNumber>
+    <Err_UnknownVariable>
+      <Translation>unbekannte Variable: „{0}“</Translation>
+      <Old>unknown variable: “{0}”</Old>
+    </Err_UnknownVariable>
+    <Err_UnknownFunction>
+      <Translation>unbekannte Funktion: „{0}“</Translation>
+      <Old>unknown function: “{0}”</Old>
+    </Err_UnknownFunction>
+    <Err_UnknownLayerProperty>
+      <Translation>unbekannte Ebeneneigenschaft: „{0}“</Translation>
+      <Old>unknown layer property: “{0}”</Old>
+    </Err_UnknownLayerProperty>
+    <Err_ResultInfinite>
+      <Translation>Ergebnis der Berechnung ist unendlich (Division durch Null?)</Translation>
+      <Old>calculation result is infinite (division by zero?)</Old>
+    </Err_ResultInfinite>
+    <Err_ResultNaN>
+      <Translation>Ergebnis der Berechnung ist keine Zahl (Null durch Null geteilt?)</Translation>
+      <Old>calculation result is not-a-number (zero divided by zero?)</Old>
+    </Err_ResultNaN>
+    <Err_FunctionParamCountExact>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>Funktion „{0}“ erfordert {1} Parameter; {2} erhalten</item>
+        <item>Funktion „{0}“ erfordert {1} Parameter; {2} erhalten</item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires {1} parameter; got {2}</item>
+        <item>function “{0}” requires {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountExact>
+    <Err_FunctionParamCountAtLeast>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>Funktion „{0}“ erfordert mindestens {1} Parameter; {2} erhalten</item>
+        <item>Funktion „{0}“ erfordert mindestens {1} Parameter; {2} erhalten</item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires at least {1} parameter; got {2}</item>
+        <item>function “{0}” requires at least {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountAtLeast>
+    <Err_FunctionParamCountAtMost>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>Funktion „{0}“ erfordert höchstens {1} Parameter; {2} erhalten</item>
+        <item>Funktion „{0}“ erfordert höchstens {1} Parameter; {2} erhalten</item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires at most {1} parameter; got {2}</item>
+        <item>function “{0}” requires at most {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountAtMost>
+    <Err_NoLayerWithId>
+      <Translation>unbekannte Ebenenbezeichnung: „{0}“</Translation>
+      <Old>unknown layer ID: “{0}”</Old>
+    </Err_NoLayerWithId>
+    <Err_RecursiveLayerReference>
+      <Translation>rekursive Ebenenbezeichnung: „{0}“</Translation>
+      <Old>recursive layer reference: “{0}”</Old>
+    </Err_RecursiveLayerReference>
+  </Calculator>
 </item>

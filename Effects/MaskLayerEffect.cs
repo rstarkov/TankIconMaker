@@ -48,9 +48,9 @@ namespace TankIconMaker.Effects
                 return layer;
             maskLayer = renderTask.Style.Layers.FirstOrDefault(x => x.Id == MaskLayerId);
             if (maskLayer == null)
-                throw new Exception("No layer with Id={0} found".Fmt(MaskLayerId));
+                throw new StyleUserError(App.Translation.EffectMaskLayer.ErrorInvalidId.Fmt(MaskLayerId));
             if (renderTask.IsLayerAlreadyReferenced(maskLayer))
-                throw new Exception("Recursive Mask Layer");
+                throw new StyleUserError(App.Translation.EffectMaskLayer.ErrorRecursiveLayerReference);
             var maskImg = renderTask.RenderLayer(maskLayer);
             using (layer.UseWrite())
             {

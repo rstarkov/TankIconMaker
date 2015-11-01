@@ -121,7 +121,7 @@ namespace TankIconMaker
                 ConsumeWhitespace();
                 var result = ParseExpression();
                 if (Cur != ')')
-                    throw NewParseException(App.Translation.Calculator.Err_ExpectedOne.Fmt(")"));
+                    throw NewParseException(App.Translation.Calculator.Err_ExpectedParenthesisOrOperator);
                 Pos++;
                 ConsumeWhitespace();
                 return result;
@@ -175,7 +175,7 @@ namespace TankIconMaker
         private List<double> ParseParameters()
         {
             if (Cur != '(')
-                throw NewParseException(App.Translation.Calculator.Err_ExpectedOne.Fmt("("));
+                throw new Exception("24567837");
             Pos++;
             ConsumeWhitespace();
             var parameters = new List<double>();
@@ -200,7 +200,7 @@ namespace TankIconMaker
                     return parameters;
                 }
                 else
-                    throw NewParseException(App.Translation.Calculator.Err_ExpectedTwo.Fmt(",", ")"));
+                    throw NewParseException(App.Translation.Calculator.Err_ExpectedCommaOrParenthesis);
             }
         }
 
