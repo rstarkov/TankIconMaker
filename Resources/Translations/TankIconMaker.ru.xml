@@ -1904,20 +1904,6 @@
       <Old>By icon bounds</Old>
     </ByIconBounds>
   </ClipMode>
-  <MaskMode>
-    <Combined>
-      <Translation>Комбинированный</Translation>
-      <Old>Combined</Old>
-    </Combined>
-    <Opacity>
-      <Translation>Прозрачность</Translation>
-      <Old>Opacity</Old>
-    </Opacity>
-    <Grayscale>
-      <Translation>Оттенки серого</Translation>
-      <Old>Grayscale</Old>
-    </Grayscale>
-  </MaskMode>
   <SizeMode>
     <NoChange>
       <Translation>Без изменений</Translation>
@@ -1944,6 +1930,20 @@
       <Old>By size: stretch</Old>
     </BySizeStretch>
   </SizeMode>
+  <MaskMode>
+    <Combined>
+      <Translation>Комбинированный</Translation>
+      <Old>Combined</Old>
+    </Combined>
+    <Opacity>
+      <Translation>Прозрачность</Translation>
+      <Old>Opacity</Old>
+    </Opacity>
+    <Grayscale>
+      <Translation>Оттенки серого</Translation>
+      <Old>Grayscale</Old>
+    </Grayscale>
+  </MaskMode>
   <GrowShrinkMode>
     <GrowAndShrink>
       <Translation>Увеличить либо уменьшить</Translation>
@@ -1977,11 +1977,11 @@
     </Bicubic>
     <Sinc256>
       <Translation>Sinc256</Translation>
-      <Old null="1" />
+      <Old>Sinc256</Old>
     </Sinc256>
     <Sinc1024>
       <Translation>Sinc1024</Translation>
-      <Old null="1" />
+      <Old>Sinc1024</Old>
     </Sinc1024>
   </Filter>
   <OpacityStyle>
@@ -2063,6 +2063,10 @@
       <Translation>Размер</Translation>
       <Old>Size</Old>
     </Size>
+    <Mask>
+      <Translation>Маска</Translation>
+      <Old>Mask</Old>
+    </Mask>
     <TextSource>
       <Translation> Источник текста</Translation>
       <Old>Text source</Old>
@@ -2612,4 +2616,134 @@
       <Old>(expand to edit)</Old>
     </ExpandablePropertyDesc>
   </Misc>
+  <Calculator>
+    <CouldNotParseExpression>
+      <Translation>не удалось разобрать выражение</Translation>
+      <Old>could not parse expression</Old>
+    </CouldNotParseExpression>
+    <ErrLabel_Error>
+      <Translation>Ошибка</Translation>
+      <Old>Error</Old>
+    </ErrLabel_Error>
+    <ErrLabel_Expression>
+      <Translation>Выражение</Translation>
+      <Old>Expression</Old>
+    </ErrLabel_Expression>
+    <ErrLabel_Layer>
+      <Translation>Слой</Translation>
+      <Old>Layer</Old>
+    </ErrLabel_Layer>
+    <ErrLabel_Effect>
+      <Translation>Эффект</Translation>
+      <Old>Effect</Old>
+    </ErrLabel_Effect>
+    <ErrLabel_Property>
+      <Translation>Свойство</Translation>
+      <Old>Property</Old>
+    </ErrLabel_Property>
+    <Err_LocationMarker>
+      <Translation>ТУТ</Translation>
+      <Old>HERE</Old>
+    </Err_LocationMarker>
+    <Err_ExpectedEndOfExpression>
+      <Translation>ожидался конец выражения</Translation>
+      <Old>expected end of expression</Old>
+    </Err_ExpectedEndOfExpression>
+    <Err_UnexpectedEndOfExpression>
+      <Translation>неожиданный конец выражения</Translation>
+      <Old>unexpected end of expression</Old>
+    </Err_UnexpectedEndOfExpression>
+    <Err_ExpectedOne>
+      <Translation>ожидался символ “{0}”</Translation>
+      <Old>expected “{0}”</Old>
+    </Err_ExpectedOne>
+    <Err_ExpectedTwo>
+      <Translation>ожидался символ “{0}” либо “{1}”</Translation>
+      <Old>expected “{0}” or “{1}”</Old>
+    </Err_ExpectedTwo>
+    <Err_UnexpectedCharacter>
+      <Translation>неожиданный символ: “{0}”</Translation>
+      <Old>unexpected character: “{0}”</Old>
+    </Err_UnexpectedCharacter>
+    <Err_CannotParseNumber>
+      <Translation>не удалось разобрать число: “{0}”</Translation>
+      <Old>cannot parse number: “{0}”</Old>
+    </Err_CannotParseNumber>
+    <Err_UnknownVariable>
+      <Translation>неизвестная переменная: “{0}”</Translation>
+      <Old>unknown variable: “{0}”</Old>
+    </Err_UnknownVariable>
+    <Err_UnknownFunction>
+      <Translation>неизвестная функция: “{0}”</Translation>
+      <Old>unknown function: “{0}”</Old>
+    </Err_UnknownFunction>
+    <Err_UnknownLayerProperty>
+      <Translation>неизвестное свойство слоя: “{0}”</Translation>
+      <Old>unknown layer property: “{0}”</Old>
+    </Err_UnknownLayerProperty>
+    <Err_ResultInfinite>
+      <Translation>результат выражения равняется бесконечности (деление на ноль?)</Translation>
+      <Old>calculation result is infinite (division by zero?)</Old>
+    </Err_ResultInfinite>
+    <Err_ResultNaN>
+      <Translation>результат выражения является не-числом (ноль деленый на ноль?)</Translation>
+      <Old>calculation result is not-a-number (zero divided by zero?)</Old>
+    </Err_ResultNaN>
+    <Err_FunctionParamCountExact>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>функция “{0}” требует {1} параметр; получено {2}</item>
+        <item>функция “{0}” требует {1} параметра; получено {2}</item>
+        <item>функция “{0}” требует {1} параметров; получено {2}</item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires {1} parameter; got {2}</item>
+        <item>function “{0}” requires {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountExact>
+    <Err_FunctionParamCountAtLeast>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>функция “{0}” требует как минимум {1} параметр; получено {2}</item>
+        <item>функция “{0}” требует как минимум {1} параметра; получено {2}</item>
+        <item>функция “{0}” требует как минимум {1} параметров; получено {2}</item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires at least {1} parameter; got {2}</item>
+        <item>function “{0}” requires at least {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountAtLeast>
+    <Err_FunctionParamCountAtMost>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>функция “{0}” требует не более {1} параметра; получено {2}</item>
+        <item>функция “{0}” требует не более {1} параметров; получено {2}</item>
+        <item>функция “{0}” требует не более {1} параметров; получено {2}</item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires at most {1} parameter; got {2}</item>
+        <item>function “{0}” requires at most {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountAtMost>
+    <Err_NoLayerWithId>
+      <Translation>слой с таким ID не найден: “{0}”</Translation>
+      <Old>unknown layer ID: “{0}”</Old>
+    </Err_NoLayerWithId>
+    <Err_RecursiveLayerReference>
+      <Translation>слой используется рекурсивно: “{0}”</Translation>
+      <Old>recursive layer reference: “{0}”</Old>
+    </Err_RecursiveLayerReference>
+  </Calculator>
 </item>

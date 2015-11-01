@@ -98,6 +98,8 @@ namespace TankIconMaker
 
         [LingoGroup("Selector", "Strings used in the property grid for selectors, which are expandable objects used for properties like Color, Visibility etc.")]
         Selector,
+        [LingoGroup("Calculator", "Strings used in the expression calculator, mostly for error messages.")]
+        Calculator,
 
         [LingoGroup("Value: Yes / No / Passthrough", "Strings used for the yes/no/passthrough drop-down.")]
         EnumBoolWithPassthrough,
@@ -205,6 +207,7 @@ namespace TankIconMaker
         public PromptTranslation Prompt = new PromptTranslation();
         public ErrorTranslation Error = new ErrorTranslation();
         public MiscTranslation Misc = new MiscTranslation();
+        public CalculatorTranslation Calculator = new CalculatorTranslation();
     }
 
     [LingoStringClass]
@@ -1003,5 +1006,35 @@ namespace TankIconMaker
 
         public TrString TierN = "Tier: {0,2}";
         public TrString TierNone = "Tier: None";
+    }
+
+    [LingoStringClass, LingoInGroup(TranslationGroup.Calculator)]
+    sealed class CalculatorTranslation
+    {
+        public TrString CouldNotParseExpression = "could not parse expression";
+
+        public TrString ErrLabel_Error = "Error";
+        public TrString ErrLabel_Expression = "Expression";
+        public TrString ErrLabel_Layer = "Layer";
+        public TrString ErrLabel_Effect = "Effect";
+        public TrString ErrLabel_Property = "Property";
+
+        public TrString Err_LocationMarker = "HERE";
+        public TrString Err_ExpectedEndOfExpression = "expected end of expression";
+        public TrString Err_UnexpectedEndOfExpression = "unexpected end of expression";
+        public TrString Err_ExpectedOne = "expected “{0}”";
+        public TrString Err_ExpectedTwo = "expected “{0}” or “{1}”";
+        public TrString Err_UnexpectedCharacter = "unexpected character: “{0}”";
+        public TrString Err_CannotParseNumber = "cannot parse number: “{0}”";
+        public TrString Err_UnknownVariable = "unknown variable: “{0}”";
+        public TrString Err_UnknownFunction = "unknown function: “{0}”";
+        public TrString Err_UnknownLayerProperty = "unknown layer property: “{0}”";
+        public TrString Err_ResultInfinite = "calculation result is infinite (division by zero?)";
+        public TrString Err_ResultNaN = "calculation result is not-a-number (zero divided by zero?)";
+        public TrStringNum Err_FunctionParamCountExact = new TrStringNum(new[] { "function “{0}” requires {1} parameter; got {2}", "function “{0}” requires {1} parameters; got {2}" }, new[] { false, true, false });
+        public TrStringNum Err_FunctionParamCountAtLeast = new TrStringNum(new[] { "function “{0}” requires at least {1} parameter; got {2}", "function “{0}” requires at least {1} parameters; got {2}" }, new[] { false, true, false });
+        public TrStringNum Err_FunctionParamCountAtMost = new TrStringNum(new[] { "function “{0}” requires at most {1} parameter; got {2}", "function “{0}” requires at most {1} parameters; got {2}" }, new[] { false, true, false });
+        public TrString Err_NoLayerWithId = "unknown layer ID: “{0}”";
+        public TrString Err_RecursiveLayerReference = "recursive layer reference: “{0}”";
     }
 }
