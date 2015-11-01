@@ -2551,7 +2551,7 @@
       <Old>OK</Old>
     </ErrorToClipboard_OK>
     <ErrorToClipboard_Copied>
-      <Translation>Informationen bezüglich des Fehlers sind jetzt in der Zwischenablage.</Translation>
+      <Translation>Informationen über den Fehler sind jetzt in der Zwischenablage.</Translation>
       <Old>Information about the error is now in your clipboard.</Old>
     </ErrorToClipboard_Copied>
   </Error>

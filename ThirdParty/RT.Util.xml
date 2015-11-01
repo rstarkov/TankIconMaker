@@ -4002,6 +4002,12 @@
             <param name="nodes">
                 The sub-nodes contained in the root node.</param>
         </member>
+        <member name="M:RT.Util.EggsTag.#ctor(System.Nullable{System.Char},System.Collections.Generic.IEnumerable{RT.Util.EggsNode})">
+            <summary>
+                Constructs a new EggsML parse-tree node that represents an EggsML tag containing the specified sub-nodes.</summary>
+            <param name="nodes">
+                The sub-nodes contained in the root node.</param>
+        </member>
         <member name="M:RT.Util.EggsTag.ToString">
             <summary>
                 Reconstructs the original EggsML that is represented by this node.</summary>
@@ -6848,6 +6854,9 @@
             <summary>Shows a message of the specified message type, using an appropriate caption, sound and image.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.Show(System.String,System.String,RT.Util.Dialogs.DlgType,System.String[])">
+            <summary>Shows a message of the specified message type, using an appropriate sound and image.</summary>
+        </member>
+        <member name="M:RT.Util.Dialogs.DlgMessage.Show(System.String,System.String,RT.Util.Dialogs.DlgType,RT.Util.Dialogs.DlgMessageFormat,System.String[])">
             <summary>Shows a message of the specified message type, using an appropriate sound and image.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.ShowInfo(System.String,System.String[])">

@@ -699,32 +699,21 @@ namespace TankIconMaker
             if (renderResult == null)
                 return;
 
-            var warnings = renderResult.WarningsCount == 0 ? "" : string.Join("\n\n", renderResult.Warnings.Select(s => "• " + s));
-            var joiner = renderResult.WarningsCount == 0 ? "" : "\n\n• ";
-
             if (renderResult.Exception == null && renderResult.WarningsCount == 0)
-                DlgMessage.ShowInfo(App.Translation.Error.RenderIconOK);
-
-            else if (renderResult.Exception == null)
-                DlgMessage.ShowWarning(warnings);
-
-            else if (renderResult.Exception is StyleUserError)
             {
-                if (!(renderResult.Exception as StyleUserError).Formatted)
-                    DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.RenderIconFail.Fmt(renderResult.Exception.Message));
-                else
-                {
-                    new DlgMessage
-                    {
-                        Type = DlgType.Warning,
-                        Message = EggsML.Escape(warnings + joiner)
-                            + new EggsTag(App.Translation.Error.RenderIconFail.FmtEnumerable(EggsML.Parse(renderResult.Exception.Message)).Select(v => (v is EggsNode) ? (EggsNode) v : new EggsText(v.ToString()))).ToString(),
-                        Format = DlgMessageFormat.EggsML
-                    }.Show();
-                }
+                DlgMessage.ShowInfo(App.Translation.Error.RenderIconOK);
+                return;
             }
 
-            else
+            var warnings = renderResult.WarningsCount == 0 ? new List<object>() : renderResult.Warnings.Cast<object>().ToList();
+            var warningsText = RT.Util.Ut.Lambda(() =>
+            {
+                if (warnings.Count == 1)
+                    return warnings[0].ToString();
+                return new EggsTag(warnings.Select(w => new EggsTag('[', new[] { w is string ? new EggsText((string) w) : (EggsNode) w })).InsertBetween<EggsNode>(new EggsText("\n"))).ToString();
+            });
+
+            if (renderResult.Exception != null && !(renderResult.Exception is StyleUserError))
             {
                 string details = "";
                 if (renderResult.Exception is InvalidOperationException && renderResult.Exception.Message.Contains("belongs to a different thread than its parent Freezable"))
@@ -732,11 +721,24 @@ namespace TankIconMaker
 
                 details += Ut.ExceptionToDebugString(renderResult.Exception);
 
-                bool copy = DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.ExceptionInRender,
-                    App.Translation.Error.ErrorToClipboard_Copy, App.Translation.Error.ErrorToClipboard_OK) == 0;
+                warnings.Add((string) App.Translation.Error.ExceptionInRender);
+
+                bool copy = DlgMessage.Show(warningsText(), null, DlgType.Warning, DlgMessageFormat.EggsML, App.Translation.Error.ErrorToClipboard_Copy, App.Translation.Error.ErrorToClipboard_OK) == 0;
                 if (copy)
                     if (Ut.ClipboardSet(details))
                         DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_Copied);
+            }
+            else
+            {
+                if (renderResult.Exception != null)
+                {
+                    if (!(renderResult.Exception as StyleUserError).Formatted)
+                        warnings.Add(App.Translation.Error.RenderIconFail.Fmt(renderResult.Exception.Message));
+                    else
+                        warnings.Add(new EggsTag(App.Translation.Error.RenderIconFail.FmtEnumerable(EggsML.Parse(renderResult.Exception.Message)).Select(v => (v is EggsNode) ? (EggsNode) v : new EggsText(v.ToString()))));
+                }
+
+                DlgMessage.Show(warningsText(), null, DlgType.Warning, DlgMessageFormat.EggsML);
             }
         }
 
