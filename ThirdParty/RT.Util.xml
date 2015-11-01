@@ -720,14 +720,14 @@
                                     static string FieldNameDoc(Translation)</code>
                                 <para>
                                     The first parameter must be of the same type as the object passed in for the
-                                    <c>applicationTr</c> parameter of <see cref="M:RT.Util.CommandLine.CommandLineParser.Parse``1(System.String[],RT.Util.Lingo.TranslationBase)"/>. The name of the method is the name of
+                                    <c>applicationTr</c> parameter of <see cref="M:RT.Util.CommandLine.CommandLineParser.Parse``1(System.String[],RT.Util.Lingo.TranslationBase,System.Func{RT.Util.Consoles.ConsoleColoredString,RT.Util.Consoles.ConsoleColoredString})"/>. The name of the method is the name of
                                     the field or enum value followed by <c>Doc</c>. The return value is the translated string.</para></description></item></list></description></item>
                     <item><description>
                         <see cref="T:RT.Util.CommandLine.IsPositionalAttribute"/> and <see cref="T:RT.Util.CommandLine.IsMandatoryAttribute"/> can be used together. However,
                         a positional field can only be made mandatory if all the positional fields preceding it are also
                         mandatory.</description></item></list></remarks>
         </member>
-        <member name="M:RT.Util.CommandLine.CommandLineParser.Parse``1(System.String[],RT.Util.Lingo.TranslationBase)">
+        <member name="M:RT.Util.CommandLine.CommandLineParser.Parse``1(System.String[],RT.Util.Lingo.TranslationBase,System.Func{RT.Util.Consoles.ConsoleColoredString,RT.Util.Consoles.ConsoleColoredString})">
             <summary>
                 Parses the specified command-line arguments into an instance of the specified type. See the remarks section of
                 the documentation for <see cref="T:RT.Util.CommandLine.CommandLineParser"/> for features and limitations.</summary>
@@ -739,11 +739,13 @@
                 Specifies the application’s translation object which contains the localised strings that document the
                 command-line options and commands. This object is passed in to the <c>FieldNameDoc</c> methods described in
                 the documentation for <see cref="T:RT.Util.CommandLine.CommandLineParser"/>. This should be <c>null</c> for monoligual applications.</param>
+            <param name="helpProcessor">
+                Specifies a callback which is invoked on every documentation string retrieved from the <see cref="T:RT.Util.CommandLine.DocumentationAttribute"/>s to generate the help text. This callback can modify the text arbitrarily.</param>
             <returns>
                 An instance of the class <typeparamref name="TArgs"/> containing the options and parameters specified by the
                 user on the command line.</returns>
         </member>
-        <member name="M:RT.Util.CommandLine.CommandLineParser.ParseOrWriteUsageToConsole``1(System.String[],RT.Util.Lingo.TranslationBase)">
+        <member name="M:RT.Util.CommandLine.CommandLineParser.ParseOrWriteUsageToConsole``1(System.String[],RT.Util.Lingo.TranslationBase,System.Func{RT.Util.Consoles.ConsoleColoredString,RT.Util.Consoles.ConsoleColoredString})">
             <summary>
                 Parses the specified command-line arguments into an instance of the specified type. In case of failure, prints
                 usage information to the console and returns <c>default(TArgs)</c>. See the remarks section of the
@@ -756,11 +758,13 @@
                 Specifies the application’s translation object which contains the localised strings that document the
                 command-line options and commands. This object is passed in to the FieldNameDoc() methods described in the
                 documentation for <see cref="T:RT.Util.CommandLine.CommandLineParser"/>. This should be null for monoligual applications.</param>
+            <param name="helpProcessor">
+                Specifies a callback which is invoked on every documentation string retrieved from the <see cref="T:RT.Util.CommandLine.DocumentationAttribute"/>s to generate the help text. This callback can modify the text arbitrarily.</param>
             <returns>
                 An instance of the class <typeparamref name="TArgs"/> containing the options and parameters specified by the
                 user on the command line.</returns>
         </member>
-        <member name="M:RT.Util.CommandLine.CommandLineParser.GenerateHelp``1(RT.Util.Lingo.TranslationBase,RT.Util.CommandLine.Translation,System.Nullable{System.Int32},System.Type)">
+        <member name="M:RT.Util.CommandLine.CommandLineParser.GenerateHelp``1(RT.Util.Lingo.TranslationBase,RT.Util.CommandLine.Translation,System.Nullable{System.Int32},System.Type,System.Func{RT.Util.Consoles.ConsoleColoredString,RT.Util.Consoles.ConsoleColoredString})">
             <summary>
                 Generates the help screen for this command line.</summary>
             <typeparam name="TArgs">
@@ -777,6 +781,8 @@
             <param name="subType">
                 Optionally, a class that is used as a subcommand within the command-line syntax. Generates help for the
                 subcommand.</param>
+            <param name="helpProcessor">
+                Specifies a callback which is invoked on every documentation string retrieved from the <see cref="T:RT.Util.CommandLine.DocumentationAttribute"/>s to generate the help text. This callback can modify the text arbitrarily.</param>
         </member>
         <member name="M:RT.Util.CommandLine.CommandLineParser.PostBuildStep``1(RT.Util.IPostBuildReporter,System.Type)">
             <summary>
@@ -789,7 +795,7 @@
                 Object to report post-build errors to.</param>
             <param name="applicationTrType">
                 The type of the translation object, derived from <see cref="T:RT.Util.Lingo.TranslationBase"/>, which would be passed in for
-                the “applicationTr” parameter of <see cref="M:RT.Util.CommandLine.CommandLineParser.Parse``1(System.String[],RT.Util.Lingo.TranslationBase)"/> at normal run-time.</param>
+                the “applicationTr” parameter of <see cref="M:RT.Util.CommandLine.CommandLineParser.Parse``1(System.String[],RT.Util.Lingo.TranslationBase,System.Func{RT.Util.Consoles.ConsoleColoredString,RT.Util.Consoles.ConsoleColoredString})"/> at normal run-time.</param>
         </member>
         <member name="M:RT.Util.CommandLine.CommandLineParser.Colorize(RT.Util.RhoElement)">
             <summary>
@@ -1253,12 +1259,18 @@
             <summary>
                 Encapsulates a string in which each character can have an associated <see cref="T:System.ConsoleColor"/>.</summary>
             <remarks>
-                Use <see cref="M:RT.Util.Consoles.ConsoleUtil.Write(RT.Util.Consoles.ConsoleColoredString,System.Boolean)"/> and <see cref="M:RT.Util.Consoles.ConsoleUtil.WriteLine(RT.Util.Consoles.ConsoleColoredString,System.Boolean)"/> to output the string to the console.</remarks>
+                <list type="bullet">
+                    <item><description>
+                        Use <see cref="M:RT.Util.Consoles.ConsoleUtil.Write(RT.Util.Consoles.ConsoleColoredString,System.Boolean)"/> and <see cref="M:RT.Util.Consoles.ConsoleUtil.WriteLine(RT.Util.Consoles.ConsoleColoredString,System.Boolean,RT.Util.Text.HorizontalTextAlignment)"/> to output
+                        the string to the console.</description></item>
+                    <item><description>
+                        Each character has two optional <see cref="T:System.ConsoleColor"/> values associated with it, one indicating the
+                        foreground color and one the background color. Those characters whose color is <c>null</c> are printed in
+                        the default color of the console (which the user can customize in the console window UI).</description></item></list></remarks>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.op_Implicit(System.String)~RT.Util.Consoles.ConsoleColoredString">
             <summary>
-                Provides implicit conversion from <see cref="T:System.String"/> to <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> by assuming a
-                default color of <see cref="F:System.ConsoleColor.Gray"/>.</summary>
+                Provides implicit conversion from <see cref="T:System.String"/> to <see cref="T:RT.Util.Consoles.ConsoleColoredString"/>.</summary>
             <param name="input">
                 The string to convert.</param>
         </member>
@@ -1271,9 +1283,9 @@
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.#ctor(System.String,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
             <summary>
-                Constructs a <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> with the specified text and the specified color.</summary>
+                Constructs a <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> with the specified text and the specified colors.</summary>
             <param name="input">
-                The string containing the text to initialise this <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> to.</param>
+                The string containing the text to initialize this <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> to.</param>
             <param name="foreground">
                 The foreground color to assign to the whole string.</param>
             <param name="background">
@@ -1284,14 +1296,14 @@
                 Constructs a <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> with the specified text and the specified colors for each
                 character.</summary>
             <param name="input">
-                The string containing the text to initialise this <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> to. The length of this
+                The string containing the text to initialize this <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> to. The length of this
                 string must match the number of elements in <paramref name="foregroundColors"/>.</param>
             <param name="foregroundColors">
                 The foreground colors to assign to each character in the string. The length of this array must match the
                 number of characters in <paramref name="input"/>.</param>
             <param name="backgroundColors">
                 The background colors to assign to each character in the string. The length of this array must match the
-                number of characters in <paramref name="input"/>. If null, black is used.</param>
+                number of characters in <paramref name="input"/>. If <c>null</c>, the default color is used.</param>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.#ctor(RT.Util.Consoles.ConsoleColoredString[])">
             <summary>
@@ -1330,8 +1342,8 @@
             <param name="string2">
                 Second input string to concatenate.</param>
             <remarks>
-                The color of each character in the first input string is preserved. The second input string is given the color
-                <see cref="F:System.ConsoleColor.Gray"/>.</remarks>
+                The color of each character in the first input string is preserved. The second input string is given the
+                console default color.</remarks>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.op_Addition(System.String,RT.Util.Consoles.ConsoleColoredString)">
             <summary>
@@ -1341,8 +1353,8 @@
             <param name="string2">
                 Second input string to concatenate.</param>
             <remarks>
-                The color of each character in the second input string is preserved. The first input string is given the color
-                <see cref="F:System.ConsoleColor.Gray"/>.</remarks>
+                The color of each character in the second input string is preserved. The first input string is given the
+                console default color.</remarks>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.FromEggsNode(RT.Util.EggsNode)">
             <summary>
@@ -1460,7 +1472,7 @@
             <returns>
                 A <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> equivalent to the substring of length length that begins at <paramref name="startIndex"/> in this instance.</returns>
         </member>
-        <member name="M:RT.Util.Consoles.ConsoleColoredString.writeToConsole(System.Boolean)">
+        <member name="M:RT.Util.Consoles.ConsoleColoredString.writeTo(System.IO.TextWriter)">
             <summary>Outputs the current <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> to the console.</summary>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.Format(RT.Util.Consoles.ConsoleColoredString,System.Object[])">
@@ -1536,6 +1548,19 @@
             <returns>
                 The current string but with all the colors changed.</returns>
         </member>
+        <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorWhereNull(System.ConsoleColor,System.Nullable{System.ConsoleColor})">
+            <summary>
+                Changes the colors of every character in the current string to the specified console color only where there
+                isn’t already a color defined.</summary>
+            <param name="foreground">
+                The foreground color to set the uncolored characters to, or <c>null</c> to use the console’s default
+                foreground color.</param>
+            <param name="background">
+                The background color to set the uncolored characters to, or <c>null</c> to use the console’s default
+                background color.</param>
+            <returns>
+                The current string but with the colors changed.</returns>
+        </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorBackground(System.Nullable{System.ConsoleColor})">
             <summary>
                 Changes the background colors (but not the foreground colors) of every character in the current string to the
@@ -1543,7 +1568,17 @@
             <param name="background">
                 The background color to set the string to, or <c>null</c> to use the console’s default background color.</param>
             <returns>
-                A potentially colorful string.</returns>
+                The current string but with the background colors changed.</returns>
+        </member>
+        <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorBackgroundWhereNull(System.ConsoleColor)">
+            <summary>
+                Changes the background colors of every character in the current string to the specified console color only
+                where there isn’t already a background color defined.</summary>
+            <param name="background">
+                The background color to set the uncolored characters to, or <c>null</c> to use the console’s default
+                background color.</param>
+            <returns>
+                The current string but with the background colors changed.</returns>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorSubstring(System.Int32,System.Int32,System.Nullable{System.ConsoleColor})">
             <summary>
@@ -1556,7 +1591,7 @@
                 The foreground color to assign to the range of characters, or <c>null</c> to use the console’s default
                 foreground color.</param>
             <returns>
-                A potentially colorful string.</returns>
+                The current string but with some of the foreground colors changed.</returns>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorSubstring(System.Int32,System.Int32,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
             <summary>
@@ -1572,7 +1607,7 @@
                 The background color to assign to the range of characters, or <c>null</c> to use the console’s default
                 background color.</param>
             <returns>
-                A potentially colorful string.</returns>
+                The current string but with some of the colors changed.</returns>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorSubstring(System.Int32,System.Nullable{System.ConsoleColor})">
             <summary>
@@ -1584,7 +1619,7 @@
                 The foreground color to assign to the characters starting from the character at <paramref name="index"/>, or
                 <c>null</c> to use the console’s default foreground color.</param>
             <returns>
-                A potentially colorful string.</returns>
+                The current string but with some of the foreground colors changed.</returns>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorSubstring(System.Int32,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
             <summary>
@@ -1598,7 +1633,7 @@
                 The background color to assign to the characters starting from the character at <paramref name="index"/>, or
                 <c>null</c> to use the console’s default background color.</param>
             <returns>
-                A potentially colorful string.</returns>
+                The current string but with some of the colors changed.</returns>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorSubstringBackground(System.Int32,System.Int32,System.Nullable{System.ConsoleColor})">
             <summary>
@@ -1611,7 +1646,7 @@
                 The background color to assign to the range of characters, or <c>null</c> to use the console’s default
                 background color.</param>
             <returns>
-                A potentially colorful string.</returns>
+                The current string but with some of the background colors changed.</returns>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.ColorSubstringBackground(System.Int32,System.Nullable{System.ConsoleColor})">
             <summary>
@@ -1623,7 +1658,7 @@
                 The background color to assign to the characters starting from the character at <paramref name="index"/>, or
                 <c>null</c> to use the console’s default background color.</param>
             <returns>
-                A potentially colorful string.</returns>
+                The current string but with some of the background colors changed.</returns>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleColoredString.Replace(System.Char,System.Char)">
             <summary>
@@ -1665,12 +1700,10 @@
             <summary>Represents an empty colored string. This field is read-only.</summary>
         </member>
         <member name="P:RT.Util.Consoles.ConsoleColoredString.NewLine">
-            <summary>
-                Represents the environment's newline, colored in the default color (<see cref="F:System.ConsoleColor.Gray"/>). This
-                field is read-only.</summary>
+            <summary>Represents the environment's newline, colored in the default color. This field is read-only.</summary>
         </member>
         <member name="P:RT.Util.Consoles.ConsoleColoredString.Length">
-            <summary>Returns the number of characters in this <see cref="T:RT.Util.Consoles.ConsoleColoredString"/></summary>
+            <summary>Returns the number of characters in this <see cref="T:RT.Util.Consoles.ConsoleColoredString"/>.</summary>
         </member>
         <member name="P:RT.Util.Consoles.ConsoleColoredString.Item(System.Int32)">
             <summary>
@@ -1681,6 +1714,10 @@
                 A Unicode character with console colors.</returns>
             <exception cref="T:System.IndexOutOfRangeException">
                 <paramref name="index"/> is greater than or equal to the length of this string or less than zero.</exception>
+        </member>
+        <member name="P:RT.Util.Consoles.ConsoleColoredString.ToDebugString">
+            <summary>
+                Returns a string in which the coloration of this ConsoleColoredString is represented as user-readable text.</summary>
         </member>
         <member name="T:RT.Util.Consoles.ConsoleColoredChar">
             <summary>Contains a character and a console foreground and background color.</summary>
@@ -1759,8 +1796,16 @@
         <member name="M:RT.Util.Consoles.ConsoleUtil.Write(RT.Util.Consoles.ConsoleColoredString,System.Boolean)">
             <summary>Writes the specified <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> to the console.</summary>
         </member>
-        <member name="M:RT.Util.Consoles.ConsoleUtil.WriteLine(RT.Util.Consoles.ConsoleColoredString,System.Boolean)">
-            <summary>Writes the specified <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> followed by a newline to the console.</summary>
+        <member name="M:RT.Util.Consoles.ConsoleUtil.WriteLine(RT.Util.Consoles.ConsoleColoredString,System.Boolean,RT.Util.Text.HorizontalTextAlignment)">
+            <summary>
+                Writes the specified <see cref="T:RT.Util.Consoles.ConsoleColoredString"/> followed by a newline to the console.</summary>
+            <param name="value">
+                The string to print to the console.</param>
+            <param name="stdErr">
+                <c>true</c> to print to Standard Error instead of Standard Output.</param>
+            <param name="align">
+                Horizontal alignment of the string within the remaining space of the current line. If the string does not fit,
+                it will be printed as if left-aligned.</param>
         </member>
         <member name="M:RT.Util.Consoles.ConsoleUtil.WriteStackTrace(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
@@ -2898,7 +2943,8 @@
                 The URL of the request. If the URL does not begin with <c>http://</c> or <c>https://</c>, it is automatically
                 prepended with <see cref="F:RT.Util.HClient.RootUrl"/>.</param>
             <param name="args">
-                Query parameters to add to the end of the URL in the usual <c>?k1=v1&amp;k2=v2&amp;...</c> format.</param>
+                Query parameters to add to the end of the URL in the usual <c>?k1=v1&amp;k2=v2&amp;...</c> format. Null values
+                are allowed and ignored.</param>
             <returns>
                 The response received from the server.</returns>
         </member>
@@ -2922,7 +2968,7 @@
                 The URL of the request. If the URL does not begin with <c>http://</c> or <c>https://</c>, it is automatically
                 prepended with <see cref="F:RT.Util.HClient.RootUrl"/>.</param>
             <param name="args">
-                The arguments to pass with the POST request.</param>
+                The arguments to pass with the POST request. Null values are allowed and ignored.</param>
             <returns>
                 The response received from the server.</returns>
             <remarks>
@@ -2937,7 +2983,7 @@
                 The URL of the request. If the URL does not begin with <c>http://</c> or <c>https://</c>, it is automatically
                 prepended with <see cref="F:RT.Util.HClient.RootUrl"/>.</param>
             <param name="args">
-                The arguments to pass with the POST request.</param>
+                The arguments to pass with the POST request. Null values are allowed and ignored.</param>
             <returns>
                 The response received from the server.</returns>
             <remarks>
@@ -2952,7 +2998,7 @@
                 The URL of the request. If the URL does not begin with <c>http://</c> or <c>https://</c>, it is automatically
                 prepended with <see cref="F:RT.Util.HClient.RootUrl"/>.</param>
             <param name="args">
-                The arguments to pass with the POST request.</param>
+                The arguments to pass with the POST request. Null values are allowed and ignored.</param>
             <returns>
                 The response received from the server.</returns>
             <remarks>
@@ -3709,29 +3755,27 @@
                     The “rules” of EggsML are, in summary:</para>
                 <list type="bullet">
                     <item><description>
-                        In EggsML, the following non-alphanumeric characters are “special” (have meaning): <c>~ @ # $ % ^ &amp; * _ =
-                        + / \ | [ ] { } &lt; &gt; ` "</c></description></item>
+                        In EggsML, the following non-alphanumeric characters are “special” (have meaning): <c>~ @ # $ % ^ &amp; *
+                        _ = + / \ | [ ] { } &lt; &gt; ` "</c></description></item>
                     <item><description>
                         All other characters are always literal.</description></item>
                     <item><description>
                         All the special characters can be escaped by doubling them.</description></item>
                     <item><description>
-                        The characters <c>~ @ # $ % ^ &amp; * _ = + / \ | [ { &lt;</c> can be used to open a
-                        “tag”.</description></item>
+                        The characters <c>~ @ # $ % ^ &amp; * _ = + / \ | [ { &lt;</c> can be used to open a “tag”.</description></item>
                     <item><description>
-                        Tags that start with <c>[ { &lt;</c> are closed with <c>] } &gt;</c>. All other tags are closed with the same
-                        character.</description></item>
+                        Tags that start with <c>[ { &lt;</c> are closed with <c>] } &gt;</c>. All other tags are closed with the
+                        same character.</description></item>
                     <item><description>
-                        Tags can be nested arbitrarily. In order to start a nested tag of the same character as its immediate parent,
-                        triple the tag character. For example, <c>*one ***two* three*</c> contains an asterisk tag nested inside
-                        another asterisk tag, while <c>*one *two* three*</c> would be parsed as two asterisk tags, one containing “one
-                        ” and the other containing “ three”.</description></item>
+                        Tags can be nested arbitrarily. In order to start a nested tag of the same character as its immediate
+                        parent, triple the tag character. For example, <c>*one ***two* three*</c> contains an asterisk tag nested
+                        inside another asterisk tag, while <c>*one *two* three*</c> would be parsed as two asterisk tags, one
+                        containing “one ” and the other containing “ three”.</description></item>
                     <item><description>
-                        The backtick character (<c>`</c>) can be used to “unjoin” multiple copies of the same character. For example,
-                        <c>**</c> is a literal asterisk, but <c>*`*</c> is an empty tag containing no text.</description></item>
+                        The backtick character (<c>`</c>) can be used to “unjoin” multiple copies of the same character. For
+                        example, <c>**</c> is a literal asterisk, but <c>*`*</c> is an empty tag containing no text.</description></item>
                     <item><description>
-                        The double-quote character (<c>"</c>) can be used to escape long strings of special characters, e.g.
-                        URLs.</description></item></list></remarks>
+                        The double-quote character (<c>"</c>) can be used to escape long strings of special characters, e.g. URLs.</description></item></list></remarks>
         </member>
         <member name="M:RT.Util.EggsML.Parse(System.String)">
             <summary>
@@ -3745,12 +3789,10 @@
                     <item><description>
                         Tags are parsed into instances of <see cref="T:RT.Util.EggsTag"/>.</description></item>
                     <item><description>
-                        The top-level nodes are contained in an instance of <see cref="T:RT.Util.EggsTag"/> whose <see cref="P:RT.Util.EggsTag.Tag"/>
-                        property is set to null.</description></item>
+                        The top-level nodes are contained in an instance of <see cref="T:RT.Util.EggsTag"/> whose <see cref="P:RT.Util.EggsTag.Tag"/> property is set to null.</description></item>
                     <item><description>
                         All the literal text is parsed into instances of <see cref="T:RT.Util.EggsText"/>. All continuous text is
-                        consolidated, so there are no two consecutive EggsText instances in any list of
-                        children.</description></item></list></remarks>
+                        consolidated, so there are no two consecutive EggsText instances in any list of children.</description></item></list></remarks>
             <exception cref="T:RT.Util.EggsMLParseException">
                 Invalid syntax was encountered. The exception object contains the string index at which the error was
                 detected.</exception>
@@ -3764,9 +3806,9 @@
         </member>
         <member name="M:RT.Util.EggsML.WordWrap``1(RT.Util.EggsNode,``0,System.Int32,RT.Util.EggsML.EggMeasure{``0},RT.Util.EggsML.EggRender{``0},RT.Util.EggsML.EggNextLine{``0},RT.Util.EggsML.EggNextState{``0})">
             <summary>
-                Word-wraps a given piece of EggsML, assuming that it is linearly flowing text. Newline (<c>\n</c>) characters can
-                be used to split the text into multiple paragraphs. See remarks for the special meaning of <c>+...+</c> and
-                <c>&lt;...&gt;</c>.</summary>
+                Word-wraps a given piece of EggsML, assuming that it is linearly flowing text. Newline (<c>\n</c>) characters
+                can be used to split the text into multiple paragraphs. See remarks for the special meaning of <c>+...+</c>
+                and <c>&lt;...&gt;</c>.</summary>
             <typeparam name="TState">
                 The type of the text state that an EggsML can change, e.g. font or color.</typeparam>
             <param name="node">
@@ -3789,11 +3831,11 @@
             <remarks>
                 <list type="bullet">
                     <item><description>
-                        The <c>+...+</c> tag marks text that may not be broken by wrapping (effectively turning all spaces into
-                        non-breaking spaces).</description></item>
+                        The <c>+...+</c> tag marks text that may not be broken by wrapping (effectively turning all spaces
+                        into non-breaking spaces).</description></item>
                     <item><description>
-                        The <c>&lt;...&gt;</c> tag marks a parameter to an immediately following tag. For example, if the input
-                        EggsML contains <c>&lt;X&gt;{Foo}</c>, the text “X” will be passed as the parameter to <paramref
+                        The <c>&lt;...&gt;</c> tag marks a parameter to an immediately following tag. For example, if the
+                        input EggsML contains <c>&lt;X&gt;{Foo}</c>, the text “X” will be passed as the parameter to <paramref
                         name="nextState"/> when the <c>{</c> tag is processed.</description></item></list></remarks>
         </member>
         <member name="P:RT.Util.EggsML.SpecialCharacters">
@@ -3841,8 +3883,8 @@
         <member name="T:RT.Util.EggsML.EggNextState`1">
             <summary>
                 Provides a delegate for <see cref="M:RT.Util.EggsML.WordWrap``1(RT.Util.EggsNode,``0,System.Int32,RT.Util.EggsML.EggMeasure{``0},RT.Util.EggsML.EggRender{``0},RT.Util.EggsML.EggNextLine{``0},RT.Util.EggsML.EggNextState{``0})"/> which determines how the text state (font, color
-                etc.) changes for a given EggsML tag character. This delegate is called for all tags except for <c>+...+</c> and
-                <c>&lt;...&gt;</c>.</summary>
+                etc.) changes for a given EggsML tag character. This delegate is called for all tags except for <c>+...+</c>
+                and <c>&lt;...&gt;</c>.</summary>
             <typeparam name="TState">
                 The type of the text state, e.g. font or color.</typeparam>
             <param name="oldState">
@@ -3850,11 +3892,11 @@
             <param name="eggTag">
                 The EggsML tag character.</param>
             <param name="parameter">
-                The contents of the immediately preceding <c>&lt;...&gt;</c> tag (if any), which can be used to parameterize other
-                tags.</param>
+                The contents of the immediately preceding <c>&lt;...&gt;</c> tag (if any), which can be used to parameterize
+                other tags.</param>
             <returns>
-                The next state (return the old state for all tags that should not have a meaning) and an integer indicating the
-                amount by which opening this tag has advanced the text position.</returns>
+                The next state (return the old state for all tags that should not have a meaning) and an integer indicating
+                the amount by which opening this tag has advanced the text position.</returns>
         </member>
         <member name="T:RT.Util.EggsNode">
             <summary>Contains a node in the <see cref="T:RT.Util.EggsML"/> parse tree.</summary>
@@ -3874,8 +3916,8 @@
             <param name="children">
                 List of children to turn into mark-up.</param>
             <param name="tag">
-                If non-null, assumes we are directly inside a tag with the specified character, causing necessary escaping to be
-                performed.</param>
+                If non-null, assumes we are directly inside a tag with the specified character, causing necessary escaping to
+                be performed.</param>
             <returns>
                 EggsML mark-up representing the same tree structure as this node.</returns>
         </member>
@@ -3884,8 +3926,8 @@
         </member>
         <member name="M:RT.Util.EggsNode.ToConsoleColoredStringWordWrap(System.Int32,System.Int32)">
             <summary>
-                Generates a sequence of <see cref="T:RT.Util.Consoles.ConsoleColoredString"/>s from an EggsML parse tree by word-wrapping the output
-                at a specified character width.</summary>
+                Generates a sequence of <see cref="T:RT.Util.Consoles.ConsoleColoredString"/>s from an EggsML parse tree by word-wrapping the
+                output at a specified character width.</summary>
             <param name="wrapWidth">
                 The number of characters at which to word-wrap the output.</param>
             <param name="hangingIndent">
@@ -3918,9 +3960,9 @@
                     tag.</para>
                 <para>
                     Additionally, the <c>+</c> tag can be used to suppress word-wrapping within a certain stretch of text. In
-                    other words, the contents of a <c>+</c> tag are treated as if they were a single word. Use this in preference
-                    to U+00A0 (no-break space) as it is more explicit and more future-compatible in case hyphenation is ever
-                    implemented here.</para></remarks>
+                    other words, the contents of a <c>+</c> tag are treated as if they were a single word. Use this in
+                    preference to U+00A0 (no-break space) as it is more explicit and more future-compatible in case
+                    hyphenation is ever implemented here.</para></remarks>
         </member>
         <member name="P:RT.Util.EggsNode.Index">
             <summary>The index in the original string where this node starts.</summary>
@@ -3929,10 +3971,13 @@
             <summary>Determines whether this node contains any textual content.</summary>
         </member>
         <member name="P:RT.Util.EggsNode.Parent">
-            <summary>Gets a reference to the parent node of this node. The root node is the only one for which this property is null.</summary>
+            <summary>
+                Gets a reference to the parent node of this node. The root node is the only one for which this property is
+                null.</summary>
         </member>
         <member name="T:RT.Util.EggsTag">
-            <summary>Represents a node in the <see cref="T:RT.Util.EggsML"/> parse tree that corresponds to an EggsML tag or the top-level node.</summary>
+            <summary>
+                Represents a node in the <see cref="T:RT.Util.EggsML"/> parse tree that corresponds to an EggsML tag or the top-level node.</summary>
         </member>
         <member name="M:RT.Util.EggsTag.Add(RT.Util.EggsNode)">
             <summary>
@@ -3951,12 +3996,18 @@
             <param name="index">
                 The index in the original string where this tag was opened.</param>
         </member>
+        <member name="M:RT.Util.EggsTag.#ctor(System.Collections.Generic.IEnumerable{RT.Util.EggsNode})">
+            <summary>
+                Constructs a new top-level EggsML parse-tree node containing the specified sub-nodes.</summary>
+            <param name="nodes">
+                The sub-nodes contained in the root node.</param>
+        </member>
         <member name="M:RT.Util.EggsTag.ToString">
             <summary>
                 Reconstructs the original EggsML that is represented by this node.</summary>
             <remarks>
-                This does not necessarily return the same EggsML that was originally parsed. For example, redundant uses of the
-                <c>`</c> character are removed.</remarks>
+                This does not necessarily return the same EggsML that was originally parsed. For example, redundant uses of
+                the <c>`</c> character are removed.</remarks>
         </member>
         <member name="M:RT.Util.EggsTag.ToXml">
             <summary>Returns an XML representation of this EggsML node.</summary>
@@ -3985,8 +4036,8 @@
             <summary>
                 Reconstructs the original EggsML that is represented by this node.</summary>
             <remarks>
-                This does not necessarily return the same EggsML that was originally parsed. For example, redundant uses of the
-                <c>`</c> character are removed.</remarks>
+                This does not necessarily return the same EggsML that was originally parsed. For example, redundant uses of
+                the <c>`</c> character are removed.</remarks>
         </member>
         <member name="M:RT.Util.EggsText.ToXml">
             <summary>Returns an XML representation of this EggsML node.</summary>
@@ -4010,8 +4061,8 @@
             <param name="length">
                 The length of the text in the original string where the error occurred.</param>
             <param name="firstIndex">
-                The character index of an earlier position in the original string where the error started (e.g. the start of a tag
-                that is missing its end tag).</param>
+                The character index of an earlier position in the original string where the error started (e.g. the start of a
+                tag that is missing its end tag).</param>
             <param name="inner">
                 An inner exception to pass to the base Exception class.</param>
         </member>
@@ -4023,8 +4074,8 @@
         </member>
         <member name="P:RT.Util.EggsMLParseException.FirstIndex">
             <summary>
-                The character index of an earlier position in the original string where the error started (e.g. the start of a tag
-                that is missing its end tag).</summary>
+                The character index of an earlier position in the original string where the error started (e.g. the start of a
+                tag that is missing its end tag).</summary>
         </member>
         <member name="T:RT.Util.ExactConvert">
              <summary>
@@ -4707,6 +4758,23 @@
                 Value to add to the inner Dictionary.</param>
             <param name="comparer">
                 Optional equality comparer to pass into the inner dictionary if a new one is created.</param>
+        </member>
+        <member name="M:RT.Util.ExtensionMethods.CollectionExtensions.RemoveSafe``3(System.Collections.Generic.IDictionary{``0,System.Collections.Generic.Dictionary{``1,``2}},``0,``1)">
+            <summary>
+                Removes an element from a two-level Dictionary&lt;,&gt;. If this leaves the inner dictionary empty, the key is
+                removed from the outer Dictionary.</summary>
+            <typeparam name="K1">
+                Type of the key of the outer Dictionary.</typeparam>
+            <typeparam name="K2">
+                Type of the key of the inner Dictionary.</typeparam>
+            <typeparam name="V">
+                Type of the values in the inner Dictionary.</typeparam>
+            <param name="dic">
+                Dictionary to operate on.</param>
+            <param name="key1">
+                Key at which the inner Dictionary is located in the outer Dictionary.</param>
+            <param name="key2">
+                Key at which the value is located in the inner Dictionary.</param><returns>A value indicating whether a value was removed or not.</returns>
         </member>
         <member name="M:RT.Util.ExtensionMethods.CollectionExtensions.AddSafe``3(System.Collections.Generic.IDictionary{``0,System.Collections.Generic.Dictionary{``1,System.Collections.Generic.List{``2}}},``0,``1,``2)">
             <summary>
@@ -6651,9 +6719,8 @@
         </member>
         <member name="T:RT.Util.Dialogs.DlgType">
             <summary>
-            Selects the type of dialog for <see cref="T:RT.Util.Dialogs.DlgMessage"/> to show. This specifies the sound and, unless
-            explicitly overridden, the image and caption used to show the dialog.
-            </summary>
+                Selects the type of dialog for <see cref="T:RT.Util.Dialogs.DlgMessage"/> to show. This specifies the sound and, unless explicitly
+                overridden, the image and caption used to show the dialog.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgType.Info">
             <summary>Displays an information dialog.</summary>
@@ -6669,40 +6736,38 @@
         </member>
         <member name="F:RT.Util.Dialogs.DlgType.Custom">
             <summary>
-            Displays a custom dialog. Custom defaults to no sound, no default image,
-            and the caption defaults to the application name (all are overridable).
-            Doesn't fully work, bug 15.
-            </summary>
+                Displays a custom dialog. Custom defaults to no sound, no default image, and the caption defaults to the
+                application name (all are overridable). Doesn't fully work, bug 15.</summary>
+        </member>
+        <member name="T:RT.Util.Dialogs.DlgMessageFormat">
+            <summary>Specifies whether the text in a <see cref="T:RT.Util.Dialogs.DlgMessage"/> box should be rendered using EggsML or plain text.</summary>
+        </member>
+        <member name="F:RT.Util.Dialogs.DlgMessageFormat.PlainText">
+            <summary>Indicates plain text without formatting.</summary>
+        </member>
+        <member name="F:RT.Util.Dialogs.DlgMessageFormat.EggsML">
+            <summary>Indicates EggsML mark-up.</summary>
         </member>
         <member name="T:RT.Util.Dialogs.DlgMessageForm">
             <summary>
-            This class is used by the <see cref="T:RT.Util.Dialogs.DlgMessage"/> class. This is the form used
-            for displaying the message box.
-            </summary>
+                This class is used by the <see cref="T:RT.Util.Dialogs.DlgMessage"/> class. This is the form used for displaying the message box.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessageForm.DefaultCaption">
-            <summary>
-            Change this variable to i18n'ize the default captions
-            </summary>
+            <summary>Change this variable to i18n'ize the default captions</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessageForm.DefaultImage">
-            <summary>
-            Change this variable to i18n'ize the default images
-            </summary>
+            <summary>Change this variable to i18n'ize the default images</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessageForm.DefaultOKCaption">
-            <summary>
-            Change this variable to i18n'ize the default OK button text
-            </summary>
+            <summary>Change this variable to i18n'ize the default OK button text</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessageForm.#ctor">
             <summary>Creates an instance of the DlgMessage form.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessageForm.DlgMessage_FormClosing(System.Object,System.Windows.Forms.FormClosingEventArgs)">
             <summary>
-            This takes care of the user closing the dialog. This is equivalent to pressing
-            the Cancel button, whichever one it happens to be.
-            </summary>
+                This takes care of the user closing the dialog. This is equivalent to pressing the Cancel button, whichever
+                one it happens to be.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessageForm.components">
             <summary>
@@ -6723,124 +6788,106 @@
         </member>
         <member name="T:RT.Util.Dialogs.DlgMessage">
             <summary>
-            Holds a number of settings that define a message dialog. Provides a method to show the
-            dialog represented, as well as static methods to show some common dialog kinds with
-            most settings at their defaults.
-            </summary>
+                Holds a number of settings that define a message dialog. Provides a method to show the dialog represented, as well
+                as static methods to show some common dialog kinds with most settings at their defaults.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.Type">
             <summary>
-            Specifies the message type. This selects a sound, an image and a caption to be used
-            by default, unless explicitly overridden in the other fields of this class. Defaults
-            to <see cref="F:RT.Util.Dialogs.DlgType.Info"/>.
-            </summary>
+                Specifies the message type. This selects a sound, an image and a caption to be used by default, unless
+                explicitly overridden in the other fields of this class. Defaults to <see cref="F:RT.Util.Dialogs.DlgType.Info"/>.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.Buttons">
             <summary>
-            Specifies the labels of the buttons to be displayed in the dialog. Defaults to null,
-            in which case a single "OK" button will appear. May contain at most four elements.
-            The labels may include the ampersand to indicate a shortcut key, or double-ampersand
-            to include an ampersand.
-            </summary>
+                Specifies the labels of the buttons to be displayed in the dialog. Defaults to null, in which case a single
+                "OK" button will appear. May contain at most four elements. The labels may include the ampersand to indicate a
+                shortcut key, or double-ampersand to include an ampersand.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.Message">
             <summary>
-            Specifies the message to be displayed in the main message area. Defaults to null,
-            in which case the message area will be empty.
-            </summary>
+                Specifies the message to be displayed in the main message area. Defaults to null, in which case the message
+                area will be empty.</summary>
+        </member>
+        <member name="F:RT.Util.Dialogs.DlgMessage.Format">
+            <summary>Specifies whether the text in this message box should be rendered using EggsML or plain text.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.Caption">
             <summary>
-            Specifies a caption to be displayed in the dialog's window title bar. Defaults to null,
-            which means choose a title based on the <see cref="F:RT.Util.Dialogs.DlgMessage.Type"/> field.
-            </summary>
+                Specifies a caption to be displayed in the dialog's window title bar. Defaults to null, which means choose a
+                title based on the <see cref="F:RT.Util.Dialogs.DlgMessage.Type"/> field.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.Image">
             <summary>
-            Specifies an image to be displayed in the image area of the dialog. Defaults to null,
-            which means use an image based on the <see cref="F:RT.Util.Dialogs.DlgMessage.Type"/> field. If the type is <see cref="F:RT.Util.Dialogs.DlgType.Custom"/>,
-            and this field is null, no image will be displayed.
-            </summary>
+                Specifies an image to be displayed in the image area of the dialog. Defaults to null, which means use an image
+                based on the <see cref="F:RT.Util.Dialogs.DlgMessage.Type"/> field. If the type is <see cref="F:RT.Util.Dialogs.DlgType.Custom"/>, and this field is null, no
+                image will be displayed.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.Font">
             <summary>
-            Specifies a font to be used for the message text (but not the buttons). Defaults to
-            null, which means the default system font should be used.
-            </summary>
+                Specifies a font to be used for the message text (but not the buttons). Defaults to null, which means the
+                default system font should be used.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.AcceptButton">
             <summary>
-            Specifies the index of the accept button (the one selected if the user just presses Enter).
-            Defaults to -1, which means the button with index 0.
-            </summary>
+                Specifies the index of the accept button (the one selected if the user just presses Enter). Defaults to -1,
+                which means the button with index 0.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.CancelButton">
             <summary>
-            Specifies the index of the cancel button (the one selected if the user just presses Esc or Alt+F4).
-            Defaults to -1, which means the button with the largest valid index.
-            </summary>
+                Specifies the index of the cancel button (the one selected if the user just presses Esc or Alt+F4). Defaults
+                to -1, which means the button with the largest valid index.</summary>
         </member>
         <member name="F:RT.Util.Dialogs.DlgMessage.ShowInTaskbar">
             <summary>Specifies whether a taskbar icon is shown for the dialog box.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.Show">
             <summary>
-            Shows a message using all the settings specified in this class instance. Anything
-            left at defaults will be modified to hold the appropriate value. Any invalid settings
-            will be flagged with an exception.
-            </summary>
+                Shows a message using all the settings specified in this class instance. Anything left at defaults will be
+                modified to hold the appropriate value. Any invalid settings will be flagged with an exception.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.Show(System.String,RT.Util.Dialogs.DlgType)">
-            <summary>
-            Shows a message of the specified message type, using an appropriate caption, sound and image.
-            </summary>
+            <summary>Shows a message of the specified message type, using an appropriate caption, sound and image.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.Show(System.String,System.String,RT.Util.Dialogs.DlgType,System.String[])">
-            <summary>
-            Shows a message of the specified message type, using an appropriate sound and image.
-            </summary>
+            <summary>Shows a message of the specified message type, using an appropriate sound and image.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.ShowInfo(System.String,System.String[])">
-            <summary>
-            Shows an informational message using the image, caption and sound appropriate for this message type.
-            </summary>
+            <summary>Shows an informational message using the image, caption and sound appropriate for this message type.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.ShowQuestion(System.String,System.String[])">
-            <summary>
-            Shows a question message using the image, caption and sound appropriate for this message type.
-            </summary>
+            <summary>Shows a question message using the image, caption and sound appropriate for this message type.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.ShowWarning(System.String,System.String[])">
-            <summary>
-            Shows a warning message using the image, caption and sound appropriate for this message type.
-            </summary>
+            <summary>Shows a warning message using the image, caption and sound appropriate for this message type.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.ShowError(System.String,System.String[])">
-            <summary>
-            Shows an error message using the image, caption and sound appropriate for this message type.
-            </summary>
+            <summary>Shows an error message using the image, caption and sound appropriate for this message type.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.deduceAndCheckSettings">
             <summary>
-            Verifies that all the settings are correct, throwing an exception if not. For all
-            settings left at defaults, stores a value deemed appropriate based on the other settings.
-            </summary>
+                Verifies that all the settings are correct, throwing an exception if not. For all settings left at defaults,
+                stores a value deemed appropriate based on the other settings.</summary>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.showAsIs">
             <summary>
-            Creates a message form and fills in the controls using the current settings. Does not
-            verify whether the settings are valid, so must only be used internally and only after the
-            settings have been verified.
-            </summary>
-            <returns>The index of the button pressed.</returns>
+                Creates a message form and fills in the controls using the current settings. Does not verify whether the
+                settings are valid, so must only be used internally and only after the settings have been verified.</summary>
+            <returns>
+                The index of the button pressed.</returns>
         </member>
         <member name="M:RT.Util.Dialogs.DlgMessage.Translate(System.String,System.String,System.String,System.String,System.String)">
-            <summary>Applies a translation to certain default strings, on the assumption that all messages are to be shown with the same translation.</summary>
-            <param name="ok">Translation for the default "OK" button.</param>
-            <param name="captionInfo">Translation for the default window caption for informational messages.</param>
-            <param name="captionQuestion">Translation for the default window caption for question messages.</param>
-            <param name="captionWarning">Translation for the default window caption for warning messages.</param>
-            <param name="captionError">Translation for the default window caption for error messages.</param>
+            <summary>
+                Applies a translation to certain default strings, on the assumption that all messages are to be shown with the
+                same translation.</summary>
+            <param name="ok">
+                Translation for the default "OK" button.</param>
+            <param name="captionInfo">
+                Translation for the default window caption for informational messages.</param>
+            <param name="captionQuestion">
+                Translation for the default window caption for question messages.</param>
+            <param name="captionWarning">
+                Translation for the default window caption for warning messages.</param>
+            <param name="captionError">
+                Translation for the default window caption for error messages.</param>
         </member>
         <member name="T:RT.Util.Forms.ManagedForm">
             <summary>
@@ -8762,7 +8809,7 @@
         <member name="F:RT.Util.Json.JsonString.TrueFalseComparer">
             <summary>
                 Controls which string equality comparer is used when comparing strings against elements in <see cref="F:RT.Util.Json.JsonString.True"/>
-                and <see cref="F:RT.Util.Json.JsonString.False"/> during conversion to bool by <see cref="M:RT.Util.Json.JsonValue.GetBool(RT.Util.Json.BoolConversionOptions)"/>.</summary>
+                and <see cref="F:RT.Util.Json.JsonString.False"/> during conversion to <c>bool</c> by <see cref="M:RT.Util.Json.JsonValue.GetBool(RT.Util.Json.BoolConversionOptions)"/>.</summary>
             <remarks>
                 The default is <see cref="P:System.StringComparer.OrdinalIgnoreCase"/>.</remarks>
         </member>
@@ -11438,8 +11485,29 @@
             <remarks>
                 Example: <c>SetCommand(new[] { @"C:\Program Files\Foo\Foo.exe", "-f", @"C:\Some Path\file.txt" });</c></remarks>
         </member>
-        <member name="M:RT.Util.CommandRunner.Start">
-            <summary>Starts the command with all the settings as configured.</summary>
+        <member name="M:RT.Util.CommandRunner.Start(System.Byte[])">
+            <summary>
+                Starts the command with all the settings as configured.</summary>
+            <param name="stdin">
+                Provides a byte stream to be passed to the process’s standard input.</param>
+        </member>
+        <member name="M:RT.Util.CommandRunner.StartAndWait">
+            <summary>Starts the command with all the settings as configured. Does not return until the command exits.</summary>
+        </member>
+        <member name="M:RT.Util.CommandRunner.ArgsToCommandLine(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Given a number of argument strings, constructs a single command line string with all the arguments escaped
+                correctly so that a process using standard Windows API for parsing the command line will receive exactly the
+                strings passed in here. See Remarks.</summary>
+            <remarks>
+                The string is only valid for passing directly to a process. If the target process is invoked by passing the
+                process name + arguments to cmd.exe then further escaping is required, to counteract cmd.exe's interpretation
+                of additional special characters. See <see cref="M:RT.Util.CommandRunner.EscapeCmdExeMetachars(System.String)"/>.</remarks>
+        </member>
+        <member name="M:RT.Util.CommandRunner.EscapeCmdExeMetachars(System.String)">
+            <summary>
+                Escapes all cmd.exe meta-characters by prefixing them with a ^. See <see cref="M:RT.Util.CommandRunner.ArgsToCommandLine(System.Collections.Generic.IEnumerable{System.String})"/> for more
+                information.</summary>
         </member>
         <member name="M:RT.Util.CommandRunner.Abort">
             <summary>
@@ -11573,7 +11641,7 @@
             <summary>
                 The command to be executed, as a single string. Any command supported by cmd.exe is permitted. See also <see cref="M:RT.Util.CommandRunner.SetCommand(System.String[])"/>, which simplifies running commands with spaces and/or arguments. Once the
                 command has been started, this property becomes read-only and indicates the value in effect at the time of
-                starting.</summary>
+                starting. See Remarks.</summary>
         </member>
         <member name="P:RT.Util.CommandRunner.WorkingDirectory">
             <summary>
@@ -12527,7 +12595,7 @@
         <member name="M:RT.Util.Serialization.Classify.classifier`1.deserialize(System.Type,`0,System.Object,System.Object,System.Boolean)">
             <summary>
                 Deserializes an object from its serialized form.</summary>
-            <param name="type">
+            <param name="declaredType">
                 The type to deserialize to.</param>
             <param name="elem">
                 The serialized form.</param>
@@ -12637,8 +12705,8 @@
         </member>
         <member name="T:RT.Util.Serialization.IClassifySubstitute`2">
             <summary>
-                Implement this interface in a subclass of <see cref="T:RT.Util.Serialization.ClassifyTypeOptions"/> to specify how to substitute a type
-                for another type during Classify.</summary>
+                Implement this interface to specify how to substitute a type for another type during Classify. The type
+                implementing this interface can be used in a class derived from <see cref="T:RT.Util.Serialization.ClassifyTypeOptions"/> or in <see cref="T:RT.Util.Serialization.ClassifySubstituteAttribute"/>.</summary>
             <typeparam name="TTrue">
                 The type that is actually used for instances in memory.</typeparam>
             <typeparam name="TSubstitute">
@@ -12694,7 +12762,7 @@
             <remarks>
                 <para>
                     Derive from this type and implement <see cref="T:RT.Util.Serialization.IClassifySubstitute`2"/> to enable type
-                    substitution during Classify.</para>
+                    substitution during Classify. (This type substitution can be overridden by the presence of a <see cref="T:RT.Util.Serialization.ClassifySubstituteAttribute"/> on a field or automatically-implemented property.)</para>
                 <para>
                     Derive from this type and implement <see cref="T:RT.Util.Serialization.IClassifyTypeProcessor"/> or <see cref="T:RT.Util.Serialization.IClassifyTypeProcessor`1"/> to pre-/post-process the object or its serialized form before/after
                     Classify. (You can also implement <see cref="T:RT.Util.Serialization.IClassifyObjectProcessor"/> or <see cref="T:RT.Util.Serialization.IClassifyObjectProcessor`1"/> on the serialized type itself.)</para>
@@ -12714,6 +12782,22 @@
         <member name="T:RT.Util.Serialization.ClassifyIgnoreAttribute">
             <summary>
                 If this attribute is used on a field or automatically-implemented property, it is ignored by <see cref="T:RT.Util.Serialization.Classify"/>. Data stored in this field or automatically-implemented property is not persisted.</summary>
+        </member>
+        <member name="T:RT.Util.Serialization.ClassifySubstituteAttribute">
+            <summary>
+                Indicates that the value stored in this field or automatically-implemented property should be converted to another
+                type when serializing and back when deserializing. This takes precedence over any type substitution configured in
+                a <see cref="T:RT.Util.Serialization.ClassifyTypeOptions"/> derived class.</summary>
+        </member>
+        <member name="M:RT.Util.Serialization.ClassifySubstituteAttribute.#ctor(System.Type)">
+            <summary>
+                Constructor.</summary>
+            <param name="converterType">
+                Specifies a type that implements <see cref="T:RT.Util.Serialization.IClassifySubstitute`2"/>, where <c>TTrue</c> must
+                be the exact type of the field or automatically-implemented property bearing this attribute.</param>
+        </member>
+        <member name="P:RT.Util.Serialization.ClassifySubstituteAttribute.ConverterType">
+            <summary>Gets the type used to perform the type substitution.</summary>
         </member>
         <member name="T:RT.Util.Serialization.ClassifyIgnoreIfDefaultAttribute">
             <summary>
@@ -13027,8 +13111,8 @@
         </member>
         <member name="T:RT.Util.Serialization.IClassifyFormat`1">
             <summary>
-                Used by <see cref="T:RT.Util.Serialization.Classify"/> to serialize and deserialize objects. Implement this to enable serialization to a new
-                format.</summary>
+                Used by <see cref="T:RT.Util.Serialization.Classify"/> to serialize and deserialize objects. Implement this to enable serialization to a
+                new format.</summary>
             <typeparam name="TElement">
                 Type of the serialized form of an object or any sub-object.</typeparam>
         </member>
@@ -13060,12 +13144,11 @@
                 Called when Classify expects the element to be one of the following types: <c>byte</c>, <c>sbyte</c>,
                 <c>short</c>, <c>ushort</c>, <c>int</c>, <c>uint</c>, <c>long</c>, <c>ulong</c>, <c>decimal</c>, <c>float</c>,
                 <c>double</c>, <c>bool</c>, <c>char</c>, <c>string</c>, <c>DateTime</c> or an enum type. The implementation is
-                free to return a value of any of these types, and Classify will automatically use <see cref="T:RT.Util.ExactConvert"/> to
-                convert the value to the required target type.</summary>
+                free to return a value of any of these types, and Classify will automatically use <see cref="T:RT.Util.ExactConvert"/>
+                to convert the value to the required target type.</summary>
             <remarks>
-                This should decode values passed into <see cref="M:RT.Util.Serialization.IClassifyFormat`1.FormatSimpleValue(System.Object)"/>, although it is acceptable if the type has
-                changed, as long as <see cref="T:RT.Util.ExactConvert"/> will convert the decoded value back to the original
-                value.</remarks>
+                This should decode values passed into <see cref="M:RT.Util.Serialization.IClassifyFormat`1.FormatSimpleValue(System.Object)"/>, although it is acceptable if the type
+                has changed, as long as <see cref="T:RT.Util.ExactConvert"/> will convert the decoded value back to the original value.</remarks>
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.GetSelfValue(`0)">
             <summary>
@@ -13104,12 +13187,11 @@
             <param name="element">
                 The element to decode.</param>
             <returns>
-                A collection containing the key/value pairs in the dictionary. The keys in the returned collection are expected to
-                be convertible to the correct type using <see cref="T:RT.Util.ExactConvert"/>.</returns>
+                A collection containing the key/value pairs in the dictionary. The keys in the returned collection are
+                expected to be convertible to the correct type using <see cref="T:RT.Util.ExactConvert"/>.</returns>
             <remarks>
-                This should decode values passed into <see cref="M:RT.Util.Serialization.IClassifyFormat`1.FormatDictionary(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Object,`0}})"/>, although it is acceptable if the type of the
-                keys has changed. For example, all keys may be returned as <c>string</c>, as long as <see cref="T:RT.Util.ExactConvert"/>
-                will convert that <c>string</c> back to the original value.</remarks>
+                This should decode values passed into <see cref="M:RT.Util.Serialization.IClassifyFormat`1.FormatDictionary(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Object,`0}})"/>, although it is acceptable if the type of
+                the keys has changed. For example, all keys may be returned as <c>string</c>, as long as <see cref="T:RT.Util.ExactConvert"/> will convert that <c>string</c> back to the original value.</remarks>
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.HasField(`0,System.String,System.String)">
             <summary>
@@ -13122,8 +13204,7 @@
                 The assembly-qualified name of the type that declares the field. (This can be null if the field name is unique
                 within the type of the object being deserialized.)</param>
             <returns>
-                <c>true</c> if <paramref name="element"/> is an object and has the specified field; <c>false</c>
-                otherwise.</returns>
+                <c>true</c> if <paramref name="element"/> is an object and has the specified field; <c>false</c> otherwise.</returns>
             <remarks>
                 This should return <c>true</c> if <paramref name="element"/> represents an element generated by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.FormatObject(System.Collections.Generic.IEnumerable{RT.Util.Serialization.ObjectFieldInfo{`0}})"/> in which the field with the specified <paramref name="fieldName"/> was present.</remarks>
         </member>
@@ -13151,8 +13232,8 @@
             <param name="element">
                 The element that represents an object.</param>
             <param name="isFullType">
-                Receives a value indicating whether the type is a fully-qualified type name or not. This value is ignored if the
-                method returns <c>null</c>.</param>
+                Receives a value indicating whether the type is a fully-qualified type name or not. This value is ignored if
+                the method returns <c>null</c>.</param>
             <returns>
                 <c>null</c> if no type information was persisted in this element; otherwise, the decoded type name.</returns>
             <remarks>
@@ -13200,8 +13281,7 @@
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.GetFollowID(`0)">
             <summary>
-                Returns the ID encoded in this element. This is called only if <see cref="M:RT.Util.Serialization.IClassifyFormat`1.IsFollowID(`0)"/> returned
-                <c>true</c>.</summary>
+                Returns the ID encoded in this element. This is called only if <see cref="M:RT.Util.Serialization.IClassifyFormat`1.IsFollowID(`0)"/> returned <c>true</c>.</summary>
             <param name="element">
                 The element to decode.</param>
             <returns>
@@ -13227,8 +13307,8 @@
             <returns>
                 The serialized form of the <paramref name="value"/>.</returns>
             <remarks>
-                The returned element should be recognized by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.GetSimpleValue(`0)"/>, but need not necessarily decode to the
-                same type, as long as <see cref="T:RT.Util.ExactConvert"/> will convert it to the correct value.</remarks>
+                The returned element should be recognized by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.GetSimpleValue(`0)"/>, but need not necessarily decode to
+                the same type, as long as <see cref="T:RT.Util.ExactConvert"/> will convert it to the correct value.</remarks>
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.FormatSelfValue(`0)">
             <summary>
@@ -13282,8 +13362,8 @@
             <returns>
                 The serialized object.</returns>
             <remarks>
-                The returned element should be recognized by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.HasField(`0,System.String,System.String)"/> and <see cref="M:RT.Util.Serialization.IClassifyFormat`1.GetField(`0,System.String,System.String)"/>, irrespective of
-                the order in which the fields are provided in <paramref name="fields"/>.</remarks>
+                The returned element should be recognized by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.HasField(`0,System.String,System.String)"/> and <see cref="M:RT.Util.Serialization.IClassifyFormat`1.GetField(`0,System.String,System.String)"/>, irrespective
+                of the order in which the fields are provided in <paramref name="fields"/>.</remarks>
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.FormatFollowID(System.String)">
             <summary>
@@ -13297,8 +13377,7 @@
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.FormatReference(System.Int32)">
             <summary>
-                Generates an element that represents a reference to another object within the same serialized object
-                graph.</summary>
+                Generates an element that represents a reference to another object within the same serialized object graph.</summary>
             <param name="refId">
                 The reference ID.</param>
             <returns>
@@ -13308,17 +13387,18 @@
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.FormatReferable(`0,System.Int32)">
             <summary>
-                Converts an existing element (which may represent, for example, an object, list or dictionary) into one that can
-                be referred to by a reference (see <see cref="M:RT.Util.Serialization.IClassifyFormat`1.FormatReference(System.Int32)"/>).</summary>
+                Converts an existing element (which may represent, for example, an object, list or dictionary) into one that
+                can be referred to by a reference (see <see cref="M:RT.Util.Serialization.IClassifyFormat`1.FormatReference(System.Int32)"/>).</summary>
             <param name="element">
                 The original element to be converted.</param>
             <param name="refId">
                 The reference ID.</param>
             <returns>
-                A representation of the original <paramref name="element"/>, which additionally encodes the referable <paramref name="refId"/>.</returns>
+                A representation of the original <paramref name="element"/>, which additionally encodes the referable
+                <paramref name="refId"/>.</returns>
             <remarks>
-                The returned element should be recognized by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.IsReferable(`0)"/> as well as all the other methods that would
-                have also recognized the original <paramref name="element"/>.</remarks>
+                The returned element should be recognized by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.IsReferable(`0)"/> as well as all the other methods that
+                would have also recognized the original <paramref name="element"/>.</remarks>
         </member>
         <member name="M:RT.Util.Serialization.IClassifyFormat`1.FormatWithType(`0,System.String,System.Boolean)">
             <summary>
@@ -13335,6 +13415,12 @@
             <remarks>
                 The returned element should be recognized by <see cref="M:RT.Util.Serialization.IClassifyFormat`1.GetType(`0,System.Boolean@)"/> as well as all the other methods that would
                 have also recognized the original <paramref name="element"/>.</remarks>
+        </member>
+        <member name="M:RT.Util.Serialization.IClassifyFormat`1.ThrowMissingReferable(System.Int32)">
+            <summary>
+                Throws an InvalidOperationException informing the user that an element is a reference (<see cref="M:RT.Util.Serialization.IClassifyFormat`1.IsReference(`0)"/>) but the corresponding referable has not been encountered while deserializing.</summary>
+            <param name="refID">
+                The numeric reference ID.</param>
         </member>
         <member name="P:RT.Util.Serialization.ClassifyJsonFormat.Default">
             <summary>Gets the JSON Classify format with all options at their defaults.</summary>
@@ -13533,8 +13619,8 @@
             <param name="fieldName">
                 The name of the field.</param>
             <param name="declaringType">
-                The assembly-qualified name of the type that declares the field, or null if the name of the field is unique within
-                the object being serialized.</param>
+                The assembly-qualified name of the type that declares the field, or null if the name of the field is unique
+                within the object being serialized.</param>
             <param name="value">
                 The value of the field.</param>
         </member>
@@ -13543,8 +13629,8 @@
         </member>
         <member name="P:RT.Util.Serialization.ObjectFieldInfo`1.DeclaringType">
             <summary>
-                The assembly-qualified name of the type that declares the field, or null if the name of the field is unique within
-                the object being serialized.</summary>
+                The assembly-qualified name of the type that declares the field, or null if the name of the field is unique
+                within the object being serialized.</summary>
         </member>
         <member name="P:RT.Util.Serialization.ObjectFieldInfo`1.Value">
             <summary>The value of the field.</summary>
@@ -14141,6 +14227,18 @@
             Specify <see cref="F:System.Threading.Timeout.Infinite"/> to suppress the time-out (which is the default value).
             </summary>
         </member>
+        <member name="T:RT.Util.Text.HorizontalTextAlignment">
+            <summary>Provides values to specify a horizontal alignment of text.</summary>
+        </member>
+        <member name="F:RT.Util.Text.HorizontalTextAlignment.Left">
+            <summary>Specifies alignment to the left edge.</summary>
+        </member>
+        <member name="F:RT.Util.Text.HorizontalTextAlignment.Center">
+            <summary>Specifies horizontally centered alignment.</summary>
+        </member>
+        <member name="F:RT.Util.Text.HorizontalTextAlignment.Right">
+            <summary>Specifies alignment to the right edge.</summary>
+        </member>
         <member name="T:RT.Util.Text.OffsetToLineCol">
             <summary>
             Encapsulates a class that offers efficient conversion of a string offset into line/column number. The class
@@ -14647,41 +14745,97 @@
                 Delay, in milliseconds, before retrying <paramref name="func"/>.</param>
         </member>
         <member name="M:RT.Util.Ut.Parallel(System.Action[])">
-            <summary>Runs all of the specified actions in parallel, each in a thread of its own.</summary>
-            <param name="actions">Actions to run.</param>
+            <summary>
+                Runs all of the specified actions in parallel, each in a thread of its own.</summary>
+            <param name="actions">
+                Actions to run.</param>
         </member>
         <member name="M:RT.Util.Ut.Parallel(System.Int32,System.Action[])">
-            <summary>Runs the specified actions partly in parallel by using no more than the specified maximum number of threads.</summary>
-            <param name="maxSimultaneous">Maximum number of concurrent threads allowed.</param>
-            <param name="actions">Actions to run.</param>
+            <summary>
+                Runs the specified actions partly in parallel by using no more than the specified maximum number of threads.</summary>
+            <param name="maxSimultaneous">
+                Maximum number of concurrent threads allowed.</param>
+            <param name="actions">
+                Actions to run.</param>
         </member>
         <member name="M:RT.Util.Ut.ParallelForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
-            <summary>Runs the specified action in parallel for each item in the input collection.</summary>
-            <typeparam name="T">Type of the items in the collection.</typeparam>
-            <param name="items">Input collection of items to pass to the action.</param>
-            <param name="action">Action to run for each element.</param>
+            <summary>
+                Runs the specified action in parallel for each item in the input collection.</summary>
+            <typeparam name="T">
+                Type of the items in the collection.</typeparam>
+            <param name="items">
+                Input collection of items to pass to the action.</param>
+            <param name="action">
+                Action to run for each element.</param>
         </member>
         <member name="M:RT.Util.Ut.ParallelForEach``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{``0})">
-            <summary>Runs the specified action in parallel for each item in the input collection, using no more than the specified maximum number of threads.</summary>
-            <typeparam name="T">Type of the items in the collection.</typeparam>
-            <param name="items">Input collection of items to pass to the action.</param>
-            <param name="maxSimultaneous">Maximum number of concurrent threads allowed.</param>
-            <param name="action">Action to run for each element.</param>
+            <summary>
+                Runs the specified action in parallel for each item in the input collection, using no more than the specified
+                maximum number of threads.</summary>
+            <typeparam name="T">
+                Type of the items in the collection.</typeparam>
+            <param name="items">
+                Input collection of items to pass to the action.</param>
+            <param name="maxSimultaneous">
+                Maximum number of concurrent threads allowed.</param>
+            <param name="action">
+                Action to run for each element.</param>
         </member>
         <member name="M:RT.Util.Ut.ParallelSelectMany``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1}})">
-            <summary>Runs the specified function in parallel for each item in the input collection and returns a collection containing the concatenation of all the results of the function calls.</summary>
-            <typeparam name="TSource">The type of the elements of <paramref name="items"/>.</typeparam>
-            <typeparam name="TResult">The type of the elements of the sequence returned by <paramref name="selector"/>.</typeparam>
-            <param name="items">Input collection of items to pass to the function.</param>
-            <param name="selector">Function that returns a collection for each input item.</param>
+            <summary>
+                Runs the specified function in parallel for each item in the input collection and returns a collection
+                containing the concatenation of all the results of the function calls.</summary>
+            <typeparam name="TSource">
+                The type of the elements of <paramref name="items"/>.</typeparam>
+            <typeparam name="TResult">
+                The type of the elements of the sequence returned by <paramref name="selector"/>.</typeparam>
+            <param name="items">
+                Input collection of items to pass to the function.</param>
+            <param name="selector">
+                Function that returns a collection for each input item.</param>
         </member>
         <member name="M:RT.Util.Ut.ParallelSelectMany``2(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Collections.Generic.IEnumerable{``1}})">
-            <summary>Runs the specified function in parallel for each item in the input collection and returns a collection containing the concatenation of all the results of the function calls.</summary>
-            <typeparam name="TSource">The type of the elements of <paramref name="items"/>.</typeparam>
-            <typeparam name="TResult">The type of the elements of the sequence returned by <paramref name="selector"/>.</typeparam>
-            <param name="items">Input collection of items to pass to the function.</param>
-            <param name="maxSimultaneous">Maximum number of concurrent threads allowed.</param>
-            <param name="selector">Function that returns a collection for each input item.</param>
+            <summary>
+                Runs the specified function in parallel for each item in the input collection and returns a collection
+                containing the concatenation of all the results of the function calls.</summary>
+            <typeparam name="TSource">
+                The type of the elements of <paramref name="items"/>.</typeparam>
+            <typeparam name="TResult">
+                The type of the elements of the sequence returned by <paramref name="selector"/>.</typeparam>
+            <param name="items">
+                Input collection of items to pass to the function.</param>
+            <param name="maxSimultaneous">
+                Maximum number of concurrent threads allowed.</param>
+            <param name="selector">
+                Function that returns a collection for each input item.</param>
+        </member>
+        <member name="M:RT.Util.Ut.ParallelSelect``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+                Runs the specified function in parallel for each item in the input collection and returns a collection
+                containing the results of the function calls.</summary>
+            <typeparam name="TSource">
+                The type of the elements of <paramref name="items"/>.</typeparam>
+            <typeparam name="TResult">
+                The type of the elements returned by <paramref name="selector"/>.</typeparam>
+            <param name="items">
+                Input collection of items to pass to the function.</param>
+            <param name="selector">
+                Function that returns a result object for each input item.</param>
+        </member>
+        <member name="M:RT.Util.Ut.ParallelSelect``2(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,``1})">
+            <summary>
+                Runs the specified function in parallel for each item in the input collection and returns a collection
+                containing the results of the function calls.</summary>
+            <typeparam name="TSource">
+                The type of the elements of <paramref name="items"/>.</typeparam>
+            <typeparam name="TResult">
+                The type of the elements returned by <paramref name="selector"/>.</typeparam>
+            <param name="items">
+                Input collection of items to pass to the function.</param>
+            <param name="maxSimultaneous">
+                Maximum number of concurrent threads allowed.</param>
+            <param name="selector">
+                Function that returns a result object for each input item.</param>
         </member>
         <member name="M:RT.Util.Ut.RunPostBuildChecks(System.String,System.Reflection.Assembly[])">
             <summary>In DEBUG mode, runs all post-build checks defined in the specified assemblies. This is intended to be run as a post-build event. See remarks for details.</summary>
@@ -16100,49 +16254,92 @@
             <returns>A strongly-typed array containing the enum values from the specified type.</returns>
         </member>
         <member name="T:RT.Util.Text.TextTable">
+            <summary>Produces a table in a fixed-width character environment.</summary>
+        </member>
+        <member name="M:RT.Util.Text.TextTable.SetCell(System.Int32,System.Int32,System.String,System.Int32,System.Int32,System.Boolean,System.Nullable{RT.Util.Text.HorizontalTextAlignment},System.Nullable{System.ConsoleColor})">
             <summary>
-            Produces a table in a fixed-width character environment.
-            </summary>
+                Places the specified content into the cell at the specified co-ordinates.</summary>
+            <param name="col">
+                Column where to place the content.</param>
+            <param name="row">
+                Row where to place the content.</param>
+            <param name="content">
+                The content to place.</param>
+            <param name="colSpan">
+                The number of columns to span.</param>
+            <param name="rowSpan">
+                The number of rows to span.</param>
+            <param name="noWrap">
+                If true, indicates that this cell should not be automatically word-wrapped except at explicit newlines in
+                <paramref name="content"/>. The cell is word-wrapped only if doing so is necessary to fit all no-wrap cells
+                into the table's total width. If false, the cell is automatically word-wrapped to optimise the table's layout.</param>
+            <param name="alignment">
+                How to align the contents within the cell, or null to use <see cref="P:RT.Util.Text.TextTable.DefaultAlignment"/>.</param>
+            <param name="background">
+                Specifies a background color for the whole cell.</param>
         </member>
-        <member name="M:RT.Util.Text.TextTable.SetCell(System.Int32,System.Int32,System.String,System.Int32,System.Int32,System.Boolean,System.Nullable{RT.Util.Text.TextTable.Alignment})">
-            <summary>Places the specified content into the cell at the specified co-ordinates.</summary>
-            <param name="col">Column where to place the content.</param>
-            <param name="row">Row where to place the content.</param>
-            <param name="content">The content to place.</param>
-            <param name="colSpan">The number of columns to span.</param>
-            <param name="rowSpan">The number of rows to span.</param>
-            <param name="noWrap">If true, indicates that this cell should not be automatically word-wrapped except at explicit newlines in <paramref name="content"/>. 
-            The cell is word-wrapped only if doing so is necessary to fit all no-wrap cells into the table's total width. If false, the cell is automatically word-wrapped to optimise the table's layout.</param>
-            <param name="alignment">How to align the contents within the cell, or null to use <see cref="P:RT.Util.Text.TextTable.DefaultAlignment"/>.</param>
-        </member>
-        <member name="M:RT.Util.Text.TextTable.SetCell(System.Int32,System.Int32,RT.Util.Consoles.ConsoleColoredString,System.Int32,System.Int32,System.Boolean,System.Nullable{RT.Util.Text.TextTable.Alignment})">
-            <summary>Places the specified content into the cell at the specified co-ordinates.</summary>
-            <param name="col">Column where to place the content.</param>
-            <param name="row">Row where to place the content.</param>
-            <param name="content">The content to place.</param>
-            <param name="colSpan">The number of columns to span.</param>
-            <param name="rowSpan">The number of rows to span.</param>
-            <param name="noWrap">If true, indicates that this cell should not be automatically word-wrapped except at explicit newlines in <paramref name="content"/>. 
-            The cell is word-wrapped only if doing so is necessary to fit all no-wrap cells into the table's total width. If false, the cell is automatically word-wrapped to optimise the table's layout.</param>
-            <param name="alignment">How to align the contents within the cell, or null to use <see cref="P:RT.Util.Text.TextTable.DefaultAlignment"/>.</param>
+        <member name="M:RT.Util.Text.TextTable.SetCell(System.Int32,System.Int32,RT.Util.Consoles.ConsoleColoredString,System.Int32,System.Int32,System.Boolean,System.Nullable{RT.Util.Text.HorizontalTextAlignment},System.Nullable{System.ConsoleColor})">
+            <summary>
+                Places the specified content into the cell at the specified co-ordinates.</summary>
+            <param name="col">
+                Column where to place the content.</param>
+            <param name="row">
+                Row where to place the content.</param>
+            <param name="content">
+                The content to place.</param>
+            <param name="colSpan">
+                The number of columns to span.</param>
+            <param name="rowSpan">
+                The number of rows to span.</param>
+            <param name="noWrap">
+                If true, indicates that this cell should not be automatically word-wrapped except at explicit newlines in
+                <paramref name="content"/>. The cell is word-wrapped only if doing so is necessary to fit all no-wrap cells
+                into the table's total width. If false, the cell is automatically word-wrapped to optimise the table's layout.</param>
+            <param name="alignment">
+                How to align the contents within the cell, or null to use <see cref="P:RT.Util.Text.TextTable.DefaultAlignment"/>.</param>
+            <param name="background">
+                Specifies a background color for the whole cell, including its empty space. Characters with background colors
+                in the input string take precedence for those characters only.</param>
         </member>
         <member name="M:RT.Util.Text.TextTable.ToString">
-            <summary>Generates the table.</summary>
-            <returns>The complete rendered table as a single string.</returns>
+            <summary>
+                Generates the table.</summary>
+            <returns>
+                The complete rendered table as a single string.</returns>
         </member>
         <member name="M:RT.Util.Text.TextTable.ToColoredString">
-            <summary>Generates the table.</summary>
-            <returns>The complete rendered table as a single <see cref="T:RT.Util.Consoles.ConsoleColoredString"/>.</returns>
+            <summary>
+                Generates the table.</summary>
+            <returns>
+                The complete rendered table as a single <see cref="T:RT.Util.Consoles.ConsoleColoredString"/>.</returns>
         </member>
         <member name="M:RT.Util.Text.TextTable.WriteToConsole">
             <summary>Outputs the entire table to the console.</summary>
+        </member>
+        <member name="M:RT.Util.Text.TextTable.SetRowBackground(System.Int32,System.Nullable{System.ConsoleColor})">
+            <summary>
+                Sets a background color for an entire row within the table, including the vertical rules if <see cref="P:RT.Util.Text.TextTable.VerticalRules"/> is <c>true</c>. Background colors for individual cells take precedence within the
+                bounds of that cell. Background colors in the input string take precendence for those characters.</summary>
+            <param name="row">
+                The index of the row. If during rendering the table turns out to have fewer rows, the background color is
+                ignored.</param>
+            <param name="backgroundColor">
+                The background color to set the row to, or <c>null</c> to reset the color.</param>
         </member>
         <member name="M:RT.Util.Text.TextTable.RemoveEmptyColumns">
             <summary>Removes columns that contain only empty cells. Subsequent columns are moved to the left accordingly.</summary>
         </member>
         <member name="M:RT.Util.Text.TextTable.AddRow(System.String[])">
-            <summary>Adds a new row to the end of the table, using default cell settings for each cell.</summary>
-            <param name="values">Values to add, one for each column.</param>
+            <summary>
+                Adds a new row to the end of the table, using default cell settings for each cell.</summary>
+            <param name="values">
+                Values to add, one for each column.</param>
+        </member>
+        <member name="M:RT.Util.Text.TextTable.AddRow(RT.Util.Consoles.ConsoleColoredString[])">
+            <summary>
+                Adds a new row to the end of the table, using default cell settings for each cell.</summary>
+            <param name="values">
+                Values to add, one for each column.</param>
         </member>
         <member name="P:RT.Util.Text.TextTable.ColumnSpacing">
             <summary>Gets or sets the number of characters to space each column apart from the next.</summary>
@@ -16151,37 +16348,40 @@
             <summary>Gets or sets the number of characters to space each row apart from the next.</summary>
         </member>
         <member name="P:RT.Util.Text.TextTable.MaxWidth">
-            <summary>Gets or sets the maximum width of the table, including all column spacing. If <see cref="P:RT.Util.Text.TextTable.UseFullWidth"/> is false, the table may be narrower. If this is null, the table width depends on which method is used to generate it.</summary>
+            <summary>
+                Gets or sets the maximum width of the table, including all column spacing. If <see cref="P:RT.Util.Text.TextTable.UseFullWidth"/> is
+                false, the table may be narrower. If this is null, the table width depends on which method is used to generate
+                it.</summary>
         </member>
         <member name="P:RT.Util.Text.TextTable.HorizontalRules">
-            <summary>Gets or sets a value indicating whether horizontal rules are rendered between rows. The horizontal rules are rendered only if <see cref="P:RT.Util.Text.TextTable.RowSpacing"/> is greater than zero.</summary>
+            <summary>
+                Gets or sets a value indicating whether horizontal rules are rendered between rows. The horizontal rules are
+                rendered only if <see cref="P:RT.Util.Text.TextTable.RowSpacing"/> is greater than zero.</summary>
         </member>
         <member name="P:RT.Util.Text.TextTable.VerticalRules">
-            <summary>Gets or sets a value indicating whether vertical rules are rendered between columns. The vertical rules are rendered only if <see cref="P:RT.Util.Text.TextTable.ColumnSpacing"/> is greater than zero.</summary>
+            <summary>
+                Gets or sets a value indicating whether vertical rules are rendered between columns. The vertical rules are
+                rendered only if <see cref="P:RT.Util.Text.TextTable.ColumnSpacing"/> is greater than zero.</summary>
         </member>
         <member name="P:RT.Util.Text.TextTable.HeaderRows">
-            <summary>Gets or sets a value indicating the number of rows from the top that are considered table headers. The only effect of this is that the horizontal rule (if any) after the header rows is rendered using '=' characters instead of '-'.</summary>
+            <summary>
+                Gets or sets a value indicating the number of rows from the top that are considered table headers. The only
+                effect of this is that the horizontal rule (if any) after the header rows is rendered using '=' characters
+                instead of '-'.</summary>
         </member>
         <member name="P:RT.Util.Text.TextTable.UseFullWidth">
-            <summary>If true, the table will be expanded to fill the <see cref="P:RT.Util.Text.TextTable.MaxWidth"/>. If false, the table will fill the whole width only if any cells need to be word-wrapped.</summary>
+            <summary>
+                If true, the table will be expanded to fill the <see cref="P:RT.Util.Text.TextTable.MaxWidth"/>. If false, the table will fill the
+                whole width only if any cells need to be word-wrapped.</summary>
         </member>
         <member name="P:RT.Util.Text.TextTable.DefaultAlignment">
-            <summary>Specifies the default alignment to use for cells where the alignment is not explicitly set. Default is <see cref="F:RT.Util.Text.TextTable.Alignment.Left"/>.</summary>
+            <summary>
+                Specifies the default alignment to use for cells where the alignment is not explicitly set. Default is <see cref="F:RT.Util.Text.HorizontalTextAlignment.Left"/>.</summary>
         </member>
         <member name="P:RT.Util.Text.TextTable.LeftMargin">
-            <summary>Gets or sets a value indicating the number of spaces to add left of the table. This does not count towards the <see cref="P:RT.Util.Text.TextTable.MaxWidth"/>.</summary>
-        </member>
-        <member name="T:RT.Util.Text.TextTable.Alignment">
-            <summary>Provides values to change the horizontal alignment of text within cells.</summary>
-        </member>
-        <member name="F:RT.Util.Text.TextTable.Alignment.Left">
-            <summary>Specifies alignment to the left edge of each cell.</summary>
-        </member>
-        <member name="F:RT.Util.Text.TextTable.Alignment.Center">
-            <summary>Specifies horizontally centered alignment.</summary>
-        </member>
-        <member name="F:RT.Util.Text.TextTable.Alignment.Right">
-            <summary>Specifies alignment to the right edge of each cell.</summary>
+            <summary>
+                Gets or sets a value indicating the number of spaces to add left of the table. This does not count towards the
+                <see cref="P:RT.Util.Text.TextTable.MaxWidth"/>.</summary>
         </member>
         <member name="T:RT.Util.DiffOp">
             <summary>Indicates insertions and deletions in the output of <see cref="M:RT.Util.Ut.Diff``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0},System.Func{``0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.Tuple{``0,RT.Util.DiffOp}}})"/>.</summary>

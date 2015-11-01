@@ -130,6 +130,8 @@ namespace TankIconMaker
     /// <summary>Thrown from a layer or effect implementation to report an error that the user can fix or needs to know about.</summary>
     class StyleUserError : Exception
     {
-        public StyleUserError(string message) : base(message) { }
+        public bool Formatted { get; private set; }
+        public StyleUserError(string message) : this(message, false) { }
+        public StyleUserError(string message, bool formatted) : base(message) { Formatted = formatted; }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Xml.Linq;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using RT.Util;
 using RT.Util.Lingo;
 using RT.Util.Serialization;
 
@@ -113,10 +112,16 @@ namespace TankIconMaker.Effects
         public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
             var calculator = new SizeCalculator(renderTask);
-            double ParsedWidth = Math.Max(0, calculator.Parse(Width)),
-                ParsedHeight = Math.Max(0, calculator.Parse(Height)),
-                ParsedX = calculator.Parse(X),
-                ParsedY = calculator.Parse(Y);
+            Func<string, string> describe = property =>
+                "*{0}:* {1}\n".Fmt(EggsML.Escape(App.Translation.Calculator.ErrLabel_Layer), EggsML.Escape((string.IsNullOrEmpty(Layer.Name) ? "" : (Layer.Name + " – ")) + Layer.TypeName)) +
+                "*{0}:* {1}\n".Fmt(EggsML.Escape(App.Translation.Calculator.ErrLabel_Effect), EggsML.Escape((string.IsNullOrEmpty(Name) ? "" : (Name + " – ")) + TypeName)) +
+                "*{0}:* {1}".Fmt(EggsML.Escape(App.Translation.Calculator.ErrLabel_Property), EggsML.Escape(property));
+
+            double ParsedWidth = Math.Max(0, calculator.Parse(Width, describe(WidthTr(App.Translation).DisplayName))),
+                ParsedHeight = Math.Max(0, calculator.Parse(Height, describe(HeightTr(App.Translation).DisplayName))),
+                ParsedX = calculator.Parse(X, describe(XTr(App.Translation).DisplayName)),
+                ParsedY = calculator.Parse(Y, describe(YTr(App.Translation).DisplayName));
+
             Tank tank = renderTask.Tank;
             var pixels = PixelRect.FromMixed(0, 0, layer.Width, layer.Height);
             if (ShowPixelBorders || PositionByPixels || (SizeByPixels && SizeMode2 != SizeMode2.NoChange && SizeMode2 != SizeMode2.ByPercentage))
@@ -334,49 +339,32 @@ namespace TankIconMaker.Effects
             _renderTask = renderTask;
         }
 
-        public override bool GetVariable(string varName, out double value)
+        protected override double EvalVariable(string variable)
         {
-            var m = Regex.Match(varName, @"^([A-Za-z0-9_\-]+)\.(\w+)$");
+            var m = Regex.Match(variable, @"^([A-Za-z0-9_\-]+)\.(\w+)$");
             if (!m.Success)
-                return base.GetVariable(varName, out value);
+                return base.EvalVariable(variable);
             var layerId = m.Groups[1].Value;
-            var layerParam = m.Groups[2].Value.ToLower();
+            var layerProperty = m.Groups[2].Value;
             var varLayer = _renderTask.Style.Layers.FirstOrDefault(x => x.Id == layerId);
             if (varLayer == null)
-                throw new StyleUserError("No layer found with Id = " + layerId);
+                throw NewParseException(App.Translation.Calculator.Err_NoLayerWithId.Fmt(layerId));
             if (_renderTask.IsLayerAlreadyReferenced(varLayer))
-                throw new StyleUserError("Recursive Layer size/pos parameter");
+                throw NewParseException(App.Translation.Calculator.Err_RecursiveLayerReference.Fmt(layerId));
             var varImg = _renderTask.RenderLayer(varLayer);
             var pixels = varImg.PreciseSize();
-            switch (layerParam)
+            switch (layerProperty.ToLower())
             {
-                case "width":
-                    value = pixels.Width;
-                    return true;
-                case "height":
-                    value = pixels.Height;
-                    return true;
-                case "top":
-                    value = pixels.Top;
-                    return true;
-                case "left":
-                    value = pixels.Left;
-                    return true;
-                case "right":
-                    value = pixels.Right;
-                    return true;
-                case "bottom":
-                    value = pixels.Bottom;
-                    return true;
-                case "centerhorz":
-                    value = pixels.CenterHorzD;
-                    return true;
-                case "centervert":
-                    value = pixels.CenterVertD;
-                    return true;
+                case "width": return pixels.Width;
+                case "height": return pixels.Height;
+                case "top": return pixels.Top;
+                case "left": return pixels.Left;
+                case "right": return pixels.Right;
+                case "bottom": return pixels.Bottom;
+                case "centerhorz": return pixels.CenterHorzD;
+                case "centervert": return pixels.CenterVertD;
                 default:
-                    value = 0;
-                    return false;
+                    throw NewParseException(App.Translation.Calculator.Err_UnknownLayerProperty.Fmt(layerProperty));
             }
 
         }

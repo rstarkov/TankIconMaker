@@ -709,7 +709,20 @@ namespace TankIconMaker
                 DlgMessage.ShowWarning(warnings);
 
             else if (renderResult.Exception is StyleUserError)
-                DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.RenderIconFail.Fmt(renderResult.Exception.Message));
+            {
+                if (!(renderResult.Exception as StyleUserError).Formatted)
+                    DlgMessage.ShowWarning(warnings + joiner + App.Translation.Error.RenderIconFail.Fmt(renderResult.Exception.Message));
+                else
+                {
+                    new DlgMessage
+                    {
+                        Type = DlgType.Warning,
+                        Message = EggsML.Escape(warnings + joiner)
+                            + new EggsTag(App.Translation.Error.RenderIconFail.FmtEnumerable(EggsML.Parse(renderResult.Exception.Message)).Select(v => (v is EggsNode) ? (EggsNode) v : new EggsText(v.ToString()))).ToString(),
+                        Format = DlgMessageFormat.EggsML
+                    }.Show();
+                }
+            }
 
             else
             {
