@@ -19,6 +19,7 @@ germany-PzV_training,,,,,,del
 germany-PzVIB_Tiger_II_training,,,,,,del
 usa-M4A3E8_Sherman_training,,,,,,del
 ussr-T-34-85_training,,,,,,del
+germany-G16_PzVIB_Tiger_II_training,,,,,,del
 
 # Remove these tanks since they don't have contour icons (at least not in the Ru client)
 # If you require these tanks, see notes below for how to add your own tanks to the data files.
