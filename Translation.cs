@@ -681,7 +681,7 @@ namespace TankIconMaker
         public MemberDescriptionTr InvertTr = new MemberDescriptionTr { DisplayName = "Invert", Description = "Specifies whether to invert the mask or not." };
 
         public TrString ErrorInvalidId = "No layer with ID “{0}” found.";
-        public TrString ErrorRecursiveLayerReference = "Recursive layer reference.";
+        public TrString ErrorRecursiveLayerReference = "Recursive layer reference: “{0}”.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.EffectSizePos)]

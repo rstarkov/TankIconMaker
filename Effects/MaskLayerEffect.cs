@@ -50,7 +50,7 @@ namespace TankIconMaker.Effects
             if (maskLayer == null)
                 throw new StyleUserError(App.Translation.EffectMaskLayer.ErrorInvalidId.Fmt(MaskLayerId));
             if (renderTask.IsLayerAlreadyReferenced(maskLayer))
-                throw new StyleUserError(App.Translation.EffectMaskLayer.ErrorRecursiveLayerReference);
+                throw new StyleUserError(App.Translation.EffectMaskLayer.ErrorRecursiveLayerReference.Fmt(MaskLayerId));
             var maskImg = renderTask.RenderLayer(maskLayer);
             using (layer.UseWrite())
             {

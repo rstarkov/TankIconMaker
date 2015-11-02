@@ -33,6 +33,10 @@
       <Translation>(стандартный)</Translation>
       <Old>(standard)</Old>
     </PathTemplate_Standard>
+    <ErrorConflictingId>
+      <Translation>Идентификаторы двух слоев совпадают: “{0}”.</Translation>
+      <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
+    </ErrorConflictingId>
     <ctGameDirLabel>
       <Translation>_Папка с игрой:</Translation>
       <Old>Game _directory:</Old>
@@ -1139,12 +1143,12 @@
     </EffectDescription>
     <MaskLayerId>
       <DisplayName>
-        <Translation>ИД слоя-маски</Translation>
-        <Old>Mask layer Id</Old>
+        <Translation>ID слоя-маски</Translation>
+        <Old>Mask layer ID</Old>
       </DisplayName>
       <Description>
         <Translation>Задает Идентификатор слоя-маски.</Translation>
-        <Old>Sets the mask layer Identifier.</Old>
+        <Old>Sets the mask layer identifier.</Old>
       </Description>
     </MaskLayerId>
     <MaskMode>
@@ -1167,6 +1171,14 @@
         <Old>Specifies whether to invert the mask or not.</Old>
       </Description>
     </InvertTr>
+    <ErrorInvalidId>
+      <Translation>Слой с идентификатором “{0}” не найден.</Translation>
+      <Old>No layer with ID “{0}” found.</Old>
+    </ErrorInvalidId>
+    <ErrorRecursiveLayerReference>
+      <Translation>Рекурсивная ссылка на слой: “{0}”.</Translation>
+      <Old>Recursive layer reference: “{0}”.</Old>
+    </ErrorRecursiveLayerReference>
   </EffectMaskLayer>
   <EffectSizePos>
     <EffectName>
@@ -2653,14 +2665,14 @@
       <Translation>неожиданный конец выражения</Translation>
       <Old>unexpected end of expression</Old>
     </Err_UnexpectedEndOfExpression>
-    <Err_ExpectedOne>
-      <Translation>ожидался символ “{0}”</Translation>
-      <Old>expected “{0}”</Old>
-    </Err_ExpectedOne>
-    <Err_ExpectedTwo>
-      <Translation>ожидался символ “{0}” либо “{1}”</Translation>
-      <Old>expected “{0}” or “{1}”</Old>
-    </Err_ExpectedTwo>
+    <Err_ExpectedParenthesisOrOperator>
+      <Translation>ожидалась “)” либо оператор</Translation>
+      <Old>expected “)” or operator</Old>
+    </Err_ExpectedParenthesisOrOperator>
+    <Err_ExpectedCommaOrParenthesis>
+      <Translation>ожидалась “,” либо “)”</Translation>
+      <Old>expected “,” or “)”</Old>
+    </Err_ExpectedCommaOrParenthesis>
     <Err_UnexpectedCharacter>
       <Translation>неожиданный символ: “{0}”</Translation>
       <Old>unexpected character: “{0}”</Old>
