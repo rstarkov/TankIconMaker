@@ -1144,11 +1144,11 @@
     <MaskLayerId>
       <DisplayName>
         <Translation>Bez. der Maskenebene</Translation>
-        <Old>Mask layer Id</Old>
+        <Old>Mask layer ID</Old>
       </DisplayName>
       <Description>
         <Translation>Identifiziert die Maskenebene anhand ihres Bezeichners.</Translation>
-        <Old>Sets the mask layer Identifier.</Old>
+        <Old>Sets the mask layer identifier.</Old>
       </Description>
     </MaskLayerId>
     <MaskMode>
@@ -1172,12 +1172,12 @@
       </Description>
     </InvertTr>
     <ErrorInvalidId>
-      <Translation>No layer with ID “{0}” found.</Translation>
-      <Old null="1" />
+      <Translation>Ebene mit dem Bezeichner „{0}“ existiert nicht.</Translation>
+      <Old>No layer with ID “{0}” found.</Old>
     </ErrorInvalidId>
     <ErrorRecursiveLayerReference>
-      <Translation>Recursive layer reference.</Translation>
-      <Old null="1" />
+      <Translation>Rekursive Ebenenreferenz: „{0}“.</Translation>
+      <Old>Recursive layer reference: “{0}”.</Old>
     </ErrorRecursiveLayerReference>
   </EffectMaskLayer>
   <EffectSizePos>
