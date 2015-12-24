@@ -111,7 +111,7 @@ namespace TankIconMaker.Effects
 
         public override BitmapBase Apply(RenderTask renderTask, BitmapBase layer)
         {
-            var calculator = new SizeCalculator(renderTask);
+            var calculator = new SizeCalculator(renderTask, layer);
             Func<string, string> describe = property =>
                 "*{0}:* {1}\n".Fmt(EggsML.Escape(App.Translation.Calculator.ErrLabel_Layer), EggsML.Escape((string.IsNullOrEmpty(Layer.Name) ? "" : (Layer.Name + " – ")) + Layer.TypeName)) +
                 "*{0}:* {1}\n".Fmt(EggsML.Escape(App.Translation.Calculator.ErrLabel_Effect), EggsML.Escape((string.IsNullOrEmpty(Name) ? "" : (Name + " – ")) + TypeName)) +
@@ -332,11 +332,13 @@ namespace TankIconMaker.Effects
     class SizeCalculator : Calculator
     {
         private RenderTask _renderTask;
+        private BitmapBase _layer;
 
-        public SizeCalculator(RenderTask renderTask)
+        public SizeCalculator(RenderTask renderTask, BitmapBase layer)
             : base()
         {
             _renderTask = renderTask;
+            _layer = layer;
         }
 
         protected override double EvalVariable(string variable)
@@ -346,12 +348,20 @@ namespace TankIconMaker.Effects
                 return base.EvalVariable(variable);
             var layerId = m.Groups[1].Value;
             var layerProperty = m.Groups[2].Value;
-            var varLayer = _renderTask.Style.Layers.FirstOrDefault(x => x.Id == layerId);
-            if (varLayer == null)
-                throw NewParseException(App.Translation.Calculator.Err_NoLayerWithId.Fmt(layerId));
-            if (_renderTask.IsLayerAlreadyReferenced(varLayer))
-                throw NewParseException(App.Translation.Calculator.Err_RecursiveLayerReference.Fmt(layerId));
-            var varImg = _renderTask.RenderLayer(varLayer);
+            BitmapBase varImg;
+            if (layerId == "this")
+            {
+                varImg = _layer;
+            }
+            else
+            {
+                var varLayer = _renderTask.Style.Layers.FirstOrDefault(x => x.Id == layerId);
+                if (varLayer == null)
+                    throw NewParseException(App.Translation.Calculator.Err_NoLayerWithId.Fmt(layerId));
+                if (_renderTask.IsLayerAlreadyReferenced(varLayer))
+                    throw NewParseException(App.Translation.Calculator.Err_RecursiveLayerReference.Fmt(layerId));
+                varImg = _renderTask.RenderLayer(varLayer);
+            }
             var pixels = varImg.PreciseSize();
             switch (layerProperty.ToLower())
             {
