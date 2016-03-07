@@ -48,7 +48,7 @@ france-ARL_V39,Arl39
 france-B1,B1
 france-Bat_Chatillon155_55,155·55
 france-Bat_Chatillon155_58,155·58
-france-Bat_Chatillon25t,BChat
+france-Bat_Chatillon25t,B·C
 france-BDR_G1B,BDR
 france-D1,D1
 france-D2,D2
@@ -350,7 +350,7 @@ ussr-T80,т80,t80
 ussr-Tetrarch_LL,Тетрх,Tetrh
 ussr-Valentine_LL,Вален,Valnt
 ussr-Observer," "
-noImage,
+noImage," "
 germany_E50_Ausf.M,E50M
 germany-Marder_III,Mrdr38
 germany-Nashorn,Nash
@@ -471,7 +471,7 @@ ussr-R02_SU-85,Су85,Su85
 ussr-R105_BT_7A,Бт7а,Bt7a
 ussr-R115_IS-3_auto,Ис·3мз,Is·3al
 ussr-R19_IS-3,Ис·3,Is·3
-france-Bat_Chatillon25t_fallout,BChat
+france-Bat_Chatillon25t_fallout,B·C
 germany-G89_Leopard1_fallout,Leo1
 usa-T57_58_fallout,T57hv
 ussr-IS-7_fallout,Ис·7,Is·7
@@ -577,10 +577,10 @@ ussr-R38_KV-220,Кв220т,Kv220t
 ussr-R38_KV-220_action,Кв220,Kv220
 czech-Cz02_TVP_T50,skT50
 czech-Cz03_LT_vz35,vz.35
-czech-Cz04_T50_51,t5051
+czech-Cz04_T50_51,sk5051
 czech-Cz05_T34_100,t34100
 czech-Cz06_Kolohousenka,Khous
-czech-Cz07_TVP_46,VTU
+czech-Cz07_TVP_46,TVPvtu
 czech-Cz08_T_25,skT25
 czech-Cz09_T_24,skT24
 czech-Cz10_LT_vz38,vz.38
@@ -603,3 +603,33 @@ ussr-R39_KV-3,Кв·3,Kv·3
 ussr-R54_KV-5,Кв·5,Kv·5
 ussr-R61_Object252,Ис·6,Is·6
 ussr-R86_LTP,Лтп,Ltp
+france-F28_105_leFH18B2,leFH
+france-F64_AMX_50Fosh_155,Fch155
+france-F75_Char_de_25t,B·C ap
+germany-G120_M41_90,M41·90
+germany-G121_Grille_15_L63,Gril15
+germany-G13_VK3001H,3001h
+germany-G40_Nashorn,Nash
+germany-G45_G_Tiger,GWT
+germany-G46_T-25,T·25
+germany-G48_E-25,E·25
+germany-G92_VK7201,vk7201
+japan-J06_Ke_Ho,KeHo
+japan-J07_Chi_Ha,JChiHa
+japan-J08_Chi_Nu,ChiNu
+japan-J15_Chi_Ni,ChiNi
+uk-GB35_Sentinel_AC_IV,Sent
+usa-A05_M4_Sherman,M4
+usa-A07_T20,T20
+usa-A09_T1_hvy,T1hv
+usa-A111_T25_Pilot,T25p1
+usa-A29_T40,T40
+usa-A68_T28_Prototype,T28Pr
+usa-A88_M53_55,M53·55
+ussr-R01_IS,Ис,Is
+ussr-R11_MS-1,Мс·1,Ms·1
+ussr-R11_MS-1_bot,Мс·1,Ms·1
+ussr-R12_A-20,A·20
+ussr-R123_Kirovets_1,Киров,Kirov
+ussr-R127_T44_100_P,т44100р,t44100r
+ussr-R17_SU-100,Су100,Su100
