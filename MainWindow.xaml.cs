@@ -119,7 +119,7 @@ namespace TankIconMaker
                     App.Settings.TranslationFormSettings, new System.Drawing.Icon(iconStream), () => App.Settings.Lingo);
             _translationHelper.TranslationChanged += TranslationChanged;
             Translate(first: true);
-            Title += " (v" + Assembly.GetExecutingAssembly().GetName().Version.Major.ToString("000") + ")";
+            Title += " (v{0:000} b{1})".Fmt(Assembly.GetExecutingAssembly().GetName().Version.Major, Assembly.GetExecutingAssembly().GetName().Version.Minor);
 
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddLayer, cmdLayer_AddLayer));
             CommandBindings.Add(new CommandBinding(TankLayerCommands.AddEffect, cmdLayer_AddEffect, (_, a) => { a.CanExecute = isLayerOrEffectSelected(); }));
@@ -1350,11 +1350,12 @@ namespace TankIconMaker
         {
             var assembly = Assembly.GetExecutingAssembly();
             string version = assembly.GetName().Version.Major.ToString().PadLeft(3, '0');
+            string build = assembly.GetName().Version.Minor.ToString();
             string copyright = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).OfType<AssemblyCopyrightAttribute>().Select(c => c.Copyright).FirstOrDefault();
             var icon = Icon as BitmapSource;
             var choice = new DlgMessage()
             {
-                Message = "Tank Icon Maker\n" + App.Translation.Misc.ProgramVersion.Fmt(version) + "\nBy Roman Starkov\n\n" + copyright
+                Message = "Tank Icon Maker\n" + App.Translation.Misc.ProgramVersion.Fmt(version, build) + "\nBy Roman Starkov\n\n" + copyright
                     + (App.Translation.Language == RT.Util.Lingo.Language.EnglishUK ? "" : ("\n\n" + App.Translation.TranslationCredits)),
                 Caption = "Tank Icon Maker",
                 Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.VisitWebsiteBtn },
