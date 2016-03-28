@@ -213,7 +213,7 @@ namespace TankIconMaker
     [LingoStringClass]
     sealed class MiscTranslation
     {
-        public TrString ProgramVersion = "Version {0}";
+        public TrString ProgramVersion = "Version {0} (build {1})";
 
         public TrString GlobalStatus_Loading = "Loading...";
         public TrString GlobalStatus_Saving = "Saving...";
