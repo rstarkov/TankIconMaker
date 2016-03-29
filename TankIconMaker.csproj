@@ -240,16 +240,20 @@
     <ItemGroup>
       <Resources Include="Resources\*" Exclude="Resources\*-En-*" />
       <Images Include="Resources\Images\*" />
-      <Backgrounds Include="..\Backgrounds\LoRes\*" />
       <Licenses Include="ThirdParty\license-*" />
       <Translations Include="Resources\Translations\*" />
     </ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
-    <Copy SourceFiles="@(Backgrounds)" DestinationFolder="$(OutputPath)\Backgrounds" />
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
     <Copy SourceFiles="WpfCrutches\License.txt" DestinationFiles="$(OutputPath)\license-WpfCrutches.txt" />
+    <Copy SourceFiles="Resources\Backgrounds\Abbey.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Abbey (Монастырь).jpg" />
+    <Copy SourceFiles="Resources\Backgrounds\Karelia.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Karelia (Карелия).jpg" />
+    <Copy SourceFiles="Resources\Backgrounds\Lakeville.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Lakeville (Ласвилль).jpg" />
+    <Copy SourceFiles="Resources\Backgrounds\Ruinberg.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Ruinberg (Руинберг).jpg" />
+    <Copy SourceFiles="Resources\Backgrounds\Sand River.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Sand River (Песчаная Река).jpg" />
+    <Copy SourceFiles="Resources\Backgrounds\Westfield.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Westfield (Вестфилд).jpg" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>"$(TargetPath)" --post-build-check "$(SolutionDir)."</PostBuildEvent>
