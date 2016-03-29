@@ -2560,8 +2560,8 @@
   </Error>
   <Misc>
     <ProgramVersion>
-      <Translation>Версия {0}</Translation>
-      <Old>Version {0}</Old>
+      <Translation>Версия {0} (сборка {1})</Translation>
+      <Old>Version {0} (build {1})</Old>
     </ProgramVersion>
     <GlobalStatus_Loading>
       <Translation>Загрузка...</Translation>
