@@ -2557,8 +2557,8 @@
   </Error>
   <Misc>
     <ProgramVersion>
-      <Translation>Version {0}</Translation>
-      <Old>Version {0}</Old>
+      <Translation>Version {0} (Build {1})</Translation>
+      <Old>Version {0} (build {1})</Old>
     </ProgramVersion>
     <GlobalStatus_Loading>
       <Translation>Laden...</Translation>
