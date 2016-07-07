@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml.Linq;
+using ICSharpCode.SharpZipLib.Zip;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
@@ -834,6 +836,7 @@ namespace TankIconMaker
                 case DisplayFilter.France: selection = context.Tanks.Where(t => t.Country == Country.France); break;
                 case DisplayFilter.Germany: selection = context.Tanks.Where(t => t.Country == Country.Germany); break;
                 case DisplayFilter.Japan: selection = context.Tanks.Where(t => t.Country == Country.Japan); break;
+                case DisplayFilter.Sweden: selection = context.Tanks.Where(t => t.Country == Country.Sweden); break;
                 case DisplayFilter.UK: selection = context.Tanks.Where(t => t.Country == Country.UK); break;
                 case DisplayFilter.USA: selection = context.Tanks.Where(t => t.Country == Country.USA); break;
                 case DisplayFilter.USSR: selection = context.Tanks.Where(t => t.Country == Country.USSR); break;
@@ -1092,6 +1095,284 @@ namespace TankIconMaker
 
         HashSet<string> _overwriteAccepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // icon path for which the user has confirmed that overwriting is OK
 
+        private struct SubTextureStruct
+        {
+            public string FName;
+            public BitmapSource ImageTank;
+            public Rect LocRect;
+
+
+            public SubTextureStruct(string FName, BitmapSource ImageTank, Rect LocRect)
+            {
+                this.FName = FName;
+                this.ImageTank = ImageTank;
+                this.LocRect = LocRect;
+            }
+        }
+
+        private void CreateAtlasXML(ref List<SubTextureStruct> ImageList, string nameAtlas)
+        {
+            string fileNameXML = Path.GetDirectoryName(nameAtlas) + "\\" + Path.GetFileNameWithoutExtension(nameAtlas) + ".xml";
+            FileStream fileXML = new FileStream(fileNameXML, FileMode.Create); 
+            StreamWriter writer = new StreamWriter(fileXML); 
+            writer.Write("<root>"); 
+            foreach (var SubTexture in ImageList)
+            {
+                writer.WriteLine("  <SubTexture>");
+                writer.WriteLine("    <name> " + SubTexture.FName + " </name>");
+                writer.WriteLine("    <x> " + (int)SubTexture.LocRect.X + " </x>");
+                writer.WriteLine("    <y> " + (int)SubTexture.LocRect.Y + " </y>");
+                writer.WriteLine("    <width> " + (int)SubTexture.LocRect.Width + " </width>");
+                writer.WriteLine("    <height> " + (int)SubTexture.LocRect.Height + " </height>");
+                writer.WriteLine("  </SubTexture>");
+            }
+            writer.Write("</root>");
+            writer.Close(); 
+        }
+
+        private void CreateAtlasPNG(ref List<SubTextureStruct> ImageList, string nameAtlas)
+        {
+            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(2048, 2048);
+            for (int i = 0; i < ImageList.Count; i++)
+            {
+                using (MemoryStream outStream = new MemoryStream())
+                {
+                    PngBitmapEncoder encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(ImageList[i].ImageTank));
+                    encoder.Save(outStream);
+                    System.Drawing.Bitmap PNG = new System.Drawing.Bitmap(outStream);
+                    using (System.Drawing.Graphics gPNG = System.Drawing.Graphics.FromImage(AtlasPNG))
+                    {
+                        gPNG.DrawImage(PNG, (int)ImageList[i].LocRect.X, (int)ImageList[i].LocRect.Y);
+                    }
+                }
+            }
+            AtlasPNG.Save(nameAtlas);
+        }
+
+        private void Arrangement(ref List<SubTextureStruct> ImageList)
+        {
+            SubTextureStruct SubTexture;
+            Rect Rct;
+            const int TextureHeight = 2048, TextureWidth = 2048;
+            double X = 0;
+            double Y = 0;
+            if (ImageList[0].LocRect.Width > TextureWidth)
+                return; //необходимо обработать данную ситуацию
+            for (int i = 0; i < ImageList.Count; i++)
+            {
+                SubTexture = ImageList[i];
+                Rct = SubTexture.LocRect;
+
+                Rct.Location = new Point(X, Y);
+                if (Rct.Right > TextureWidth)
+                {
+                    X = 0;
+                    Y += Rct.Height + 1;
+                    Rct.Location = new Point(X, Y);
+                }
+                else
+                    X += Rct.Width + 1;
+                SubTexture.LocRect = Rct;
+                ImageList[i] = SubTexture;
+            }
+            if (ImageList[ImageList.Count - 1].LocRect.Bottom > TextureHeight)
+                return; // необходимо обработать данную ситуацию
+        }
+
+        private void CreateImageList(ref List<SubTextureStruct> ImageList, string pathGuiPKG)
+        {
+         
+        }
+
+        private void saveToBattleAtlas(string pathTemplate)
+        {
+            var context = CurContext;
+            var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
+            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, null, null);
+            var fileGuiPKG = context.Installation.Path + "\\res\\packages\\guy.pkg";
+
+            try
+            {
+                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
+                    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
+                        .Fmt(pathPartial, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                        return;
+                _overwriteAccepted.Add(pathPartial);
+
+                GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+
+                var renderTasks = ListRenderTasks(context, style, all: true);
+                var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+                // The rest of the save process occurs off the GUI thread, while this method returns.
+                Task.Factory.StartNew(() =>
+                {
+                    Exception exception = null;
+                    try
+                    {
+                        foreach (var renderTask in renderTasks)
+                            if (!renders.ContainsKey(renderTask.TankId))
+                            {
+                                renders[renderTask.TankId] = renderTask;
+                                renderTask.Render();
+                            }
+
+                        List<SubTextureStruct> ImageList = new List<SubTextureStruct>();
+                        SubTextureStruct SubTexture = new SubTextureStruct();
+
+                        CreateImageList(ref ImageList, fileGuiPKG);
+
+                        foreach (var renderTask in renderTasks)
+                        {
+                            var render = renders[renderTask.TankId];
+                            SubTexture.FName = renderTask.TankId;
+                            SubTexture.ImageTank = render.Image;
+                            SubTexture.LocRect = new Rect(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
+                            ImageList.Add(SubTexture);
+                        }
+                        //Arrangement(ref ImageList);
+                        //CreateAtlasPNG(ref ImageList, nameAtlas);
+                        //CreateAtlasXML(ref ImageList, nameAtlas);
+                    }
+                    catch (Exception e)
+                    {
+                        exception = e;
+                    }
+                    finally
+                    {
+                        Dispatcher.Invoke((Action)(() =>
+                        {
+                            GlobalStatusHide();
+
+                            // Cache any new renders that we don't already have
+                            foreach (var kvp in renders)
+                                if (!_renderResults.ContainsKey(kvp.Key))
+                                    _renderResults[kvp.Key] = kvp.Value;
+                            // Inform the user of what happened
+                            if (exception == null)
+                            {
+                                int skipped = renders.Values.Count(rr => rr.Exception != null);
+                                int choice;
+                                choice = new DlgMessage
+                                {
+                                    Message = App.Translation.Prompt.IconsSaved.Fmt(pathPartial) +
+                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                                    AcceptButton = 0,
+                                    CancelButton = 0,
+                                }.Show();
+                                if (choice == 1)
+                                    visitProjectWebsite("savehelp");
+                            }
+                            else
+                            {
+                                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(exception.Message));
+                            }
+                        }));
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(e.Message));
+            }
+        }
+
+        private void saveAtlas(string nameAtlas)
+        {
+            var context = CurContext;
+            var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
+            var pathPartial = nameAtlas;//Ut.ExpandIconPath(nameAtlas, context, style, null, null);
+
+            try
+            {
+                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
+                    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
+                        .Fmt(pathPartial, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                        return;
+                _overwriteAccepted.Add(pathPartial);
+
+                GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+                
+                var renderTasks = ListRenderTasks(context, style, all: true);
+                var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+                // The rest of the save process occurs off the GUI thread, while this method returns.
+                Task.Factory.StartNew(() =>
+                {
+                    Exception exception = null;
+                    try
+                    {
+                        foreach (var renderTask in renderTasks)
+                        if (!renders.ContainsKey(renderTask.TankId))
+                        {
+                            renders[renderTask.TankId] = renderTask;
+                            renderTask.Render();
+                        }
+
+                        List<SubTextureStruct> ImageList = new List<SubTextureStruct>();
+                        SubTextureStruct SubTexture = new SubTextureStruct();
+
+                        foreach (var renderTask in renderTasks)
+                        {
+                            var render = renders[renderTask.TankId];
+                            SubTexture.FName = renderTask.TankId;
+                            SubTexture.ImageTank = render.Image;
+                            SubTexture.LocRect = new Rect(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
+                            ImageList.Add(SubTexture);
+                        }
+                        Arrangement(ref ImageList);
+                        CreateAtlasPNG(ref ImageList, nameAtlas);
+                        CreateAtlasXML(ref ImageList, nameAtlas);
+                    }
+                    catch (Exception e)
+                    {
+                        exception = e;
+                    }
+                    finally
+                    {
+                        Dispatcher.Invoke((Action)(() =>
+                        {
+                            GlobalStatusHide();
+
+                            // Cache any new renders that we don't already have
+                            foreach (var kvp in renders)
+                                if (!_renderResults.ContainsKey(kvp.Key))
+                                    _renderResults[kvp.Key] = kvp.Value;
+                            // Inform the user of what happened
+                            if (exception == null)
+                            {
+                                int skipped = renders.Values.Count(rr => rr.Exception != null);
+                                int choice;
+                                choice = new DlgMessage
+                                {
+                                    Message = App.Translation.Prompt.IconsSaved.Fmt(pathPartial) +
+                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                                    AcceptButton = 0,
+                                    CancelButton = 0,
+                                }.Show();
+                                if (choice == 1)
+                                    visitProjectWebsite("savehelp");
+                            }
+                            else
+                            {
+                                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(exception.Message));
+                            }
+                        }));
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(e.Message));
+            }
+        }
+
+
         private void saveIcons(string pathTemplate)
         {
             var context = CurContext;
@@ -1258,6 +1539,40 @@ namespace TankIconMaker
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
             SaveSettings();
             saveIcons(App.Settings.SaveToFolderPath);
+        }
+
+        private void ctSaveIconsToBattleAtlas_Click(object _ = null, RoutedEventArgs __ = null)
+        {
+            var dlg = new VistaFolderBrowserDialog();
+            dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
+            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
+                dlg.SelectedPath = App.Settings.SaveToFolderPath;
+            if (dlg.ShowDialog() != true)
+                return;
+            _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
+            App.Settings.SaveToFolderPath = dlg.SelectedPath;
+            SaveSettings();
+            saveToBattleAtlas(App.Settings.SaveToFolderPath);
+        }
+
+        private void ctSaveToAtlas_Click(object _ = null, RoutedEventArgs __ = null)
+        {
+            var dlg = new VistaSaveFileDialog();
+            dlg.AddExtension = true;
+            dlg.FileName = "IconsAtlas"; // Default file name
+            dlg.DefaultExt = ".png"; // Default file extension
+            dlg.Filter = "PNG (.png)|*.png"; // Filter files by extension
+
+            //dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
+            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
+                dlg.InitialDirectory = App.Settings.SaveToFolderPath;
+            if (dlg.ShowDialog() != true)
+                return;
+            _overwriteAccepted.Remove(dlg.InitialDirectory); // force the prompt
+            App.Settings.SaveToAtlas = dlg.FileName;
+
+            SaveSettings();
+            saveAtlas(App.Settings.SaveToAtlas);
         }
 
         private List<Style> getBulkSaveStyles(string overridePathTemplate = null)
