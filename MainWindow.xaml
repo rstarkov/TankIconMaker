@@ -292,6 +292,7 @@
                     <ComboBoxItem Name="ctDisplayModeCountryChina">China</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCountryJapan">Japan</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCountryCzech">Czech</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountrySweden">Sweden</ComboBoxItem>
                     <Separator/>
                     <ComboBoxItem Name="ctDisplayModeClassLight">Light tanks</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeClassMedium">Medium tanks</ComboBoxItem>
@@ -414,6 +415,8 @@
                             <!-- Taken: ACFGS -->
                             <MenuItem Header="Save to _game folder" Name="ctSaveIconsToGameFolder" Click="ctSaveIconsToGameFolder_Click"/>
                             <MenuItem Header="Save to _folder..." Name="ctSaveIconsToSpecifiedFolder" Click="ctSaveIconsToSpecifiedFolder_Click"/>
+                            <MenuItem Header="Save to _BattleAtlas..." Name="ctSaveIconsToBattleAtlas" Click="ctSaveIconsToBattleAtlas_Click"/>
+                            <MenuItem Header="Save _to atlas..." Name="ctSaveToAtlas" Click="ctSaveToAtlas_Click"/>
                             <MenuItem Header="Bulk _save" Name="ctBulkSaveIcons" Click="ctBulkSaveIcons_Click"/>
                             <MenuItem Header="Bulk s_ave to folder..." Name="ctBulkSaveIconsToFolder" Click="ctBulkSaveIconsToFolder_Click"/>
                         </ContextMenu>

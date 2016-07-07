@@ -45,6 +45,7 @@ namespace TankIconMaker
         public DisplayFilter DisplayFilter = DisplayFilter.All;
         /// <summary>The path last used with the "Save to folder" command.</summary>
         public string SaveToFolderPath = null;
+        public string SaveToAtlas = null;
         /// <summary>The path last used with the "Bulk save to folder" command.</summary>
         public string BulkSaveToFolderPath = null;
 
@@ -147,9 +148,9 @@ namespace TankIconMaker
     {
         All = 0,
         OneOfEach = 1,
-        USSR = 3, Germany, USA, France, UK, China, Japan, Czech,
-        Light = 12, Medium, Heavy, Artillery, Destroyer,
-        Normal = 18, Premium, Special,
-        TierLow = 22, TierMedHigh, TierHigh,
+        USSR = 3, Germany, USA, France, UK, China, Japan, Czech, Sweden,
+        Light = 13, Medium, Heavy, Artillery, Destroyer,
+        Normal = 19, Premium, Special,
+        TierLow = 23, TierMedHigh, TierHigh,
     }
 }
