@@ -5,6 +5,7 @@
   <PathMoFiles>res\text\LC_MESSAGES</PathMoFiles>
   <PathDestination>res_mods\"VersionName"\gui\maps\icons\vehicle\contour</PathDestination>
   <PathSourceContour>res\packages\gui.pkg|gui\maps\icons\vehicle\contour</PathSourceContour>
+  <PathSourceAtlas>res\packages\gui.pkg|gui\flash\atlases</PathSourceAtlas>
   <PathSource3D>res\packages\gui.pkg|gui\maps\icons\vehicle\small</PathSource3D>
   <PathSource3DLarge>res\packages\gui.pkg|gui\maps\icons\vehicle</PathSource3DLarge>
   <PathSourceCountry>
