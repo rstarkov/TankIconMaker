@@ -1098,15 +1098,17 @@ namespace TankIconMaker
         private struct SubTextureStruct
         {
             public string FName;
-            public BitmapSource ImageTank;
-            public Rect LocRect;
+            public System.Drawing.Bitmap ImageTank;
+            public System.Drawing.Rectangle LocRect;
+            public int MaxParty;
 
 
-            public SubTextureStruct(string FName, BitmapSource ImageTank, Rect LocRect)
+            public SubTextureStruct(string FName, System.Drawing.Bitmap ImageTank, System.Drawing.Rectangle LocRect, int MaxParty)
             {
                 this.FName = FName;
                 this.ImageTank = ImageTank;
                 this.LocRect = LocRect;
+                this.MaxParty = MaxParty;
             }
         }
 
@@ -1114,8 +1116,8 @@ namespace TankIconMaker
         {
             string fileNameXML = Path.GetDirectoryName(nameAtlas) + "\\" + Path.GetFileNameWithoutExtension(nameAtlas) + ".xml";
             FileStream fileXML = new FileStream(fileNameXML, FileMode.Create); 
-            StreamWriter writer = new StreamWriter(fileXML); 
-            writer.Write("<root>"); 
+            StreamWriter writer = new StreamWriter(fileXML);
+            writer.WriteLine("<root>"); 
             foreach (var SubTexture in ImageList)
             {
                 writer.WriteLine("  <SubTexture>");
@@ -1135,62 +1137,146 @@ namespace TankIconMaker
             System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(2048, 2048);
             for (int i = 0; i < ImageList.Count; i++)
             {
-                using (MemoryStream outStream = new MemoryStream())
+                System.Drawing.Bitmap PNG = ImageList[i].ImageTank;
+                using (System.Drawing.Graphics gPNG = System.Drawing.Graphics.FromImage(AtlasPNG))
                 {
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(ImageList[i].ImageTank));
-                    encoder.Save(outStream);
-                    System.Drawing.Bitmap PNG = new System.Drawing.Bitmap(outStream);
-                    using (System.Drawing.Graphics gPNG = System.Drawing.Graphics.FromImage(AtlasPNG))
-                    {
-                        gPNG.DrawImage(PNG, (int)ImageList[i].LocRect.X, (int)ImageList[i].LocRect.Y);
-                    }
+                    gPNG.DrawImage(PNG, (int)ImageList[i].LocRect.X, (int)ImageList[i].LocRect.Y);
                 }
             }
             AtlasPNG.Save(nameAtlas);
         }
 
+        private void RadixSort(ref List<SubTextureStruct> ImageList)
+        {
+            int CInd;
+            int[] C = new int[10];
+            List<SubTextureStruct> ImageListTemp = new List<SubTextureStruct>(ImageList);
+            int t = 1;
+            for (int i = 1; i <= 4; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                    C[j] = 0;
+                for (int j = 0; j < ImageList.Count; j++)
+                {
+                    CInd = (ImageList[j].MaxParty % (t * 10)) / t;
+                    C[CInd] = C[CInd] + 1;
+                }
+                for (int j = 8; j >= 0; j--)
+                    C[j] = C[j + 1] + C[j];
+                for (int j = ImageList.Count - 1; j >= 0; j--)
+                {
+                    CInd = (ImageList[j].MaxParty % (t * 10)) / t;
+                    ImageListTemp[C[CInd] - 1] = ImageList[j];
+                    C[CInd] = C[CInd] - 1;
+                }
+                t *= 10;
+                ImageList = new List<SubTextureStruct>(ImageListTemp);
+            }
+        }
+
         private void Arrangement(ref List<SubTextureStruct> ImageList)
         {
+            List<System.Drawing.Rectangle> TakePlaceList = new List<System.Drawing.Rectangle>();
             SubTextureStruct SubTexture;
-            Rect Rct;
+            System.Drawing.Rectangle Rct, TakeRct;
             const int TextureHeight = 2048, TextureWidth = 2048;
-            double X = 0;
-            double Y = 0;
-            if (ImageList[0].LocRect.Width > TextureWidth)
-                return; //необходимо обработать данную ситуацию
-            for (int i = 0; i < ImageList.Count; i++)
+            int CurrentY, j, k;
+            TakePlaceList.Add(ImageList[0].LocRect);
+            for (int i = 1; i < ImageList.Count; i++)
             {
                 SubTexture = ImageList[i];
                 Rct = SubTexture.LocRect;
-
-                Rct.Location = new Point(X, Y);
-                if (Rct.Right > TextureWidth)
+                CurrentY = TextureHeight;
+                j = 0;
+                while (j < TakePlaceList.Count)
+                    if (TakePlaceList[j].IntersectsWith(Rct))
+                    {
+                        Rct.Location = new System.Drawing.Point(TakePlaceList[j].Right + 1, Rct.Y);
+                        if (TakePlaceList[j].Bottom > Rct.Y)
+                            CurrentY = Math.Min(CurrentY, TakePlaceList[j].Bottom - Rct.Y + 1);
+                        if (Rct.Right > TextureWidth)
+                        {
+                            Rct.Location = new System.Drawing.Point(0, Rct.Y + CurrentY);
+                            CurrentY = TextureHeight;
+                        }
+                        j = TakePlaceList.Count - 1;
+                        while ((j > 0) && (TakePlaceList[j].Bottom > Rct.Y))
+                            j--;
+                    }
+                    else
+                        j++;
+                if (Rct.Bottom > TextureHeight)
+                    return; //необходимо обработать данную ситуацию
+                j = TakePlaceList.Count - 1;
+                while ((j >= 0) && (TakePlaceList[j].Bottom > Rct.Bottom))
+                    j--;
+                k = j;
+                while ((k >= 0) && (TakePlaceList[k].Bottom == Rct.Bottom))
+                    if ((Rct.X == TakePlaceList[k].Right + 1) && (Rct.Y == TakePlaceList[k].Y))
+                    {
+                        TakeRct = TakePlaceList[k];
+                        TakeRct.Width += Rct.Width + 1;
+                        TakePlaceList[k] = TakeRct;
+                        k = -1;
+                        j = -2;
+                    }
+                    else
+                        k--;
+                if (j > -2)
                 {
-                    X = 0;
-                    Y += Rct.Height + 1;
-                    Rct.Location = new Point(X, Y);
+                    j++;
+                    TakePlaceList.Insert(j, Rct);
                 }
-                else
-                    X += Rct.Width + 1;
                 SubTexture.LocRect = Rct;
                 ImageList[i] = SubTexture;
+
             }
-            if (ImageList[ImageList.Count - 1].LocRect.Bottom > TextureHeight)
-                return; // необходимо обработать данную ситуацию
         }
 
-        private void CreateImageList(ref List<SubTextureStruct> ImageList, string pathGuiPKG)
+        private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context)
         {
-         
+            int X, Y, Width, Height, i;
+            int BeginCount = ImageList.Count;
+
+            Stream StreamAtlasPNG = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, "battleAtlas.png"));
+            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(StreamAtlasPNG);
+
+            Stream StreamAtlasXML = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, "battleAtlas.xml"));
+            XDocument AtlasXML = XDocument.Load(StreamAtlasXML);
+
+            XElement Root = AtlasXML.Element("root");
+            SubTextureStruct SubTextureTemp = new SubTextureStruct();
+            foreach (XElement element in Root.Elements())
+            {
+                SubTextureTemp.FName = element.Element("name").Value.Trim();
+                i = 0;
+                while ((i < BeginCount) && (SubTextureTemp.FName != ImageList[i].FName))
+                    i++;
+                if (i >= BeginCount)
+                {
+                    X = Convert.ToInt32(element.Element("x").Value.Trim());
+                    Y = Convert.ToInt32(element.Element("y").Value.Trim());
+                    Width = Convert.ToInt32(element.Element("width").Value.Trim());
+                    Height = Convert.ToInt32(element.Element("height").Value.Trim());
+                    SubTextureTemp.ImageTank = new System.Drawing.Bitmap(Width, Height);
+                    SubTextureTemp.MaxParty = Math.Max(Width, Height);
+                    using (System.Drawing.Graphics gPNG = System.Drawing.Graphics.FromImage(SubTextureTemp.ImageTank))
+                    {
+                        gPNG.DrawImage(AtlasPNG, 0, 0, new System.Drawing.Rectangle(X, Y, Width, Height), System.Drawing.GraphicsUnit.Pixel);
+                    }
+                    SubTextureTemp.LocRect = new System.Drawing.Rectangle(0, 0, Width, Height);
+                    ImageList.Add(SubTextureTemp);
+                }
+            }
         }
+
+        
 
         private void saveToBattleAtlas(string pathTemplate)
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
             var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, null, null);
-            var fileGuiPKG = context.Installation.Path + "\\res\\packages\\guy.pkg";
 
             try
             {
@@ -1221,19 +1307,28 @@ namespace TankIconMaker
                         List<SubTextureStruct> ImageList = new List<SubTextureStruct>();
                         SubTextureStruct SubTexture = new SubTextureStruct();
 
-                        CreateImageList(ref ImageList, fileGuiPKG);
-
                         foreach (var renderTask in renderTasks)
                         {
                             var render = renders[renderTask.TankId];
                             SubTexture.FName = renderTask.TankId;
-                            SubTexture.ImageTank = render.Image;
-                            SubTexture.LocRect = new Rect(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
+                            using (MemoryStream outStream = new MemoryStream())
+                            {
+                                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                                encoder.Frames.Add(BitmapFrame.Create(render.Image));
+                                encoder.Save(outStream);
+                                SubTexture.ImageTank = new System.Drawing.Bitmap(outStream);
+                            }
+                            SubTexture.LocRect = new System.Drawing.Rectangle(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
+                            SubTexture.MaxParty = Math.Max(render.Image.PixelWidth, render.Image.PixelHeight);
                             ImageList.Add(SubTexture);
                         }
-                        //Arrangement(ref ImageList);
-                        //CreateAtlasPNG(ref ImageList, nameAtlas);
-                        //CreateAtlasXML(ref ImageList, nameAtlas);
+
+                        CreateImageList(ref ImageList, context);
+                        RadixSort(ref ImageList);
+                        
+                        Arrangement(ref ImageList);
+                        CreateAtlasPNG(ref ImageList, Path.Combine(pathTemplate, @"battleAtlas.png"));
+                        CreateAtlasXML(ref ImageList, Path.Combine(pathTemplate, @"battleAtlas.xml"));
                     }
                     catch (Exception e)
                     {
@@ -1319,8 +1414,14 @@ namespace TankIconMaker
                         {
                             var render = renders[renderTask.TankId];
                             SubTexture.FName = renderTask.TankId;
-                            SubTexture.ImageTank = render.Image;
-                            SubTexture.LocRect = new Rect(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
+                            using (MemoryStream outStream = new MemoryStream())
+                            {
+                                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                                encoder.Frames.Add(BitmapFrame.Create(render.Image));
+                                encoder.Save(outStream);
+                                SubTexture.ImageTank = new System.Drawing.Bitmap(outStream);
+                            }
+                            SubTexture.LocRect = new System.Drawing.Rectangle(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
                             ImageList.Add(SubTexture);
                         }
                         Arrangement(ref ImageList);
