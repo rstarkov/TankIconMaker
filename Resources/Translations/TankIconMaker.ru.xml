@@ -257,6 +257,10 @@
       <Translation>Сохранить в _BattleAtlas...</Translation>
       <Old>Save to _BattleAtlas...</Old>
     </ctSaveIconsToBattleAtlas>
+    <ctSaveIconsToVehicleMarkerAtlas>
+      <Translation>Сохранить в _VehicleMarkerAtlas...</Translation>
+      <Old>Save to _VehicleMarkerAtlas...</Old>
+    </ctSaveIconsToVehicleMarkerAtlas>    
     <ctSaveToAtlas>
       <Translation>Сохранить в _атлас...</Translation>
       <Old>Save to _atlas...</Old>
