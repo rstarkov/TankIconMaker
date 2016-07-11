@@ -1233,15 +1233,15 @@ namespace TankIconMaker
             }
         }
 
-        private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context)
+        private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context, string nameAtlas)
         {
             int X, Y, Width, Height, i;
             int BeginCount = ImageList.Count;
 
-            Stream StreamAtlasPNG = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, "battleAtlas.png"));
+            Stream StreamAtlasPNG = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".png"));
             System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(StreamAtlasPNG);
 
-            Stream StreamAtlasXML = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, "battleAtlas.xml"));
+            Stream StreamAtlasXML = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".xml"));
             XDocument AtlasXML = XDocument.Load(StreamAtlasXML);
 
             XElement Root = AtlasXML.Element("root");
@@ -1272,7 +1272,7 @@ namespace TankIconMaker
 
         
 
-        private void saveToBattleAtlas(string pathTemplate)
+        private void saveToAtlas(string pathTemplate, string nameAtlas)
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
@@ -1323,12 +1323,12 @@ namespace TankIconMaker
                             ImageList.Add(SubTexture);
                         }
 
-                        CreateImageList(ref ImageList, context);
+                        CreateImageList(ref ImageList, context, nameAtlas);
                         RadixSort(ref ImageList);
                         
                         Arrangement(ref ImageList);
-                        CreateAtlasPNG(ref ImageList, Path.Combine(pathTemplate, @"battleAtlas.png"));
-                        CreateAtlasXML(ref ImageList, Path.Combine(pathTemplate, @"battleAtlas.xml"));
+                        CreateAtlasPNG(ref ImageList, Path.Combine(pathTemplate, nameAtlas + ".png"));
+                        CreateAtlasXML(ref ImageList, Path.Combine(pathTemplate, nameAtlas + ".xml"));
                     }
                     catch (Exception e)
                     {
@@ -1375,7 +1375,7 @@ namespace TankIconMaker
             }
         }
 
-        private void saveAtlas(string nameAtlas)
+        private void saveCustomAtlas(string nameAtlas)
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
@@ -1653,7 +1653,21 @@ namespace TankIconMaker
             _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
             SaveSettings();
-            saveToBattleAtlas(App.Settings.SaveToFolderPath);
+            saveToAtlas(App.Settings.SaveToFolderPath, "BattleAtlas");
+        }
+
+        private void ctSaveIconsToVehicleMarkerAtlas_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new VistaFolderBrowserDialog();
+            dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
+            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
+                dlg.SelectedPath = App.Settings.SaveToFolderPath;
+            if (dlg.ShowDialog() != true)
+                return;
+            _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
+            App.Settings.SaveToFolderPath = dlg.SelectedPath;
+            SaveSettings();
+            saveToAtlas(App.Settings.SaveToFolderPath, "vehicleMarkerAtlas");
         }
 
         private void ctSaveToAtlas_Click(object _ = null, RoutedEventArgs __ = null)
@@ -1673,7 +1687,7 @@ namespace TankIconMaker
             App.Settings.SaveToAtlas = dlg.FileName;
 
             SaveSettings();
-            saveAtlas(App.Settings.SaveToAtlas);
+            saveCustomAtlas(App.Settings.SaveToAtlas);
         }
 
         private List<Style> getBulkSaveStyles(string overridePathTemplate = null)
@@ -2425,6 +2439,7 @@ namespace TankIconMaker
         private sealed class Warning_LayerTest_MissingImage : Warning { public Warning_LayerTest_MissingImage(string text) { Text = text; } }
         private sealed class Warning_RenderedWithErrWarn : Warning { public Warning_RenderedWithErrWarn(string text) { Text = text; } }
         private sealed class Warning_DataLoadWarning : Warning { public Warning_DataLoadWarning(string text) { Text = text; } }
+
     }
 
     static class TankLayerCommands
