@@ -181,6 +181,10 @@
       <Translation>Чехия</Translation>
       <Old>Czech</Old>
     </ctDisplayModeCountryCzech>
+    <ctDisplayModeCountrySweden>
+      <Translation>Швеция</Translation>
+      <Old>Sweden</Old>
+    </ctDisplayModeCountrySweden>    
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -2209,6 +2213,10 @@
       <Translation>Страна: Чехия</Translation>
       <Old>Country: Czech</Old>
     </CountryCzech>
+    <CountrySweden>
+      <Translation>Страна: Швеция</Translation>
+      <Old>Country: Sweden</Old>
+    </CountrySweden>    
     <CountryNone>
       <Translation>Страна:  без страны</Translation>
       <Old>Country:  None</Old>
