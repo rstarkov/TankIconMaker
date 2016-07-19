@@ -1135,6 +1135,7 @@ namespace TankIconMaker
         private void CreateAtlasPNG(ref List<SubTextureStruct> ImageList, string nameAtlas)
         {
             System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(2048, 2048);
+            AtlasPNG.SetResolution(96.0F, 96.0F);
             for (int i = 0; i < ImageList.Count; i++)
             {
                 System.Drawing.Bitmap PNG = ImageList[i].ImageTank;
@@ -1240,6 +1241,7 @@ namespace TankIconMaker
 
             Stream StreamAtlasPNG = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".png"));
             System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(StreamAtlasPNG);
+            AtlasPNG.SetResolution(96.0F, 96.0F);
 
             Stream StreamAtlasXML = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".xml"));
             XDocument AtlasXML = XDocument.Load(StreamAtlasXML);
@@ -1259,6 +1261,7 @@ namespace TankIconMaker
                     Width = Convert.ToInt32(element.Element("width").Value.Trim());
                     Height = Convert.ToInt32(element.Element("height").Value.Trim());
                     SubTextureTemp.ImageTank = new System.Drawing.Bitmap(Width, Height);
+                    SubTextureTemp.ImageTank.SetResolution(96.0F, 96.0F);
                     SubTextureTemp.MaxParty = Math.Max(Width, Height);
                     using (System.Drawing.Graphics gPNG = System.Drawing.Graphics.FromImage(SubTextureTemp.ImageTank))
                     {
