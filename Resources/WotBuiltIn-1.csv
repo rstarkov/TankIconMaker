@@ -14,44 +14,43 @@ noImage,none,0,none,special
 
 # Remove training tanks, since these share the icon with the "real" tank
 china-Ch04_T34_1_training,,,,,,del
-germany-G10_PzIII_AusfJ_training,,,,,,del
 germany-G03_PzV_Panther_training,,,,,,del
-germany-PzVIB_Tiger_II_training,,,,,,del
+germany-G10_PzIII_AusfJ_training,,,,,,del
+germany-G16_PzVIB_Tiger_II_training,,,,,,del
 usa-A06_M4A3E8_Sherman_training,,,,,,del
 ussr-R07_T-34-85_training,,,,,,del
-germany-G16_PzVIB_Tiger_II_training,,,,,,del
 
 # Remove these tanks since they don't have contour icons (at least not in the Ru client)
 # If you require these tanks, see notes below for how to add your own tanks to the data files.
-usa-Sexton_I,,,,,,del
-usa-A08_T23,,,,,,del
 china-Ch01_Type59_Gold,,,,,,del
 germany-Env_Artillery,,,,,,del
 germany-G04_PzVI_Tiger_IA,,,,,,del
+usa-Sexton_I,,,,,,del
+usa-A08_T23,,,,,,del
 
 # Korean internet cafe rental tanks
 china-Ch11_110_IGR,,,,,,del
 china-Ch17_WZ131_1_WZ132_IGR,,,,,,del
 china-Ch19_121_IGR,,,,,,del
-france-F28_105_leFH18B2_IGR,,,,,,del
+france-F08_AMX_50_100_IGR,,,,,,del
 france-F17_AMX_13_90_IGR,,,,,,del
-france-AMX_50_100_IGR,,,,,,del
-france-F36_AMX_AC_Mle1948_IGR,,,,,,del
 france-F18_Bat_Chatillon25t_IGR,,,,,,del
-france-F62_ELC_AMX_IGR,,,,,,del
+france-F28_105_leFH18B2_IGR,,,,,,del
 france-F33_S_35CA_IGR,,,,,,del
-germany-G48_E-25_IGR,,,,,,del
-germany-G37_Ferdinand_IGR,,,,,,del
-germany-G65_JagdTiger_SdKfz_185_IGR,,,,,,del
-germany-G42_Maus_IGR,,,,,,del
-germany-G64_Panther_II_IGR,,,,,,del
+france-F36_AMX_AC_Mle1948_IGR,,,,,,del
+france-F62_ELC_AMX_IGR,,,,,,del
 germany-G03_PzV_Panther_IGR,,,,,,del
 germany-G04_PzVI_Tiger_I_IGR,,,,,,del
-germany-G16_PzVIB_Tiger_II_IGR,,,,,,del
 germany-G05_StuG_40_AusfG_IGR,,,,,,del
+germany-G16_PzVIB_Tiger_II_IGR,,,,,,del
+germany-G37_Ferdinand_IGR,,,,,,del
+germany-G42_Maus_IGR,,,,,,del
+germany-G48_E-25_IGR,,,,,,del
+germany-G64_Panther_II_IGR,,,,,,del
+germany-G65_JagdTiger_SdKfz_185_IGR,,,,,,del
 japan-J11_Chi_Ri_IGR,,,,,,del
-japan-J16_ST_B1_IGR,,,,,,del
 japan-J13_STA_1_IGR,,,,,,del
+japan-J16_ST_B1_IGR,,,,,,del
 uk-GB08_Churchill_I_IGR,,,,,,del
 uk-GB11_Caernarvon_IGR,,,,,,del
 uk-GB13_FV215b_IGR,,,,,,del
@@ -60,30 +59,23 @@ uk-GB23_Centurion_IGR,,,,,,del
 uk-GB72_AT15_IGR,,,,,,del
 uk-GB77_FV304_IGR,,,,,,del
 usa-A05_M4_Sherman_IGR,,,,,,del
-usa-M48A1_IGR,,,,,,del
-usa-Pershing_IGR,,,,,,del
-usa-Sherman_Jumbo_IGR,,,,,,del
+usa-A103_T71E1_IGR,,,,,,del
 usa-A11_T29_IGR,,,,,,del
 usa-A13_T34_hvy_IGR,,,,,,del
+usa-A35_Pershing_IGR,,,,,,del
+usa-A36_Sherman_Jumbo_IGR,,,,,,del
 usa-A58_T67_IGR,,,,,,del
+usa-A84_M48A1_IGR,,,,,,del
 usa-A90_T69_IGR,,,,,,del
-usa-T71_IGR,,,,,,del
-ussr-IS-3_IGR,,,,,,del
-ussr-R45_IS-7_IGR,,,,,,del
-ussr-R47_ISU-152_IGR,,,,,,del
-ussr-R77_KV2_IGR,,,,,,del
-ussr-R54_KV-5_IGR,,,,,,del
 ussr-R106_KV85_IGR,,,,,,del
 ussr-R18_SU-152_IGR,,,,,,del
+ussr-R19_IS-3_IGR,,,,,,del
 ussr-R20_T-44_IGR,,,,,,del
 ussr-R31_Valentine_LL_IGR,,,,,,del
-usa-A35_Pershing_IGR,,,,,,del
-france-F08_AMX_50_100_IGR,,,,,,del
-usa-A36_Sherman_Jumbo_IGR,,,,,,del
-usa-A84_M48A1_IGR,,,,,,del
-ussr-R19_IS-3_IGR,,,,,,del
-usa-A103_T71E1_IGR,,,,,,del
-
+ussr-R45_IS-7_IGR,,,,,,del
+ussr-R47_ISU-152_IGR,,,,,,del
+ussr-R54_KV-5_IGR,,,,,,del
+ussr-R77_KV2_IGR,,,,,,del
 
 
 # EXAMPLES #
