@@ -181,6 +181,10 @@
       <Translation>Tschechien</Translation>
       <Old>Czech</Old>
     </ctDisplayModeCountryCzech>
+    <ctDisplayModeCountrySweden>
+      <Translation>Schweden</Translation>
+      <Old>Sweden</Old>
+    </ctDisplayModeCountrySweden>
     <ctDisplayModeClassLight>
       <Translation>Leichte Panzer</Translation>
       <Old>Light tanks</Old>
@@ -253,6 +257,18 @@
       <Translation>In _Verzeichnis speichern...</Translation>
       <Old>Save to _folder...</Old>
     </ctSaveIconsToSpecifiedFolder>
+    <ctSaveIconsToBattleAtlas>
+      <Translation>In _BattleAtlas speichern...</Translation>
+      <Old>Save to _BattleAtlas...</Old>
+    </ctSaveIconsToBattleAtlas>
+    <ctSaveIconsToVehicleMarkerAtlas>
+      <Translation>In _VehicleMarkerAtlas speichern...</Translation>
+      <Old>Save to _VehicleMarkerAtlas...</Old>
+    </ctSaveIconsToVehicleMarkerAtlas>
+    <ctSaveToAtlas>
+      <Translation>In _atlas speichern...</Translation>
+      <Old>Save _to atlas...</Old>
+    </ctSaveToAtlas>
     <ctBulkSaveIcons>
       <Translation>_Massenspeichern</Translation>
       <Old>Bulk _save</Old>
@@ -2197,6 +2213,10 @@
       <Translation>Land: Tschechien</Translation>
       <Old>Country: Czech</Old>
     </CountryCzech>
+    <CountrySweden>
+      <Translation>Land: Schweden</Translation>
+      <Old>Country: Sweden</Old>
+    </CountrySweden>
     <CountryNone>
       <Translation>Land: (kein)</Translation>
       <Old>Country:  None</Old>
