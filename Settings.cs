@@ -35,6 +35,8 @@ namespace TankIconMaker
         public ManagedWindow.Settings PathTemplateWindow = new ManagedWindow.Settings();
         /// <summary>CheckListWindow-related settings.</summary>
         public ManagedWindow.Settings CheckListWindow = new ManagedWindow.Settings();
+        /// <summary>CheckListWindow-related settings.</summary>
+        public ManagedWindow.Settings BulkSaveSettingsWindow = new ManagedWindow.Settings();
         /// <summary>Translation window related settings.</summary>
         public TranslationForm<Translation>.Settings TranslationFormSettings = new TranslationForm<Translation>.Settings();
         /// <summary>The width of the sidebar in the main window; null to use the width set at design time.</summary>
