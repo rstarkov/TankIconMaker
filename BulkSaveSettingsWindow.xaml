@@ -1,0 +1,92 @@
+﻿<rtf:ManagedWindow x:Class="TankIconMaker.BulkSaveSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:rtf="clr-namespace:RT.Util.Forms;assembly=RT.Util"
+        xmlns:src="clr-namespace:TankIconMaker"
+        x:ClassModifier="internal"
+        Title="Tank Icon Maker" ShowInTaskbar="False"
+        Height="245" Width="606" MinHeight="200" MinWidth="260"
+        TextOptions.TextFormattingMode="Display"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        Icon="/TankIconMaker;component/Resources/Graphics/icon.ico">
+    <Window.Resources>
+        <ScaleTransform x:Key="UiZoomer" CenterX="0" CenterY="0" ScaleX="1" ScaleY="1" />
+    </Window.Resources>
+    <Grid LayoutTransform="{StaticResource UiZoomer}" Margin="0,0,2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Margin="10" Padding="0" Name="ctPrompt" TextWrapping="Wrap">
+            Placeholder
+        </TextBlock>
+
+        <Grid Margin="0,0,0,0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Name="ctEnabledHeader" VerticalAlignment="Center">Enabled</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" Name="ctModifyHeader" VerticalAlignment="Center">Modify</TextBlock>
+            <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" Name="ctPathHeader" VerticalAlignment="Center">Path</TextBlock>
+
+            <CheckBox Name="ctSaveIconsEnabled" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="10,10,10,10" VerticalAlignment="Top" 
+                      IsChecked="{Binding UpdateSourceTrigger=PropertyChanged, Path=IconsBulkSaveEnabled}"/>
+            <Button x:Name="ctEditPathTemplate" Margin="5,5,5,5" Click="ctEditPathTemplate_Click" IsEnabled="{Binding IsEnabled, ElementName=ctSave}" Grid.Column="1" Grid.Row="1" Width="21" Height="23">
+                <AccessText x:Name="ctEditPathTemplateLabel" Text="_..."/>
+            </Button>
+            <Rectangle Grid.Column="2" Grid.Row="1" Fill="White" Opacity="0.8" Margin="6,10,10,10">
+                <Rectangle.Effect>
+                    <BlurEffect Radius="10"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <TextBlock Grid.Column="2" Grid.Row="1" Name="ctPathTemplate" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                               Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=PathTemplate}"/>
+
+            <CheckBox Name="ctSaveBattleAtlasEnabled" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Margin="10,10,10,10" VerticalAlignment="Top"
+                      IsChecked="{Binding UpdateSourceTrigger=PropertyChanged, Path=BattleAtlasBulkSaveEnabled}"/>
+            <Button x:Name="ctEditBattleAtlasPathTemplate" Margin="5,5,5,5" Click="ctEditBattleAtlasPathTemplate_Click" IsEnabled="{Binding IsEnabled, ElementName=ctSave}" Grid.Column="1" Grid.Row="2" Width="21" Height="23">
+                <AccessText x:Name="ctEdiBattleAtlastPathTemplateLabel" Text="_..."/>
+            </Button>
+            <Rectangle Grid.Column="2" Grid.Row="2" Fill="White" Opacity="0.8" Margin="6,10,10,10">
+                <Rectangle.Effect>
+                    <BlurEffect Radius="10"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <TextBlock Grid.Column="2" Grid.Row="2" Name="ctBattleAtlasPathTemplate" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                               Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=BattleAtlasPathTemplate}"/>
+
+            <CheckBox Name="ctSaveVehicleMarkersAtlasEnabled" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" Margin="10,10,10,10" VerticalAlignment="Top" 
+                      IsChecked="{Binding UpdateSourceTrigger=PropertyChanged, Path=VehicleMarkersAtlasBulkSaveEnabled}"/>
+            <Button x:Name="ctEditVehicleMarkersAtlasPathTemplate" Margin="5,5,5,5" Click="ctEditVehicleMarkersAtlasPathTemplate_Click" IsEnabled="{Binding IsEnabled, ElementName=ctSave}" Grid.Column="1" Grid.Row="3" Width="21" Height="23">
+                <AccessText x:Name="ctEditVehicleMarkersAtlasPathTemplateLabel" Text="_..."/>
+            </Button>
+            <Rectangle Grid.Column="2" Grid.Row="3" Fill="White" Opacity="0.8" Margin="6,10,10,10">
+                <Rectangle.Effect>
+                    <BlurEffect Radius="10"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <TextBlock Grid.Column="2" Grid.Row="3" Name="ctVehicleMarkersAtlasPathTemplate" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                               Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=VehicleMarkersAtlasPathTemplate}"/>
+        </Grid>
+
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <Button Margin="8,0,0,0" IsDefault="True" Click="ok">
+                <AccessText Margin="16,2" Name="ctOkBtn">_OK</AccessText>
+            </Button>
+            <Button Margin="8,0,0,0" IsCancel="True">
+                <AccessText Margin="16,2" Name="ctCancelBtn">_Cancel</AccessText>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</rtf:ManagedWindow>

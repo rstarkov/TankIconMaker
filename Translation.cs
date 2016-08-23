@@ -149,6 +149,7 @@ namespace TankIconMaker
         public MainWindowTranslation MainWindow = new MainWindowTranslation();
         public AddWindowTranslation AddWindow = new AddWindowTranslation();
         public PathTemplateWindowTranslation PathTemplateWindow = new PathTemplateWindowTranslation();
+        public BulkSaveSettingsWindowTranslation BulkSaveSettingsWindow = new BulkSaveSettingsWindowTranslation();
 
         public LayerAndEffectTranslation LayerAndEffect = new LayerAndEffectTranslation();
 
@@ -291,6 +292,14 @@ namespace TankIconMaker
     {
         public TrString Title = "Edit Icon Path Template";
     }
+
+    class BulkSaveSettingsWindowTranslation
+    {
+        public TrString ctEnabledHeader = "Enabled";
+        public TrString ctModifyHeader = "Modify";
+        public TrString ctPathHeader = "Path";
+    }
+    
 
     #region Layer translations
 

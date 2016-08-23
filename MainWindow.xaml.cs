@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
@@ -1095,187 +1096,7 @@ namespace TankIconMaker
 
         HashSet<string> _overwriteAccepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // icon path for which the user has confirmed that overwriting is OK
 
-        private struct SubTextureStruct
-        {
-            public string FName;
-            public System.Drawing.Bitmap ImageTank;
-            public System.Drawing.Rectangle LocRect;
-            public int MaxParty;
-
-
-            public SubTextureStruct(string FName, System.Drawing.Bitmap ImageTank, System.Drawing.Rectangle LocRect, int MaxParty)
-            {
-                this.FName = FName;
-                this.ImageTank = ImageTank;
-                this.LocRect = LocRect;
-                this.MaxParty = MaxParty;
-            }
-        }
-
-        private void CreateAtlasXML(ref List<SubTextureStruct> ImageList, string nameAtlas)
-        {
-            string fileNameXML = Path.GetDirectoryName(nameAtlas) + "\\" + Path.GetFileNameWithoutExtension(nameAtlas) + ".xml";
-            FileStream fileXML = new FileStream(fileNameXML, FileMode.Create); 
-            StreamWriter writer = new StreamWriter(fileXML);
-            writer.WriteLine("<root>"); 
-            foreach (var SubTexture in ImageList)
-            {
-                writer.WriteLine("  <SubTexture>");
-                writer.WriteLine("    <name> " + SubTexture.FName + " </name>");
-                writer.WriteLine("    <x> " + (int)SubTexture.LocRect.X + " </x>");
-                writer.WriteLine("    <y> " + (int)SubTexture.LocRect.Y + " </y>");
-                writer.WriteLine("    <width> " + (int)SubTexture.LocRect.Width + " </width>");
-                writer.WriteLine("    <height> " + (int)SubTexture.LocRect.Height + " </height>");
-                writer.WriteLine("  </SubTexture>");
-            }
-            writer.Write("</root>");
-            writer.Close(); 
-        }
-
-        private void CreateAtlasPNG(ref List<SubTextureStruct> ImageList, string nameAtlas)
-        {
-            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(2048, 2048);
-            AtlasPNG.SetResolution(96.0F, 96.0F);
-            for (int i = 0; i < ImageList.Count; i++)
-            {
-                System.Drawing.Bitmap PNG = ImageList[i].ImageTank;
-                using (System.Drawing.Graphics gPNG = System.Drawing.Graphics.FromImage(AtlasPNG))
-                {
-                    gPNG.DrawImage(PNG, (int)ImageList[i].LocRect.X, (int)ImageList[i].LocRect.Y);
-                }
-            }
-            AtlasPNG.Save(nameAtlas);
-        }
-
-        private void RadixSort(ref List<SubTextureStruct> ImageList)
-        {
-            int CInd;
-            int[] C = new int[10];
-            List<SubTextureStruct> ImageListTemp = new List<SubTextureStruct>(ImageList);
-            int t = 1;
-            for (int i = 1; i <= 4; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                    C[j] = 0;
-                for (int j = 0; j < ImageList.Count; j++)
-                {
-                    CInd = (ImageList[j].MaxParty % (t * 10)) / t;
-                    C[CInd] = C[CInd] + 1;
-                }
-                for (int j = 8; j >= 0; j--)
-                    C[j] = C[j + 1] + C[j];
-                for (int j = ImageList.Count - 1; j >= 0; j--)
-                {
-                    CInd = (ImageList[j].MaxParty % (t * 10)) / t;
-                    ImageListTemp[C[CInd] - 1] = ImageList[j];
-                    C[CInd] = C[CInd] - 1;
-                }
-                t *= 10;
-                ImageList = new List<SubTextureStruct>(ImageListTemp);
-            }
-        }
-
-        private void Arrangement(ref List<SubTextureStruct> ImageList)
-        {
-            List<System.Drawing.Rectangle> TakePlaceList = new List<System.Drawing.Rectangle>();
-            SubTextureStruct SubTexture;
-            System.Drawing.Rectangle Rct, TakeRct;
-            const int TextureHeight = 2048, TextureWidth = 2048;
-            int CurrentY, j, k;
-            TakePlaceList.Add(ImageList[0].LocRect);
-            for (int i = 1; i < ImageList.Count; i++)
-            {
-                SubTexture = ImageList[i];
-                Rct = SubTexture.LocRect;
-                CurrentY = TextureHeight;
-                j = 0;
-                while (j < TakePlaceList.Count)
-                    if (TakePlaceList[j].IntersectsWith(Rct))
-                    {
-                        Rct.Location = new System.Drawing.Point(TakePlaceList[j].Right + 1, Rct.Y);
-                        if (TakePlaceList[j].Bottom > Rct.Y)
-                            CurrentY = Math.Min(CurrentY, TakePlaceList[j].Bottom - Rct.Y + 1);
-                        if (Rct.Right > TextureWidth)
-                        {
-                            Rct.Location = new System.Drawing.Point(0, Rct.Y + CurrentY);
-                            CurrentY = TextureHeight;
-                        }
-                        j = TakePlaceList.Count - 1;
-                        while ((j > 0) && (TakePlaceList[j].Bottom > Rct.Y))
-                            j--;
-                    }
-                    else
-                        j++;
-                if (Rct.Bottom > TextureHeight)
-                    return; //необходимо обработать данную ситуацию
-                j = TakePlaceList.Count - 1;
-                while ((j >= 0) && (TakePlaceList[j].Bottom > Rct.Bottom))
-                    j--;
-                k = j;
-                while ((k >= 0) && (TakePlaceList[k].Bottom == Rct.Bottom))
-                    if ((Rct.X == TakePlaceList[k].Right + 1) && (Rct.Y == TakePlaceList[k].Y))
-                    {
-                        TakeRct = TakePlaceList[k];
-                        TakeRct.Width += Rct.Width + 1;
-                        TakePlaceList[k] = TakeRct;
-                        k = -1;
-                        j = -2;
-                    }
-                    else
-                        k--;
-                if (j > -2)
-                {
-                    j++;
-                    TakePlaceList.Insert(j, Rct);
-                }
-                SubTexture.LocRect = Rct;
-                ImageList[i] = SubTexture;
-
-            }
-        }
-
-        private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context, string nameAtlas)
-        {
-            int X, Y, Width, Height, i;
-            int BeginCount = ImageList.Count;
-
-            Stream StreamAtlasPNG = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".png"));
-            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(StreamAtlasPNG);
-            AtlasPNG.SetResolution(96.0F, 96.0F);
-
-            Stream StreamAtlasXML = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".xml"));
-            XDocument AtlasXML = XDocument.Load(StreamAtlasXML);
-
-            XElement Root = AtlasXML.Element("root");
-            SubTextureStruct SubTextureTemp = new SubTextureStruct();
-            foreach (XElement element in Root.Elements())
-            {
-                SubTextureTemp.FName = element.Element("name").Value.Trim();
-                i = 0;
-                while ((i < BeginCount) && (SubTextureTemp.FName != ImageList[i].FName))
-                    i++;
-                if (i >= BeginCount)
-                {
-                    X = Convert.ToInt32(element.Element("x").Value.Trim());
-                    Y = Convert.ToInt32(element.Element("y").Value.Trim());
-                    Width = Convert.ToInt32(element.Element("width").Value.Trim());
-                    Height = Convert.ToInt32(element.Element("height").Value.Trim());
-                    SubTextureTemp.ImageTank = new System.Drawing.Bitmap(Width, Height);
-                    SubTextureTemp.ImageTank.SetResolution(96.0F, 96.0F);
-                    SubTextureTemp.MaxParty = Math.Max(Width, Height);
-                    using (System.Drawing.Graphics gPNG = System.Drawing.Graphics.FromImage(SubTextureTemp.ImageTank))
-                    {
-                        gPNG.DrawImage(AtlasPNG, 0, 0, new System.Drawing.Rectangle(X, Y, Width, Height), System.Drawing.GraphicsUnit.Pixel);
-                    }
-                    SubTextureTemp.LocRect = new System.Drawing.Rectangle(0, 0, Width, Height);
-                    ImageList.Add(SubTextureTemp);
-                }
-            }
-        }
-
-        
-
-        private void saveToAtlas(string pathTemplate, string nameAtlas)
+        private void saveToAtlas(string pathTemplate, string nameAtlas, bool custom = false)
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
@@ -1283,11 +1104,17 @@ namespace TankIconMaker
 
             try
             {
-                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
+                if (Directory.Exists(pathPartial) &&
+                    Directory.GetFileSystemEntries(pathPartial)
+                        .Any(x => nameAtlas.EqualsNoCase(Path.GetFileNameWithoutExtension(x))))
+                {
                     if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                        .Fmt(pathPartial, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                        .Fmt(pathPartial, context.VersionConfig.TankIconExtension),
+                        App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                    {
                         return;
-                _overwriteAccepted.Add(pathPartial);
+                    }
+                }
 
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
@@ -1306,130 +1133,8 @@ namespace TankIconMaker
                                 renders[renderTask.TankId] = renderTask;
                                 renderTask.Render();
                             }
-
-                        List<SubTextureStruct> ImageList = new List<SubTextureStruct>();
-                        SubTextureStruct SubTexture = new SubTextureStruct();
-
-                        foreach (var renderTask in renderTasks)
-                        {
-                            var render = renders[renderTask.TankId];
-                            SubTexture.FName = renderTask.TankId;
-                            using (MemoryStream outStream = new MemoryStream())
-                            {
-                                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                                encoder.Frames.Add(BitmapFrame.Create(render.Image));
-                                encoder.Save(outStream);
-                                SubTexture.ImageTank = new System.Drawing.Bitmap(outStream);
-                            }
-                            SubTexture.LocRect = new System.Drawing.Rectangle(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
-                            SubTexture.MaxParty = Math.Max(render.Image.PixelWidth, render.Image.PixelHeight);
-                            ImageList.Add(SubTexture);
-                        }
-
-                        CreateImageList(ref ImageList, context, nameAtlas);
-                        RadixSort(ref ImageList);
-                        
-                        Arrangement(ref ImageList);
-                        CreateAtlasPNG(ref ImageList, Path.Combine(pathTemplate, nameAtlas + ".png"));
-                        CreateAtlasXML(ref ImageList, Path.Combine(pathTemplate, nameAtlas + ".xml"));
-                    }
-                    catch (Exception e)
-                    {
-                        exception = e;
-                    }
-                    finally
-                    {
-                        Dispatcher.Invoke((Action)(() =>
-                        {
-                            GlobalStatusHide();
-
-                            // Cache any new renders that we don't already have
-                            foreach (var kvp in renders)
-                                if (!_renderResults.ContainsKey(kvp.Key))
-                                    _renderResults[kvp.Key] = kvp.Value;
-                            // Inform the user of what happened
-                            if (exception == null)
-                            {
-                                int skipped = renders.Values.Count(rr => rr.Exception != null);
-                                int choice;
-                                choice = new DlgMessage
-                                {
-                                    Message = App.Translation.Prompt.IconsSaved.Fmt(pathPartial) +
-                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
-                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
-                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
-                                    AcceptButton = 0,
-                                    CancelButton = 0,
-                                }.Show();
-                                if (choice == 1)
-                                    visitProjectWebsite("savehelp");
-                            }
-                            else
-                            {
-                                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(exception.Message));
-                            }
-                        }));
-                    }
-                });
-            }
-            catch (Exception e)
-            {
-                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(e.Message));
-            }
-        }
-
-        private void saveCustomAtlas(string nameAtlas)
-        {
-            var context = CurContext;
-            var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-            var pathPartial = nameAtlas;//Ut.ExpandIconPath(nameAtlas, context, style, null, null);
-
-            try
-            {
-                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
-                    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                        .Fmt(pathPartial, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
-                        return;
-                _overwriteAccepted.Add(pathPartial);
-
-                GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
-                
-                var renderTasks = ListRenderTasks(context, style, all: true);
-                var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-                // The rest of the save process occurs off the GUI thread, while this method returns.
-                Task.Factory.StartNew(() =>
-                {
-                    Exception exception = null;
-                    try
-                    {
-                        foreach (var renderTask in renderTasks)
-                        if (!renders.ContainsKey(renderTask.TankId))
-                        {
-                            renders[renderTask.TankId] = renderTask;
-                            renderTask.Render();
-                        }
-
-                        List<SubTextureStruct> ImageList = new List<SubTextureStruct>();
-                        SubTextureStruct SubTexture = new SubTextureStruct();
-
-                        foreach (var renderTask in renderTasks)
-                        {
-                            var render = renders[renderTask.TankId];
-                            SubTexture.FName = renderTask.TankId;
-                            using (MemoryStream outStream = new MemoryStream())
-                            {
-                                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                                encoder.Frames.Add(BitmapFrame.Create(render.Image));
-                                encoder.Save(outStream);
-                                SubTexture.ImageTank = new System.Drawing.Bitmap(outStream);
-                            }
-                            SubTexture.LocRect = new System.Drawing.Rectangle(0, 0, render.Image.PixelWidth, render.Image.PixelHeight);
-                            ImageList.Add(SubTexture);
-                        }
-                        Arrangement(ref ImageList);
-                        CreateAtlasPNG(ref ImageList, nameAtlas);
-                        CreateAtlasXML(ref ImageList, nameAtlas);
+                        var atlasBuilder = new AtlasBuilder(context);
+                        atlasBuilder.SaveAtlas(pathTemplate, nameAtlas, renders.Values, custom);
                     }
                     catch (Exception e)
                     {
@@ -1569,48 +1274,88 @@ namespace TankIconMaker
             _rendering.Value = true;
             GlobalStatusShow(App.Translation.Prompt.BulkSave_Progress);
             var lastGuiUpdate = DateTime.UtcNow;
-            var tasks = new List<Action>();
+            var tasks = new List<Task>();
             var context = CurContext;
-            int tasksRemaining = 0;
+            var stylesCount = stylesToSave.Count();
+            int tasksRemaining = stylesCount;
+            var atlasBuilder = new AtlasBuilder(context);
             foreach (var styleF in stylesToSave)
             {
                 var style = styleF; // foreach variable scope fix
-                var renderTasks = ListRenderTasks(context, style, true);
-                tasksRemaining += renderTasks.Count;
 
+                if (!style.IconsBulkSaveEnabled && !style.BattleAtlasBulkSaveEnabled && !style.VehicleMarkersAtlasBulkSaveEnabled)
+                {
+                    continue;
+                }
+
+                var styleActions = new List<Action>();
+                var styleTasks = new List<Task>();
+                var renderTasks = ListRenderTasks(context, style, true);
+                
                 foreach (var renderTaskF in renderTasks)
                 {
                     var renderTask = renderTaskF; // foreach variable scope fix
-                    tasks.Add(() =>
+                    styleActions.Add(() =>
                     {
                         try
                         {
-                            var path = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
+                            var path = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style,
+                                renderTask.Tank.Country, renderTask.Tank.Class);
                             renderTask.Render();
                             Directory.CreateDirectory(path);
-                            Ut.SaveImage(renderTask.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
-                            if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
+                            if (style.IconsBulkSaveEnabled)
                             {
-                                lastGuiUpdate = DateTime.UtcNow;
-                                Dispatcher.Invoke(new Action(() => GlobalStatusShow(App.Translation.Prompt.BulkSave_Progress + "\n{0:0}%".Fmt(100 - tasksRemaining / (double) tasks.Count * 100))));
+                                Ut.SaveImage(renderTask.Image,
+                                    Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension),
+                                    context.VersionConfig.TankIconExtension);
                             }
                         }
                         finally
                         {
-                            Interlocked.Decrement(ref tasksRemaining);
-                            if (tasksRemaining == 0)
-                                Dispatcher.Invoke(new Action(() =>
-                                {
-                                    _rendering.Value = false;
-                                    GlobalStatusHide();
-                                    GC.Collect(); // Clean up all those temporary images we've just created and won't be doing again for a while. (this keeps "private bytes" when idle ~30 MB lower)
-                                }));
                         }
                     });
                 }
+
+                foreach (var task in styleActions)
+                {
+                    styleTasks.Add(Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None,
+                        PriorityScheduler.Lowest));
+                }
+                var atlasTask = Task.Factory.ContinueWhenAll(styleTasks.ToArray(), renders =>
+                {
+                    if (style.BattleAtlasBulkSaveEnabled)
+                    {
+                        var path = Ut.ExpandIconPath(overridePathTemplate ?? style.BattleAtlasPathTemplate, context, style, null, null);
+                        atlasBuilder.SaveAtlas(path, battleAtlas, renderTasks);
+                    }
+                    if (style.VehicleMarkersAtlasBulkSaveEnabled)
+                    {
+                        var path = Ut.ExpandIconPath(overridePathTemplate ?? style.VehicleMarkersAtlasPathTemplate, context, style, null, null);
+                        atlasBuilder.SaveAtlas(path, vehicleMarkerAtlas, renderTasks);
+                    }
+                    Interlocked.Decrement(ref tasksRemaining);
+                    if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
+                    {
+                        lastGuiUpdate = DateTime.UtcNow;
+                        Dispatcher.Invoke(
+                            new Action(
+                                () =>
+                                    GlobalStatusShow(App.Translation.Prompt.BulkSave_Progress +
+                                                        "\n{0:0}%".Fmt(100 -
+                                                                    tasksRemaining / (double)stylesCount * 100))));
+                    }
+                });
+                tasks.Add(atlasTask);
             }
-            foreach (var task in tasks)
-                Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None, PriorityScheduler.Lowest);
+            Task.Factory.ContinueWhenAll(tasks.ToArray(), renders =>
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    _rendering.Value = false;
+                    GlobalStatusHide();
+                    GC.Collect();
+                }));
+            });
         }
 
         private void ctSave_Click(object _, RoutedEventArgs __)
@@ -1656,7 +1401,7 @@ namespace TankIconMaker
             _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
             SaveSettings();
-            saveToAtlas(App.Settings.SaveToFolderPath, "BattleAtlas");
+            saveToAtlas(App.Settings.SaveToFolderPath, battleAtlas);
         }
 
         private void ctSaveIconsToVehicleMarkerAtlas_Click(object sender, RoutedEventArgs e)
@@ -1670,7 +1415,7 @@ namespace TankIconMaker
             _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
             SaveSettings();
-            saveToAtlas(App.Settings.SaveToFolderPath, "vehicleMarkerAtlas");
+            saveToAtlas(App.Settings.SaveToFolderPath, vehicleMarkerAtlas);
         }
 
         private void ctSaveToAtlas_Click(object _ = null, RoutedEventArgs __ = null)
@@ -1690,7 +1435,7 @@ namespace TankIconMaker
             App.Settings.SaveToAtlas = dlg.FileName;
 
             SaveSettings();
-            saveCustomAtlas(App.Settings.SaveToAtlas);
+            saveToAtlas(Path.GetDirectoryName(App.Settings.SaveToAtlas), Path.GetFileNameWithoutExtension(App.Settings.SaveToAtlas), true);
         }
 
         private List<Style> getBulkSaveStyles(string overridePathTemplate = null)
@@ -1738,11 +1483,18 @@ namespace TankIconMaker
 
         private void ctEditPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, App.Settings.ActiveStyle.PathTemplate, CurContext, App.Settings.ActiveStyle);
-            if (value == null)
-                return;
-            var style = GetEditableStyle();
-            style.PathTemplate = value;
+            var wnd = BulkSaveSettingsWindow.Show(this, App.Settings.ActiveStyle.PathTemplate, CurContext,
+                App.Settings.ActiveStyle);
+            if (wnd.DialogResult ?? false)
+            {
+                var style = GetEditableStyle();
+                style.PathTemplate = wnd.PathTemplate;
+                style.BattleAtlasPathTemplate = wnd.BattleAtlasPathTemplate;
+                style.VehicleMarkersAtlasPathTemplate = wnd.VehicleMarkersAtlasPathTemplate;
+                style.IconsBulkSaveEnabled = wnd.IconsBulkSaveEnabled;
+                style.BattleAtlasBulkSaveEnabled = wnd.BattleAtlasBulkSaveEnabled;
+                style.VehicleMarkersAtlasBulkSaveEnabled = wnd.VehicleMarkersAtlasBulkSaveEnabled;
+            }
         }
 
         private ObservableValue<double> UiZoomObservable = new ObservableValue<double>(1);
@@ -2043,6 +1795,8 @@ namespace TankIconMaker
         private const string clipboard_LayerRoot = "TankIconMaker_Layer";
         private const string clipboard_EffectRoot = "TankIconMaker_Effect";
         private const string clipboard_EffectListRoot = "TankIconMaker_EffectList";
+        private const string battleAtlas =  "BattleAtlas";
+        private const string vehicleMarkerAtlas = "vehicleMarkerAtlas";
 
         private void cmdLayer_Copy(object sender, ExecutedRoutedEventArgs e)
         {

@@ -81,6 +81,7 @@
     <Compile Include="AnchorEditor.xaml.cs">
       <DependentUpon>AnchorEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AtlasBuilder.cs" />
     <Compile Include="Bitmap.cs" />
     <Compile Include="BitmapResampler.cs">
       <SubType>Code</SubType>
@@ -88,6 +89,9 @@
     <Compile Include="Calculator.cs" />
     <Compile Include="CheckListWindow.xaml.cs">
       <DependentUpon>CheckListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BulkSaveSettingsWindow.xaml.cs">
+      <DependentUpon>BulkSaveSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Effects\ClipEffect.cs" />
     <Compile Include="Effects\AdaptiveBlurEffect.cs" />
@@ -152,6 +156,10 @@
     <Page Include="CheckListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BulkSaveSettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FilenameEditor.xaml">
       <Generator>MSBuild:Compile</Generator>

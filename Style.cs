@@ -24,6 +24,50 @@ namespace TankIconMaker
         public string PathTemplate { get { return _PathTemplate; } set { _PathTemplate = value; NotifyPropertyChanged("PathTemplate"); } }
         private string _PathTemplate;
 
+        /// <summary>A template for the path where the battleAtlas are to be saved.</summary>
+        public string BattleAtlasPathTemplate { get { return _BattleAtlasPathTemplate; } set { _BattleAtlasPathTemplate = value; NotifyPropertyChanged("BattleAtlasPathTemplate"); } }
+        private string _BattleAtlasPathTemplate;
+
+        /// <summary>A template for the path where the vehicleMarkersAtlas are to be saved.</summary>
+        public string VehicleMarkersAtlasPathTemplate { get { return _VehicleMarkersAtlasPathTemplate; } set { _VehicleMarkersAtlasPathTemplate = value; NotifyPropertyChanged("VehicleMarkersAtlasPathTemplate"); } }
+        private string _VehicleMarkersAtlasPathTemplate;
+
+        /// <summary>Enable/disable saving the icons.</summary>
+        public bool IconsBulkSaveEnabled
+        {
+            get { return _IconsBulkSaveEnabled; }
+            set
+            {
+                _IconsBulkSaveEnabled = value;
+                NotifyPropertyChanged("IconsBulkSaveEnabled");
+            }
+        }
+        private bool _IconsBulkSaveEnabled = true;
+
+        /// <summary>Enable/disable saving the battleAtlas.</summary>
+        public bool BattleAtlasBulkSaveEnabled
+        {
+            get { return _BattleAtlasBulkSaveEnabled; }
+            set
+            {
+                _BattleAtlasBulkSaveEnabled = value;
+                NotifyPropertyChanged("BattleAtlasBulkSaveEnabled");
+            }
+        }
+        private bool _BattleAtlasBulkSaveEnabled = false;
+
+        /// <summary>Enable/disable saving the vehicleMarkersAtlas.</summary>
+        public bool VehicleMarkersAtlasBulkSaveEnabled
+        {
+            get { return _VehicleMarkersAtlasBulkSaveEnabled; }
+            set
+            {
+                _VehicleMarkersAtlasBulkSaveEnabled = value;
+                NotifyPropertyChanged("VehicleMarkersAtlasBulkSaveEnabled");
+            }
+        }
+        private bool _VehicleMarkersAtlasBulkSaveEnabled = false;
+
         /// <summary>Icon width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
         public int IconWidth = 80;
         /// <summary>Icon height; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
