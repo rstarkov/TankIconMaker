@@ -2772,18 +2772,4 @@
       <Old>recursive layer reference: “{0}”</Old>
     </Err_RecursiveLayerReference>
   </Calculator>
-  <BulkSaveSettingsWindow>
-    <ctEnabledHeader>
-      <Translation>Out of date</Translation>
-      <Old>Enabled</Old>
-    </ctEnabledHeader>
-    <ctModifyHeader>
-      <Translation>Out of date</Translation>
-      <Old>Modify</Old>
-    </ctModifyHeader>
-    <ctPathHeader>
-      <Translation>Out of date</Translation>
-      <Old>Path</Old>
-    </ctPathHeader>
-  </BulkSaveSettingsWindow>
 </item>
