@@ -84,7 +84,6 @@ namespace TankIconMaker
         {
             this.context = context;
             this.style = style;
-            this.ctPrompt.Text = string.Format("{0} ({1})", style.Name, style.Author);
         }
 
         private void InitializeEverything(object ___, EventArgs ____)
@@ -132,12 +131,12 @@ namespace TankIconMaker
                     Mode = BindingMode.TwoWay
                 });
 
-            ctPathTemplate.DataContext = this;
-            ctBattleAtlasPathTemplate.DataContext = this;
-            ctVehicleMarkersAtlasPathTemplate.DataContext = this;
-            ctSaveIconsEnabled.DataContext = this;
-            ctSaveBattleAtlasEnabled.DataContext = this;
-            ctSaveVehicleMarkersAtlasEnabled.DataContext = this;
+            this.ctPathTemplate.DataContext = this;
+            this.ctBattleAtlasPathTemplate.DataContext = this;
+            this.ctVehicleMarkersAtlasPathTemplate.DataContext = this;
+            this.ctSaveIconsEnabled.DataContext = this;
+            this.ctSaveBattleAtlasEnabled.DataContext = this;
+            this.ctSaveVehicleMarkersAtlasEnabled.DataContext = this;
             this.DataContext = this;
 
             this.PathTemplate = style.PathTemplate;
@@ -146,10 +145,6 @@ namespace TankIconMaker
             this.IconsBulkSaveEnabled = style.IconsBulkSaveEnabled;
             this.BattleAtlasBulkSaveEnabled = style.BattleAtlasBulkSaveEnabled;
             this.VehicleMarkersAtlasBulkSaveEnabled = style.VehicleMarkersAtlasBulkSaveEnabled;
-
-            //ctSaveIconsEnabled.IsChecked = this.IconsBulkSaveEnabled;
-            //ctSaveBattleAtlasEnabled.IsChecked = this.BattleAtlasBulkSaveEnabled;
-            //ctSaveVehicleMarkersAtlasEnabled.IsChecked = this.VehicleMarkersAtlasBulkSaveEnabled;
         }
 
         private void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
@@ -158,9 +153,6 @@ namespace TankIconMaker
         private void ok(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
-            //this.IconsBulkSaveEnabled = ctSaveIconsEnabled.IsChecked ?? false;
-            //this.BattleAtlasBulkSaveEnabled = ctSaveBattleAtlasEnabled.IsChecked ?? false;
-            //this.VehicleMarkersAtlasBulkSaveEnabled = ctSaveVehicleMarkersAtlasEnabled.IsChecked ?? false;
         }
 
         public static BulkSaveSettingsWindow Show(Window owner, string value, WotContext context, Style style)

@@ -2779,17 +2779,37 @@
     </Err_RecursiveLayerReference>
   </Calculator>
   <BulkSaveSettingsWindow>
-    <ctEnabledHeader>
-      <Translation>Включено</Translation>
+    <ctPrompt>
+      <Translation>Это окно служит для настроек массового сохранения. Вы можете включить или выключить сохранение нормальных иконок или атласа и выбрать путь массового сохранения. Обратите внимание, что настройки путей не используются при массовом сохранении в папку. Путь для сохранения обычных иконок так же будет использоваться при нажатии кнопки "Сохранить".</Translation>
+      <Old>This window is used to set style bulk save settings. You can enable or disable saving to atlas or normal icons and specify bulk save path. Please note that path settings don't work when using the bulk save to folder. The path to save the normal icons will also be used when you click ""Save"".</Old>
+    </ctPrompt>
+    <ctNameColHeader>
+      <Translation>Наименование</Translation>
+      <Old>Name</Old>
+    </ctNameColHeader>
+    <ctEnabledColHeader>
+      <Translation>Активно</Translation>
       <Old>Enabled</Old>
-    </ctEnabledHeader>
-    <ctModifyHeader>
+    </ctEnabledColHeader>
+    <ctModifyColHeader>
       <Translation>Изменить</Translation>
       <Old>Modify</Old>
-    </ctModifyHeader>
-    <ctPathHeader>
+    </ctModifyColHeader>
+    <ctPathColHeader>
       <Translation>Путь</Translation>
       <Old>Path</Old>
-    </ctPathHeader>
+    </ctPathColHeader>
+    <ctNormalIconsRowHeader>
+      <Translation>Обычные иконки</Translation>
+      <Old>Normal icons</Old>
+    </ctNormalIconsRowHeader>
+    <ctBattleAtlasRowHeader>
+      <Translation>Атлас иконок в бою</Translation>
+      <Old>Battle atlas</Old>
+    </ctBattleAtlasRowHeader>
+    <ctVehicleMarkersAtlasRowHeader>
+      <Translation>Атлас иконок маркеров</Translation>
+      <Old>Markers atlas</Old>
+    </ctVehicleMarkersAtlasRowHeader>
   </BulkSaveSettingsWindow>
 </item>

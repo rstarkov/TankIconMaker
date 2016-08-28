@@ -295,9 +295,18 @@ namespace TankIconMaker
 
     class BulkSaveSettingsWindowTranslation
     {
-        public TrString ctEnabledHeader = "Enabled";
-        public TrString ctModifyHeader = "Modify";
-        public TrString ctPathHeader = "Path";
+        public TrString ctPrompt = @"This window is used to set style bulk save settings. You can enable or disable 
+            saving to atlas or normal icons and specify bulk save path. Please note that 
+            path settings don't work when using the bulk save to folder. The 
+            path to save the normal icons will also be used when you click ""Save"".";
+        public TrString ctNameColHeader = "Name";
+        public TrString ctEnabledColHeader = "Enabled";
+        public TrString ctModifyColHeader = "Modify";
+        public TrString ctPathColHeader = "Path";
+
+        public TrString ctNormalIconsRowHeader = "Normal icons";
+        public TrString ctBattleAtlasRowHeader = "Battle atlas";
+        public TrString ctVehicleMarkersAtlasRowHeader = "Markers atlas";
     }
     
 
