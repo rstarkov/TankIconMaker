@@ -66,15 +66,15 @@
       <Old>_More</Old>
     </ctStyleMoreLabel>
     <ctStyleIconWidth>
-      <Translation>Symbolbreite</Translation>
+      <Translation>Symbol_breite</Translation>
       <Old>Icon width</Old>
     </ctStyleIconWidth>
     <ctStyleIconHeight>
-      <Translation>Symbolhöhe</Translation>
+      <Translation>Symbol_höhe</Translation>
       <Old>Icon height</Old>
     </ctStyleIconHeight>
     <ctStyleCenterable>
-      <Translation>Zentrierbar</Translation>
+      <Translation>_Zentrierbarkeit</Translation>
       <Old>Centerable</Old>
     </ctStyleCenterable>
     <ctStyleChangeName>
@@ -390,6 +390,48 @@
       <Old>_Cancel</Old>
     </ctCancelBtn>
   </PathTemplateWindow>
+  <BulkSaveSettingsWindow>
+    <Title>
+      <Translation>Massenspeicheroptionen</Translation>
+      <Old>Bulk Save Settings</Old>
+    </Title>
+    <ctPrompt>
+      <Translation>Platzhalter</Translation>
+      <Old>Placeholder</Old>
+    </ctPrompt>
+    <ctEnabledHeader>
+      <Translation>Aktiviert</Translation>
+      <Old>Enabled</Old>
+    </ctEnabledHeader>
+    <ctModifyHeader>
+      <Translation>Ändern</Translation>
+      <Old>Modify</Old>
+    </ctModifyHeader>
+    <ctPathHeader>
+      <Translation>Pfad</Translation>
+      <Old>Path</Old>
+    </ctPathHeader>
+    <ctEditPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEditPathTemplateLabel>
+    <ctEdiBattleAtlastPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEdiBattleAtlastPathTemplateLabel>
+    <ctEditVehicleMarkersAtlasPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEditVehicleMarkersAtlasPathTemplateLabel>
+    <ctOkBtn>
+      <Translation>_OK</Translation>
+      <Old>_OK</Old>
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>_Abbrechen</Translation>
+      <Old>_Cancel</Old>
+    </ctCancelBtn>
+  </BulkSaveSettingsWindow>
   <LayerAndEffect>
     <LayerId>
       <DisplayName>
@@ -2326,11 +2368,11 @@
       <Old>Icon dimensions</Old>
     </IconDims_Title>
     <IconDims_Width>
-      <Translation>Bitte geben Sie die Breite der Symbole in Pixeln an:</Translation>
+      <Translation>Bestimmen Sie die Breite der Symbole in Pixeln:</Translation>
       <Old>Please enter the width of the icons, in pixels:</Old>
     </IconDims_Width>
     <IconDims_Height>
-      <Translation>Bitte geben Sie die Höhe der Symbole in Pixeln an:</Translation>
+      <Translation>Bestimmen Sie die Höhe der Symbole in Pixeln:</Translation>
       <Old>Please enter the height of the icons, in pixels:</Old>
     </IconDims_Height>
     <IconDims_NumberError>
@@ -2342,11 +2384,11 @@
       <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
     </Centerable_Prompt>
     <Centerable_Yes>
-      <Translation>Zentrierbar</Translation>
+      <Translation>&amp;Zentrierbar</Translation>
       <Old>Centerable</Old>
     </Centerable_Yes>
     <Centerable_No>
-      <Translation>Festbreite</Translation>
+      <Translation>&amp;Festbreite</Translation>
       <Old>Fixed-width</Old>
     </Centerable_No>
     <ExportFormat_Title>
@@ -2480,7 +2522,7 @@
       <Old>Select styles to export:</Old>
     </StyleExport_Prompt>
     <StyleExport_Yes>
-      <Translation>_Export</Translation>
+      <Translation>_Exportieren</Translation>
       <Old>_Export</Old>
     </StyleExport_Yes>
     <StyleExport_Success>
