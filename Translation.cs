@@ -12,6 +12,8 @@ namespace TankIconMaker
         AddWindow,
         [LingoGroup("Path template window", "Strings used directly in the \"Path template\" window.")]
         PathTemplateWindow,
+        [LingoGroup("Bulk save settings window", "Strings used directly in the \"Bulk save settings\" window.")]
+        BulkSaveSettingsWindow,
         [LingoGroup("Property categories", "Strings used to group properties into categories in the property grid.")]
         PropertyCategory,
         [LingoGroup("Message box defaults", "Strings used in the message boxes by default for some of the messages.")]
@@ -293,13 +295,11 @@ namespace TankIconMaker
         public TrString Title = "Edit Icon Path Template";
     }
 
-    class BulkSaveSettingsWindowTranslation
+    partial class BulkSaveSettingsWindowTranslation
     {
-        public TrString ctEnabledHeader = "Enabled";
-        public TrString ctModifyHeader = "Modify";
-        public TrString ctPathHeader = "Path";
+        public TrString Title = "Bulk Save Settings";
     }
-    
+
 
     #region Layer translations
 

@@ -184,7 +184,7 @@
     <ctDisplayModeCountrySweden>
       <Translation>Швеция</Translation>
       <Old>Sweden</Old>
-    </ctDisplayModeCountrySweden>    
+    </ctDisplayModeCountrySweden>
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -264,11 +264,11 @@
     <ctSaveIconsToVehicleMarkerAtlas>
       <Translation>Сохранить в _VehicleMarkerAtlas...</Translation>
       <Old>Save to _VehicleMarkerAtlas...</Old>
-    </ctSaveIconsToVehicleMarkerAtlas>    
+    </ctSaveIconsToVehicleMarkerAtlas>
     <ctSaveToAtlas>
       <Translation>Сохранить в _атлас...</Translation>
-      <Old>Save to _atlas...</Old>
-    </ctSaveToAtlas>     
+      <Old>Save _to atlas...</Old>
+    </ctSaveToAtlas>
     <ctBulkSaveIcons>
       <Translation>_Массовое сохранение</Translation>
       <Old>Bulk _save</Old>
@@ -390,6 +390,48 @@
       <Old>_Cancel</Old>
     </ctCancelBtn>
   </PathTemplateWindow>
+  <BulkSaveSettingsWindow>
+    <Title>
+      <Translation>Массовое сохранение</Translation>
+      <Old>Bulk Save Settings</Old>
+    </Title>
+    <ctPrompt>
+      <Translation>Placeholder</Translation>
+      <Old>Placeholder</Old>
+    </ctPrompt>
+    <ctEnabledHeader>
+      <Translation>Включено</Translation>
+      <Old>Enabled</Old>
+    </ctEnabledHeader>
+    <ctModifyHeader>
+      <Translation>Изменить</Translation>
+      <Old>Modify</Old>
+    </ctModifyHeader>
+    <ctPathHeader>
+      <Translation>Путь</Translation>
+      <Old>Path</Old>
+    </ctPathHeader>
+    <ctEditPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEditPathTemplateLabel>
+    <ctEdiBattleAtlastPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEdiBattleAtlastPathTemplateLabel>
+    <ctEditVehicleMarkersAtlasPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEditVehicleMarkersAtlasPathTemplateLabel>
+    <ctOkBtn>
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>О_тменить</Translation>
+      <Old>_Cancel</Old>
+    </ctCancelBtn>
+  </BulkSaveSettingsWindow>
   <LayerAndEffect>
     <LayerId>
       <DisplayName>
@@ -2216,7 +2258,7 @@
     <CountrySweden>
       <Translation>Страна: Швеция</Translation>
       <Old>Country: Sweden</Old>
-    </CountrySweden>    
+    </CountrySweden>
     <CountryNone>
       <Translation>Страна:  без страны</Translation>
       <Old>Country:  None</Old>
@@ -2778,18 +2820,4 @@
       <Old>recursive layer reference: “{0}”</Old>
     </Err_RecursiveLayerReference>
   </Calculator>
-  <BulkSaveSettingsWindow>
-    <ctEnabledHeader>
-      <Translation>Включено</Translation>
-      <Old>Enabled</Old>
-    </ctEnabledHeader>
-    <ctModifyHeader>
-      <Translation>Изменить</Translation>
-      <Old>Modify</Old>
-    </ctModifyHeader>
-    <ctPathHeader>
-      <Translation>Путь</Translation>
-      <Old>Path</Old>
-    </ctPathHeader>
-  </BulkSaveSettingsWindow>
 </item>
