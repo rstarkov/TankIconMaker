@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using RT.Util.Dialogs;
 using RT.Util.Forms;
 using RT.Util.Lingo;
 using WotDataLib;
-using WpfCrutches;
 
 namespace TankIconMaker
 {
     partial class BulkSaveSettingsWindow : ManagedWindow, INotifyPropertyChanged
     {
-        private string _promptSure;
-        private string _promptSureYes;
         private WotContext context;
         private Style style;
 
@@ -70,18 +63,21 @@ namespace TankIconMaker
         private bool _VehicleMarkersAtlasBulkSaveEnabled = false;
         
 
-        private BulkSaveSettingsWindow()
+        internal BulkSaveSettingsWindow()
             : base(App.Settings.BulkSaveSettingsWindow)
         {
             InitializeComponent();
-            ContentRendered += InitializeEverything;
-            MainWindow.ApplyUiZoom(this);
-            Lingo.TranslateWindow(this, App.Translation.BulkSaveSettingsWindow);
         }
 
         public BulkSaveSettingsWindow(WotContext context, Style style)
             : this()
         {
+            MainWindow.ApplyUiZoom(this);
+
+            Title = App.Translation.BulkSaveSettingsWindow.Title;
+            Lingo.TranslateWindow(this, App.Translation.BulkSaveSettingsWindow);
+
+            ContentRendered += InitializeEverything;
             this.context = context;
             this.style = style;
             this.ctPrompt.Text = string.Format("{0} ({1})", style.Name, style.Author);
