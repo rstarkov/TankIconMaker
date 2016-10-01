@@ -11,8 +11,8 @@ namespace TankIconMaker
 {
     partial class BulkSaveSettingsWindow : ManagedWindow, INotifyPropertyChanged
     {
-        private WotContext context;
-        private Style style;
+        private WotContext _context;
+        private Style _style;
 
         /// <summary>A template for the path where the icons are to be saved.</summary>
         public string PathTemplate { get { return _PathTemplate; } set { _PathTemplate = value; NotifyPropertyChanged("PathTemplate"); } }
@@ -61,7 +61,7 @@ namespace TankIconMaker
             }
         }
         private bool _VehicleMarkersAtlasBulkSaveEnabled = false;
-        
+
 
         internal BulkSaveSettingsWindow()
             : base(App.Settings.BulkSaveSettingsWindow)
@@ -78,12 +78,12 @@ namespace TankIconMaker
             Lingo.TranslateWindow(this, App.Translation.BulkSaveSettingsWindow);
 
             ContentRendered += InitializeEverything;
-            this.context = context;
-            this.style = style;
-            this.ctPrompt.Text = string.Format("{0} ({1})", style.Name, style.Author);
+            _context = context;
+            _style = style;
+            ctPrompt.Text = string.Format("{0} ({1})", style.Name, style.Author);
         }
 
-        private void InitializeEverything(object ___, EventArgs ____)
+        private void InitializeEverything(object _, EventArgs __)
         {
             BindingOperations.SetBinding(ctPathTemplate, TextBlock.TextProperty,
                 new Binding
@@ -134,14 +134,14 @@ namespace TankIconMaker
             ctSaveIconsEnabled.DataContext = this;
             ctSaveBattleAtlasEnabled.DataContext = this;
             ctSaveVehicleMarkersAtlasEnabled.DataContext = this;
-            this.DataContext = this;
+            DataContext = this;
 
-            this.PathTemplate = style.PathTemplate;
-            this.BattleAtlasPathTemplate = style.BattleAtlasPathTemplate;
-            this.VehicleMarkersAtlasPathTemplate = style.VehicleMarkersAtlasPathTemplate;
-            this.IconsBulkSaveEnabled = style.IconsBulkSaveEnabled;
-            this.BattleAtlasBulkSaveEnabled = style.BattleAtlasBulkSaveEnabled;
-            this.VehicleMarkersAtlasBulkSaveEnabled = style.VehicleMarkersAtlasBulkSaveEnabled;
+            PathTemplate = _style.PathTemplate;
+            BattleAtlasPathTemplate = _style.BattleAtlasPathTemplate;
+            VehicleMarkersAtlasPathTemplate = _style.VehicleMarkersAtlasPathTemplate;
+            IconsBulkSaveEnabled = _style.IconsBulkSaveEnabled;
+            BattleAtlasBulkSaveEnabled = _style.BattleAtlasBulkSaveEnabled;
+            VehicleMarkersAtlasBulkSaveEnabled = _style.VehicleMarkersAtlasBulkSaveEnabled;
 
             //ctSaveIconsEnabled.IsChecked = this.IconsBulkSaveEnabled;
             //ctSaveBattleAtlasEnabled.IsChecked = this.BattleAtlasBulkSaveEnabled;
@@ -168,29 +168,29 @@ namespace TankIconMaker
 
         private void ctEditPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, this.PathTemplate, context, style);
+            var value = PathTemplateWindow.Show(this, PathTemplate, _context, _style);
             if (value == null)
                 return;
-            this.PathTemplate = value;
-            this.IconsBulkSaveEnabled = true;
+            PathTemplate = value;
+            IconsBulkSaveEnabled = true;
         }
 
         private void ctEditBattleAtlasPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, this.BattleAtlasPathTemplate, context, style);
+            var value = PathTemplateWindow.Show(this, BattleAtlasPathTemplate, _context, _style);
             if (value == null)
                 return;
-            this.BattleAtlasPathTemplate = value;
-            this.BattleAtlasBulkSaveEnabled = true;
+            BattleAtlasPathTemplate = value;
+            BattleAtlasBulkSaveEnabled = true;
         }
 
         private void ctEditVehicleMarkersAtlasPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, this.VehicleMarkersAtlasPathTemplate, context, style);
+            var value = PathTemplateWindow.Show(this, VehicleMarkersAtlasPathTemplate, _context, _style);
             if (value == null)
                 return;
-            this.VehicleMarkersAtlasPathTemplate = value;
-            this.VehicleMarkersAtlasBulkSaveEnabled = true;
+            VehicleMarkersAtlasPathTemplate = value;
+            VehicleMarkersAtlasBulkSaveEnabled = true;
         }
     }
 }
