@@ -324,7 +324,7 @@
       <Old>_Add</Old>
     </BtnAdd>
     <BtnCancel>
-      <Translation>_Отменить</Translation>
+      <Translation>_Отмена</Translation>
       <Old>_Cancel</Old>
     </BtnCancel>
   </AddWindow>
@@ -428,7 +428,7 @@
       <Old>_OK</Old>
     </ctOkBtn>
     <ctCancelBtn>
-      <Translation>О_тменить</Translation>
+      <Translation>О_тмена</Translation>
       <Old>_Cancel</Old>
     </ctCancelBtn>
   </BulkSaveSettingsWindow>
