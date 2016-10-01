@@ -1,0 +1,2743 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <TranslationCredits>
+    <Translation>简体中文由tagkker翻译</Translation>
+    <Old>English translation by Roman</Old>
+  </TranslationCredits>
+  <MainWindow>
+    <BackgroundCheckered>
+      <Translation>透明方格背景</Translation>
+      <Old>_Checkered</Old>
+    </BackgroundCheckered>
+    <BackgroundSolidColor>
+      <Translation>单色背景</Translation>
+      <Old>_Solid color</Old>
+    </BackgroundSolidColor>
+    <BackgroundChangeCheckered1>
+      <Translation>更换透明方格#1颜色...</Translation>
+      <Old>C_hange checkered color #1...</Old>
+    </BackgroundChangeCheckered1>
+    <BackgroundChangeCheckered2>
+      <Translation>更换透明方格#2颜色...</Translation>
+      <Old>Ch_ange checkered color #2...</Old>
+    </BackgroundChangeCheckered2>
+    <BackgroundChangeSolid>
+      <Translation>更换单色...</Translation>
+      <Old>C_hange solid color...</Old>
+    </BackgroundChangeSolid>
+    <BackgroundRestoreDefaults>
+      <Translation>_还原默认</Translation>
+      <Old>_Restore defaults</Old>
+    </BackgroundRestoreDefaults>
+    <PathTemplate_Standard>
+      <Translation>(标准)</Translation>
+      <Old>(standard)</Old>
+    </PathTemplate_Standard>
+    <ErrorConflictingId>
+      <Translation>二个或更多层拥有相同 ID “{0}”时. 层 IDs必须唯一.</Translation>
+      <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
+    </ErrorConflictingId>
+    <ctGameDirLabel>
+      <Translation>游戏目录:</Translation>
+      <Old>Game _directory:</Old>
+    </ctGameDirLabel>
+    <ctIconStyleLabel>
+      <Translation>图标样式:</Translation>
+      <Old>_Icon style:</Old>
+    </ctIconStyleLabel>
+    <ctStyleNewLabel>
+      <Translation>新建</Translation>
+      <Old>_New</Old>
+    </ctStyleNewLabel>
+    <ctStyleImportLabel>
+      <Translation>导入</Translation>
+      <Old>Im_port</Old>
+    </ctStyleImportLabel>
+    <ctStyleExportLabel>
+      <Translation>导出</Translation>
+      <Old>E_xport</Old>
+    </ctStyleExportLabel>
+    <ctUpvote>
+      <Translation>赞作者的样式</Translation>
+      <Old>Upvote the author of this style</Old>
+    </ctUpvote>
+    <ctStyleMoreLabel>
+      <Translation>更多</Translation>
+      <Old>_More</Old>
+    </ctStyleMoreLabel>
+    <ctStyleIconWidth>
+      <Translation>图标宽度</Translation>
+      <Old>Icon width</Old>
+    </ctStyleIconWidth>
+    <ctStyleIconHeight>
+      <Translation>图标高度</Translation>
+      <Old>Icon height</Old>
+    </ctStyleIconHeight>
+    <ctStyleCenterable>
+      <Translation>居中</Translation>
+      <Old>Centerable</Old>
+    </ctStyleCenterable>
+    <ctStyleChangeName>
+      <Translation>更换名称</Translation>
+      <Old>Change _name</Old>
+    </ctStyleChangeName>
+    <ctStyleChangeAuthor>
+      <Translation>更换作者</Translation>
+      <Old>Change _author</Old>
+    </ctStyleChangeAuthor>
+    <ctStyleDuplicate>
+      <Translation>建立副本</Translation>
+      <Old>_Duplicate</Old>
+    </ctStyleDuplicate>
+    <ctStyleDelete>
+      <Translation>删除</Translation>
+      <Old>D_elete</Old>
+    </ctStyleDelete>
+    <ctLayersLabel>
+      <Translation>层面板:</Translation>
+      <Old>_Layers:</Old>
+    </ctLayersLabel>
+    <ctLayersAddLayer>
+      <Translation>添加层...</Translation>
+      <Old>Add _layer...</Old>
+    </ctLayersAddLayer>
+    <ctLayersAddEffect>
+      <Translation>添加效果...</Translation>
+      <Old>Add _effect...</Old>
+    </ctLayersAddEffect>
+    <ctLayersCopy>
+      <Translation>_复制</Translation>
+      <Old>_Copy</Old>
+    </ctLayersCopy>
+    <ctLayersCopyEffects>
+      <Translation>复制效果</Translation>
+      <Old>Copy e_ffects</Old>
+    </ctLayersCopyEffects>
+    <ctLayersPaste>
+      <Translation>_粘贴</Translation>
+      <Old>_Paste</Old>
+    </ctLayersPaste>
+    <ctLayersDelete>
+      <Translation>删除</Translation>
+      <Old>_Delete</Old>
+    </ctLayersDelete>
+    <ctLayersRename>
+      <Translation>_重命名</Translation>
+      <Old>_Rename</Old>
+    </ctLayersRename>
+    <ctLayersMoveUp>
+      <Translation>上移</Translation>
+      <Old>Move _up</Old>
+    </ctLayersMoveUp>
+    <ctLayersMoveDown>
+      <Translation>下移</Translation>
+      <Old>Move d_own</Old>
+    </ctLayersMoveDown>
+    <ctLayersToggleVisibility>
+      <Translation>切换可见性</Translation>
+      <Old>Toggle _visibility</Old>
+    </ctLayersToggleVisibility>
+    <ctZoomCheckbox>
+      <Translation>放大</Translation>
+      <Old>_Zoom</Old>
+    </ctZoomCheckbox>
+    <ctDisplayModeAll>
+      <Translation>所有坦克</Translation>
+      <Old>All tanks</Old>
+    </ctDisplayModeAll>
+    <ctDisplayModeOneEach>
+      <Translation>每条线的一部分</Translation>
+      <Old>One of each combination</Old>
+    </ctDisplayModeOneEach>
+    <ctDisplayModeCountryUSSR>
+      <Translation>苏联</Translation>
+      <Old>USSR</Old>
+    </ctDisplayModeCountryUSSR>
+    <ctDisplayModeCountryGermany>
+      <Translation>德国</Translation>
+      <Old>Germany</Old>
+    </ctDisplayModeCountryGermany>
+    <ctDisplayModeCountryUSA>
+      <Translation>美国</Translation>
+      <Old>USA</Old>
+    </ctDisplayModeCountryUSA>
+    <ctDisplayModeCountryFrance>
+      <Translation>法国</Translation>
+      <Old>France</Old>
+    </ctDisplayModeCountryFrance>
+    <ctDisplayModeCountryUK>
+      <Translation>英国</Translation>
+      <Old>UK</Old>
+    </ctDisplayModeCountryUK>
+    <ctDisplayModeCountryChina>
+      <Translation>中国</Translation>
+      <Old>China</Old>
+    </ctDisplayModeCountryChina>
+    <ctDisplayModeCountryJapan>
+      <Translation>日本</Translation>
+      <Old>Japan</Old>
+    </ctDisplayModeCountryJapan>
+    <ctDisplayModeCountryCzech>
+      <Translation>捷克</Translation>
+      <Old>Czech</Old>
+    </ctDisplayModeCountryCzech>
+    <ctDisplayModeClassLight>
+      <Translation>轻坦</Translation>
+      <Old>Light tanks</Old>
+    </ctDisplayModeClassLight>
+    <ctDisplayModeClassMedium>
+      <Translation>中坦</Translation>
+      <Old>Medium tanks</Old>
+    </ctDisplayModeClassMedium>
+    <ctDisplayModeClassHeavy>
+      <Translation>重坦</Translation>
+      <Old>Heavy tanks</Old>
+    </ctDisplayModeClassHeavy>
+    <ctDisplayModeClassArtillery>
+      <Translation>火炮</Translation>
+      <Old>Artillery</Old>
+    </ctDisplayModeClassArtillery>
+    <ctDisplayModeClassDestroyer>
+      <Translation>坦克歼击车</Translation>
+      <Old>Tank destroyers</Old>
+    </ctDisplayModeClassDestroyer>
+    <ctDisplayModeCategoryNormal>
+      <Translation>银币坦克</Translation>
+      <Old>Normal</Old>
+    </ctDisplayModeCategoryNormal>
+    <ctDisplayModeCategoryPremium>
+      <Translation>金币坦克</Translation>
+      <Old>Premium</Old>
+    </ctDisplayModeCategoryPremium>
+    <ctDisplayModeCategorySpecial>
+      <Translation>特种坦克</Translation>
+      <Old>Special</Old>
+    </ctDisplayModeCategorySpecial>
+    <ctDisplayModeTierLow>
+      <Translation>低级坦克</Translation>
+      <Old>Low tiers</Old>
+    </ctDisplayModeTierLow>
+    <ctDisplayModeTierMedHigh>
+      <Translation>中级和高级坦克</Translation>
+      <Old>Medium and high tiers</Old>
+    </ctDisplayModeTierMedHigh>
+    <ctDisplayModeTierHigh>
+      <Translation>高级坦克</Translation>
+      <Old>High tiers</Old>
+    </ctDisplayModeTierHigh>
+    <ctLanguageLabel>
+      <Translation>语言</Translation>
+      <Old>L_anguage</Old>
+    </ctLanguageLabel>
+    <ctBackgroundLabel>
+      <Translation>背景</Translation>
+      <Old>_Background</Old>
+    </ctBackgroundLabel>
+    <ctWarning>
+      <Translation>出现一个问题，点击这个图标浏览问题的详细信息。</Translation>
+      <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
+    </ctWarning>
+    <ctSaveLabel>
+      <Translation>保存</Translation>
+      <Old>_Save</Old>
+    </ctSaveLabel>
+    <ctSaveAsLabel>
+      <Translation>保存为...</Translation>
+      <Old>Save _as...</Old>
+    </ctSaveAsLabel>
+    <ctSaveIconsToGameFolder>
+      <Translation>保存到游戏目录</Translation>
+      <Old>Save to _game folder</Old>
+    </ctSaveIconsToGameFolder>
+    <ctSaveIconsToSpecifiedFolder>
+      <Translation>保存到文件夹...</Translation>
+      <Old>Save to _folder...</Old>
+    </ctSaveIconsToSpecifiedFolder>
+    <ctBulkSaveIcons>
+      <Translation>增量保存</Translation>
+      <Old>Bulk _save</Old>
+    </ctBulkSaveIcons>
+    <ctBulkSaveIconsToFolder>
+      <Translation>增量保存到文件夹...</Translation>
+      <Old>Bulk s_ave to folder...</Old>
+    </ctBulkSaveIconsToFolder>
+    <ctPathTemplateLabel>
+      <Translation>路径:</Translation>
+      <Old>Path:</Old>
+    </ctPathTemplateLabel>
+    <ctEditPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old null="1" />
+    </ctEditPathTemplateLabel>
+    <ctReloadLabel>
+      <Translation>重新载入数据</Translation>
+      <Old>_Reload data</Old>
+    </ctReloadLabel>
+    <ctAboutLabel>
+      <Translation>关于...</Translation>
+      <Old>About...</Old>
+    </ctAboutLabel>
+  </MainWindow>
+  <AddWindow>
+    <AddLayerTitle>
+      <Translation>添加 层</Translation>
+      <Old>Add layer</Old>
+    </AddLayerTitle>
+    <LayerName>
+      <Translation>层 _名称:</Translation>
+      <Old>Layer _name:</Old>
+    </LayerName>
+    <LayerType>
+      <Translation>层 _类型:</Translation>
+      <Old>Layer _type:</Old>
+    </LayerType>
+    <AddEffectTitle>
+      <Translation>添加 效果</Translation>
+      <Old>Add effect</Old>
+    </AddEffectTitle>
+    <EffectName>
+      <Translation>效果 _名称:</Translation>
+      <Old>Effect _name:</Old>
+    </EffectName>
+    <EffectType>
+      <Translation>效果 _类型:</Translation>
+      <Old>Effect _type:</Old>
+    </EffectType>
+    <BtnAdd>
+      <Translation>_添加</Translation>
+      <Old>_Add</Old>
+    </BtnAdd>
+    <BtnCancel>
+      <Translation>_取消</Translation>
+      <Old>_Cancel</Old>
+    </BtnCancel>
+  </AddWindow>
+  <PathTemplateWindow>
+    <Title>
+      <Translation>编辑临时图标路径</Translation>
+      <Old>Edit Icon Path Template</Old>
+    </Title>
+    <ctHelp>
+      <Translation>此模板指定要保存的图标的路径。它是相对于选定的游戏安装目录。填写空白栏保存图标的标准位置，在坦克世界客户端使用不需要任何插件。只会在非标准的路径，部分安装的插件会有影响。</Translation>
+      <Old>This template specifies which path the icons are to be saved to. It is relative to the selected game installation directory. Leave blank to save the icons to the standard location, which works in an unmodified World of Tanks client and requires no mods. Any non-standard paths will only have an effect if you have the appropriate mods installed.</Old>
+    </ctHelp>
+    <ctExpandsToLbl>
+      <Translation>预览:</Translation>
+      <Old>Preview:</Old>
+    </ctExpandsToLbl>
+    <ctTemplateElements>
+      <Translation>使用下面的模板元素来构建路径：:</Translation>
+      <Old>Use the following template elements to construct the path:</Old>
+    </ctTemplateElements>
+    <ctIconsPathHelp>
+      <Translation encoding="c-literal">Relative path to the res_mods\\... subfolder from where the unmodified client loads the icons. This is the standard save path, used when the template above is blank.\nCurrent value: “{cur}”</Translation>
+      <Old null="1" />
+    </ctIconsPathHelp>
+    <ctTimPathHelp>
+      <Translation encoding="c-literal">Full path to the folder containing Tank Icon Maker.\nCurrent value: “{cur}”</Translation>
+      <Old null="1" />
+    </ctTimPathHelp>
+    <ctGamePathHelp>
+      <Translation encoding="c-literal">Full path to the location where World of Tanks is installed.\nCurrent value: “{cur}”</Translation>
+      <Old null="1" />
+    </ctGamePathHelp>
+    <ctGameVersionHelp>
+      <Translation encoding="c-literal">Version identifier for the selected WoT folder. Examples: “0.9.5”, “0.9.5 Common Test”.\nCurrent value: “{cur}”</Translation>
+      <Old null="1" />
+    </ctGameVersionHelp>
+    <ctTankClassHelp>
+      <Translation>Specifies the tank class for a given icon (heavy, medium etc.). Varies for each icon.</Translation>
+      <Old null="1" />
+    </ctTankClassHelp>
+    <ctTankCountryHelp>
+      <Translation>Specifies the tank country for a given icon. Varies for each icon.</Translation>
+      <Old null="1" />
+    </ctTankCountryHelp>
+    <ctStyleNameHelp>
+      <Translation>The name of the selected style. Current value: “{cur}”</Translation>
+      <Old null="1" />
+    </ctStyleNameHelp>
+    <ctStyleAuthorHelp>
+      <Translation>The author of the selected style. Current value: “{cur}”</Translation>
+      <Old null="1" />
+    </ctStyleAuthorHelp>
+    <ctEnvVarsHelp>
+      <Translation>All environment variables are expanded to their values. %UserProfile% expands to the user's profile folder path. %AppData% expands to the primary folder containing application settings. Many other environment variables are documented in online sources.</Translation>
+      <Old null="1" />
+    </ctEnvVarsHelp>
+    <ctOkBtn>
+      <Translation>_OK</Translation>
+      <Old null="1" />
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>_Cancel</Translation>
+      <Old null="1" />
+    </ctCancelBtn>
+  </PathTemplateWindow>
+  <LayerAndEffect>
+    <LayerId>
+      <DisplayName>
+        <Translation>标识符</Translation>
+        <Old>Identifier</Old>
+      </DisplayName>
+      <Description>
+        <Translation>设置用于某些效果的标识符。</Translation>
+        <Old>Sets the identifier for use in some effects.</Old>
+      </Description>
+    </LayerId>
+    <LayerVisible>
+      <DisplayName>
+        <Translation>可见性</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>可以让你暂时隐藏这一层而不用删除它。</Translation>
+        <Old>Allows you to hide this layer temporarily without deleting it.</Old>
+      </Description>
+    </LayerVisible>
+    <LayerVisibleFor>
+      <DisplayName>
+        <Translation>对...可见</Translation>
+        <Old>Visible for</Old>
+      </DisplayName>
+      <Description>
+        <Translation>可以隐藏该层的一些坦克,这取决于它们的属性.</Translation>
+        <Old>Allows you to hide this layer for some of the tanks, depending on their properties.</Old>
+      </Description>
+    </LayerVisibleFor>
+    <EffectVisible>
+      <DisplayName>
+        <Translation>可见性</Translation>
+        <Old>Visible</Old>
+      </DisplayName>
+      <Description>
+        <Translation>可以让你暂时隐藏这个效果而不用删除它。</Translation>
+        <Old>Allows you to hide this effect temporarily without deleting it.</Old>
+      </Description>
+    </EffectVisible>
+    <EffectVisibleFor>
+      <DisplayName>
+        <Translation>对...可见</Translation>
+        <Old>Visible for</Old>
+      </DisplayName>
+      <Description>
+        <Translation>可以隐藏该效果的一些坦克,这取决于它们的属性</Translation>
+        <Old>Allows you to hide this effect for some of the tanks, depending on their properties.</Old>
+      </Description>
+    </EffectVisibleFor>
+    <ChannelA>
+      <DisplayName>
+        <Translation>Alpha通道</Translation>
+        <Old>Alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>将效果用于Alpha通道（图像不透明度）</Translation>
+        <Old>Apply the effect to the alpha channel (image opacity).</Old>
+      </Description>
+    </ChannelA>
+    <ChannelR>
+      <DisplayName>
+        <Translation>Red通道 </Translation>
+        <Old>Red</Old>
+      </DisplayName>
+      <Description>
+        <Translation>将效果应用于红色通道。</Translation>
+        <Old>Apply the effect to the red channel.</Old>
+      </Description>
+    </ChannelR>
+    <ChannelG>
+      <DisplayName>
+        <Translation>Green通道</Translation>
+        <Old>Green</Old>
+      </DisplayName>
+      <Description>
+        <Translation>讲效果用于绿色通道。</Translation>
+        <Old>Apply the effect to the green channel.</Old>
+      </Description>
+    </ChannelG>
+    <ChannelB>
+      <DisplayName>
+        <Translation>Blue通道</Translation>
+        <Old>Blue</Old>
+      </DisplayName>
+      <Description>
+        <Translation>将效果用于蓝色通道。</Translation>
+        <Old>Apply the effect to the blue channel.</Old>
+      </Description>
+    </ChannelB>
+  </LayerAndEffect>
+  <BkgDarkAgentLayer>
+    <LayerName>
+      <Translation>背景 / 深景</Translation>
+      <Old>Background / Dark Agent</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>背景使用来源于Black_Spy的图标集的玻璃样式灵感。</Translation>
+      <Old>Draws a background using a glassy style inspired by Black_Spy’s icon set.</Old>
+    </LayerDescription>
+    <BackColor>
+      <DisplayName>
+        <Translation>背景颜色</Translation>
+        <Old>Background color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>背景颜色.</Translation>
+        <Old>Background color.</Old>
+      </Description>
+    </BackColor>
+  </BkgDarkAgentLayer>
+  <TankImageLayer>
+    <LayerName>
+      <Translation>图像 / 标准</Translation>
+      <Old>Image / Standard</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>对这个坦克使用几种类型中的一种。</Translation>
+      <Old>Draws one of the several types of standard images for this tank.</Old>
+    </LayerDescription>
+    <Style>
+      <DisplayName>
+        <Translation>类型</Translation>
+        <Old>Type</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定标准的图像类型图片。</Translation>
+        <Old>Specifies which of the standard image types to draw.</Old>
+      </Description>
+    </Style>
+    <MissingImageWarning>
+      <Translation>这个坦克的图片丢失了。</Translation>
+      <Old>The image for this tank is missing.</Old>
+    </MissingImageWarning>
+  </TankImageLayer>
+  <CurrentImageLayer>
+    <LayerName>
+      <Translation>图像 / 当前</Translation>
+      <Old>Image / Current</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>目前制作的图标目前保存在输出目录。</Translation>
+      <Old>Draws the icon that’s currently saved in the output directory.</Old>
+    </LayerDescription>
+    <MissingImageWarning>
+      <Translation>这儿没有合适的图片给这个坦克。</Translation>
+      <Old>There is no current image for this tank.</Old>
+    </MissingImageWarning>
+  </CurrentImageLayer>
+  <CustomImageLayer>
+    <LayerName>
+      <Translation>图像 / 根据属性</Translation>
+      <Old>Image / By properties</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>图像从文件加载，名字基于坦克属性选择的名字。</Translation>
+      <Old>Draws an image loaded from a file whose name is selected based on tank properties.</Old>
+    </LayerDescription>
+    <ImageFile>
+      <DisplayName>
+        <Translation>图像文件</Translation>
+        <Old>Image file</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定一个图像文件的路径。允许相对的名字,并寻找首先在程序目录,然后在知道的特定于版本的插件目录,然后在知道安装目录。</Translation>
+        <Old>Specifies a path to an image file. Relative names are allowed and are searched for first in the program directory, then in the WoT's version-specific mods directory, and then in the WoT installation directory.</Old>
+      </Description>
+    </ImageFile>
+    <MissingImageWarning>
+      <Translation> {0} 这个图像无法找到。</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </CustomImageLayer>
+  <FilenamePatternImageLayer>
+    <LayerName>
+      <Translation>图像 / 根据模版名</Translation>
+      <Old>Image / By filename template</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>图像从文件加载，名字是由替换不同的坦克属性文件名模板。</Translation>
+      <Old>Draws an image loaded from a file whose name is generated by substituting various tank properties into a filename template.</Old>
+    </LayerDescription>
+    <Pattern>
+      <DisplayName>
+        <Translation>模板</Translation>
+        <Old>Template</Old>
+      </DisplayName>
+      <Description>
+        <Translation encoding="c-literal">文件名模板。占位符可用如下: {tier}, {country}, {class}, {category}, {id}.\r\n\r\n额外的属性名也支持 {NameShort}. 属性名也包括语言,作者,或者两者兼有{NameShort/En}, {NameShort/Wargaming} or {NameShort/En/Wargaming}.</Translation>
+        <Old encoding="c-literal">Filename template. The following placeholders are available: {tier}, {country}, {class}, {category}, {id}.\n\nExtra property names are also supported, for example {NameShort}. The property name may also include the language, the author, or both, for example {NameShort/En}, {NameShort/Wargaming} or {NameShort/En/Wargaming}.</Old>
+      </Description>
+    </Pattern>
+    <MissingImageWarning>
+      <Translation>{0} 这个图像无法找到。</Translation>
+      <Old>The image {0} could not be found.</Old>
+    </MissingImageWarning>
+  </FilenamePatternImageLayer>
+  <TextLayer>
+    <FontSmoothing>
+      <DisplayName>
+        <Translation>平滑</Translation>
+        <Old>Smoothing</Old>
+      </DisplayName>
+      <Description>
+        <Translation>取决于平滑的文本(抗锯齿)。</Translation>
+        <Old>Determines how to smooth the text (anti-aliasing).</Old>
+      </Description>
+    </FontSmoothing>
+    <FontFamily>
+      <DisplayName>
+        <Translation>字体</Translation>
+        <Old>Family</Old>
+      </DisplayName>
+      <Description>
+        <Translation>字体族。</Translation>
+        <Old>Font family.</Old>
+      </Description>
+    </FontFamily>
+    <FontSize>
+      <DisplayName>
+        <Translation>大小</Translation>
+        <Old>Size</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定字体大小。如果“宽度”和/或“高度”指定,这是最大的字体大小,文本可以更小以适合。</Translation>
+        <Old>Specifies the font size. If “Width” and/or “Height” are specified, this is the maximum font size; the text may be made smaller to fit.</Old>
+      </Description>
+    </FontSize>
+    <FontBold>
+      <DisplayName>
+        <Translation>加粗</Translation>
+        <Old>Bold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>让文字加粗。</Translation>
+        <Old>Makes the text bold.</Old>
+      </Description>
+    </FontBold>
+    <FontItalic>
+      <DisplayName>
+        <Translation>倾斜</Translation>
+        <Old>Italic</Old>
+      </DisplayName>
+      <Description>
+        <Translation>让文字倾斜。</Translation>
+        <Old>Makes the text italic.</Old>
+      </Description>
+    </FontItalic>
+    <FontColor>
+      <DisplayName>
+        <Translation>颜色</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定文本颜色。</Translation>
+        <Old>Specifies the text color.</Old>
+      </Description>
+    </FontColor>
+    <Baseline>
+      <DisplayName>
+        <Translation>基线对齐</Translation>
+        <Old>Align baselines</Old>
+      </DisplayName>
+      <Description>
+        <Translation>对比“more” 和“More"在顶部像素0位置。如果 “基线对齐”不启用, "more”会更高一些, 以达到像素0位置. 如果生效, “more"会在顶部像素0的位置下面。</Translation>
+        <Old>Consider the words “more” and “More”, top-anchored at pixel 0. If “Align baselines” is false, the word “more” will be displayed slightly higher, so as to touch pixel 0. If true, the baselines will align instead, and the topmost pixel of “more” will actually be below pixel 0.</Old>
+      </Description>
+    </Baseline>
+    <Anchor>
+      <DisplayName>
+        <Translation>固定点</Translation>
+        <Old>Anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定的文本应该定位相对于指定的点“X”和“Y”值。</Translation>
+        <Old>Specifies where the text should be positioned relative to the point specified by the “X” and “Y” values.</Old>
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>指定固定点的水平坐标。</Translation>
+        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>指定固定点的纵坐标。“基线”指定是否这是像素级或统一的基线。</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point. “Baseline” specifies whether this is pixel-perfect or baseline-consistent.</Old>
+      </Description>
+    </Y>
+    <Width>
+      <DisplayName>
+        <Translation>宽度</Translation>
+        <Old>Width</Old>
+      </DisplayName>
+      <Description>
+        <Translation>当大于零,指定文本不能比这更大的值,以像素为单位。文本在指定的字体大小,开始和缩小到适合如果必要,但永远不会增长。</Translation>
+        <Old>When greater than zero, specifies that the text must not be wider than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown.</Old>
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>高度</Translation>
+        <Old>Height</Old>
+      </DisplayName>
+      <Description>
+        <Translation>当大于零,指定文本不能比这个值高,像素。文本在指定的字体大小,开始和缩小到适合如果必要,但永远不会增长。</Translation>
+        <Old>When greater than zero, specifies that the text must not be taller than this value, in pixels. The text starts off at the specified font size, and is shrunk to fit if necessary – but never grown.</Old>
+      </Description>
+    </Height>
+    <Format>
+      <DisplayName>
+        <Translation>格式</Translation>
+        <Old>Format</Old>
+      </DisplayName>
+      <Description>
+        <Translation>一个标准的网络格式字符串来调整显示的值。 "{0} seconds" 追加 "seconds"的值. "{0:0.00}" 回合数值到 2 d.p. "{0:#,0}"添加千位分隔符和回合数 "{0:0000}" 垫底数与零.</Translation>
+        <Old>A standard .NET format string to tweak the displayed value. Examples: "{0} seconds" appends the word "seconds" to the value. "{0:0.00}" rounds numeric values to 2 d.p. "{0:#,0}" adds thousands separators and rounds to whole numbers. "{0:0000}" pads the number with zeroes.</Old>
+      </Description>
+    </Format>
+    <FormatStringInvalidNum>
+      <Translation>格式字符串 "{0}" 无效, 或不兼容的数字值 "{1}".</Translation>
+      <Old>The format string "{0}" is not valid, or not compatible with the numeric value "{1}".</Old>
+    </FormatStringInvalidNum>
+    <FormatStringInvalid>
+      <Translation>格式字符串 "{0}" 无效.</Translation>
+      <Old>The format string "{0}" is not valid.</Old>
+    </FormatStringInvalid>
+  </TextLayer>
+  <PropertyTextLayer>
+    <LayerName>
+      <Translation>文本 / 属性</Translation>
+      <Old>Text / Property</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>指定某个坦克属性为文本。</Translation>
+      <Old>Draws a specified property of a tank as text.</Old>
+    </LayerDescription>
+    <Property>
+      <DisplayName>
+        <Translation>属性</Translation>
+        <Old>Property</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定要使用的属性作为文本来源。</Translation>
+        <Old>Specifies the property to be used as the text source.</Old>
+      </Description>
+    </Property>
+  </PropertyTextLayer>
+  <CustomTextLayer>
+    <LayerName>
+      <Translation>文本 / 自定义</Translation>
+      <Old>Text / Custom</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>基于模个坦克的属性固定字符。</Translation>
+      <Old>Draws a fixed string based on a specified property of a tank.</Old>
+    </LayerDescription>
+    <Text>
+      <DisplayName>
+        <Translation>文本</Translation>
+        <Old>Text</Old>
+      </DisplayName>
+      <Description>
+        <Translation>要显示的字符串。</Translation>
+        <Old>The string to be displayed.</Old>
+      </Description>
+    </Text>
+  </CustomTextLayer>
+  <EffectClip>
+    <EffectName>
+      <Translation>修剪边缘</Translation>
+      <Old>Clip edges</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>对这一层修建指定的边缘。</Translation>
+      <Old>Clips the specified edges of this layer.</Old>
+    </EffectDescription>
+    <Mode>
+      <DisplayName>
+        <Translation>方式</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>选择是否修剪相对于图标的边缘,这一层的边缘,或者这一层的内容(像素)。参见“透明度的阈值”。</Translation>
+        <Old>Selects whether the clip boundaries are relative to the icon edges, this layer's edges, or this layer's content (pixels). See also "Transparency threshold".</Old>
+      </Description>
+    </Mode>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>透明度的阈值</Translation>
+        <Old>Transparency threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>当剪切像素,确定最大的alpha值仍视为“透明”。范围0 . . 255。</Translation>
+        <Old>When clipping by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ClipLeft>
+      <DisplayName>
+        <Translation>左侧</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>左侧修剪边缘像素数</Translation>
+        <Old>The number of pixels to clip on the left edge of the layer.</Old>
+      </Description>
+    </ClipLeft>
+    <ClipTop>
+      <DisplayName>
+        <Translation>顶部</Translation>
+        <Old>Top</Old>
+      </DisplayName>
+      <Description>
+        <Translation>顶部修剪边缘像素数</Translation>
+        <Old>The number of pixels to clip on the top edge of the layer.</Old>
+      </Description>
+    </ClipTop>
+    <ClipRight>
+      <DisplayName>
+        <Translation>右侧</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>右侧修剪边缘像素数</Translation>
+        <Old>The number of pixels to clip on the right edge of the layer.</Old>
+      </Description>
+    </ClipRight>
+    <ClipBottom>
+      <DisplayName>
+        <Translation>底部</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>底部修剪边缘像素数</Translation>
+        <Old>The number of pixels to clip on the bottom edge of the layer.</Old>
+      </Description>
+    </ClipBottom>
+  </EffectClip>
+  <EffectColorize>
+    <EffectName>
+      <Translation>着色</Translation>
+      <Old>Colorize</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>基于坦克属性给该层坦克着色。</Translation>
+      <Old>Colorizes the layer according to one of the tank properties.</Old>
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>颜色</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定使用哪个颜色。使用Alpha通道调节效应的强度。</Translation>
+        <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
+      </Description>
+    </Color>
+  </EffectColorize>
+  <EffectNormalize>
+    <EffectName>
+      <Translation>正常化</Translation>
+      <Old>Normalize</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>规范化或alpha通道通过自动调整亮度的对比。也可以使图像灰度。</Translation>
+      <Old>Normalizes the brightness or alpha channel by automatically adjusting the contrast. Can also make the image grayscale.</Old>
+    </EffectDescription>
+    <Grayscale>
+      <DisplayName>
+        <Translation>灰度</Translation>
+        <Old>Grayscale</Old>
+      </DisplayName>
+      <Description>
+        <Translation>启用时,图像灰度(即完全不饱和)</Translation>
+        <Old>When enabled, the image is made grayscale (i.e. fully desaturated)</Old>
+      </Description>
+    </Grayscale>
+    <NormalizeBrightness>
+      <DisplayName>
+        <Translation>正常化亮度</Translation>
+        <Old>Normalize brightness</Old>
+      </DisplayName>
+      <Description>
+        <Translation>启用时,亮度层是最亮的像素归一化,这样接收“最大亮度值。这是通过相应调整层的对比。</Translation>
+        <Old>When enabled, the brightness in the layer is normalized such that the brightest pixel receives the “Max brightness” value. This is achieved by adjusting the layer contrast accordingly.</Old>
+      </Description>
+    </NormalizeBrightness>
+    <NormalizeAlpha>
+      <DisplayName>
+        <Translation>正常化 alpha</Translation>
+        <Old>Normalize alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>启用时,alpha(不透明)层归一化,这样是最不透明像素接收“最大 alpha”值。</Translation>
+        <Old>When enabled, the alpha (opacity) in the layer is normalized such that the most opaque pixel receives the “Max alpha” value.</Old>
+      </Description>
+    </NormalizeAlpha>
+    <MaxBrightness>
+      <DisplayName>
+        <Translation>最大亮度</Translation>
+        <Old>Max. brightness</Old>
+      </DisplayName>
+      <Description>
+        <Translation>最亮的亮度值归一化。通常0到255。值超过255可以使用如果剪裁白色是可以接受的。</Translation>
+        <Old>The value to which the brightness of the brightest pixel is normalized. Normally 0 to 255. Values above 255 can be used if clipping to white is acceptable.</Old>
+      </Description>
+    </MaxBrightness>
+    <MaxAlpha>
+      <DisplayName>
+        <Translation>最大alpha</Translation>
+        <Old>Max. alpha</Old>
+      </DisplayName>
+      <Description>
+        <Translation>α的值(不透明)最不透明的像素归一化。通常0到255。值超过255可以使用如果剪裁完全不透明是可以接受的。</Translation>
+        <Old>The value to which the alpha (opacity) of the most opaque pixel is normalized. Normally 0 to 255. Values above 255 can be used if clipping to full opacity is acceptable.</Old>
+      </Description>
+    </MaxAlpha>
+  </EffectNormalize>
+  <EffectFlip>
+    <EffectName>
+      <Translation>翻转</Translation>
+      <Old>Flip</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>层在水平  和/或  垂直翻转。</Translation>
+      <Old>Flips the layer horizontally and/or vertically.</Old>
+    </EffectDescription>
+    <FlipHorz>
+      <DisplayName>
+        <Translation>水平翻转</Translation>
+        <Old>Flip horizontally</Old>
+      </DisplayName>
+      <Description>
+        <Translation>弹层水平,即交换左和右。</Translation>
+        <Old>Flips the layer horizontally, that is, swapping left and right.</Old>
+      </Description>
+    </FlipHorz>
+    <FlipVert>
+      <DisplayName>
+        <Translation>垂直翻转</Translation>
+        <Old>Flip vertically</Old>
+      </DisplayName>
+      <Description>
+        <Translation>弹层垂直,即上下交换。</Translation>
+        <Old>Flips the layer vertically, that is, swapping up and down.</Old>
+      </Description>
+    </FlipVert>
+  </EffectFlip>
+  <EffectGaussianBlur>
+    <EffectName>
+      <Translation>模糊: Gaussian</Translation>
+      <Old>Blur: Gaussian</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>使用Gaussian模糊模糊了当前层</Translation>
+      <Old>Blurs the current layer using Gaussian blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>模糊半径。更大的值导致更模糊。</Translation>
+        <Old>Blur radius. Larger values result in more blur.</Old>
+      </Description>
+    </Radius>
+    <Edge>
+      <DisplayName>
+        <Translation>边缘</Translation>
+        <Old>Edge</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定示例边缘:假设图像以外的边缘是透明的,包装另一边,或使用相同的触动边缘的像素颜色。</Translation>
+        <Old>Specifies how to sample around the edges: assume the image beyond the edges is transparent, wrap to the other side, or use the same pixel color that touches the edge.</Old>
+      </Description>
+    </Edge>
+  </EffectGaussianBlur>
+  <EffectOpacity>
+    <EffectName>
+      <Translation>不透明</Translation>
+      <Old>Opacity</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>增加或减少当前层的不透明度。</Translation>
+      <Old>Increases or decreases the layer’s opacity.</Old>
+    </EffectDescription>
+    <Opacity>
+      <DisplayName>
+        <Translation>不透明</Translation>
+        <Old>Opacity</Old>
+      </DisplayName>
+      <Description>
+        <Translation>不透明的倍数。负一层更加透明,正使它更不透明。</Translation>
+        <Old>The opacity multiplier. Negative makes a layer more transparent, positive makes it more opaque.</Old>
+      </Description>
+    </Opacity>
+    <Style>
+      <DisplayName>
+        <Translation>样式</Translation>
+        <Old>Style</Old>
+      </DisplayName>
+      <Description>
+        <Translation>选择一个不同的曲线的调整不透明度。“自动”使用“加法”增加透明度,减少“端点”。</Translation>
+        <Old>Selects one of several different curves for adjusting the opacity. "Auto" uses "Additive" for increasing opacity and "Move endpoint" for decreasing.</Old>
+      </Description>
+    </Style>
+  </EffectOpacity>
+  <EffectPixelOutline>
+    <EffectName>
+      <Translation>轮廓</Translation>
+      <Old>Outline</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>增加了1像素周围的轮廓图像。不适合层与柔和的轮廓。</Translation>
+      <Old>Adds a 1 pixel outline around the image. Not suitable for layers with soft outlines.</Old>
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>颜色</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定使用哪个颜色。使用Alpha通道调节效应的强度。</Translation>
+        <Old>Specifies which color to use. Use the Alpha channel to adjust the strength of the effect.</Old>
+      </Description>
+    </Color>
+    <Threshold>
+      <DisplayName>
+        <Translation>阈值</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定的alpha通道阈值轮廓绘制。</Translation>
+        <Old>Specifies the alpha channel threshold at which the outline is to be drawn.</Old>
+      </Description>
+    </Threshold>
+    <Inside>
+      <DisplayName>
+        <Translation>内部</Translation>
+        <Old>Inside</Old>
+      </DisplayName>
+      <Description>
+        <Translation>不调整时,透明像素上的轮廓画,留下不透明像素超过阈值完全可见。否则,轮廓绘制不透明像素,让透明的完全可见。</Translation>
+        <Old>When unchecked, the outline is drawn on the transparent pixels, leaving pixels more opaque than the Threshold fully visible. Otherwise, the outline is drawn over the opaque pixels, leaving the transparent ones fully visible.</Old>
+      </Description>
+    </Inside>
+    <KeepImage>
+      <DisplayName>
+        <Translation>保持图像</Translation>
+        <Old>Keep image</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定是否离开的图像轮廓,或丢弃,只是轮廓。</Translation>
+        <Old>Specifies whether to leave the image on which the outline is based, or discard it and show just the outline.</Old>
+      </Description>
+    </KeepImage>
+  </EffectPixelOutline>
+  <EffectShadow>
+    <EffectName>
+      <Translation>阴影</Translation>
+      <Old>Shadow</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>在当前层加入一个阴影</Translation>
+      <Old>Adds a shadow as if cast by the current layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>阴影像素半径之间的最大距离产生的阴影和由此产生的阴影的边缘。</Translation>
+        <Old>Shadow radius controls the maximum distance between a pixel producing the shadow and the edge of the resulting shadow.</Old>
+      </Description>
+    </Radius>
+    <Spread>
+      <DisplayName>
+        <Translation>散布</Translation>
+        <Old>Spread</Old>
+      </DisplayName>
+      <Description>
+        <Translation>阴影散布的强度,但并不影响它的最大大小。</Translation>
+        <Old>Shadow spread controls the strength of the shadow, but does not affect its maximum size.</Old>
+      </Description>
+    </Spread>
+    <Color>
+      <DisplayName>
+        <Translation>颜色</Translation>
+        <Old>Color</Old>
+      </DisplayName>
+      <Description>
+        <Translation>阴影颜色。用鲜艳的颜色来发光。调整Alpha通道来控制最后的阴影透明度。</Translation>
+        <Old>Shadow color. Use bright colors for glow. Adjust the Alpha channel to control final shadow transparency.</Old>
+      </Description>
+    </Color>
+    <ShiftX>
+      <DisplayName>
+        <Translation>变量: X</Translation>
+        <Old>Shift: X</Old>
+      </DisplayName>
+      <Description>
+        <Translation>水平方向像素的数量调整</Translation>
+        <Old>Amount of horizontal shift in pixels.</Old>
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>变量: Y</Translation>
+        <Old>Shift: Y</Old>
+      </DisplayName>
+      <Description>
+        <Translation>垂直方向像素的数量调整</Translation>
+        <Old>Amount of vertical shift in pixels.</Old>
+      </Description>
+    </ShiftY>
+  </EffectShadow>
+  <EffectShift>
+    <EffectName>
+      <Translation>渐变</Translation>
+      <Old>Shift</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>对当前层指定像素渐变。</Translation>
+      <Old>Shifts the layer by a specified number of pixels.</Old>
+    </EffectDescription>
+    <ShiftX>
+      <DisplayName>
+        <Translation>水平</Translation>
+        <Old>Horizontal</Old>
+      </DisplayName>
+      <Description>
+        <Translation>水平渐变数量, 像素</Translation>
+        <Old>Horizontal shift amount, in pixels.</Old>
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>垂直</Translation>
+        <Old>Vertical</Old>
+      </DisplayName>
+      <Description>
+        <Translation>垂直渐变数量, 像素</Translation>
+        <Old>Vertical shift amount, in pixels.</Old>
+      </Description>
+    </ShiftY>
+  </EffectShift>
+  <EffectMaskLayer>
+    <EffectName>
+      <Translation>掩盖层</Translation>
+      <Old>Mask Layer</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>调整图层不透明度，使用另一层作为掩模。</Translation>
+      <Old>Adjusts layer opacity using another layer as mask.</Old>
+    </EffectDescription>
+    <MaskLayerId>
+      <DisplayName>
+        <Translation>掩盖层 ID</Translation>
+        <Old>Mask layer ID</Old>
+      </DisplayName>
+      <Description>
+        <Translation>设置掩盖层标识符。</Translation>
+        <Old>Sets the mask layer identifier.</Old>
+      </Description>
+    </MaskLayerId>
+    <MaskMode>
+      <DisplayName>
+        <Translation>模式</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>选择掩盖层模式。</Translation>
+        <Old>Selects the mask layer mode.</Old>
+      </Description>
+    </MaskMode>
+    <InvertTr>
+      <DisplayName>
+        <Translation>转化</Translation>
+        <Old>Invert</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定是否反转掩盖</Translation>
+        <Old>Specifies whether to invert the mask or not.</Old>
+      </Description>
+    </InvertTr>
+    <ErrorInvalidId>
+      <Translation> 未发现层ID “{0}” 。</Translation>
+      <Old>No layer with ID “{0}” found.</Old>
+    </ErrorInvalidId>
+    <ErrorRecursiveLayerReference>
+      <Translation>递归层参考 “{0}”.</Translation>
+      <Old>Recursive layer reference: “{0}”.</Old>
+    </ErrorRecursiveLayerReference>
+  </EffectMaskLayer>
+  <EffectSizePos>
+    <EffectName>
+      <Translation>大小 / 位置</Translation>
+      <Old>Size / Position</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>调整这一层的大小和/或位置。这种效应总是应用在任何其他效果。</Translation>
+      <Old>Adjusts this layer's size and/or position. This effect is always applied before any other effects.</Old>
+    </EffectDescription>
+    <Anchor>
+      <DisplayName>
+        <Translation>固定点</Translation>
+        <Old>Anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定如何定位层相对于“X”和“Y”坐标。</Translation>
+        <Old>Specifies how to position the layer relative to the “X” and “Y” co-ordinates.</Old>
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>指定固定点的水平坐标。</Translation>
+        <Old>Specifies the horizontal coordinate of the anchor point.</Old>
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>指定固定点的垂直坐标。</Translation>
+        <Old>Specifies the vertical coordinate of the anchor point.</Old>
+      </Description>
+    </Y>
+    <PositionByPixels>
+      <DisplayName>
+        <Translation>使用像素</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>调整时,定义的层是可见的边缘像素(参阅“透明度的阈值”)。否则使用完整的层大小。</Translation>
+        <Old>When checked, the edge of the layer is defined by the visible pixels (see also "Transparency threshold"). Otherwise the complete layer size is used.</Old>
+      </Description>
+    </PositionByPixels>
+    <SizeByPixels>
+      <DisplayName>
+        <Translation>使用像素</Translation>
+        <Old>Use pixels</Old>
+      </DisplayName>
+      <Description>
+        <Translation>如果勾选此项,透明区域之外的形象将被忽略的大小的计算。参见“透明度的阈值”。</Translation>
+        <Old>If checked, transparent areas on the outside of the image will be ignored in size calculations. See also "Transparency threshold".</Old>
+      </Description>
+    </SizeByPixels>
+    <Percentage>
+      <DisplayName>
+        <Translation>比例调整 %</Translation>
+        <Old>Resize %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>当模式是“%”,选择所需的大小比例。</Translation>
+        <Old>When Mode is "By %", selects the desired resize percentage.</Old>
+      </Description>
+    </Percentage>
+    <Width>
+      <DisplayName>
+        <Translation>宽度调整</Translation>
+        <Old>Resize to width</Old>
+      </DisplayName>
+      <Description>
+        <Translation>当模式是一个“size”模式,选择所需的宽度,以像素为单位。</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired width, in pixels.</Old>
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>高度调整</Translation>
+        <Old>Resize to height</Old>
+      </DisplayName>
+      <Description>
+        <Translation>当模式是一个“size”模式,选择所需的高度,以像素为单位。</Translation>
+        <Old>When Mode is one of "By size" modes, selects the desired height, in pixels.</Old>
+      </Description>
+    </Height>
+    <SizeMode>
+      <DisplayName>
+        <Translation>方式</Translation>
+        <Old>Mode</Old>
+      </DisplayName>
+      <Description>
+        <Translation>选择不同的调整方式之一,它决定了图像的大小是如何计算出来的。</Translation>
+        <Old>Selects one of several different resize modes, which determines how the image size is calculated.</Old>
+      </Description>
+    </SizeMode>
+    <GrowShrinkMode>
+      <DisplayName>
+        <Translation>增长/减少</Translation>
+        <Old>Grow/shrink</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定是否允许图像尺寸增加,减少,或两者兼而有之,调整的结果。</Translation>
+        <Old>Specifies whether the image size is allowed to increase, decrease, or both, as a result of the resize.</Old>
+      </Description>
+    </GrowShrinkMode>
+    <Filter>
+      <DisplayName>
+        <Translation>滤波器</Translation>
+        <Old>Filter</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定缩放滤波器。</Translation>
+        <Old>Specifies the resizing filter.</Old>
+      </Description>
+    </Filter>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>透明度的阈值</Translation>
+        <Old>Transparency threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>当大小或由像素定位,决定了最大的alpha值仍视为“透明”。范围0 . . 255。</Translation>
+        <Old>When sizing or positioning by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ShowLayerBorders>
+      <DisplayName>
+        <Translation>显示 层边界</Translation>
+        <Old>Show layer borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>如果启用,画了一个矩形显示层边界。这些边界时使用“使用像素”是禁用的。</Translation>
+        <Old>If enabled, draws a rectangle to show the layer borders. These borders are used when "Use pixels" is disabled.</Old>
+      </Description>
+    </ShowLayerBorders>
+    <ShowPixelBorders>
+      <DisplayName>
+        <Translation>显示 像素边界</Translation>
+        <Old>Show pixel borders</Old>
+      </DisplayName>
+      <Description>
+        <Translation>如果启用,画了一个矩形显示的像素边界层。使用“透明度调整灵敏度阈值”。这些边界是启用“使用像素”时使用。</Translation>
+        <Old>If enabled, draws a rectangle to show the pixel borders of the layer. Adjust the sensitivity using "Transparency threshold". These borders are used when "Use pixels" is enabled.</Old>
+      </Description>
+    </ShowPixelBorders>
+    <ShowAnchor>
+      <DisplayName>
+        <Translation>显示固定点</Translation>
+        <Old>Show anchor</Old>
+      </DisplayName>
+      <Description>
+        <Translation>如果启用,有刻着十字标尺线在固定点的位置。</Translation>
+        <Old>If enabled, draws a cross-hair at the anchor position.</Old>
+      </Description>
+    </ShowAnchor>
+  </EffectSizePos>
+  <EffectBrightnessContrast>
+    <EffectName>
+      <Translation>亮度/对比度</Translation>
+      <Old>Brightness / Contrast</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>调整目标层的亮度和对比度。</Translation>
+      <Old>Adjusts the brightness and contrast of the target layer.</Old>
+    </EffectDescription>
+    <Brightness>
+      <DisplayName>
+        <Translation>亮度 %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>亮度变化，从−100% + 100%。零均值无变化。不同的色相/饱和度/亮度的影响，大的亮度变化可能扭曲图像的对比性。</Translation>
+        <Old>Brightness shift, from −100% to +100%. Zero means no change. Unlike with the Hue / Saturation / Lightness effect, a large brightness shift may distort the image contrast detrimentally.</Old>
+      </Description>
+    </Brightness>
+    <Contrast>
+      <DisplayName>
+        <Translation>对比度 %</Translation>
+        <Old>Contrast %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>对比度调整，从100%到100%−。零均值无变化。</Translation>
+        <Old>Contrast adjustment, from −100% to +100%. Zero means no change.</Old>
+      </Description>
+    </Contrast>
+  </EffectBrightnessContrast>
+  <EffectHueSaturationLightness>
+    <EffectName>
+      <Translation>色调/饱和度/亮度</Translation>
+      <Old>Hue / Saturation / Lightness</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>调整目标层的色调、饱和度和亮度。</Translation>
+      <Old>Adjusts the hue, saturation and lightness of the target layer.</Old>
+    </EffectDescription>
+    <Hue>
+      <DisplayName>
+        <Translation>色调偏移</Translation>
+        <Old>Hue shift</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定的色调应在多少度上偏移。0、360和360−均没有变化，而180或180−改变每个颜色相反。</Translation>
+        <Old>Specifies how much the hue should be shifted, in degrees. 0, +360 and −360 mean no change, while +180 or −180 change each color to its opposite.</Old>
+      </Description>
+    </Hue>
+    <Saturation>
+      <DisplayName>
+        <Translation>饱和度 %</Translation>
+        <Old>Saturation %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>饱和度的范围，表示为原来的饱和度的百分比。0个尺度的饱和度为零（灰度），100意味着没有变化，更大的价值尺度，相应。</Translation>
+        <Old>Saturation scale, expressed as a percentage of the original saturation. 0 scales the saturation to zero (grayscale), 100 means no change, larger values scale it accordingly.</Old>
+      </Description>
+    </Saturation>
+    <Lightness>
+      <DisplayName>
+        <Translation>亮度 %</Translation>
+        <Old>Lightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>亮度的范围，表示为原亮度的百分比。0尺度的轻到零（黑色），100意味着没有变化，更大的价值尺度，相应。</Translation>
+        <Old>Lightness scale, expressed as a percentage of the original lightness. 0 scales the lightness to zero (black), 100 means no change, larger values scale it accordingly.</Old>
+      </Description>
+    </Lightness>
+  </EffectHueSaturationLightness>
+  <EffectGamma>
+    <EffectName>
+      <Translation>伽玛校正</Translation>
+      <Old>Gamma correction</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>调整层内每个通道的伽玛值（亮度曲线）。</Translation>
+      <Old>Adjusts the gamma value (brightness curve) of each channel within the layer.</Old>
+    </EffectDescription>
+    <GammaRed>
+      <DisplayName>
+        <Translation>红色伽玛</Translation>
+        <Old>Red gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>为红色通道的伽玛调整。合理的值是约0.8至2.3。</Translation>
+        <Old>Gamma adjustment for the red channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
+      </Description>
+    </GammaRed>
+    <GammaGreen>
+      <DisplayName>
+        <Translation>绿色伽玛</Translation>
+        <Old>Green gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>为绿色通道的伽玛调整。合理的值是约0.8至2.3。</Translation>
+        <Old>Gamma adjustment for the green channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
+      </Description>
+    </GammaGreen>
+    <GammaBlue>
+      <DisplayName>
+        <Translation>蓝色伽玛</Translation>
+        <Old>Blue gamma</Old>
+      </DisplayName>
+      <Description>
+        <Translation>为蓝色通道的伽玛调整。合理的值是约0.8至2.3。</Translation>
+        <Old>Gamma adjustment for the blue channel. Reasonable values are between approximately 0.8 to 2.3.</Old>
+      </Description>
+    </GammaBlue>
+  </EffectGamma>
+  <EffectLevel>
+    <EffectName>
+      <Translation>水平</Translation>
+      <Old>Levels</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>重新映射的所有像素的亮度根据曲线由三个点指定的配置。</Translation>
+      <Old>Remaps the brightness of all pixels according to a curve specified by three configurable points.</Old>
+    </EffectDescription>
+    <BlackPoint>
+      <DisplayName>
+        <Translation>黑色点 %</Translation>
+        <Old>Black Point %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>所有的像素值或更少的将是黑色的。</Translation>
+        <Old>All pixels with this value or less will be black.</Old>
+      </Description>
+    </BlackPoint>
+    <WhitePoint>
+      <DisplayName>
+        <Translation>白色点 %</Translation>
+        <Old>White Point %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>所有的像素值或更高的将是白色的。</Translation>
+        <Old>All pixels with this value or higher will be white.</Old>
+      </Description>
+    </WhitePoint>
+    <MidPoint>
+      <DisplayName>
+        <Translation>中点</Translation>
+        <Old>Mid Point</Old>
+      </DisplayName>
+      <Description>
+        <Translation>选择输出图像伽玛。</Translation>
+        <Old>Selects output image gamma.</Old>
+      </Description>
+    </MidPoint>
+  </EffectLevel>
+  <EffectInvert>
+    <EffectName>
+      <Translation>转化</Translation>
+      <Old>Invert</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>将颜色转化到层内。</Translation>
+      <Old>Inverts the colors within the layer.</Old>
+    </EffectDescription>
+  </EffectInvert>
+  <EffectAdaptiveBlur>
+    <EffectName>
+      <Translation>模糊自适应</Translation>
+      <Old>Blur: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>模糊使层边缘不会清晰。</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定加工半径。推荐值：0，自动选择最佳半径。</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>强度</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定模糊的强度。更高的价值导致更模糊。分数值是允许的。</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveBlur>
+  <EffectAdaptiveSharpen>
+    <EffectName>
+      <Translation>锐化：自适应</Translation>
+      <Old>Sharpen: adaptive</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>锐化当前层的边缘区域。平滑区域未受影响。</Translation>
+      <Old>Sharpens the layer in areas that contain sharp edges. Smooth areas remain unaffected.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定加工半径。推荐值：0，自动选择最佳半径。</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>强度</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定锐化效果的强度。分数值是允许的。</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectAdaptiveSharpen>
+  <EffectSharpen>
+    <EffectName>
+      <Translation>锐化</Translation>
+      <Old>Sharpen</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>锐化当前层</Translation>
+      <Old>Sharpens the layer.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定锐化半径。推荐值：0，自动选择最佳半径。</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>强度</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定锐化效果的强度。分数值是允许的。</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectSharpen>
+  <EffectUnsharpMask>
+    <EffectName>
+      <Translation>锐化：锐化掩盖</Translation>
+      <Old>Sharpen: unsharp mask</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>提高层采用反锐化掩盖滤波。</Translation>
+      <Old>Sharpens the layer using unsharp mask filter.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定加工半径。推荐值：0，自动选择最佳半径。</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>强度</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定锐化效果的强度。分数值是允许的。</Translation>
+        <Old>Specifies the strength of the sharpening effect. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+  </EffectUnsharpMask>
+  <EffectSelectiveBlur>
+    <EffectName>
+      <Translation>模糊：选择性</Translation>
+      <Old>Blur: selective</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>层模糊的部分，没有锋利的边缘或高对比度。</Translation>
+      <Old>Blurs the layer in areas that don’t contain sharp edges or high contrast.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定加工半径。推荐值：0，自动选择最佳半径。</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>强度</Translation>
+        <Old>Strength</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定模糊的强度。更高的价值导致更模糊。分数值是允许的。</Translation>
+        <Old>Specifies the strength of the blur. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+    <Threshold>
+      <DisplayName>
+        <Translation>阈值</Translation>
+        <Old>Threshold</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定对比度阈值，该阈值确定图像的哪些区域是模糊的。</Translation>
+        <Old>Specifies the contrast threshold, which determines what areas of the image are blurred.</Old>
+      </Description>
+    </Threshold>
+  </EffectSelectiveBlur>
+  <EffectMotionBlur>
+    <EffectName>
+      <Translation>模糊：运动</Translation>
+      <Old>Blur: motion</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>模糊层，模拟线性运动模糊。</Translation>
+      <Old>Blurs the layer, simulating linear motion blur.</Old>
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>半径</Translation>
+        <Old>Radius</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定加工半径。推荐值：0，自动选择最佳半径。</Translation>
+        <Old>Specifies the processing radius. Recommended value: 0, which automatically selects the optimal radius.</Old>
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>距离</Translation>
+        <Old>Distance</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定运动模糊跟踪的长度。更高的价值导致更模糊。分数值是允许的。</Translation>
+        <Old>Specifies the length of the motion blur trail. Higher values result in more blur. Fractional values are permitted.</Old>
+      </Description>
+    </Sigma>
+    <Angle>
+      <DisplayName>
+        <Translation>角度</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>指定运动模糊跟踪的方向，单位 度。</Translation>
+        <Old>Specifies the direction of the motion blur trail, in degrees.</Old>
+      </Description>
+    </Angle>
+  </EffectMotionBlur>
+  <EffectRadialBlur>
+    <EffectName>
+      <Translation>模糊：径向</Translation>
+      <Old>Blur: radial</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>模糊层，模拟旋转运动模糊</Translation>
+      <Old>Blurs the layer, simulating rotational motion blur</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>角度</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>模糊旋转角度，单位 度。</Translation>
+        <Old>Blur rotation angle, in degrees.</Old>
+      </Description>
+    </Angle>
+  </EffectRadialBlur>
+  <EffectWave>
+    <EffectName>
+      <Translation>波形</Translation>
+      <Old>Wave</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>在波浪形的形状上变形。</Translation>
+      <Old>Distorts the layer in the shape of a wave.</Old>
+    </EffectDescription>
+    <Amplitude>
+      <DisplayName>
+        <Translation>振幅</Translation>
+        <Old>Amplitude</Old>
+      </DisplayName>
+      <Description>
+        <Translation>选择波的振幅。</Translation>
+        <Old>Selects wave amplitude.</Old>
+      </Description>
+    </Amplitude>
+    <Length>
+      <DisplayName>
+        <Translation>波长</Translation>
+        <Old>Length</Old>
+      </DisplayName>
+      <Description>
+        <Translation>选择波的波长。</Translation>
+        <Old>Selects wave length.</Old>
+      </Description>
+    </Length>
+  </EffectWave>
+  <EffectRotate>
+    <EffectName>
+      <Translation>旋转</Translation>
+      <Old>Rotate</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>旋转当前层。</Translation>
+      <Old>Rotates the layer.</Old>
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>角度</Translation>
+        <Old>Angle</Old>
+      </DisplayName>
+      <Description>
+        <Translation>以度为单位旋转.</Translation>
+        <Old>Rotation angle in degrees.</Old>
+      </Description>
+    </Angle>
+    <RotateX>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>旋转中心X的坐标。</Translation>
+        <Old>The X coordinate of the center of rotation.</Old>
+      </Description>
+    </RotateX>
+    <RotateY>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>旋转中心Y的坐标。</Translation>
+        <Old>The Y coordinate of the center of rotation.</Old>
+      </Description>
+    </RotateY>
+  </EffectRotate>
+  <EffectNormalizeBrightness>
+    <EffectName>
+      <Translation>平均亮度（改进）</Translation>
+      <Old>Equalize brightness (improved)</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>对每个图像的亮度为指定值，使亮度是相同的在所有的图标不管原始图像的亮度。这是对均衡效果的新的和改进的变异。</Translation>
+      <Old>Normalizes the brightness of each image to the specified value, so that the brightness is identical across all icons regardless of the original image brightness. This is the new and improved variant of the Equalize effect.</Old>
+    </EffectDescription>
+    <Strength>
+      <DisplayName>
+        <Translation>强度 %</Translation>
+        <Old>Strength %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>效果强度。值低于100%，不实现全亮度均衡，并在一定程度上保留原来的变化。</Translation>
+        <Old>Effect strength. Values below 100% do not achieve full brightness equalization and preserve the original variation to some extent.</Old>
+      </Description>
+    </Strength>
+    <Brightness>
+      <DisplayName>
+        <Translation>亮度 %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>所需的平均图像亮度。调整图像的亮度，使所有像素的平均亮度等于该值。</Translation>
+        <Old>Desired average image brightness. The image brightness is adjusted so that the average brightness of all pixels is equal to this value.</Old>
+      </Description>
+    </Brightness>
+    <Saturation>
+      <DisplayName>
+        <Translation>饱和</Translation>
+        <Old>Saturation</Old>
+      </DisplayName>
+      <Description>
+        <Translation>饱和调整模式。“减少”的色调的饱和度有所下降，但只有当层的亮度被减少这种效果，以改善图像的亮度区域的外观。</Translation>
+        <Old>Saturation adjustment mode. “Reduce” tones down the saturation somewhat, but only when the layer brightness is being reduced by this effect, to improve the appearance of the brighter areas of the image.</Old>
+      </Description>
+    </Saturation>
+    <SaturationMode>
+      <NoChange>
+        <Translation>无变化</Translation>
+        <Old>No change</Old>
+      </NoChange>
+      <Reduce>
+        <Translation>减少</Translation>
+        <Old>Reduce</Old>
+      </Reduce>
+      <Zero>
+        <Translation>零（灰度）</Translation>
+        <Old>Zero (grayscale)</Old>
+      </Zero>
+    </SaturationMode>
+  </EffectNormalizeBrightness>
+  <BoolWithPassthrough>
+    <Yes>
+      <Translation>是</Translation>
+      <Old>Yes</Old>
+    </Yes>
+    <No>
+      <Translation>否</Translation>
+      <Old>No</Old>
+    </No>
+    <Passthrough>
+      <Translation>Passthrough: to next "Vary by"</Translation>
+      <Old null="1" />
+    </Passthrough>
+  </BoolWithPassthrough>
+  <ImageBuiltInStyle>
+    <Contour>
+      <Translation>剪影</Translation>
+      <Old>Contour</Old>
+    </Contour>
+    <ThreeD>
+      <Translation>3D</Translation>
+      <Old null="1" />
+    </ThreeD>
+    <ThreeDLarge>
+      <Translation>3D (大号)</Translation>
+      <Old>3D (large)</Old>
+    </ThreeDLarge>
+    <Country>
+      <Translation>国旗</Translation>
+      <Old>Country</Old>
+    </Country>
+    <Class>
+      <Translation>类型图标</Translation>
+      <Old>Class</Old>
+    </Class>
+  </ImageBuiltInStyle>
+  <SelectBy>
+    <Class>
+      <Translation>Class (Artillery • Destroyer • Light • etc)</Translation>
+      <Old null="1" />
+    </Class>
+    <Country>
+      <Translation>Country (USSR • Germany • USA • etc)</Translation>
+      <Old null="1" />
+    </Country>
+    <Category>
+      <Translation>Availability (normal • premium • special)</Translation>
+      <Old null="1" />
+    </Category>
+    <Tier>
+      <Translation>Tier (1 .. 10)</Translation>
+      <Old null="1" />
+    </Tier>
+    <Single>
+      <Translation>Single value</Translation>
+      <Old null="1" />
+    </Single>
+  </SelectBy>
+  <ClipMode>
+    <ByPixels>
+      <Translation>像素</Translation>
+      <Old>By pixels</Old>
+    </ByPixels>
+    <ByLayerBounds>
+      <Translation>边界层</Translation>
+      <Old>By layer bounds</Old>
+    </ByLayerBounds>
+    <ByIconBounds>
+      <Translation>图标边界</Translation>
+      <Old>By icon bounds</Old>
+    </ByIconBounds>
+  </ClipMode>
+  <SizeMode>
+    <NoChange>
+      <Translation>不改变</Translation>
+      <Old>No change</Old>
+    </NoChange>
+    <ByPercentage>
+      <Translation>By %</Translation>
+      <Old null="1" />
+    </ByPercentage>
+    <BySizeWidthOnly>
+      <Translation>By size: 宽度</Translation>
+      <Old>By size: width</Old>
+    </BySizeWidthOnly>
+    <BySizeHeightOnly>
+      <Translation>By size: 高度</Translation>
+      <Old>By size: height</Old>
+    </BySizeHeightOnly>
+    <BySizeFit>
+      <Translation>By size: 适中</Translation>
+      <Old>By size: fit</Old>
+    </BySizeFit>
+    <BySizeStretch>
+      <Translation>By size: 拉伸</Translation>
+      <Old>By size: stretch</Old>
+    </BySizeStretch>
+  </SizeMode>
+  <MaskMode>
+    <Combined>
+      <Translation>结合</Translation>
+      <Old>Combined</Old>
+    </Combined>
+    <Opacity>
+      <Translation>不透明度</Translation>
+      <Old>Opacity</Old>
+    </Opacity>
+    <Grayscale>
+      <Translation>灰度</Translation>
+      <Old>Grayscale</Old>
+    </Grayscale>
+  </MaskMode>
+  <GrowShrinkMode>
+    <GrowAndShrink>
+      <Translation>增加和减少</Translation>
+      <Old>Grow and shrink</Old>
+    </GrowAndShrink>
+    <GrowOnly>
+      <Translation>仅增加</Translation>
+      <Old>Grow only</Old>
+    </GrowOnly>
+    <ShrinkOnly>
+      <Translation>仅减少</Translation>
+      <Old>Shrink only</Old>
+    </ShrinkOnly>
+  </GrowShrinkMode>
+  <Filter>
+    <Auto>
+      <Translation>自动</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <Lanczos>
+      <Translation>Lanczos</Translation>
+      <Old>Lanczos</Old>
+    </Lanczos>
+    <Mitchell>
+      <Translation>Mitchell</Translation>
+      <Old null="1" />
+    </Mitchell>
+    <Bicubic>
+      <Translation>Bicubic</Translation>
+      <Old>Bicubic</Old>
+    </Bicubic>
+    <Sinc256>
+      <Translation>Sinc256</Translation>
+      <Old null="1" />
+    </Sinc256>
+    <Sinc1024>
+      <Translation>Sinc1024</Translation>
+      <Old null="1" />
+    </Sinc1024>
+  </Filter>
+  <OpacityStyle>
+    <Auto>
+      <Translation>自动</Translation>
+      <Old>Auto</Old>
+    </Auto>
+    <MoveEndpoint>
+      <Translation>末端</Translation>
+      <Old>Move endpoint</Old>
+    </MoveEndpoint>
+    <MoveMidpoint>
+      <Translation>中端</Translation>
+      <Old>Move midpoint</Old>
+    </MoveMidpoint>
+    <Additive>
+      <Translation>递增</Translation>
+      <Old>Additive</Old>
+    </Additive>
+  </OpacityStyle>
+  <BlurEdgeMode>
+    <Transparent>
+      <Translation>透明像素</Translation>
+      <Old>Transparent pixels</Old>
+    </Transparent>
+    <Same>
+      <Translation>最近的像素的颜色</Translation>
+      <Old>Nearest pixel color</Old>
+    </Same>
+    <Mirror>
+      <Translation>镜面边缘</Translation>
+      <Old>Mirror along edge</Old>
+    </Mirror>
+    <Wrap>
+      <Translation>包绕对侧边缘</Translation>
+      <Old>Wrap to opposite edge</Old>
+    </Wrap>
+  </BlurEdgeMode>
+  <TextSmoothingStyle>
+    <Aliased>
+      <Translation>别名</Translation>
+      <Old>Aliased</Old>
+    </Aliased>
+    <AntiAliasGDI>
+      <Translation>抗锯齿 (hinted)</Translation>
+      <Old>Anti-aliased (hinted)</Old>
+    </AntiAliasGDI>
+    <UnhintedGDI>
+      <Translation>抗锯齿(unhinted)</Translation>
+      <Old>Anti-aliased (unhinted)</Old>
+    </UnhintedGDI>
+    <ClearType>
+      <Translation>ClearType</Translation>
+      <Old null="1" />
+    </ClearType>
+  </TextSmoothingStyle>
+  <Category>
+    <General>
+      <Translation>常规</Translation>
+      <Old>General</Old>
+    </General>
+    <Settings>
+      <Translation>设置</Translation>
+      <Old>Settings</Old>
+    </Settings>
+    <Image>
+      <Translation>图像</Translation>
+      <Old>Image</Old>
+    </Image>
+    <Font>
+      <Translation>字体</Translation>
+      <Old>Font</Old>
+    </Font>
+    <Position>
+      <Translation>位置</Translation>
+      <Old>Position</Old>
+    </Position>
+    <Size>
+      <Translation>大小</Translation>
+      <Old>Size</Old>
+    </Size>
+    <Mask>
+      <Translation>掩盖</Translation>
+      <Old>Mask</Old>
+    </Mask>
+    <TextSource>
+      <Translation>文本源</Translation>
+      <Old>Text source</Old>
+    </TextSource>
+    <Debug>
+      <Translation>Debug</Translation>
+      <Old null="1" />
+    </Debug>
+    <Clip>
+      <Translation>修建</Translation>
+      <Old>Clip</Old>
+    </Clip>
+    <Shift>
+      <Translation>渐变</Translation>
+      <Old>Shift</Old>
+    </Shift>
+    <Channels>
+      <Translation>通道</Translation>
+      <Old>Channels</Old>
+    </Channels>
+  </Category>
+  <Selector>
+    <By>
+      <Translation>条件</Translation>
+      <Old> Vary by</Old>
+    </By>
+    <ByN>
+      <Translation>条件 (#{0})</Translation>
+      <Old> Vary by (#{0})</Old>
+    </ByN>
+    <By_Color_Description>
+      <Translation>指定一个坦克属性的颜色是不同的。坦克的颜色的颜色设置为透明的黑色(# 00000000)是不同的根据”随(# { 0 })”。</Translation>
+      <Old>Specifies a tank property by which the color is varied. The colors for any tanks whose color is set to transparent black (#00000000) are varied according to "Vary by (#{0})" instead.</Old>
+    </By_Color_Description>
+    <By_Color_DescriptionLast>
+      <Translation>指定一个坦克属性的颜色是不同的。</Translation>
+      <Old>Specifies a tank property by which the color is varied.</Old>
+    </By_Color_DescriptionLast>
+    <By_Bool_Description>
+      <Translation>Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to "Passthrough" are varied according to "Vary by (#{0})" instead.指定一个坦克属性的设置是不同的。设置的任何坦克设置设置为“透传”是根据“随不同(# { 0 })”。</Translation>
+      <Old>Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to "Passthrough" are varied according to "Vary by (#{0})" instead.</Old>
+    </By_Bool_Description>
+    <By_Bool_DescriptionLast>
+      <Translation>指定一个坦克属性的设置是不同的。</Translation>
+      <Old>Specifies a tank property by which the setting is varied.</Old>
+    </By_Bool_DescriptionLast>
+    <By_String_Description>
+      <Translation>Specifies a tank property by which the text is varied. The text for any tanks whose text is blank is varied according to "Vary by (#{0})" instead.指定一个坦克属性的文本是不同的。坦克的文本的文本空白是不同的根据”随(# { 0 })”。</Translation>
+      <Old>Specifies a tank property by which the text is varied. The text for any tanks whose text is blank is varied according to "Vary by (#{0})" instead.</Old>
+    </By_String_Description>
+    <By_String_DescriptionLast>
+      <Translation>指定一个坦克属性的文本是不同的。</Translation>
+      <Old>Specifies a tank property by which the text is varied.</Old>
+    </By_String_DescriptionLast>
+    <By_Filename_Description>
+      <Translation>Specifies a tank property by which the filename is varied. The filename for any tanks whose filename is blank is varied according to "Vary by (#{0})" instead.指定文件名的坦克属性是不同的。坦克的文件名的文件名是空的是不同的根据”随(# { 0 })”。</Translation>
+      <Old>Specifies a tank property by which the filename is varied. The filename for any tanks whose filename is blank is varied according to "Vary by (#{0})" instead.</Old>
+    </By_Filename_Description>
+    <By_Filename_DescriptionLast>
+      <Translation>指定文件名的坦克属性是不同的。</Translation>
+      <Old>Specifies a tank property by which the filename is varied.</Old>
+    </By_Filename_DescriptionLast>
+    <ClassLight>
+      <Translation>Class: 轻坦</Translation>
+      <Old>Class: Light tank</Old>
+    </ClassLight>
+    <ClassMedium>
+      <Translation>Class: 中坦</Translation>
+      <Old>Class: Medium tank</Old>
+    </ClassMedium>
+    <ClassHeavy>
+      <Translation>Class: 重坦</Translation>
+      <Old>Class: Heavy tank</Old>
+    </ClassHeavy>
+    <ClassDestroyer>
+      <Translation>Class: 歼击车</Translation>
+      <Old>Class: Destroyer</Old>
+    </ClassDestroyer>
+    <ClassArtillery>
+      <Translation>Class: 火炮</Translation>
+      <Old>Class: Artillery</Old>
+    </ClassArtillery>
+    <ClassNone>
+      <Translation>Class:  未分类</Translation>
+      <Old>Class:  None</Old>
+    </ClassNone>
+    <CountryUSSR>
+      <Translation>Country: 苏联</Translation>
+      <Old>Country: USSR</Old>
+    </CountryUSSR>
+    <CountryGermany>
+      <Translation>Country: 德国</Translation>
+      <Old>Country: Germany</Old>
+    </CountryGermany>
+    <CountryUSA>
+      <Translation>Country: 美国</Translation>
+      <Old>Country: USA</Old>
+    </CountryUSA>
+    <CountryFrance>
+      <Translation>Country: 法国</Translation>
+      <Old>Country: France</Old>
+    </CountryFrance>
+    <CountryChina>
+      <Translation>Country: 中国</Translation>
+      <Old>Country: China</Old>
+    </CountryChina>
+    <CountryUK>
+      <Translation>Country: 英国</Translation>
+      <Old>Country: UK</Old>
+    </CountryUK>
+    <CountryJapan>
+      <Translation>Country: 日本</Translation>
+      <Old>Country: Japan</Old>
+    </CountryJapan>
+    <CountryCzech>
+      <Translation>Country: 捷克</Translation>
+      <Old>Country: Czech</Old>
+    </CountryCzech>
+    <CountryNone>
+      <Translation>Country:  未分类</Translation>
+      <Old>Country:  None</Old>
+    </CountryNone>
+    <CategNormal>
+      <Translation>Avail.: 银币</Translation>
+      <Old>Avail.: Normal</Old>
+    </CategNormal>
+    <CategPremium>
+      <Translation>Avail.: 金币</Translation>
+      <Old>Avail.: Premium</Old>
+    </CategPremium>
+    <CategSpecial>
+      <Translation>Avail.: 特种</Translation>
+      <Old>Avail.: Special</Old>
+    </CategSpecial>
+    <Single>
+      <Translation>不改变</Translation>
+      <Old>Not varied</Old>
+    </Single>
+    <SingleDescription>
+      <Translation>When "Vary by" is set to "No variation", specifies the value to use. Use this when the value does not need to vary by tank properties.当“随”设置为“没有变化”,指定要使用的值。使用此值时不需要随坦克属性。</Translation>
+      <Old>When "Vary by" is set to "No variation", specifies the value to use. Use this when the value does not need to vary by tank properties.</Old>
+    </SingleDescription>
+    <TierN>
+      <Translation>Tier: {0,2}</Translation>
+      <Old null="1" />
+    </TierN>
+    <TierNone>
+      <Translation>Tier: None</Translation>
+      <Old null="1" />
+    </TierNone>
+  </Selector>
+  <DlgMessage>
+    <OK>
+      <Translation>确定</Translation>
+      <Old>&amp;OK</Old>
+    </OK>
+    <CaptionInfo>
+      <Translation>信息</Translation>
+      <Old>Information</Old>
+    </CaptionInfo>
+    <CaptionQuestion>
+      <Translation>问题</Translation>
+      <Old>Question</Old>
+    </CaptionQuestion>
+    <CaptionWarning>
+      <Translation>警告</Translation>
+      <Old>Warning</Old>
+    </CaptionWarning>
+    <CaptionError>
+      <Translation>错误</Translation>
+      <Old>Error</Old>
+    </CaptionError>
+  </DlgMessage>
+  <Prompt>
+    <RenameLayer_Title>
+      <Translation>重命名层</Translation>
+      <Old>Rename layer</Old>
+    </RenameLayer_Title>
+    <RenameLayer_Label>
+      <Translation>层名称:</Translation>
+      <Old>Layer _name:</Old>
+    </RenameLayer_Label>
+    <RenameEffect_Title>
+      <Translation>重命名效果</Translation>
+      <Old>Rename effect</Old>
+    </RenameEffect_Title>
+    <RenameEffect_Label>
+      <Translation>效果名称:</Translation>
+      <Old>Effect _name:</Old>
+    </RenameEffect_Label>
+    <CreateStyle_Title>
+      <Translation>创建样式</Translation>
+      <Old>Create style</Old>
+    </CreateStyle_Title>
+    <CreateStyle_Label>
+      <Translation>新样式名称:</Translation>
+      <Old>New style _name:</Old>
+    </CreateStyle_Label>
+    <RenameStyle_Title>
+      <Translation>更改样式名称</Translation>
+      <Old>Change style name</Old>
+    </RenameStyle_Title>
+    <RenameStyle_Label>
+      <Translation>新样式名称:</Translation>
+      <Old>New style _name:</Old>
+    </RenameStyle_Label>
+    <ChangeAuthor_Title>
+      <Translation>更改样式作者</Translation>
+      <Old>Change style author</Old>
+    </ChangeAuthor_Title>
+    <ChangeAuthor_Label>
+      <Translation>新样式作者:</Translation>
+      <Old>New style _author:</Old>
+    </ChangeAuthor_Label>
+    <DuplicateStyle_Title>
+      <Translation>制作样式副本</Translation>
+      <Old>Duplicate style</Old>
+    </DuplicateStyle_Title>
+    <DuplicateStyle_Label>
+      <Translation>新样式名称:</Translation>
+      <Old>New style _name:</Old>
+    </DuplicateStyle_Label>
+    <IconDims_Title>
+      <Translation>图标尺寸</Translation>
+      <Old>Icon dimensions</Old>
+    </IconDims_Title>
+    <IconDims_Width>
+      <Translation>请输入图标宽度,像素:</Translation>
+      <Old>Please enter the width of the icons, in pixels:</Old>
+    </IconDims_Width>
+    <IconDims_Height>
+      <Translation>请输入图标高度, 像素:</Translation>
+      <Old>Please enter the height of the icons, in pixels:</Old>
+    </IconDims_Height>
+    <IconDims_NumberError>
+      <Translation>请输入一个大于0的整数。</Translation>
+      <Old>Please enter a whole number greater than zero.</Old>
+    </IconDims_NumberError>
+    <Centerable_Prompt>
+      <Translation encoding="c-literal">请选择其中一个图标宽度模式:\r\n\r\n• 居中可以使图标居中在坦克之上。图标的宽度不同。\r\n• 固定宽度的图标都有相同的宽度,但不会中心正确,除非坦克图标已经居中在图标的边界。\r\n\r\n请注意,此设置在Tank Icon Maker中没有明显效果,因为所有的图标都是左对齐。在游戏中会表现出影响。\r\n\r\n当前宽度模式选择这种样式: {0}.</Translation>
+      <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
+    </Centerable_Prompt>
+    <Centerable_Yes>
+      <Translation>居中</Translation>
+      <Old>Centerable</Old>
+    </Centerable_Yes>
+    <Centerable_No>
+      <Translation>固定宽度</Translation>
+      <Old>Fixed-width</Old>
+    </Centerable_No>
+    <ExportFormat_Title>
+      <Translation>导出样式</Translation>
+      <Old>Export styles</Old>
+    </ExportFormat_Title>
+    <ExportFormat_Label>
+      <Translation>文件名模板（子文件夹支持）：</Translation>
+      <Old>File name template (subfolders supported):</Old>
+    </ExportFormat_Label>
+    <Cancel>
+      <Translation>取消</Translation>
+      <Old>Cancel</Old>
+    </Cancel>
+    <PromptWindowOK>
+      <Translation>确定</Translation>
+      <Old>_OK</Old>
+    </PromptWindowOK>
+    <OverwriteIcons_Prompt>
+      <Translation encoding="c-literal">你想覆盖当前图标?\r\n\r\n路径: {0}\r\n\r\n警告:  {1} 所有目录下的文件将被重写，且不能恢复！</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
+    </OverwriteIcons_Prompt>
+    <OverwriteIcons_Yes>
+      <Translation>是的，重写所有文件</Translation>
+      <Old>&amp;Yes, overwrite all files</Old>
+    </OverwriteIcons_Yes>
+    <GameNotFound_Prompt>
+      <Translation>这个目录不似乎包含的支持版本的坦克世界。你确定你想要使用它呢?</Translation>
+      <Old>This directory does not appear to contain a supported version of World Of Tanks. Are you sure you want to use it anyway?</Old>
+    </GameNotFound_Prompt>
+    <GameNotFound_Ignore>
+      <Translation>确定</Translation>
+      <Old>&amp;Use anyway</Old>
+    </GameNotFound_Ignore>
+    <IconsSaved>
+      <Translation encoding="c-literal">图标保存到 “{0}”!\r\n\r\n• 带文字的图标可能镜像显示。\r\n• 游戏可能覆盖顶层图标\r\n\r\n找出如何修复这些问题请阅读Tank Icon Maker的论坛。</Translation>
+      <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
+    </IconsSaved>
+    <IconsSavedGoToForum>
+      <Translation>在浏览器中打开论坛</Translation>
+      <Old>Open &amp;forum in browser</Old>
+    </IconsSavedGoToForum>
+    <IconsSaveSkipped>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>注意，由于错误跳过这张图片 1</item>
+      </Translations>
+      <Old>
+        <item>Note that 1 image was skipped due to errors.</item>
+        <item>Note that {0} images were skipped due to errors.</item>
+      </Old>
+    </IconsSaveSkipped>
+    <IconsSaveError>
+      <Translation encoding="c-literal">由于一个错误这些图标不能被保存\r\n\r\n错误消息:\r\n • {0}</Translation>
+      <Old encoding="c-literal">The icons could not be saved due to an error.\n\nError message:\n • {0}</Old>
+    </IconsSaveError>
+    <VisitWebsiteBtn>
+      <Translation>访问项目网站</Translation>
+      <Old>Visit project website</Old>
+    </VisitWebsiteBtn>
+    <Upvote_BuiltInOnly>
+      <Translation>出于安全原因,只能赞内置样式。</Translation>
+      <Old>For security reasons, only built-in styles can be upvoted.</Old>
+    </Upvote_BuiltInOnly>
+    <Upvote_NotAvailable>
+      <Translation>在坦克世界论坛上这种样式目前没有一个相关的帖子。</Translation>
+      <Old>This style does not currently have an associated post on World of Tanks forums.</Old>
+    </Upvote_NotAvailable>
+    <Upvote_Prompt>
+      <Translation encoding="c-literal">感谢 {0} 设计这种样式, 请在坦克世界论坛里点赞:\r\n\r\n{1}</Translation>
+      <Old encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Old>
+    </Upvote_Prompt>
+    <Upvote_Open>
+      <Translation>在浏览器里打开</Translation>
+      <Old>&amp;Open in browser</Old>
+    </Upvote_Open>
+    <PasteLayerEffect_Error>
+      <Translation>不能粘贴图层或效果。如果你粘贴原始的XML，可能有一个错误。</Translation>
+      <Old>Cannot paste layer or effect. If you are pasting raw XML, there is probably an error in it.</Old>
+    </PasteLayerEffect_Error>
+    <DeleteLayerEffect_Prompt>
+      <Translation>删除选中 层/效果?</Translation>
+      <Old>Delete the selected layer/effect?</Old>
+    </DeleteLayerEffect_Prompt>
+    <DeleteLayerEffect_Yes>
+      <Translation>删除</Translation>
+      <Old>&amp;Delete</Old>
+    </DeleteLayerEffect_Yes>
+    <BulkStyles_ColumnTitle>
+      <Translation>样式</Translation>
+      <Old>Style</Old>
+    </BulkStyles_ColumnTitle>
+    <BulkStyles_PathColumn>
+      <Translation>图标保存路径</Translation>
+      <Old>Icon save path</Old>
+    </BulkStyles_PathColumn>
+    <DeleteStyle_Prompt>
+      <Translation encoding="c-literal">删除这个样式？\r\n\r\n{0}</Translation>
+      <Old encoding="c-literal">Delete this style?\r\n\r\n{0}</Old>
+    </DeleteStyle_Prompt>
+    <DeleteStyle_Yes>
+      <Translation>删除</Translation>
+      <Old>&amp;Delete</Old>
+    </DeleteStyle_Yes>
+    <DeleteStyle_PromptSure>
+      <Translation>你确定你要删除这些样式?</Translation>
+      <Old>Are you sure you wish to delete these styles?</Old>
+    </DeleteStyle_PromptSure>
+    <DeleteStyle_Success>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>样式已经删除.</item>
+      </Translations>
+      <Old>
+        <item>Style deleted.</item>
+        <item>{0} styles deleted.</item>
+      </Old>
+    </DeleteStyle_Success>
+    <StyleImport_Fail>
+      <Translation>因为某些原因不能加载文件。这可能是错误的格式。</Translation>
+      <Old>Could not load the file for some reason. It might be of the wrong format.</Old>
+    </StyleImport_Fail>
+    <StyleExport_Prompt>
+      <Translation>导出所选样式:</Translation>
+      <Old>Select styles to export:</Old>
+    </StyleExport_Prompt>
+    <StyleExport_Yes>
+      <Translation>_导出 </Translation>
+      <Old>_Export</Old>
+    </StyleExport_Yes>
+    <StyleExport_Success>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>样式导出完毕.</item>
+      </Translations>
+      <Old>
+        <item>The style has been exported.</item>
+        <item>{0} styles have been exported.</item>
+      </Old>
+    </StyleExport_Success>
+    <BulkSave_Prompt>
+      <Translation encoding="c-literal">您将保存多个样式的坦克图标。任何现有的图标将被覆盖，没有进一步的确认！\n选择要保存图标的样式：</Translation>
+      <Old encoding="c-literal">You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:</Old>
+    </BulkSave_Prompt>
+    <BulkSave_Yes>
+      <Translation>_保存</Translation>
+      <Old>_Save</Old>
+    </BulkSave_Yes>
+    <BulkSave_Progress>
+      <Translation>正在保存图标...</Translation>
+      <Old>Saving icons...</Old>
+    </BulkSave_Progress>
+  </Prompt>
+  <Error>
+    <DataMissing_NoWotInstallation>
+      <Translation>未能发现世界坦克的安装路径。</Translation>
+      <Old>Failed to detect a supported World of Tanks installation at this path.</Old>
+    </DataMissing_NoWotInstallation>
+    <DataMissing_WotVersionTooOld>
+      <Translation>不支持这个版本的坦克世界 ({0}) ，因为没有合适的配置文件是可用的。</Translation>
+      <Old>This version of World of Tanks ({0}) is not supported because no suitable configuration files are available.</Old>
+    </DataMissing_WotVersionTooOld>
+    <DataMissing_NoInstallationSelected>
+      <Translation>在上面选择安装的游戏版本或按绿色的加号[+] 添加新的游戏版本。</Translation>
+      <Old>Select a game installation above or add a new one using the green [+] button.</Old>
+    </DataMissing_NoInstallationSelected>
+    <DataMissing_DirNotFound>
+      <Translation>这个目录不存在。</Translation>
+      <Old>This directory does not exist.</Old>
+    </DataMissing_DirNotFound>
+    <RenderWithErrors>
+      <Translation>一些坦克图标未能正确的显示出来，请选择"All tanks" 并点击每个失败的图标以了解详细情况。</Translation>
+      <Old>Some of the tank icons did not render correctly; make sure you view "All tanks" and click each broken image for details.</Old>
+    </RenderWithErrors>
+    <RenderWithWarnings>
+      <Translation>一些坦克图标带着警告图标显示出来; 请选择 "All tanks" 并点击每个带警告的图标以了解详细情况。</Translation>
+      <Old>Some of the tank icons rendered with warnings; make sure you view "All tanks" and click each image with a warning icon for details.</Old>
+    </RenderWithWarnings>
+    <RenderIconOK>
+      <Translation>这个图标没有任何问题。</Translation>
+      <Old>This icon rendered without any problems.</Old>
+    </RenderIconOK>
+    <RenderIconFail>
+      <Translation>不能显示出这个图标: {0}</Translation>
+      <Old>Could not render this icon: {0}</Old>
+    </RenderIconFail>
+    <ClipboardError>
+      <Translation encoding="c-literal">无法复制到剪贴板：另一个应用程序可能正在使用剪贴板。\n再试一次？</Translation>
+      <Old encoding="c-literal">Could not copy to clipboard: another application is probably using the clipboard right now.\n\nTry again?</Old>
+    </ClipboardError>
+    <ClipboardError_Retry>
+      <Translation>&amp;重试</Translation>
+      <Old>&amp;Retry</Old>
+    </ClipboardError_Retry>
+    <ExceptionGlobal>
+      <Translation encoding="c-literal">发生错误。这是程序中的错误。\n请发送一个错误报告给程序员，以便这可以被修复。</Translation>
+      <Old encoding="c-literal">An error has occurred. This is a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionGlobal>
+    <ExceptionLoadingGameData>
+      <Translation encoding="c-literal">无法加载游戏数据。这可能是程序中的错误。\n请发送一个错误报告给程序员，以便这可以被 修复。</Translation>
+      <Old encoding="c-literal">Could not load game data. This is probably a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionLoadingGameData>
+    <ExceptionInRender>
+      <Translation>在渲染该图像时，一个图层或一个效果出现异常。这是程序中的错误，请报告。</Translation>
+      <Old>A layer or an effect threw an exception while rendering this image. This is a bug in the program; please report it.</Old>
+    </ExceptionInRender>
+    <ErrorToClipboard_Copy>
+      <Translation>复制错误报告到  &amp;剪切板</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
+    </ErrorToClipboard_Copy>
+    <ErrorToClipboard_OK>
+      <Translation>确定</Translation>
+      <Old>OK</Old>
+    </ErrorToClipboard_OK>
+    <ErrorToClipboard_Copied>
+      <Translation>关于该错误的信息现在在您的剪贴板中。</Translation>
+      <Old>Information about the error is now in your clipboard.</Old>
+    </ErrorToClipboard_Copied>
+  </Error>
+  <Misc>
+    <ProgramVersion>
+      <Translation>版本 {0}</Translation>
+      <Old>Version {0}</Old>
+    </ProgramVersion>
+    <GlobalStatus_Loading>
+      <Translation>读取...</Translation>
+      <Old>Loading...</Old>
+    </GlobalStatus_Loading>
+    <GlobalStatus_Saving>
+      <Translation>保存...</Translation>
+      <Old>Saving...</Old>
+    </GlobalStatus_Saving>
+    <Filter_FilenameEditor>
+      <Translation>图像文件|*.png;*.jpg;*.tga|All files|*.*</Translation>
+      <Old>Image files|*.png;*.jpg;*.tga|All files|*.*</Old>
+    </Filter_FilenameEditor>
+    <Filter_ImportExportStyle>
+      <Translation>图标样式|*.xml|All files|*.*</Translation>
+      <Old>Icon styles|*.xml|All files|*.*</Old>
+    </Filter_ImportExportStyle>
+    <NameOfCopied>
+      <Translation>{0} (copy)</Translation>
+      <Old null="1" />
+    </NameOfCopied>
+    <NameOfNewStyle>
+      <Translation>新样式</Translation>
+      <Old>New style</Old>
+    </NameOfNewStyle>
+    <NameOfTankImageLayer>
+      <Translation>坦克图标</Translation>
+      <Old>Tank image</Old>
+    </NameOfTankImageLayer>
+    <NameOfNewStyleAuthor>
+      <Translation>我</Translation>
+      <Old>me</Old>
+    </NameOfNewStyleAuthor>
+    <StyleDisplay_Original>
+      <Translation>[原件]</Translation>
+      <Old>[original]</Old>
+    </StyleDisplay_Original>
+    <StyleDisplay_Current>
+      <Translation>[当前]</Translation>
+      <Old>[current]</Old>
+    </StyleDisplay_Current>
+    <StyleDisplay_BuiltIn>
+      <Translation>[内置] {0} (by {1})</Translation>
+      <Old>[built-in] {0} (by {1})</Old>
+    </StyleDisplay_BuiltIn>
+    <StyleDisplay_Normal>
+      <Translation>{0} (by {1})</Translation>
+      <Old null="1" />
+    </StyleDisplay_Normal>
+    <PropSource_Author>
+      <Translation>作者:</Translation>
+      <Old>Author:</Old>
+    </PropSource_Author>
+    <PropSource_TierRoman>
+      <Translation>等级 (罗马字母)</Translation>
+      <Old>Tier (Roman)</Old>
+    </PropSource_TierRoman>
+    <PropSource_TierArabic>
+      <Translation>等级 (阿拉伯数字)</Translation>
+      <Old>Tier (Arabic)</Old>
+    </PropSource_TierArabic>
+    <ExpandablePropertyDesc>
+      <Translation>(展开编辑)</Translation>
+      <Old>(expand to edit)</Old>
+    </ExpandablePropertyDesc>
+  </Misc>
+  <Calculator>
+    <CouldNotParseExpression>
+      <Translation>could not parse expression</Translation>
+      <Old>could not parse expression</Old>
+    </CouldNotParseExpression>
+    <ErrLabel_Error>
+      <Translation>错误</Translation>
+      <Old>Error</Old>
+    </ErrLabel_Error>
+    <ErrLabel_Expression>
+      <Translation>表达</Translation>
+      <Old>Expression</Old>
+    </ErrLabel_Expression>
+    <ErrLabel_Layer>
+      <Translation>层</Translation>
+      <Old>Layer</Old>
+    </ErrLabel_Layer>
+    <ErrLabel_Effect>
+      <Translation>效果</Translation>
+      <Old>Effect</Old>
+    </ErrLabel_Effect>
+    <ErrLabel_Property>
+      <Translation>财产</Translation>
+      <Old>Property</Old>
+    </ErrLabel_Property>
+    <Err_LocationMarker>
+      <Translation>HERE</Translation>
+      <Old null="1" />
+    </Err_LocationMarker>
+    <Err_ExpectedEndOfExpression>
+      <Translation>预期结尾</Translation>
+      <Old>expected end of expression</Old>
+    </Err_ExpectedEndOfExpression>
+    <Err_UnexpectedEndOfExpression>
+      <Translation>非预期的意外结束</Translation>
+      <Old>unexpected end of expression</Old>
+    </Err_UnexpectedEndOfExpression>
+    <Err_ExpectedParenthesisOrOperator>
+      <Translation>expected “)” or operator</Translation>
+      <Old null="1" />
+    </Err_ExpectedParenthesisOrOperator>
+    <Err_ExpectedCommaOrParenthesis>
+      <Translation>expected “,” or “)”</Translation>
+      <Old null="1" />
+    </Err_ExpectedCommaOrParenthesis>
+    <Err_UnexpectedCharacter>
+      <Translation>意外字符: “{0}”</Translation>
+      <Old>unexpected character: “{0}”</Old>
+    </Err_UnexpectedCharacter>
+    <Err_CannotParseNumber>
+      <Translation>无法解析数: “{0}”</Translation>
+      <Old>cannot parse number: “{0}”</Old>
+    </Err_CannotParseNumber>
+    <Err_UnknownVariable>
+      <Translation>未知变量: “{0}”</Translation>
+      <Old>unknown variable: “{0}”</Old>
+    </Err_UnknownVariable>
+    <Err_UnknownFunction>
+      <Translation>未知函数: “{0}”</Translation>
+      <Old>unknown function: “{0}”</Old>
+    </Err_UnknownFunction>
+    <Err_UnknownLayerProperty>
+      <Translation>未知层属性: “{0}”</Translation>
+      <Old>unknown layer property: “{0}”</Old>
+    </Err_UnknownLayerProperty>
+    <Err_ResultInfinite>
+      <Translation>计算结果是无限的（除以零）</Translation>
+      <Old>calculation result is infinite (division by zero?)</Old>
+    </Err_ResultInfinite>
+    <Err_ResultNaN>
+      <Translation>计算的结果是非数字（零除以零呢？）</Translation>
+      <Old>calculation result is not-a-number (zero divided by zero?)</Old>
+    </Err_ResultNaN>
+    <Err_FunctionParamCountExact>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>function “{0}” requires {1} parameter; got {2}</item>
+        <item>function “{0}” requires {1} parameters; got {2}</item>
+      </Translations>
+      <Old null="1" />
+    </Err_FunctionParamCountExact>
+    <Err_FunctionParamCountAtLeast>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>function “{0}” requires at least {1} parameter; got {2}</item>
+        <item>function “{0}” requires at least {1} parameters; got {2}</item>
+      </Translations>
+      <Old null="1" />
+    </Err_FunctionParamCountAtLeast>
+    <Err_FunctionParamCountAtMost>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>function “{0}” requires at most {1} parameter; got {2}</item>
+        <item>function “{0}” requires at most {1} parameters; got {2}</item>
+      </Translations>
+      <Old null="1" />
+    </Err_FunctionParamCountAtMost>
+    <Err_NoLayerWithId>
+      <Translation>未知层 ID: “{0}”</Translation>
+      <Old>unknown layer ID: “{0}”</Old>
+    </Err_NoLayerWithId>
+    <Err_RecursiveLayerReference>
+      <Translation>递归层参考: “{0}”</Translation>
+      <Old>recursive layer reference: “{0}”</Old>
+    </Err_RecursiveLayerReference>
+  </Calculator>
+</item>
