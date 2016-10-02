@@ -28,10 +28,11 @@ namespace TankIconMaker
         D.Color IClassifySubstitute<D.Color, string>.FromSubstitute(string instance) { return FromSubstituteD(instance); }
         private D.Color FromSubstituteD(string instance)
         {
+            if (instance == null || !instance.StartsWith("#") || (instance.Length != 7 && instance.Length != 9))
+                throw new ClassifyDesubstitutionFailedException();
+
             try
             {
-                if (!instance.StartsWith("#") || (instance.Length != 7 && instance.Length != 9))
-                    throw new Exception();
                 int alpha = instance.Length == 7 ? 255 : int.Parse(instance.Substring(1, 2), NumberStyles.HexNumber);
                 int r = int.Parse(instance.Substring(instance.Length == 7 ? 1 : 3, 2), NumberStyles.HexNumber);
                 int g = int.Parse(instance.Substring(instance.Length == 7 ? 3 : 5, 2), NumberStyles.HexNumber);
@@ -40,7 +41,7 @@ namespace TankIconMaker
             }
             catch
             {
-                return D.Color.Black; // XmlClassify doesn't currently let us specify "no value", so just use a random color
+                throw new ClassifyDesubstitutionFailedException();
             }
         }
 
