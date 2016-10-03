@@ -5,7 +5,7 @@
         xmlns:src="clr-namespace:TankIconMaker"
         x:ClassModifier="internal"
         Title="Tank Icon Maker" ShowInTaskbar="False"
-        Height="282" Width="733" MinHeight="200" MinWidth="260"
+        Height="285" Width="733" MinHeight="200" MinWidth="260"
         SizeToContent="Height"
         TextOptions.TextFormattingMode="Display"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
@@ -31,8 +31,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -44,13 +44,13 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Name="ctNameColHeader" VerticalAlignment="Center">Name</TextBlock>
             <TextBlock Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" Name="ctEnabledColHeader" VerticalAlignment="Center">Enabled</TextBlock>
             <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" Name="ctPathColHeader" VerticalAlignment="Center">Path</TextBlock>
-
+            
             <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" Name="ctNormalIconsRowHeader" VerticalAlignment="Center">Normal icons</TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,5,5,5" Name="ctBattleAtlasRowHeader" VerticalAlignment="Center">Battle atlas</TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,5,5,5" Name="ctVehicleMarkersAtlasRowHeader" VerticalAlignment="Center">Markers atlas</TextBlock>
 
             <CheckBox Name="ctSaveIconsEnabled" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="5,10,5,10" VerticalAlignment="Top" 
-                      IsChecked="{Binding UpdateSourceTrigger=PropertyChanged, Path=IconsBulkSaveEnabled}"/>
+                       IsChecked="{Binding UpdateSourceTrigger=PropertyChanged, Path=IconsBulkSaveEnabled}"/>
             <CheckBox Name="ctSaveBattleAtlasEnabled" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Margin="5,10,5,10" VerticalAlignment="Top"
                       IsChecked="{Binding UpdateSourceTrigger=PropertyChanged, Path=BattleAtlasBulkSaveEnabled}"/>
             <CheckBox Name="ctSaveVehicleMarkersAtlasEnabled" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" Margin="5,10,5,10" VerticalAlignment="Top" 
@@ -71,6 +71,7 @@
                     <BlurEffect Radius="10"/>
                 </Rectangle.Effect>
             </Rectangle>
+            
             <TextBlock Grid.Column="2" Grid.Row="1" Name="ctPathTemplate" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
                                Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=PathTemplate}"/>
             <TextBlock Grid.Column="2" Grid.Row="2" Name="ctBattleAtlasPathTemplate" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
@@ -79,6 +80,7 @@
                                Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=VehicleMarkersAtlasPathTemplate}"/>
 
             <Button Grid.Column="3" Grid.Row="1" x:Name="ctEditPathTemplate" Margin="5,5,5,5" Click="ctEditPathTemplate_Click" IsEnabled="{Binding IsEnabled, ElementName=ctSave}" Width="21" Height="23">
+
                 <AccessText x:Name="ctEditPathTemplateLabel" Text="_..."/>
             </Button>
             <Button Grid.Column="3" Grid.Row="2" x:Name="ctEditBattleAtlasPathTemplate" Margin="5,5,5,5" Click="ctEditBattleAtlasPathTemplate_Click" IsEnabled="{Binding IsEnabled, ElementName=ctSave}" Width="21" Height="23">

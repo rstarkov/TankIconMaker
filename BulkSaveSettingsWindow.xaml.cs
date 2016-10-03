@@ -74,12 +74,12 @@ namespace TankIconMaker
         {
             MainWindow.ApplyUiZoom(this);
 
+            Title = App.Translation.BulkSaveSettingsWindow.Title;
             Lingo.TranslateWindow(this, App.Translation.BulkSaveSettingsWindow);
 
             ContentRendered += InitializeEverything;
             _context = context;
             _style = style;
-            ctPrompt.Text = string.Format("{0} ({1})", style.Name, style.Author);
         }
 
         private void InitializeEverything(object _, EventArgs __)
@@ -127,12 +127,12 @@ namespace TankIconMaker
                     Mode = BindingMode.TwoWay
                 });
 
-            this.ctPathTemplate.DataContext = this;
-            this.ctBattleAtlasPathTemplate.DataContext = this;
-            this.ctVehicleMarkersAtlasPathTemplate.DataContext = this;
-            this.ctSaveIconsEnabled.DataContext = this;
-            this.ctSaveBattleAtlasEnabled.DataContext = this;
-            this.ctSaveVehicleMarkersAtlasEnabled.DataContext = this;
+            ctPathTemplate.DataContext = this;
+            ctBattleAtlasPathTemplate.DataContext = this;
+            ctVehicleMarkersAtlasPathTemplate.DataContext = this;
+            ctSaveIconsEnabled.DataContext = this;
+            ctSaveBattleAtlasEnabled.DataContext = this;
+            ctSaveVehicleMarkersAtlasEnabled.DataContext = this;
             DataContext = this;
 
             PathTemplate = _style.PathTemplate;
