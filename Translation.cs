@@ -12,6 +12,8 @@ namespace TankIconMaker
         AddWindow,
         [LingoGroup("Path template window", "Strings used directly in the \"Path template\" window.")]
         PathTemplateWindow,
+        [LingoGroup("Bulk save settings window", "Strings used directly in the \"Bulk save settings\" window.")]
+        BulkSaveSettingsWindow,
         [LingoGroup("Property categories", "Strings used to group properties into categories in the property grid.")]
         PropertyCategory,
         [LingoGroup("Message box defaults", "Strings used in the message boxes by default for some of the messages.")]
@@ -293,7 +295,7 @@ namespace TankIconMaker
         public TrString Title = "Edit Icon Path Template";
     }
 
-    class BulkSaveSettingsWindowTranslation
+    partial class BulkSaveSettingsWindowTranslation
     {
         public TrString ctPrompt = @"This window is used to set style bulk save settings. You can enable or disable 
             saving to atlas or normal icons and specify bulk save path. Please note that 
@@ -308,7 +310,7 @@ namespace TankIconMaker
         public TrString ctBattleAtlasRowHeader = "Battle atlas";
         public TrString ctVehicleMarkersAtlasRowHeader = "Markers atlas";
     }
-    
+
 
     #region Layer translations
 

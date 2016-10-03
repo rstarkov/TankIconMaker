@@ -184,7 +184,7 @@
     <ctDisplayModeCountrySweden>
       <Translation>Швеция</Translation>
       <Old>Sweden</Old>
-    </ctDisplayModeCountrySweden>    
+    </ctDisplayModeCountrySweden>
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -264,11 +264,11 @@
     <ctSaveIconsToVehicleMarkerAtlas>
       <Translation>Сохранить в _VehicleMarkerAtlas...</Translation>
       <Old>Save to _VehicleMarkerAtlas...</Old>
-    </ctSaveIconsToVehicleMarkerAtlas>    
+    </ctSaveIconsToVehicleMarkerAtlas>
     <ctSaveToAtlas>
       <Translation>Сохранить в _атлас...</Translation>
-      <Old>Save to _atlas...</Old>
-    </ctSaveToAtlas>     
+      <Old>Save _to atlas...</Old>
+    </ctSaveToAtlas>
     <ctBulkSaveIcons>
       <Translation>_Массовое сохранение</Translation>
       <Old>Bulk _save</Old>
@@ -324,7 +324,7 @@
       <Old>_Add</Old>
     </BtnAdd>
     <BtnCancel>
-      <Translation>_Отменить</Translation>
+      <Translation>_Отмена</Translation>
       <Old>_Cancel</Old>
     </BtnCancel>
   </AddWindow>
@@ -390,6 +390,48 @@
       <Old>_Cancel</Old>
     </ctCancelBtn>
   </PathTemplateWindow>
+  <BulkSaveSettingsWindow>
+    <Title>
+      <Translation>Массовое сохранение</Translation>
+      <Old>Bulk Save Settings</Old>
+    </Title>
+    <ctPrompt>
+      <Translation>Placeholder</Translation>
+      <Old>Placeholder</Old>
+    </ctPrompt>
+    <ctEnabledHeader>
+      <Translation>Включено</Translation>
+      <Old>Enabled</Old>
+    </ctEnabledHeader>
+    <ctModifyHeader>
+      <Translation>Изменить</Translation>
+      <Old>Modify</Old>
+    </ctModifyHeader>
+    <ctPathHeader>
+      <Translation>Путь</Translation>
+      <Old>Path</Old>
+    </ctPathHeader>
+    <ctEditPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEditPathTemplateLabel>
+    <ctEdiBattleAtlastPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEdiBattleAtlastPathTemplateLabel>
+    <ctEditVehicleMarkersAtlasPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
+    </ctEditVehicleMarkersAtlasPathTemplateLabel>
+    <ctOkBtn>
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>О_тмена</Translation>
+      <Old>_Cancel</Old>
+    </ctCancelBtn>
+  </BulkSaveSettingsWindow>
   <LayerAndEffect>
     <LayerId>
       <DisplayName>
@@ -2216,7 +2258,7 @@
     <CountrySweden>
       <Translation>Страна: Швеция</Translation>
       <Old>Country: Sweden</Old>
-    </CountrySweden>    
+    </CountrySweden>
     <CountryNone>
       <Translation>Страна:  без страны</Translation>
       <Old>Country:  None</Old>
@@ -2778,9 +2820,6 @@
       <Old>recursive layer reference: “{0}”</Old>
     </Err_RecursiveLayerReference>
   </Calculator>
-  <BulkSaveSettingsWindow>
-    <ctPrompt>
-      <Translation>Это окно служит для настроек массового сохранения. Вы можете включить или выключить сохранение нормальных иконок или атласа и выбрать путь массового сохранения. Обратите внимание, что настройки путей не используются при массовом сохранении в папку. Путь для сохранения обычных иконок так же будет использоваться при нажатии кнопки "Сохранить".</Translation>
       <Old>This window is used to set style bulk save settings. You can enable or disable saving to atlas or normal icons and specify bulk save path. Please note that path settings don't work when using the bulk save to folder. The path to save the normal icons will also be used when you click ""Save"".</Old>
     </ctPrompt>
     <ctNameColHeader>
@@ -2789,16 +2828,6 @@
     </ctNameColHeader>
     <ctEnabledColHeader>
       <Translation>Активно</Translation>
-      <Old>Enabled</Old>
-    </ctEnabledColHeader>
-    <ctModifyColHeader>
-      <Translation>Изменить</Translation>
-      <Old>Modify</Old>
-    </ctModifyColHeader>
-    <ctPathColHeader>
-      <Translation>Путь</Translation>
-      <Old>Path</Old>
-    </ctPathColHeader>
     <ctNormalIconsRowHeader>
       <Translation>Обычные иконки</Translation>
       <Old>Normal icons</Old>
@@ -2811,5 +2840,4 @@
       <Translation>Атлас иконок маркеров</Translation>
       <Old>Markers atlas</Old>
     </ctVehicleMarkersAtlasRowHeader>
-  </BulkSaveSettingsWindow>
 </item>
