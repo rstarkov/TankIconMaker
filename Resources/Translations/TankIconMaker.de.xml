@@ -395,22 +395,18 @@
       <Translation>Massenspeicheroptionen</Translation>
       <Old>Bulk Save Settings</Old>
     </Title>
-    <ctPrompt>
-      <Translation>Platzhalter</Translation>
-      <Old>Placeholder</Old>
-    </ctPrompt>
-    <ctEnabledHeader>
+    <ctEnabledColHeader>
       <Translation>Aktiviert</Translation>
       <Old>Enabled</Old>
-    </ctEnabledHeader>
-    <ctModifyHeader>
+    </ctEnabledColHeader>
+    <ctModifyColHeader>
       <Translation>Ändern</Translation>
       <Old>Modify</Old>
-    </ctModifyHeader>
-    <ctPathHeader>
+    </ctModifyColHeader>
+    <ctPathColHeader>
       <Translation>Pfad</Translation>
       <Old>Path</Old>
-    </ctPathHeader>
+    </ctPathColHeader>
     <ctEditPathTemplateLabel>
       <Translation>_...</Translation>
       <Old>_...</Old>
