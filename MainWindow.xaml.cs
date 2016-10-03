@@ -115,6 +115,9 @@ namespace TankIconMaker
                 var wnd = new PathTemplateWindow();
                 translationFileGenerator.TranslateWindow(wnd, App.Translation.PathTemplateWindow);
                 wnd.Close();
+                var wnd2 = new BulkSaveSettingsWindow();
+                translationFileGenerator.TranslateWindow(wnd2, App.Translation.BulkSaveSettingsWindow);
+                wnd2.Close();
             }
 #endif
             using (var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/TankIconMaker;component/Resources/Graphics/icon.ico")).Stream)

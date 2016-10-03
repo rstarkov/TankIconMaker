@@ -36,9 +36,9 @@
     <ApplicationIcon>Resources\Graphics\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>ThirdParty\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
+      <HintPath>packages\ICSharpCode.SharpZipLib.Patched.0.86.5\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Magick.NET-AnyCPU">
       <HintPath>ThirdParty\Magick.NET-AnyCPU.dll</HintPath>
@@ -47,8 +47,9 @@
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>ThirdParty\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="RT.Util">
-      <HintPath>ThirdParty\RT.Util.dll</HintPath>
+    <Reference Include="RT.Util, Version=1.0.1542.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\RT.Util.1.0.1542\lib\net40-client\RT.Util.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -209,6 +210,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
