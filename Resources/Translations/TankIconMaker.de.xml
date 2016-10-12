@@ -250,7 +250,7 @@
       <Old>Save _as...</Old>
     </ctSaveAsLabel>
     <ctSaveIconsToGameFolder>
-      <Translation>Ins _Spielverzeichnis speichern</Translation>
+      <Translation>Ins S_pielverzeichnis speichern</Translation>
       <Old>Save to _game folder</Old>
     </ctSaveIconsToGameFolder>
     <ctSaveIconsToSpecifiedFolder>
@@ -262,19 +262,19 @@
       <Old>Save to _BattleAtlas...</Old>
     </ctSaveIconsToBattleAtlas>
     <ctSaveIconsToVehicleMarkerAtlas>
-      <Translation>In _VehicleMarkerAtlas speichern...</Translation>
+      <Translation>In V_ehicleMarkerAtlas speichern...</Translation>
       <Old>Save to _VehicleMarkerAtlas...</Old>
     </ctSaveIconsToVehicleMarkerAtlas>
     <ctSaveToAtlas>
-      <Translation>In _atlas speichern...</Translation>
+      <Translation>In A_tlas speichern...</Translation>
       <Old>Save _to atlas...</Old>
     </ctSaveToAtlas>
     <ctBulkSaveIcons>
-      <Translation>_Massenspeichern</Translation>
+      <Translation>_Haufenspeichern</Translation>
       <Old>Bulk _save</Old>
     </ctBulkSaveIcons>
     <ctBulkSaveIconsToFolder>
-      <Translation>M_assenspeichern in Verzeichnis...</Translation>
+      <Translation>Ha_ufenspeicherung in Ordner...</Translation>
       <Old>Bulk s_ave to folder...</Old>
     </ctBulkSaveIconsToFolder>
     <ctPathTemplateLabel>
@@ -392,21 +392,37 @@
   </PathTemplateWindow>
   <BulkSaveSettingsWindow>
     <Title>
-      <Translation>Massenspeicheroptionen</Translation>
+      <Translation>Haufenspeichereinstellungen</Translation>
       <Old>Bulk Save Settings</Old>
     </Title>
+    <ctPrompt>
+      <Translation>In diesem Fenster werden Einstellungen für das Speichern in Haufen festgelegt. Sie können das Speichern als Atlas- oder normale Symbole an- und ausschalten und den Haufenspeicherpfad festlegen. Beachten Sie, dass die Pfadeinstellungen bei „Haufenspeicherung in Ordner“ nicht zutreffen. Der Pfad zum Speichern der normalen Symbole wird auch beim Klicken auf „Speichern“ verwendet.</Translation>
+      <Old>This window is used to set style bulk save settings. You can enable or disable saving to atlas or normal icons and specify bulk save path. Please note that path settings don't work when using the bulk save to folder. The path to save the normal icons will also be used when you click "Save".</Old>
+    </ctPrompt>
+    <ctNameColHeader>
+      <Translation>Name</Translation>
+      <Old>Name</Old>
+    </ctNameColHeader>
     <ctEnabledColHeader>
       <Translation>Aktiviert</Translation>
       <Old>Enabled</Old>
     </ctEnabledColHeader>
-    <ctModifyColHeader>
-      <Translation>Ändern</Translation>
-      <Old>Modify</Old>
-    </ctModifyColHeader>
     <ctPathColHeader>
       <Translation>Pfad</Translation>
       <Old>Path</Old>
     </ctPathColHeader>
+    <ctNormalIconsRowHeader>
+      <Translation>Normale Symbole</Translation>
+      <Old>Normal icons</Old>
+    </ctNormalIconsRowHeader>
+    <ctBattleAtlasRowHeader>
+      <Translation>Battle-Atlas</Translation>
+      <Old>Battle atlas</Old>
+    </ctBattleAtlasRowHeader>
+    <ctVehicleMarkersAtlasRowHeader>
+      <Translation>Markers-Atlas</Translation>
+      <Old>Markers atlas</Old>
+    </ctVehicleMarkersAtlasRowHeader>
     <ctEditPathTemplateLabel>
       <Translation>_...</Translation>
       <Old>_...</Old>
