@@ -386,7 +386,7 @@ namespace TankIconMaker
         /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
         public static string ExpandIconPath(string path, WotContext context, Style style, string country, string class_, bool fragment = false)
         {
-            if (path == "")
+            if (string.IsNullOrEmpty(path))
                 path = "{IconsPath}";
             path = path.Replace("{IconsPath}", Ut.ExpandPath(context, context.VersionConfig.PathDestination) + @"\");
             path = path.Replace("{TimPath}", PathUtil.AppPath + @"\");
