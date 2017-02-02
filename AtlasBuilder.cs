@@ -14,6 +14,28 @@ namespace TankIconMaker
 {
     class AtlasBuilder
     {
+        public const string battleAtlas = "BattleAtlas";
+        public const string vehicleMarkerAtlas = "vehicleMarkerAtlas";
+        public const string customAtlas = "IconsAtlas";
+
+        public static string GetAtlasFilename(SaveType savetype)
+        {
+            switch (savetype)
+            {
+                case SaveType.BattleAtlas:
+                    return AtlasBuilder.battleAtlas + ".png";
+                    break;
+                case SaveType.VehicleMarkerAtlas:
+                    return AtlasBuilder.vehicleMarkerAtlas + ".png";
+                    break;
+                case SaveType.CustomAtlas:
+                    return AtlasBuilder.customAtlas + ".png";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("savetype");
+            }
+        }
+
         private WotContext context;
         public AtlasBuilder(WotContext CurContext)
         {
@@ -158,16 +180,23 @@ namespace TankIconMaker
             }
         }
 
-        private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context, string nameAtlas)
+        private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context, SaveType atlasType)
         {
             int X, Y, Width, Height, i;
             int BeginCount = ImageList.Count;
 
-            Stream StreamAtlasPNG = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".png"));
+            var nameAtlas = atlasType == SaveType.BattleAtlas ? battleAtlas : vehicleMarkerAtlas;
+
+            var StreamAtlasPNG =
+                ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
+                    context.VersionConfig.PathSourceAtlas, nameAtlas + ".png"));
+
             System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(StreamAtlasPNG);
             AtlasPNG.SetResolution(96.0F, 96.0F);
-
-            Stream StreamAtlasXML = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas, nameAtlas + ".xml"));
+            
+            var StreamAtlasXML =
+                ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
+                    context.VersionConfig.PathSourceAtlas, nameAtlas + ".xml"));
             XDocument AtlasXML = XDocument.Load(StreamAtlasXML);
 
             XElement Root = AtlasXML.Element("root");
@@ -197,7 +226,7 @@ namespace TankIconMaker
             }
         }
 
-        public void SaveAtlas(string pathTemplate, string atlasName, IEnumerable<RenderTask> renderTasks, bool custom = false)
+        public void SaveAtlas(string path, SaveType atlasType, IEnumerable<RenderTask> renderTasks)
         {
             List<SubTextureStruct> ImageList = new List<SubTextureStruct>();
             SubTextureStruct SubTexture = new SubTextureStruct();
@@ -214,26 +243,23 @@ namespace TankIconMaker
                 }
                 SubTexture.LocRect = new System.Drawing.Rectangle(0, 0, render.Image.PixelWidth,
                     render.Image.PixelHeight);
-                if (!custom)
+                if (atlasType != SaveType.CustomAtlas)
                 {
                     SubTexture.MaxParty = Math.Max(render.Image.PixelWidth, render.Image.PixelHeight);
                 }
                 ImageList.Add(SubTexture);
             }
 
-            if (!custom)
+            if (atlasType != SaveType.CustomAtlas)
             {
-                this.CreateImageList(ref ImageList, context, atlasName);
+                this.CreateImageList(ref ImageList, context, atlasType);
                 this.RadixSort(ref ImageList);
             }
 
             this.Arrangement(ref ImageList);
-            if (!Directory.Exists(pathTemplate))
-            {
-                Directory.CreateDirectory(pathTemplate);
-            }
-            this.CreateAtlasPNG(ref ImageList, Path.Combine(pathTemplate, atlasName + ".png"));
-            this.CreateAtlasXML(ref ImageList, Path.Combine(pathTemplate, atlasName + ".xml"));
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            this.CreateAtlasPNG(ref ImageList, path);
+            this.CreateAtlasXML(ref ImageList, path.Replace(".png", ".xml"));
         }
     }
 }

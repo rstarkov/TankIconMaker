@@ -18,7 +18,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml.Linq;
-using ICSharpCode.SharpZipLib.Zip;
 using Ookii.Dialogs.Wpf;
 using RT.Util;
 using RT.Util.Dialogs;
@@ -1100,17 +1099,17 @@ namespace TankIconMaker
 
         HashSet<string> _overwriteAccepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // icon path for which the user has confirmed that overwriting is OK
 
-        private void saveToAtlas(string pathTemplate, string nameAtlas, bool custom = false)
+        private void saveToAtlas(string pathTemplate, SaveType atlasType)
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, null, null);
+            var path = Ut.ExpandIconPath(pathTemplate, context, style, null, null, saveType: atlasType);
+            var pathPartial =
+                Path.GetDirectoryName(path);
 
             try
             {
-                if (Directory.Exists(pathPartial) &&
-                    Directory.GetFileSystemEntries(pathPartial)
-                        .Any(x => nameAtlas.EqualsNoCase(Path.GetFileNameWithoutExtension(x))))
+                if (File.Exists(path))
                 {
                     if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
                         .Fmt(pathPartial, context.VersionConfig.TankIconExtension),
@@ -1138,7 +1137,7 @@ namespace TankIconMaker
                                 renderTask.Render();
                             }
                         var atlasBuilder = new AtlasBuilder(context);
-                        atlasBuilder.SaveAtlas(pathTemplate, nameAtlas, renders.Values, custom);
+                        atlasBuilder.SaveAtlas(path, atlasType, renders.Values);
                     }
                     catch (Exception e)
                     {
@@ -1190,15 +1189,23 @@ namespace TankIconMaker
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, null, null);
+            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, null, null, null, null, null, 0);
 
             try
             {
-                if (!_overwriteAccepted.Contains(pathPartial) && (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) && Directory.GetFileSystemEntries(pathPartial).Any()))
-                    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                        .Fmt(pathPartial, context.VersionConfig.TankIconExtension), App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
-                        return;
-                _overwriteAccepted.Add(pathPartial);
+                // TODO: Теперь много параметров, допускающих разные папки для иконок. Разрешить
+                //if (!_overwriteAccepted.Contains(pathPartial) &&
+                //    (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) &&
+                //     Directory.GetFileSystemEntries(pathPartial).Any()))
+                //{
+                //    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
+                //        .Fmt(pathPartial, context.VersionConfig.TankIconExtension),
+                //        App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
+                //    {
+                //        return;
+                //    }
+                //    _overwriteAccepted.Add(pathPartial);
+                //}
 
                 GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
@@ -1222,9 +1229,9 @@ namespace TankIconMaker
                             var render = renders[renderTask.TankId];
                             if (render.Exception == null)
                             {
-                                var path = Ut.ExpandIconPath(pathTemplate, context, style, renderTask.Tank.Country, renderTask.Tank.Class);
-                                Directory.CreateDirectory(path);
-                                Ut.SaveImage(render.Image, Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension), context.VersionConfig.TankIconExtension);
+                                var path = Ut.ExpandIconPath(pathTemplate, context, style, renderTask.Tank);
+                                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                                Ut.SaveImage(render.Image, path, context.VersionConfig.TankIconExtension);
                             }
                         }
                     }
@@ -1295,7 +1302,10 @@ namespace TankIconMaker
                 var styleActions = new List<Action>();
                 var styleTasks = new List<Task>();
                 var renderTasks = ListRenderTasks(context, style, true);
-                
+                var overrideIconsPath = overridePathTemplate == null
+                    ? null
+                    : Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, "contour"), SaveType.Icons);
+
                 foreach (var renderTaskF in renderTasks)
                 {
                     var renderTask = renderTaskF; // foreach variable scope fix
@@ -1303,15 +1313,12 @@ namespace TankIconMaker
                     {
                         try
                         {
-                            var path = Ut.ExpandIconPath(overridePathTemplate ?? style.PathTemplate, context, style,
-                                renderTask.Tank.Country, renderTask.Tank.Class);
+                            var path = Ut.ExpandIconPath(overrideIconsPath ?? style.PathTemplate, context, style, renderTask.Tank);
                             renderTask.Render();
-                            Directory.CreateDirectory(path);
                             if (style.IconsBulkSaveEnabled)
                             {
-                                Ut.SaveImage(renderTask.Image,
-                                    Path.Combine(path, renderTask.TankId + context.VersionConfig.TankIconExtension),
-                                    context.VersionConfig.TankIconExtension);
+                                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                                Ut.SaveImage(renderTask.Image, path, context.VersionConfig.TankIconExtension);
                             }
                         }
                         finally
@@ -1325,18 +1332,27 @@ namespace TankIconMaker
                     styleTasks.Add(Task.Factory.StartNew(task, CancellationToken.None, TaskCreationOptions.None,
                         PriorityScheduler.Lowest));
                 }
+
                 var atlasTask = Task.Factory.ContinueWhenAll(styleTasks.ToArray(), renders =>
                 {
                     if (style.BattleAtlasBulkSaveEnabled)
                     {
-                        var path = Ut.ExpandIconPath(overridePathTemplate ?? style.BattleAtlasPathTemplate, context, style, null, null);
-                        atlasBuilder.SaveAtlas(path, battleAtlas, renderTasks);
+                        var path = Ut.ExpandIconPath(overridePathTemplate == null ? style.BattleAtlasPathTemplate:
+                            Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, "atlases"), SaveType.BattleAtlas), context,
+                            style, null, null, saveType: SaveType.BattleAtlas);
+                        atlasBuilder.SaveAtlas(path, SaveType.BattleAtlas, renderTasks);
                     }
+
                     if (style.VehicleMarkersAtlasBulkSaveEnabled)
                     {
-                        var path = Ut.ExpandIconPath(overridePathTemplate ?? style.VehicleMarkersAtlasPathTemplate, context, style, null, null);
-                        atlasBuilder.SaveAtlas(path, vehicleMarkerAtlas, renderTasks);
+                        var path =
+                            Ut.ExpandIconPath(overridePathTemplate == null
+                                ? style.VehicleMarkersAtlasPathTemplate
+                                : Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, "atlases"), SaveType.VehicleMarkerAtlas), context, style, null, null,
+                                saveType: SaveType.VehicleMarkerAtlas);
+                        atlasBuilder.SaveAtlas(path, SaveType.VehicleMarkerAtlas, renderTasks);
                     }
+
                     Interlocked.Decrement(ref tasksRemaining);
                     if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
                     {
@@ -1364,7 +1380,23 @@ namespace TankIconMaker
 
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
-            saveIcons(App.Settings.ActiveStyle.PathTemplate);
+            //var styles = new Style[] {App.Settings.ActiveStyle};
+            //bulkSaveIcons(styles);
+
+            if (App.Settings.ActiveStyle.IconsBulkSaveEnabled)
+            {
+                saveIcons(App.Settings.ActiveStyle.PathTemplate);
+            }
+
+            if (App.Settings.ActiveStyle.BattleAtlasBulkSaveEnabled)
+            {
+                saveToAtlas(App.Settings.ActiveStyle.BattleAtlasPathTemplate, SaveType.BattleAtlas);
+            }
+
+            if (App.Settings.ActiveStyle.VehicleMarkersAtlasBulkSaveEnabled)
+            {
+                saveToAtlas(App.Settings.ActiveStyle.VehicleMarkersAtlasPathTemplate, SaveType.VehicleMarkerAtlas);
+            }
         }
 
         private void ctSaveAs_Click(object _, RoutedEventArgs __)
@@ -1391,42 +1423,14 @@ namespace TankIconMaker
             _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
             SaveSettings();
-            saveIcons(App.Settings.SaveToFolderPath);
+            saveIcons(Ut.AppendExpandableFilename(App.Settings.SaveToFolderPath, SaveType.Icons));
         }
 
         private void ctSaveIconsToBattleAtlas_Click(object _ = null, RoutedEventArgs __ = null)
         {
-            var dlg = new VistaFolderBrowserDialog();
-            dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
-            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
-                dlg.SelectedPath = App.Settings.SaveToFolderPath;
-            if (dlg.ShowDialog() != true)
-                return;
-            _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
-            App.Settings.SaveToFolderPath = dlg.SelectedPath;
-            SaveSettings();
-            saveToAtlas(App.Settings.SaveToFolderPath, battleAtlas);
-        }
-
-        private void ctSaveIconsToVehicleMarkerAtlas_Click(object sender, RoutedEventArgs e)
-        {
-            var dlg = new VistaFolderBrowserDialog();
-            dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
-            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
-                dlg.SelectedPath = App.Settings.SaveToFolderPath;
-            if (dlg.ShowDialog() != true)
-                return;
-            _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
-            App.Settings.SaveToFolderPath = dlg.SelectedPath;
-            SaveSettings();
-            saveToAtlas(App.Settings.SaveToFolderPath, vehicleMarkerAtlas);
-        }
-
-        private void ctSaveToAtlas_Click(object _ = null, RoutedEventArgs __ = null)
-        {
             var dlg = new VistaSaveFileDialog();
             dlg.AddExtension = true;
-            dlg.FileName = "IconsAtlas"; // Default file name
+            dlg.FileName = AtlasBuilder.battleAtlas; // Default file name
             dlg.DefaultExt = ".png"; // Default file extension
             dlg.Filter = "PNG (.png)|*.png"; // Filter files by extension
 
@@ -1439,7 +1443,47 @@ namespace TankIconMaker
             App.Settings.SaveToAtlas = dlg.FileName;
 
             SaveSettings();
-            saveToAtlas(Path.GetDirectoryName(App.Settings.SaveToAtlas), Path.GetFileNameWithoutExtension(App.Settings.SaveToAtlas), true);
+            saveToAtlas(App.Settings.SaveToAtlas, SaveType.BattleAtlas);
+        }
+
+        private void ctSaveIconsToVehicleMarkerAtlas_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new VistaSaveFileDialog();
+            dlg.AddExtension = true;
+            dlg.FileName = AtlasBuilder.vehicleMarkerAtlas; // Default file name
+            dlg.DefaultExt = ".png"; // Default file extension
+            dlg.Filter = "PNG (.png)|*.png"; // Filter files by extension
+
+            //dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
+            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
+                dlg.InitialDirectory = App.Settings.SaveToFolderPath;
+            if (dlg.ShowDialog() != true)
+                return;
+            _overwriteAccepted.Remove(dlg.InitialDirectory); // force the prompt
+            App.Settings.SaveToAtlas = dlg.FileName;
+
+            SaveSettings();
+            saveToAtlas(App.Settings.SaveToAtlas, SaveType.VehicleMarkerAtlas);
+        }
+
+        private void ctSaveToAtlas_Click(object _ = null, RoutedEventArgs __ = null)
+        {
+            var dlg = new VistaSaveFileDialog();
+            dlg.AddExtension = true;
+            dlg.FileName = AtlasBuilder.customAtlas; // Default file name
+            dlg.DefaultExt = ".png"; // Default file extension
+            dlg.Filter = "PNG (.png)|*.png"; // Filter files by extension
+
+            //dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
+            if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
+                dlg.InitialDirectory = App.Settings.SaveToFolderPath;
+            if (dlg.ShowDialog() != true)
+                return;
+            _overwriteAccepted.Remove(dlg.InitialDirectory); // force the prompt
+            App.Settings.SaveToAtlas = dlg.FileName;
+
+            SaveSettings();
+            saveToAtlas(App.Settings.SaveToAtlas, SaveType.CustomAtlas);
         }
 
         private List<Style> getBulkSaveStyles(string overridePathTemplate = null)
@@ -1799,8 +1843,6 @@ namespace TankIconMaker
         private const string clipboard_LayerRoot = "TankIconMaker_Layer";
         private const string clipboard_EffectRoot = "TankIconMaker_Effect";
         private const string clipboard_EffectListRoot = "TankIconMaker_EffectList";
-        private const string battleAtlas =  "BattleAtlas";
-        private const string vehicleMarkerAtlas = "vehicleMarkerAtlas";
 
         private void cmdLayer_Copy(object sender, ExecutedRoutedEventArgs e)
         {

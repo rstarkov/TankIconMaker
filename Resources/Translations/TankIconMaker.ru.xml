@@ -333,6 +333,18 @@
       <Translation>Редактирование шаблона сохранения иконок</Translation>
       <Old>Edit Icon Path Template</Old>
     </Title>
+    <WarnIconsPathIsFolder>
+      <Translation>Похоже, вы указали в качестве пути папку. Обычно путь сохранения иконок должен заканчиваться "\{TankId}{Ext}". Дополнить?</Translation>
+      <Old>Seems like you have specified folder as path. Normally icons path should end with "\{TankId}{Ext}". Append?</Old>
+    </WarnIconsPathIsFolder>
+    <WarnIconsPathNoExt>
+      <Translation>Похоже, вы не указали расширение файла. Обычно путь сохранения иконок должен заканчиваться "{Ext}". Дополнить?</Translation>
+      <Old>Seems like you miss the extension. Normally icons path should end with "{Ext}". Append?</Old>
+    </WarnIconsPathNoExt>
+    <WarnAtlasPathIsFolder>
+      <Translation>Похоже, вы указали в качестве пути папку. Обычно путь сохранения иконок должен заканчиваться "\{0}". Дополнить?</Translation>
+      <Old>Seems like you have specified folder as path. Normally icons path should end with "\{0}". Append?</Old>
+    </WarnAtlasPathIsFolder>
     <ctHelp>
       <Translation>Данный шаблон указывает путь, по которому будут сохранены иконки. Путь указывается относительно папки с выбранным клиентом World of Tanks, однако абсолютные пути тоже допускаются. Если шаблон пуст, то используется стандартный путь, который работает для замены иконок в базовом клиенте WoT без каких-либо модов. Все нестандартные шаблоны могут иметь эффект только если у вас установлены соответствующие моды.</Translation>
       <Old>This template specifies which path the icons are to be saved to. It is relative to the selected game installation directory. Leave blank to save the icons to the standard location, which works in an unmodified World of Tanks client and requires no mods. Any non-standard paths will only have an effect if you have the appropriate mods installed.</Old>
@@ -369,6 +381,22 @@
       <Translation>Указывает страну танка для каждой конкретной иконки.</Translation>
       <Old>Specifies the tank country for a given icon. Varies for each icon.</Old>
     </ctTankCountryHelp>
+    <ctTankIdHelp>
+      <Translation>Указывает идентификатор танка (обычно используется как имя файла) для каждой конкретной иконки.</Translation>
+      <Old>Specifies the tank Id for a given icon (commonly used as name for icon file). Varies for each icon.</Old>
+    </ctTankIdHelp>
+    <ctTankFullNameHelp>
+      <Translation>Указывает полное название танка для каждой конкретной иконки.</Translation>
+      <Old>Specifies the tank full name for a given icon. Varies for each icon.</Old>
+    </ctTankFullNameHelp>
+    <ctTankShortNameHelp>
+      <Translation>Указывает краткое название танка для каждой конкретной иконки.</Translation>
+      <Old>Specifies the tank short for a given icon. Varies for each icon.</Old>
+    </ctTankShortNameHelp>
+    <ctTankTierHelp>
+      <Translation>Указывает уровень танка для каждой конкретной иконки.</Translation>
+      <Old>Specifies the tank tier for a given icon. Varies for each icon.</Old>
+    </ctTankTierHelp>
     <ctStyleNameHelp>
       <Translation>Название выбранного стиля. Текущее значение: “{cur}”</Translation>
       <Old>The name of the selected style. Current value: “{cur}”</Old>
@@ -2415,6 +2443,14 @@
       <Translation>Шаблон имени файла (папки поддерживаются):</Translation>
       <Old>File name template (subfolders supported):</Old>
     </ExportFormat_Label>
+    <Yes>
+      <Translation>Да</Translation>
+      <Old>Yes</Old>
+    </Yes>
+    <No>
+      <Translation>Нет</Translation>
+      <Old>No</Old>
+    </No>
     <Cancel>
       <Translation>Отмена</Translation>
       <Old>Cancel</Old>
