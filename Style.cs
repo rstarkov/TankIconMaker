@@ -20,6 +20,19 @@ namespace TankIconMaker
         public string Author { get { return _Author; } set { _Author = value; NotifyPropertyChanged("Author"); NotifyPropertyChanged("Display"); } }
         private string _Author;
 
+        /// <summary>
+        /// Contains the TIM version style exported from
+        /// </summary>
+        public int SavedByVersion
+        {
+            get { return _SavedByVersion; }
+            set
+            {
+                _SavedByVersion = value;
+            }
+        }
+        private int _SavedByVersion;
+
         /// <summary>A template for the path where the icons are to be saved.</summary>
         public string PathTemplate { get { return _PathTemplate; } set { _PathTemplate = value; NotifyPropertyChanged("PathTemplate"); } }
         private string _PathTemplate;
@@ -54,7 +67,7 @@ namespace TankIconMaker
                 NotifyPropertyChanged("BattleAtlasBulkSaveEnabled");
             }
         }
-        private bool _BattleAtlasBulkSaveEnabled = false;
+        private bool _BattleAtlasBulkSaveEnabled = true;
 
         /// <summary>Enable/disable saving the vehicleMarkersAtlas.</summary>
         public bool VehicleMarkersAtlasBulkSaveEnabled
@@ -66,7 +79,7 @@ namespace TankIconMaker
                 NotifyPropertyChanged("VehicleMarkersAtlasBulkSaveEnabled");
             }
         }
-        private bool _VehicleMarkersAtlasBulkSaveEnabled = false;
+        private bool _VehicleMarkersAtlasBulkSaveEnabled = true;
 
         /// <summary>Icon width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
         public int IconWidth = 80;

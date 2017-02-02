@@ -160,7 +160,7 @@ namespace TankIconMaker
 
         private void ctEditPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, PathTemplate, _context, _style);
+            var value = PathTemplateWindow.Show(this, PathTemplate, _context, _style, SaveType.Icons);
             if (value == null)
                 return;
             PathTemplate = value;
@@ -169,7 +169,7 @@ namespace TankIconMaker
 
         private void ctEditBattleAtlasPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, BattleAtlasPathTemplate, _context, _style);
+            var value = PathTemplateWindow.Show(this, BattleAtlasPathTemplate, _context, _style, SaveType.BattleAtlas);
             if (value == null)
                 return;
             BattleAtlasPathTemplate = value;
@@ -178,7 +178,7 @@ namespace TankIconMaker
 
         private void ctEditVehicleMarkersAtlasPathTemplate_Click(object _, RoutedEventArgs __)
         {
-            var value = PathTemplateWindow.Show(this, VehicleMarkersAtlasPathTemplate, _context, _style);
+            var value = PathTemplateWindow.Show(this, VehicleMarkersAtlasPathTemplate, _context, _style, SaveType.VehicleMarkerAtlas);
             if (value == null)
                 return;
             VehicleMarkersAtlasPathTemplate = value;

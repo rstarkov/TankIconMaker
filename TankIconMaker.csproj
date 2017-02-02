@@ -123,6 +123,7 @@
     <Compile Include="PathTemplateWindow.xaml.cs">
       <DependentUpon>PathTemplateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SaveType.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="DataSourceEditor.xaml.cs">
       <DependentUpon>DataSourceEditor.xaml</DependentUpon>
@@ -142,6 +143,7 @@
     </Compile>
     <Compile Include="SettingsMigrations\ISettingsMigration.cs" />
     <Compile Include="SettingsMigrations\Migrator.cs" />
+    <Compile Include="SettingsMigrations\SettingsMigration_v51.cs" />
     <Compile Include="Style.cs" />
     <Compile Include="OldFiles.cs" />
     <Compile Include="Translation.cs" />

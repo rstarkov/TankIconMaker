@@ -293,6 +293,9 @@ namespace TankIconMaker
     partial class PathTemplateWindowTranslation
     {
         public TrString Title = "Edit Icon Path Template";
+        public TrString WarnIconsPathIsFolder = @"Seems like you have specified folder as path. Normally icons path should end with ""\{TankId}{Ext}"". Append?";
+        public TrString WarnIconsPathNoExt = @"Seems like you miss the extension. Normally icons path should end with ""{Ext}"". Append?";
+        public TrString WarnAtlasPathIsFolder = @"Seems like you have specified folder as path. Normally icons path should end with ""\{0}"". Append?";
     }
 
     partial class BulkSaveSettingsWindowTranslation
@@ -932,8 +935,12 @@ namespace TankIconMaker
         public TrString ExportFormat_Title = "Export styles";
         public TrString ExportFormat_Label = "File name template (subfolders supported):";
 
+        [LingoNotes("A generic Yes button text used in some modal dialogs to confirm some action. Do not use hotkeys (because the required prefix varies).")]
+        public TrString Yes = "Yes";
+        [LingoNotes("A generic No button text used in some modal dialogs to discard some action. Do not use hotkeys (because the required prefix varies).")]
+        public TrString No = "No";
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
-        public TrString Cancel = "Cancel";
+        public TrString Cancel = "Cancel"; 
         public TrString PromptWindowOK = "_OK";
         [LingoNotes("\"{1}\" is replaced with the extension of the image files being saved.")]
         public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!";
