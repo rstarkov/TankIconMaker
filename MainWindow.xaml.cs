@@ -27,6 +27,7 @@ using RT.Util.Forms;
 using RT.Util.Lingo;
 using RT.Util.Serialization;
 using TankIconMaker.Layers;
+using TankIconMaker.SettingsMigrations;
 using WotDataLib;
 using WpfCrutches;
 using Xceed.Wpf.Toolkit.PropertyGrid;
@@ -1995,6 +1996,7 @@ namespace TankIconMaker
             var style = new Style();
             style.Name = name;
             style.Author = App.Translation.Misc.NameOfNewStyleAuthor;
+            style.SavedByVersion = App.Settings.SavedByVersion;
             style.PathTemplate = "";
             style.IconWidth = 80;
             style.IconHeight = 24;
@@ -2080,6 +2082,13 @@ namespace TankIconMaker
                     DlgMessage.ShowWarning(App.Translation.Prompt.StyleImport_Fail);
                     return;
                 }
+
+                if (style.SavedByVersion != App.Settings.SavedByVersion)
+                {
+                    var migrator = new Migrator();
+                    migrator.MigrateToVersion(style, style.SavedByVersion, App.Settings.SavedByVersion);
+                }
+
                 App.Settings.Styles.Add(style);
             }
             ctStyleDropdown.SelectedItem = style;
@@ -2108,7 +2117,9 @@ namespace TankIconMaker
                 var filename = dlg.FileName;
                 if (!filename.ToLower().EndsWith(".xml"))
                     filename += ".xml";
-                ClassifyXml.SerializeToFile(stylesToExport.First(), filename);
+                var style = stylesToExport.First();
+                style.SavedByVersion = App.Settings.SavedByVersion;
+                ClassifyXml.SerializeToFile(style, filename);
                 DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, 1));
             }
             else
@@ -2123,7 +2134,18 @@ namespace TankIconMaker
                     return;
                 var path = format.Replace('/', '\\').Split('\\');
                 foreach (var style in stylesToExport)
-                    ClassifyXml.SerializeToFile(style, Path.Combine(dlg.SelectedPath, Path.Combine(path.Select(p => p.Replace("{Name}", style.Name).Replace("{Author}", style.Author).FilenameCharactersEscape()).ToArray())));
+                {
+                    style.SavedByVersion = App.Settings.SavedByVersion;
+                    ClassifyXml.SerializeToFile(style,
+                        Path.Combine(dlg.SelectedPath,
+                            Path.Combine(
+                                path.Select(
+                                    p =>
+                                        p.Replace("{Name}", style.Name)
+                                            .Replace("{Author}", style.Author)
+                                            .FilenameCharactersEscape()).ToArray())));
+                }
+
                 DlgMessage.ShowInfo(tr.StyleExport_Success.Fmt(App.Translation.Language, stylesToExport.Count));
             }
         }
