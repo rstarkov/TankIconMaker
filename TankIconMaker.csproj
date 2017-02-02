@@ -140,6 +140,8 @@
     <Compile Include="PromptWindow.xaml.cs">
       <DependentUpon>PromptWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SettingsMigrations\ISettingsMigration.cs" />
+    <Compile Include="SettingsMigrations\Migrator.cs" />
     <Compile Include="Style.cs" />
     <Compile Include="OldFiles.cs" />
     <Compile Include="Translation.cs" />

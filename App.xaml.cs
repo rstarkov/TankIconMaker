@@ -11,6 +11,7 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.Lingo;
 using RT.Util.Serialization;
+using TankIconMaker.SettingsMigrations;
 using WotDataLib;
 using WpfCrutches;
 using D = System.Drawing;
@@ -91,7 +92,7 @@ namespace TankIconMaker
 
             // Load all settings
             SettingsUtil.LoadSettings(out App.Settings);
-            BackupSettingsIfNecessary();
+            UpdateSettingsIfNecessary();
 
             // Guess the language if the OS language has changed (or this is the first run)
             var osLingo = Ut.GetOsLanguage();
@@ -137,19 +138,26 @@ namespace TankIconMaker
             return infos.AsReadOnly();
         }
 
-        private static void BackupSettingsIfNecessary()
+        private static void UpdateSettingsIfNecessary()
         {
             var curVersion = Assembly.GetExecutingAssembly().GetName().Version.Major;
             if (App.Settings.SavedByVersion != curVersion)
+            {
                 try
                 {
                     var origName = SettingsUtil.GetAttribute<Settings>().GetFileName();
                     File.Copy(origName, Path.Combine(
                         Path.GetDirectoryName(origName),
-                        Path.GetFileNameWithoutExtension(origName) + ".v" + App.Settings.SavedByVersion.ToString().PadLeft(3, '0') + Path.GetExtension(origName)));
+                        Path.GetFileNameWithoutExtension(origName) + ".v" +
+                        App.Settings.SavedByVersion.ToString().PadLeft(3, '0') + Path.GetExtension(origName)));
                 }
-                catch { }
-            App.Settings.SavedByVersion = curVersion;
+                catch
+                {
+                }
+                
+                var migrator = new Migrator();
+                migrator.MigrateToVersion(App.Settings, App.Settings.SavedByVersion, curVersion);
+            }
         }
 
         private static void PostBuildCheck(IPostBuildReporter rep)
