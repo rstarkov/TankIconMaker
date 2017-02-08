@@ -2476,9 +2476,17 @@
       <Old>&amp;Use anyway</Old>
     </GameNotFound_Ignore>
     <IconsSaved>
-      <Translation encoding="c-literal">Иконки сохранены в папку ”{0}”!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию на сайте Tank Icon Maker.</Translation>
+      <Translation encoding="c-literal">Иконки сохранены в ”{0}”!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию на сайте Tank Icon Maker.</Translation>
       <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Old>
     </IconsSaved>
+    <IconsAndAtlasSaved>
+      <Translation encoding="c-literal">Иконки сохранены в ”{0}”!\r\nBattleAtlas сохранен в ”{1}”!\r\nVehicleMarkerAtlas сохранен в ”{2}”!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию на сайте Tank Icon Maker.</Translation>
+      <Old encoding="c-literal">Icons saved to “{0}”!\nBattleAtlas saved to “{1}”\nVehicleMarkerAtlas saved to “{2}”\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Old>
+    </IconsAndAtlasSaved>
+    <AtlasSaved>
+      <Translation encoding="c-literal">Атлас сохранен в ”{0}”!\r\n\r\n• Иконки с текстом могут отображаться зеркально.\r\n• Игра может наложить уровень танка поверх вашей иконки.\r\n\r\nЧтобы узнать о вариантах решения этих проблем, прочтите инструкцию на сайте Tank Icon Maker.</Translation>
+      <Old encoding="c-literal">Atlas saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Old>
+    </AtlasSaved>
     <IconsSavedGoToForum>
       <Translation>Открыть &amp;инструкцию в браузере</Translation>
       <Old>Open &amp;website in browser</Old>
