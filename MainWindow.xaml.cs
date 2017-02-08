@@ -1099,7 +1099,7 @@ namespace TankIconMaker
 
         HashSet<string> _overwriteAccepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // icon path for which the user has confirmed that overwriting is OK
 
-        private void saveToAtlas(string pathTemplate, SaveType atlasType)
+        private Task saveToAtlas(string pathTemplate, SaveType atlasType)
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
@@ -1115,19 +1115,16 @@ namespace TankIconMaker
                         .Fmt(pathPartial, context.VersionConfig.TankIconExtension),
                         App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
                     {
-                        return;
+                        return null;
                     }
                 }
-
-                GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
 
                 var renderTasks = ListRenderTasks(context, style, all: true);
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
-                Task.Factory.StartNew(() =>
+                return Task.Factory.StartNew(() =>
                 {
-                    Exception exception = null;
                     try
                     {
                         foreach (var renderTask in renderTasks)
@@ -1139,41 +1136,14 @@ namespace TankIconMaker
                         var atlasBuilder = new AtlasBuilder(context);
                         atlasBuilder.SaveAtlas(path, atlasType, renders.Values);
                     }
-                    catch (Exception e)
-                    {
-                        exception = e;
-                    }
                     finally
                     {
                         Dispatcher.Invoke((Action)(() =>
                         {
-                            GlobalStatusHide();
-
                             // Cache any new renders that we don't already have
                             foreach (var kvp in renders)
                                 if (!_renderResults.ContainsKey(kvp.Key))
                                     _renderResults[kvp.Key] = kvp.Value;
-                            // Inform the user of what happened
-                            if (exception == null)
-                            {
-                                int skipped = renders.Values.Count(rr => rr.Exception != null);
-                                int choice;
-                                choice = new DlgMessage
-                                {
-                                    Message = App.Translation.Prompt.IconsSaved.Fmt(pathPartial) +
-                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
-                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
-                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
-                                    AcceptButton = 0,
-                                    CancelButton = 0,
-                                }.Show();
-                                if (choice == 1)
-                                    visitProjectWebsite("savehelp");
-                            }
-                            else
-                            {
-                                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(exception.Message));
-                            }
                         }));
                     }
                 });
@@ -1181,41 +1151,24 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(e.Message));
+                return null;
             }
         }
 
 
-        private void saveIcons(string pathTemplate)
+        private Task saveIcons(string pathTemplate)
         {
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
-            var pathPartial = Ut.ExpandIconPath(pathTemplate, context, style, null, null, null, null, null, 0);
 
             try
             {
-                // TODO: Теперь много параметров, допускающих разные папки для иконок. Разрешить
-                //if (!_overwriteAccepted.Contains(pathPartial) &&
-                //    (!pathPartial.Contains("{TankCountry}") && Directory.Exists(pathPartial) &&
-                //     Directory.GetFileSystemEntries(pathPartial).Any()))
-                //{
-                //    if (DlgMessage.ShowQuestion(App.Translation.Prompt.OverwriteIcons_Prompt
-                //        .Fmt(pathPartial, context.VersionConfig.TankIconExtension),
-                //        App.Translation.Prompt.OverwriteIcons_Yes, App.Translation.Prompt.Cancel) == 1)
-                //    {
-                //        return;
-                //    }
-                //    _overwriteAccepted.Add(pathPartial);
-                //}
-
-                GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
-
                 var renderTasks = ListRenderTasks(context, style, all: true);
                 var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 // The rest of the save process occurs off the GUI thread, while this method returns.
-                Task.Factory.StartNew(() =>
+                return Task.Factory.StartNew(() =>
                 {
-                    Exception exception = null;
                     try
                     {
                         foreach (var renderTask in renderTasks)
@@ -1235,41 +1188,14 @@ namespace TankIconMaker
                             }
                         }
                     }
-                    catch (Exception e)
-                    {
-                        exception = e;
-                    }
                     finally
                     {
                         Dispatcher.Invoke((Action) (() =>
                         {
-                            GlobalStatusHide();
-
                             // Cache any new renders that we don't already have
                             foreach (var kvp in renders)
                                 if (!_renderResults.ContainsKey(kvp.Key))
                                     _renderResults[kvp.Key] = kvp.Value;
-                            // Inform the user of what happened
-                            if (exception == null)
-                            {
-                                int skipped = renders.Values.Count(rr => rr.Exception != null);
-                                int choice;
-                                choice = new DlgMessage
-                                {
-                                    Message = App.Translation.Prompt.IconsSaved.Fmt(pathPartial) +
-                                        (skipped == 0 ? "" : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
-                                    Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
-                                    Buttons = new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
-                                    AcceptButton = 0,
-                                    CancelButton = 0,
-                                }.Show();
-                                if (choice == 1)
-                                    visitProjectWebsite("savehelp");
-                            }
-                            else
-                            {
-                                DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(exception.Message));
-                            }
                         }));
                     }
                 });
@@ -1277,6 +1203,7 @@ namespace TankIconMaker
             catch (Exception e)
             {
                 DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(e.Message));
+                return null;
             }
         }
 
@@ -1304,7 +1231,9 @@ namespace TankIconMaker
                 var renderTasks = ListRenderTasks(context, style, true);
                 var overrideIconsPath = overridePathTemplate == null
                     ? null
-                    : Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, "contour"), SaveType.Icons);
+                    : Ut.AppendExpandableFilename(
+                        Path.Combine(overridePathTemplate,
+                            Ut.ExpandPath(context, context.VersionConfig.PathDestination)), SaveType.Icons);
 
                 foreach (var renderTaskF in renderTasks)
                 {
@@ -1335,10 +1264,11 @@ namespace TankIconMaker
 
                 var atlasTask = Task.Factory.ContinueWhenAll(styleTasks.ToArray(), renders =>
                 {
+                    var atlasPath = Ut.ExpandPath(context, context.VersionConfig.PathDestinationAtlas);
                     if (style.BattleAtlasBulkSaveEnabled)
                     {
                         var path = Ut.ExpandIconPath(overridePathTemplate == null ? style.BattleAtlasPathTemplate:
-                            Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, "atlases"), SaveType.BattleAtlas), context,
+                            Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, atlasPath), SaveType.BattleAtlas), context,
                             style, null, null, saveType: SaveType.BattleAtlas);
                         atlasBuilder.SaveAtlas(path, SaveType.BattleAtlas, renderTasks);
                     }
@@ -1348,7 +1278,7 @@ namespace TankIconMaker
                         var path =
                             Ut.ExpandIconPath(overridePathTemplate == null
                                 ? style.VehicleMarkersAtlasPathTemplate
-                                : Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, "atlases"), SaveType.VehicleMarkerAtlas), context, style, null, null,
+                                : Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, atlasPath), SaveType.VehicleMarkerAtlas), context, style, null, null,
                                 saveType: SaveType.VehicleMarkerAtlas);
                         atlasBuilder.SaveAtlas(path, SaveType.VehicleMarkerAtlas, renderTasks);
                     }
@@ -1380,23 +1310,71 @@ namespace TankIconMaker
 
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
-            //var styles = new Style[] {App.Settings.ActiveStyle};
-            //bulkSaveIcons(styles);
-
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+            var style = App.Settings.ActiveStyle;
+            var savingTasks = new List<Task>();
+            string iconsPath = "-",
+                battleAtlasPath = "-",
+                vehicleMarkersAtlas = "-";
             if (App.Settings.ActiveStyle.IconsBulkSaveEnabled)
             {
-                saveIcons(App.Settings.ActiveStyle.PathTemplate);
+                savingTasks.Add(saveIcons(App.Settings.ActiveStyle.PathTemplate));
+                iconsPath = Ut.ExpandIconPath("", CurContext, style, null, null);
             }
 
             if (App.Settings.ActiveStyle.BattleAtlasBulkSaveEnabled)
             {
-                saveToAtlas(App.Settings.ActiveStyle.BattleAtlasPathTemplate, SaveType.BattleAtlas);
+                savingTasks.Add(saveToAtlas(App.Settings.ActiveStyle.BattleAtlasPathTemplate, SaveType.BattleAtlas));
+                battleAtlasPath = Ut.ExpandIconPath("", CurContext, style, null, null, saveType: SaveType.BattleAtlas);
             }
 
             if (App.Settings.ActiveStyle.VehicleMarkersAtlasBulkSaveEnabled)
             {
-                saveToAtlas(App.Settings.ActiveStyle.VehicleMarkersAtlasPathTemplate, SaveType.VehicleMarkerAtlas);
+                savingTasks.Add(saveToAtlas(App.Settings.ActiveStyle.VehicleMarkersAtlasPathTemplate, SaveType.VehicleMarkerAtlas));
+                vehicleMarkersAtlas = Ut.ExpandIconPath("", CurContext, style, null, null, saveType: SaveType.VehicleMarkerAtlas);
             }
+
+            if (!savingTasks.Any())
+            {
+                GlobalStatusHide();
+                return;
+            }
+
+            Task.Factory.ContinueWhenAll(savingTasks.ToArray(), tasks =>
+            {
+                Dispatcher.Invoke((Action)(() =>
+                {
+                    GlobalStatusHide();
+
+                    // Inform the user of what happened
+                    if (tasks.All(x => x.Status == TaskStatus.RanToCompletion))
+                    {
+                        var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                        int skipped = renders.Values.Count(rr => rr.Exception != null);
+                        int choice;
+                        choice = new DlgMessage
+                        {
+                            Message =
+                                App.Translation.Prompt.IconsAndAtlasSaved.Fmt(iconsPath, battleAtlasPath, vehicleMarkersAtlas) +
+                                (skipped == 0
+                                    ? ""
+                                    : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                            Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                            Buttons =
+                                new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                            AcceptButton = 0,
+                            CancelButton = 0,
+                        }.Show();
+                        if (choice == 1)
+                            visitProjectWebsite("savehelp");
+                    }
+                    else
+                    {
+                        var message = string.Join("; ", tasks.Where(x => x.Status == TaskStatus.Faulted).Select(x => x.Exception.Message));
+                        DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(message));
+                    }
+                }));
+            });
         }
 
         private void ctSaveAs_Click(object _, RoutedEventArgs __)
@@ -1409,11 +1387,64 @@ namespace TankIconMaker
 
         private void ctSaveIconsToGameFolder_Click(object _ = null, RoutedEventArgs __ = null)
         {
-            saveIcons("");
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+            var style = App.Settings.ActiveStyle;
+            var savingTasks = new Task[]
+            {
+                saveIcons(""),
+                saveToAtlas("", SaveType.BattleAtlas),
+                saveToAtlas("", SaveType.VehicleMarkerAtlas)
+            };
+
+            string iconsPath = Ut.ExpandIconPath("", CurContext, style, null, null),
+                battleAtlasPath = Ut.ExpandIconPath("", CurContext, style, null, null, saveType: SaveType.BattleAtlas),
+                vehicleMarkersAtlas = Ut.ExpandIconPath("", CurContext, style, null, null,
+                    saveType: SaveType.VehicleMarkerAtlas);
+            if (savingTasks.Contains(null))
+            {
+                savingTasks = savingTasks.Where(x => x != null).ToArray();
+            }
+
+            Task.Factory.ContinueWhenAll(savingTasks, tasks =>
+            {
+                Dispatcher.Invoke((Action)(() =>
+                {
+                    GlobalStatusHide();
+
+                    // Inform the user of what happened
+                    if (tasks.All(x => x.Status == TaskStatus.RanToCompletion))
+                    {
+                        var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                        int skipped = renders.Values.Count(rr => rr.Exception != null);
+                        int choice;
+                        choice = new DlgMessage
+                        {
+                            Message =
+                                App.Translation.Prompt.IconsAndAtlasSaved.Fmt(iconsPath, battleAtlasPath, vehicleMarkersAtlas) +
+                                (skipped == 0
+                                    ? ""
+                                    : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                            Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                            Buttons =
+                                new string[] {App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum},
+                            AcceptButton = 0,
+                            CancelButton = 0,
+                        }.Show();
+                        if (choice == 1)
+                            visitProjectWebsite("savehelp");
+                    }
+                    else
+                    {
+                        var message = string.Join("; ", tasks.Where(x => x.Status == TaskStatus.Faulted).Select(x => x.Exception.Message));
+                        DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(message));
+                    }
+                }));
+            });
         }
 
         private void ctSaveIconsToSpecifiedFolder_Click(object _ = null, RoutedEventArgs __ = null)
         {
+            var style = App.Settings.ActiveStyle;
             var dlg = new VistaFolderBrowserDialog();
             dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
             if (App.Settings.SaveToFolderPath != null && Directory.Exists(App.Settings.SaveToFolderPath))
@@ -1423,7 +1454,48 @@ namespace TankIconMaker
             _overwriteAccepted.Remove(dlg.SelectedPath); // force the prompt
             App.Settings.SaveToFolderPath = dlg.SelectedPath;
             SaveSettings();
-            saveIcons(Ut.AppendExpandableFilename(App.Settings.SaveToFolderPath, SaveType.Icons));
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+            var pathTemplate = Ut.AppendExpandableFilename(App.Settings.SaveToFolderPath, SaveType.Icons);
+            var task = saveIcons(pathTemplate);
+            if (task == null)
+            {
+                GlobalStatusHide();
+                return;
+            }
+
+            string iconsPath = Ut.ExpandIconPath(pathTemplate, CurContext, style, null, null);
+            task.ContinueWith(x => {
+                Dispatcher.Invoke((Action)(() =>
+                {
+                    GlobalStatusHide();
+
+                    if (task.Status == TaskStatus.RanToCompletion)
+                    {
+                        var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                        int skipped = renders.Values.Count(rr => rr.Exception != null);
+                        int choice;
+                        choice = new DlgMessage
+                        {
+                            Message =
+                                App.Translation.Prompt.IconsSaved.Fmt(iconsPath) +
+                                (skipped == 0
+                                    ? ""
+                                    : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                            Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                            Buttons =
+                                new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                            AcceptButton = 0,
+                            CancelButton = 0,
+                        }.Show();
+                        if (choice == 1)
+                            visitProjectWebsite("savehelp");
+                    }
+                    else if (x.Exception != null)
+                    {
+                        DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(x.Exception.Message));
+                    }
+                }));
+            });
         }
 
         private void ctSaveIconsToBattleAtlas_Click(object _ = null, RoutedEventArgs __ = null)
@@ -1443,7 +1515,49 @@ namespace TankIconMaker
             App.Settings.SaveToAtlas = dlg.FileName;
 
             SaveSettings();
-            saveToAtlas(App.Settings.SaveToAtlas, SaveType.BattleAtlas);
+
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+            var task = saveToAtlas(App.Settings.SaveToAtlas, SaveType.BattleAtlas);
+            if (task == null)
+            {
+                GlobalStatusHide();
+                return;
+            }
+
+            task.ContinueWith(x =>
+            {
+                Dispatcher.Invoke((Action)(() =>
+                {
+                    GlobalStatusHide();
+
+                    if (task.Status == TaskStatus.RanToCompletion)
+                    {
+                        var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                        int skipped = renders.Values.Count(rr => rr.Exception != null);
+                        int choice;
+                        choice = new DlgMessage
+                        {
+                            Message =
+                                App.Translation.Prompt.AtlasSaved.Fmt(App.Settings.SaveToAtlas) +
+                                (skipped == 0
+                                    ? ""
+                                    : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                            Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                            Buttons =
+                                new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                            AcceptButton = 0,
+                            CancelButton = 0,
+                        }.Show();
+                        if (choice == 1)
+                            visitProjectWebsite("savehelp");
+                    }
+                    else if (x.Exception != null)
+                    {
+                        DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(x.Exception.Message));
+                    }
+                }));
+            });
+            
         }
 
         private void ctSaveIconsToVehicleMarkerAtlas_Click(object sender, RoutedEventArgs e)
@@ -1463,7 +1577,48 @@ namespace TankIconMaker
             App.Settings.SaveToAtlas = dlg.FileName;
 
             SaveSettings();
-            saveToAtlas(App.Settings.SaveToAtlas, SaveType.VehicleMarkerAtlas);
+
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+            var task = saveToAtlas(App.Settings.SaveToAtlas, SaveType.VehicleMarkerAtlas);
+            if (task == null)
+            {
+                GlobalStatusHide();
+                return;
+            }
+
+            task.ContinueWith(x =>
+            {
+                Dispatcher.Invoke((Action)(() =>
+                {
+                    GlobalStatusHide();
+
+                    if (task.Status == TaskStatus.RanToCompletion)
+                    {
+                        var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                        int skipped = renders.Values.Count(rr => rr.Exception != null);
+                        int choice;
+                        choice = new DlgMessage
+                        {
+                            Message =
+                                App.Translation.Prompt.AtlasSaved.Fmt(App.Settings.SaveToAtlas) +
+                                (skipped == 0
+                                    ? ""
+                                    : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                            Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                            Buttons =
+                                new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                            AcceptButton = 0,
+                            CancelButton = 0,
+                        }.Show();
+                        if (choice == 1)
+                            visitProjectWebsite("savehelp");
+                    }
+                    else if (x.Exception != null)
+                    {
+                        DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(x.Exception.Message));
+                    }
+                }));
+            });
         }
 
         private void ctSaveToAtlas_Click(object _ = null, RoutedEventArgs __ = null)
@@ -1483,7 +1638,47 @@ namespace TankIconMaker
             App.Settings.SaveToAtlas = dlg.FileName;
 
             SaveSettings();
-            saveToAtlas(App.Settings.SaveToAtlas, SaveType.CustomAtlas);
+            GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
+            var task = saveToAtlas(App.Settings.SaveToAtlas, SaveType.CustomAtlas);
+            if (task == null)
+            {
+                GlobalStatusHide();
+                return;
+            }
+
+            task.ContinueWith(x =>
+            {
+                Dispatcher.Invoke((Action)(() =>
+                {
+                    GlobalStatusHide();
+
+                    if (task.Status == TaskStatus.RanToCompletion)
+                    {
+                        var renders = _renderResults.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                        int skipped = renders.Values.Count(rr => rr.Exception != null);
+                        int choice;
+                        choice = new DlgMessage
+                        {
+                            Message =
+                                App.Translation.Prompt.AtlasSaved.Fmt(App.Settings.SaveToAtlas) +
+                                (skipped == 0
+                                    ? ""
+                                    : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
+                            Type = skipped == 0 ? DlgType.Info : DlgType.Warning,
+                            Buttons =
+                                new string[] { App.Translation.DlgMessage.OK, App.Translation.Prompt.IconsSavedGoToForum },
+                            AcceptButton = 0,
+                            CancelButton = 0,
+                        }.Show();
+                        if (choice == 1)
+                            visitProjectWebsite("savehelp");
+                    }
+                    else if (x.Exception != null)
+                    {
+                        DlgMessage.ShowError(App.Translation.Prompt.IconsSaveError.Fmt(x.Exception.Message));
+                    }
+                }));
+            });
         }
 
         private List<Style> getBulkSaveStyles(string overridePathTemplate = null)

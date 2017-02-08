@@ -949,6 +949,8 @@ namespace TankIconMaker
         public TrString GameNotFound_Ignore = "&Use anyway";
         [LingoNotes("The save path is substituted for \"{0}\".")]
         public TrString IconsSaved = "Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.";
+        public TrString IconsAndAtlasSaved = "Icons saved to “{0}”!\nBattleAtlas saved to “{1}”\nVehicleMarkerAtlas saved to “{2}”\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.";
+        public TrString AtlasSaved = "Atlas saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.";
         public TrString IconsSavedGoToForum = "Open &website in browser";
         public TrStringNum IconsSaveSkipped = new TrStringNum("Note that 1 image was skipped due to errors.", "Note that {0} images were skipped due to errors.");
         public TrString IconsSaveError = "The icons could not be saved due to an error.\n\nError message:\n • {0}";
