@@ -1104,6 +1104,7 @@ namespace TankIconMaker
             var context = CurContext;
             var style = App.Settings.ActiveStyle; // capture it in case the user selects a different one while the background task is running
             var path = Ut.ExpandIconPath(pathTemplate, context, style, null, null, saveType: atlasType);
+            path = Ut.GetSafeFilename(path);
             var pathPartial =
                 Path.GetDirectoryName(path);
 
@@ -1183,6 +1184,7 @@ namespace TankIconMaker
                             if (render.Exception == null)
                             {
                                 var path = Ut.ExpandIconPath(pathTemplate, context, style, renderTask.Tank);
+                                path = Ut.GetSafeFilename(path);
                                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                                 Ut.SaveImage(render.Image, path, context.VersionConfig.TankIconExtension);
                             }
@@ -1243,6 +1245,7 @@ namespace TankIconMaker
                         try
                         {
                             var path = Ut.ExpandIconPath(overrideIconsPath ?? style.PathTemplate, context, style, renderTask.Tank);
+                            path = Ut.GetSafeFilename(path);
                             renderTask.Render();
                             if (style.IconsBulkSaveEnabled)
                             {
@@ -1270,6 +1273,7 @@ namespace TankIconMaker
                         var path = Ut.ExpandIconPath(overridePathTemplate == null ? style.BattleAtlasPathTemplate:
                             Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, atlasPath), SaveType.BattleAtlas), context,
                             style, null, null, saveType: SaveType.BattleAtlas);
+                        path = Ut.GetSafeFilename(path);
                         atlasBuilder.SaveAtlas(path, SaveType.BattleAtlas, renderTasks);
                     }
 
@@ -1280,6 +1284,7 @@ namespace TankIconMaker
                                 ? style.VehicleMarkersAtlasPathTemplate
                                 : Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, atlasPath), SaveType.VehicleMarkerAtlas), context, style, null, null,
                                 saveType: SaveType.VehicleMarkerAtlas);
+                        path = Ut.GetSafeFilename(path);
                         atlasBuilder.SaveAtlas(path, SaveType.VehicleMarkerAtlas, renderTasks);
                     }
 

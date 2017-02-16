@@ -383,6 +383,11 @@ namespace TankIconMaker
             }
         }
 
+        public static string GetSafeFilename(string filename)
+        {
+            return string.Join("_", filename.Split(Path.GetInvalidPathChars()));
+        }
+
         /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
         public static string ExpandPath(WotContext context, string path)
         {
