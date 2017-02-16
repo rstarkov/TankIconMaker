@@ -254,20 +254,20 @@
       <Old>Save to _game folder</Old>
     </ctSaveIconsToGameFolder>
     <ctSaveIconsToSpecifiedFolder>
-      <Translation>Сохранить в _папку...</Translation>
-      <Old>Save to _folder...</Old>
+      <Translation>Сохранить иконки в _папку...</Translation>
+      <Old>Save icons to _folder...</Old>
     </ctSaveIconsToSpecifiedFolder>
     <ctSaveIconsToBattleAtlas>
-      <Translation>Сохранить в _BattleAtlas...</Translation>
-      <Old>Save to _BattleAtlas...</Old>
+      <Translation>Сохранить _BattleAtlas...</Translation>
+      <Old>Save _BattleAtlas...</Old>
     </ctSaveIconsToBattleAtlas>
     <ctSaveIconsToVehicleMarkerAtlas>
-      <Translation>Сохранить в _VehicleMarkerAtlas...</Translation>
-      <Old>Save to _VehicleMarkerAtlas...</Old>
+      <Translation>Сохранить _VehicleMarkerAtlas...</Translation>
+      <Old>Save _VehicleMarkerAtlas...</Old>
     </ctSaveIconsToVehicleMarkerAtlas>
     <ctSaveToAtlas>
-      <Translation>Сохранить в _атлас...</Translation>
-      <Old>Save _to atlas...</Old>
+      <Translation>Сохранить а_тлас...</Translation>
+      <Old>Save a_tlas...</Old>
     </ctSaveToAtlas>
     <ctBulkSaveIcons>
       <Translation>_Массовое сохранение</Translation>
