@@ -414,10 +414,10 @@
                         <ContextMenu LayoutTransform="{StaticResource UiZoomer}">
                             <!-- Taken: ACFGS -->
                             <MenuItem Header="Save to _game folder" Name="ctSaveIconsToGameFolder" Click="ctSaveIconsToGameFolder_Click"/>
-                            <MenuItem Header="Save to _folder..." Name="ctSaveIconsToSpecifiedFolder" Click="ctSaveIconsToSpecifiedFolder_Click"/>
-                            <MenuItem Header="Save to _BattleAtlas..." Name="ctSaveIconsToBattleAtlas" Click="ctSaveIconsToBattleAtlas_Click"/>
-                            <MenuItem Header="Save to _VehicleMarkerAtlas..." Name="ctSaveIconsToVehicleMarkerAtlas" Click="ctSaveIconsToVehicleMarkerAtlas_Click"/>
-                            <MenuItem Header="Save _to atlas..." Name="ctSaveToAtlas" Click="ctSaveToAtlas_Click"/>
+                            <MenuItem Header="Save icons to _folder..." Name="ctSaveIconsToSpecifiedFolder" Click="ctSaveIconsToSpecifiedFolder_Click"/>
+                            <MenuItem Header="Save _BattleAtlas..." Name="ctSaveIconsToBattleAtlas" Click="ctSaveIconsToBattleAtlas_Click"/>
+                            <MenuItem Header="Save _VehicleMarkerAtlas..." Name="ctSaveIconsToVehicleMarkerAtlas" Click="ctSaveIconsToVehicleMarkerAtlas_Click"/>
+                            <MenuItem Header="Save a_tlas..." Name="ctSaveToAtlas" Click="ctSaveToAtlas_Click"/>
                             <MenuItem Header="Bulk _save" Name="ctBulkSaveIcons" Click="ctBulkSaveIcons_Click"/>
                             <MenuItem Header="Bulk s_ave to folder..." Name="ctBulkSaveIconsToFolder" Click="ctBulkSaveIconsToFolder_Click"/>
                         </ContextMenu>
