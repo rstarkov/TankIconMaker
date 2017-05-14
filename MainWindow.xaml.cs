@@ -2545,7 +2545,19 @@ namespace TankIconMaker
                 return null;
             foreach (var effect in layer.Effects.Where(e => e.Visible && e.VisibleFor.GetValue(this.Tank) == BoolWithPassthrough.Yes))
             {
-                img = effect.Apply(this, img.AsWritable());
+                try
+                {
+                    img = effect.Apply(this, img.AsWritable());
+                }
+                catch (FileNotFoundException e)
+                {
+                    if (e.Message.Contains("Magick.NET"))
+                    {
+                        throw new InvalidOperationException(
+                            App.Translation.MainWindow.ErrorMagickEffectNoRedist, e);
+                    }
+                }
+
                 if (effect is Effects.SizePosEffect)
                     if (img.Width < Style.IconWidth || img.Height < Style.IconHeight)
                     {
