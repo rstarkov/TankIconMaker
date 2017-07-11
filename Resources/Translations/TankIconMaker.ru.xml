@@ -189,6 +189,10 @@
       <Translation>Швеция</Translation>
       <Old>Sweden</Old>
     </ctDisplayModeCountrySweden>
+	<ctDisplayModeCountryPoland>
+      <Translation>Польша</Translation>
+      <Old>Poland</Old>
+    </ctDisplayModeCountryPoland>
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -2307,6 +2311,10 @@
       <Translation>Страна: Швеция</Translation>
       <Old>Country: Sweden</Old>
     </CountrySweden>
+    <CountryPoland>
+      <Translation>Страна: Польша</Translation>
+      <Old>Country: Poland</Old>
+    </CountryPoland>
     <CountryNone>
       <Translation>Страна:  без страны</Translation>
       <Old>Country:  None</Old>
