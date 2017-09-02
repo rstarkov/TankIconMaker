@@ -26,6 +26,10 @@ namespace TankIconMaker
         public string VehicleMarkersAtlasPathTemplate { get { return _VehicleMarkersAtlasPathTemplate; } set { _VehicleMarkersAtlasPathTemplate = value; NotifyPropertyChanged("VehicleMarkersAtlasPathTemplate"); } }
         private string _VehicleMarkersAtlasPathTemplate;
 
+        /// <summary>A template for the path where the custom atlas are to be saved.</summary>
+        public string CustomAtlasPathTemplate { get { return _CustomAtlasPathTemplate; } set { _CustomAtlasPathTemplate = value; NotifyPropertyChanged("CustomAtlasPathTemplate"); } }
+        private string _CustomAtlasPathTemplate;
+
         /// <summary>Enable/disable saving the icons.</summary>
         public bool IconsBulkSaveEnabled
         {
@@ -61,6 +65,18 @@ namespace TankIconMaker
             }
         }
         private bool _VehicleMarkersAtlasBulkSaveEnabled = false;
+
+        /// <summary>Enable/disable saving the custom atlas.</summary>
+        public bool CustomAtlasBulkSaveEnabled
+        {
+            get { return _CustomAtlasBulkSaveEnabled; }
+            set
+            {
+                _CustomAtlasBulkSaveEnabled = value;
+                NotifyPropertyChanged("CustomAtlasBulkSaveEnabled");
+            }
+        }
+        private bool _CustomAtlasBulkSaveEnabled = false;
 
 
         internal BulkSaveSettingsWindow()
@@ -105,6 +121,13 @@ namespace TankIconMaker
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                     Mode = BindingMode.TwoWay
                 });
+            BindingOperations.SetBinding(ctCustomAtlasPathTemplate, TextBlock.TextProperty,
+                new Binding
+                {
+                    Path = new PropertyPath("CustomAtlasPathTemplate"),
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    Mode = BindingMode.TwoWay
+                });
             BindingOperations.SetBinding(ctSaveIconsEnabled, CheckBox.IsCheckedProperty,
                 new Binding
                 {
@@ -126,6 +149,13 @@ namespace TankIconMaker
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                     Mode = BindingMode.TwoWay
                 });
+            BindingOperations.SetBinding(ctSaveCustomAtlasEnabled, CheckBox.IsCheckedProperty,
+                new Binding
+                {
+                    Path = new PropertyPath("CustomAtlasBulkSaveEnabled"),
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    Mode = BindingMode.TwoWay
+                });
 
             ctPathTemplate.DataContext = this;
             ctBattleAtlasPathTemplate.DataContext = this;
@@ -133,14 +163,17 @@ namespace TankIconMaker
             ctSaveIconsEnabled.DataContext = this;
             ctSaveBattleAtlasEnabled.DataContext = this;
             ctSaveVehicleMarkersAtlasEnabled.DataContext = this;
+            ctSaveCustomAtlasEnabled.DataContext = this;
             DataContext = this;
 
             PathTemplate = _style.PathTemplate;
             BattleAtlasPathTemplate = _style.BattleAtlasPathTemplate;
             VehicleMarkersAtlasPathTemplate = _style.VehicleMarkersAtlasPathTemplate;
+            CustomAtlasPathTemplate = _style.CustomAtlasPathTemplate;
             IconsBulkSaveEnabled = _style.IconsBulkSaveEnabled;
             BattleAtlasBulkSaveEnabled = _style.BattleAtlasBulkSaveEnabled;
             VehicleMarkersAtlasBulkSaveEnabled = _style.VehicleMarkersAtlasBulkSaveEnabled;
+            CustomAtlasBulkSaveEnabled = _style.CustomAtlasBulkSaveEnabled;
         }
 
         private void NotifyPropertyChanged(string name) { PropertyChanged(this, new PropertyChangedEventArgs(name)); }
@@ -183,6 +216,15 @@ namespace TankIconMaker
                 return;
             VehicleMarkersAtlasPathTemplate = value;
             VehicleMarkersAtlasBulkSaveEnabled = true;
+        }
+
+        private void ctEditCustomAtlasPathTemplate_Click(object sender, RoutedEventArgs e)
+        {
+            var value = PathTemplateWindow.Show(this, CustomAtlasPathTemplate, _context, _style, SaveType.CustomAtlas);
+            if (value == null)
+                return;
+            CustomAtlasPathTemplate = value;
+            CustomAtlasBulkSaveEnabled = true;
         }
     }
 }

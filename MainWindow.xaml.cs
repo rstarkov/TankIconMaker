@@ -1289,6 +1289,17 @@ namespace TankIconMaker
                         atlasBuilder.SaveAtlas(path, SaveType.VehicleMarkerAtlas, renderTasks);
                     }
 
+                    if (style.CustomAtlasBulkSaveEnabled)
+                    {
+                        var path =
+                            Ut.ExpandIconPath(overridePathTemplate == null
+                                ? style.CustomAtlasPathTemplate
+                                : Ut.AppendExpandableFilename(Path.Combine(overridePathTemplate, atlasPath), SaveType.CustomAtlas), context, style, null, null,
+                                saveType: SaveType.CustomAtlas);
+                        path = Ut.GetSafeFilename(path);
+                        atlasBuilder.SaveAtlas(path, SaveType.CustomAtlas, renderTasks);
+                    }
+
                     Interlocked.Decrement(ref tasksRemaining);
                     if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
                     {
@@ -1321,7 +1332,8 @@ namespace TankIconMaker
             var savingTasks = new List<Task>();
             string iconsPath = "-",
                 battleAtlasPath = "-",
-                vehicleMarkersAtlas = "-";
+                vehicleMarkersAtlas = "-",
+                customAtlas = "-";
             if (App.Settings.ActiveStyle.IconsBulkSaveEnabled)
             {
                 savingTasks.Add(saveIcons(App.Settings.ActiveStyle.PathTemplate));
@@ -1338,6 +1350,12 @@ namespace TankIconMaker
             {
                 savingTasks.Add(saveToAtlas(App.Settings.ActiveStyle.VehicleMarkersAtlasPathTemplate, SaveType.VehicleMarkerAtlas));
                 vehicleMarkersAtlas = Ut.ExpandIconPath("", CurContext, style, null, null, saveType: SaveType.VehicleMarkerAtlas);
+            }
+
+            if (App.Settings.ActiveStyle.CustomAtlasBulkSaveEnabled)
+            {
+                savingTasks.Add(saveToAtlas(App.Settings.ActiveStyle.CustomAtlasPathTemplate, SaveType.CustomAtlas));
+                customAtlas = Ut.ExpandIconPath("", CurContext, style, null, null, saveType: SaveType.CustomAtlas);
             }
 
             if (!savingTasks.Any())
@@ -1361,7 +1379,7 @@ namespace TankIconMaker
                         choice = new DlgMessage
                         {
                             Message =
-                                App.Translation.Prompt.IconsAndAtlasSaved.Fmt(iconsPath, battleAtlasPath, vehicleMarkersAtlas) +
+                                App.Translation.Prompt.IconsAndAtlasSaved.Fmt(iconsPath, battleAtlasPath, vehicleMarkersAtlas, customAtlas) +
                                 (skipped == 0
                                     ? ""
                                     : ("\n\n" + App.Translation.Prompt.IconsSaveSkipped.Fmt(App.Translation, skipped))),
@@ -1740,9 +1758,11 @@ namespace TankIconMaker
                 style.PathTemplate = wnd.PathTemplate;
                 style.BattleAtlasPathTemplate = wnd.BattleAtlasPathTemplate;
                 style.VehicleMarkersAtlasPathTemplate = wnd.VehicleMarkersAtlasPathTemplate;
+                style.CustomAtlasPathTemplate = wnd.CustomAtlasPathTemplate;
                 style.IconsBulkSaveEnabled = wnd.IconsBulkSaveEnabled;
                 style.BattleAtlasBulkSaveEnabled = wnd.BattleAtlasBulkSaveEnabled;
                 style.VehicleMarkersAtlasBulkSaveEnabled = wnd.VehicleMarkersAtlasBulkSaveEnabled;
+                style.CustomAtlasBulkSaveEnabled = wnd.CustomAtlasBulkSaveEnabled;
             }
         }
 
