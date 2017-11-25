@@ -45,6 +45,10 @@ namespace TankIconMaker
         public string VehicleMarkersAtlasPathTemplate { get { return _VehicleMarkersAtlasPathTemplate; } set { _VehicleMarkersAtlasPathTemplate = value; NotifyPropertyChanged("VehicleMarkersAtlasPathTemplate"); } }
         private string _VehicleMarkersAtlasPathTemplate;
 
+        /// <summary>A template for the path where the custom atlas are to be saved.</summary>
+        public string CustomAtlasPathTemplate { get { return _CustomAtlasPathTemplate; } set { _CustomAtlasPathTemplate = value; NotifyPropertyChanged("CustomAtlasPathTemplate"); } }
+        private string _CustomAtlasPathTemplate;
+
         /// <summary>Enable/disable saving the icons.</summary>
         public bool IconsBulkSaveEnabled
         {
@@ -80,6 +84,18 @@ namespace TankIconMaker
             }
         }
         private bool _VehicleMarkersAtlasBulkSaveEnabled = true;
+
+        /// <summary>Enable/disable saving the custom atlas.</summary>
+        public bool CustomAtlasBulkSaveEnabled
+        {
+            get { return _CustomAtlasBulkSaveEnabled; }
+            set
+            {
+                _CustomAtlasBulkSaveEnabled = value;
+                NotifyPropertyChanged("CustomAtlasBulkSaveEnabled");
+            }
+        }
+        private bool _CustomAtlasBulkSaveEnabled = false;
 
         /// <summary>Icon width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
         public int IconWidth = 80;
