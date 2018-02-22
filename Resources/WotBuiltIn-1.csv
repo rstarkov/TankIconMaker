@@ -23,7 +23,6 @@ ussr-R07_T-34-85_training,,,,,,del
 # Remove these tanks since they don't have contour icons (at least not in the Ru client)
 # If you require these tanks, see notes below for how to add your own tanks to the data files.
 china-Ch01_Type59_Gold,,,,,,del
-china-Ch03_WZ_111_A,,,,,,del
 germany-Env_Artillery,,,,,,del
 germany-G04_PzVI_Tiger_IA,,,,,,del
 usa-A08_T23,,,,,,del
