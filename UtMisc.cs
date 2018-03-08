@@ -34,7 +34,7 @@ namespace TankIconMaker
         }
 
         /// <summary>Returns one of the specified values based on which country this value represents.</summary>
-        public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china, T uk, T japan, T czech, T sweden, T poland, T none)
+        public static T Pick<T>(this Country country, T ussr, T germany, T usa, T france, T china, T uk, T japan, T czech, T sweden, T poland, T italy, T none)
         {
             switch (country)
             {
@@ -48,6 +48,7 @@ namespace TankIconMaker
                 case Country.Czech: return czech;
                 case Country.Sweden: return sweden;
                 case Country.Poland: return poland;
+                case Country.Italy: return italy;
                 case Country.None: return none;
                 default: throw new Exception();
             }
@@ -413,7 +414,7 @@ namespace TankIconMaker
                 var shortName = tank.ClientData != null ? tank.ClientData.ShortName : tank.TankId;
                 var tier = tank.Tier;
                 return ExpandIconPath(path, context, style,
-                    country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "czech", "sweden", "poland", "none"),
+                    country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "czech", "sweden", "poland", "italy", "none"),
                     class_.Pick("light", "medium", "heavy", "destroyer", "artillery", "none"), tankId, fullName,
                     shortName, tier,
                     fragment, saveType);
@@ -429,7 +430,7 @@ namespace TankIconMaker
             Class class_, bool fragment = false, SaveType saveType = SaveType.Icons)
         {
             return ExpandIconPath(path, context, style,
-                country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "czech", "sweden", "poland", "none"),
+                country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "czech", "sweden", "poland", "italy", "none"),
                 class_.Pick("light", "medium", "heavy", "destroyer", "artillery", "none"), fragment, saveType);
         }
 

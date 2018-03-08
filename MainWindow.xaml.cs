@@ -839,6 +839,7 @@ namespace TankIconMaker
                 case DisplayFilter.Czech: selection = context.Tanks.Where(t => t.Country == Country.Czech); break;
                 case DisplayFilter.France: selection = context.Tanks.Where(t => t.Country == Country.France); break;
                 case DisplayFilter.Germany: selection = context.Tanks.Where(t => t.Country == Country.Germany); break;
+                case DisplayFilter.Italy: selection = context.Tanks.Where(t => t.Country == Country.Italy); break;
                 case DisplayFilter.Japan: selection = context.Tanks.Where(t => t.Country == Country.Japan); break;
                 case DisplayFilter.Poland: selection = context.Tanks.Where(t => t.Country == Country.Poland); break;
                 case DisplayFilter.Sweden: selection = context.Tanks.Where(t => t.Country == Country.Sweden); break;

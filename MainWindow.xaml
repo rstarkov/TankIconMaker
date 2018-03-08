@@ -294,6 +294,7 @@
                     <ComboBoxItem Name="ctDisplayModeCountryCzech">Czech</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCountrySweden">Sweden</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCountryPoland">Poland</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCountryItaly">Italy</ComboBoxItem>
                     <Separator/>
                     <ComboBoxItem Name="ctDisplayModeClassLight">Light tanks</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeClassMedium">Medium tanks</ComboBoxItem>

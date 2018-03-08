@@ -19,6 +19,7 @@
     <item key="Czech">res\packages\gui.pkg|gui\maps\icons\filters\nations\czech.png</item>
     <item key="Sweden">res\packages\gui.pkg|gui\maps\icons\filters\nations\sweden.png</item>
     <item key="Poland">res\packages\gui.pkg|gui\maps\icons\filters\nations\poland.png</item>
+    <item key="Italy">res\packages\gui.pkg|gui\maps\icons\filters\nations\italy.png</item>
   </PathSourceCountry>
   <PathSourceClass>
     <item key="Light">res\packages\gui.pkg|gui\maps\icons\filters\tanks\lightTank.png</item>
