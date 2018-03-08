@@ -181,6 +181,18 @@
       <Translation>捷克</Translation>
       <Old>Czech</Old>
     </ctDisplayModeCountryCzech>
+    <ctDisplayModeCountrySweden>
+      <Translation>瑞典</Translation>
+      <Old>Sweden</Old>
+    </ctDisplayModeCountrySweden>
+    <ctDisplayModeCountryPoland>
+      <Translation>波蘭</Translation>
+      <Old>Poland</Old>
+    </ctDisplayModeCountryPoland>
+    <ctDisplayModeCountryItaly>
+      <Translation>意大利</Translation>
+      <Old>Italy</Old>
+    </ctDisplayModeCountryItaly>
     <ctDisplayModeClassLight>
       <Translation>轻坦</Translation>
       <Old>Light tanks</Old>

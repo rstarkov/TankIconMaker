@@ -185,10 +185,14 @@
       <Translation>Schweden</Translation>
       <Old>Sweden</Old>
     </ctDisplayModeCountrySweden>
-	<ctDisplayModeCountryPoland>
+    <ctDisplayModeCountryPoland>
       <Translation>Polen</Translation>
       <Old>Poland</Old>
     </ctDisplayModeCountryPoland>
+    <ctDisplayModeCountryItaly>
+      <Translation>Italien</Translation>
+      <Old>Italy</Old>
+    </ctDisplayModeCountryItaly>
     <ctDisplayModeClassLight>
       <Translation>Leichte Panzer</Translation>
       <Old>Light tanks</Old>
