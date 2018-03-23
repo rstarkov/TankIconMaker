@@ -50,6 +50,10 @@
     <Reference Include="RT.Util, Version=1.0.1542.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\RT.Util.1.0.1542\lib\net40-client\RT.Util.dll</HintPath>
       <Private>True</Private>
+    </Reference>    
+    <Reference Include="TeximpNet, Version=1.2.0.0, Culture=neutral, PublicKeyToken=7c35138f0d61254b, processorArchitecture=MSIL">
+      <HintPath>ThirdParty\TeximpNet.1.2.0\lib\net40\TeximpNet.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -256,12 +260,16 @@
       <Images Include="Resources\Images\*" />
       <Licenses Include="ThirdParty\license-*" />
       <Translations Include="Resources\Translations\*" />
+      <FreeImage Include="ThirdParty\TeximpNet.1.2.0\native\FreeImage\*" />
+      <NvidiaTextureTools Include="ThirdParty\TeximpNet.1.2.0\native\NvidiaTextureTools\*" />
     </ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
     <Copy SourceFiles="WpfCrutches\License.txt" DestinationFiles="$(OutputPath)\license-WpfCrutches.txt" />
+    <Copy SourceFiles="@(FreeImage)" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="@(NvidiaTextureTools)" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="Resources\Backgrounds\Abbey.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Abbey (Монастырь).jpg" />
     <Copy SourceFiles="Resources\Backgrounds\Karelia.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Karelia (Карелия).jpg" />
     <Copy SourceFiles="Resources\Backgrounds\Lakeville.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Lakeville (Ласвилль).jpg" />
