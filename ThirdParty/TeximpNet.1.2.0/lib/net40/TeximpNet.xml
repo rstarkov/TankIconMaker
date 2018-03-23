@@ -1,0 +1,3672 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeximpNet</name>
+    </assembly>
+    <members>
+        <member name="T:TeximpNet.ColorOrder">
+            <summary>
+            Defines the default color order properties that FreeImage expects image data to conform to by default.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_BGRA_RED_MASK">
+            <summary>
+            Little endian BGRA red mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_BGRA_GREEN_MASK">
+            <summary>
+            Little endian BGRA green mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_BGRA_BLUE_MASK">
+            <summary>
+            Little endian BGRA blue mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_BGRA_ALPHA_MASK">
+            <summary>
+            Little endian BGRA alpha mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_RGBA_RED_MASK">
+            <summary>
+            Little endian RGBA red mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_RGBA_GREEN_MASK">
+            <summary>
+            Little endian RGBA green mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_RGBA_BLUE_MASK">
+            <summary>
+            Little endian RGBA blue mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.LE_RGBA_ALPHA_MASK">
+            <summary>
+            Little endian RGBA alpha mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_BGRA_RED_MASK">
+            <summary>
+            Big endian BGRA red mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_BGRA_GREEN_MASK">
+            <summary>
+            Big endian BGRA green mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_BGRA_BLUE_MASK">
+            <summary>
+            Big endian BGRA blue mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_BGRA_ALPHA_MASK">
+            <summary>
+            Big endian BGRA alpha mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_RGBA_RED_MASK">
+            <summary>
+            Big endian RGBA red mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_RGBA_GREEN_MASK">
+            <summary>
+            Big endian RGBA green mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_RGBA_BLUE_MASK">
+            <summary>
+            Big endian RGBA blue mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BE_RGBA_ALPHA_MASK">
+            <summary>
+            Big endian RGBA alpha mask.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.RedIndex">
+            <summary>
+            Byte index of the Red channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.GreenIndex">
+            <summary>
+            Byte index of the Green channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BlueIndex">
+            <summary>
+            Byte index of the Blue channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.AlphaIndex">
+            <summary>
+            Byte index of the Alpha channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.RedMask">
+            <summary>
+            Mask to apply to 32-bit integer to get just the red component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.GreenMask">
+            <summary>
+            Mask to apply to 32-bit integer to get just the green component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BlueMask">
+            <summary>
+            Mask to apply to 32-bit integer to get just the blue component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.AlphaMask">
+            <summary>
+            Mask to apply to 32-bit integer to get just the alpha component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.RedShift">
+            <summary>
+            Shift to apply to 32-bit integer to get just the red component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.GreenShift">
+            <summary>
+            Shift to apply to 32-bit integer to get just the green component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.BlueShift">
+            <summary>
+            Shift to apply to 32-bit integer to get just the blue component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.AlphaShift">
+            <summary>
+            Shift to apply to 32-bit integer to get just the alpha component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ColorOrder.IsBGRAOrder">
+            <summary>
+            Whether the color order is BGRA or RGBA.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.ColorOrder.#ctor(System.Boolean)">
+            <summary>
+            Constructs a new <see cref="T:TeximpNet.ColorOrder"/>.
+            </summary>
+            <param name="isLittleEndian">True if the platform is little endian, false if big endian.</param>
+        </member>
+        <member name="T:TeximpNet.Compression.CompressedImageData">
+            <summary>
+            Represents output image data from a <see cref="T:TeximpNet.Compression.Compressor"/>.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.Width">
+            <summary>
+            Gets the width of the image.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.Height">
+            <summary>
+            Gets the height of the image.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.Depth">
+            <summary>
+            Gets the depth of the image, if 3D. If 2D or Cube, this will be one.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.ArrayIndex">
+            <summary>
+            Gets the array index of the image, if it is part of an array or cubmap texture.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.Face">
+            <summary>
+            Gets the cubemap face of the image, if it is part of a cubemap.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.Format">
+            <summary>
+            Gets the format of the image.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.DataPtr">
+            <summary>
+            Gets a pointer to the image data.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.SizeInBytes">
+            <summary>
+            Gets the size of the image data in bytes.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.CompressedImageData.IsDisposed">
+            <summary>
+            Gets whether or not the image data has been disposed.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.CompressedImageData.#ctor(System.Int32,System.Int32,TeximpNet.Compression.CompressionFormat,System.Int32)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Compression.CompressedImageData"/> class.
+            </summary>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="format">Image format.</param>
+            <param name="arrayIndex">Optional array index, for non-array 2D images, this is just zero.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.CompressedImageData.#ctor(System.Int32,System.Int32,TeximpNet.Compression.CubeMapFace,TeximpNet.Compression.CompressionFormat)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Compression.CompressedImageData"/> class.
+            </summary>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="face">Cubemap face the image represents, if it is part of a cubemap.</param>
+            <param name="format">Image format.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.CompressedImageData.#ctor(System.Int32,System.Int32,System.Int32,TeximpNet.Compression.CompressionFormat)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Compression.CompressedImageData"/> class.
+            </summary>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="depth">Depth of the image.</param>
+            <param name="format">Image format.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.CompressedImageData.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:TeximpNet.Compression.CompressedImageData" /> class.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.CompressedImageData.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.CompressedImageData.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="T:TeximpNet.Compression.Compressor">
+            <summary>
+            A compressor processes input image data (either from a <see cref="T:TeximpNet.Surface"/> or just raw image data) using the Nvidia Texture Tools
+            API and outputs either to a file (e.g. DDS) or to memory. Processing can range from mipmap creation (with a variety of filters) to compressing RGBA
+            data into a number of GPU compressed formats. Both 2D and Cubemap textures can be processed.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.NativePtr">
+            <summary>
+            Gets the pointer to the native object.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.IsDisposed">
+            <summary>
+            Gets if the compressor has been disposed or not.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.Input">
+            <summary>
+            Gets the input options, this allows you to set input image data and a number of options for how to handle it.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.Compression">
+            <summary>
+            Gets the compression options.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.Output">
+            <summary>
+            Gets the output options, this allows you to set how the output images should be treated.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.#ctor">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Compression.Compressor"/> class.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:TeximpNet.Compression.Compressor"/> class.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.Process(System.String)">
+            <summary>
+            Executes processing of input image data, and outputs the images in DDS format to a file (optionally without the header).
+            </summary>
+            <param name="outputFileName">Output file name, if it exists the file will get overwritten.</param>
+            <returns>True if the image was successfully processed and saved, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.Process(System.IO.Stream)">
+            <summary>
+            Executes processing of input image data, and outputs the images in DDS format to the stream (optionally without the header).
+            </summary>
+            <param name="stream">Output stream to write the image file to.</param>
+            <returns>True if the image was successfully processed and outputted to the stream, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.Process(System.Collections.Generic.List{TeximpNet.Compression.CompressedImageData})">
+            <summary>
+            Executes processing of input image data, and outputs the images to a list of <see cref="T:TeximpNet.Compression.CompressedImageData"/> objects.
+            For 2D textures, the list will be the mipmap chain (largest mip to smallest). In the case of cubemap textures,
+            the list will have the mipmap chain of each face sequentially (e.g. all mips for Positive_X, then all mips for Negative_X, and so on).
+            </summary>
+            <param name="mipChain">List to hold output mip map images.</param>
+            <returns>True if the image was successfully processed and outputted to the list, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.Compressor.InputOptions">
+            <summary>
+            Options for setting up input to a <see cref="T:TeximpNet.Compression.Compressor"/>.
+            </summary>
+            <remarks>
+            Input image data can be set from <see cref="T:TeximpNet.Surface"/> objects or from raw IntPtr memory (format is always expected to be BGRA, 8-bits per channel). There are some
+            methods that can set both the texture layout and all the first mip surfaces in one call, but the user can optionally
+            set the texture layout and then set each individual face and miplevel. In most cases the first mip level gets set
+            and mipmaps are generated, but there are other cases where mipmaps are already present and the <see cref="T:TeximpNet.Compression.Compressor"/>
+            will use them during compression or normal map generation. If mipmaps aren't set explicitly and normal maps are generated, 
+            the first mip is converted to a normal map, and mipmaps are generated from that.
+            </remarks>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.NativePtr">
+            <summary>
+            Gets the pointer to the native object.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.TextureType">
+            <summary>
+            Gets the texture type of the input image.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.Width">
+            <summary>
+            Gets the width of the input image.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.Height">
+            <summary>
+            Gets the height of the input image.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.Depth">
+            <summary>
+            Gets the depth of the input image. (Typically 1 if not 3D).
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.FaceCount">
+            <summary>
+            Gets the number of faces in the input image. If a 2D image then this is always one, if
+            a cubemap then this is 6 faces (one for each side of the cube).
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.MipmapCount">
+            <summary>
+            Gets the number of mipmaps that will be generated for each face.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.GenerateMipmaps">
+            <summary>
+            Gets or sets if mipmaps should be generated. The max level of mips will be set if mipmaps
+            are to be generated. By default this is true.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.AlphaMode">
+            <summary>
+            Gets or sets the alpha mode that will be used during processing. By default this is <see cref="F:TeximpNet.Compression.AlphaMode.None"/>.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.RoundMode">
+            <summary>
+            Gets or sets the round mode that will be used during processing. By default this is <see cref="F:TeximpNet.Compression.RoundMode.None"/>.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.MaxTextureExtent">
+            <summary>
+            Gets or sets the maximum texture dimensions, used in conjunction with <see cref="P:TeximpNet.Compression.Compressor.InputOptions.RoundMode"/>. By
+            default this is set to zero.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.MipmapFilter">
+            <summary>
+            Gets or sets the filter used during mipmap generation. By default this is <see cref="F:TeximpNet.Compression.MipmapFilter.Box"/>.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.WrapMode">
+            <summary>
+            Gets or sets the wrap mode used during mipmap generation. By default this is set to <see cref="F:TeximpNet.Compression.WrapMode.Mirror"/>.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.IsNormalMap">
+            <summary>
+            Gets or sets if the input image is to be treated as a normal map. By default this is false.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.NormalizeMipmaps">
+            <summary>
+            Gets or sets if the mipmaps of a normal map should be renormalized after they are generated. By default
+            this is true.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.ConvertToNormalMap">
+            <summary>
+            Gets or sets if the input image should be converted to a normal map.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.InputOptions.HasData">
+            <summary>
+            Gets if the input has mipmap data, this will be true/false depending on the success of the functions to set
+            any mipmap data. All mipmap faces (1 for Texture2D, 6 for TextureCube) need to be set for the compressor to run.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetTextureLayout(TeximpNet.Compression.TextureType,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the layout of the input image.
+            </summary>
+            <param name="type">Type of texture the input image is.</param>
+            <param name="width">Width of the input image.</param>
+            <param name="height">Height of the input image.</param>
+            <param name="depth">Optional depth of the input image, only valid for 3D textures, by default this is 1.</param>
+            <param name="arrayCount">Optional array count, only valid for 2D array textures, by default this is 1.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.ClearTextureLayout">
+            <summary>
+            Clears the current input image data and texture layout. This frees any image data
+            that the input options holds onto.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetMipmapData(System.IntPtr,System.Boolean,TeximpNet.Compression.ImageInfo)">
+            <summary>
+            Sets image data as input. Format is always considered to be a 32-bit BGRA form, if in RGBA ordering, a copy of the data will be taken and re-ordered.
+            Don't forget to call <see cref="M:TeximpNet.Compression.Compressor.InputOptions.SetTextureLayout(TeximpNet.Compression.TextureType,System.Int32,System.Int32,System.Int32,System.Int32)"/> first, other this will error.
+            </summary>
+            <param name="data">Image data, assumed to be either 32-bit BGRA or RGBA format.</param>
+            <param name="isBGRA">True if the data is BGRA ordering, false if RGBA ordering.</param>
+            <param name="imageInfo">Information describing image details such as dimension.</param>
+            <returns>True if the data has been set, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetMipmapData(TeximpNet.Surface,System.Int32,System.Int32)">
+            <summary>
+            Sets 2D image data as input. Format is always considered to be a 32-bit BGRA form (a copy of the surface will be taken to convert if necessary), the color order is 
+            dependent on <see cref="P:TeximpNet.Surface.IsBGRAOrder"/>. Don't forget to call <see cref="M:TeximpNet.Compression.Compressor.InputOptions.SetTextureLayout(TeximpNet.Compression.TextureType,System.Int32,System.Int32,System.Int32,System.Int32)"/> first, other this will error.
+            </summary>
+            <param name="data">Bitmap surface, if not 32-bit RGBA, a copy will be taken and converted.</param>
+            <param name="mipmapLevel">Which mipmap level the image corresponds to.</param>
+            <param name="arrayIndex">Which array index the image corresponds to.</param>
+            <returns>True if the data has been set, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetMipmapData(TeximpNet.Surface,TeximpNet.Compression.CubeMapFace,System.Int32)">
+            <summary>
+            Sets cubemap face data as input. Format is always considered to be a 32-bit BGRA form (a copy of the surface will be taken to convert if necessary), the color order is 
+            dependent on <see cref="P:TeximpNet.Surface.IsBGRAOrder"/>. Don't forget to call <see cref="M:TeximpNet.Compression.Compressor.InputOptions.SetTextureLayout(TeximpNet.Compression.TextureType,System.Int32,System.Int32,System.Int32,System.Int32)"/> first, other this will error.
+            </summary>
+            <param name="data">Bitmap surface, if not 32-bit RGBA, a copy will be taken and converted.</param>
+            <param name="face">Which cubemap face the image corresponds to.</param>
+            <param name="mipmapLevel">Which mipmap level the image corresponds to.</param>
+            <returns>True if the data has been set, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetData(TeximpNet.Surface)">
+            <summary>
+            Sets input data from a specified surface. This sets the texture layout as a 2D texture
+            and the first mipmap with the surface data.
+            </summary>
+            <param name="data">Bitmap surface data, if not 32-bit RGBA, a copy will be taken and converted.</param>
+            <returns>True if the data has been set, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetData(TeximpNet.Surface[])">
+            <summary>
+            Sets input data from an array of surfaces representing a cubemap (6 surfaces total). This sets the texture layout as a 
+            cubemap and sets each surface as the first mipmap of each face. All the surface dimensions must match, and there must be
+            six faces.
+            </summary>
+            <param name="cubeFaces">Array of bitmap surfaces, in the order of the <see cref="T:TeximpNet.Compression.CubeMapFace"/> enum (+X, -X, +Y, -Y, +Z, -Z). If surfaces are not 32-bit RGBA, a copy will be taken and converted..</param>
+            <returns>True if the data has been set, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetNormalFilter(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets the filter parameters used during normal map generation.
+            </summary>
+            <param name="small">Small parameter.</param>
+            <param name="medium">Medium parameter.</param>
+            <param name="big">Big parameter.</param>
+            <param name="large">Large parameter.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.GetNormalFilter(System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Gets the filter parameters used during normal map generation.
+            </summary>
+            <param name="small">Small parameter.</param>
+            <param name="medium">Medium parameter.</param>
+            <param name="big">Big parameter.</param>
+            <param name="large">Large parameter.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetGamma(System.Single,System.Single)">
+            <summary>
+            Sets gamma correction parameters. By default both are set to 2.2 and they are only
+            applied to the RGB channels and never applied to normal maps. Gamma can be disabled by setting both
+            values to 1.0.
+            </summary>
+            <param name="inputGamma">Input gamma</param>
+            <param name="outputGamma">Output gamma</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.GetGamma(System.Single@,System.Single@)">
+            <summary>
+            Gets gamma correction parameters.
+            </summary>
+            <param name="inputGamma">Input gamma</param>
+            <param name="outputGamma">Output gamma</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetMipmapGeneration(System.Boolean,System.Int32)">
+            <summary>
+            Sets mipmap generation options. The number of mipmaps can be explicitly set.
+            </summary>
+            <param name="generateMips">True if mipmaps should be generated, false otherwise.</param>
+            <param name="maxLevel">Optional max mip level, if -1 then the full mipmap count is determined.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetKaiserParameters(System.Single,System.Single,System.Single)">
+            <summary>
+            Sets kaiser filter parameters when the mipmap filter is set to <see cref="F:TeximpNet.Compression.MipmapFilter.Kaiser"/>.
+            </summary>
+            <param name="width">Width parameter, default is 3.0f.</param>
+            <param name="alpha">Alpha parameter, default is 4.0f.</param>
+            <param name="stretch">Stretch parameter, default is 1.0f.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.GetKaiserParameters(System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Gets kaiser filter parameters.
+            </summary>
+            <param name="width">Width parameter.</param>
+            <param name="alpha">Alpha parameter.</param>
+            <param name="stretch">Stretch parameter.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetHeightEvaluation(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets height evaluation parameters for use in normal map generation. The height factors do not
+            necessarily sum to one.
+            </summary>
+            <param name="redScale">Scale for the red channel.</param>
+            <param name="greenScale">Scale for the green channel.</param>
+            <param name="blueScale">Scale for the blue channel.</param>
+            <param name="alphaScale">Scale for the alpha channel.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.InputOptions.GetHeightEvaluation(System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Gets height evaluation parameters.
+            </summary>
+            <param name="redScale">Scale for the red channel.</param>
+            <param name="greenScale">Scale for the green channel.</param>
+            <param name="blueScale">Scale for the blue channel.</param>
+            <param name="alphaScale">Scale for the alpha channel.</param>
+        </member>
+        <member name="T:TeximpNet.Compression.Compressor.CompressionOptions">
+            <summary>
+            Options for configuring how data is written in a <see cref="T:TeximpNet.Compression.Compressor"/>.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.CompressionOptions.NativePtr">
+            <summary>
+            Gets the pointer to the native object.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.CompressionOptions.Format">
+            <summary>
+            Gets or sets the pixel format that images will be outputted as.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.CompressionOptions.Quality">
+            <summary>
+            Gets or sets the compression quality.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.SetPixelFormat(System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Sets the color output format if no block compression is set (up to 32 bit RGBA). For example, to convert to RGB 5:6:5 format,
+            <code>SetPixelFormat(16, 0x001F, 0x07E0, 0xF800, 0)</code>.
+            </summary>
+            <param name="bitsPerPixel">Bits per pixel of the color format.</param>
+            <param name="red_mask">Mask for the bits that correspond to the red channel.</param>
+            <param name="green_mask">Mask for the bits that correspond to the green channel.</param>
+            <param name="blue_mask">Mask for the bits that correspond to the blue channel.</param>
+            <param name="alpha_mask">Mask for the bits that correspond to the alpha channel.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.SetRGBAPixelFormat">
+            <summary>
+            Sets the color output format if no block compression is set to RGBA format rather than BGRA format. Essentially this sets the
+            masks so red and blue values are swapped.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.SetBGRAPixelFormat">
+            <summary>
+            Sets the color output format if no block compression to the default BGRA format.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.GetPixelFormat(System.UInt32@,System.UInt32@,System.UInt32@,System.UInt32@,System.UInt32@)">
+            <summary>
+            Gets the color output format if no compression is used.
+            </summary>
+            <param name="bitsPerPixel">Bits per pixel of the color format.</param>
+            <param name="red_mask">Mask for the bits that correspond to the red channel.</param>
+            <param name="green_mask">Mask for the bits that correspond to the green channel.</param>
+            <param name="blue_mask">Mask for the bits that correspond to the blue channel.</param>
+            <param name="alpha_mask">Mask for the bits that correspond to the alpha channel.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.SetQuantization(System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Sets whether the compressor should do dithering before compression
+            or during quantiziation. When using block compression this does not generally improve
+            the quality of the output image, but in some cases it can produce smoother results. It is
+            generally a good idea to enable dithering when the output format is RGBA color.
+            </summary>
+            <param name="enableColorDithering">True to enable color dithering, false otherwise.</param>
+            <param name="enableAlphaDithering">True to enable alpha dithering false otherwise.</param>
+            <param name="binaryAlpha">True to use binary alpha, false otherwise.</param>
+            <param name="alphaThreshold">Alpha threshold, default is 127.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.GetQuantization(System.Boolean@,System.Boolean@,System.Boolean@,System.Int32@)">
+            <summary>
+            Gets the current quantiziation parameters.
+            </summary>
+            <param name="enableColorDithering">True to enable color dithering, false otherwise.</param>
+            <param name="enableAlphaDithering">True to enable alpha dithering false otherwise.</param>
+            <param name="binaryAlpha">True to use binary alpha, false otherwise.</param>
+            <param name="alphaThreshold">Alpha threshold.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.SetColorWeights(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets color weighting during compression. By default the compression error is measured for each channel
+            uniformly, but for some images it may make more sense to measure the error in a perceptual color space.
+            </summary>
+            <param name="red_weight">Weight for the red channel, default is 1.0.</param>
+            <param name="green_weight">Weight for the green channel, default is 1.0.</param>
+            <param name="blue_weight">Weight for the blue channel, default is 1.0.</param>
+            <param name="alpha_weight">Weight for the alpha channel, default is 1.0.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.Compressor.CompressionOptions.GetColorWeights(System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Gets the current color weights.
+            </summary>
+            <param name="red_weight">Weight for the red channel.</param>
+            <param name="green_weight">Weight for the green channel.</param>
+            <param name="blue_weight">Weight for the blue channel.</param>
+            <param name="alpha_weight">Weight for the alpha channel.</param>
+        </member>
+        <member name="T:TeximpNet.Compression.Compressor.OutputOptions">
+            <summary>
+            Options for how data is outputted when a <see cref="T:TeximpNet.Compression.Compressor"/> is executing.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.OutputOptions.NativePtr">
+            <summary>
+            Gets the pointer to the native object.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Compression.Compressor.OutputOptions.OutputHeader">
+            <summary>
+            Gets or sets if the output container (e.g. DDS file format) header is written out before
+            any image data. By default this is true.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.CompressionFormat">
+            <summary>
+            Enumerates output formats for the <see cref="T:TeximpNet.Compression.Compressor"/>.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BGRA">
+            <summary>
+            Output in a non-compressed color format. By setting the pixel layout both RGBA and BGRA order or any arbitrary pixel format is possible.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.DXT1">
+            <summary>
+            Default block compression format (same as <see cref="F:TeximpNet.Compression.CompressionFormat.BC1"/>). By default the implicit 1 bit alpha channel is not used
+            and is always opaque.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.DXT1a">
+            <summary>
+            Variation of <see cref="F:TeximpNet.Compression.CompressionFormat.DXT1"/> that supports a 1 bit alpha channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.DXT3">
+            <summary>
+            Block compression format similar to <see cref="F:TeximpNet.Compression.CompressionFormat.DXT1"/> but with an explicit 3 bit alpha channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.DXT5">
+            <summary>
+            Block compression format similar to <see cref="F:TeximpNet.Compression.CompressionFormat.DXT1"/> but with a compressed alpha block.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.DXT5n">
+            <summary>
+            Variation of <see cref="F:TeximpNet.Compression.CompressionFormat.DXT5"/> that is used to represent normal maps by encoding the X and Y components as follows:
+            R=1, G=Y, B=0, A=X. This swizzle is used to faciliate decompression using "Capcon's DXT decompression trick" (https://code.google.com/archive/p/nvidia-texture-tools/wikis/NormalMapCompression.wiki#Capcon%27s_DXT_trick).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BC1">
+            <summary>
+            Default block compression format. By default the implicit 1 bit alpha channel is not used
+            and is always opaque.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BC1a">
+            <summary>
+            Variation of <see cref="F:TeximpNet.Compression.CompressionFormat.BC1"/> that supports a 1 bit alpha channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BC2">
+            <summary>
+            Block compression format similar to <see cref="F:TeximpNet.Compression.CompressionFormat.BC1"/> but with an explicit 3 bit alpha channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BC3">
+            <summary>
+            Block compression format similar to <see cref="F:TeximpNet.Compression.CompressionFormat.BC1"/> but with a compressed alpha block.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BC3n">
+            <summary>
+            Variation of <see cref="F:TeximpNet.Compression.CompressionFormat.BC3"/> that is used to represent normal maps by encoding the X and Y components as follows:
+            R=1, G=Y, B=0, A=X. This swizzle is used to faciliate decompression using "Capcon's DXT decompression trick" (https://code.google.com/archive/p/nvidia-texture-tools/wikis/NormalMapCompression.wiki#Capcon%27s_DXT_trick).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BC4">
+            <summary>
+            Block compression format that only contains a single alpha block.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionFormat.BC5">
+            <summary>
+            Block compression format that contains two alpha blocks. It's typically used to compress normal maps.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.WrapMode">
+            <summary>
+            Enumerates what happens when evaluating the color of texels near an image's border
+            during mipmap generation, as most filters will sample outside the texture.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.WrapMode.Clamp">
+            <summary>
+            Sampling outside texture range will use the color at the border.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.WrapMode.Repeat">
+            <summary>
+            Repeats the texture when sampling outside the texture. E.g. sample between 1 and 2 UV is the same as sampling between 0 and 1 UV.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.WrapMode.Mirror">
+            <summary>
+            Repeats the texture, but flips the image. E.g. sample between 0 and 1 UV is normal
+            but sampling between 1 and 2 UV the texture is flipped (mirrored). This is the default option.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.TextureType">
+            <summary>
+            Enumerates texture layouts for input data.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.TextureType.Texture2D">
+            <summary>
+            Input data is a 2D texture.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.TextureType.TextureCube">
+            <summary>
+            Input data is a Cubemap, which has 6 faces, where each face is a 2D texture.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.TextureType.Texture3D">
+            <summary>
+            Input data is a 3D texture.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.MipmapFilter">
+            <summary>
+            Enumerates filter algorithms used by the <see cref="T:TeximpNet.Compression.Compressor"/> for mipmap generation.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.MipmapFilter.Box">
+            <summary>
+            A polyphase box filter. It's the default option and good choice for most cases. It's also much faster than the other filters.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.MipmapFilter.Triangle">
+            <summary>
+            A filter that has a larger width and thus produces blurrier results than the box filter.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.MipmapFilter.Kaiser">
+            <summary>
+            A kaiser-windowed sinc filter that is generally considered the best choice for downsampling filters.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.CompressionQuality">
+            <summary>
+            Enumerates quality of compressing image data.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionQuality.Fastest">
+            <summary>
+            Least quality, but fastest processing time. Results may be reasonable,
+            but is not considered to be real-time either.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionQuality.Normal">
+            <summary>
+            Default quality, balanced in terms of quality / speed.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionQuality.Production">
+            <summary>
+            Production quality, and generally produces similar results to normal, but it
+            may double or triple the time to obtain minor quality improvements.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CompressionQuality.Highest">
+            <summary>
+            Best quality, slowest processing time. May be extremely slow as it brute force
+            compressor and should generally only be used for testing purposes.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.RoundMode">
+            <summary>
+            Enumerates options for if an image is resized so it's dimensions are a power of two.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.RoundMode.None">
+            <summary>
+            No resizing.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.RoundMode.ToNextPowerOfTwo">
+            <summary>
+            Dimensions are scaled up to the next power of two.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.RoundMode.ToNearestPowerOfTwo">
+            <summary>
+            Dimensions are scaled up or down depending on which is closer to the current dimension.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.RoundMode.ToPreviousPowerOfTwo">
+            <summary>
+            Dimensions are scaled down to the previous power of two.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.AlphaMode">
+            <summary>
+            Enumerates how alpha data is handled during processing. Transparency can influence
+            how mipmaps and compression are handled.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.AlphaMode.None">
+            <summary>
+            Alpha and color channels are processed independently.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.AlphaMode.Transparency">
+            <summary>
+            Image's alpha data is used for transparency.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.AlphaMode.Premultiplied">
+            <summary>
+            Image's alpha data is used for transparency and premultiplied with the color channels.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.CubeMapFace">
+            <summary>
+            Enumerates the faces of a cubemap texture. Faces are always stored in a list in the order of the enum values
+            (e.g. Positive_X is index 0, and so on).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CubeMapFace.None">
+            <summary>
+            Surface is not a cubemap face.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CubeMapFace.Positive_X">
+            <summary>
+            Surface represents the +X face.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CubeMapFace.Negative_X">
+            <summary>
+            Surface represents the -X face.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CubeMapFace.Positive_Y">
+            <summary>
+            Surface represents the +Y face.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CubeMapFace.Negative_Y">
+            <summary>
+            Surface represents the -Y face.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CubeMapFace.Positive_Z">
+            <summary>
+            Surface represents the +Z face.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.CubeMapFace.Negative_Z">
+            <summary>
+            Surface represents the -Z face.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Compression.ImageInfo">
+            <summary>
+            Represents details about a single image such as dimensions, byte sizes, and the position of the image in a larger collection of images.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.ImageInfo.Width">
+            <summary>
+            Width of the image, in texels.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.ImageInfo.Height">
+            <summary>
+            Height of the image, in texels.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.ImageInfo.Depth">
+            <summary>
+            Depth of the image, in texels. (for 2D/Cube images, this should always be one).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.ImageInfo.ArrayIndex">
+            <summary>
+            For array textures and cubemap, the index of the image. Cubemaps are in order of: +X, -X, +Y, -Y, +Z, -Z.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.ImageInfo.MipLevel">
+            <summary>
+            Mip level index.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.ImageInfo.RowPitch">
+            <summary>
+            The total # of bytes for each scanline (row) of the image. Data may be padded for alignment purposes, so this may not necessarily be <see cref="F:TeximpNet.Compression.ImageInfo.Width"/> x sizeof(<see cref="T:TeximpNet.RGBAQuad"/>).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Compression.ImageInfo.SlicePitch">
+            <summary>
+            The total # of bytes that represents each depth slice of a 3D image. Data may be padded for alignment purposes, so this may not necessarily be <see cref="F:TeximpNet.Compression.ImageInfo.Width"/> x <see cref="F:TeximpNet.Compression.ImageInfo.Height"/> x sizeof(<see cref="T:TeximpNet.RGBAQuad"/>).
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Compression.ImageInfo.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructs a new <see cref="T:TeximpNet.Compression.ImageInfo"/>.
+            </summary>
+            <param name="width">Width of the image, in texels.</param>
+            <param name="height">Height of the image, in texels.</param>
+            <param name="depth">Depth of the image, in texels.</param>
+            <param name="arrayIndex">Array index of the image.</param>
+            <param name="mipLevel">Mipmap index of the image.</param>
+            <param name="rowPitch"># of bytes for each scanline of the image.</param>
+            <param name="slicePitch"># of bytes for each depth slice of the 3D image.</param>
+        </member>
+        <member name="M:TeximpNet.Compression.ImageInfo.From2D(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:TeximpNet.Compression.ImageInfo"/> for a 2D image. The row pitch is automatically calculated without any padding assumptions.
+            </summary>
+            <param name="width">Width of the image, in texels.</param>
+            <param name="height">Height of the image, in texels.</param>
+            <param name="mipLevel">Optional mipmap index of the image.</param>
+            <param name="arrayIndex">Optional array index of the image.</param>
+            <returns>Populated image info.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.ImageInfo.From2D(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:TeximpNet.Compression.ImageInfo"/> for a 2D image.
+            </summary>
+            <param name="width">Width of the image, in texels.</param>
+            <param name="height">Height of the image, in texels.</param>
+            <param name="rowPitch"># of bytes per scanline, may be padded.</param>
+            <param name="mipLevel">Optional mipmap index of the image.</param>
+            <param name="arrayIndex">Optional array index of the image.</param>
+            <returns>Populated image info.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.ImageInfo.FromCube(System.Int32,TeximpNet.Compression.CubeMapFace,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:TeximpNet.Compression.ImageInfo"/> for a Cubemap image. The row pitch is automatically calculated without any padding assumptions.
+            </summary>
+            <param name="size">Width/height of the image, in texels.</param>
+            <param name="face">Which cubemap face this image corresponds to.</param>
+            <param name="mipLevel">Optional mipmap index of the image.</param>
+            <returns>Populated image info.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.ImageInfo.FromCube(System.Int32,TeximpNet.Compression.CubeMapFace,System.Int32,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:TeximpNet.Compression.ImageInfo"/> for a Cubemap image.
+            </summary>
+            <param name="size">Width/height of the image, in texels.</param>
+            <param name="face">Which cubemap face this image corresponds to.</param>
+            <param name="rowPitch"># of bytes per scanline, may be padded.</param>
+            <param name="mipLevel">Optional mipmap index of the image.</param>
+            <returns>Populated image info.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.ImageInfo.From3D(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:TeximpNet.Compression.ImageInfo"/> for a 3D image. The row and slice pitch are automatically calculated without any padding assumptions.
+            </summary>
+            <param name="width">Width of the image, in texels.</param>
+            <param name="height">Height of the image, in texels.</param>
+            <param name="depth">Depth of the image, in texels.</param>
+            <param name="mipLevel">Optional mipmap index of the image.</param>
+            <returns>Populated image info.</returns>
+        </member>
+        <member name="M:TeximpNet.Compression.ImageInfo.From3D(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:TeximpNet.Compression.ImageInfo"/> for a 3D image.
+            </summary>
+            <param name="width">Width of the image, in texels.</param>
+            <param name="height">Height of the image, in texels.</param>
+            <param name="depth">Depth of the image, in texels.</param>
+            <param name="rowPitch"># of bytes per scanline, may be padded.</param>
+            <param name="slicePitch"># of bytes per depth slice, may be padded.</param>
+            <param name="mipLevel">Optional mipmap index of the image.</param>
+            <returns>Populated image info.</returns>
+        </member>
+        <member name="T:TeximpNet.ImageType">
+            <summary>
+            Enumerates the type of an image.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.Unknown">
+            <summary>
+            Unknown type. Returned value only, never use as an input value.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.Bitmap">
+            <summary>
+            Standard image: 1-, 4-, 8-, 16-, 24-, 32-bit.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.UInt16">
+            <summary>
+            Array of unsigned 16-bit integers.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.Int16">
+            <summary>
+            Array of signed 16-bit integers.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.UInt32">
+            <summary>
+            Array of unsigned 32-bit integers.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.Int32">
+            <summary>
+            Array of signed 32-bit integers.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.Float">
+            <summary>
+            Array of 32-bit IEEE floating point.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.Double">
+            <summary>
+            Array of 64-bit IEEE floating point.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.Complex">
+            <summary>
+            Array of 2 x 64-bit IEEE floating point.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.RGB16">
+            <summary>
+            48-bit RGB image: 3 channels x 16-bit.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.RGBA16">
+            <summary>
+            64-bit RGBA image: 4 channels x 16-bit.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.RGBF">
+            <summary>
+            96-bit RGB float image: 3 channels x 32-bit IEEE floating point.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageType.RGBAF">
+            <summary>
+            128-bit RGBA float image: 4 channels x 32-bit IEEE floating point.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.ImageFormat">
+            <summary>
+            Enumerates file formats that can be loaded / saved.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.Unknown">
+            <summary>
+            Unknown. Returned value only, never use as an input value.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.BMP">
+            <summary>
+            Windows or OS/2 bitmap file (*.bmp).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.ICO">
+            <summary>
+            Windows Icon (*.ico).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.JPEG">
+            <summary>
+            Independent JPEG group (*.jpg, *.jif, *.jpeg, *.jpe).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.JNG">
+            <summary>
+            JPEG network graphics (*.jng).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.KOALA">
+            <summary>
+            Commodore 64 Koala format (*.koa).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.LBM">
+            <summary>
+            Amiga IFF (*.iff, *.lbm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.IFF">
+            <summary>
+            Amiga IFF (*.iff, *.lb).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.MNG">
+            <summary>
+            Multiple network graphics (*.mng).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PBM">
+            <summary>
+            Portable bitmap (ASCII) (*.pbm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PBMRAW">
+            <summary>
+            Portable bitmap (BINARY) (*.pbm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PCD">
+            <summary>
+            Kodak PhotoCD (*.pcd).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PCX">
+            <summary>
+            Zsoft Paintbrush PCX bitmap (*.pcx).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PGM">
+            <summary>
+            Portable gramap (ASCII) (*.pgm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PGMRAW">
+            <summary>
+            Portable graymap (BINARY) (*.pgm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PNG">
+            <summary>
+            Portable network graphics (*.png).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PPM">
+            <summary>
+            Portable pixelmap (ASCII) (*.ppm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PPMRAW">
+            <summary>
+            Portable pixelmap (BINARY) (*.ppm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.RAS">
+            <summary>
+            Sun Rasterfile (*.ras).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.TARGA">
+            <summary>
+            Truevision Targa file (*.tga, *.targa).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.TIFF">
+            <summary>
+            Tagged Image File format (*.tif, *.tiff).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.WBMP">
+            <summary>
+            Wireless bitmap (*.wbmp).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PSD">
+            <summary>
+            Adobe photoshop (*.psd).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.CUT">
+            <summary>
+            Dr. Halo (*.cut).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.XBM">
+            <summary>
+            X11 bitmap format (*.xbm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.XPM">
+            <summary>
+            X11 pixmap format (*.xpm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.DDS">
+            <summary>
+            DirectDraw surface (*.dds).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.GIF">
+            <summary>
+            Graphics InterChange Format (*.gif).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.HDR">
+            <summary>
+            High Dynamic Range (*.hdr).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.FAXG3">
+            <summary>
+            Raw Fax format CCITT G3 (*.g3).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.SGI">
+            <summary>
+            Silicon Graphics SGI image format (*.sgi).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.EXR">
+            <summary>
+            OpenEXR format (*.exr).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.J2K">
+            <summary>
+            JPEG-2000 format (*.j2k, *.j2c).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.JP2">
+            <summary>
+            JPEG-2000 format (*.jp2).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PFM">
+            <summary>
+            Portable floatmap (*.pfm).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.PICT">
+            <summary>
+            Macintosh PICT (*.pict).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.RAW">
+            <summary>
+            RAW camera image (*.* sometimes .raw).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.WEBP">
+            <summary>
+            Google WebP format (*.webp)
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFormat.JXR">
+            <summary>
+            JPEG extended range format (*.jxr).
+            </summary>
+        </member>
+        <member name="T:TeximpNet.ImageLoadFlags">
+            <summary>
+            Bitflags representing various options when loading from a variety of formats.
+            The overlap between options is intentional. If the prefix differs from a given file format
+            that is to be loaded, then that option will be ignored.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.Default">
+            <summary>
+            Default loading procedure.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.GIF_Load256">
+            <summary>
+            Loads the GIF as a 256 color image with unused palette entries, if it's
+            16 or 2 color.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.GIF_Playback">
+            <summary>
+            "Play" the GIF to generate each frame (as 32bpp) instead of returning
+            raw frame data when loading.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.ICO_MakeAlpha">
+            <summary>
+            Convert to 32bpp and create an alpha channel from the AND-mask when
+            loading.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.JPEG_Fast">
+            <summary>
+            Load the JPEG file as fast as possible, sacrificing some quality.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.JPEG_Accurate">
+            <summary>
+            Load the JPEG file with the best quality, sacrificing some speed.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.JPEG_CMYK">
+            <summary>
+            Load the JPEG file with separated CMYK "as is".
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.JPEG_ExifRotate">
+            <summary>
+            Load and rotate JPEG file according to Exif 'Orientation' tag if available.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.JPEG_Greyscale">
+            <summary>
+            Load and convert JPEG file to an 8-bit greyscale image.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.PCD_Base">
+            <summary>
+            Load PCD bitmap sized 768 x 512.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.PCD_BaseDiv4">
+            <summary>
+            Load PCD bitmap sized 384 x 256.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.PCD_BaseDiv16">
+            <summary>
+            Load PCD bitmap sized 192 x 128.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.PNG_IgnoreGamma">
+            <summary>
+            Avoid gamma correction when loading PNG files.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.RAW_Preview">
+            <summary>
+            Try to load the RAW file's embedded JPEG preview with included Exif data or default to RGB 24-bit.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.RAW_Display">
+            <summary>
+            Try to load RAW as 24-bit RGB.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.TARGA_LoadRGB888">
+            <summary>
+            When loading TARGA files, convert RGB555 and ARGB8888 to RGB888.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.TIFF_CMYK">
+            <summary>
+            Reads and stores tags for separated CMYK when loading TIFF files.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.PSD_CMYK">
+            <summary>
+            Reads tags for separated CMYK (default is conversion to RGB) when loading PSD files.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageLoadFlags.PSD_Lab">
+            <summary>
+            Reads tags for CIELab (default is conversion to RGB) when loading PSD files.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.ImageSaveFlags">
+            <summary>
+            Bitflags representing various options when saving to a variety of formats.
+            The overlap between options is intentional. If the prefix differs from a given file format
+            that is to be saved, then that option will be ignored.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.Default">
+            <summary>
+            Default saving procedure.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.BMP_SaveRLE">
+            <summary>
+            Saves a BMP with run length encoding.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.EXR_Float">
+            <summary>
+            Save EXR format as float instead of as half (not recommended).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.EXR_None">
+            <summary>
+            Save EXR format with no compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.EXR_Zip">
+            <summary>
+            Save EXR format with zlib compression, in blocks of 16 scan lines.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.EXR_Piz">
+            <summary>
+            Save EXR format with piz-based wavelet compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.EXR_PXR24">
+            <summary>
+            Save EXR format with lossy 24-bit float compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.EXR_B44">
+            <summary>
+            Save EXR format with lossy 44% float compression - goes to 22% when combined with <see cref="F:TeximpNet.ImageSaveFlags.EXR_LC"/>.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.EXR_LC">
+            <summary>
+            Save EXR format with one luminance and two chroma channels, rather than as RGB (lossy compression).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_QualitySuperb">
+            <summary>
+            Save JPEG format with superb quality (100:1).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_QualityGood">
+            <summary>
+            Save JPEG format with good quality (75:1).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_QualityNormal">
+            <summary>
+            Save JPEG format with normal quality (50:1).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_QualityAverage">
+            <summary>
+            Save JPEG format with average quality (25:1).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_QualityBad">
+            <summary>
+            Save JPEG format with bad quality (10:1).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_Progressive">
+            <summary>
+            Save JPEG format as a progressive-jpeg.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_Subsampling_411">
+            <summary>
+            Save JPEG format with high 4x1 chroma subsampling (4:1:1).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_Subsampling_420">
+            <summary>
+            Save JPEG format with medium 2x2 medium chroma subsampling (4:2:0) - default value.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_Subsampling_422">
+            <summary>
+            Save JPEG format with low 2x1 chroma subsampling (4:2:2).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_Subsampling_444">
+            <summary>
+            Save JPEG format with no chroma subsampling (4:4:4).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_Optimize">
+            <summary>
+            When saving JPEG format, compute optimal Huffman coding tables (can reduce file size by a few percent).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JPEG_Baseline">
+            <summary>
+            Save basic JPEG format, without metadata or any markers.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.PNG_Z_BestSpeed">
+            <summary>
+            Save PNG format using Zlib level 1 compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.PNG_Z_DefaultCompression">
+            <summary>
+            Save PNG format using Zlib level 6 compression. (Default value).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.PNG_Z_BestCompression">
+            <summary>
+            Save PNG format using ZLib level 9 compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.PNG_Z_NoCompression">
+            <summary>
+            Save PNG format without ZLib compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.PNG_Interlaced">
+            <summary>
+            Save PNG format using Adam7 interlacing.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.PNM_SaveAscii">
+            <summary>
+            Save PNM format in ASCII format.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.RAW_HalfSize">
+            <summary>
+            Save RAW format as half-size color image.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.RAW_Unprocessed">
+            <summary>
+            Save RAW format as a UInt16 raw Bayer image.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TARGA_SaveRLE">
+            <summary>
+            Save TARGA format with RLE compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_PackBits">
+            <summary>
+            Saves TIFF format with packbits compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_Deflate">
+            <summary>
+            Saves TIFF format with Deflate compression (aka ZLib compression).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_AdobeDeflate">
+            <summary>
+            Saves TIFF format with Adobe Deflate compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_None">
+            <summary>
+            Saves TIFF format without any compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_CCITTFAX3">
+            <summary>
+            Saves TIFF format using CCITT Group 3 fax encoding.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_CCITTFAX4">
+            <summary>
+            Saves TIFF format using CCITT Group 4 fax encoding.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_LZW">
+            <summary>
+            Saves TIFF format using LZW compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_JPEG">
+            <summary>
+            Saves TIFF format using JPEG compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.TIFF_LogLuv">
+            <summary>
+            Saves TIFF format using LogLuv compression.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.WEBP_Lossless">
+            <summary>
+            Saves WEBP format with lossless quality.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JXR_Lossless">
+            <summary>
+            Saves JXR format with lossless quality.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageSaveFlags.JXR_Progressive">
+            <summary>
+            Saves JXR format as a progressive-JXR.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.ImageColorType">
+            <summary>
+            Enumerates image color models.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageColorType.MinIsWhite">
+            <summary>
+            Minimum value is white.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageColorType.MinIsBlack">
+            <summary>
+            Minimum value is black.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageColorType.RGB">
+            <summary>
+            RGB color model.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageColorType.Palette">
+            <summary>
+            Colors indexed in a palette.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageColorType.RGBA">
+            <summary>
+            RGB color model with alpha channel.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageColorType.CMYK">
+            <summary>
+            CMYK color model.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.ImageFilter">
+            <summary>
+            Enumerates image filters used only in FreeImage (and NOT the Compression API).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFilter.Box">
+            <summary>
+            Box, pulse, Fourier window, 1st order (constant) b-spline
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFilter.Bicubic">
+            <summary>
+            Mitchell and Netravali's two-param cubic filter.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFilter.Bilinear">
+            <summary>
+            Bilinear filter.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFilter.Bspline">
+            <summary>
+            4th order (cubic) b-spline
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFilter.CatmullRom">
+            <summary>
+            Catmull-Rom spline, Overhauser spline
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageFilter.Lanczos3">
+            <summary>
+            Lanczos3 filter
+            </summary>
+        </member>
+        <member name="T:TeximpNet.ImageConversion">
+            <summary>
+            Enumerates types of image conversions.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.To4Bits">
+            <summary>
+            Converts a bitmap to 4 bits. If the bitmap was a high-color bitmap
+            (16, 24, or 32-bit) or if it was a monochrome or greyscale bitmap (1 or 8-bit), the end result
+            will be a greyscale bitmap, otherwise (1-bit palletised bitmaps) it will be a palletised bitmap.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.To8Bits">
+            <summary>
+            Converts a bitmap to 8 bits. If the bitmap was a high-color bitmap
+            (16, 24, or 32-bit) or if it was a monochrome or greyscale bitmap (1 or 4-bit), the end result
+            will be a greyscale bitmap, otherwise (1-bit palletised bitmaps) it will be a palletised bitmap.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.To16Bits555">
+            <summary>
+            Converts a bitmap to 16 bits, where each pixel has a color pattern of 5 bits red, 5 bits green,
+            and 5 bits blue. One bit in each pixel is unused.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.To16Bits565">
+            <summary>
+            Converts a bitmap to 16 bits, where each pixel has a color pattern of 5 bits red, 6 bits green,
+            and 5 bits blue.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.To24Bits">
+            <summary>
+            Converts a bitmap to 24 bits.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.To32Bits">
+            <summary>
+            Converts a bitmap to 32 bits.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.ToGreyscale">
+            <summary>
+            Converts a bitmap to an 8-bit greyscale image with a linear ramp.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.ToFloat">
+            <summary>
+            Converts a bitmap to an array of 32-bit IEEE floating point values.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.ToUInt16">
+            <summary>
+            Converts a bitmap to an array of unsigned 16-bit integers.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.ToRGBF">
+            <summary>
+            Converts a bitmap to a 96-bit RGB float image, where 3 channels x 32-bit IEEE floating point.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.ToRGBAF">
+            <summary>
+            Converts a bitmap to a 128-bit RGBA float image, where 4 channels x 32-bit IEEE floating point.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.ToRGB16">
+            <summary>
+            Converts a bitmap to a 48-bit RGB image, where 3 channels x 16-bit.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.ImageConversion.ToRGBA16">
+            <summary>
+            Converts a bitmap to a 64-bit RGBA image, where 4 channels x 16-bit.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.MemoryHelper">
+            <summary>
+            Helper class for dealing with memory, in particular unmanaged memory.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.PinObject(System.Object)">
+            <summary>
+            Pins an object in memory, which allows a pointer to it to be returned. While the object remains pinned the runtime
+            cannot move the object around in memory, which may degrade performance.
+            </summary>
+            <param name="obj">Object to pin.</param>
+            <returns>Pointer to pinned object's memory location.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.UnpinObject(System.Object)">
+            <summary>
+            Unpins an object in memory, allowing it to once again freely be moved around by the runtime.
+            </summary>
+            <param name="obj">Object to unpin.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CountMipmaps(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets the number of mipmaps that should be in the chain where the first image has the specified width/height/depth.
+            </summary>
+            <param name="width">Width of the first image in the mipmap chain.</param>
+            <param name="height">Height of the first image in the mipmap chain.</param>
+            <param name="depth">Depth of the first image in the mipmap chain.</param>
+            <returns>Number of mipmaps that can be generated for the image.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CalculateMipmapLevelDimensions(System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Calculates the mipmap level dimension given the level and the first level's dimensions.
+            </summary>
+            <param name="mipLevel">Mip map level to calculate for.</param>
+            <param name="width">Initially the first level's width, holds the width of the mip level after function returns.</param>
+            <param name="height">Initially the first level's height, holds the height of the mip level after function returns.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CalculateMipmapLevelDimensions(System.Int32,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Calculates the mipmap level dimension given the level and the first level's dimensions.
+            </summary>
+            <param name="mipLevel">Mip map level to calculate for.</param>
+            <param name="width">Initially the first level's width, holds the width of the mip level after function returns.</param>
+            <param name="height">Initially the first level's height, holds the height of the mip level after function returns.</param>
+            <param name="depth">Initially the first level's depth, holds the depth of the mip level after function returns.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.PreviousPowerOfTwo(System.Int32)">
+            <summary>
+            Gets the previous power of two value.
+            </summary>
+            <param name="v">Previous value.</param>
+            <returns>Previous power of two.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.NearestPowerOfTwo(System.Int32)">
+            <summary>
+            Gets the nearest power of two value.
+            </summary>
+            <param name="v">Starting value.</param>
+            <returns>Nearest power of two.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.NextPowerOfTwo(System.Int32)">
+            <summary>
+            Get the next power of two value.
+            </summary>
+            <param name="v">Starting value.</param>
+            <returns>Next power of two.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.AllocateMemory(System.Int32,System.Int32)">
+            <summary>
+            Allocates unmanaged memory. This memory should only be freed by this helper.
+            </summary>
+            <param name="sizeInBytes">Size to allocate</param>
+            <param name="alignment">Alignment of the memory, by default aligned along 16-byte boundary.</param>
+            <returns>Pointer to the allocated unmanaged memory.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.AllocateClearedMemory(System.Int32,System.Byte,System.Int32)">
+            <summary>
+            Allocates unmanaged memory that is cleared to a certain value. This memory should only be freed by this helper.
+            </summary>
+            <param name="sizeInBytes">Size to allocate</param>
+            <param name="clearValue">Value the memory will be cleared to, by default zero.</param>
+            <param name="alignment">Alignment of the memory, by default aligned along 16-byte boundary.</param>
+            <returns>Pointer to the allocated unmanaged memory.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.FreeMemory(System.IntPtr)">
+            <summary>
+            Frees unmanaged memory that was allocated by this helper.
+            </summary>
+            <param name="memoryPtr">Pointer to unmanaged memory to free.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.IsMemoryAligned(System.IntPtr,System.Int32)">
+            <summary>
+            Checks if the memory is aligned to the specified alignment.
+            </summary>
+            <param name="memoryPtr">Pointer to the memory</param>
+            <param name="alignment">Alignment value, by defauly 16-byte</param>
+            <returns>True if is aligned, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.Swap``1(``0@,``0@)">
+            <summary>
+            Swaps the value between two references.
+            </summary>
+            <typeparam name="T">Type of data to swap.</typeparam>
+            <param name="left">First reference</param>
+            <param name="right">Second reference</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.AsRef``1(System.IntPtr)">
+            <summary>
+            Casts the pointer to a by-ref value of the specified type.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="ptr">Pointer</param>
+            <returns>By-ref value.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.AsPointer``1(``0@)">
+            <summary>
+            Casts the by-ref value of the specified type to a pointer. Note: This does not do any sort of pinning.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="src">By-ref value.</param>
+            <returns>Pointer to the memory location.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.ComputeFNVModifiedHashCode(System.Byte[])">
+            <summary>
+            Computes a hash code using the <a href="http://bretm.home.comcast.net/~bretm/hash/6.html">FNV modified algorithm</a>m.
+            </summary>
+            <param name="data">Byte data to hash.</param>
+            <returns>Hash code for the data.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.ReadStreamFully(System.IO.Stream,System.Int32)">
+            <summary>
+            Reads a stream until the end is reached into a byte array. Based on
+            <a href="http://www.yoda.arachsys.com/csharp/readbinary.html">Jon Skeet's implementation</a>.
+            It is up to the caller to dispose of the stream.
+            </summary>
+            <param name="stream">Stream to read all bytes from</param>
+            <param name="initialLength">Initial buffer length, default is 32K</param>
+            <returns>The byte array containing all the bytes from the stream</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.Compare(System.Byte[],System.Byte[])">
+            <summary>
+            Compares two arrays of bytes for equivalence. 
+            </summary>
+            <param name="firstData">First array of data.</param>
+            <param name="secondData">Second array of data.</param>
+            <returns>True if both arrays contain the same data, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.ClearMemory(System.IntPtr,System.Byte,System.Int32)">
+            <summary>
+            Clears the memory to the specified value.
+            </summary>
+            <param name="memoryPtr">Pointer to the memory.</param>
+            <param name="clearValue">Value the memory will be cleared to.</param>
+            <param name="sizeInBytesToClear">Number of bytes, starting from the memory pointer, to clear.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.SizeOf``1">
+            <summary>
+            Computes the size of the struct type.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <returns>Size of the struct in bytes.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.SizeOf``1(``0[])">
+            <summary>
+            Computes the size of the struct array.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="array">Array of structs</param>
+            <returns>Total size, in bytes, of the array's contents.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.AddIntPtr(System.IntPtr,System.Int32)">
+            <summary>
+            Adds an offset to the pointer.
+            </summary>
+            <param name="ptr">Pointer</param>
+            <param name="offset">Offset</param>
+            <returns>Pointer plus the offset</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CopyMemory(System.IntPtr,System.IntPtr,System.Int32)">
+            <summary>
+            Performs a memcopy that copies data from the memory pointed to by the source pointer to the memory pointer by the destination pointer.
+            </summary>
+            <param name="pDest">Destination memory location</param>
+            <param name="pSrc">Source memory location</param>
+            <param name="sizeInBytesToCopy">Number of bytes to copy</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.Count``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns the number of elements in the enumerable.
+            </summary>
+            <typeparam name="T">Type of element in collection.</typeparam>
+            <param name="source">Enumerable collection</param>
+            <returns>The number of elements in the enumerable collection.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.ToByteArray``1(``0[])">
+            <summary>
+            Converts typed element array to a byte array.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="source">Element array</param>
+            <returns>Byte array copy or null if the source array was not valid.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.FromByteArray``1(System.Byte[])">
+            <summary>
+            Converts a byte array to a typed element array.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="source">Byte array</param>
+            <returns>Typed element array or null if the source array was not valid.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CopyBytes``1(System.Byte[],System.Int32,``0[],System.Int32,System.Int32)">
+            <summary>
+            Copies bytes from a byte array to an element array.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="srcArray">Source byte array</param>
+            <param name="srcStartIndex">Starting index in destination array</param>
+            <param name="destArray">Destination element array</param>
+            <param name="destStartIndex">Starting index in destination array</param>
+            <param name="count">Number of elements to copy</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CopyBytes``1(``0[],System.Int32,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Copies bytes from an element array to a byte array.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="srcArray">Source element array</param>
+            <param name="srcStartIndex">Starting index in source array</param>
+            <param name="destArray">Destination byte array</param>
+            <param name="destStartIndex">Starting index in destination array</param>
+            <param name="count">Number of elements to copy</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.Read``1(System.IntPtr,``0[],System.Int32,System.Int32)">
+            <summary>
+            Reads data from the memory location into the array.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="pSrc">Pointer to memory location</param>
+            <param name="data">Array to store the copied data</param>
+            <param name="startIndexInArray">Zero-based element index to start writing data to in the element array.</param>
+            <param name="count">Number of elements to copy</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.Read``1(System.IntPtr)">
+            <summary>
+            Reads a single element from the memory location.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="pSrc">Pointer to memory location</param>
+            <returns>The read value</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.Write``1(System.IntPtr,``0[],System.Int32,System.Int32)">
+            <summary>
+            Writes data from the array to the memory location.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="pDest">Pointer to memory location</param>
+            <param name="data">Array containing data to write</param>
+            <param name="startIndexInArray">Zero-based element index to start reading data from in the element array.</param>
+            <param name="count">Number of elements to copy</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.Write``1(System.IntPtr,``0@)">
+            <summary>
+            Writes a single element to the memory location.
+            </summary>
+            <typeparam name="T">Struct type</typeparam>
+            <param name="pDest">Pointer to memory location</param>
+            <param name="data">The value to write</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CopyBGRAImageData(System.IntPtr,System.IntPtr,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Copies 32-bit BGRA color data from the src point (with specified row/slice pitch -- it may be padded!) into a NON-PADDED 32-bit BGRA color image. This
+            doesn't validate any data, so use at your own risk.
+            </summary>
+            <param name="dstBgraPtr">Destination BGRA pointer</param>
+            <param name="srcBgraPtr">Source BGRA pointer</param>
+            <param name="width">Width of the image</param>
+            <param name="height">Height of the image</param>
+            <param name="depth">Depth of the image</param>
+            <param name="rowPitch">Pitch of each scanline of source image.</param>
+            <param name="slicePitch">Slice of each depth slice of source image.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CopyRGBAImageData(System.IntPtr,System.IntPtr,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Copies 32-bit RGBA color data from the src point (with specified row/slice pitch -- it may be padded!) into a NON-PADDED 32-bit BGRA color image. This
+            doesn't validate any data, so use at your own risk.
+            </summary>
+            <param name="dstBgraPtr">Destination BGRA pointer.</param>
+            <param name="srcRgbaPtr">Source RGBA pointer.</param>
+            <param name="width">Width of the image</param>
+            <param name="height">Height of the image</param>
+            <param name="depth">Depth of the image</param>
+            <param name="rowPitch">Pitch of each scanline of source image.</param>
+            <param name="slicePitch">Slice of each depth slice of source image.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CopyLineToBGRA(System.IntPtr,System.IntPtr,System.Int32)">
+            <summary>
+            Copies texel by texel in the scanline, swapping R and B components along the way.
+            </summary>
+            <param name="rgbaLine">Scanline of RGBA texels, the source data.</param>
+            <param name="bgraLine">Scanline of BGRA texels, the destination data.</param>
+            <param name="count">Number of texels to copy.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryHelper.CopyLineToRGBA(System.IntPtr,System.IntPtr,System.Int32)">
+            <summary>
+            Copies texel by texel in the scanline, swapping B and R components along the way.
+            </summary>
+            <param name="bgraLine">Scanline of BGRA texels, the source data.</param>
+            <param name="rgbaLine">Scanline of RGBA texels, the destination data.</param>
+            <param name="count">Number of texels to copy.</param>
+        </member>
+        <member name="T:TeximpNet.RGBAQuad">
+            <summary>
+            Represents a 32-bit RGBA color in that order (8 bits per channel).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.RGBAQuad.R">
+            <summary>
+            Red component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.RGBAQuad.G">
+            <summary>
+            Green component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.RGBAQuad.B">
+            <summary>
+            Blue component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.RGBAQuad.A">
+            <summary>
+            Alpha component.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.RGBAQuad.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.RGBAQuad"/> struct.
+            </summary>
+            <param name="r">Red component.</param>
+            <param name="g">Green component.</param>
+            <param name="b">Blue component.</param>
+            <param name="a">Alpha component.</param>
+        </member>
+        <member name="M:TeximpNet.RGBAQuad.ToBGRA">
+            <summary>
+            Converts to BGRA order.
+            </summary>
+            <returns>BGRA ordered color value.</returns>
+        </member>
+        <member name="M:TeximpNet.RGBAQuad.ToBGRA(TeximpNet.BGRAQuad@)">
+            <summary>
+            Converts to BGRA order.
+            </summary>
+            <param name="color">BGRA ordered color value</param>
+        </member>
+        <member name="T:TeximpNet.BGRAQuad">
+            <summary>
+            Represents a 32-bit BGRA color in that order (8 bits per channel).
+            </summary>
+        </member>
+        <member name="F:TeximpNet.BGRAQuad.B">
+            <summary>
+            Blue component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.BGRAQuad.G">
+            <summary>
+            Green component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.BGRAQuad.R">
+            <summary>
+            Red component.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.BGRAQuad.A">
+            <summary>
+            Alpha component.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.BGRAQuad.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.BGRAQuad"/> struct.
+            </summary>
+            <param name="b">Blue component.</param>
+            <param name="g">Green component.</param>
+            <param name="r">Red component.</param>
+            <param name="a">Alpha component.</param>
+        </member>
+        <member name="M:TeximpNet.BGRAQuad.ToRGBA">
+            <summary>
+            Converts to RGBA order.
+            </summary>
+            <returns>RGBA ordered color value.</returns>
+        </member>
+        <member name="M:TeximpNet.BGRAQuad.ToRGBA(TeximpNet.RGBAQuad@)">
+            <summary>
+            Converts to RGBA order.
+            </summary>
+            <param name="color">RGBA ordered color value.</param>
+        </member>
+        <member name="T:TeximpNet.Surface">
+            <summary>
+            Represents a 2D image surface. This object wraps a FreeImage bitmap.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.IsLittleEndian">
+            <summary>
+            Gets if the OS is little endian. If Big Endian, then surface data is RGBA. If little, then surface data is BGRA.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.IsBGRAOrder">
+            <summary>
+            Gets what color order the data in the surface will be stored at (this is coupled to endianness).
+            </summary>
+            <remarks>
+            Note: This is based on the default compilation options for the FreeImage library. You can compile
+            the library to use a hardcoded color order which we cannot detect. Make sure the native library is compiled
+            with the default color order that is coupled to endianness.
+            </remarks>
+        </member>
+        <member name="P:TeximpNet.Surface.ColorOrder">
+            <summary>
+            Gets a struct that contains further details about color order that FreeImage expects (this is coupled to endianness). Such information
+            includes the default mask values that are used for 4-component color channels.
+            </summary>
+            <remarks>
+            Note: This is based on the default compilation options for the FreeImage library. You can compile
+            the library to use a hardcoded color order which we cannot detect. Make sure the native library is compiled
+            with the default color order that is coupled to endianness.
+            </remarks>
+        </member>
+        <member name="P:TeximpNet.Surface.IsDisposed">
+            <summary>
+            Gets if the surface has been disposed or not.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.ImageType">
+            <summary>
+            Gets the image type.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.BitsPerPixel">
+            <summary>
+            Gets the number of bits per pixel. E.g. a typical RGBA bitmap would be 32 bits per pixel.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.Pitch">
+            <summary>
+            Gets the width of the image in bytes, rounded to the next 32-bit boundary. Also known as stride or scan width.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.Width">
+            <summary>
+            Gets the width of the image in texels.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.Height">
+            <summary>
+            Gets the height of the image in texels.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.RedMask">
+            <summary>
+            Returns the bit pattern that describes the red color component of a texel.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.GreenMask">
+            <summary>
+            Returns the bit pattern that describes the green color component of a texel.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.BlueMask">
+            <summary>
+            Returns the bit pattern that describes the blue color component of a texel.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.IsTransparent">
+            <summary>
+            Gets whether the image has transparency or not.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.ColorType">
+            <summary>
+            Gets the color model of the bitmap.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.DataPtr">
+            <summary>
+            Gets a pointer to bitmap data.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.PalettePtr">
+            <summary>
+            Gets a pointer to palette data. The total number of colors in the palette can be determined by <see cref="P:TeximpNet.Surface.PaletteColorCount"/>. Each color is comprised of 4 bytes, one for each channel (Red, Green, Blue, Alpha). BGRA or RGBA color ordering
+            is determined by <see cref="P:TeximpNet.Surface.IsBGRAOrder"/>.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.HasPalette">
+            <summary>
+            Gets if the image has a color palette or not.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.PaletteColorCount">
+            <summary>
+            If the image uses a palette, get the number of colors in the palette. If no palette is used, this will be zero.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Surface.NativePtr">
+            <summary>
+            Gets the pointer to the native FreeImage object.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Surface.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Surface"/> class. The image type will be <see cref="F:TeximpNet.ImageType.Bitmap"/> that
+            is 32-bit.
+            </summary>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+        </member>
+        <member name="M:TeximpNet.Surface.#ctor(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Surface"/> class. The image type will be <see cref="F:TeximpNet.ImageType.Bitmap"/> that
+            is either 32- or 24-bit.
+            </summary>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="hasAlpha">If true then a 32-bit RGBA bitmap is created, if false then a 24-bit RGB bitmap is created.</param>
+        </member>
+        <member name="M:TeximpNet.Surface.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Surface"/> class. The image type will be <see cref="F:TeximpNet.ImageType.Bitmap"/>.
+            </summary>
+            <param name="bpp">Bit depth. Supported depth: 1-,4-,8-,16-,24-,32-bits per pixel.</param>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+        </member>
+        <member name="M:TeximpNet.Surface.#ctor(System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Surface"/> class. The image type will be <see cref="F:TeximpNet.ImageType.Bitmap"/>.
+            </summary>
+            <param name="bpp">Bit depth. Supported depth: 1-,4-,8-,16-,24-,32-bits per pixel.</param>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="redMask">Red part of the color layout, e.g. 0xFF0000.</param>
+            <param name="greenMask">Green part of the color layout, e.g. 0x00FF00. </param>
+            <param name="blueMask">Blue part of the color layout, e.g. 0x0000FF.</param>
+        </member>
+        <member name="M:TeximpNet.Surface.#ctor(TeximpNet.ImageType,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Surface"/> class.
+            </summary>
+            <param name="imageType">Type of the image.</param>
+            <param name="bpp">Bit depth. Supported depth: 1-,4-,8-,16-,24-,32-bits per pixel.</param>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+        </member>
+        <member name="M:TeximpNet.Surface.#ctor(TeximpNet.ImageType,System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Surface"/> class.
+            </summary>
+            <param name="imageType">Type of the image.</param>
+            <param name="bpp">Bit depth. Supported depth: 1-,4-,8-,16-,24-,32-bits per pixel.</param>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="redMask">Red part of the color layout, e.g. 0xFF0000.</param>
+            <param name="greenMask">Green part of the color layout, e.g. 0x00FF00. </param>
+            <param name="blueMask">Blue part of the color layout, e.g. 0x0000FF.</param>
+        </member>
+        <member name="M:TeximpNet.Surface.#ctor(System.IntPtr)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.Surface"/> class.
+            </summary>
+            <param name="imagePtr">FreeImage bitmap pointer.</param>
+        </member>
+        <member name="M:TeximpNet.Surface.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:TeximpNet.Surface"/> class.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Surface.LoadFromFile(System.String,TeximpNet.ImageLoadFlags)">
+            <summary>
+            Loads a surface from a file.
+            </summary>
+            <param name="filename">Name of file to load.</param>
+            <param name="flags">Optional flags, by default this is <see cref="F:TeximpNet.ImageLoadFlags.Default"/>.</param>
+            <returns>Loaded surface, or null if there was an error in loading.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.LoadFromFile(System.String,System.Boolean,TeximpNet.ImageLoadFlags)">
+            <summary>
+            Loads a surface from a file.
+            </summary>
+            <param name="filename">Name of file to load.</param>
+            <param name="flipImage">Flip the image, by default FreeImage loads an image with the origin lower-left. Some applications may expect the image origin
+            to be upper-left.</param>
+            <param name="flags">Optional flags, by default this is <see cref="F:TeximpNet.ImageLoadFlags.Default"/>.</param>
+            <returns>Loaded surface, or null if there was an error in loading.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.LoadFromStream(System.IO.Stream,TeximpNet.ImageLoadFlags)">
+            <summary>
+            Loads a surface from a stream.
+            </summary>
+            <param name="stream">Stream to load data from.</param>
+            <param name="flags">Optional flags, by default this is <see cref="F:TeximpNet.ImageLoadFlags.Default"/>.</param>
+            <returns>Loaded surface, or null if there was an error in loading.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.LoadFromStream(System.IO.Stream,System.Boolean,TeximpNet.ImageLoadFlags)">
+            <summary>
+            Loads a surface from a stream.
+            </summary>
+            <param name="stream">Stream to load data from.</param>
+            <param name="flipImage">Flip the image, by default FreeImage loads an image with the origin lower-left. Some applications may expect the image origin
+            to be upper-left.</param>
+            <param name="flags">Optional flags, by default this is <see cref="F:TeximpNet.ImageLoadFlags.Default"/>.</param>
+            <returns>Loaded surface, or null if there was an error in loading.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.LoadFromRawData(System.IntPtr,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Loads a surface from a raw 32-bit RGBA/BGRA image.
+            </summary>
+            <param name="imageDataPtr">Pointer to image data.</param>
+            <param name="width">Width of the image, in texels.</param>
+            <param name="height">Height of the image, in texels.</param>
+            <param name="rowPitch">Pitch of the image, the # of bytes per scanline, which may include padding. </param>
+            <param name="isBGRA">True if the data is BGRA, false if RGBA ordering. The input image may have to be converted to the default color ordering of the FreeImage surface (usually BGRA).</param>
+            <param name="isTopDown">True if the image origin is considered to be upper left, false if lower left. FreeImage images are lower left origin, so if true this will cause the image data to be flipped vertically.</param>
+            <returns>Surface containing the image, or null of there was an error in loading.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.SaveToFile(TeximpNet.ImageFormat,System.String,TeximpNet.ImageSaveFlags)">
+            <summary>
+            Saves the surface to a file. This will overwrite a file that already exists.
+            </summary>
+            <param name="format">File format to save image in.</param>
+            <param name="fileName">Name of file to create.</param>
+            <param name="flags">Optional save flags, by default this is <see cref="F:TeximpNet.ImageSaveFlags.Default"/>.</param>
+            <returns>True if the operation is successful, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.SaveToStream(TeximpNet.ImageFormat,System.IO.Stream,TeximpNet.ImageSaveFlags)">
+            <summary>
+            Saves the surface to a stream.
+            </summary>
+            <param name="format">File format to save image in.</param>
+            <param name="stream">Stream to output image to.</param>
+            <param name="flags">Optional save flags, by default this is <see cref="F:TeximpNet.ImageSaveFlags.Default"/>.</param>
+            <returns>True if the operation is successful, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.GetScanLine(System.Int32)">
+            <summary>
+            Gets a pointer to the start of the specified scan line.
+            </summary>
+            <param name="scanLine">Scanline to obtain a pointer to. The number of scanlines in an image is Height-1.</param>
+            <returns>Pointer to scanline.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.Clone">
+            <summary>
+            Clones the surface into a new instance. If the surface is disposed then this returns null.
+            </summary>
+            <returns>Cloned surface.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.Clone(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Clones a sub-image of the surface into a new instance. If the surface is disposed or if the rectangle
+            is not valid, then this returns null.
+            </summary>
+            <param name="left">Leftmost texel position of the rectangle.</param>
+            <param name="top">Topmost texel position of the rectangle.</param>
+            <param name="right">Rightmost texel position of the rectangle.</param>
+            <param name="bottom">Bottommost texel position of the rectangle.</param>
+            <returns>Subimage surface.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.CopyFrom(TeximpNet.Surface,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Copies the src bitmap into this bitmap, starting at the left/top texel location.
+            </summary>
+            <param name="src">Bitmap to copy from.</param>
+            <param name="left">Leftmost texel in this bitmap to start copying data to.</param>
+            <param name="top">Topmost texel in this bitmap to start copying data to.</param>
+            <param name="alphaBlend">0-255 alphablend value, if >= 255 then the src image data overwrites completely.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.ConvertTo(TeximpNet.ImageConversion)">
+            <summary>
+            Converts the surface to another image format. This will create a new surface internally
+            and dispose of the previous one.
+            </summary>
+            <param name="convertTo">Format to convert to.</param>
+            <returns>True if the operation was successful, false otherwise. If conversion fails, the current data is not disposed.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.FlipHorizontally">
+            <summary>
+            Flips the image contents horizontally along the vertical axis, in place.
+            </summary>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.FlipVertically">
+            <summary>
+            Flips the image contents vertically along the horizontal axis, in place.
+            </summary>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.Rotate(System.Double)">
+            <summary>
+            Rotates the image by an angle. This allocates a new surface, and if the operation is successful,
+            the old surface is disposed of.
+            </summary>
+            <param name="angle">Angle to rotate, in degrees.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.PreMultiplyAlpha">
+            <summary>
+            Applies the alpha value of each pixel to its color components. The alpha value stays unchanged. Only works with 32-bits color depth.
+            </summary>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.AdjustGamma(System.Double)">
+            <summary>
+            Performs gamma correction on a 8-, 24- or 32-bit image.
+            </summary>
+            <param name="gamma">Gamma value (greater than zero). A value of 1.0 leaves the image, less darkens, and greater than one lightens.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.AdjustBrightness(System.Double)">
+            <summary>
+            Adjusts the brightness of a 8-, 24- or 32-bit image by a certain amount.
+            </summary>
+            <param name="percentage">A value of zero means no change, less than zero will make the image darker, and greater than zero will make the image brighter.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.AdjustContrast(System.Double)">
+            <summary>
+            Adjusts the contrast of a 8-, 24- or 32-bit image by a certain amount.
+            </summary>
+            <param name="percentage">A value of zero means no change, less than zero will decrease the contrast, and greater than zero will increase the contrast.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.Invert">
+            <summary>
+            Inverts each pixel data.
+            </summary>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.Resize(System.Int32,System.Int32,TeximpNet.ImageFilter)">
+            <summary>
+            Resizes the image by resampling (or scaling, zooming). This allocates a new surface, and if the operation is successful,
+            the old surface is disposed of.
+            </summary>
+            <param name="width">Destination width.</param>
+            <param name="height">Destination height.</param>
+            <param name="filter">Filter algorithm used for sampling.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.SwapColors(TeximpNet.RGBAQuad,TeximpNet.RGBAQuad,System.Boolean)">
+            <summary>
+            Swaps two specified colors on a 1-, 4- or 8-bit palletized or a 16-, 24- or 32-bit high color image.
+            </summary>
+            <param name="colorToReplace">Color value to find in image to replace.</param>
+            <param name="colorToReplaceWith">Color value to replace with.</param>
+            <param name="ignoreAlpha">True if alpha should be ignored or not, meaning if colors in a 32-bit image should be treated as 24-bit.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.GenerateMipMaps(System.Collections.Generic.IList{TeximpNet.Surface},TeximpNet.ImageFilter,System.Boolean,System.Int32)">
+            <summary>
+            Generates a mipmap chain from the surface. See the <see cref="T:TeximpNet.Compression.Compressor"/> API for more advanced mipmap generation options.
+            </summary>
+            <param name="mipChain">List that will contain the mipmap chain.</param>
+            <param name="filter">Filter used to downsample the image when generating the mipmaps.</param>
+            <param name="includeFirst">Optionally include the first mip in the list, by default this is true.</param>
+            <param name="maxLevel">Max mip level to generate, a value that is less than or equal to zero will result in the full mipchain.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Surface.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.TeximpException">
+            <summary>
+            Library-specific exception.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.TeximpException.#ctor(System.String)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.TeximpException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:TeximpNet.TeximpException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructs a new instance of the <see cref="T:TeximpNet.TeximpException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.FreeImageLibrary">
+            <summary>
+            Manages the lifetime and access to the FreeImage native library.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Unmanaged.FreeImageLibrary.Default32BitName">
+            <summary>
+            Default name of the 32-bit unmanaged library. Based on runtime implementation the prefix ("lib" on non-windows) and extension (.dll, .so, .dylib) will be appended automatically.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Unmanaged.FreeImageLibrary.Default64BitName">
+            <summary>
+            Default name of the 64-bit unmanaged library. Based on runtime implementation the prefix ("lib" on non-windows) and extension (.dll, .so, .dylib) will be appended automatically.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.FreeImageLibrary.Instance">
+            <summary>
+            Gets the instance of the FreeImage library. This is thread-safe.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.FreeImageLibrary.IsLittleEndian">
+            <summary>
+            Gets if the OS is little endian. If Big Endian, then surface data is RGBA. If little, then surface data is BGRA.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.FreeImageLibrary.ColorOrder">
+            <summary>
+            Gets the default color order / component masks for the red, green, blue, alpha channels.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.OnLibraryLoaded">
+            <summary>
+            Called when the library is loaded.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.OnLibraryFreed">
+            <summary>
+            Called when the library is freed.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Allocate(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="bpp"></param>
+            <returns>Pointer to FreeImage bitmap, or null if the operation was not successful.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Allocate(System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="bpp"></param>
+            <param name="red_mask"></param>
+            <param name="green_mask"></param>
+            <param name="blue_mask"></param>
+            <returns>Pointer to FreeImage bitmap, or null if the operation was not successful.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.AllocateT(TeximpNet.ImageType,System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="imageType"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="bpp"></param>
+            <param name="red_mask"></param>
+            <param name="green_mask"></param>
+            <param name="blue_mask"></param>
+            <returns>Pointer to FreeImage bitmap, or null if the operation was not successful.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Clone(System.IntPtr)">
+            <summary>
+            Clones the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to the FreeImage bitmap.</param>
+            <returns>Cloned image.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Unload(System.IntPtr)">
+            <summary>
+            Frees memory used by the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to the FreeImage bitmap.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Copy(System.IntPtr,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Copies data from the specified rectangle in the source image, and returns it as another bitmap.
+            </summary>
+            <param name="bitmap">Pointer to the FreeImage bitmap.</param>
+            <param name="left">Leftmost texel.</param>
+            <param name="top">Topmost texel.</param>
+            <param name="right">Rightmost texel.</param>
+            <param name="bottom">Bottommost texel.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Paste(System.IntPtr,System.IntPtr,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Pastes data from one bitmap into another, starting at the texel coordinate specified. The width and height of the
+            data is determined by the source bitmap width and height.
+            </summary>
+            <param name="dstBitmap">Pointer to the destination FreeImage bitmap.</param>
+            <param name="srcBitmap">Pointer to the source FreeImage bitmap.</param>
+            <param name="left">X origin texel.</param>
+            <param name="top">Y origin texel.</param>
+            <param name="alpha">Alpha blend factor.</param>
+            <returns>True if the operation was successful, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.LoadFromFile(System.String,TeximpNet.ImageLoadFlags)">
+            <summary>
+            Loads an image from a file. The format is determined automatically.
+            </summary>
+            <param name="filename">File containing the image to load from.</param>
+            <param name="flags">Load flags.</param>
+            <returns>Pointer to FreeImage bitmap, or null if the operation was not successful.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.LoadFromStream(System.IO.Stream,TeximpNet.ImageLoadFlags)">
+            <summary>
+            Loads an image from the stream. The format is determined automatically.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+            <param name="flags">Load flags.</param>
+            <returns>Pointer to FreeImage bitmap, or null if the operation was not successful.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.SaveToFile(TeximpNet.ImageFormat,System.IntPtr,System.String,TeximpNet.ImageSaveFlags)">
+            <summary>
+            Saves the image to a file.
+            </summary>
+            <param name="format">Image format to save as.</param>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="filename">File path at which to create a file to save the data at.</param>
+            <param name="flags">Save flags.</param>
+            <returns>True if the operation was successfully, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.SaveToStream(TeximpNet.ImageFormat,System.IntPtr,System.IO.Stream,TeximpNet.ImageSaveFlags)">
+            <summary>
+            Saves the image to a stream.
+            </summary>
+            <param name="format">Image format to save as.</param>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="stream">Stream to write data to.</param>
+            <param name="flags">Save flags.</param>
+            <returns>True if the operation was successfully, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.HasPixels(System.IntPtr)">
+            <summary>
+            Queries whether the bitmap has pixel data.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>True if the bitmap has pixels, false if not.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetFileTypeFromFile(System.String)">
+            <summary>
+            Determines the file format based on the filename.
+            </summary>
+            <param name="filename">Filename</param>
+            <returns>Image format.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetFileTypeFromStream(System.IO.Stream)">
+            <summary>
+            Determines the file format based on the contents of the stream.
+            </summary>
+            <param name="stream">Stream</param>
+            <returns>Image format.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetImageType(System.IntPtr)">
+            <summary>
+            Queries the image type from the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Image type.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetImageColorType(System.IntPtr)">
+            <summary>
+            Queries the color model from the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Image color model.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetData(System.IntPtr)">
+            <summary>
+            Queries the image data from the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Pointer to the image data.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetPalette(System.IntPtr)">
+            <summary>
+            Queries the palette data from the FreeImage bitmap, if it has one.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Pointer to the palette color array.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetPaletteColorCount(System.IntPtr)">
+            <summary>
+            Queries the number of colors in the palette array from the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Number of palette entries, or zero if no palette exists.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetScanLine(System.IntPtr,System.Int32)">
+            <summary>
+            Gets the scanline from the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="scanline">Row to get the scanline, in range of [0, Image Height)</param>
+            <returns>Pointer to scanline data.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetBitsPerPixel(System.IntPtr)">
+            <summary>
+            Gets the number of bits per pixel contained in the FreeImage bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Bits per pixel of the image.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetWidth(System.IntPtr)">
+            <summary>
+            Gets the width of the FreeImage bitmap, in texels.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Width of the image.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetHeight(System.IntPtr)">
+            <summary>
+            Gets the height of the FreeImage bitmap, in texels.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Height of the image.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetPitch(System.IntPtr)">
+            <summary>
+            Gets the pitch of the bitmap, this is the # of bytes per row, which may or may not have padding.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Pitch</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetRedMask(System.IntPtr)">
+            <summary>
+            Gets the mask value to isolate the red component of a texel.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Red mask</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetGreenMask(System.IntPtr)">
+            <summary>
+            Gets the mask value to isolate the green component of a texel.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Green mask</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetBlueMask(System.IntPtr)">
+            <summary>
+            Gets the mask value to isolate the blue component of a texel.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>Blue mask</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.IsTransparent(System.IntPtr)">
+            <summary>
+            Determines if the image has any transparency.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>True if the image has transparency, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertTo4Bits(System.IntPtr)">
+            <summary>
+            Converts a bitmap to a 4 bit paletized format.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertTo8Bits(System.IntPtr)">
+            <summary>
+            Converts a bitmap to a 8 bit paletized format.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertTo16Bits555(System.IntPtr)">
+            <summary>
+            Converts a bitmap to a 16 bit format where 5 bits for red, green, blue.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertTo16Bits565(System.IntPtr)">
+            <summary>
+            Converts a bitmap to a 16 bit format where 5 bits for red, 6 bits for green, 5 for blue.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertTo24Bits(System.IntPtr)">
+            <summary>
+            Converts a bitmap to a 24-bit RGBA bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertTo32Bits(System.IntPtr)">
+            <summary>
+            Converts a bitmap to a 32-bit RGBA bitmap.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToGreyscale(System.IntPtr)">
+            <summary>
+            Converts a bitmap to a 8-bit paletized greyscale format.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToFloat(System.IntPtr)">
+            <summary>
+            Converts a bitmap to 32-bit IEEE float.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToRGBF(System.IntPtr)">
+            <summary>
+            Converts a bitmap to RGB format where each component has 32 bits and is a IEEE float.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToRGBAF(System.IntPtr)">
+            <summary>
+            Converts a bitmap to RGBA format where each component has 32 bits and is a IEEE float.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToUINT16(System.IntPtr)">
+            <summary>
+            Converts a bitmap to UINT16 format.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToRGB16(System.IntPtr)">
+            <summary>
+            Converts a bitmap to RGB color format where each component has 16 bits.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToRGBA16(System.IntPtr)">
+            <summary>
+            Converts a bitmap to RGBA color format where each component has 16 bits.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>FreeImage Bitmap</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertFromRawBitsEx(System.Boolean,System.IntPtr,TeximpNet.ImageType,System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Creates a FreeImage surface from raw data.
+            </summary>
+            <param name="copySource">True to copy the source data, false to hold onto the data pointer.</param>
+            <param name="data">Image data pointer.</param>
+            <param name="imageType">Type of bitmap to create.</param>
+            <param name="width">Width of the image, in texels.</param>
+            <param name="height">Height of the image, in texels.</param>
+            <param name="pitch">Pitch of the input image data.</param>
+            <param name="bpp">Bits per pixel of the input data.</param>
+            <param name="redMask">Red component mask.</param>
+            <param name="greenMask">Green component mask.</param>
+            <param name="blueMask">Blue component mask.</param>
+            <param name="topDown">True if the input image's origin is the upper left, false if lower left.</param>
+            <returns>FreeImage surface, or null if an error occured.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToStandardType(System.IntPtr,System.Boolean)">
+            <summary>
+            Converts an image of any stype to a standard 8-bit greyscale image.
+            </summary>
+            <param name="src">Source FreeImage object.</param>
+            <param name="scaleLinearly">True if the image data should be scaled linearly, false if not.</param>
+            <returns>FreeImage surface containing converted image.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.ConvertToType(System.IntPtr,TeximpNet.ImageType,System.Boolean)">
+            <summary>
+            Converts a FreeImage surface to another image type, optionally scaling the data.
+            </summary>
+            <param name="src">Source FreeImage object.</param>
+            <param name="dstType">Type of image to convert to.</param>
+            <param name="scaleLinearly">True if the image data should be scaled linearly, false if not.</param>
+            <returns>FreeImage surface containing converted image.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.FlipHorizontal(System.IntPtr)">
+            <summary>
+            Flips the image contents horizontally along the vertical axis, in place.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.FlipVertical(System.IntPtr)">
+            <summary>
+            Flips the image contents vertically along the horizontal axis, in place.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Rescale(System.IntPtr,System.Int32,System.Int32,TeximpNet.ImageFilter)">
+            <summary>
+            Resizes the image by resampling (or scaling, zooming). This allocates a new surface with the new scale.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="dst_width">Destination width.</param>
+            <param name="dst_height">Destination height.</param>
+            <param name="filter">Filter algorithm used for sampling.</param>
+            <returns>Rescaled FreeImage bitmap.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.PreMultiplyWithAlpha(System.IntPtr)">
+            <summary>
+            Applies the alpha value of each pixel to its color components. The alpha value stays unchanged. Only works with 32-bits color depth.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.AdjustGamma(System.IntPtr,System.Double)">
+            <summary>
+            Performs gamma correction on a 8-, 24- or 32-bit image.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="gamma">Gamma value (greater than zero). A value of 1.0 leaves the image, less darkens, and greater than one lightens.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.AdjustBrightness(System.IntPtr,System.Double)">
+            <summary>
+            Adjusts the brightness of a 8-, 24- or 32-bit image by a certain amount.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="percentage">A value of zero means no change, less than zero will make the image darker, and greater than zero will make the image brighter.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.AdjustContrast(System.IntPtr,System.Double)">
+            <summary>
+            Adjusts the contrast of a 8-, 24- or 32-bit image by a certain amount.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="percentage">A value of zero means no change, less than zero will decrease the contrast, and greater than zero will increase the contrast.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Invert(System.IntPtr)">
+            <summary>
+            Inverts each pixel data.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.SwapColors(System.IntPtr,TeximpNet.RGBAQuad,TeximpNet.RGBAQuad,System.Boolean)">
+            <summary>
+            Swaps two specified colors on a 1-, 4- or 8-bit palletized or a 16-, 24- or 32-bit high color image.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="colorToReplace">Color value to find in image to replace.</param>
+            <param name="colorToReplaceWith">Color value to replace with.</param>
+            <param name="ignoreAlpha">True if alpha should be ignored or not, meaning if colors in a 32-bit image should be treated as 24-bit.</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Rotate(System.IntPtr,System.Double)">
+            <summary>
+            Rotates the image by an angle. This allocates a new surface, and if the operation is successful,
+            the old surface is disposed of.
+            </summary>
+            <param name="bitmap">Pointer to FreeImage bitmap.</param>
+            <param name="angle">Angle to rotate, in degrees.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetVersion">
+            <summary>
+            Gets the version of the native DLL that is loaded.
+            </summary>
+            <returns>Version string</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.GetCopyrightMessage">
+            <summary>
+            Gets the FreeImage copyright message.
+            </summary>
+            <returns>Legal copyright string.</returns>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.BeginImageHandler">
+            <summary>
+            When the <see cref="T:TeximpNet.Compression.Compressor"/> is processing, this will be called at the beginning of new image data.
+            </summary>
+            <param name="size">Total size of the image in bytes.</param>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="depth">Depth of the image.</param>
+            <param name="face">Cubemap face or 2D array index.</param>
+            <param name="mipLevel">Mipmap level.</param>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.OutputHandler">
+            <summary>
+            When the <see cref="T:TeximpNet.Compression.Compressor"/> is processing, this will be called to write image data.
+            </summary>
+            <param name="data">Byte pointer containing the data.</param>
+            <param name="size">Number of bytes to write.</param>
+            <returns></returns>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.EndImageHandler">
+            <summary>
+            When the <see cref="T:TeximpNet.Compression.Compressor"/> is processing, this will be called at the end of new image data.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.NvTextureToolsLibrary">
+            <summary>
+            Manages the lifetime and access to the Nvidia Texture Tools (NVTT) native library.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Unmanaged.NvTextureToolsLibrary.Default32BitName">
+            <summary>
+            Default name of the 32-bit unmanaged library. Based on runtime implementation the prefix ("lib" on non-windows) and extension (.dll, .so, .dylib) will be appended automatically.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Unmanaged.NvTextureToolsLibrary.Default64BitName">
+            <summary>
+            Default name of the 64-bit unmanaged library. Based on runtime implementation the prefix ("lib" on non-windows) and extension (.dll, .so, .dylib) will be appended automatically.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.NvTextureToolsLibrary.Instance">
+            <summary>
+            Gets the instance of the NVTT library. This is thread-safe.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.CreateInputOptions">
+            <summary>
+            Create an input option object. This manages the compressor input images and other options.
+            </summary>
+            <returns>Pointer to input options object.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.DestroyInputOptions(System.IntPtr)">
+            <summary>
+            Destroy an input option object.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsTextureLayout(System.IntPtr,TeximpNet.Compression.TextureType,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the texture layout on the input options.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="type">Type of texture.</param>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="depth">Depth of the image.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.ResetInputOptionsTextureLayout(System.IntPtr)">
+            <summary>
+            Reset the texture layout of the input option to default value.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsMipmapData(System.IntPtr,System.IntPtr,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets mipmap image data to the input options that will be processed by the compressor. The texture layout must be first set, then each individual image representing
+            the complete image must be set (all the necessary faces and/or mip levels). The data is copied, so it is safe to free the memory after control is returned.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="data">Pointer to NON-PADDED data, essentially an array of 2D or 3D data.</param>
+            <param name="width">Width of the image.</param>
+            <param name="height">Height of the image.</param>
+            <param name="depth">Depth of the image.</param>
+            <param name="face">Array index or cubemap face.</param>
+            <param name="mipmap">Mipmap level</param>
+            <returns>True if the data was successfully set, false otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsFormat(System.IntPtr,System.Int32)">
+            <summary>
+            Sets the pixel format of data that will be set as input to the compressor.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="pixelFormat">Pixel format enumeration.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsAlphaMode(System.IntPtr,TeximpNet.Compression.AlphaMode)">
+            <summary>
+            Sets the alpha mode to the input options.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="alphaMode">Alpha mode enumeration.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsGamma(System.IntPtr,System.Single,System.Single)">
+            <summary>
+            Sets gamma options to the input options.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="inputGamma">Input gamma.</param>
+            <param name="outputGamma">Output gamma.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsWrapMode(System.IntPtr,TeximpNet.Compression.WrapMode)">
+            <summary>
+            Sets wrap mode options to the input options.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="wrapMode">Wrap mode enumeration.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsMipmapFilter(System.IntPtr,TeximpNet.Compression.MipmapFilter)">
+            <summary>
+            Sets the mipmap filtering to be used by the compressor during mipmap generation.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="filter">Filter enumeration.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsMipmapGeneration(System.IntPtr,System.Boolean,System.Int32)">
+            <summary>
+            Sets if mipmaps should be generated by the compressor.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="isEnabled">True if mipmaps should be generated, false if otherwise.</param>
+            <param name="maxLevel">Maximum # of mipmaps to generate.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsKaiserParameters(System.IntPtr,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets kaiser filter parameters when the mipmap filter is set to <see cref="F:TeximpNet.Compression.MipmapFilter.Kaiser"/>.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="width">Width parameter.</param>
+            <param name="alpha">Alpha parameter.</param>
+            <param name="stretch">Stretch parameter.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsNormalMap(System.IntPtr,System.Boolean)">
+            <summary>
+            Sets if the input image(s) should be treated if they're normal maps.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="isNormalMap">True if normal map, false if otherwise.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsConvertToNormalMap(System.IntPtr,System.Boolean)">
+            <summary>
+            Specifies the input options that the images should be converted to normal maps.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="convertToNormalMap">True to convert the input images to normal maps, false if otherwise.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsHeightEvaluation(System.IntPtr,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets height evaluation parameters for use in normal map generation. The height factors do not
+            necessarily sum to one.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="redScale">Scale for the red channel.</param>
+            <param name="greenScale">Scale for the green channel.</param>
+            <param name="blueScale">Scale for the blue channel.</param>
+            <param name="alphaScale">Scale for the alpha channel.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsNormalFilter(System.IntPtr,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets the filter parameters used during normal map generation.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="small">Small parameter.</param>
+            <param name="medium">Medium parameter.</param>
+            <param name="big">Big parameter.</param>
+            <param name="large">Large parameter.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsNormalizeMipmaps(System.IntPtr,System.Boolean)">
+            <summary>
+            Sets if normal maps that are generated by the compressor should be normalized.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="normalize">True if normal maps should be normalized, false if otherwise.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsMaxExtents(System.IntPtr,System.Int32)">
+            <summary>
+            Sets the maximum texture dimensions, used during rounding.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="dimensions">Texture dimensions.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetInputOptionsRoundMode(System.IntPtr,TeximpNet.Compression.RoundMode)">
+            <summary>
+            Sets how image dimensions should be rounded to be power of two.
+            </summary>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="roundMode">Round mode enumeration.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.CreateCompressionOptions">
+            <summary>
+            Creates a compression options object. This manages how input images are processed, such as the quality of compression or the pixel format (uncompressed or compressed).
+            </summary>
+            <returns>Pointer to compression options object.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.DestroyCompressionOptions(System.IntPtr)">
+            <summary>
+            Destroys a compression options object.
+            </summary>
+            <param name="compressOptions">Pointer to compression options object.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetCompressionOptionsFormat(System.IntPtr,TeximpNet.Compression.CompressionFormat)">
+            <summary>
+            Sets the format the images will be processed into. All save one are block compression formats, by uncompressed RGBA (up to 32-bits) can be outputted.
+            </summary>
+            <param name="compressOptions">Pointer to compression options object.</param>
+            <param name="format">Compression format enumeration.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetCompressionOptionsQuality(System.IntPtr,TeximpNet.Compression.CompressionQuality)">
+            <summary>
+            Sets the compression quality.
+            </summary>
+            <param name="compressOptions">Pointer to compression options object.</param>
+            <param name="quality">Quality of the compression, higher quality tends to take longer.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetCompressionOptionsColorWeights(System.IntPtr,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets color weighting during compression. By default the compression error is measured for each channel
+            uniformly, but for some images it may make more sense to measure the error in a perceptual color space.
+            </summary>
+            <param name="compressOptions">Pointer to compression options object.</param>
+            <param name="red">Weight for the red channel.</param>
+            <param name="green">Weight for the green channel.</param>
+            <param name="blue">Weight for the blue channel.</param>
+            <param name="alpha">Weight for the alpha channel.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetCompressionOptionsPixelFormat(System.IntPtr,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Sets the color output format if no block compression is set (up to 32 bit RGBA). For example, to convert to RGB 5:6:5 format,
+            <code>SetPixelFormat(16, 0x001F, 0x07E0, 0xF800, 0)</code>.
+            </summary>
+            <param name="compressOptions">Pointer to compression options object.</param>
+            <param name="bitsPerPixel">Bits per pixel of the color format.</param>
+            <param name="red_mask">Mask for the bits that correspond to the red channel.</param>
+            <param name="green_mask">Mask for the bits that correspond to the green channel.</param>
+            <param name="blue_mask">Mask for the bits that correspond to the blue channel.</param>
+            <param name="alpha_mask">Mask for the bits that correspond to the alpha channel.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetCompressionOptionsQuantization(System.IntPtr,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Sets whether the compressor should do dithering before compression
+            or during quantiziation. When using block compression this does not generally improve
+            the quality of the output image, but in some cases it can produce smoother results. It is
+            generally a good idea to enable dithering when the output format is RGBA color.
+            </summary>
+            <param name="compressOptions">Pointer to compression options object.</param>
+            <param name="colorDithering">True to enable color dithering, false otherwise.</param>
+            <param name="alphaDithering">True to enable alpha dithering false otherwise.</param>
+            <param name="binaryAlpha">True to use binary alpha, false otherwise.</param>
+            <param name="alphaThreshold">Alpha threshold.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.CreateOutputOptions">
+            <summary>
+            Create an output options object. This manages how processed images from the compressor are outputted, either to a file or to a stream.
+            </summary>
+            <returns>Pointer to output options object.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.DestroyOutputOptions(System.IntPtr)">
+            <summary>
+            Destroys an output options object.
+            </summary>
+            <param name="outputOptions">Pointer to output options object.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetOutputOptionsFileName(System.IntPtr,System.String)">
+            <summary>
+            Sets a file path to create a DDS file containing processed images.
+            </summary>
+            <param name="outputOptions">Pointer to output options object.</param>
+            <param name="filename">DDS image containing the processed images.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetOutputOptionsOutputHeader(System.IntPtr,System.Boolean)">
+            <summary>
+            If writing to a stream or file, specify if the DDS header should be written as well.
+            </summary>
+            <param name="outputOptions">Pointer to output options object.</param>
+            <param name="value">True to write out the DDS header, false if otherwise.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.SetOutputOptionsOutputHandler(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Specifies IO handlers when writing to a stream.
+            </summary>
+            <param name="outputOptions">Pointer to output options object.</param>
+            <param name="beginImageHandlerCallback">Callback when a new image is about to begin, specifying image details.</param>
+            <param name="outputHandlerCallback">Called when data needs to be written.</param>
+            <param name="endImageHandlerCallback">Called when an image has completed.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.CreateCompressor">
+            <summary>
+            Create a compressor object. The compressor ochestrates processing for generating mipmaps, compressing image data, and creating normal maps, then writing out
+            the data to a file or to user data structures.
+            </summary>
+            <returns>Pointer to compressor object.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.DestroyCompressor(System.IntPtr)">
+            <summary>
+            Destroys a compressor object.
+            </summary>
+            <param name="compressor">Pointer to compressor object.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.Process(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Executes processing of image data, based on input/compression/output options.
+            </summary>
+            <param name="compressor">Pointer to compressor object.</param>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="compressionOptions">Pointer to compression options object.</param>
+            <param name="outputOptions">Pointer to output options object.</param>
+            <returns>True if processing completed successfully, false if otherwise.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.EstimateSize(System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Estimate the total number of bytes of the output, based on the specified options.
+            </summary>
+            <param name="compressor">Pointer to compressor object.</param>
+            <param name="inputOptions">Pointer to input options object.</param>
+            <param name="compressionOptions">Pointer to compression options object.</param>
+            <returns>Total number of bytes that will contain all images, faces and mipmaps.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.NvTextureToolsLibrary.GetVersion">
+            <summary>
+            Gets the NVTT unmanaged library version.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.Platform">
+            <summary>
+            Enumerates supported platforms.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Unmanaged.Platform.Windows">
+            <summary>
+            Windows platform.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Unmanaged.Platform.Unix">
+            <summary>
+            Unix platform.
+            </summary>
+        </member>
+        <member name="F:TeximpNet.Unmanaged.Platform.Mac">
+            <summary>
+            Mac platform.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.UnmanagedFunctionNameAttribute">
+            <summary>
+            An attribute that represents the name of an unmanaged function to import.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.UnmanagedFunctionNameAttribute.UnmanagedFunctionName">
+            <summary>
+            Name of the unmanaged function.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedFunctionNameAttribute.#ctor(System.String)">
+            <summary>
+            Constructs a new <see cref="P:TeximpNet.Unmanaged.UnmanagedFunctionNameAttribute.UnmanagedFunctionName"/>.
+            </summary>
+            <param name="unmanagedFunctionName">Name of the function.</param>
+        </member>
+        <member name="T:TeximpNet.Unmanaged.UnmanagedLibrary">
+            <summary>
+            Represents management and access to an unmanaged library. An unmanaged library can be loaded and unloaded dynamically. The library then searches for a list
+            of exported functions to create managed delegates for, allowing callers to access the library. Each OS platform has its own implementation to determine how to load
+            unmanaged libraries.
+            </summary>
+        </member>
+        <member name="E:TeximpNet.Unmanaged.UnmanagedLibrary.LibraryLoaded">
+            <summary>
+            Occurs when the unmanaged library is loaded.
+            </summary>
+        </member>
+        <member name="E:TeximpNet.Unmanaged.UnmanagedLibrary.LibraryFreed">
+            <summary>
+            Occurs when the unmanaged library is freed.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.UnmanagedLibrary.IsLibraryLoaded">
+            <summary>
+            Queries if the unmanaged library has been loaded or not.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.UnmanagedLibrary.DefaultLibraryPath32Bit">
+            <summary>
+            Queries the default path to the 32-bit unmanaged library DLL.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.UnmanagedLibrary.DefaultLibraryPath64bit">
+            <summary>
+            Queries the default path to the 64-bit unmanaged library DLL.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.UnmanagedLibrary.LibraryPath">
+            <summary>
+            Queries the path to the unmanaged library DLL that is currently loaded.
+            </summary>
+        </member>
+        <member name="P:TeximpNet.Unmanaged.UnmanagedLibrary.Is64Bit">
+            <summary>
+            Queries if the OS is 64-bit, if false then it is 32-bit.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.#ctor(System.String,System.String,System.Type[])">
+            <summary>
+            Constructs a new <see cref="T:TeximpNet.Unmanaged.UnmanagedLibrary"/>.
+            </summary>
+            <param name="default32BitName">Default name (NOT path) of the 32-bit unmanaged library.</param>
+            <param name="default64BitName">Default name (NOT path) of the 64-bit unmanaged library.</param>
+            <param name="unmanagedFunctionDelegateTypes">Delegate types to instantiate and load.</param>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.GetPlatform">
+            <summary>
+            Gets an enum representing the current OS that is application is executing on.
+            </summary>
+            <returns>Platform enumeration.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.LoadLibrary">
+            <summary>
+            Loads the unmanaged library using the default library paths based on the OS bitness.
+            </summary>
+            <returns>True if the library was found and successfully loaded.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.LoadLibrary(System.String,System.String)">
+            <summary>
+            Loads the unmanaged library using the supplied 32 and 64 bit paths, the one chosen is based on the OS bitness.
+            </summary>
+            <param name="lib32Path">Path to the 32-bit DLL</param>
+            <param name="lib64Path">Path to the 64-bit DLL</param>
+            <returns>True if the library was found and successfully loaded.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.LoadLibrary(System.String)">
+            <summary>
+            Loads the unmanaged library using the supplied path.
+            </summary>
+            <param name="libPath">Path to the unmanaged DLL.</param>
+            <returns>True if the library was found and successfully loaded.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.FreeLibrary">
+            <summary>
+            Frees the unmanaged library that is currently loaded.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.GetFunction``1(System.String)">
+            <summary>
+            Gets a delegate based on the unmanaged function name.
+            </summary>
+            <typeparam name="T">Type of delegate.</typeparam>
+            <param name="funcName">Name of unmanaged function that is exported by the library.</param>
+            <returns>The delegate, or null if not found.</returns>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.LoadIfNotLoaded">
+            <summary>
+            If library is not explicitly loaded by user, call this when trying to call an unmanaged function to load the unmanaged library
+            from the default path. This function is thread safe.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.OnLibraryLoaded">
+            <summary>
+            Called when the library is loaded.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.Unmanaged.UnmanagedLibrary.OnLibraryFreed">
+            <summary>
+            Called when the library is freed.
+            </summary>
+        </member>
+        <member name="T:TeximpNet.MemoryInterop">
+            <summary>
+            Internal stub type used by MemoryInterop.ILPatcher to inject fast-interop code. Depending on the type of method, the IL injection is either inline (replacing the call) or
+            replaces the entire method body. Recommended types to use are generally blittable structs.
+            </summary>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.As``2(``0@)">
+            <summary>
+            Casts the by-ref value from one type to another.
+            </summary>
+            <typeparam name="TFrom">Type to cast from.</typeparam>
+            <typeparam name="TTo">Type to cast to.</typeparam>
+            <param name="source">By-ref value.</param>
+            <returns>Ref to the value, as the new type.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.AsRef``1(System.IntPtr)">
+            <summary>
+            Casts the pointer to a by-ref value of the specified type.
+            </summary>
+            <typeparam name="T">Type to cast to.</typeparam>
+            <param name="pSrc">Pointer.</param>
+            <returns>Ref to the value, as the new type.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.WriteArray``1(System.IntPtr,``0[],System.Int32,System.Int32)">
+            <summary>
+            Write data from the managed array to the memory location. This will temporarily pin the array and do a memcpy.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pDest">Pointer to memory location to receive the data.</param>
+            <param name="data">Array containing data to write.</param>
+            <param name="startIndex">Zero-based index to start reading data from the array.</param>
+            <param name="count">Number of elements to copy.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.WriteArrayUnaligned``1(System.IntPtr,``0[],System.Int32,System.Int32)">
+            <summary>
+            Write data from the managed array to the memory location. This will temporarily pin the array and do an unaligned memcpy.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pDest">Pointer to memory location to write the data.</param>
+            <param name="data">Array containing data to write.</param>
+            <param name="startIndex">Zero-based index to start reading data from the array.</param>
+            <param name="count">Number of elements to copy.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.ReadArray``1(System.IntPtr,``0[],System.Int32,System.Int32)">
+            <summary>
+            Read data from the memory location to the managed array. This will temporarily pin the array and do a memcpy.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pSrc">Pointer to memory location to read the data.</param>
+            <param name="data">Array to store the copied data.</param>
+            <param name="startIndex">Zero-based index to start writing data to in the array.</param>
+            <param name="count">Number of elements to copy.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.ReadArrayUnaligned``1(System.IntPtr,``0[],System.Int32,System.Int32)">
+            <summary>
+            Read data from the memory location to the managed array. This will temporarily pin the array and do an unaligned memcpy.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pSrc">Pointer to memory location to read the data.</param>
+            <param name="data">Array to store the copied data.</param>
+            <param name="startIndex">Zero-based index to start writing data to in the array.</param>
+            <param name="count">Number of elements to copy.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.SizeOfInline``1">
+            <summary>
+            Computes the size of the type (inlined).
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <returns>Size of the type in bytes.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.AsPointerInline``1(``0@)">
+            <summary>
+            Casts the by-ref value to a pointer (inlined). Note: This does not do any sort of pinning.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="src">Ref to a value.</param>
+            <returns>Pointer to the memory location.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.WriteInline``1(System.Void*,``0@)">
+            <summary>
+            Writes a single element to the memory location (inlined).
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pDst">Pointer to memory location.</param>
+            <param name="src">Value to be written.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.WriteUnalignedInline``1(System.Void*,``0@)">
+            <summary>
+            Writes a single element to the memory location (inlined, unaligned copy).
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pDst">Pointer to memory location.</param>
+            <param name="src">Value to be written.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.ReadInline``1(System.Void*)">
+            <summary>
+            Reads a single element from the memory location (inlined).
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pSrc">Pointer to memory location.</param>
+            <returns>Value read.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.ReadUnalignedInline``1(System.Void*)">
+            <summary>
+            Reads a single element from the memory location (inlined, unaligned copy).
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="pSrc">Pointer to memory location.</param>
+            <returns>Value read.</returns>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.MemCopyInline(System.Void*,System.Void*,System.UInt32)">
+            <summary>
+            Copies the number of bytes from one pointer to the other (inlined).
+            </summary>
+            <param name="pDest">Pointer to the destination memory location.</param>
+            <param name="pSrc">Pointer to the source memory location</param>
+            <param name="byteCount">Number of bytes to copy</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.MemCopyUnalignedInline(System.Void*,System.Void*,System.UInt32)">
+            <summary>
+            Copies the number of bytes from one pointer to the other (inlined, unaligned copy).
+            </summary>
+            <param name="pDest">Pointer to the destination memory location.</param>
+            <param name="pSrc">Pointer to the source memory location</param>
+            <param name="byteCount">Number of bytes to copy</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.MemSetInline(System.Void*,System.Byte,System.UInt32)">
+            <summary>
+            Clears the memory to a specified value (inlined).
+            </summary>
+            <param name="ptr">Pointer to the memory location.</param>
+            <param name="clearValue">Value the memory will be cleared to.</param>
+            <param name="byteCount">Number of bytes to to set.</param>
+        </member>
+        <member name="M:TeximpNet.MemoryInterop.MemSetUnalignedInline(System.Void*,System.Byte,System.UInt32)">
+            <summary>
+            Clears the memory to a specified value (inlined, unaligned init).
+            </summary>
+            <param name="ptr">Pointer to the memory location.</param>
+            <param name="clearValue">Value the memory will be cleared to.</param>
+            <param name="byteCount">Number of bytes to to set.</param>
+        </member>
+    </members>
+</doc>

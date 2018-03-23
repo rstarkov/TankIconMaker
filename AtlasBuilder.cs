@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using RT.Util.Dialogs;
+using ImageMagick;
+using TeximpNet.Compression;
+using TeximpNet;
 using WotDataLib;
 
 namespace TankIconMaker
@@ -37,6 +40,7 @@ namespace TankIconMaker
         }
 
         private WotContext context;
+        private int HeighAtlas = 0;
         public AtlasBuilder(WotContext CurContext)
         {
             context = CurContext;
@@ -80,7 +84,7 @@ namespace TankIconMaker
 
         private void CreateAtlasPNG(ref List<SubTextureStruct> ImageList, string filename)
         {
-            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(2048, 2048);
+            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(4096, HeighAtlas);
             AtlasPNG.SetResolution(96.0F, 96.0F);
             for (int i = 0; i < ImageList.Count; i++)
             {
@@ -91,6 +95,14 @@ namespace TankIconMaker
                 }
             }
             AtlasPNG.Save(filename);
+            Surface image = Surface.LoadFromFile(filename, true);
+            using (Compressor compressor = new Compressor())
+            {
+                compressor.Input.SetData(image);
+                compressor.Compression.Format = CompressionFormat.DXT5;
+                compressor.Compression.Quality = CompressionQuality.Production;
+                compressor.Process(filename.Replace(".png", ".dds"));
+            }
         }
 
         private void RadixSort(ref List<SubTextureStruct> ImageList)
@@ -126,7 +138,8 @@ namespace TankIconMaker
             List<System.Drawing.Rectangle> TakePlaceList = new List<System.Drawing.Rectangle>();
             SubTextureStruct SubTexture;
             System.Drawing.Rectangle Rct, TakeRct;
-            const int TextureHeight = 2048, TextureWidth = 2048;
+            const int TextureHeight = 4096, TextureWidth = 4096;
+            HeighAtlas = 0;
             int CurrentY, j, k;
             TakePlaceList.Add(ImageList[0].LocRect);
             for (int i = 1; i < ImageList.Count; i++)
@@ -176,8 +189,17 @@ namespace TankIconMaker
                 }
                 SubTexture.LocRect = Rct;
                 ImageList[i] = SubTexture;
+                if (HeighAtlas < Rct.Bottom)
+                {
+                    HeighAtlas = Rct.Bottom;
+                }
 
             }
+            if (HeighAtlas % 4 != 0)
+            {
+                HeighAtlas = (HeighAtlas / 4 + 1) * 4;
+            }
+            
         }
 
         private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context, SaveType atlasType)
@@ -189,9 +211,18 @@ namespace TankIconMaker
 
             var StreamAtlasPNG =
                 ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
-                    context.VersionConfig.PathSourceAtlas, nameAtlas + ".png"));
+                    context.VersionConfig.PathSourceAtlas, nameAtlas + ".dds"));
 
-            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(StreamAtlasPNG);
+            System.Drawing.Bitmap AtlasPNG;
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (MagickImage AtlasDDS = new MagickImage(StreamAtlasPNG))
+                {
+                    AtlasDDS.Format = MagickFormat.Png;
+                    AtlasDDS.Write(memStream);
+                    AtlasPNG = new System.Drawing.Bitmap(memStream);
+                }
+            }
             AtlasPNG.SetResolution(96.0F, 96.0F);
             
             var StreamAtlasXML =
