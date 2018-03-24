@@ -2280,8 +2280,8 @@
       <Old>Class: Artillery</Old>
     </ClassArtillery>
     <ClassNone>
-      <Translation>Класс:  без класса</Translation>
-      <Old>Class:  None</Old>
+      <Translation>Класс: без класса</Translation>
+      <Old>Class: None</Old>
     </ClassNone>
     <CountryUSSR>
       <Translation>Страна: СССР</Translation>
@@ -2323,9 +2323,13 @@
       <Translation>Страна: Польша</Translation>
       <Old>Country: Poland</Old>
     </CountryPoland>
+    <CountryItaly>
+      <Translation>Страна: Италия</Translation>
+      <Old>Country: Italy</Old>
+    </CountryItaly>
     <CountryNone>
-      <Translation>Страна:  без страны</Translation>
-      <Old>Country:  None</Old>
+      <Translation>Страна: без страны</Translation>
+      <Old>Country: None</Old>
     </CountryNone>
     <CategNormal>
       <Translation>Доступ: Обычный</Translation>
