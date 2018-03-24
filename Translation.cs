@@ -1010,7 +1010,7 @@ namespace TankIconMaker
         public TrString ClassHeavy = "Class: Heavy tank";
         public TrString ClassDestroyer = "Class: Destroyer";
         public TrString ClassArtillery = "Class: Artillery";
-        public TrString ClassNone = "Class:  None";
+        public TrString ClassNone = "Class: None";
 
         public TrString CountryUSSR = "Country: USSR";
         public TrString CountryGermany = "Country: Germany";
@@ -1023,7 +1023,7 @@ namespace TankIconMaker
         public TrString CountrySweden = "Country: Sweden";
         public TrString CountryPoland = "Country: Poland";
         public TrString CountryItaly = "Country: Italy";
-        public TrString CountryNone = "Country:  None";
+        public TrString CountryNone = "Country: None";
 
         public TrString CategNormal = "Avail.: Normal";
         public TrString CategPremium = "Avail.: Premium";

@@ -2241,7 +2241,7 @@
     </ClassArtillery>
     <ClassNone>
       <Translation>Klasse: (keine)</Translation>
-      <Old>Class:  None</Old>
+      <Old>Class: None</Old>
     </ClassNone>
     <CountryUSSR>
       <Translation>Land: UdSSR</Translation>
@@ -2279,13 +2279,17 @@
       <Translation>Land: Schweden</Translation>
       <Old>Country: Sweden</Old>
     </CountrySweden>
-	<CountryPoland>
+    <CountryPoland>
       <Translation>Land: Polen</Translation>
       <Old>Country: Poland</Old>
     </CountryPoland>
+    <CountryItaly>
+      <Translation>Land: Italien</Translation>
+      <Old>Country: Italy</Old>
+    </CountryItaly>
     <CountryNone>
       <Translation>Land: (kein)</Translation>
-      <Old>Country:  None</Old>
+      <Old>Country: None</Old>
     </CountryNone>
     <CategNormal>
       <Translation>Verf.: Normal</Translation>

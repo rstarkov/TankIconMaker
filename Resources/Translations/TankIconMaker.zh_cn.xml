@@ -2174,8 +2174,8 @@
       <Old>Class: Artillery</Old>
     </ClassArtillery>
     <ClassNone>
-      <Translation>Class:  未分类</Translation>
-      <Old>Class:  None</Old>
+      <Translation>Class: 未分类</Translation>
+      <Old>Class: None</Old>
     </ClassNone>
     <CountryUSSR>
       <Translation>Country: 苏联</Translation>
@@ -2209,9 +2209,21 @@
       <Translation>Country: 捷克</Translation>
       <Old>Country: Czech</Old>
     </CountryCzech>
+    <CountrySweden>
+      <Translation>Страна: 瑞典</Translation>
+      <Old>Country: Sweden</Old>
+    </CountrySweden>
+    <CountryPoland>
+      <Translation>Страна: 波蘭</Translation>
+      <Old>Country: Poland</Old>
+    </CountryPoland>
+    <CountryItaly>
+      <Translation>Страна: 意大利</Translation>
+      <Old>Country: Italy</Old>
+    </CountryItaly>
     <CountryNone>
-      <Translation>Country:  未分类</Translation>
-      <Old>Country:  None</Old>
+      <Translation>Country: 未分类</Translation>
+      <Old>Country: None</Old>
     </CountryNone>
     <CategNormal>
       <Translation>Avail.: 银币</Translation>
