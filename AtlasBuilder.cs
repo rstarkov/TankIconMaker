@@ -82,7 +82,7 @@ namespace TankIconMaker
             writer.Close();
         }
 
-        private void CreateAtlasPNG(ref List<SubTextureStruct> ImageList, string filename)
+        private void CreateAtlasImage(ref List<SubTextureStruct> ImageList, string filename)
         {
             System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(4096, HeighAtlas);
             AtlasPNG.SetResolution(96.0F, 96.0F);
@@ -95,10 +95,11 @@ namespace TankIconMaker
                 }
             }
             AtlasPNG.Save(filename);
-            Surface image = Surface.LoadFromFile(filename, true);
+            Surface AtlasDDS = Surface.LoadFromFile(filename, true);
             using (Compressor compressor = new Compressor())
             {
-                compressor.Input.SetData(image);
+                compressor.Input.SetData(AtlasDDS);
+                compressor.Input.SetMipmapGeneration(false);
                 compressor.Compression.Format = CompressionFormat.DXT5;
                 compressor.Compression.Quality = CompressionQuality.Production;
                 compressor.Process(filename.Replace(".png", ".dds"));
@@ -139,7 +140,7 @@ namespace TankIconMaker
             SubTextureStruct SubTexture;
             System.Drawing.Rectangle Rct, TakeRct;
             const int TextureHeight = 4096, TextureWidth = 4096;
-            HeighAtlas = 0;
+            int heighAtlas = 0;
             int CurrentY, j, k;
             TakePlaceList.Add(ImageList[0].LocRect);
             for (int i = 1; i < ImageList.Count; i++)
@@ -189,17 +190,12 @@ namespace TankIconMaker
                 }
                 SubTexture.LocRect = Rct;
                 ImageList[i] = SubTexture;
-                if (HeighAtlas < Rct.Bottom)
+                if (heighAtlas < Rct.Bottom)
                 {
-                    HeighAtlas = Rct.Bottom;
+                    heighAtlas = Rct.Bottom;
                 }
-
             }
-            if (HeighAtlas % 4 != 0)
-            {
-                HeighAtlas = (HeighAtlas / 4 + 1) * 4;
-            }
-            
+            HeighAtlas = (heighAtlas % 4 != 0) ? ((heighAtlas / 4 + 1) * 4) : heighAtlas;
         }
 
         private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context, SaveType atlasType)
@@ -209,14 +205,14 @@ namespace TankIconMaker
 
             var nameAtlas = atlasType == SaveType.BattleAtlas ? battleAtlas : vehicleMarkerAtlas;
 
-            var StreamAtlasPNG =
+            var StreamAtlasDDS =
                 ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
                     context.VersionConfig.PathSourceAtlas, nameAtlas + ".dds"));
 
             System.Drawing.Bitmap AtlasPNG;
             using (MemoryStream memStream = new MemoryStream())
             {
-                using (MagickImage AtlasDDS = new MagickImage(StreamAtlasPNG))
+                using (MagickImage AtlasDDS = new MagickImage(StreamAtlasDDS))
                 {
                     AtlasDDS.Format = MagickFormat.Png;
                     AtlasDDS.Write(memStream);
@@ -289,7 +285,7 @@ namespace TankIconMaker
 
             this.Arrangement(ref ImageList);
             Directory.CreateDirectory(Path.GetDirectoryName(path));
-            this.CreateAtlasPNG(ref ImageList, path);
+            this.CreateAtlasImage(ref ImageList, path);
             this.CreateAtlasXML(ref ImageList, path.Replace(".png", ".xml"));
         }
     }
