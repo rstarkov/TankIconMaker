@@ -1225,7 +1225,7 @@ namespace TankIconMaker
             {
                 var style = styleF; // foreach variable scope fix
 
-                if (!style.IconsBulkSaveEnabled && !style.BattleAtlasBulkSaveEnabled && !style.VehicleMarkersAtlasBulkSaveEnabled)
+                if (!style.IconsBulkSaveEnabled && !style.BattleAtlasBulkSaveEnabled && !style.VehicleMarkersAtlasBulkSaveEnabled && !style.CustomAtlasBulkSaveEnabled)
                 {
                     continue;
                 }
