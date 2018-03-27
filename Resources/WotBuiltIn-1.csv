@@ -32,6 +32,8 @@ usa-A08_T23,,,,,,del
 china-Ch11_110_IGR,,,,,,del
 china-Ch17_WZ131_1_WZ132_IGR,,,,,,del
 china-Ch19_121_IGR,,,,,,del
+china-Ch22_113P,,,,,,del
+china-Ch22_113_Beijing_Opera,,,,,,del
 france-F08_AMX_50_100_IGR,,,,,,del
 france-F17_AMX_13_90_IGR,,,,,,del
 france-F18_Bat_Chatillon25t_IGR,,,,,,del
@@ -51,6 +53,8 @@ germany-G65_JagdTiger_SdKfz_185_IGR,,,,,,del
 japan-J11_Chi_Ri_IGR,,,,,,del
 japan-J13_STA_1_IGR,,,,,,del
 japan-J16_ST_B1_IGR,,,,,,del
+japan-J29_Nameless,,,,,,del
+japan-J30_Edelweiss,,,,,,del
 uk-GB08_Churchill_I_IGR,,,,,,del
 uk-GB11_Caernarvon_IGR,,,,,,del
 uk-GB13_FV215b_IGR,,,,,,del
@@ -135,7 +139,7 @@ ussr-R77_KV2_IGR,,,,,,del
 #
 # Available fields:
 #  - tank ID: the name of the icon file and also equals country + "-" + internal WoT tank ID
-#  - country: one of "china", "france", "germany", "japan", "uk", "usa", "ussr", "none"
+#  - country: one of "china", "czech", "france", "germany", "italy", "japan", "poland", "sweden", "uk", "usa", "ussr", "none"
 #  - tier/level: a number from 1-10, or 0 for "none"
 #  - type: one of "light", "medium", "heavy", "artillery", "destroyer", "none"
 #  - availability: one of "normal" (available for silver), "premium" (available for gold), "special" (not available)
