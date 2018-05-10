@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
+using System.Windows.Forms;
 using RT.Util.Dialogs;
 using ImageMagick;
 using TeximpNet.Compression;
@@ -84,6 +85,7 @@ namespace TankIconMaker
 
         private void CreateAtlasImage(ref List<SubTextureStruct> ImageList, string filename)
         {
+            if (HeighAtlas <= 0) return;
             System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(4096, HeighAtlas);
             AtlasPNG.SetResolution(96.0F, 96.0F);
             for (int i = 0; i < ImageList.Count; i++)
@@ -95,15 +97,23 @@ namespace TankIconMaker
                 }
             }
             AtlasPNG.Save(filename);
-            Surface AtlasDDS = Surface.LoadFromFile(filename, true);
-            using (Compressor compressor = new Compressor())
+            try
             {
-                compressor.Input.SetData(AtlasDDS);
-                compressor.Input.SetMipmapGeneration(false);
-                compressor.Compression.Format = CompressionFormat.DXT5;
-                compressor.Compression.Quality = CompressionQuality.Production;
-                compressor.Process(filename.Replace(".png", ".dds"));
+                Surface AtlasDDS = Surface.LoadFromFile(filename, true);
+                using (Compressor compressor = new Compressor())
+                {
+                    compressor.Input.SetData(AtlasDDS);
+                    compressor.Input.SetMipmapGeneration(false);
+                    compressor.Compression.Format = CompressionFormat.DXT5;
+                    compressor.Compression.Quality = CompressionQuality.Production;
+                    compressor.Process(filename.Replace(".png", ".dds"));
+                }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message, "CreateAtlasImage", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void RadixSort(ref List<SubTextureStruct> ImageList)
@@ -143,59 +153,69 @@ namespace TankIconMaker
             int heighAtlas = 0;
             int CurrentY, j, k;
             TakePlaceList.Add(ImageList[0].LocRect);
-            for (int i = 1; i < ImageList.Count; i++)
+            try 
             {
-                SubTexture = ImageList[i];
-                Rct = SubTexture.LocRect;
-                CurrentY = TextureHeight;
-                j = 0;
-                while (j < TakePlaceList.Count)
-                    if (TakePlaceList[j].IntersectsWith(Rct))
-                    {
-                        Rct.Location = new System.Drawing.Point(TakePlaceList[j].Right + 1, Rct.Y);
-                        if (TakePlaceList[j].Bottom > Rct.Y)
-                            CurrentY = Math.Min(CurrentY, TakePlaceList[j].Bottom - Rct.Y + 1);
-                        if (Rct.Right > TextureWidth)
+                for (int i = 1; i < ImageList.Count; i++)
+                {
+                    SubTexture = ImageList[i];
+                    Rct = SubTexture.LocRect;
+                    CurrentY = TextureHeight;
+                    j = 0;
+                    while (j < TakePlaceList.Count)
+                        if (TakePlaceList[j].IntersectsWith(Rct))
                         {
-                            Rct.Location = new System.Drawing.Point(0, Rct.Y + CurrentY);
-                            CurrentY = TextureHeight;
+                            Rct.Location = new System.Drawing.Point(TakePlaceList[j].Right + 1, Rct.Y);
+                            if (TakePlaceList[j].Bottom > Rct.Y)
+                                CurrentY = Math.Min(CurrentY, TakePlaceList[j].Bottom - Rct.Y + 1);
+                            if (Rct.Right > TextureWidth)
+                            {
+                                Rct.Location = new System.Drawing.Point(0, Rct.Y + CurrentY);
+                                CurrentY = TextureHeight;
+                            }
+                            j = TakePlaceList.Count - 1;
+                            while ((j > 0) && (TakePlaceList[j].Bottom > Rct.Y))
+                                j--;
                         }
-                        j = TakePlaceList.Count - 1;
-                        while ((j > 0) && (TakePlaceList[j].Bottom > Rct.Y))
-                            j--;
-                    }
-                    else
-                        j++;
-                if (Rct.Bottom > TextureHeight)
-                    return; //необходимо обработать данную ситуацию
-                j = TakePlaceList.Count - 1;
-                while ((j >= 0) && (TakePlaceList[j].Bottom > Rct.Bottom))
-                    j--;
-                k = j;
-                while ((k >= 0) && (TakePlaceList[k].Bottom == Rct.Bottom))
-                    if ((Rct.X == TakePlaceList[k].Right + 1) && (Rct.Y == TakePlaceList[k].Y))
+                        else
+                            j++;
+                    if (Rct.Bottom > TextureHeight)
                     {
-                        TakeRct = TakePlaceList[k];
-                        TakeRct.Width += Rct.Width + 1;
-                        TakePlaceList[k] = TakeRct;
-                        k = -1;
-                        j = -2;
+                        throw new Exception("Невозможно разместить изображения в атласе. Попробуйте уменьшить размер изображений или количество.");
                     }
-                    else
-                        k--;
-                if (j > -2)
-                {
-                    j++;
-                    TakePlaceList.Insert(j, Rct);
+                    j = TakePlaceList.Count - 1;
+                    while ((j >= 0) && (TakePlaceList[j].Bottom > Rct.Bottom))
+                        j--;
+                    k = j;
+                    while ((k >= 0) && (TakePlaceList[k].Bottom == Rct.Bottom))
+                        if ((Rct.X == TakePlaceList[k].Right + 1) && (Rct.Y == TakePlaceList[k].Y))
+                        {
+                            TakeRct = TakePlaceList[k];
+                            TakeRct.Width += Rct.Width + 1;
+                            TakePlaceList[k] = TakeRct;
+                            k = -1;
+                            j = -2;
+                        }
+                        else
+                            k--;
+                    if (j > -2)
+                    {
+                        j++;
+                        TakePlaceList.Insert(j, Rct);
+                    }
+                    SubTexture.LocRect = Rct;
+                    ImageList[i] = SubTexture;
+                    if (heighAtlas < Rct.Bottom)
+                    {
+                        heighAtlas = Rct.Bottom;
+                    }
                 }
-                SubTexture.LocRect = Rct;
-                ImageList[i] = SubTexture;
-                if (heighAtlas < Rct.Bottom)
-                {
-                    heighAtlas = Rct.Bottom;
-                }
+
+                HeighAtlas = (heighAtlas % 4 != 0) ? ((heighAtlas / 4 + 1) * 4) : heighAtlas;
             }
-            HeighAtlas = (heighAtlas % 4 != 0) ? ((heighAtlas / 4 + 1) * 4) : heighAtlas;
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CreateImageList(ref List<SubTextureStruct> ImageList, WotContext context, SaveType atlasType)
@@ -209,15 +229,23 @@ namespace TankIconMaker
                 ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
                     context.VersionConfig.PathSourceAtlas, nameAtlas + ".dds"));
 
-            System.Drawing.Bitmap AtlasPNG;
-            using (MemoryStream memStream = new MemoryStream())
+            System.Drawing.Bitmap AtlasPNG = null;
+            try
             {
-                using (MagickImage AtlasDDS = new MagickImage(StreamAtlasDDS))
+                using (MemoryStream memStream = new MemoryStream())
                 {
-                    AtlasDDS.Format = MagickFormat.Png;
-                    AtlasDDS.Write(memStream);
-                    AtlasPNG = new System.Drawing.Bitmap(memStream);
+                    using (MagickImage AtlasDDS = new MagickImage(StreamAtlasDDS))
+                    {
+                        AtlasDDS.Format = MagickFormat.Png;
+                        AtlasDDS.Write(memStream);
+                        AtlasPNG = new System.Drawing.Bitmap(memStream);
+                    }
                 }
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message, "CreateImageList", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             AtlasPNG.SetResolution(96.0F, 96.0F);
             
