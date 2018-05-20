@@ -28,13 +28,10 @@ namespace TankIconMaker
             {
                 case SaveType.BattleAtlas:
                     return AtlasBuilder.battleAtlas + ".png";
-                    break;
                 case SaveType.VehicleMarkerAtlas:
                     return AtlasBuilder.vehicleMarkerAtlas + ".png";
-                    break;
                 case SaveType.CustomAtlas:
                     return AtlasBuilder.customAtlas + ".png";
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException("savetype");
             }
@@ -159,6 +156,7 @@ namespace TankIconMaker
                 {
                     SubTexture = ImageList[i];
                     Rct = SubTexture.LocRect;
+                    Rct.Width = Rct.Width + 1;
                     CurrentY = TextureHeight;
                     j = 0;
                     while (j < TakePlaceList.Count)
