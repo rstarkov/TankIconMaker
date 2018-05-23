@@ -156,11 +156,10 @@ namespace TankIconMaker
                 {
                     SubTexture = ImageList[i];
                     Rct = SubTexture.LocRect;
-                    Rct.Width = Rct.Width + 1;
                     CurrentY = TextureHeight;
                     j = 0;
                     while (j < TakePlaceList.Count)
-                        if (TakePlaceList[j].IntersectsWith(Rct))
+                        if (TakePlaceList[j].IntersectsWith(new System.Drawing.Rectangle(Rct.X, Rct.Y, Rct.Width + 1, Rct.Height + 1)))
                         {
                             Rct.Location = new System.Drawing.Point(TakePlaceList[j].Right + 1, Rct.Y);
                             if (TakePlaceList[j].Bottom > Rct.Y)

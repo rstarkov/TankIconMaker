@@ -86,8 +86,21 @@ namespace TankIconMaker.Layers
                         try { text = string.Format(Format, numD); }
                         catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(Format, numD)); }
                     else
+                    {
+                        int index;
+                        if ((index = Format.IndexOf(":U")) > 0)
+                        {
+                            Format.Remove(index, 2);
+                            text = text.ToUpper();
+                        }
+                        else if ((index = Format.IndexOf(":L")) > 0)
+                        {
+                            Format.Remove(index, 2);
+                            text = text.ToLower();
+                        }
                         try { text = string.Format(Format, text); }
                         catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalid.Fmt(Format)); }
+                    }
                 }
                 var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
                 dc.TextRenderingHint = FontSmoothing.ToGdi();
