@@ -267,7 +267,7 @@
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
     <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)\Licenses" />
     <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
-    <Copy SourceFiles="WpfCrutches\License.txt" DestinationFiles="$(OutputPath)\license-WpfCrutches.txt" />
+    <Copy SourceFiles="WpfCrutches\License.txt" DestinationFiles="$(OutputPath)\Licenses\license-WpfCrutches.txt" />
     <Copy SourceFiles="@(FreeImage)" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="@(NvidiaTextureTools)" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="Resources\Backgrounds\Abbey.jpg" DestinationFiles="$(OutputPath)\Backgrounds\Abbey (Монастырь).jpg" />
