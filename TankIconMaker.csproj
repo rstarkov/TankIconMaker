@@ -265,7 +265,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
-    <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="@(Licenses)" DestinationFolder="$(OutputPath)\Licenses" />
     <Copy SourceFiles="@(Translations)" DestinationFolder="$(OutputPath)\Translations" />
     <Copy SourceFiles="WpfCrutches\License.txt" DestinationFiles="$(OutputPath)\license-WpfCrutches.txt" />
     <Copy SourceFiles="@(FreeImage)" DestinationFolder="$(OutputPath)" />
