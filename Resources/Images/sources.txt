@@ -1,11 +1,12 @@
-From Lesic's TIMPack (not all of these are original work):
+From Lesic's TIMPack:
  - background-slesh-*
  - background-octagon-*
- - class2-*
  - class3-*
- - country2-*
  - country3-*
+ - misc-squad.png
+ - tierA-*
+
+From AstaRom's:
+ - country2-*
  - country4-*
  - country5-*
- - country6-*
- - tierA-*
