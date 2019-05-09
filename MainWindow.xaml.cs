@@ -1183,7 +1183,7 @@ namespace TankIconMaker
                         foreach (var renderTask in renderTasks)
                         {
                             var render = renders[renderTask.TankId];
-                            if (render.Exception == null)
+                            if (render.Exception == null && !render.isEmpty)
                             {
                                 var path = Ut.ExpandIconPath(pathTemplate, context, style, renderTask.Tank);
                                 path = Ut.GetSafeFilename(path);
@@ -1249,7 +1249,7 @@ namespace TankIconMaker
                             var path = Ut.ExpandIconPath(overrideIconsPath ?? style.PathTemplate, context, style, renderTask.Tank);
                             path = Ut.GetSafeFilename(path);
                             renderTask.Render();
-                            if (style.IconsBulkSaveEnabled)
+                            if (style.IconsBulkSaveEnabled && !renderTask.isEmpty)
                             {
                                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                                 Ut.SaveImage(renderTask.Image, path, context.VersionConfig.TankIconExtension);
@@ -2535,6 +2535,7 @@ namespace TankIconMaker
         /// <summary>Exception that occurred while rendering this image, or null if none.</summary>
         public Exception Exception;
 
+        public bool isEmpty;
         /// <summary>Rendered layers with Id != "" used in Mask Layer.</summary>
         private Dictionary<string, BitmapBase> _renderedLayers;
         /// <summary>Layers referenced while rendering a single layer. Used to detect recursive references.</summary>
@@ -2609,12 +2610,16 @@ namespace TankIconMaker
                 var result = new BitmapWpf(Style.IconWidth, Style.IconHeight);
                 using (result.UseWrite())
                 {
+                    this.isEmpty = true;
                     foreach (var layer in Style.Layers.Where(l => l.Visible && l.VisibleFor.GetValue(this.Tank) == BoolWithPassthrough.Yes))
                     {
                         _referencedLayers.Clear();
                         var img = RenderLayer(layer);
                         if (img != null)
+                        {
                             result.DrawImage(img);
+                            this.isEmpty = false;
+                        }
                     }
                 }
                 if (Style.Centerable)

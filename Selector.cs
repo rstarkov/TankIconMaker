@@ -178,7 +178,7 @@ namespace TankIconMaker
                 return true;
             if (typeof(T) == typeof(Filename) && (Filename) (object) result == "")
                 return true;
-            if (typeof(T) == typeof(BoolWithPassthrough) && (BoolWithPassthrough) (object) result == BoolWithPassthrough.Passthrough)
+            if (typeof(T) == typeof(BoolWithPassthrough) && (BoolWithPassthrough) (object) result == BoolWithPassthrough.Yes)
                 return true;
             return false;
         }
