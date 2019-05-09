@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Tank Icon Maker")]
-[assembly: AssemblyCopyright("Copyright © The Contributors 2011-2018")]
+[assembly: AssemblyCopyright("Copyright © The Contributors 2011-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("55.0.0.0")]
-[assembly: AssemblyFileVersion("55.0.0.0")]
+[assembly: AssemblyVersion("56.0.0.0")]
+[assembly: AssemblyFileVersion("56.0.0.0")]
