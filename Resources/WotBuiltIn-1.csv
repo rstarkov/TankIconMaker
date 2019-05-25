@@ -22,7 +22,6 @@ ussr-R07_T-34-85_training,,,,,,del
 
 # Remove these tanks since they don't have contour icons (at least not in the Ru client)
 # If you require these tanks, see notes below for how to add your own tanks to the data files.
-china-Ch01_Type59_Gold,,,,,,del
 china-Ch41_WZ_111_QL,,,,,,del
 germany-Env_Artillery,,,,,,del
 germany-G04_PzVI_Tiger_IA,,,,,,del
@@ -132,7 +131,6 @@ ussr-R77_KV2_IGR,,,,,,del
 # ussr-SomeTank,,,,,#0515,del
 
 
-
 # ADDITIONAL NOTES #
 
 # Each line must be blank, start with a #, or list a tank.
@@ -152,7 +150,6 @@ ussr-R77_KV2_IGR,,,,,,del
 #
 # Tanks are read from the game data, then from WotBuiltIn-1.csv, then -2, if any, and so on.
 # The WotBuiltIn-1 file takes precedence over the actual game data, -2 takes precedence over -1 etc.
-
 
 
 # GAME VERSIONS #
