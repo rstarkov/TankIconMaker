@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using RT.Util.Lingo;
 using RT.Util.Serialization;
 using WotDataLib;
+using System.Text.RegularExpressions;
 
 namespace TankIconMaker.Layers
 {
@@ -50,6 +51,8 @@ namespace TankIconMaker.Layers
 
         protected abstract string GetText(Tank tank);
 
+        protected bool isSeveralValue;
+
         public TextLayer()
         {
             FontFamily = "Arial";
@@ -70,35 +73,60 @@ namespace TankIconMaker.Layers
             return result;
         }
 
+        private string FormatText(string format, string text)
+        {
+            int index;
+            if ((index = format.IndexOf(":U")) > 0)
+            {
+                format = format.Remove(index, 2);
+                text = text.ToUpper();
+            }
+            else if ((index = format.IndexOf(":L")) > 0)
+            {
+                format = format.Remove(index, 2);
+                text = text.ToLower();
+            }
+
+            long numI;
+            decimal numD;
+            if (long.TryParse(text, out numI))
+                try { text = string.Format(format, numI); }
+                catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(format, numI)); }
+            else if (decimal.TryParse(text, out numD))
+                try { text = string.Format(format, numD); }
+                catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(format, numD)); }
+            else
+                try { text = string.Format(format, text); }
+                catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalid.Fmt(format)); }
+            return text;
+        }
+
         public override BitmapBase Draw(Tank tank)
         {
             return Ut.NewBitmapGdi(ParentStyle.IconWidth, ParentStyle.IconHeight, dc =>
             {
                 string text = GetText(tank);
-                if (!string.IsNullOrEmpty(Format))
+                if (!string.IsNullOrEmpty(Format) && (text != null))
                 {
-                    int index;
-                    if ((index = Format.IndexOf(":U")) > 0)
+                    if (isSeveralValue)
                     {
-                        Format = Format.Remove(index, 2);
-                        text = text.ToUpper();
+                        string format = Format;
+                        MatchCollection args = Regex.Matches(text, @"(\d+)");
+                        foreach (Match match in Regex.Matches(Format, @"(\{\d+?\:?[\w\.]*\})"))
+                        {
+                            int numI;
+                            string val = Regex.Match(match.Value, @"((?<=\{)\s*\d+\s*(?=[\:\}]))").Value;
+                            if (int.TryParse(val, out numI) && (numI < args.Count))
+                            {
+                                format = format.Replace(match.Value, FormatText(match.Value.Replace(val, "0"), args[numI].Value));
+                            }
+                        }
+                        text = format;
                     }
-                    else if ((index = Format.IndexOf(":L")) > 0)
-                    {
-                        Format = Format.Remove(index, 2);
-                        text = text.ToLower();
-                    }
-                    long numI;
-                    decimal numD;
-                    if (long.TryParse(text, out numI))
-                        try { text = string.Format(Format, numI); }
-                        catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(Format, numI)); }
-                    else if (decimal.TryParse(text, out numD))
-                        try { text = string.Format(Format, numD); }
-                        catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalidNum.Fmt(Format, numD)); }
                     else
-                        try { text = string.Format(Format, text); }
-                        catch { throw new StyleUserError(App.Translation.TextLayer.FormatStringInvalid.Fmt(Format)); }
+                    {
+                        text = FormatText(Format, text);
+                    }
                 }
                 var style = (FontBold ? FontStyle.Bold : 0) | (FontItalic ? FontStyle.Italic : 0);
                 dc.TextRenderingHint = FontSmoothing.ToGdi();
@@ -187,6 +215,7 @@ namespace TankIconMaker.Layers
 
         protected override string GetText(Tank tank)
         {
+            isSeveralValue = (Property.FileId == "Armor");
             return tank[Property];
         }
     }
