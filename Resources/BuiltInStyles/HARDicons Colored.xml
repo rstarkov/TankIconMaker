@@ -163,7 +163,7 @@
             <CountryPoland>Yes</CountryPoland>
             <CountryItaly>Yes</CountryItaly>
             <CountryNone>Yes</CountryNone>
-            <CategNormal>Passthrough</CategNormal>
+            <CategNormal>Yes</CategNormal>
             <CategPremium>No</CategPremium>
             <CategSpecial>No</CategSpecial>
             <Single>Yes</Single>
@@ -239,7 +239,7 @@
             <CountryPoland>Yes</CountryPoland>
             <CountryItaly>Yes</CountryItaly>
             <CountryNone>Yes</CountryNone>
-            <CategNormal>Passthrough</CategNormal>
+            <CategNormal>Yes</CategNormal>
             <CategPremium>No</CategPremium>
             <CategSpecial>No</CategSpecial>
             <Single>Yes</Single>
