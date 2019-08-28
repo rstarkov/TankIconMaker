@@ -37,11 +37,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
-      <HintPath>packages\ICSharpCode.SharpZipLib.Patched.0.86.5\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>packages\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Magick.NET-AnyCPU">
-      <HintPath>ThirdParty\Magick.NET-AnyCPU.dll</HintPath>
+    <Reference Include="Magick.NET-Q8-AnyCPU, Version=7.14.3.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>packages\Magick.NET-Q8-AnyCPU.7.14.3\lib\net40\Magick.NET-Q8-AnyCPU.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ookii.Dialogs.Wpf">
@@ -50,7 +51,7 @@
     <Reference Include="RT.Util, Version=1.0.1542.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\RT.Util.1.0.1542\lib\net40-client\RT.Util.dll</HintPath>
       <Private>True</Private>
-    </Reference>    
+    </Reference>
     <Reference Include="TeximpNet, Version=1.2.0.0, Culture=neutral, PublicKeyToken=7c35138f0d61254b, processorArchitecture=MSIL">
       <HintPath>ThirdParty\TeximpNet.1.2.0\lib\net40\TeximpNet.dll</HintPath>
       <Private>True</Private>

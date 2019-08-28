@@ -50,9 +50,9 @@ namespace TankIconMaker.Effects
 
             using (var image = layer.ToMagickImage())
             {
-                image.BackgroundColor = MagickColor.Transparent;
+                image.BackgroundColor = MagickColors.Transparent;
 
-                var channels = Channels.Undefined;
+                var channels = Channels.None;
                 if (ChannelA)
                     channels = channels | Channels.Alpha;
                 if (ChannelR)
@@ -63,7 +63,7 @@ namespace TankIconMaker.Effects
                     channels = channels | Channels.Blue;
 
                 image.FilterType = FilterType.Lanczos;
-                image.Unsharpmask(Radius, Sigma, channels);
+                image.UnsharpMask(Radius, Sigma, channels);
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());
                 return layer;

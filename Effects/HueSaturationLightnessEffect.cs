@@ -37,7 +37,7 @@ namespace TankIconMaker.Effects
 
             using (var image = layer.ToMagickImage())
             {
-                image.BackgroundColor = MagickColor.Transparent;
+                image.BackgroundColor = MagickColors.Transparent;
                 image.Modulate(new Percentage(Lightness), new Percentage(Saturation), new Percentage(Hue * 100.0 / 180.0 + 100));
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());

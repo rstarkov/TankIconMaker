@@ -185,17 +185,17 @@ namespace TankIconMaker.Effects
             {
                 using (var image = layer.ToMagickImage())
                 {
-                    image.StrokeWidth = 1;
+                    image.Settings.StrokeWidth = 1;
                     if (ShowLayerBorders)
                     {
-                        image.FillColor = ImageMagick.MagickColor.Transparent;
-                        image.StrokeColor = new ImageMagick.MagickColor("aqua");
+                        image.Settings.FillColor = ImageMagick.MagickColors.Transparent;
+                        image.Settings.StrokeColor = new ImageMagick.MagickColor("aqua");
                         image.Draw(new ImageMagick.DrawableRectangle(0, 0, layer.Width - 1, layer.Height - 1));
                     }
                     if (ShowPixelBorders && !emptyPixels)
                     {
-                        image.FillColor = ImageMagick.MagickColor.Transparent;
-                        image.StrokeColor = new ImageMagick.MagickColor("red");
+                        image.Settings.FillColor = ImageMagick.MagickColors.Transparent;
+                        image.Settings.StrokeColor = new ImageMagick.MagickColor("red");
                         image.Draw(new ImageMagick.DrawableRectangle(pixels.Left, pixels.Top, pixels.Right, pixels.Bottom));
                     }
                     layer.CopyPixelsFrom(image.ToBitmapSource());
@@ -217,8 +217,8 @@ namespace TankIconMaker.Effects
             {
                 using (var image = layer.ToMagickImage())
                 {
-                    image.StrokeWidth = 1;
-                    image.StrokeColor = new ImageMagick.MagickColor(255, 255, 0, 120);
+                    image.Settings.StrokeWidth = 1;
+                    image.Settings.StrokeColor = new ImageMagick.MagickColor(255, 255, 0, 120);
                     image.Draw(new ImageMagick.DrawableLine((int) ParsedX - 1, (int) ParsedY, (int) ParsedX + 1, (int) ParsedY));
                     image.Draw(new ImageMagick.DrawableLine((int) ParsedX, (int) ParsedY - 1, (int) ParsedX, (int) ParsedY + 1));
                     layer.CopyPixelsFrom(image.ToBitmapSource());

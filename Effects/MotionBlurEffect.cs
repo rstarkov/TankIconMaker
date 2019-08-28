@@ -36,7 +36,7 @@ namespace TankIconMaker.Effects
             Tank tank = renderTask.Tank;
             using (var image = layer.ToMagickImage())
             {
-                image.BackgroundColor = MagickColor.Transparent;
+                image.BackgroundColor = MagickColors.Transparent;
                 image.FilterType = FilterType.Lanczos;
                 image.MotionBlur(Radius, Sigma, Angle);
 

@@ -34,8 +34,8 @@ namespace TankIconMaker.Effects
 
             using (var image = layer.ToMagickImage())
             {
-                image.BackgroundColor = MagickColor.Transparent;
-                image.Wave(Amplitude, Length);
+                image.BackgroundColor = MagickColors.Transparent;
+                image.Wave(PixelInterpolateMethod.Bilinear, Amplitude, Length);
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());
                 return layer;
