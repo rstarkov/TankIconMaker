@@ -68,7 +68,7 @@ namespace TankIconMaker.Effects
             using (var image = layer.ToMagickImage())
             {
                 var averageBrightness = (double) totalBrightness * 100.0 / (double) totalAlpha / 255.0 / 10000.0;
-                image.BackgroundColor = MagickColor.Transparent;
+                image.BackgroundColor = MagickColors.Transparent;
                 double strength = Strength / 100;
                 double scaleValue = 1 + (Brightness / averageBrightness - 1) * strength;
                 double scaleSaturation = Saturation == SaturationMode.Zero ? 0 : 1;

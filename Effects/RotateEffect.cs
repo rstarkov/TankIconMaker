@@ -39,7 +39,7 @@ namespace TankIconMaker.Effects
 
             using (var image = layer.ToMagickImage())
             {
-                image.BackgroundColor = MagickColor.Transparent;
+                image.BackgroundColor = MagickColors.Transparent;
                 image.Distort(DistortMethod.ScaleRotateTranslate, new double[] { RotateX, RotateY, Angle });
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());

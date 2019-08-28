@@ -43,7 +43,7 @@ namespace TankIconMaker.Effects
             if (Angle == 0)
                 return layer;
 
-            var channels = Channels.Undefined;
+            var channels = Channels.None;
             if (ChannelA)
                 channels = channels | Channels.Alpha;
             if (ChannelR)
@@ -55,7 +55,7 @@ namespace TankIconMaker.Effects
 
             using (var image = layer.ToMagickImage())
             {
-                image.BackgroundColor = MagickColor.Transparent;
+                image.BackgroundColor = MagickColors.Transparent;
                 image.FilterType = FilterType.Lanczos;
                 image.RotationalBlur(Angle, channels);
 

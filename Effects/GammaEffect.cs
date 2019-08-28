@@ -39,8 +39,11 @@ namespace TankIconMaker.Effects
 
             using (var image = layer.ToMagickImage())
             {
-                image.BackgroundColor = MagickColor.Transparent;
-                image.Gamma(GammaRed, GammaGreen, GammaBlue);
+                image.BackgroundColor = MagickColors.Transparent;
+                image.GammaCorrect(GammaRed, Channels.Red);
+                image.GammaCorrect(GammaGreen, Channels.Green);
+                image.GammaCorrect(GammaBlue, Channels.Blue);
+                //image.GammaCorrect(GammaRed, GammaGreen, GammaBlue);
 
                 layer.CopyPixelsFrom(image.ToBitmapSource());
                 return layer;
