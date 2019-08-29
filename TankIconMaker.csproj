@@ -36,13 +36,11 @@
     <ApplicationIcon>Resources\Graphics\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
-      <HintPath>packages\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>ThirdParty\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="Magick.NET-Q8-AnyCPU, Version=7.14.3.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
-      <HintPath>packages\Magick.NET-Q8-AnyCPU.7.14.3\lib\net40\Magick.NET-Q8-AnyCPU.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Magick.NET-Q8-AnyCPU, Version=7.14.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>ThirdParty\Magick.NET-Q8-AnyCPU.7.14.3\lib\net40\Magick.NET-Q8-AnyCPU.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ookii.Dialogs.Wpf">
