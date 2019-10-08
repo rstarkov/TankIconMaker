@@ -1,0 +1,6 @@
+[submodule "WotDataLib"]
+	path = WotDataLib
+	url = git@github.com:tim-temp/WotDataLib.git
+[submodule "WpfCrutches"]
+	path = WpfCrutches
+	url = git@github.com:tim-temp/WpfCrutches.git
