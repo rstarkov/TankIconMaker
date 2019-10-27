@@ -273,8 +273,8 @@ namespace TankIconMaker
         public TrString PathTemplate_Standard = "(standard)";
 
         public TrString ErrorConflictingId = "Two or more layers have the same ID “{0}”. Layer IDs must be unique.";
-        public TrString ErrorMagickEffectNoRedist = "Visual C++ Redistrable 2012 not found. " +
-            "You can install it from https://www.microsoft.com/ru-ru/download/details.aspx?id=30679";
+        public TrString ErrorMagickEffectNoRedist = "Visual C++ Redistrable 2013 not found. " +
+            "You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]

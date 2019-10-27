@@ -38,8 +38,8 @@
       <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
     </ErrorConflictingId>
     <ErrorMagickEffectNoRedist>
-      <Translation>Не найден пакет Visual C++ Redistrable 2012. Вы можете скачать его с https://www.microsoft.com/ru-ru/download/details.aspx?id=30679</Translation>
-      <Old>Visual C++ Redistrable 2012 not found. You can install it from https://www.microsoft.com/ru-ru/download/details.aspx?id=30679</Old>
+      <Translation>Не найден пакет Visual C++ Redistrable 2013. Вы можете скачать его с https://www.microsoft.com/ru-RU/download/details.aspx?id=40784</Translation>
+      <Old>Visual C++ Redistrable 2013 not found. You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784</Old>
     </ErrorMagickEffectNoRedist>
     <ctGameDirLabel>
       <Translation>_Папка с игрой:</Translation>
