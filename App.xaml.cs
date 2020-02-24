@@ -154,7 +154,7 @@ namespace TankIconMaker
                 catch
                 {
                 }
-                
+
                 var migrator = new Migrator();
                 migrator.MigrateToVersion(App.Settings, App.Settings.SavedByVersion, curVersion);
             }

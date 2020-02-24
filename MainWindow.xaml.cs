@@ -1582,7 +1582,7 @@ namespace TankIconMaker
                     }
                 }));
             });
-            
+
         }
 
         private void ctSaveIconsToVehicleMarkerAtlas_Click(object sender, RoutedEventArgs e)

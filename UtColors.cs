@@ -146,7 +146,7 @@ namespace TankIconMaker
                 fractionalSector = sectorPos - sectorNumber;
 
                 // Calculate values for the three axes
-                // of the color. 
+                // of the color.
                 p = v * (1 - s);
                 q = v * (1 - (s * fractionalSector));
                 t = v * (1 - (s * (1 - fractionalSector)));
@@ -168,9 +168,9 @@ namespace TankIconMaker
 
         public static ColorHSV FromColor(Color color)
         {
-            // In this function, R, G, and B values must be scaled 
+            // In this function, R, G, and B values must be scaled
             // to be between 0 and 1.
-            // HsvColor.Hue will be a value between 0 and 360, and 
+            // HsvColor.Hue will be a value between 0 and 360, and
             // HsvColor.Saturation and value are between 0 and 1.
 
             double min;
@@ -218,7 +218,7 @@ namespace TankIconMaker
                 }
 
             }
-            // Scale h to be between 0 and 360. 
+            // Scale h to be between 0 and 360.
             // This may require adding 360, if the value
             // is negative.
             h *= 60;
@@ -228,7 +228,7 @@ namespace TankIconMaker
                 h += 360;
             }
 
-            // Scale to the requirements of this 
+            // Scale to the requirements of this
             // application. All values are between 0 and 255.
             return FromHSV((int) h, (int) (s * 100), (int) (v * 100), color.A);
         }

@@ -150,7 +150,7 @@ namespace TankIconMaker
             int heighAtlas = 0;
             int CurrentY, j, k;
             TakePlaceList.Add(ImageList[0].LocRect);
-            try 
+            try
             {
                 for (int i = 1; i < ImageList.Count; i++)
                 {
@@ -238,14 +238,14 @@ namespace TankIconMaker
                         AtlasPNG = new System.Drawing.Bitmap(memStream);
                     }
                 }
-                
+
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error: " + e.Message, "CreateImageList", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             AtlasPNG.SetResolution(96.0F, 96.0F);
-            
+
             var StreamAtlasXML =
                 ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
                     context.VersionConfig.PathSourceAtlas, nameAtlas + ".xml"));

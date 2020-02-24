@@ -942,7 +942,7 @@ namespace TankIconMaker
         [LingoNotes("A generic No button text used in some modal dialogs to discard some action. Do not use hotkeys (because the required prefix varies).")]
         public TrString No = "No";
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
-        public TrString Cancel = "Cancel"; 
+        public TrString Cancel = "Cancel";
         public TrString PromptWindowOK = "_OK";
         [LingoNotes("\"{1}\" is replaced with the extension of the image files being saved.")]
         public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!";

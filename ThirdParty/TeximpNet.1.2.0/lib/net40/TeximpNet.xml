@@ -332,7 +332,7 @@
             methods that can set both the texture layout and all the first mip surfaces in one call, but the user can optionally
             set the texture layout and then set each individual face and miplevel. In most cases the first mip level gets set
             and mipmaps are generated, but there are other cases where mipmaps are already present and the <see cref="T:TeximpNet.Compression.Compressor"/>
-            will use them during compression or normal map generation. If mipmaps aren't set explicitly and normal maps are generated, 
+            will use them during compression or normal map generation. If mipmaps aren't set explicitly and normal maps are generated,
             the first mip is converted to a normal map, and mipmaps are generated from that.
             </remarks>
         </member>
@@ -454,7 +454,7 @@
         </member>
         <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetMipmapData(TeximpNet.Surface,System.Int32,System.Int32)">
             <summary>
-            Sets 2D image data as input. Format is always considered to be a 32-bit BGRA form (a copy of the surface will be taken to convert if necessary), the color order is 
+            Sets 2D image data as input. Format is always considered to be a 32-bit BGRA form (a copy of the surface will be taken to convert if necessary), the color order is
             dependent on <see cref="P:TeximpNet.Surface.IsBGRAOrder"/>. Don't forget to call <see cref="M:TeximpNet.Compression.Compressor.InputOptions.SetTextureLayout(TeximpNet.Compression.TextureType,System.Int32,System.Int32,System.Int32,System.Int32)"/> first, other this will error.
             </summary>
             <param name="data">Bitmap surface, if not 32-bit RGBA, a copy will be taken and converted.</param>
@@ -464,7 +464,7 @@
         </member>
         <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetMipmapData(TeximpNet.Surface,TeximpNet.Compression.CubeMapFace,System.Int32)">
             <summary>
-            Sets cubemap face data as input. Format is always considered to be a 32-bit BGRA form (a copy of the surface will be taken to convert if necessary), the color order is 
+            Sets cubemap face data as input. Format is always considered to be a 32-bit BGRA form (a copy of the surface will be taken to convert if necessary), the color order is
             dependent on <see cref="P:TeximpNet.Surface.IsBGRAOrder"/>. Don't forget to call <see cref="M:TeximpNet.Compression.Compressor.InputOptions.SetTextureLayout(TeximpNet.Compression.TextureType,System.Int32,System.Int32,System.Int32,System.Int32)"/> first, other this will error.
             </summary>
             <param name="data">Bitmap surface, if not 32-bit RGBA, a copy will be taken and converted.</param>
@@ -482,7 +482,7 @@
         </member>
         <member name="M:TeximpNet.Compression.Compressor.InputOptions.SetData(TeximpNet.Surface[])">
             <summary>
-            Sets input data from an array of surfaces representing a cubemap (6 surfaces total). This sets the texture layout as a 
+            Sets input data from an array of surfaces representing a cubemap (6 surfaces total). This sets the texture layout as a
             cubemap and sets each surface as the first mipmap of each face. All the surface dimensions must match, and there must be
             six faces.
             </summary>
@@ -1916,7 +1916,7 @@
         </member>
         <member name="M:TeximpNet.MemoryHelper.Compare(System.Byte[],System.Byte[])">
             <summary>
-            Compares two arrays of bytes for equivalence. 
+            Compares two arrays of bytes for equivalence.
             </summary>
             <param name="firstData">First array of data.</param>
             <param name="secondData">Second array of data.</param>
@@ -2612,7 +2612,7 @@
         </member>
         <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Allocate(System.Int32,System.Int32,System.Int32)">
             <summary>
-            
+
             </summary>
             <param name="width"></param>
             <param name="height"></param>
@@ -2621,7 +2621,7 @@
         </member>
         <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.Allocate(System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)">
             <summary>
-            
+
             </summary>
             <param name="width"></param>
             <param name="height"></param>
@@ -2633,7 +2633,7 @@
         </member>
         <member name="M:TeximpNet.Unmanaged.FreeImageLibrary.AllocateT(TeximpNet.ImageType,System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)">
             <summary>
-            
+
             </summary>
             <param name="imageType"></param>
             <param name="width"></param>
