@@ -263,12 +263,12 @@ namespace TankIconMaker
 
     partial class MainWindowTranslation
     {
-        public TrString BackgroundCheckered = "_Checkered";
-        public TrString BackgroundSolidColor = "_Solid color";
-        public TrString BackgroundChangeCheckered1 = "C_hange checkered color #1...";
-        public TrString BackgroundChangeCheckered2 = "Ch_ange checkered color #2...";
-        public TrString BackgroundChangeSolid = "C_hange solid color...";
-        public TrString BackgroundRestoreDefaults = "_Restore defaults";
+        public TrString BackgroundCheckered = "Checkered";
+        public TrString BackgroundSolidColor = "Solid color";
+        public TrString BackgroundChangeCheckered1 = "Change checkered color #1...";
+        public TrString BackgroundChangeCheckered2 = "Change checkered color #2...";
+        public TrString BackgroundChangeSolid = "Change solid color...";
+        public TrString BackgroundRestoreDefaults = "Restore defaults";
 
         public TrString PathTemplate_Standard = "(standard)";
 
@@ -281,15 +281,15 @@ namespace TankIconMaker
     sealed class AddWindowTranslation
     {
         public TrString AddLayerTitle = "Add layer";
-        public TrString LayerName = "Layer _name:";
-        public TrString LayerType = "Layer _type:";
+        public TrString LayerName = "Layer name:";
+        public TrString LayerType = "Layer type:";
 
         public TrString AddEffectTitle = "Add effect";
-        public TrString EffectName = "Effect _name:";
-        public TrString EffectType = "Effect _type:";
+        public TrString EffectName = "Effect name:";
+        public TrString EffectType = "Effect type:";
 
-        public TrString BtnAdd = "_Add";
-        public TrString BtnCancel = "_Cancel";
+        public TrString BtnAdd = "Add";
+        public TrString BtnCancel = "Cancel";
     }
 
     partial class PathTemplateWindowTranslation
@@ -916,17 +916,17 @@ namespace TankIconMaker
     sealed class PromptTranslation
     {
         public TrString RenameLayer_Title = "Rename layer";
-        public TrString RenameLayer_Label = "Layer _name:";
+        public TrString RenameLayer_Label = "Layer name:";
         public TrString RenameEffect_Title = "Rename effect";
-        public TrString RenameEffect_Label = "Effect _name:";
+        public TrString RenameEffect_Label = "Effect name:";
         public TrString CreateStyle_Title = "Create style";
-        public TrString CreateStyle_Label = "New style _name:";
+        public TrString CreateStyle_Label = "New style name:";
         public TrString RenameStyle_Title = "Change style name";
-        public TrString RenameStyle_Label = "New style _name:";
+        public TrString RenameStyle_Label = "New style name:";
         public TrString ChangeAuthor_Title = "Change style author";
-        public TrString ChangeAuthor_Label = "New style _author:";
+        public TrString ChangeAuthor_Label = "New style author:";
         public TrString DuplicateStyle_Title = "Duplicate style";
-        public TrString DuplicateStyle_Label = "New style _name:";
+        public TrString DuplicateStyle_Label = "New style name:";
         public TrString IconDims_Title = "Icon dimensions";
         public TrString IconDims_Width = "Please enter the width of the icons, in pixels:";
         public TrString IconDims_Height = "Please enter the height of the icons, in pixels:";
@@ -943,7 +943,7 @@ namespace TankIconMaker
         public TrString No = "No";
         [LingoNotes("A generic Cancel button text used in some modal dialogs to cancel whatever action is being done without making any changes. Do not use hotkeys (because the required prefix varies).")]
         public TrString Cancel = "Cancel";
-        public TrString PromptWindowOK = "_OK";
+        public TrString PromptWindowOK = "OK";
         [LingoNotes("\"{1}\" is replaced with the extension of the image files being saved.")]
         public TrString OverwriteIcons_Prompt = "Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!";
         public TrString OverwriteIcons_Yes = "&Yes, overwrite all files";
@@ -968,15 +968,15 @@ namespace TankIconMaker
         public TrString BulkStyles_ColumnTitle = "Style";
         public TrString BulkStyles_PathColumn = "Icon save path";
         public TrString DeleteStyle_Prompt = "Select styles to delete:";
-        public TrString DeleteStyle_Yes = "_Delete";
+        public TrString DeleteStyle_Yes = "Delete";
         public TrString DeleteStyle_PromptSure = "Are you sure you wish to delete these styles?";
         public TrStringNum DeleteStyle_Success = new TrStringNum("Style deleted.", "{0} styles deleted.");
         public TrString StyleImport_Fail = "Could not load the file for some reason. It might be of the wrong format.";
         public TrString StyleExport_Prompt = "Select styles to export:";
-        public TrString StyleExport_Yes = "_Export";
+        public TrString StyleExport_Yes = "Export";
         public TrStringNum StyleExport_Success = new TrStringNum("The style has been exported.", "{0} styles have been exported.");
         public TrString BulkSave_Prompt = "You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:";
-        public TrString BulkSave_Yes = "_Save";
+        public TrString BulkSave_Yes = "Save";
         public TrString BulkSave_Progress = "Saving icons...";
     }
 
@@ -994,8 +994,8 @@ namespace TankIconMaker
     sealed class SelectorTranslation
     {
         [LingoNotes("It is very important for the usability of these properties that this property is sorted to the top. The only way to achieve that at the moment is by prefixing it with a space...")]
-        public TrString By = " Vary by";
-        public TrString ByN = " Vary by (#{0})";
+        public TrString By = "Vary by";
+        public TrString ByN = "Vary by (#{0})";
         public TrString By_Color_Description = "Specifies a tank property by which the color is varied. The colors for any tanks whose color is set to transparent black (#00000000) are varied according to \"Vary by (#{0})\" instead.";
         public TrString By_Color_DescriptionLast = "Specifies a tank property by which the color is varied.";
         public TrString By_Bool_Description = "Specifies a tank property by which the setting is varied. The setting for any tanks whose setting is set to \"Passthrough\" are varied according to \"Vary by (#{0})\" instead.";
