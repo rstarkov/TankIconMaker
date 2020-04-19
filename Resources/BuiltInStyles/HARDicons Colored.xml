@@ -41,6 +41,7 @@
             <CategNormal>No</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -90,6 +91,7 @@
             <CategNormal>No</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -129,6 +131,7 @@
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#FFFFFF</CategPremium>
             <CategSpecial>#FFFFFF</CategSpecial>
+            <CategCollector>#FFFFFF</CategCollector>
             <Single>#E65E4810</Single>
             <TierNone>#FFFFFF</TierNone>
             <Tier1>#FFFFFF</Tier1>
@@ -166,6 +169,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>No</CategPremium>
             <CategSpecial>No</CategSpecial>
+            <CategCollector>No</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -205,6 +209,7 @@
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#FFFFFF</CategPremium>
             <CategSpecial>#FFFFFF</CategSpecial>
+            <CategCollector>#FFFFFF</CategCollector>
             <Single>#976B885F</Single>
             <TierNone>#FFFFFF</TierNone>
             <Tier1>#FFFFFF</Tier1>
@@ -242,6 +247,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>No</CategPremium>
             <CategSpecial>No</CategSpecial>
+            <CategCollector>No</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -281,6 +287,7 @@
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#FFFFFF</CategPremium>
             <CategSpecial>#FFFFFF</CategSpecial>
+            <CategCollector>#FFFFFF</CategCollector>
             <Single>#C96D6135</Single>
             <TierNone>#FFFFFF</TierNone>
             <Tier1>#FFFFFF</Tier1>
@@ -315,6 +322,7 @@
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
+        <CategCollector>Yes</CategCollector>
         <Single>Yes</Single>
         <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
@@ -365,6 +373,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -406,6 +415,7 @@
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
+            <CategCollector>#000000</CategCollector>
             <Single>#000000</Single>
             <TierNone>#000000</TierNone>
             <Tier1>#000000</Tier1>
@@ -442,6 +452,7 @@
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
+        <CategCollector>Yes</CategCollector>
         <Single>Yes</Single>
         <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
@@ -486,6 +497,7 @@
         <CategNormal>#00000000</CategNormal>
         <CategPremium>#D5E5C554</CategPremium>
         <CategSpecial>#D5E5C554</CategSpecial>
+        <CategCollector>#00000000</CategCollector>
         <Single>#FFFFFF</Single>
         <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>
@@ -539,6 +551,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -580,6 +593,7 @@
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
+            <CategCollector>#000000</CategCollector>
             <Single>#000000</Single>
             <TierNone>#000000</TierNone>
             <Tier1>#000000</Tier1>
@@ -616,6 +630,7 @@
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
+        <CategCollector>Yes</CategCollector>
         <Single>Yes</Single>
         <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
@@ -660,6 +675,7 @@
         <CategNormal>#00000000</CategNormal>
         <CategPremium>#D5E5C554</CategPremium>
         <CategSpecial>#D5E5C554</CategSpecial>
+        <CategCollector>#00000000</CategCollector>
         <Single>#FFFFFF</Single>
         <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>

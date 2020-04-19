@@ -32,6 +32,7 @@
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
+        <CategCollector>Yes</CategCollector>
         <Single>Yes</Single>
         <Tier1>Yes</Tier1>
         <Tier2>Yes</Tier2>

@@ -258,6 +258,7 @@ namespace TankIconMaker.Layers
             Text.CategNormal = "•";
             Text.CategPremium = "♦";
             Text.CategSpecial = "∞";
+            Text.CategCollector = "❖";
 
             Text.TierNone = "";
             Text.Tier1 = "I";

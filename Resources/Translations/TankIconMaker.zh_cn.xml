@@ -225,6 +225,10 @@
       <Translation>特种坦克</Translation>
       <Old>Special</Old>
     </ctDisplayModeCategorySpecial>
+    <ctDisplayModeCategoryCollector>
+      <Translation>收藏品</Translation>
+      <Old>Collector</Old>
+    </ctDisplayModeCategoryCollector>
     <ctDisplayModeTierLow>
       <Translation>低级坦克</Translation>
       <Old>Low tiers</Old>
@@ -1902,7 +1906,7 @@
       <Old null="1" />
     </Country>
     <Category>
-      <Translation>Availability (normal • premium • special)</Translation>
+      <Translation>Availability (normal • premium • special • collector)</Translation>
       <Old null="1" />
     </Category>
     <Tier>
@@ -2237,6 +2241,10 @@
       <Translation>Avail.: 特种</Translation>
       <Old>Avail.: Special</Old>
     </CategSpecial>
+    <CategCollector>
+      <Translation>Avail.: 收藏品</Translation>
+      <Old>Avail.: Collector</Old>
+    </CategCollector>
     <Single>
       <Translation>不改变</Translation>
       <Old>Not varied</Old>

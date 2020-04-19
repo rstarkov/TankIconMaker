@@ -70,13 +70,14 @@ namespace TankIconMaker
         }
 
         /// <summary>Returns one of the specified values based on which tank category this value represents.</summary>
-        public static T Pick<T>(this Category class_, T normal, T premium, T special)
+        public static T Pick<T>(this Category class_, T normal, T premium, T special, T collector)
         {
             switch (class_)
             {
                 case Category.Normal: return normal;
                 case Category.Premium: return premium;
                 case Category.Special: return special;
+                case Category.Collector: return collector;
                 default: throw new Exception();
             }
         }

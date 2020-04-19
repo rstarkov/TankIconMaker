@@ -225,6 +225,10 @@
       <Translation>Spezial</Translation>
       <Old>Special</Old>
     </ctDisplayModeCategorySpecial>
+    <ctDisplayModeCategoryCollector>
+      <Translation>Sammlerstück</Translation>
+      <Old>Collector</Old>
+    </ctDisplayModeCategoryCollector>
     <ctDisplayModeTierLow>
       <Translation>Niedrige Stufen</Translation>
       <Old>Low tiers</Old>
@@ -1969,7 +1973,7 @@
     </Country>
     <Category>
       <Translation>Verfügbarkeit (Normal • Premium • Spezial)</Translation>
-      <Old>Availability (normal • premium • special)</Old>
+      <Old>Availability (normal • premium • special • collector)</Old>
     </Category>
     <Tier>
       <Translation>Stufe (1 – 10)</Translation>
@@ -2303,6 +2307,10 @@
       <Translation>Verf.: Spezial</Translation>
       <Old>Avail.: Special</Old>
     </CategSpecial>
+    <CategCollector>
+      <Translation>Verf.: Sammlerstück</Translation>
+      <Old>Avail.: Collector</Old>
+    </CategCollector>
     <Single>
       <Translation>Nicht unterschieden</Translation>
       <Old>Not varied</Old>

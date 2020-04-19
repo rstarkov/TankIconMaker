@@ -42,6 +42,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -92,6 +93,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -135,6 +137,7 @@
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
+        <CategCollector>Yes</CategCollector>
         <Single>Yes</Single>
         <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
@@ -174,6 +177,7 @@
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
+        <CategCollector>#FFFFFF</CategCollector>
         <Single>#FFFFFF</Single>
         <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>
@@ -216,6 +220,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -274,6 +279,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -324,6 +330,7 @@
             <CategNormal>No</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -373,6 +380,7 @@
             <CategNormal>No</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -412,6 +420,7 @@
             <CategNormal>#FFFFFF</CategNormal>
             <CategPremium>#56460E</CategPremium>
             <CategSpecial>#562426</CategSpecial>
+            <CategCollector>#FFFFFF</CategCollector>
             <Single>#FFFFFF</Single>
             <TierNone>#FFFFFF</TierNone>
             <Tier1>#FFFFFF</Tier1>
@@ -446,6 +455,7 @@
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
+        <CategCollector>Yes</CategCollector>
         <Single>Yes</Single>
         <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
@@ -496,6 +506,7 @@
             <CategNormal>Yes</CategNormal>
             <CategPremium>Yes</CategPremium>
             <CategSpecial>Yes</CategSpecial>
+            <CategCollector>Yes</CategCollector>
             <Single>Yes</Single>
             <TierNone>Yes</TierNone>
             <Tier1>Yes</Tier1>
@@ -537,6 +548,7 @@
             <CategNormal>#000000</CategNormal>
             <CategPremium>#000000</CategPremium>
             <CategSpecial>#000000</CategSpecial>
+            <CategCollector>#000000</CategCollector>
             <Single>#821214</Single>
             <TierNone>#000000</TierNone>
             <Tier1>#000000</Tier1>
@@ -573,6 +585,7 @@
         <CategNormal>Yes</CategNormal>
         <CategPremium>Yes</CategPremium>
         <CategSpecial>Yes</CategSpecial>
+        <CategCollector>Yes</CategCollector>
         <Single>Yes</Single>
         <TierNone>Yes</TierNone>
         <Tier1>Yes</Tier1>
@@ -617,6 +630,7 @@
         <CategNormal>#FFFFFF</CategNormal>
         <CategPremium>#FFFFFF</CategPremium>
         <CategSpecial>#FFFFFF</CategSpecial>
+        <CategCollector>#FFFFFF</CategCollector>
         <Single>#FFFFFF</Single>
         <TierNone>#FFFFFF</TierNone>
         <Tier1>#FFFFFF</Tier1>

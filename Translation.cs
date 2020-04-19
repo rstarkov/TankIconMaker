@@ -762,7 +762,7 @@ namespace TankIconMaker
     {
         public TrString Class = "Class (Artillery • Destroyer • Light • etc)";
         public TrString Country = "Country (USSR • Germany • USA • etc)";
-        public TrString Category = "Availability (normal • premium • special)";
+        public TrString Category = "Availability (normal • premium • special • collector)";
         public TrString Tier = "Tier (1 .. 10)";
         public TrString Single = "Single value";
 
@@ -1028,6 +1028,7 @@ namespace TankIconMaker
         public TrString CategNormal = "Avail.: Normal";
         public TrString CategPremium = "Avail.: Premium";
         public TrString CategSpecial = "Avail.: Special";
+        public TrString CategCollector = "Avail.: Collector";
 
         public TrString Single = "Not varied";
         public TrString SingleDescription = "When \"Vary by\" is set to \"No variation\", specifies the value to use. Use this when the value does not need to vary by tank properties.";

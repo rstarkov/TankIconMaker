@@ -305,6 +305,7 @@
                     <ComboBoxItem Name="ctDisplayModeCategoryNormal">Normal</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCategoryPremium">Premium</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeCategorySpecial">Special</ComboBoxItem>
+                    <ComboBoxItem Name="ctDisplayModeCategoryCollector">Collector</ComboBoxItem>
                     <Separator/>
                     <ComboBoxItem Name="ctDisplayModeTierLow">Low tiers</ComboBoxItem>
                     <ComboBoxItem Name="ctDisplayModeTierMedHigh">Medium and high tiers</ComboBoxItem>

@@ -229,6 +229,10 @@
       <Translation>Акционный</Translation>
       <Old>Special</Old>
     </ctDisplayModeCategorySpecial>
+    <ctDisplayModeCategoryCollector>
+      <Translation>Коллекционный</Translation>
+      <Old>Collector</Old>
+    </ctDisplayModeCategoryCollector>
     <ctDisplayModeTierLow>
       <Translation>Низкие уровни</Translation>
       <Old>Low tiers</Old>
@@ -2009,7 +2013,7 @@
     </Country>
     <Category>
       <Translation>Доступность (премиумный • акционный • ...)</Translation>
-      <Old>Availability (normal • premium • special)</Old>
+      <Old>Availability (normal • premium • special • collector)</Old>
     </Category>
     <Tier>
       <Translation>Уровень (1 .. 10)</Translation>
@@ -2343,6 +2347,10 @@
       <Translation>Доступ: Акционный</Translation>
       <Old>Avail.: Special</Old>
     </CategSpecial>
+    <CategCollector>
+      <Translation>Доступ: Коллекционный</Translation>
+      <Old>Avail.: Collector</Old>
+    </CategCollector>
     <Single>
       <Translation>Без вариаций</Translation>
       <Old>Not varied</Old>

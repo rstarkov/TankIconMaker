@@ -856,6 +856,7 @@ namespace TankIconMaker
                 case DisplayFilter.Normal: selection = context.Tanks.Where(t => t.Category == Category.Normal); break;
                 case DisplayFilter.Premium: selection = context.Tanks.Where(t => t.Category == Category.Premium); break;
                 case DisplayFilter.Special: selection = context.Tanks.Where(t => t.Category == Category.Special); break;
+                case DisplayFilter.Collector: selection = context.Tanks.Where(t => t.Category == Category.Collector); break;
 
                 case DisplayFilter.TierLow: selection = context.Tanks.Where(t => !isMedHighTier(t)); break;
                 case DisplayFilter.TierMedHigh: selection = context.Tanks.Where(t => isMedHighTier(t)); break;

@@ -152,7 +152,7 @@ namespace TankIconMaker
         OneOfEach = 1,
         USSR = 3, Germany, USA, France, UK, China, Japan, Czech, Sweden, Poland, Italy,
         Light = 15, Medium, Heavy, Artillery, Destroyer,
-        Normal = 21, Premium, Special,
+        Normal = 21, Premium, Special, Collector,
         TierLow = 25, TierMedHigh, TierHigh,
     }
 }
