@@ -6,28 +6,28 @@
   </TranslationCredits>
   <MainWindow>
     <BackgroundCheckered>
-      <Translation>Клетчатый</Translation>
-      <Old>Checkered</Old>
+      <Translation>_Клетчатый</Translation>
+      <Old>_Checkered</Old>
     </BackgroundCheckered>
     <BackgroundSolidColor>
-      <Translation>Сплошной</Translation>
-      <Old>Solid color</Old>
+      <Translation>_Сплошной</Translation>
+      <Old>_Solid color</Old>
     </BackgroundSolidColor>
     <BackgroundChangeCheckered1>
-      <Translation>Изменить цвет клеток №1...</Translation>
-      <Old>Change checkered color #1...</Old>
+      <Translation>_Изменить цвет клеток №1...</Translation>
+      <Old>C_hange checkered color #1...</Old>
     </BackgroundChangeCheckered1>
     <BackgroundChangeCheckered2>
-      <Translation>Изменить цвет клеток №2...</Translation>
-      <Old>Change checkered color #2...</Old>
+      <Translation>И_зменить цвет клеток №2...</Translation>
+      <Old>Ch_ange checkered color #2...</Old>
     </BackgroundChangeCheckered2>
     <BackgroundChangeSolid>
-      <Translation>Изменить сплошной цвет...</Translation>
-      <Old>Change solid color...</Old>
+      <Translation>_Изменить сплошной цвет...</Translation>
+      <Old>C_hange solid color...</Old>
     </BackgroundChangeSolid>
     <BackgroundRestoreDefaults>
-      <Translation>Восстановить стандартные цвета</Translation>
-      <Old>Restore defaults</Old>
+      <Translation>_Восстановить стандартные цвета</Translation>
+      <Old>_Restore defaults</Old>
     </BackgroundRestoreDefaults>
     <PathTemplate_Standard>
       <Translation>(стандартный)</Translation>
@@ -42,108 +42,108 @@
       <Old>Visual C++ Redistrable 2013 not found. You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784</Old>
     </ErrorMagickEffectNoRedist>
     <ctGameDirLabel>
-      <Translation>Папка с игрой:</Translation>
-      <Old>Game directory:</Old>
+      <Translation>_Папка с игрой:</Translation>
+      <Old>Game _directory:</Old>
     </ctGameDirLabel>
     <ctIconStyleLabel>
-      <Translation>Стиль иконок:</Translation>
-      <Old>Icon style:</Old>
+      <Translation>Стиль _иконок:</Translation>
+      <Old>_Icon style:</Old>
     </ctIconStyleLabel>
     <ctStyleNewLabel>
-      <Translation>Создать</Translation>
-      <Old>New</Old>
+      <Translation>Созд_ать</Translation>
+      <Old>_New</Old>
     </ctStyleNewLabel>
     <ctStyleImportLabel>
-      <Translation>Импорт</Translation>
-      <Old>Import</Old>
+      <Translation>И_мпорт</Translation>
+      <Old>Im_port</Old>
     </ctStyleImportLabel>
     <ctStyleExportLabel>
-      <Translation>Экспорт</Translation>
-      <Old>Export</Old>
+      <Translation>Экспор_т</Translation>
+      <Old>E_xport</Old>
     </ctStyleExportLabel>
     <ctUpvote>
       <Translation>Плюсануть автора этого стиля</Translation>
       <Old>Upvote the author of this style</Old>
     </ctUpvote>
     <ctStyleMoreLabel>
-      <Translation>Ещё</Translation>
-      <Old>More</Old>
+      <Translation>_Ещё</Translation>
+      <Old>_More</Old>
     </ctStyleMoreLabel>
     <ctStyleIconWidth>
-      <Translation>Ширина иконок</Translation>
+      <Translation>_Ширина иконок</Translation>
       <Old>Icon width</Old>
     </ctStyleIconWidth>
     <ctStyleIconHeight>
-      <Translation>Высота иконок</Translation>
+      <Translation>_Высота иконок</Translation>
       <Old>Icon height</Old>
     </ctStyleIconHeight>
     <ctStyleCenterable>
-      <Translation>Центрирующиеся</Translation>
+      <Translation>_Центрирующиеся</Translation>
       <Old>Centerable</Old>
     </ctStyleCenterable>
     <ctStyleChangeName>
-      <Translation>Изменить название</Translation>
-      <Old>Change name</Old>
+      <Translation>Изменить _название</Translation>
+      <Old>Change _name</Old>
     </ctStyleChangeName>
     <ctStyleChangeAuthor>
-      <Translation>Изменить автора</Translation>
-      <Old>Change author</Old>
+      <Translation>Изменить _автора</Translation>
+      <Old>Change _author</Old>
     </ctStyleChangeAuthor>
     <ctStyleDuplicate>
-      <Translation>Создать копию</Translation>
-      <Old>Duplicate</Old>
+      <Translation>Создать _копию</Translation>
+      <Old>_Duplicate</Old>
     </ctStyleDuplicate>
     <ctStyleDelete>
-      <Translation>Удалить</Translation>
-      <Old>Delete</Old>
+      <Translation>_Удалить</Translation>
+      <Old>D_elete</Old>
     </ctStyleDelete>
     <ctLayersLabel>
-      <Translation>Слои:</Translation>
-      <Old>Layers:</Old>
+      <Translation>С_лои:</Translation>
+      <Old>_Layers:</Old>
     </ctLayersLabel>
     <ctLayersAddLayer>
-      <Translation>Добавить слой...</Translation>
-      <Old>Add layer...</Old>
+      <Translation>Добавить _слой...</Translation>
+      <Old>Add _layer...</Old>
     </ctLayersAddLayer>
     <ctLayersAddEffect>
-      <Translation>Добавить эффект...</Translation>
-      <Old>Add effect...</Old>
+      <Translation>Добавить э_ффект...</Translation>
+      <Old>Add _effect...</Old>
     </ctLayersAddEffect>
     <ctLayersCopy>
-      <Translation>Копировать</Translation>
-      <Old>Copy</Old>
+      <Translation>_Копировать</Translation>
+      <Old>_Copy</Old>
     </ctLayersCopy>
     <ctLayersCopyEffects>
-      <Translation>Копировать эффекты</Translation>
-      <Old>Copy effects</Old>
+      <Translation>К_опировать эффекты</Translation>
+      <Old>Copy e_ffects</Old>
     </ctLayersCopyEffects>
     <ctLayersPaste>
-      <Translation>Вставить</Translation>
-      <Old>Paste</Old>
+      <Translation>_Вставить</Translation>
+      <Old>_Paste</Old>
     </ctLayersPaste>
     <ctLayersDelete>
-      <Translation>Удалить</Translation>
-      <Old>Delete</Old>
+      <Translation>_Удалить</Translation>
+      <Old>_Delete</Old>
     </ctLayersDelete>
     <ctLayersRename>
-      <Translation>Переименовать</Translation>
-      <Old>Rename</Old>
+      <Translation>_Переименовать</Translation>
+      <Old>_Rename</Old>
     </ctLayersRename>
     <ctLayersMoveUp>
-      <Translation>Сдвинуть вверх</Translation>
-      <Old>Move up</Old>
+      <Translation>Сдвинуть вв_ерх</Translation>
+      <Old>Move _up</Old>
     </ctLayersMoveUp>
     <ctLayersMoveDown>
-      <Translation>Сдвинуть вниз</Translation>
-      <Old>Move down</Old>
+      <Translation>Сдвинуть в_низ</Translation>
+      <Old>Move d_own</Old>
     </ctLayersMoveDown>
     <ctLayersToggleVisibility>
-      <Translation>Вкл/выкл видимость</Translation>
-      <Old>Toggle visibility</Old>
+      <Translation>Вкл/в_ыкл видимость</Translation>
+      <Old>Toggle _visibility</Old>
     </ctLayersToggleVisibility>
     <ctZoomCheckbox>
-      <Translation>Увеличить</Translation>
-      <Old>Zoom</Old>
+      <Translation>_Увеличить</Translation>
+      <Old>_Zoom</Old>
     </ctZoomCheckbox>
     <ctDisplayModeAll>
       <Translation>Все танки</Translation>
@@ -246,64 +246,64 @@
       <Old>High tiers</Old>
     </ctDisplayModeTierHigh>
     <ctLanguageLabel>
-      <Translation>Язык</Translation>
-      <Old>Language</Old>
+      <Translation>_Язык</Translation>
+      <Old>Lang_uage</Old>
     </ctLanguageLabel>
     <ctBackgroundLabel>
-      <Translation>Фон</Translation>
-      <Old>Background</Old>
+      <Translation>_Фон</Translation>
+      <Old>_Background</Old>
     </ctBackgroundLabel>
     <ctWarning>
       <Translation>Обнаружены проблемы; щелкните по иконке для просмотра подробностей.</Translation>
       <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
     </ctWarning>
     <ctSaveLabel>
-      <Translation>Сохранить</Translation>
-      <Old>Save</Old>
+      <Translation>_Сохранить</Translation>
+      <Old>_Save</Old>
     </ctSaveLabel>
     <ctSaveAsLabel>
-      <Translation>Сохранить как...</Translation>
-      <Old>Save as...</Old>
+      <Translation>Сохранить _как...</Translation>
+      <Old>Save _as...</Old>
     </ctSaveAsLabel>
     <ctSaveIconsToGameFolder>
-      <Translation>Сохранить в игровую папку</Translation>
-      <Old>Save to game folder</Old>
+      <Translation>Сохранить в _игровую папку</Translation>
+      <Old>Save to _game folder</Old>
     </ctSaveIconsToGameFolder>
     <ctSaveIconsToSpecifiedFolder>
-      <Translation>Сохранить иконки в папку...</Translation>
-      <Old>Save icons to folder...</Old>
+      <Translation>Сохранить иконки в _папку...</Translation>
+      <Old>Save icons to _folder...</Old>
     </ctSaveIconsToSpecifiedFolder>
     <ctSaveIconsToBattleAtlas>
-      <Translation>Сохранить BattleAtlas...</Translation>
-      <Old>Save BattleAtlas...</Old>
+      <Translation>Сохранить _BattleAtlas...</Translation>
+      <Old>Save _BattleAtlas...</Old>
     </ctSaveIconsToBattleAtlas>
     <ctSaveIconsToVehicleMarkerAtlas>
-      <Translation>Сохранить VehicleMarkerAtlas...</Translation>
-      <Old>Save VehicleMarkerAtlas...</Old>
+      <Translation>Сохранить _VehicleMarkerAtlas...</Translation>
+      <Old>Save _VehicleMarkerAtlas...</Old>
     </ctSaveIconsToVehicleMarkerAtlas>
     <ctSaveToAtlas>
-      <Translation>Сохранить атлас...</Translation>
-      <Old>Save atlas...</Old>
+      <Translation>Сохранить а_тлас...</Translation>
+      <Old>Save a_tlas...</Old>
     </ctSaveToAtlas>
     <ctBulkSaveIcons>
-      <Translation>Массовое сохранение</Translation>
-      <Old>Bulk save</Old>
+      <Translation>_Массовое сохранение</Translation>
+      <Old>Bulk _save</Old>
     </ctBulkSaveIcons>
     <ctBulkSaveIconsToFolder>
-      <Translation>Массовое сохранение в папку...</Translation>
-      <Old>Bulk save to folder...</Old>
+      <Translation>М_ассовое сохранение в папку...</Translation>
+      <Old>Bulk s_ave to folder...</Old>
     </ctBulkSaveIconsToFolder>
     <ctPathTemplateLabel>
       <Translation>Путь:</Translation>
       <Old>Path:</Old>
     </ctPathTemplateLabel>
     <ctEditPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEditPathTemplateLabel>
     <ctReloadLabel>
-      <Translation>Обновить данные</Translation>
-      <Old>Reload data</Old>
+      <Translation>_Обновить данные</Translation>
+      <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctAboutLabel>
       <Translation>О программе...</Translation>
@@ -316,32 +316,32 @@
       <Old>Add layer</Old>
     </AddLayerTitle>
     <LayerName>
-      <Translation>Название слоя:</Translation>
-      <Old>Layer name:</Old>
+      <Translation>_Название слоя:</Translation>
+      <Old>Layer _name:</Old>
     </LayerName>
     <LayerType>
-      <Translation>Тип слоя:</Translation>
-      <Old>Layer type:</Old>
+      <Translation>_Тип слоя:</Translation>
+      <Old>Layer _type:</Old>
     </LayerType>
     <AddEffectTitle>
       <Translation>Добавление эффекта</Translation>
       <Old>Add effect</Old>
     </AddEffectTitle>
     <EffectName>
-      <Translation>Название эффекта:</Translation>
-      <Old>Effect name:</Old>
+      <Translation>_Название эффекта:</Translation>
+      <Old>Effect _name:</Old>
     </EffectName>
     <EffectType>
-      <Translation>Тип эффекта:</Translation>
-      <Old>Effect type:</Old>
+      <Translation>_Тип эффекта:</Translation>
+      <Old>Effect _type:</Old>
     </EffectType>
     <BtnAdd>
-      <Translation>Добавить</Translation>
-      <Old>Add</Old>
+      <Translation>_Добавить</Translation>
+      <Old>_Add</Old>
     </BtnAdd>
     <BtnCancel>
-      <Translation>Отмена</Translation>
-      <Old>Cancel</Old>
+      <Translation>_Отмена</Translation>
+      <Old>_Cancel</Old>
     </BtnCancel>
   </AddWindow>
   <PathTemplateWindow>
@@ -426,12 +426,12 @@
       <Old>All environment variables are expanded to their values. %UserProfile% expands to the user's profile folder path. %AppData% expands to the primary folder containing application settings. Many other environment variables are documented in online sources.</Old>
     </ctEnvVarsHelp>
     <ctOkBtn>
-      <Translation>ОК</Translation>
-      <Old>OK</Old>
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
     </ctOkBtn>
     <ctCancelBtn>
-      <Translation>Отмена</Translation>
-      <Old>Cancel</Old>
+      <Translation>О_тмена</Translation>
+      <Old>_Cancel</Old>
     </ctCancelBtn>
   </PathTemplateWindow>
   <BulkSaveSettingsWindow>
@@ -447,7 +447,7 @@
       <Translation>Наименование</Translation>
       <Old>Name</Old>
     </ctNameColHeader>
-    <ctEnabledColHeader>
+	<ctEnabledColHeader>
       <Translation>Включено</Translation>
       <Old>Enabled</Old>
     </ctEnabledColHeader>
@@ -476,24 +476,24 @@
       <Old>Custom atlas</Old>
     </ctCustomAtlasRowHeader>
     <ctEditPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEditPathTemplateLabel>
     <ctEdiBattleAtlastPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEdiBattleAtlastPathTemplateLabel>
     <ctEditVehicleMarkersAtlasPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEditVehicleMarkersAtlasPathTemplateLabel>
     <ctOkBtn>
-      <Translation>ОК</Translation>
-      <Old>OK</Old>
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
     </ctOkBtn>
     <ctCancelBtn>
-      <Translation>Отмена</Translation>
-      <Old>Cancel</Old>
+      <Translation>О_тмена</Translation>
+      <Old>_Cancel</Old>
     </ctCancelBtn>
   </BulkSaveSettingsWindow>
   <LayerAndEffect>
@@ -2012,8 +2012,8 @@
       <Old>Country (USSR • Germany • USA • etc)</Old>
     </Country>
     <Category>
-      <Translation>Доступность (премиумный • акционный • ...)</Translation>
-      <Old>Availability (normal • premium • special • collector)</Old>
+      <Translation>Доступность (Обычный • Премиумный • ...)</Translation>
+      <Old>Availability (Normal • Premium • etc)</Old>
     </Category>
     <Tier>
       <Translation>Уровень (1 .. 10)</Translation>
@@ -2397,15 +2397,15 @@
     </RenameLayer_Title>
     <RenameLayer_Label>
       <Translation>_Название слоя:</Translation>
-      <Old>Layer name:</Old>
+      <Old>Layer _name:</Old>
     </RenameLayer_Label>
     <RenameEffect_Title>
       <Translation>Переименовать эффект</Translation>
       <Old>Rename effect</Old>
     </RenameEffect_Title>
     <RenameEffect_Label>
-      <Translation>Название эффекта:</Translation>
-      <Old>Effect name:</Old>
+      <Translation>_Название эффекта:</Translation>
+      <Old>Effect _name:</Old>
     </RenameEffect_Label>
     <CreateStyle_Title>
       <Translation>Создать стиль</Translation>
@@ -2413,23 +2413,23 @@
     </CreateStyle_Title>
     <CreateStyle_Label>
       <Translation>_Название нового стиля:</Translation>
-      <Old>New style name:</Old>
+      <Old>New style _name:</Old>
     </CreateStyle_Label>
     <RenameStyle_Title>
       <Translation>Изменить название стиля</Translation>
       <Old>Change style name</Old>
     </RenameStyle_Title>
     <RenameStyle_Label>
-      <Translation>Новое название стиля:</Translation>
-      <Old>New style name:</Old>
+      <Translation>Новое _название стиля:</Translation>
+      <Old>New style _name:</Old>
     </RenameStyle_Label>
     <ChangeAuthor_Title>
       <Translation>Изменить автора стиля</Translation>
       <Old>Change style author</Old>
     </ChangeAuthor_Title>
     <ChangeAuthor_Label>
-      <Translation>Новый автор стиля:</Translation>
-      <Old>New style author:</Old>
+      <Translation>Новый _автор стиля:</Translation>
+      <Old>New style _author:</Old>
     </ChangeAuthor_Label>
     <DuplicateStyle_Title>
       <Translation>Создать копию стиля</Translation>
@@ -2437,7 +2437,7 @@
     </DuplicateStyle_Title>
     <DuplicateStyle_Label>
       <Translation>_Название нового стиля:</Translation>
-      <Old>New style name:</Old>
+      <Old>New style _name:</Old>
     </DuplicateStyle_Label>
     <IconDims_Title>
       <Translation>Размеры иконок</Translation>
@@ -2488,8 +2488,8 @@
       <Old>Cancel</Old>
     </Cancel>
     <PromptWindowOK>
-      <Translation>ОК</Translation>
-      <Old>OK</Old>
+      <Translation>_ОК</Translation>
+      <Old>_OK</Old>
     </PromptWindowOK>
     <OverwriteIcons_Prompt>
       <Translation encoding="c-literal">Вы уверены, что хотите заменить ваши текущие иконки?\r\n\r\nПуть: {0}\r\n\r\nВнимание: ВСЕ файлы {1} по указанному пути будут заменены без возможности восстановления!</Translation>
@@ -2586,8 +2586,8 @@
       <Old>Select styles to delete:</Old>
     </DeleteStyle_Prompt>
     <DeleteStyle_Yes>
-      <Translation>Удалить</Translation>
-      <Old>Delete</Old>
+      <Translation>_Удалить</Translation>
+      <Old>_Delete</Old>
     </DeleteStyle_Yes>
     <DeleteStyle_PromptSure>
       <Translation>Вы уверены, что хотите удалить эти стили?</Translation>
@@ -2616,8 +2616,8 @@
       <Old>Select styles to export:</Old>
     </StyleExport_Prompt>
     <StyleExport_Yes>
-      <Translation>Экспорт</Translation>
-      <Old>Export</Old>
+      <Translation>_Экспорт</Translation>
+      <Old>_Export</Old>
     </StyleExport_Yes>
     <StyleExport_Success>
       <IsNumber>
@@ -2638,8 +2638,8 @@
       <Old encoding="c-literal">You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:</Old>
     </BulkSave_Prompt>
     <BulkSave_Yes>
-      <Translation>Сохранить</Translation>
-      <Old>Save</Old>
+      <Translation>_Сохранить</Translation>
+      <Old>_Save</Old>
     </BulkSave_Yes>
     <BulkSave_Progress>
       <Translation>Сохранение...</Translation>

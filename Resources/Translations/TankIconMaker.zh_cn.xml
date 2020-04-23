@@ -7,27 +7,27 @@
   <MainWindow>
     <BackgroundCheckered>
       <Translation>透明方格背景</Translation>
-      <Old>Checkered</Old>
+      <Old>_Checkered</Old>
     </BackgroundCheckered>
     <BackgroundSolidColor>
       <Translation>单色背景</Translation>
-      <Old>Solid color</Old>
+      <Old>_Solid color</Old>
     </BackgroundSolidColor>
     <BackgroundChangeCheckered1>
       <Translation>更换透明方格#1颜色...</Translation>
-      <Old>Change checkered color #1...</Old>
+      <Old>C_hange checkered color #1...</Old>
     </BackgroundChangeCheckered1>
     <BackgroundChangeCheckered2>
       <Translation>更换透明方格#2颜色...</Translation>
-      <Old>Change checkered color #2...</Old>
+      <Old>Ch_ange checkered color #2...</Old>
     </BackgroundChangeCheckered2>
     <BackgroundChangeSolid>
       <Translation>更换单色...</Translation>
-      <Old>Change solid color...</Old>
+      <Old>C_hange solid color...</Old>
     </BackgroundChangeSolid>
     <BackgroundRestoreDefaults>
-      <Translation>还原默认</Translation>
-      <Old>Restore defaults</Old>
+      <Translation>_还原默认</Translation>
+      <Old>_Restore defaults</Old>
     </BackgroundRestoreDefaults>
     <PathTemplate_Standard>
       <Translation>(标准)</Translation>
@@ -39,23 +39,23 @@
     </ErrorConflictingId>
     <ctGameDirLabel>
       <Translation>游戏目录:</Translation>
-      <Old>Game directory:</Old>
+      <Old>Game _directory:</Old>
     </ctGameDirLabel>
     <ctIconStyleLabel>
       <Translation>图标样式:</Translation>
-      <Old>Icon style:</Old>
+      <Old>_Icon style:</Old>
     </ctIconStyleLabel>
     <ctStyleNewLabel>
       <Translation>新建</Translation>
-      <Old>New</Old>
+      <Old>_New</Old>
     </ctStyleNewLabel>
     <ctStyleImportLabel>
       <Translation>导入</Translation>
-      <Old>Import</Old>
+      <Old>Im_port</Old>
     </ctStyleImportLabel>
     <ctStyleExportLabel>
       <Translation>导出</Translation>
-      <Old>Export</Old>
+      <Old>E_xport</Old>
     </ctStyleExportLabel>
     <ctUpvote>
       <Translation>赞作者的样式</Translation>
@@ -63,7 +63,7 @@
     </ctUpvote>
     <ctStyleMoreLabel>
       <Translation>更多</Translation>
-      <Old>More</Old>
+      <Old>_More</Old>
     </ctStyleMoreLabel>
     <ctStyleIconWidth>
       <Translation>图标宽度</Translation>
@@ -79,67 +79,67 @@
     </ctStyleCenterable>
     <ctStyleChangeName>
       <Translation>更换名称</Translation>
-      <Old>Change name</Old>
+      <Old>Change _name</Old>
     </ctStyleChangeName>
     <ctStyleChangeAuthor>
       <Translation>更换作者</Translation>
-      <Old>Change author</Old>
+      <Old>Change _author</Old>
     </ctStyleChangeAuthor>
     <ctStyleDuplicate>
       <Translation>建立副本</Translation>
-      <Old>Duplicate</Old>
+      <Old>_Duplicate</Old>
     </ctStyleDuplicate>
     <ctStyleDelete>
       <Translation>删除</Translation>
-      <Old>Delete</Old>
+      <Old>D_elete</Old>
     </ctStyleDelete>
     <ctLayersLabel>
       <Translation>层面板:</Translation>
-      <Old>Layers:</Old>
+      <Old>_Layers:</Old>
     </ctLayersLabel>
     <ctLayersAddLayer>
       <Translation>添加层...</Translation>
-      <Old>Add layer...</Old>
+      <Old>Add _layer...</Old>
     </ctLayersAddLayer>
     <ctLayersAddEffect>
       <Translation>添加效果...</Translation>
-      <Old>Add effect...</Old>
+      <Old>Add _effect...</Old>
     </ctLayersAddEffect>
     <ctLayersCopy>
-      <Translation>复制</Translation>
-      <Old>Copy</Old>
+      <Translation>_复制</Translation>
+      <Old>_Copy</Old>
     </ctLayersCopy>
     <ctLayersCopyEffects>
       <Translation>复制效果</Translation>
-      <Old>Copy effects</Old>
+      <Old>Copy e_ffects</Old>
     </ctLayersCopyEffects>
     <ctLayersPaste>
-      <Translation>粘贴</Translation>
-      <Old>Paste</Old>
+      <Translation>_粘贴</Translation>
+      <Old>_Paste</Old>
     </ctLayersPaste>
     <ctLayersDelete>
       <Translation>删除</Translation>
-      <Old>Delete</Old>
+      <Old>_Delete</Old>
     </ctLayersDelete>
     <ctLayersRename>
-      <Translation>重命名</Translation>
-      <Old>Rename</Old>
+      <Translation>_重命名</Translation>
+      <Old>_Rename</Old>
     </ctLayersRename>
     <ctLayersMoveUp>
       <Translation>上移</Translation>
-      <Old>Move up</Old>
+      <Old>Move _up</Old>
     </ctLayersMoveUp>
     <ctLayersMoveDown>
       <Translation>下移</Translation>
-      <Old>Move down</Old>
+      <Old>Move d_own</Old>
     </ctLayersMoveDown>
     <ctLayersToggleVisibility>
       <Translation>切换可见性</Translation>
-      <Old>Toggle visibility</Old>
+      <Old>Toggle _visibility</Old>
     </ctLayersToggleVisibility>
     <ctZoomCheckbox>
       <Translation>放大</Translation>
-      <Old>Zoom</Old>
+      <Old>_Zoom</Old>
     </ctZoomCheckbox>
     <ctDisplayModeAll>
       <Translation>所有坦克</Translation>
@@ -243,11 +243,11 @@
     </ctDisplayModeTierHigh>
     <ctLanguageLabel>
       <Translation>语言</Translation>
-      <Old>Language</Old>
+      <Old>L_anguage</Old>
     </ctLanguageLabel>
     <ctBackgroundLabel>
       <Translation>背景</Translation>
-      <Old>Background</Old>
+      <Old>_Background</Old>
     </ctBackgroundLabel>
     <ctWarning>
       <Translation>出现一个问题，点击这个图标浏览问题的详细信息。</Translation>
@@ -255,39 +255,39 @@
     </ctWarning>
     <ctSaveLabel>
       <Translation>保存</Translation>
-      <Old>Save</Old>
+      <Old>_Save</Old>
     </ctSaveLabel>
     <ctSaveAsLabel>
       <Translation>保存为...</Translation>
-      <Old>Save as...</Old>
+      <Old>Save _as...</Old>
     </ctSaveAsLabel>
     <ctSaveIconsToGameFolder>
       <Translation>保存到游戏目录</Translation>
-      <Old>Save to game folder</Old>
+      <Old>Save to _game folder</Old>
     </ctSaveIconsToGameFolder>
     <ctSaveIconsToSpecifiedFolder>
       <Translation>保存到文件夹...</Translation>
-      <Old>Save to folder...</Old>
+      <Old>Save to _folder...</Old>
     </ctSaveIconsToSpecifiedFolder>
     <ctBulkSaveIcons>
       <Translation>增量保存</Translation>
-      <Old>Bulk save</Old>
+      <Old>Bulk _save</Old>
     </ctBulkSaveIcons>
     <ctBulkSaveIconsToFolder>
       <Translation>增量保存到文件夹...</Translation>
-      <Old>Bulk save to folder...</Old>
+      <Old>Bulk s_ave to folder...</Old>
     </ctBulkSaveIconsToFolder>
     <ctPathTemplateLabel>
       <Translation>路径:</Translation>
       <Old>Path:</Old>
     </ctPathTemplateLabel>
     <ctEditPathTemplateLabel>
-      <Translation>...</Translation>
+      <Translation>_...</Translation>
       <Old null="1" />
     </ctEditPathTemplateLabel>
     <ctReloadLabel>
       <Translation>重新载入数据</Translation>
-      <Old>Reload data</Old>
+      <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctAboutLabel>
       <Translation>关于...</Translation>
@@ -300,32 +300,32 @@
       <Old>Add layer</Old>
     </AddLayerTitle>
     <LayerName>
-      <Translation>层 名称:</Translation>
-      <Old>Layer name:</Old>
+      <Translation>层 _名称:</Translation>
+      <Old>Layer _name:</Old>
     </LayerName>
     <LayerType>
-      <Translation>层 类型:</Translation>
-      <Old>Layer type:</Old>
+      <Translation>层 _类型:</Translation>
+      <Old>Layer _type:</Old>
     </LayerType>
     <AddEffectTitle>
       <Translation>添加 效果</Translation>
       <Old>Add effect</Old>
     </AddEffectTitle>
     <EffectName>
-      <Translation>效果 名称:</Translation>
-      <Old>Effect name:</Old>
+      <Translation>效果 _名称:</Translation>
+      <Old>Effect _name:</Old>
     </EffectName>
     <EffectType>
-      <Translation>效果 类型:</Translation>
-      <Old>Effect type:</Old>
+      <Translation>效果 _类型:</Translation>
+      <Old>Effect _type:</Old>
     </EffectType>
     <BtnAdd>
-      <Translation>添加</Translation>
-      <Old>Add</Old>
+      <Translation>_添加</Translation>
+      <Old>_Add</Old>
     </BtnAdd>
     <BtnCancel>
-      <Translation>取消</Translation>
-      <Old>Cancel</Old>
+      <Translation>_取消</Translation>
+      <Old>_Cancel</Old>
     </BtnCancel>
   </AddWindow>
   <PathTemplateWindow>
@@ -382,11 +382,11 @@
       <Old null="1" />
     </ctEnvVarsHelp>
     <ctOkBtn>
-      <Translation>OK</Translation>
+      <Translation>_OK</Translation>
       <Old null="1" />
     </ctOkBtn>
     <ctCancelBtn>
-      <Translation>Cancel</Translation>
+      <Translation>_Cancel</Translation>
       <Old null="1" />
     </ctCancelBtn>
   </PathTemplateWindow>
@@ -1906,7 +1906,7 @@
       <Old null="1" />
     </Country>
     <Category>
-      <Translation>Availability (normal • premium • special • collector)</Translation>
+      <Translation>Availability (Normal • Premium • etc)</Translation>
       <Old null="1" />
     </Category>
     <Tier>
@@ -2291,7 +2291,7 @@
     </RenameLayer_Title>
     <RenameLayer_Label>
       <Translation>层名称:</Translation>
-      <Old>Layer name:</Old>
+      <Old>Layer _name:</Old>
     </RenameLayer_Label>
     <RenameEffect_Title>
       <Translation>重命名效果</Translation>
@@ -2299,7 +2299,7 @@
     </RenameEffect_Title>
     <RenameEffect_Label>
       <Translation>效果名称:</Translation>
-      <Old>Effect name:</Old>
+      <Old>Effect _name:</Old>
     </RenameEffect_Label>
     <CreateStyle_Title>
       <Translation>创建样式</Translation>
@@ -2307,7 +2307,7 @@
     </CreateStyle_Title>
     <CreateStyle_Label>
       <Translation>新样式名称:</Translation>
-      <Old>New style name:</Old>
+      <Old>New style _name:</Old>
     </CreateStyle_Label>
     <RenameStyle_Title>
       <Translation>更改样式名称</Translation>
@@ -2315,7 +2315,7 @@
     </RenameStyle_Title>
     <RenameStyle_Label>
       <Translation>新样式名称:</Translation>
-      <Old>New style name:</Old>
+      <Old>New style _name:</Old>
     </RenameStyle_Label>
     <ChangeAuthor_Title>
       <Translation>更改样式作者</Translation>
@@ -2323,7 +2323,7 @@
     </ChangeAuthor_Title>
     <ChangeAuthor_Label>
       <Translation>新样式作者:</Translation>
-      <Old>New style author:</Old>
+      <Old>New style _author:</Old>
     </ChangeAuthor_Label>
     <DuplicateStyle_Title>
       <Translation>制作样式副本</Translation>
@@ -2331,7 +2331,7 @@
     </DuplicateStyle_Title>
     <DuplicateStyle_Label>
       <Translation>新样式名称:</Translation>
-      <Old>New style name:</Old>
+      <Old>New style _name:</Old>
     </DuplicateStyle_Label>
     <IconDims_Title>
       <Translation>图标尺寸</Translation>
@@ -2375,7 +2375,7 @@
     </Cancel>
     <PromptWindowOK>
       <Translation>确定</Translation>
-      <Old>OK</Old>
+      <Old>_OK</Old>
     </PromptWindowOK>
     <OverwriteIcons_Prompt>
       <Translation encoding="c-literal">你想覆盖当前图标?\r\n\r\n路径: {0}\r\n\r\n警告:  {1} 所有目录下的文件将被重写，且不能恢复！</Translation>
@@ -2490,8 +2490,8 @@
       <Old>Select styles to export:</Old>
     </StyleExport_Prompt>
     <StyleExport_Yes>
-      <Translation>导出 </Translation>
-      <Old>Export</Old>
+      <Translation>_导出 </Translation>
+      <Old>_Export</Old>
     </StyleExport_Yes>
     <StyleExport_Success>
       <IsNumber>
@@ -2510,8 +2510,8 @@
       <Old encoding="c-literal">You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:</Old>
     </BulkSave_Prompt>
     <BulkSave_Yes>
-      <Translation>保存</Translation>
-      <Old>Save</Old>
+      <Translation>_保存</Translation>
+      <Old>_Save</Old>
     </BulkSave_Yes>
     <BulkSave_Progress>
       <Translation>正在保存图标...</Translation>

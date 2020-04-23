@@ -6,28 +6,28 @@
   </TranslationCredits>
   <MainWindow>
     <BackgroundCheckered>
-      <Translation>Schachbrettmuster</Translation>
-      <Old>Checkered</Old>
+      <Translation>_Schachbrettmuster</Translation>
+      <Old>_Checkered</Old>
     </BackgroundCheckered>
     <BackgroundSolidColor>
-      <Translation>Unifarben</Translation>
-      <Old>Solid color</Old>
+      <Translation>_Unifarben</Translation>
+      <Old>_Solid color</Old>
     </BackgroundSolidColor>
     <BackgroundChangeCheckered1>
-      <Translation>Schachbrettfarbe #1 ändern...</Translation>
-      <Old>Change checkered color #1...</Old>
+      <Translation>S_chachbrettfarbe #1 ändern...</Translation>
+      <Old>C_hange checkered color #1...</Old>
     </BackgroundChangeCheckered1>
     <BackgroundChangeCheckered2>
-      <Translation>Schachbrettfarbe #2 ändern...</Translation>
-      <Old>Change checkered color #2...</Old>
+      <Translation>Sc_hachbrettfarbe #2 ändern...</Translation>
+      <Old>Ch_ange checkered color #2...</Old>
     </BackgroundChangeCheckered2>
     <BackgroundChangeSolid>
-      <Translation>Unifarbe ändern...</Translation>
-      <Old>Change solid color...</Old>
+      <Translation>U_nifarbe ändern...</Translation>
+      <Old>C_hange solid color...</Old>
     </BackgroundChangeSolid>
     <BackgroundRestoreDefaults>
-      <Translation>Standardwerte wiederherstellen</Translation>
-      <Old>Restore defaults</Old>
+      <Translation>Standardwerte _wiederherstellen</Translation>
+      <Old>_Restore defaults</Old>
     </BackgroundRestoreDefaults>
     <PathTemplate_Standard>
       <Translation>(Standard)</Translation>
@@ -38,108 +38,108 @@
       <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
     </ErrorConflictingId>
     <ctGameDirLabel>
-      <Translation>Spielverzeichnis:</Translation>
-      <Old>Game directory:</Old>
+      <Translation>Spielver_zeichnis:</Translation>
+      <Old>Game _directory:</Old>
     </ctGameDirLabel>
     <ctIconStyleLabel>
-      <Translation>Symboldesign:</Translation>
-      <Old>Icon style:</Old>
+      <Translation>Symbol_design:</Translation>
+      <Old>_Icon style:</Old>
     </ctIconStyleLabel>
     <ctStyleNewLabel>
-      <Translation>Neu</Translation>
-      <Old>New</Old>
+      <Translation>_Neu</Translation>
+      <Old>_New</Old>
     </ctStyleNewLabel>
     <ctStyleImportLabel>
-      <Translation>Importieren</Translation>
-      <Old>Import</Old>
+      <Translation>Im_portieren</Translation>
+      <Old>Im_port</Old>
     </ctStyleImportLabel>
     <ctStyleExportLabel>
-      <Translation>Exportieren</Translation>
-      <Old>Export</Old>
+      <Translation>E_xportieren</Translation>
+      <Old>E_xport</Old>
     </ctStyleExportLabel>
     <ctUpvote>
       <Translation>Den Autor dieses Designs positiv bewerten</Translation>
       <Old>Upvote the author of this style</Old>
     </ctUpvote>
     <ctStyleMoreLabel>
-      <Translation>Mehr</Translation>
-      <Old>More</Old>
+      <Translation>_Mehr</Translation>
+      <Old>_More</Old>
     </ctStyleMoreLabel>
     <ctStyleIconWidth>
-      <Translation>Symbolbreite</Translation>
+      <Translation>Symbol_breite</Translation>
       <Old>Icon width</Old>
     </ctStyleIconWidth>
     <ctStyleIconHeight>
-      <Translation>Symbolhöhe</Translation>
+      <Translation>Symbol_höhe</Translation>
       <Old>Icon height</Old>
     </ctStyleIconHeight>
     <ctStyleCenterable>
-      <Translation>Zentrierbarkeit</Translation>
+      <Translation>_Zentrierbarkeit</Translation>
       <Old>Centerable</Old>
     </ctStyleCenterable>
     <ctStyleChangeName>
-      <Translation>Namen ändern</Translation>
-      <Old>Change name</Old>
+      <Translation>_Namen ändern</Translation>
+      <Old>Change _name</Old>
     </ctStyleChangeName>
     <ctStyleChangeAuthor>
-      <Translation>Autor ändern</Translation>
-      <Old>Change author</Old>
+      <Translation>_Autor ändern</Translation>
+      <Old>Change _author</Old>
     </ctStyleChangeAuthor>
     <ctStyleDuplicate>
-      <Translation>Duplizieren</Translation>
-      <Old>Duplicate</Old>
+      <Translation>_Duplizieren</Translation>
+      <Old>_Duplicate</Old>
     </ctStyleDuplicate>
     <ctStyleDelete>
-      <Translation>Löschen</Translation>
-      <Old>Delete</Old>
+      <Translation>_Löschen</Translation>
+      <Old>D_elete</Old>
     </ctStyleDelete>
     <ctLayersLabel>
-      <Translation>Ebenen:</Translation>
-      <Old>Layers:</Old>
+      <Translation>_Ebenen:</Translation>
+      <Old>_Layers:</Old>
     </ctLayersLabel>
     <ctLayersAddLayer>
-      <Translation>Ebene hinzufügen...</Translation>
-      <Old>Add layer...</Old>
+      <Translation>Ebene _hinzufügen...</Translation>
+      <Old>Add _layer...</Old>
     </ctLayersAddLayer>
     <ctLayersAddEffect>
-      <Translation>Effekt hinzufügen...</Translation>
-      <Old>Add effect...</Old>
+      <Translation>Effekt hi_nzufügen...</Translation>
+      <Old>Add _effect...</Old>
     </ctLayersAddEffect>
     <ctLayersCopy>
-      <Translation>Kopieren</Translation>
-      <Old>Copy</Old>
+      <Translation>_Kopieren</Translation>
+      <Old>_Copy</Old>
     </ctLayersCopy>
     <ctLayersCopyEffects>
-      <Translation>Effekte kopieren</Translation>
-      <Old>Copy effects</Old>
+      <Translation>E_ffekte kopieren</Translation>
+      <Old>Copy e_ffects</Old>
     </ctLayersCopyEffects>
     <ctLayersPaste>
-      <Translation>Einfügen</Translation>
-      <Old>Paste</Old>
+      <Translation>_Einfügen</Translation>
+      <Old>_Paste</Old>
     </ctLayersPaste>
     <ctLayersDelete>
-      <Translation>Löschen</Translation>
-      <Old>Delete</Old>
+      <Translation>_Löschen</Translation>
+      <Old>_Delete</Old>
     </ctLayersDelete>
     <ctLayersRename>
-      <Translation>Umbenennen</Translation>
-      <Old>Rename</Old>
+      <Translation>U_mbenennen</Translation>
+      <Old>_Rename</Old>
     </ctLayersRename>
     <ctLayersMoveUp>
-      <Translation>Nach oben</Translation>
-      <Old>Move up</Old>
+      <Translation>Nach _oben</Translation>
+      <Old>Move _up</Old>
     </ctLayersMoveUp>
     <ctLayersMoveDown>
-      <Translation>Nach unten</Translation>
-      <Old>Move down</Old>
+      <Translation>Nach _unten</Translation>
+      <Old>Move d_own</Old>
     </ctLayersMoveDown>
     <ctLayersToggleVisibility>
-      <Translation>Sichtbar/unsichtbar umschalten</Translation>
-      <Old>Toggle visibility</Old>
+      <Translation>_Sichtbar/unsichtbar umschalten</Translation>
+      <Old>Toggle _visibility</Old>
     </ctLayersToggleVisibility>
     <ctZoomCheckbox>
-      <Translation>Vergrößerung</Translation>
-      <Old>Zoom</Old>
+      <Translation>Ver_größerung</Translation>
+      <Old>_Zoom</Old>
     </ctZoomCheckbox>
     <ctDisplayModeAll>
       <Translation>Alle Panzer</Translation>
@@ -242,67 +242,67 @@
       <Old>High tiers</Old>
     </ctDisplayModeTierHigh>
     <ctLanguageLabel>
-      <Translation>Sprache</Translation>
-      <Old>Language</Old>
+      <Translation>Spra_che</Translation>
+      <Old>Lang_uage</Old>
     </ctLanguageLabel>
     <ctBackgroundLabel>
-      <Translation>Hintergrund</Translation>
-      <Old>Background</Old>
+      <Translation>_Hintergrund</Translation>
+      <Old>_Background</Old>
     </ctBackgroundLabel>
     <ctWarning>
       <Translation>Dieses Symbol zeigt an, dass ein Problem aufgetreten ist. Klicken Sie auf das Symbol, um Details über das Problem abzurufen.</Translation>
       <Old>Indicates that a problem has occurred. Click this icon to view details of the problem.</Old>
     </ctWarning>
     <ctSaveLabel>
-      <Translation>Speichern</Translation>
-      <Old>Save</Old>
+      <Translation>_Speichern</Translation>
+      <Old>_Save</Old>
     </ctSaveLabel>
     <ctSaveAsLabel>
-      <Translation>Speichern als...</Translation>
-      <Old>Save as...</Old>
+      <Translation>Speichern _als...</Translation>
+      <Old>Save _as...</Old>
     </ctSaveAsLabel>
     <ctSaveIconsToGameFolder>
-      <Translation>Ins Spielverzeichnis speichern</Translation>
-      <Old>Save to game folder</Old>
+      <Translation>Ins S_pielverzeichnis speichern</Translation>
+      <Old>Save to _game folder</Old>
     </ctSaveIconsToGameFolder>
     <ctSaveIconsToSpecifiedFolder>
-      <Translation>In Verzeichnis speichern...</Translation>
-      <Old>Save to folder...</Old>
+      <Translation>In _Verzeichnis speichern...</Translation>
+      <Old>Save to _folder...</Old>
     </ctSaveIconsToSpecifiedFolder>
     <ctSaveIconsToBattleAtlas>
-      <Translation>In BattleAtlas speichern...</Translation>
-      <Old>Save to BattleAtlas...</Old>
+      <Translation>In _BattleAtlas speichern...</Translation>
+      <Old>Save to _BattleAtlas...</Old>
     </ctSaveIconsToBattleAtlas>
     <ctSaveIconsToVehicleMarkerAtlas>
-      <Translation>In VehicleMarkerAtlas speichern...</Translation>
-      <Old>Save to VehicleMarkerAtlas...</Old>
+      <Translation>In V_ehicleMarkerAtlas speichern...</Translation>
+      <Old>Save to _VehicleMarkerAtlas...</Old>
     </ctSaveIconsToVehicleMarkerAtlas>
     <ctSaveToAtlas>
-      <Translation>In Atlas speichern...</Translation>
-      <Old>Save to atlas...</Old>
+      <Translation>In A_tlas speichern...</Translation>
+      <Old>Save _to atlas...</Old>
     </ctSaveToAtlas>
     <ctBulkSaveIcons>
-      <Translation>Haufenspeichern</Translation>
-      <Old>Bulk save</Old>
+      <Translation>_Haufenspeichern</Translation>
+      <Old>Bulk _save</Old>
     </ctBulkSaveIcons>
     <ctBulkSaveIconsToFolder>
-      <Translation>Haufenspeicherung in Ordner...</Translation>
-      <Old>Bulk save to folder...</Old>
+      <Translation>Ha_ufenspeicherung in Ordner...</Translation>
+      <Old>Bulk s_ave to folder...</Old>
     </ctBulkSaveIconsToFolder>
     <ctPathTemplateLabel>
       <Translation>Pfad:</Translation>
       <Old>Path:</Old>
     </ctPathTemplateLabel>
     <ctEditPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEditPathTemplateLabel>
     <ctReloadLabel>
-      <Translation>Daten neu laden</Translation>
-      <Old>Reload data</Old>
+      <Translation>Daten neu _laden</Translation>
+      <Old>_Reload data</Old>
     </ctReloadLabel>
     <ctAboutLabel>
-      <Translation>Über...</Translation>
+      <Translation>Ü_ber...</Translation>
       <Old>About...</Old>
     </ctAboutLabel>
   </MainWindow>
@@ -312,32 +312,32 @@
       <Old>Add layer</Old>
     </AddLayerTitle>
     <LayerName>
-      <Translation>Ebenenname:</Translation>
-      <Old>Layer name:</Old>
+      <Translation>Ebenen_name:</Translation>
+      <Old>Layer _name:</Old>
     </LayerName>
     <LayerType>
-      <Translation>Ebenentyp:</Translation>
-      <Old>Layer type:</Old>
+      <Translation>Ebenen_typ:</Translation>
+      <Old>Layer _type:</Old>
     </LayerType>
     <AddEffectTitle>
       <Translation>Effekt hinzufügen</Translation>
       <Old>Add effect</Old>
     </AddEffectTitle>
     <EffectName>
-      <Translation>Effektname:</Translation>
-      <Old>Effect name:</Old>
+      <Translation>Effekt_name:</Translation>
+      <Old>Effect _name:</Old>
     </EffectName>
     <EffectType>
-      <Translation>Effekttyp:</Translation>
-      <Old>Effect type:</Old>
+      <Translation>Effekt_typ:</Translation>
+      <Old>Effect _type:</Old>
     </EffectType>
     <BtnAdd>
-      <Translation>Hinzufügen</Translation>
-      <Old>Add</Old>
+      <Translation>_Hinzufügen</Translation>
+      <Old>_Add</Old>
     </BtnAdd>
     <BtnCancel>
-      <Translation>Abbrechen</Translation>
-      <Old>Cancel</Old>
+      <Translation>_Abbrechen</Translation>
+      <Old>_Cancel</Old>
     </BtnCancel>
   </AddWindow>
   <PathTemplateWindow>
@@ -394,12 +394,12 @@
       <Old>All environment variables are expanded to their values. %UserProfile% expands to the user's profile folder path. %AppData% expands to the primary folder containing application settings. Many other environment variables are documented in online sources.</Old>
     </ctEnvVarsHelp>
     <ctOkBtn>
-      <Translation>OK</Translation>
-      <Old>OK</Old>
+      <Translation>_OK</Translation>
+      <Old>_OK</Old>
     </ctOkBtn>
     <ctCancelBtn>
-      <Translation>Abbrechen</Translation>
-      <Old>Cancel</Old>
+      <Translation>_Abbrechen</Translation>
+      <Old>_Cancel</Old>
     </ctCancelBtn>
   </PathTemplateWindow>
   <BulkSaveSettingsWindow>
@@ -436,24 +436,24 @@
       <Old>Markers atlas</Old>
     </ctVehicleMarkersAtlasRowHeader>
     <ctEditPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEditPathTemplateLabel>
     <ctEdiBattleAtlastPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEdiBattleAtlastPathTemplateLabel>
     <ctEditVehicleMarkersAtlasPathTemplateLabel>
-      <Translation>...</Translation>
-      <Old>...</Old>
+      <Translation>_...</Translation>
+      <Old>_...</Old>
     </ctEditVehicleMarkersAtlasPathTemplateLabel>
     <ctOkBtn>
-      <Translation>OK</Translation>
-      <Old>OK</Old>
+      <Translation>_OK</Translation>
+      <Old>_OK</Old>
     </ctOkBtn>
     <ctCancelBtn>
-      <Translation>Abbrechen</Translation>
-      <Old>Cancel</Old>
+      <Translation>_Abbrechen</Translation>
+      <Old>_Cancel</Old>
     </ctCancelBtn>
   </BulkSaveSettingsWindow>
   <LayerAndEffect>
@@ -1972,8 +1972,8 @@
       <Old>Country (USSR • Germany • USA • etc)</Old>
     </Country>
     <Category>
-      <Translation>Verfügbarkeit (Normal • Premium • Spezial)</Translation>
-      <Old>Availability (normal • premium • special • collector)</Old>
+      <Translation>Verfügbarkeit (Normal • Premium • ...)</Translation>
+      <Old>Availability (Normal • Premium • etc)</Old>
     </Category>
     <Tier>
       <Translation>Stufe (1 – 10)</Translation>
@@ -2356,48 +2356,48 @@
       <Old>Rename layer</Old>
     </RenameLayer_Title>
     <RenameLayer_Label>
-      <Translation>Ebenenname:</Translation>
-      <Old>Layer name:</Old>
+      <Translation>Ebenen_name:</Translation>
+      <Old>Layer _name:</Old>
     </RenameLayer_Label>
     <RenameEffect_Title>
       <Translation>Effekt umbenennen</Translation>
       <Old>Rename effect</Old>
     </RenameEffect_Title>
     <RenameEffect_Label>
-      <Translation>Effektname:</Translation>
-      <Old>Effect name:</Old>
+      <Translation>Effekt_name:</Translation>
+      <Old>Effect _name:</Old>
     </RenameEffect_Label>
     <CreateStyle_Title>
       <Translation>Design erstellen</Translation>
       <Old>Create style</Old>
     </CreateStyle_Title>
     <CreateStyle_Label>
-      <Translation>Name des neuen Designs:</Translation>
-      <Old>New style name:</Old>
+      <Translation>_Name des neuen Designs:</Translation>
+      <Old>New style _name:</Old>
     </CreateStyle_Label>
     <RenameStyle_Title>
       <Translation>Designnamen ändern</Translation>
       <Old>Change style name</Old>
     </RenameStyle_Title>
     <RenameStyle_Label>
-      <Translation>Neuer Designname:</Translation>
-      <Old>New style name:</Old>
+      <Translation>Neuer Design_name:</Translation>
+      <Old>New style _name:</Old>
     </RenameStyle_Label>
     <ChangeAuthor_Title>
       <Translation>Designautor ändern</Translation>
       <Old>Change style author</Old>
     </ChangeAuthor_Title>
     <ChangeAuthor_Label>
-      <Translation>Neuer Designautor:</Translation>
-      <Old>New style author:</Old>
+      <Translation>Neuer Design_autor:</Translation>
+      <Old>New style _author:</Old>
     </ChangeAuthor_Label>
     <DuplicateStyle_Title>
       <Translation>Design duplizieren</Translation>
       <Old>Duplicate style</Old>
     </DuplicateStyle_Title>
     <DuplicateStyle_Label>
-      <Translation>Name des Duplikats:</Translation>
-      <Old>New style name:</Old>
+      <Translation>_Name des Duplikats:</Translation>
+      <Old>New style _name:</Old>
     </DuplicateStyle_Label>
     <IconDims_Title>
       <Translation>Symbolgröße</Translation>
@@ -2440,8 +2440,8 @@
       <Old>Cancel</Old>
     </Cancel>
     <PromptWindowOK>
-      <Translation>OK</Translation>
-      <Old>OK</Old>
+      <Translation>_OK</Translation>
+      <Old>_OK</Old>
     </PromptWindowOK>
     <OverwriteIcons_Prompt>
       <Translation encoding="c-literal">Sollen die bisherigen Symbole überschrieben werden?\r\n\r\nPfad: {0}\r\n\r\nWarnung: ALLE {1}-Dateien in diesem Verzeichnis werden überschrieben. Diese Aktion kann NICHT rückgängig gemacht werden.</Translation>
@@ -2529,8 +2529,8 @@
       <Old>Select styles to delete:</Old>
     </DeleteStyle_Prompt>
     <DeleteStyle_Yes>
-      <Translation>Löschen</Translation>
-      <Old>Delete</Old>
+      <Translation>_Löschen</Translation>
+      <Old>_Delete</Old>
     </DeleteStyle_Yes>
     <DeleteStyle_PromptSure>
       <Translation>Diese Designs wirklich löschen?</Translation>
@@ -2558,8 +2558,8 @@
       <Old>Select styles to export:</Old>
     </StyleExport_Prompt>
     <StyleExport_Yes>
-      <Translation>Exportieren</Translation>
-      <Old>Export</Old>
+      <Translation>_Exportieren</Translation>
+      <Old>_Export</Old>
     </StyleExport_Yes>
     <StyleExport_Success>
       <IsNumber>
@@ -2579,8 +2579,8 @@
       <Old encoding="c-literal">You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:</Old>
     </BulkSave_Prompt>
     <BulkSave_Yes>
-      <Translation>Speichern</Translation>
-      <Old>Save</Old>
+      <Translation>_Speichern</Translation>
+      <Old>_Save</Old>
     </BulkSave_Yes>
     <BulkSave_Progress>
       <Translation>Symbole werden gespeichert...</Translation>
