@@ -226,7 +226,7 @@
       <Old>Premium</Old>
     </ctDisplayModeCategoryPremium>
     <ctDisplayModeCategorySpecial>
-      <Translation>Акционный</Translation>
+      <Translation>Наградной</Translation>
       <Old>Special</Old>
     </ctDisplayModeCategorySpecial>
     <ctDisplayModeCategoryCollector>
@@ -2344,7 +2344,7 @@
       <Old>Avail.: Premium</Old>
     </CategPremium>
     <CategSpecial>
-      <Translation>Доступ: Акционный</Translation>
+      <Translation>Доступ: Наградной</Translation>
       <Old>Avail.: Special</Old>
     </CategSpecial>
     <CategCollector>

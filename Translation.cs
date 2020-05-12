@@ -1027,7 +1027,7 @@ namespace TankIconMaker
 
         public TrString CategNormal = "Avail.: Normal";
         public TrString CategPremium = "Avail.: Premium";
-        public TrString CategSpecial = "Avail.: Special";
+        public TrString CategSpecial = "Avail.: Reward";
         public TrString CategCollector = "Avail.: Collector";
 
         public TrString Single = "Not varied";
