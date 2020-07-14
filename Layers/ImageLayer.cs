@@ -30,13 +30,16 @@ namespace TankIconMaker.Layers
                 switch (Style)
                 {
                     case ImageBuiltInStyle.Contour:
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour, tank.TankId + config.TankIconExtension));
+                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[0], tank.TankId + config.TankIconExtension))
+                            ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[1], tank.TankId + config.TankIconExtension));
                         break;
                     case ImageBuiltInStyle.ThreeD:
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D, tank.TankId + config.TankIconExtension));
+                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D[0], tank.TankId + config.TankIconExtension))
+                            ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D[1], tank.TankId + config.TankIconExtension));
                         break;
                     case ImageBuiltInStyle.ThreeDLarge:
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge, tank.TankId + config.TankIconExtension));
+                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge[0], tank.TankId + config.TankIconExtension))
+                            ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge[1], tank.TankId + config.TankIconExtension));
                         break;
                     case ImageBuiltInStyle.Country:
                         if (tank.Country == Country.None)
@@ -81,7 +84,8 @@ namespace TankIconMaker.Layers
                 var installation = tank.Context.Installation;
                 var config = tank.Context.VersionConfig;
                 image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathDestination, tank.TankId + config.TankIconExtension))
-                    ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour, tank.TankId + config.TankIconExtension));
+                    ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[0], tank.TankId + config.TankIconExtension))
+                    ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[1], tank.TankId + config.TankIconExtension));
             }
 
             if (image == null)
