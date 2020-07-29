@@ -6,7 +6,7 @@
   <PathDestination>res_mods\"VersionName"\gui\maps\icons\vehicle\contour</PathDestination>
   <PathDestinationAtlas>res_mods\"VersionName"\gui\flash\atlases</PathDestinationAtlas>
   <PathSourceScripts>res\packages\scripts.pkg|scripts</PathSourceScripts>
-  <PathSourceAtlas>res\packages\gui-part1.pkg|gui\flash\atlases</PathSourceAtlas>
+  <PathSourceAtlas>res\packages\gui-part"GuiParts".pkg|gui\flash\atlases</PathSourceAtlas>
   <PathSourceContour>res\packages\gui-part"GuiParts".pkg|gui\maps\icons\vehicle\contour</PathSourceContour>
   <PathSource3D>res\packages\gui-part"GuiParts".pkg|gui\maps\icons\vehicle\small</PathSource3D>
   <PathSource3DLarge>res\packages\gui-part"GuiParts".pkg|gui\maps\icons\vehicle</PathSource3DLarge>

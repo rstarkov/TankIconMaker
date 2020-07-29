@@ -222,9 +222,11 @@ namespace TankIconMaker
 
             var nameAtlas = atlasType == SaveType.BattleAtlas ? battleAtlas : vehicleMarkerAtlas;
 
-            var StreamAtlasDDS =
-                ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
-                    context.VersionConfig.PathSourceAtlas, nameAtlas + ".dds"));
+            Stream StreamAtlasDDS = null;
+            for (int j = 1; j < context.VersionConfig.NumberGuiParts + 1; j++)
+            {
+                StreamAtlasDDS = StreamAtlasDDS ?? ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas.Replace("\"GuiParts\"", j.ToString()), nameAtlas + ".dds"));
+            }
 
             System.Drawing.Bitmap AtlasPNG = null;
             try
@@ -246,9 +248,11 @@ namespace TankIconMaker
             }
             AtlasPNG.SetResolution(96.0F, 96.0F);
 
-            var StreamAtlasXML =
-                ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path,
-                    context.VersionConfig.PathSourceAtlas, nameAtlas + ".xml"));
+            Stream StreamAtlasXML = null;
+            for (int j = 1; j < context.VersionConfig.NumberGuiParts + 1; j++)
+            {
+                StreamAtlasXML = StreamAtlasXML ?? ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas.Replace("\"GuiParts\"", j.ToString()), nameAtlas + ".xml"));
+            }
             XDocument AtlasXML = XDocument.Load(StreamAtlasXML);
 
             XElement Root = AtlasXML.Element("root");
