@@ -30,26 +30,43 @@ namespace TankIconMaker.Layers
                 switch (Style)
                 {
                     case ImageBuiltInStyle.Contour:
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[0], tank.TankId + config.TankIconExtension))
-                            ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[1], tank.TankId + config.TankIconExtension));
+                        image = null;
+                        for (int i = 1; i < config.NumberGuiParts + 1; i++)
+                        {
+                            image = image ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour.Replace("\"GuiParts\"", i.ToString()), tank.TankId + config.TankIconExtension));
+                        }
                         break;
                     case ImageBuiltInStyle.ThreeD:
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D[0], tank.TankId + config.TankIconExtension))
-                            ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D[1], tank.TankId + config.TankIconExtension));
+                        image = null;
+                        for (int i = 1; i < config.NumberGuiParts + 1; i++)
+                        {
+                            image = image ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D.Replace("\"GuiParts\"", i.ToString()), tank.TankId + config.TankIconExtension));
+                        }
                         break;
                     case ImageBuiltInStyle.ThreeDLarge:
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge[0], tank.TankId + config.TankIconExtension))
-                            ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge[1], tank.TankId + config.TankIconExtension));
+                        image = null;
+                        for (int i = 1; i < config.NumberGuiParts + 1; i++)
+                        {
+                            image = image ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge.Replace("\"GuiParts\"", i.ToString()), tank.TankId + config.TankIconExtension));
+                        }
                         break;
                     case ImageBuiltInStyle.Country:
                         if (tank.Country == Country.None)
                             return null;
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceCountry[tank.Country]));
+                        image = null;
+                        for (int i = 1; i < config.NumberGuiParts + 1; i++)
+                        {
+                            image = image ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceCountry[tank.Country].Replace("\"GuiParts\"", i.ToString())));
+                        }
                         break;
                     case ImageBuiltInStyle.Class:
                         if (tank.Class == Class.None)
                             return null;
-                        image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceClass[tank.Class]));
+                        image = null;
+                        for (int i = 1; i < config.NumberGuiParts + 1; i++)
+                        {
+                            image = image ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceClass[tank.Class].Replace("\"GuiParts\"", i.ToString())));
+                        }
                         break;
                     default:
                         throw new Exception("9174876");
@@ -83,9 +100,11 @@ namespace TankIconMaker.Layers
             {
                 var installation = tank.Context.Installation;
                 var config = tank.Context.VersionConfig;
-                image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathDestination, tank.TankId + config.TankIconExtension))
-                    ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[0], tank.TankId + config.TankIconExtension))
-                    ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour[1], tank.TankId + config.TankIconExtension));
+                image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathDestination, tank.TankId + config.TankIconExtension));
+                for (int i = 1; i < config.NumberGuiParts + 1; i++)
+                {
+                    image = image ?? ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour.Replace("\"GuiParts\"", i.ToString()), tank.TankId + config.TankIconExtension));
+                }
             }
 
             if (image == null)
