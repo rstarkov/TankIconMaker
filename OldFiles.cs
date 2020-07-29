@@ -195,6 +195,7 @@ namespace TankIconMaker
             "Data/WotData-NameNative-Seriych-1.csv",
             "Data/WotData-NameSlang-Romkyns-1.csv",
             "Data/WotGameVersion-#0001.xml",
+            "Data/WotGameVersion-#0408.xml",
             "Images/background-octagon-1.png",
             "Images/background-octagon-2.png",
             "Images/background-slesh-1.png",
