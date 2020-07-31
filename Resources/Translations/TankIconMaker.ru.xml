@@ -513,7 +513,7 @@
         <Old>Visible</Old>
       </DisplayName>
       <Description>
-        <Translation>Позволяет временно скрыть данынй слой, не удаляя его.</Translation>
+        <Translation>Позволяет временно скрыть данный слой, не удаляя его.</Translation>
         <Old>Allows you to hide this layer temporarily without deleting it.</Old>
       </Description>
     </LayerVisible>
@@ -533,7 +533,7 @@
         <Old>Visible</Old>
       </DisplayName>
       <Description>
-        <Translation>Позволяет временно скрыть данынй эффект, не удаляя его.</Translation>
+        <Translation>Позволяет временно скрыть данный эффект, не удаляя его.</Translation>
         <Old>Allows you to hide this effect temporarily without deleting it.</Old>
       </Description>
     </EffectVisible>

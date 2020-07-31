@@ -18,9 +18,9 @@ namespace TankIconMaker
 {
     class AtlasBuilder
     {
-        public const string battleAtlas = "BattleAtlas";
+        public const string battleAtlas = "battleAtlas";
         public const string vehicleMarkerAtlas = "vehicleMarkerAtlas";
-        public const string customAtlas = "IconsAtlas";
+        public const string customAtlas = "iconsAtlas";
 
         public static string GetAtlasFilename(SaveType savetype)
         {
@@ -221,11 +221,14 @@ namespace TankIconMaker
             int BeginCount = ImageList.Count;
 
             var nameAtlas = atlasType == SaveType.BattleAtlas ? battleAtlas : vehicleMarkerAtlas;
+            var guiPackage = context.VersionConfig.GuiPackageName.Split(' ', ',', ';');
 
             Stream StreamAtlasDDS = null;
-            for (int j = 1; j < context.VersionConfig.NumberGuiParts + 1; j++)
+            foreach (string items in guiPackage)
             {
-                StreamAtlasDDS = StreamAtlasDDS ?? ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas.Replace("\"GuiParts\"", j.ToString()), nameAtlas + ".dds"));
+                StreamAtlasDDS = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas.Replace("\"GuiPackage\"", items), nameAtlas + ".dds"));
+                if (StreamAtlasDDS != null)
+                    break;
             }
 
             System.Drawing.Bitmap AtlasPNG = null;
@@ -249,9 +252,11 @@ namespace TankIconMaker
             AtlasPNG.SetResolution(96.0F, 96.0F);
 
             Stream StreamAtlasXML = null;
-            for (int j = 1; j < context.VersionConfig.NumberGuiParts + 1; j++)
+            foreach (string items in guiPackage)
             {
-                StreamAtlasXML = StreamAtlasXML ?? ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas.Replace("\"GuiParts\"", j.ToString()), nameAtlas + ".xml"));
+                StreamAtlasXML = ZipCache.GetZipFileStream(new CompositePath(context, context.Installation.Path, context.VersionConfig.PathSourceAtlas.Replace("\"GuiPackage\"", items), nameAtlas + ".xml"));
+                if (StreamAtlasXML != null)
+                    break;
             }
             XDocument AtlasXML = XDocument.Load(StreamAtlasXML);
 
