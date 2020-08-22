@@ -148,6 +148,8 @@ namespace TankIconMaker
             CommandBindings.Add(new CommandBinding(TankStyleCommands.IconWidth, cmdStyle_IconWidth));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.IconHeight, cmdStyle_IconHeight));
             CommandBindings.Add(new CommandBinding(TankStyleCommands.Centerable, cmdStyle_Centerable));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.AtlasTextureWidth, cmdStyle_AtlasTextureWidth));
+            CommandBindings.Add(new CommandBinding(TankStyleCommands.AtlasTextureHeight, cmdStyle_AtlasTextureHeight));
 
             _updateIconsTimer.Tick += UpdateIcons;
             _updateIconsTimer.Interval = TimeSpan.FromMilliseconds(100);
@@ -2266,6 +2268,8 @@ namespace TankIconMaker
             style.IconWidth = 80;
             style.IconHeight = 24;
             style.Centerable = true;
+            style.AtlasTextureWidth = 4096;
+            style.AtlasTextureHeight = 4096;
             style.Layers.Add(new TankImageLayer { Name = App.Translation.Misc.NameOfTankImageLayer });
             App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;
@@ -2461,6 +2465,46 @@ namespace TankIconMaker
             UpdateIcons();
         }
 
+        private void cmdStyle_AtlasTextureWidth(object sender, ExecutedRoutedEventArgs e)
+        {
+            // note: most of this code is duplicated below
+            again: ;
+            var widthStr = InputBox.GetLine(App.Translation.Prompt.AtlasTexture_Width, App.Settings.ActiveStyle.AtlasTextureWidth.ToString(), App.Translation.Prompt.AtlasTexture_Title, App.Translation.DlgMessage.OK, App.Translation.Prompt.Cancel);
+            if (widthStr == null)
+                return;
+            int width;
+            if (!int.TryParse(widthStr, out width) || width <= 0)
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.AtlasTexture_NumberError);
+                goto again;
+            }
+            if (App.Settings.ActiveStyle.AtlasTextureWidth == width)
+                return;
+            var style = GetEditableStyle();
+            style.AtlasTextureWidth = width;
+            SaveSettings();
+        }
+
+        private void cmdStyle_AtlasTextureHeight(object sender, ExecutedRoutedEventArgs e)
+        {
+            // note: most of this code is duplicated above
+            again: ;
+            var heightStr = InputBox.GetLine(App.Translation.Prompt.AtlasTexture_Height, App.Settings.ActiveStyle.AtlasTextureHeight.ToString(), App.Translation.Prompt.AtlasTexture_Title, App.Translation.DlgMessage.OK, App.Translation.Prompt.Cancel);
+            if (heightStr == null)
+                return;
+            int height;
+            if (!int.TryParse(heightStr, out height) || height <= 0)
+            {
+                DlgMessage.ShowError(App.Translation.Prompt.AtlasTexture_NumberError);
+                goto again;
+            }
+            if (App.Settings.ActiveStyle.AtlasTextureHeight == height)
+                return;
+            var style = GetEditableStyle();
+            style.AtlasTextureHeight = height;
+            SaveSettings();
+        }
+
         private void cmdStyle_Centerable(object sender, ExecutedRoutedEventArgs e)
         {
             var choice = DlgMessage.ShowQuestion(App.Translation.Prompt.Centerable_Prompt.Fmt(App.Settings.ActiveStyle.Centerable ? App.Translation.Prompt.Centerable_Yes : App.Translation.Prompt.Centerable_No),
@@ -2514,6 +2558,8 @@ namespace TankIconMaker
         public static RoutedCommand Export = new RoutedCommand();
         public static RoutedCommand IconWidth = new RoutedCommand();
         public static RoutedCommand IconHeight = new RoutedCommand();
+        public static RoutedCommand AtlasTextureWidth = new RoutedCommand();
+        public static RoutedCommand AtlasTextureHeight = new RoutedCommand();
         public static RoutedCommand Centerable = new RoutedCommand();
     }
 

@@ -2,6 +2,8 @@
 <item>
   <Name>Aslain</Name>
   <Author>Aslain</Author>
+  <AtlasTextureWidth>4096</AtlasTextureWidth>
+  <AtlasTextureHeight>4096</AtlasTextureHeight>
   <Layers>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Tier</Name>
@@ -725,5 +727,5 @@
       </Property>
     </item>
   </Layers>
-  <ForumLink>http://forum.worldoftanks.eu/index.php?/user/aslain-/</ForumLink>
+  <ForumLink>https://forum.worldoftanks.eu/index.php?/user/aslain-500031733/</ForumLink>
 </item>

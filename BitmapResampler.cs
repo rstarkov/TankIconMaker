@@ -191,8 +191,9 @@ namespace TankIconMaker
         }
 
         /// <summary>
-        ///     Implements filters based on the Lanczos kernel. This includes the filters commonly known as "lanczos3" (radius
-        ///     = 3) and "sinc256" (radius = 8).</summary>
+        /// Implements filters based on the Lanczos kernel.
+        /// This includes the filters commonly known as "lanczos3" (radius = 3) and "sinc256" (radius = 8).
+        /// </summary>
         public class LanczosFilter : Filter
         {
             public LanczosFilter(int radius = 3)

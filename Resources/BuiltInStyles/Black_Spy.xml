@@ -6,6 +6,8 @@
   <IconWidth>80</IconWidth>
   <IconHeight>24</IconHeight>
   <Centerable>False</Centerable>
+  <AtlasTextureWidth>4096</AtlasTextureWidth>
+  <AtlasTextureHeight>4096</AtlasTextureHeight>
   <Layers>
     <item type="TankIconMaker.Layers.BkgDarkAgentLayer">
       <Name></Name>

@@ -77,6 +77,14 @@
       <Translation>_Zentrierbarkeit</Translation>
       <Old>Centerable</Old>
     </ctStyleCenterable>
+    <ctStyleAtlasTextureWidth>
+      <Translation>Satinbreite</Translation>
+      <Old>Atlas width</Old>
+    </ctStyleAtlasTextureWidth>
+    <ctStyleAtlasTextureHeight>
+      <Translation>Atlashöhe</Translation>
+      <Old>Atlas height</Old>
+    </ctStyleAtlasTextureHeight>
     <ctStyleChangeName>
       <Translation>_Namen ändern</Translation>
       <Old>Change _name</Old>

@@ -166,6 +166,9 @@
                                 <MenuItem Header="Icon height" Name="ctStyleIconHeight" Command="src:TankStyleCommands.IconHeight"/>
                                 <MenuItem Header="Centerable" Name="ctStyleCenterable" Command="src:TankStyleCommands.Centerable"/>
                                 <Separator/>
+                                <MenuItem Header="Atlas width" Name="ctStyleAtlasTextureWidth" Command="src:TankStyleCommands.AtlasTextureWidth"/>
+                                <MenuItem Header="Atlas height" Name="ctStyleAtlasTextureHeight" Command="src:TankStyleCommands.AtlasTextureHeight"/>
+                                <Separator/>
                                 <MenuItem Header="Change _name" Name="ctStyleChangeName" Command="src:TankStyleCommands.ChangeName"/>
                                 <MenuItem Header="Change _author" Name="ctStyleChangeAuthor" Command="src:TankStyleCommands.ChangeAuthor"/>
                                 <Separator/>

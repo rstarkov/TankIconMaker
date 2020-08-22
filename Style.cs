@@ -106,6 +106,10 @@ namespace TankIconMaker
         ///     cref="IconWidth"/>), so as to make it possible to vertically center the icon. Defaults to the value used in old
         ///     clients so that old styles can be loaded correctly.</summary>
         public bool Centerable = false;
+        /// <summary>Atlas width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
+        public int AtlasTextureWidth = 4096;
+        /// <summary>Atlas height; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
+        public int AtlasTextureHeight = 4096;
 
         public string Display
         {

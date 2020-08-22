@@ -83,7 +83,7 @@ namespace TankIconMaker
         private void CreateAtlasImage(ref List<SubTextureStruct> ImageList, string filename)
         {
             if (HeighAtlas <= 0) return;
-            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(4096, HeighAtlas);
+            System.Drawing.Bitmap AtlasPNG = new System.Drawing.Bitmap(App.Settings.ActiveStyle.AtlasTextureWidth, HeighAtlas);
             AtlasPNG.SetResolution(96.0F, 96.0F);
             for (int i = 0; i < ImageList.Count; i++)
             {
@@ -146,7 +146,7 @@ namespace TankIconMaker
             List<System.Drawing.Rectangle> TakePlaceList = new List<System.Drawing.Rectangle>();
             SubTextureStruct SubTexture;
             System.Drawing.Rectangle Rct, TakeRct;
-            const int TextureHeight = 4096, TextureWidth = 4096;
+            int TextureHeight = App.Settings.ActiveStyle.AtlasTextureHeight, TextureWidth = App.Settings.ActiveStyle.AtlasTextureWidth;
             int heighAtlas = 0;
             int CurrentY, j, k;
             TakePlaceList.Add(ImageList[0].LocRect);
@@ -177,7 +177,7 @@ namespace TankIconMaker
                             j++;
                     if (Rct.Bottom > TextureHeight)
                     {
-                        throw new Exception("Невозможно разместить изображения в атласе. Попробуйте уменьшить размер изображений или количество.");
+                        throw new Exception(App.Translation.MainWindow.ErrorCreateAtlasImage);
                     }
                     j = TakePlaceList.Count - 1;
                     while ((j >= 0) && (TakePlaceList[j].Bottom > Rct.Bottom))

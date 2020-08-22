@@ -275,6 +275,7 @@ namespace TankIconMaker
         public TrString ErrorConflictingId = "Two or more layers have the same ID “{0}”. Layer IDs must be unique.";
         public TrString ErrorMagickEffectNoRedist = "Visual C++ Redistrable 2013 not found. " +
             "You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784";
+        public TrString ErrorCreateAtlasImage = "Unable to place images in the atlas. Try resizing the atlas, reducing the size of the images or their number.";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
@@ -931,6 +932,10 @@ namespace TankIconMaker
         public TrString IconDims_Width = "Please enter the width of the icons, in pixels:";
         public TrString IconDims_Height = "Please enter the height of the icons, in pixels:";
         public TrString IconDims_NumberError = "Please enter a whole number greater than zero.";
+        public TrString AtlasTexture_Title = "Atlas dimensions";
+        public TrString AtlasTexture_Width = "Please enter the width of the atlas, in pixels:";
+        public TrString AtlasTexture_Height = "Please enter the height of the atlas, in pixels:";
+        public TrString AtlasTexture_NumberError = "Please enter a whole number greater than zero.";
         public TrString Centerable_Prompt = "Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.";
         public TrString Centerable_Yes = "Centerable";
         public TrString Centerable_No = "Fixed-width";

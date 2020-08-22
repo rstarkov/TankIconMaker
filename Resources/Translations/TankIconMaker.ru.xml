@@ -41,6 +41,10 @@
       <Translation>Не найден пакет Visual C++ Redistrable 2013. Вы можете скачать его с https://www.microsoft.com/ru-RU/download/details.aspx?id=40784</Translation>
       <Old>Visual C++ Redistrable 2013 not found. You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784</Old>
     </ErrorMagickEffectNoRedist>
+    <ErrorCreateAtlasImage>
+      <Translation>Невозможно разместить изображения в атласе. Попробуйте изменить размер атласа, уменьшить размер изображений или их количество.</Translation>
+      <Old>Unable to place images in the atlas. Try resizing the atlas, reducing the size of the images or their number.</Old>
+    </ErrorCreateAtlasImage>
     <ctGameDirLabel>
       <Translation>_Папка с игрой:</Translation>
       <Old>Game _directory:</Old>
@@ -81,6 +85,14 @@
       <Translation>_Центрирующиеся</Translation>
       <Old>Centerable</Old>
     </ctStyleCenterable>
+    <ctStyleAtlasTextureWidth>
+      <Translation>Ширина атласа</Translation>
+      <Old>Atlas width</Old>
+    </ctStyleAtlasTextureWidth>
+    <ctStyleAtlasTextureHeight>
+      <Translation>Высота атласа</Translation>
+      <Old>Atlas height</Old>
+    </ctStyleAtlasTextureHeight>
     <ctStyleChangeName>
       <Translation>Изменить _название</Translation>
       <Old>Change _name</Old>
@@ -2455,6 +2467,22 @@
       <Translation>Введите целое число больше нуля.</Translation>
       <Old>Please enter a whole number greater than zero.</Old>
     </IconDims_NumberError>
+    <AtlasTexture_Title>
+      <Translation>Размеры атласа</Translation>
+      <Old>Atlas dimensions</Old>
+    </AtlasTexture_Title>
+    <AtlasTexture_Width>
+      <Translation>Введите ширину атласа в пикселях:</Translation>
+      <Old>Please enter the width of the atlas, in pixels:</Old>
+    </AtlasTexture_Width>
+    <AtlasTexture_Height>
+      <Translation>Введите высоту атласа в пикселях:</Translation>
+      <Old>Please enter the height of the atlas, in pixels:</Old>
+    </AtlasTexture_Height>
+    <AtlasTexture_NumberError>
+      <Translation>Введите целое число больше нуля.</Translation>
+      <Old>Please enter a whole number greater than zero.</Old>
+    </AtlasTexture_NumberError>
     <Centerable_Prompt>
       <Translation encoding="c-literal">Выберите один из двух типов иконок:\r\n\r\n• Центрирующиеся иконки поддерживают горизонтальное центрирование над танками. Ширина иконок варьируется.\r\n• Иконки с фиксированной шириной будут правильно центрироваться только если изображение танка расположено по центру иконки.\r\n\r\nДанная настройка не имеет видимого эффекта в программе, так как все иконки отображаются с выравниванием по левому краю. Эффект настройки будет заметен в игре если в иконке имеется много неиспользуемого места.\r\n\r\nТекущий режим у данного стиля: {0}.</Translation>
       <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
