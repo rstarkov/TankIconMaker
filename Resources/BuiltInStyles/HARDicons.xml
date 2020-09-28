@@ -6,7 +6,7 @@
   <IconHeight>24</IconHeight>
   <Centerable>False</Centerable>
   <AtlasTextureWidth>4096</AtlasTextureWidth>
-  <AtlasTextureHeight>4096</AtlasTextureHeight>
+  <AtlasTextureHeight>4512</AtlasTextureHeight>
   <Layers>
     <item type="TankIconMaker.Layers.TankImageLayer">
       <Name>Tank image</Name>
@@ -541,5 +541,5 @@
       </Property>
     </item>
   </Layers>
-  <ForumLink>http://forum.worldoftanks.ru/index.php?/topic/374544-/</ForumLink>
+  <ForumLink>https://forum.worldoftanks.ru/index.php?/topic/374544-/</ForumLink>
 </item>

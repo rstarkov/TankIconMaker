@@ -2269,7 +2269,7 @@ namespace TankIconMaker
             style.IconHeight = 24;
             style.Centerable = true;
             style.AtlasTextureWidth = 4096;
-            style.AtlasTextureHeight = 4096;
+            style.AtlasTextureHeight = 4512;
             style.Layers.Add(new TankImageLayer { Name = App.Translation.Misc.NameOfTankImageLayer });
             App.Settings.Styles.Add(style);
             ctStyleDropdown.SelectedItem = style;

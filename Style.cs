@@ -109,7 +109,7 @@ namespace TankIconMaker
         /// <summary>Atlas width; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
         public int AtlasTextureWidth = 4096;
         /// <summary>Atlas height; defaults to the value used in old clients so that old styles can be loaded correctly.</summary>
-        public int AtlasTextureHeight = 4096;
+        public int AtlasTextureHeight = 4512;
 
         public string Display
         {

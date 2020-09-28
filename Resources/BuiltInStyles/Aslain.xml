@@ -3,7 +3,7 @@
   <Name>Aslain</Name>
   <Author>Aslain</Author>
   <AtlasTextureWidth>4096</AtlasTextureWidth>
-  <AtlasTextureHeight>4096</AtlasTextureHeight>
+  <AtlasTextureHeight>4512</AtlasTextureHeight>
   <Layers>
     <item type="TankIconMaker.Layers.PropertyTextLayer">
       <Name>Tier</Name>
