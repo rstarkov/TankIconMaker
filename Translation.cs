@@ -275,7 +275,8 @@ namespace TankIconMaker
         public TrString ErrorConflictingId = "Two or more layers have the same ID “{0}”. Layer IDs must be unique.";
         public TrString ErrorMagickEffectNoRedist = "Visual C++ Redistrable 2013 not found. " +
             "You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784";
-        public TrString ErrorCreateAtlasImage = "Unable to place images in the atlas. Try resizing the atlas, reducing the size of the images or their number.";
+        public TrString ErrorCreateAtlasImage = "Unable to place images in the atlas. Try reducing the size " +
+            "of the images or resizing the atlas. See item \"More\" > \"Atlas width|height\".";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.AddWindow)]
