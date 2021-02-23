@@ -37,6 +37,14 @@
       <Translation>二个或更多层拥有相同 ID “{0}”时. 层 IDs必须唯一.</Translation>
       <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
     </ErrorConflictingId>
+    <ErrorMagickEffectNoRedist>
+      <Translation>Visual C++ Redistrable 2013 not found. You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784</Translation>
+      <Old null="1" />
+    </ErrorMagickEffectNoRedist>
+    <ErrorCreateAtlasImage>
+      <Translation>Unable to place images in the atlas. Try reducing the size of the images or resizing the atlas. See item "More" &gt; "Atlas width|height".</Translation>
+      <Old null="1" />
+    </ErrorCreateAtlasImage>
     <ctGameDirLabel>
       <Translation>游戏目录:</Translation>
       <Old>Game _directory:</Old>
@@ -277,6 +285,18 @@
       <Translation>保存到文件夹...</Translation>
       <Old>Save to _folder...</Old>
     </ctSaveIconsToSpecifiedFolder>
+    <ctSaveIconsToBattleAtlas>
+      <Translation>保存为BattleAtlas...</Translation>
+      <Old>Save _BattleAtlas...</Old>
+    </ctSaveIconsToBattleAtlas>
+    <ctSaveIconsToVehicleMarkerAtlas>
+      <Translation>保存为VehicleMarkerAtlas...</Translation>
+      <Old>Save _VehicleMarkerAtlas...</Old>
+    </ctSaveIconsToVehicleMarkerAtlas>
+    <ctSaveToAtlas>
+      <Translation>保存为atlas...</Translation>
+      <Old>Save a_tlas...</Old>
+    </ctSaveToAtlas>
     <ctBulkSaveIcons>
       <Translation>增量保存</Translation>
       <Old>Bulk _save</Old>
@@ -341,6 +361,18 @@
       <Translation>编辑临时图标路径</Translation>
       <Old>Edit Icon Path Template</Old>
     </Title>
+    <WarnIconsPathIsFolder>
+      <Translation>Seems like you have specified folder as path. Normally icons path should end with "\{TankId}{Ext}". Append?</Translation>
+      <Old null="1" />
+    </WarnIconsPathIsFolder>
+    <WarnIconsPathNoExt>
+      <Translation>Seems like you miss the extension. Normally icons path should end with "{Ext}". Append?</Translation>
+      <Old null="1" />
+    </WarnIconsPathNoExt>
+    <WarnAtlasPathIsFolder>
+      <Translation>Seems like you have specified folder as path. Normally icons path should end with "\{0}". Append?</Translation>
+      <Old null="1" />
+    </WarnAtlasPathIsFolder>
     <ctHelp>
       <Translation>此模板指定要保存的图标的路径。它是相对于选定的游戏安装目录。填写空白栏保存图标的标准位置，在坦克世界客户端使用不需要任何插件。只会在非标准的路径，部分安装的插件会有影响。</Translation>
       <Old>This template specifies which path the icons are to be saved to. It is relative to the selected game installation directory. Leave blank to save the icons to the standard location, which works in an unmodified World of Tanks client and requires no mods. Any non-standard paths will only have an effect if you have the appropriate mods installed.</Old>
@@ -377,6 +409,22 @@
       <Translation>Specifies the tank country for a given icon. Varies for each icon.</Translation>
       <Old null="1" />
     </ctTankCountryHelp>
+    <ctTankIdHelp>
+      <Translation>Specifies the tank Id for a given icon (commonly used as name for icon file). Varies for each icon.</Translation>
+      <Old null="1" />
+    </ctTankIdHelp>
+    <ctTankFullNameHelp>
+      <Translation>Specifies the tank full name for a given icon. Varies for each icon.</Translation>
+      <Old null="1" />
+    </ctTankFullNameHelp>
+    <ctTankShortNameHelp>
+      <Translation>Specifies the tank short for a given icon. Varies for each icon.</Translation>
+      <Old null="1" />
+    </ctTankShortNameHelp>
+    <ctTankTierHelp>
+      <Translation>Specifies the tank tier for a given icon. Varies for each icon.</Translation>
+      <Old null="1" />
+    </ctTankTierHelp>
     <ctStyleNameHelp>
       <Translation>The name of the selected style. Current value: “{cur}”</Translation>
       <Old null="1" />
@@ -398,6 +446,68 @@
       <Old null="1" />
     </ctCancelBtn>
   </PathTemplateWindow>
+  <BulkSaveSettingsWindow>
+    <Title>
+      <Translation>Bulk Save Settings</Translation>
+      <Old null="1" />
+    </Title>
+    <ctPrompt>
+      <Translation>This window is used to set style bulk save settings. You can enable or disable saving to atlas or normal icons and specify bulk save path. Please note that path settings don't work when using the bulk save to folder. The path to save the normal icons will also be used when you click "Save".</Translation>
+      <Old null="1" />
+    </ctPrompt>
+    <ctNameColHeader>
+      <Translation>Name</Translation>
+      <Old null="1" />
+    </ctNameColHeader>
+    <ctEnabledColHeader>
+      <Translation>Enabled</Translation>
+      <Old null="1" />
+    </ctEnabledColHeader>
+    <ctPathColHeader>
+      <Translation>Path</Translation>
+      <Old null="1" />
+    </ctPathColHeader>
+    <ctNormalIconsRowHeader>
+      <Translation>Normal icons</Translation>
+      <Old null="1" />
+    </ctNormalIconsRowHeader>
+    <ctBattleAtlasRowHeader>
+      <Translation>Battle atlas</Translation>
+      <Old null="1" />
+    </ctBattleAtlasRowHeader>
+    <ctVehicleMarkersAtlasRowHeader>
+      <Translation>Markers atlas</Translation>
+      <Old null="1" />
+    </ctVehicleMarkersAtlasRowHeader>
+    <ctCustomAtlasRowHeader>
+      <Translation>Custom atlas</Translation>
+      <Old null="1" />
+    </ctCustomAtlasRowHeader>
+    <ctEditPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old null="1" />
+    </ctEditPathTemplateLabel>
+    <ctEdiBattleAtlastPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old null="1" />
+    </ctEdiBattleAtlastPathTemplateLabel>
+    <ctEditVehicleMarkersAtlasPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old null="1" />
+    </ctEditVehicleMarkersAtlasPathTemplateLabel>
+    <ctEditCustomAtlasPathTemplateLabel>
+      <Translation>_...</Translation>
+      <Old null="1" />
+    </ctEditCustomAtlasPathTemplateLabel>
+    <ctOkBtn>
+      <Translation>_OK</Translation>
+      <Old null="1" />
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>_Cancel</Translation>
+      <Old null="1" />
+    </ctCancelBtn>
+  </BulkSaveSettingsWindow>
   <LayerAndEffect>
     <LayerId>
       <DisplayName>
@@ -2357,6 +2467,22 @@
       <Translation>请输入一个大于0的整数。</Translation>
       <Old>Please enter a whole number greater than zero.</Old>
     </IconDims_NumberError>
+    <AtlasTexture_Title>
+      <Translation>Atlas dimensions</Translation>
+      <Old null="1" />
+    </AtlasTexture_Title>
+    <AtlasTexture_Width>
+      <Translation>Please enter the width of the atlas, in pixels:</Translation>
+      <Old null="1" />
+    </AtlasTexture_Width>
+    <AtlasTexture_Height>
+      <Translation>Please enter the height of the atlas, in pixels:</Translation>
+      <Old null="1" />
+    </AtlasTexture_Height>
+    <AtlasTexture_NumberError>
+      <Translation>Please enter a whole number greater than zero.</Translation>
+      <Old null="1" />
+    </AtlasTexture_NumberError>
     <Centerable_Prompt>
       <Translation encoding="c-literal">请选择其中一个图标宽度模式:\r\n\r\n• 居中可以使图标居中在坦克之上。图标的宽度不同。\r\n• 固定宽度的图标都有相同的宽度,但不会中心正确,除非坦克图标已经居中在图标的边界。\r\n\r\n请注意,此设置在Tank Icon Maker中没有明显效果,因为所有的图标都是左对齐。在游戏中会表现出影响。\r\n\r\n当前宽度模式选择这种样式: {0}.</Translation>
       <Old encoding="c-literal">Please select one of the two icon width modes:\n\n• Centerable icons can be horizontally centered above tanks. The width of the saved icons varies accordingly.\n• Fixed width icons all have the same width, but will not center correctly unless the tank image is already centered within the icon boundaries.\n\nNote that this setting has no visible effect within Tank Icon Maker, because all icons are left-aligned. The effect will be visible in-game.\n\nCurrent width mode selected for this style: {0}.</Old>
@@ -2377,6 +2503,14 @@
       <Translation>文件名模板（子文件夹支持）：</Translation>
       <Old>File name template (subfolders supported):</Old>
     </ExportFormat_Label>
+    <Yes>
+      <Translation>Yes</Translation>
+      <Old null="1" />
+    </Yes>
+    <No>
+      <Translation>No</Translation>
+      <Old null="1" />
+    </No>
     <Cancel>
       <Translation>取消</Translation>
       <Old>Cancel</Old>
@@ -2405,6 +2539,14 @@
       <Translation encoding="c-literal">图标保存到 “{0}”!\r\n\r\n• 带文字的图标可能镜像显示。\r\n• 游戏可能覆盖顶层图标\r\n\r\n找出如何修复这些问题请阅读Tank Icon Maker的论坛。</Translation>
       <Old encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please read the Tank Icon Maker's posting on the WoT game forum.</Old>
     </IconsSaved>
+    <IconsAndAtlasSaved>
+      <Translation encoding="c-literal">Icons saved to “{0}”!\nBattleAtlas saved to “{1}”\nVehicleMarkerAtlas saved to “{2}”\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Translation>
+      <Old null="1" />
+    </IconsAndAtlasSaved>
+    <AtlasSaved>
+      <Translation encoding="c-literal">Atlas saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Translation>
+      <Old null="1" />
+    </AtlasSaved>
     <IconsSavedGoToForum>
       <Translation>在浏览器中打开论坛</Translation>
       <Old>Open &amp;forum in browser</Old>
