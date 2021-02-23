@@ -1,0 +1,2935 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <TranslationCredits>
+    <Translation>Překlad od Mace Ace</Translation>
+    <Old null="1" />
+  </TranslationCredits>
+  <MainWindow>
+    <BackgroundCheckered>
+      <Translation>Kostkovaný</Translation>
+      <Old>_Checkered</Old>
+    </BackgroundCheckered>
+    <BackgroundSolidColor>
+      <Translation>Jednobarevná</Translation>
+      <Old null="1" />
+    </BackgroundSolidColor>
+    <BackgroundChangeCheckered1>
+      <Translation>Změnit barvu kostky # 1 ...</Translation>
+      <Old null="1" />
+    </BackgroundChangeCheckered1>
+    <BackgroundChangeCheckered2>
+      <Translation>Změnit barvu kostky # 2 ...</Translation>
+      <Old null="1" />
+    </BackgroundChangeCheckered2>
+    <BackgroundChangeSolid>
+      <Translation>Změnit plnou barvu ...</Translation>
+      <Old null="1" />
+    </BackgroundChangeSolid>
+    <BackgroundRestoreDefaults>
+      <Translation>Obnovit výchozí nastavení</Translation>
+      <Old null="1" />
+    </BackgroundRestoreDefaults>
+    <PathTemplate_Standard>
+      <Translation>(Standard)</Translation>
+      <Old null="1" />
+    </PathTemplate_Standard>
+    <ErrorConflictingId>
+      <Translation>Dvě nebo více vrstev mají stejné ID „{0}“. ID vrstvy musí být jedinečné.</Translation>
+      <Old null="1" />
+    </ErrorConflictingId>
+    <ErrorMagickEffectNoRedist>
+      <Translation>Visual C ++ Redistrable 2012 nebyl nalezen. Můžete jej nainstalovat z https</Translation>
+      <Old null="1" />
+    </ErrorMagickEffectNoRedist>
+    <ErrorCreateAtlasImage>
+      <Translation>Unable to place images in the atlas. Try reducing the size of the images or resizing the atlas. See item "More" &gt; "Atlas width|height".</Translation>
+      <Old null="1" />
+    </ErrorCreateAtlasImage>
+    <ctGameDirLabel>
+      <Translation>Adresář hry:</Translation>
+      <Old null="1" />
+    </ctGameDirLabel>
+    <ctIconStyleLabel>
+      <Translation>Styl ikon:</Translation>
+      <Old null="1" />
+    </ctIconStyleLabel>
+    <ctStyleNewLabel>
+      <Translation>Nový</Translation>
+      <Old null="1" />
+    </ctStyleNewLabel>
+    <ctStyleImportLabel>
+      <Translation>Import</Translation>
+      <Old null="1" />
+    </ctStyleImportLabel>
+    <ctStyleExportLabel>
+      <Translation>Export</Translation>
+      <Old null="1" />
+    </ctStyleExportLabel>
+    <ctUpvote>
+      <Translation>Upozorněte autora tohoto stylu</Translation>
+      <Old null="1" />
+    </ctUpvote>
+    <ctStyleMoreLabel>
+      <Translation>Více</Translation>
+      <Old null="1" />
+    </ctStyleMoreLabel>
+    <ctStyleIconWidth>
+      <Translation>Šířka ikony</Translation>
+      <Old null="1" />
+    </ctStyleIconWidth>
+    <ctStyleIconHeight>
+      <Translation>Výška ikony</Translation>
+      <Old null="1" />
+    </ctStyleIconHeight>
+    <ctStyleCenterable>
+      <Translation>Centrovatelné</Translation>
+      <Old null="1" />
+    </ctStyleCenterable>
+    <ctStyleAtlasTextureWidth>
+      <Translation>Atlas width</Translation>
+      <Old null="1" />
+    </ctStyleAtlasTextureWidth>
+    <ctStyleAtlasTextureHeight>
+      <Translation>Atlas height</Translation>
+      <Old null="1" />
+    </ctStyleAtlasTextureHeight>
+    <ctStyleChangeName>
+      <Translation>Změnit jméno</Translation>
+      <Old null="1" />
+    </ctStyleChangeName>
+    <ctStyleChangeAuthor>
+      <Translation>Změnit autora</Translation>
+      <Old null="1" />
+    </ctStyleChangeAuthor>
+    <ctStyleDuplicate>
+      <Translation>Duplikát</Translation>
+      <Old null="1" />
+    </ctStyleDuplicate>
+    <ctStyleDelete>
+      <Translation>Odstranit</Translation>
+      <Old null="1" />
+    </ctStyleDelete>
+    <ctLayersLabel>
+      <Translation>Vrstvy:</Translation>
+      <Old null="1" />
+    </ctLayersLabel>
+    <ctLayersAddLayer>
+      <Translation>Přidat vrstvu ...</Translation>
+      <Old null="1" />
+    </ctLayersAddLayer>
+    <ctLayersAddEffect>
+      <Translation>Přidat efekt ...</Translation>
+      <Old null="1" />
+    </ctLayersAddEffect>
+    <ctLayersCopy>
+      <Translation>Kopírovat</Translation>
+      <Old null="1" />
+    </ctLayersCopy>
+    <ctLayersCopyEffects>
+      <Translation>Kopírovat efekty</Translation>
+      <Old null="1" />
+    </ctLayersCopyEffects>
+    <ctLayersPaste>
+      <Translation>Vložit</Translation>
+      <Old null="1" />
+    </ctLayersPaste>
+    <ctLayersDelete>
+      <Translation>Odstranit</Translation>
+      <Old null="1" />
+    </ctLayersDelete>
+    <ctLayersRename>
+      <Translation>Přejmenovat</Translation>
+      <Old null="1" />
+    </ctLayersRename>
+    <ctLayersMoveUp>
+      <Translation>Posunout nahoru</Translation>
+      <Old null="1" />
+    </ctLayersMoveUp>
+    <ctLayersMoveDown>
+      <Translation>Posunout dolů</Translation>
+      <Old null="1" />
+    </ctLayersMoveDown>
+    <ctLayersToggleVisibility>
+      <Translation>Přepnout viditelnost</Translation>
+      <Old null="1" />
+    </ctLayersToggleVisibility>
+    <ctZoomCheckbox>
+      <Translation>Zoom</Translation>
+      <Old null="1" />
+    </ctZoomCheckbox>
+    <ctDisplayModeAll>
+      <Translation>Všechny tanky</Translation>
+      <Old null="1" />
+    </ctDisplayModeAll>
+    <ctDisplayModeOneEach>
+      <Translation>Jedna z každé kombinace</Translation>
+      <Old null="1" />
+    </ctDisplayModeOneEach>
+    <ctDisplayModeCountryUSSR>
+      <Translation>SSSR</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryUSSR>
+    <ctDisplayModeCountryGermany>
+      <Translation>Německo</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryGermany>
+    <ctDisplayModeCountryUSA>
+      <Translation>USA</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryUSA>
+    <ctDisplayModeCountryFrance>
+      <Translation>Francie</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryFrance>
+    <ctDisplayModeCountryUK>
+      <Translation>Británie</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryUK>
+    <ctDisplayModeCountryChina>
+      <Translation>Čína</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryChina>
+    <ctDisplayModeCountryJapan>
+      <Translation>Japonsko</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryJapan>
+    <ctDisplayModeCountryCzech>
+      <Translation>Československo</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryCzech>
+    <ctDisplayModeCountrySweden>
+      <Translation>Švédsko</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountrySweden>
+    <ctDisplayModeCountryPoland>
+      <Translation>Polsko</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryPoland>
+    <ctDisplayModeCountryItaly>
+      <Translation>Itálie</Translation>
+      <Old null="1" />
+    </ctDisplayModeCountryItaly>
+    <ctDisplayModeClassLight>
+      <Translation>Lehké tanky</Translation>
+      <Old null="1" />
+    </ctDisplayModeClassLight>
+    <ctDisplayModeClassMedium>
+      <Translation>Střední tanky</Translation>
+      <Old null="1" />
+    </ctDisplayModeClassMedium>
+    <ctDisplayModeClassHeavy>
+      <Translation>Těžké tanky</Translation>
+      <Old null="1" />
+    </ctDisplayModeClassHeavy>
+    <ctDisplayModeClassArtillery>
+      <Translation>Dělostřelectvo</Translation>
+      <Old null="1" />
+    </ctDisplayModeClassArtillery>
+    <ctDisplayModeClassDestroyer>
+      <Translation>Stíhače tanků</Translation>
+      <Old null="1" />
+    </ctDisplayModeClassDestroyer>
+    <ctDisplayModeCategoryNormal>
+      <Translation>Normální</Translation>
+      <Old null="1" />
+    </ctDisplayModeCategoryNormal>
+    <ctDisplayModeCategoryPremium>
+      <Translation>Premium</Translation>
+      <Old null="1" />
+    </ctDisplayModeCategoryPremium>
+    <ctDisplayModeCategorySpecial>
+      <Translation>Speciální</Translation>
+      <Old null="1" />
+    </ctDisplayModeCategorySpecial>
+    <ctDisplayModeCategoryCollector>
+      <Translation>Collector</Translation>
+      <Old null="1" />
+    </ctDisplayModeCategoryCollector>
+    <ctDisplayModeTierLow>
+      <Translation>Nízké úrovně</Translation>
+      <Old null="1" />
+    </ctDisplayModeTierLow>
+    <ctDisplayModeTierMedHigh>
+      <Translation>Střední a vysoké úrovně</Translation>
+      <Old null="1" />
+    </ctDisplayModeTierMedHigh>
+    <ctDisplayModeTierHigh>
+      <Translation>Vysoké úrovně</Translation>
+      <Old null="1" />
+    </ctDisplayModeTierHigh>
+    <ctLanguageLabel>
+      <Translation>Jazyk</Translation>
+      <Old null="1" />
+    </ctLanguageLabel>
+    <ctBackgroundLabel>
+      <Translation>Pozadí</Translation>
+      <Old null="1" />
+    </ctBackgroundLabel>
+    <ctWarning>
+      <Translation>Označuje, že došlo k problému. Klepnutím na tuto ikonu zobrazíte podrobnosti o problému.</Translation>
+      <Old null="1" />
+    </ctWarning>
+    <ctSaveLabel>
+      <Translation>Uložit</Translation>
+      <Old null="1" />
+    </ctSaveLabel>
+    <ctSaveAsLabel>
+      <Translation>Uložit jako...</Translation>
+      <Old null="1" />
+    </ctSaveAsLabel>
+    <ctSaveIconsToGameFolder>
+      <Translation>Uložit do složky hry</Translation>
+      <Old null="1" />
+    </ctSaveIconsToGameFolder>
+    <ctSaveIconsToSpecifiedFolder>
+      <Translation>Uložit ikony do složky ...</Translation>
+      <Old null="1" />
+    </ctSaveIconsToSpecifiedFolder>
+    <ctSaveIconsToBattleAtlas>
+      <Translation>Uložit bitevní sadu ...</Translation>
+      <Old null="1" />
+    </ctSaveIconsToBattleAtlas>
+    <ctSaveIconsToVehicleMarkerAtlas>
+      <Translation>Uložit sadu markeru ...</Translation>
+      <Old null="1" />
+    </ctSaveIconsToVehicleMarkerAtlas>
+    <ctSaveToAtlas>
+      <Translation>Uložit sada ...</Translation>
+      <Old null="1" />
+    </ctSaveToAtlas>
+    <ctBulkSaveIcons>
+      <Translation>Hromadné uložení</Translation>
+      <Old null="1" />
+    </ctBulkSaveIcons>
+    <ctBulkSaveIconsToFolder>
+      <Translation>Hromadně uložit do složky ...</Translation>
+      <Old null="1" />
+    </ctBulkSaveIconsToFolder>
+    <ctPathTemplateLabel>
+      <Translation>Cesta:</Translation>
+      <Old null="1" />
+    </ctPathTemplateLabel>
+    <ctEditPathTemplateLabel>
+      <Translation>...</Translation>
+      <Old null="1" />
+    </ctEditPathTemplateLabel>
+    <ctReloadLabel>
+      <Translation>Znovu načíst data</Translation>
+      <Old null="1" />
+    </ctReloadLabel>
+    <ctAboutLabel>
+      <Translation>O...</Translation>
+      <Old null="1" />
+    </ctAboutLabel>
+  </MainWindow>
+  <AddWindow>
+    <AddLayerTitle>
+      <Translation>Přidat vrstvu</Translation>
+      <Old null="1" />
+    </AddLayerTitle>
+    <LayerName>
+      <Translation>Název vrstvy:</Translation>
+      <Old null="1" />
+    </LayerName>
+    <LayerType>
+      <Translation>Typ vrstvy:</Translation>
+      <Old null="1" />
+    </LayerType>
+    <AddEffectTitle>
+      <Translation>Přidat efekt</Translation>
+      <Old null="1" />
+    </AddEffectTitle>
+    <EffectName>
+      <Translation>Název efektu:</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectType>
+      <Translation>Typ efektu:</Translation>
+      <Old null="1" />
+    </EffectType>
+    <BtnAdd>
+      <Translation>Přidat</Translation>
+      <Old null="1" />
+    </BtnAdd>
+    <BtnCancel>
+      <Translation>Zrušit</Translation>
+      <Old>_Cancel</Old>
+    </BtnCancel>
+  </AddWindow>
+  <PathTemplateWindow>
+    <Title>
+      <Translation>Upravit ikonu Cesta šablona</Translation>
+      <Old null="1" />
+    </Title>
+    <WarnIconsPathIsFolder>
+      <Translation>Vypadá to, že jste zadali složku jako cestu. Cesta ikon by obvykle měla být zakončena „\ {TankId} {Ext}". Připojit?</Translation>
+      <Old null="1" />
+    </WarnIconsPathIsFolder>
+    <WarnIconsPathNoExt>
+      <Translation>Vypadá to, že vám rozšíření chybí. Cesta ikon by obvykle měla být zakončena „{Ext}“. Připojit?</Translation>
+      <Old null="1" />
+    </WarnIconsPathNoExt>
+    <WarnAtlasPathIsFolder>
+      <Translation>Vypadá to, že jste zadali složku jako cestu. Cesta ikon by obvykle měla být zakončena „\ {0}“. Připojit?</Translation>
+      <Old null="1" />
+    </WarnAtlasPathIsFolder>
+    <ctHelp>
+      <Translation>Tato šablona určuje, na jakou cestu mají být ikony uloženy. Je relativní k vybranému adresáři instalace hry. Nechte prázdné, abyste ikony uložili na standardní místo, které funguje v nemodifikovaném klientovi World of Tanks a nevyžaduje žádné úpravy. Jakékoli nestandardní cesty se projeví, pouze pokud máte nainstalované příslušné mody.</Translation>
+      <Old null="1" />
+    </ctHelp>
+    <ctExpandsToLbl>
+      <Translation>Náhled:</Translation>
+      <Old null="1" />
+    </ctExpandsToLbl>
+    <ctTemplateElements>
+      <Translation>K vytvoření cesty použijte následující prvky šablony:</Translation>
+      <Old null="1" />
+    </ctTemplateElements>
+    <ctIconsPathHelp>
+      <Translation encoding="c-literal">Relativní cesta do podsložky res_mods \\ ... odkud nezměněný klient načte ikony. Toto je standardní cesta uložení, která se používá, když je výše uvedená šablona prázdná.\r\nAktuální hodnota: „{cur}“</Translation>
+      <Old encoding="c-literal">Relative path to the res_mods\\... subfolder from where the unmodified client loads the icons. This is the standard save path, used when the template above is blank.\nCurrent value: “{cur}”</Old>
+    </ctIconsPathHelp>
+    <ctTimPathHelp>
+      <Translation encoding="c-literal">Úplná cesta ke složce obsahující Tank Icon Maker.\r\nAktuální hodnota: „{cur}“</Translation>
+      <Old encoding="c-literal">Full path to the folder containing Tank Icon Maker.\nCurrent value: “{cur}”</Old>
+    </ctTimPathHelp>
+    <ctGamePathHelp>
+      <Translation encoding="c-literal">Úplná cesta k umístění, kde je nainstalován World of Tanks.\r\nAktuální hodnota: „{cur}“</Translation>
+      <Old encoding="c-literal">Full path to the location where World of Tanks is installed.\nCurrent value: “{cur}”</Old>
+    </ctGamePathHelp>
+    <ctGameVersionHelp>
+      <Translation encoding="c-literal">Identifikátor verze pro vybranou složku WoT. Příklady: „0.9.5“, „0.9.5 Společný test“.\r\nAktuální hodnota: „{cur}“</Translation>
+      <Old encoding="c-literal">Version identifier for the selected WoT folder. Examples: “0.9.5”, “0.9.5 Common Test”.\nCurrent value: “{cur}”</Old>
+    </ctGameVersionHelp>
+    <ctTankClassHelp>
+      <Translation>Určuje třídu tanků pro danou ikonu (těžká, střední atd.). Liší se pro každou ikonu.</Translation>
+      <Old null="1" />
+    </ctTankClassHelp>
+    <ctTankCountryHelp>
+      <Translation>Určuje zemi tanku pro danou ikonu. Liší se pro každou ikonu.</Translation>
+      <Old>Specifies the tank country for a given icon. Varies for each icon.</Old>
+    </ctTankCountryHelp>
+    <ctTankIdHelp>
+      <Translation>Určuje ID tanku pro danou ikonu (běžně se používá jako název souboru ikon). Liší se pro každou ikonu.</Translation>
+      <Old null="1" />
+    </ctTankIdHelp>
+    <ctTankFullNameHelp>
+      <Translation>Určuje celé jméno tanky pro danou ikonu. Liší se pro každou ikonu.</Translation>
+      <Old null="1" />
+    </ctTankFullNameHelp>
+    <ctTankShortNameHelp>
+      <Translation>Určuje zkratku tanky pro danou ikonu. Liší se pro každou ikonu.</Translation>
+      <Old null="1" />
+    </ctTankShortNameHelp>
+    <ctTankTierHelp>
+      <Translation>Určuje úroveň tanky pro danou ikonu. Liší se pro každou ikonu.</Translation>
+      <Old null="1" />
+    </ctTankTierHelp>
+    <ctStyleNameHelp>
+      <Translation>Název vybraného stylu. Aktuální hodnota: „{cur}“</Translation>
+      <Old null="1" />
+    </ctStyleNameHelp>
+    <ctStyleAuthorHelp>
+      <Translation>Autor vybraného stylu. Aktuální hodnota: „{cur}“</Translation>
+      <Old null="1" />
+    </ctStyleAuthorHelp>
+    <ctEnvVarsHelp>
+      <Translation>Všechny proměnné prostředí jsou rozbaleny na jejich hodnoty. % UserProfile% se rozbalí na cestu ke složce profilu uživatele. % AppData% se rozbalí do primární složky obsahující nastavení aplikace. Mnoho dalších proměnných prostředí je zdokumentováno v online zdrojích.</Translation>
+      <Old null="1" />
+    </ctEnvVarsHelp>
+    <ctOkBtn>
+      <Translation>OK</Translation>
+      <Old null="1" />
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>Zrušit</Translation>
+      <Old>_Cancel</Old>
+    </ctCancelBtn>
+  </PathTemplateWindow>
+  <BulkSaveSettingsWindow>
+    <Title>
+      <Translation>Nastavení hromadného uložení</Translation>
+      <Old null="1" />
+    </Title>
+    <ctPrompt>
+      <Translation>Toto okno se používá k nastavení nastavení hromadného ukládání stylů. Můžete povolit nebo zakázat ukládání do sadau nebo normálních ikon a určit cestu hromadného ukládání. Upozorňujeme, že nastavení cesty nefunguje při použití hromadného ukládání do složky. Cesta k uložení normálních ikon bude použita také po kliknutí na „Uložit“.</Translation>
+      <Old null="1" />
+    </ctPrompt>
+    <ctNameColHeader>
+      <Translation>Název</Translation>
+      <Old>Name</Old>
+    </ctNameColHeader>
+    <ctEnabledColHeader>
+      <Translation>Povoleno</Translation>
+      <Old null="1" />
+    </ctEnabledColHeader>
+    <ctPathColHeader>
+      <Translation>Cesta</Translation>
+      <Old null="1" />
+    </ctPathColHeader>
+    <ctNormalIconsRowHeader>
+      <Translation>Normální ikony</Translation>
+      <Old null="1" />
+    </ctNormalIconsRowHeader>
+    <ctBattleAtlasRowHeader>
+      <Translation>Bitevní sada</Translation>
+      <Old null="1" />
+    </ctBattleAtlasRowHeader>
+    <ctVehicleMarkersAtlasRowHeader>
+      <Translation>Atlas markerů</Translation>
+      <Old null="1" />
+    </ctVehicleMarkersAtlasRowHeader>
+    <ctCustomAtlasRowHeader>
+      <Translation>Vlastní sada</Translation>
+      <Old>Custom atlas</Old>
+    </ctCustomAtlasRowHeader>
+    <ctEditPathTemplateLabel>
+      <Translation>...</Translation>
+      <Old null="1" />
+    </ctEditPathTemplateLabel>
+    <ctEdiBattleAtlastPathTemplateLabel>
+      <Translation>...</Translation>
+      <Old null="1" />
+    </ctEdiBattleAtlastPathTemplateLabel>
+    <ctEditVehicleMarkersAtlasPathTemplateLabel>
+      <Translation>...</Translation>
+      <Old null="1" />
+    </ctEditVehicleMarkersAtlasPathTemplateLabel>
+    <ctEditCustomAtlasPathTemplateLabel>
+      <Translation>...</Translation>
+      <Old null="1" />
+    </ctEditCustomAtlasPathTemplateLabel>
+    <ctOkBtn>
+      <Translation>OK</Translation>
+      <Old null="1" />
+    </ctOkBtn>
+    <ctCancelBtn>
+      <Translation>Zrušit</Translation>
+      <Old>_Cancel</Old>
+    </ctCancelBtn>
+  </BulkSaveSettingsWindow>
+  <LayerAndEffect>
+    <LayerId>
+      <DisplayName>
+        <Translation>Identifikátor</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Nastavuje identifikátor pro použití v některých efektech.</Translation>
+        <Old null="1" />
+      </Description>
+    </LayerId>
+    <LayerVisible>
+      <DisplayName>
+        <Translation>Viditelné</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Umožňuje dočasně skrýt tuto vrstvu bez jejího odstranění.</Translation>
+        <Old null="1" />
+      </Description>
+    </LayerVisible>
+    <LayerVisibleFor>
+      <DisplayName>
+        <Translation>Viditelné pro</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Umožňuje skrýt tuto vrstvu pro některé tanky v závislosti na jejich vlastnostech.</Translation>
+        <Old null="1" />
+      </Description>
+    </LayerVisibleFor>
+    <EffectVisible>
+      <DisplayName>
+        <Translation>Viditelné</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Umožňuje dočasně skrýt tento efekt bez jeho odstranění.</Translation>
+        <Old null="1" />
+      </Description>
+    </EffectVisible>
+    <EffectVisibleFor>
+      <DisplayName>
+        <Translation>Viditelné pro</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Umožňuje skrýt tento efekt u některých tanků v závislosti na jejich vlastnostech.</Translation>
+        <Old null="1" />
+      </Description>
+    </EffectVisibleFor>
+    <ChannelA>
+      <DisplayName>
+        <Translation>Alfa</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Aplikujte efekt na alfa kanál (neprůhlednost obrázku).</Translation>
+        <Old null="1" />
+      </Description>
+    </ChannelA>
+    <ChannelR>
+      <DisplayName>
+        <Translation>Červené</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Aplikujte efekt na červený kanál.</Translation>
+        <Old null="1" />
+      </Description>
+    </ChannelR>
+    <ChannelG>
+      <DisplayName>
+        <Translation>Zelený</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Použijte efekt na zelený kanál.</Translation>
+        <Old null="1" />
+      </Description>
+    </ChannelG>
+    <ChannelB>
+      <DisplayName>
+        <Translation>Modrý</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Aplikujte efekt na modrý kanál.</Translation>
+        <Old null="1" />
+      </Description>
+    </ChannelB>
+  </LayerAndEffect>
+  <BkgDarkAgentLayer>
+    <LayerName>
+      <Translation>Pozadí: Dark Agent</Translation>
+      <Old null="1" />
+    </LayerName>
+    <LayerDescription>
+      <Translation>Nakreslí pozadí pomocí sklovitého stylu inspirovaného sadou ikon BlackSpy.</Translation>
+      <Old null="1" />
+    </LayerDescription>
+    <BackColor>
+      <DisplayName>
+        <Translation>Barva pozadí</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Barva pozadí.</Translation>
+        <Old null="1" />
+      </Description>
+    </BackColor>
+  </BkgDarkAgentLayer>
+  <TankImageLayer>
+    <LayerName>
+      <Translation>Obrázek: standardní</Translation>
+      <Old null="1" />
+    </LayerName>
+    <LayerDescription>
+      <Translation>Nakreslí jeden z několika typů standardních obrázků pro tento tank.</Translation>
+      <Old null="1" />
+    </LayerDescription>
+    <Style>
+      <DisplayName>
+        <Translation>Typ</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, který ze standardních typů obrázků má být nakreslen.</Translation>
+        <Old null="1" />
+      </Description>
+    </Style>
+    <MissingImageWarning>
+      <Translation>Obrázek pro tento tank chybí.</Translation>
+      <Old null="1" />
+    </MissingImageWarning>
+  </TankImageLayer>
+  <CurrentImageLayer>
+    <LayerName>
+      <Translation>Obrázek: aktuální</Translation>
+      <Old null="1" />
+    </LayerName>
+    <LayerDescription>
+      <Translation>Nakreslí ikonu, která je aktuálně uložena ve výstupním adresáři.</Translation>
+      <Old null="1" />
+    </LayerDescription>
+    <MissingImageWarning>
+      <Translation>Pro tento tank neexistuje žádný aktuální obrázek.</Translation>
+      <Old null="1" />
+    </MissingImageWarning>
+  </CurrentImageLayer>
+  <CustomImageLayer>
+    <LayerName>
+      <Translation>Obrázek: podle vlastností</Translation>
+      <Old null="1" />
+    </LayerName>
+    <LayerDescription>
+      <Translation>Nakreslí obrázek načtený ze souboru, jehož jméno je vybráno na základě vlastností tanku.</Translation>
+      <Old null="1" />
+    </LayerDescription>
+    <ImageFile>
+      <DisplayName>
+        <Translation>Soubor obrázku</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje cestu k souboru obrázku. Relativní názvy jsou povoleny a hledají se nejprve v programovém adresáři, poté v adresáři modů WoT pro specifické verze a poté v instalačním adresáři WoT.</Translation>
+        <Old null="1" />
+      </Description>
+    </ImageFile>
+    <MissingImageWarning>
+      <Translation>Obrázek {0} nebyl nalezen.</Translation>
+      <Old null="1" />
+    </MissingImageWarning>
+  </CustomImageLayer>
+  <FilenamePatternImageLayer>
+    <LayerName>
+      <Translation>Obrázek: podle šablony názvu souboru</Translation>
+      <Old null="1" />
+    </LayerName>
+    <LayerDescription>
+      <Translation>Nakreslí obrázek načtený ze souboru, jehož jméno je vygenerováno nahrazením různých vlastností tanku do šablony názvu souboru.</Translation>
+      <Old null="1" />
+    </LayerDescription>
+    <Pattern>
+      <DisplayName>
+        <Translation>Šablona</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation encoding="c-literal">Šablona názvu souboru. K dispozici jsou následující zástupné symboly: {tier}, {country}, {class}, {category}, {id}. \n\nTato jména vlastností jsou také podporována, například {NameShort}. Název vlastnosti může také zahrnovat jazyk, autora nebo obojí, například {NameShort / En}, {NameShort / Wargaming} nebo {NameShort / En / Wargaming}.</Translation>
+        <Old null="1" />
+      </Description>
+    </Pattern>
+    <MissingImageWarning>
+      <Translation>Obrázek {0} nebyl nalezen.</Translation>
+      <Old null="1" />
+    </MissingImageWarning>
+  </FilenamePatternImageLayer>
+  <TextLayer>
+    <FontSmoothing>
+      <DisplayName>
+        <Translation>Vyhlazení</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, jak vyhladit text (vyhlazení).</Translation>
+        <Old null="1" />
+      </Description>
+    </FontSmoothing>
+    <FontFamily>
+      <DisplayName>
+        <Translation>Písmo</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Font písma.</Translation>
+        <Old null="1" />
+      </Description>
+    </FontFamily>
+    <FontSize>
+      <DisplayName>
+        <Translation>Velikost</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje velikost písma. Pokud jsou zadány „Šířka“ nebo „Výška“, jedná se o maximální velikost písma; text může být zmenšen tak, aby se vešel.</Translation>
+        <Old null="1" />
+      </Description>
+    </FontSize>
+    <FontBold>
+      <DisplayName>
+        <Translation>Tučně</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Text je tučný.</Translation>
+        <Old null="1" />
+      </Description>
+    </FontBold>
+    <FontItalic>
+      <DisplayName>
+        <Translation>Kurzíva</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Text se zobrazí kurzívou.</Translation>
+        <Old null="1" />
+      </Description>
+    </FontItalic>
+    <FontColor>
+      <DisplayName>
+        <Translation>Barva</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje barvu textu.</Translation>
+        <Old null="1" />
+      </Description>
+    </FontColor>
+    <Baseline>
+      <DisplayName>
+        <Translation>Zarovnat základní linie</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Zvažte slova „více“ a „více“, která jsou ukotvena na pixelu 0. Pokud je „Zarovnání základních linií“ nepravdivé, zobrazí se slovo „více“ o něco vyšší, aby se dotkl pixelu 0. Pokud je pravda, budou základní linie zarovnejte místo toho a nejvyšší pixel „více“ bude ve skutečnosti pod pixelem 0.</Translation>
+        <Old null="1" />
+      </Description>
+    </Baseline>
+    <Anchor>
+      <DisplayName>
+        <Translation>Kotva</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, kde by měl být text umístěn vzhledem k bodu určenému hodnotami „X“ a „Y“.</Translation>
+        <Old null="1" />
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje vodorovnou souřadnici kotevního bodu.</Translation>
+        <Old null="1" />
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje svislou souřadnici kotevního bodu. „Baseline“ určuje, zda je to pixel-perfect nebo baseline-konzistentní.</Translation>
+        <Old null="1" />
+      </Description>
+    </Y>
+    <Width>
+      <DisplayName>
+        <Translation>Šířka</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je větší než nula, určuje, že text nesmí být širší než tato hodnota v pixelech. Text začíná na zadané velikosti písma a v případě potřeby se zmenší, ale nikdy se nezvětší.</Translation>
+        <Old null="1" />
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>Výška</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je větší než nula, určuje, že text nesmí být vyšší než tato hodnota v pixelech. Text začíná na zadané velikosti písma a v případě potřeby se zmenší, ale nikdy se nezvětší.</Translation>
+        <Old null="1" />
+      </Description>
+    </Height>
+    <Format>
+      <DisplayName>
+        <Translation>Formát</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Standardní řetězec .NET formátu pro vylepšení zobrazené hodnoty. Příklady: „{0} sekund“ připojí slovo „sekundy“ k hodnotě. "{0: 0.00}" zaokrouhlí číselné hodnoty na 2 d.p. "{0: #, 0}" přidá tisíce oddělovačů a kol k celým číslům. "{0: 0000}" vyřadí číslo nuly.</Translation>
+        <Old null="1" />
+      </Description>
+    </Format>
+    <FormatStringInvalidNum>
+      <Translation>Řetězec formátu "{0}" není platný nebo není kompatibilní s číselnou hodnotou "{1}".</Translation>
+      <Old null="1" />
+    </FormatStringInvalidNum>
+    <FormatStringInvalid>
+      <Translation>Řetězec formátu "{0}" není platný.</Translation>
+      <Old null="1" />
+    </FormatStringInvalid>
+  </TextLayer>
+  <PropertyTextLayer>
+    <LayerName>
+      <Translation>Text: Vlastní</Translation>
+      <Old null="1" />
+    </LayerName>
+    <LayerDescription>
+      <Translation>Nakreslí specifikovanou vlastnost tanku jako text.</Translation>
+      <Old null="1" />
+    </LayerDescription>
+    <Property>
+      <DisplayName>
+        <Translation>Vlastní</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje vlastnost, která má být použita jako zdroj textu.</Translation>
+        <Old null="1" />
+      </Description>
+    </Property>
+  </PropertyTextLayer>
+  <CustomTextLayer>
+    <LayerName>
+      <Translation>Text:: vlastní</Translation>
+      <Old>Text: custom</Old>
+    </LayerName>
+    <LayerDescription>
+      <Translation>Nakreslí fixní řetězec založený na určené vlastnosti tanky.</Translation>
+      <Old null="1" />
+    </LayerDescription>
+    <Text>
+      <DisplayName>
+        <Translation>Text</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Řetězec, který se má zobrazit.</Translation>
+        <Old null="1" />
+      </Description>
+    </Text>
+  </CustomTextLayer>
+  <EffectClip>
+    <EffectName>
+      <Translation>Hrany klipu</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Ořízne zadané okraje této vrstvy.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Mode>
+      <DisplayName>
+        <Translation>Režim</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Vybere, zda jsou hranice klipů relativní k okrajům ikon, okrajům této vrstvy nebo obsahu této vrstvy (pixely). Viz také „Prahová hodnota průhlednosti“.</Translation>
+        <Old null="1" />
+      </Description>
+    </Mode>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>Práh transparentnosti</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Při oříznutí pixely určuje maximální hodnotu alfa, která je stále považována za „průhlednou“. Rozsah 0-255.</Translation>
+        <Old>When clipping by pixels, determines the maximum alpha value which is still deemed as "transparent". Range 0..255.</Old>
+      </Description>
+    </PixelAlphaThreshold>
+    <ClipLeft>
+      <DisplayName>
+        <Translation>Vlevo</Translation>
+        <Old>Left</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Počet pixelů, které se mají oříznout na levém okraji vrstvy.</Translation>
+        <Old null="1" />
+      </Description>
+    </ClipLeft>
+    <ClipTop>
+      <DisplayName>
+        <Translation>Horní</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Počet pixelů, které se mají oříznout na horním okraji vrstvy.</Translation>
+        <Old null="1" />
+      </Description>
+    </ClipTop>
+    <ClipRight>
+      <DisplayName>
+        <Translation>Vpravo</Translation>
+        <Old>Right</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Počet pixelů, které se mají oříznout na pravém okraji vrstvy.</Translation>
+        <Old null="1" />
+      </Description>
+    </ClipRight>
+    <ClipBottom>
+      <DisplayName>
+        <Translation>Dolů</Translation>
+        <Old>Bottom</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Počet pixelů, které se mají oříznout na spodním okraji vrstvy.</Translation>
+        <Old null="1" />
+      </Description>
+    </ClipBottom>
+  </EffectClip>
+  <EffectColorize>
+    <EffectName>
+      <Translation>Zbarvení</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Obarví vrstvu podle jedné z vlastností tanku.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>Barva</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, jakou barvu použít. Pomocí kanálu alfa upravte sílu efektu.</Translation>
+        <Old null="1" />
+      </Description>
+    </Color>
+  </EffectColorize>
+  <EffectNormalize>
+    <EffectName>
+      <Translation>Vyrovnat (normalizovat)</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Normalizuje jas nebo alfa kanál každého obrázku tak, aby byly podobné napříč všemi ikonami bez ohledu na původní jas obrazu. Toto je starší efekt ekvalizace a je méně efektivní.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Grayscale>
+      <DisplayName>
+        <Translation>Stupně šedé</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Je-li tato funkce povolena, je obraz ve stupních šedi (tj. Zcela desaturován)</Translation>
+        <Old null="1" />
+      </Description>
+    </Grayscale>
+    <NormalizeBrightness>
+      <DisplayName>
+        <Translation>Normalizujte jas</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Je-li povolena, jas ve vrstvě je normalizován tak, že nejjasnější pixel obdrží hodnotu „Max jas“. Toho je dosaženo odpovídajícím nastavením kontrastu vrstvy.</Translation>
+        <Old null="1" />
+      </Description>
+    </NormalizeBrightness>
+    <NormalizeAlpha>
+      <DisplayName>
+        <Translation>Normalizovat alfa</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Když je povoleno, alfa (neprůhlednost) ve vrstvě je normalizováno tak, že nejprůhlednější pixel přijímá hodnotu „Max alfa“.</Translation>
+        <Old null="1" />
+      </Description>
+    </NormalizeAlpha>
+    <MaxBrightness>
+      <DisplayName>
+        <Translation>Max. jas</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Hodnota, na kterou je normalizován jas nejjasnějšího pixelu. Normálně 0 až 255. Hodnoty nad 255 lze použít, je-li přípustné oříznutí na bílou.</Translation>
+        <Old null="1" />
+      </Description>
+    </MaxBrightness>
+    <MaxAlpha>
+      <DisplayName>
+        <Translation>Max. alfa</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Hodnota, na kterou se normalizuje alfa (neprůhlednost) nejprůhlednějšího pixelu. Normálně 0 až 255. Hodnoty nad 255 lze použít, pokud je přípustné oříznutí na úplnou neprůhlednost.</Translation>
+        <Old null="1" />
+      </Description>
+    </MaxAlpha>
+  </EffectNormalize>
+  <EffectFlip>
+    <EffectName>
+      <Translation>Překlopit</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Překlopí vrstvu vodorovně a</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <FlipHorz>
+      <DisplayName>
+        <Translation>Překlopit vodorovně</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Překlopí vrstvu vodorovně, tj. Zaměňuje levý a pravý.</Translation>
+        <Old null="1" />
+      </Description>
+    </FlipHorz>
+    <FlipVert>
+      <DisplayName>
+        <Translation>Překlopit svisle</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Překlopí vrstvu svisle, tj. Zaměňuje se nahoru a dolů.</Translation>
+        <Old null="1" />
+      </Description>
+    </FlipVert>
+  </EffectFlip>
+  <EffectGaussianBlur>
+    <EffectName>
+      <Translation>Blur: Gaussian</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Rozostří aktuální vrstvu pomocí Gaussova rozostření.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Poloměr rozostření. Větší hodnoty vedou k většímu rozostření.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Edge>
+      <DisplayName>
+        <Translation>Okraj</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, jak se vzorkovat kolem okrajů: předpokládat, že obraz za hranami je průhledný, zalomený na druhou stranu nebo použít stejnou barvu pixelu, která se dotkne okraje.</Translation>
+        <Old null="1" />
+      </Description>
+    </Edge>
+  </EffectGaussianBlur>
+  <EffectOpacity>
+    <EffectName>
+      <Translation>Neprůhlednost</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Zvyšuje nebo snižuje neprůhlednost vrstvy.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Opacity>
+      <DisplayName>
+        <Translation>Neprůhlednost</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Multiplikátor krytí. Negativní způsobí, že je vrstva průhlednější, pozitivní ji činí neprůhlednější.</Translation>
+        <Old null="1" />
+      </Description>
+    </Opacity>
+    <Style>
+      <DisplayName>
+        <Translation>Styl</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Vybere jednu z několika různých křivek pro úpravu krytí. "Auto" používá "aditivum" pro zvýšení krytí a "Move endpoint" pro snížení.</Translation>
+        <Old null="1" />
+      </Description>
+    </Style>
+  </EffectOpacity>
+  <EffectPixelOutline>
+    <EffectName>
+      <Translation>Obrys</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Přidá obrys o 1 pixel. Nevhodné pro vrstvy s měkkými obrysy.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Color>
+      <DisplayName>
+        <Translation>Barva</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, jakou barvu použít. Pomocí kanálu alfa upravte sílu efektu.</Translation>
+        <Old null="1" />
+      </Description>
+    </Color>
+    <Threshold>
+      <DisplayName>
+        <Translation>Práh</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje práh alfa kanálu, při kterém má být obrys vykreslen.</Translation>
+        <Old null="1" />
+      </Description>
+    </Threshold>
+    <Inside>
+      <DisplayName>
+        <Translation>Uvnitř</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud není zaškrtnuto, obrys se nakreslí na průhledné pixely, přičemž pixely zůstanou neprůhlednější než práh úplně viditelný. V opačném případě se obrys nakreslí přes neprůhledné pixely a průhledné pixely zůstanou zcela viditelné.</Translation>
+        <Old null="1" />
+      </Description>
+    </Inside>
+    <KeepImage>
+      <DisplayName>
+        <Translation>Zachovat obraz</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, zda opustit obrázek, na kterém je obrys založen, nebo jej zahodit a zobrazit pouze obrys.</Translation>
+        <Old null="1" />
+      </Description>
+    </KeepImage>
+  </EffectPixelOutline>
+  <EffectShadow>
+    <EffectName>
+      <Translation>Stín</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Přidá stín, jako by vrhl aktuální vrstva.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Poloměr stínu řídí maximální vzdálenost mezi pixelem vytvářejícím stín a okrajem výsledného stínu.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Spread>
+      <DisplayName>
+        <Translation>Rozpětí</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Šíření stínů řídí sílu stínu, ale neovlivňuje jeho maximální velikost.</Translation>
+        <Old null="1" />
+      </Description>
+    </Spread>
+    <Color>
+      <DisplayName>
+        <Translation>Barva</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Barva stínu. Pro záři použijte jasné barvy. Upravte kanál alfa pro kontrolu konečné průhlednosti stínů.</Translation>
+        <Old null="1" />
+      </Description>
+    </Color>
+    <ShiftX>
+      <DisplayName>
+        <Translation>Shift: X</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Množství vodorovného posunu v pixelech.</Translation>
+        <Old null="1" />
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>Shift: Y</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Velikost svislého posunu v pixelech.</Translation>
+        <Old null="1" />
+      </Description>
+    </ShiftY>
+  </EffectShadow>
+  <EffectShift>
+    <EffectName>
+      <Translation>Posun</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Posune vrstvu o zadaný počet pixelů.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <ShiftX>
+      <DisplayName>
+        <Translation>Horizontální</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Velikost vodorovného posunu v pixelech.</Translation>
+        <Old null="1" />
+      </Description>
+    </ShiftX>
+    <ShiftY>
+      <DisplayName>
+        <Translation>Vertikální</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Velikost svislého posunu v pixelech.</Translation>
+        <Old null="1" />
+      </Description>
+    </ShiftY>
+  </EffectShift>
+  <EffectMaskLayer>
+    <EffectName>
+      <Translation>Masková vrstva</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Upravuje krytí vrstvy pomocí jiné vrstvy jako masky.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <MaskLayerId>
+      <DisplayName>
+        <Translation>ID vrstvy masky</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Nastavuje identifikátor vrstvy masky.</Translation>
+        <Old null="1" />
+      </Description>
+    </MaskLayerId>
+    <MaskMode>
+      <DisplayName>
+        <Translation>Režim</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Vybere režim vrstvy masky.</Translation>
+        <Old null="1" />
+      </Description>
+    </MaskMode>
+    <InvertTr>
+      <DisplayName>
+        <Translation>Invertovat</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, zda má být maska ​​invertována nebo ne.</Translation>
+        <Old null="1" />
+      </Description>
+    </InvertTr>
+    <ErrorInvalidId>
+      <Translation>Nebyla nalezena žádná vrstva s ID „{0}“.</Translation>
+      <Old null="1" />
+    </ErrorInvalidId>
+    <ErrorRecursiveLayerReference>
+      <Translation>Rekurzivní odkaz na vrstvu: „{0}“.</Translation>
+      <Old null="1" />
+    </ErrorRecursiveLayerReference>
+  </EffectMaskLayer>
+  <EffectSizePos>
+    <EffectName>
+      <Translation>Velikost</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Upravuje velikost této vrstvy</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Anchor>
+      <DisplayName>
+        <Translation>Kotva</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, jak umístit vrstvu vzhledem k souřadnicím „X“ a „Y“.</Translation>
+        <Old null="1" />
+      </Description>
+    </Anchor>
+    <X>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje vodorovnou souřadnici kotevního bodu.</Translation>
+        <Old null="1" />
+      </Description>
+    </X>
+    <Y>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje svislou souřadnici kotevního bodu.</Translation>
+        <Old null="1" />
+      </Description>
+    </Y>
+    <PositionByPixels>
+      <DisplayName>
+        <Translation>Použijte pixely</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Při zaškrtnutí je hrana vrstvy definována viditelnými pixely (viz také „Prahová hodnota průhlednosti“). Jinak se použije celá velikost vrstvy.</Translation>
+        <Old null="1" />
+      </Description>
+    </PositionByPixels>
+    <SizeByPixels>
+      <DisplayName>
+        <Translation>Použijte pixely</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je zaškrtnuto, průhledné oblasti na vnější straně obrázku budou při výpočtu velikosti ignorovány. Viz také „Prahová hodnota průhlednosti“.</Translation>
+        <Old null="1" />
+      </Description>
+    </SizeByPixels>
+    <Percentage>
+      <DisplayName>
+        <Translation>Změnit velikost%</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je režim „Podle%“, vybere se požadované procento velikosti.</Translation>
+        <Old null="1" />
+      </Description>
+    </Percentage>
+    <Width>
+      <DisplayName>
+        <Translation>Změnit velikost na šířku</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je režim jedním z režimů „Podle velikosti“, vybere požadovanou šířku v pixelech.</Translation>
+        <Old null="1" />
+      </Description>
+    </Width>
+    <Height>
+      <DisplayName>
+        <Translation>Změnit velikost na výšku</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je režim jedním z režimů „Podle velikosti“, vybere požadovanou výšku v pixelech.</Translation>
+        <Old null="1" />
+      </Description>
+    </Height>
+    <SizeMode>
+      <DisplayName>
+        <Translation>Režim</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Vybere jeden z několika různých režimů změny velikosti, což určuje, jak se vypočítá velikost obrázku.</Translation>
+        <Old null="1" />
+      </Description>
+    </SizeMode>
+    <GrowShrinkMode>
+      <DisplayName>
+        <Translation>Růst / smršťování</Translation>
+        <Old>Grow/shrink</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, zda se v důsledku změny velikosti může velikost obrázku zvětšit, zmenšit nebo obojí.</Translation>
+        <Old null="1" />
+      </Description>
+    </GrowShrinkMode>
+    <Filter>
+      <DisplayName>
+        <Translation>Filtr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje filtr změny velikosti.</Translation>
+        <Old null="1" />
+      </Description>
+    </Filter>
+    <PixelAlphaThreshold>
+      <DisplayName>
+        <Translation>Práh transparentnosti</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Při změně velikosti nebo umístění pomocí pixelů určuje maximální hodnotu alfa, která je stále považována za „průhlednou“. Rozsah 0,255.</Translation>
+        <Old null="1" />
+      </Description>
+    </PixelAlphaThreshold>
+    <ShowLayerBorders>
+      <DisplayName>
+        <Translation>Zobrazit okraje vrstvy</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je povoleno, nakreslí obdélník, aby zobrazoval hranice vrstvy. Tato ohraničení se používají, pokud je zakázáno použití pixelů.</Translation>
+        <Old null="1" />
+      </Description>
+    </ShowLayerBorders>
+    <ShowPixelBorders>
+      <DisplayName>
+        <Translation>Zobrazit okraje pixelů</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Pokud je povoleno, nakreslí obdélník, aby zobrazoval hranice pixelů vrstvy. Upravte citlivost pomocí „prahu průhlednosti“. Tyto okraje se používají, když je povolena možnost „Použít pixely“.</Translation>
+        <Old null="1" />
+      </Description>
+    </ShowPixelBorders>
+    <ShowAnchor>
+      <DisplayName>
+        <Translation>Zobrazit kotvu</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Je-li tato funkce povolena, nakreslí příčný vlas v poloze kotvy.</Translation>
+        <Old null="1" />
+      </Description>
+    </ShowAnchor>
+  </EffectSizePos>
+  <EffectBrightnessContrast>
+    <EffectName>
+      <Translation>Jas</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Upravuje jas a kontrast cílové vrstvy.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Brightness>
+      <DisplayName>
+        <Translation>Jas %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Posun jasu od -100% do + 100%. Nula znamená žádnou změnu. Na rozdíl od Hue</Translation>
+        <Old null="1" />
+      </Description>
+    </Brightness>
+    <Contrast>
+      <DisplayName>
+        <Translation>Kontrast %</Translation>
+        <Old>Contrast %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Nastavení kontrastu od -100% do + 100%. Nula znamená žádnou změnu.</Translation>
+        <Old null="1" />
+      </Description>
+    </Contrast>
+  </EffectBrightnessContrast>
+  <EffectHueSaturationLightness>
+    <EffectName>
+      <Translation>Odstín - sytost - světlost</Translation>
+      <Old>Hue / Saturation / Lightness</Old>
+    </EffectName>
+    <EffectDescription>
+      <Translation>Nastavuje odstín, sytost a lehkost cílové vrstvy.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Hue>
+      <DisplayName>
+        <Translation>Posun odstínu</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje, jak moc má být odstín posunut ve stupních. 0, +360 a -360 znamenají žádnou změnu, zatímco +180 nebo -180 mění každou barvu na opačnou.</Translation>
+        <Old null="1" />
+      </Description>
+    </Hue>
+    <Saturation>
+      <DisplayName>
+        <Translation>Odstín %</Translation>
+        <Old>Saturation %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Míra sytosti, vyjádřená jako procento původní nasycení. 0 změní měřítko nasycení na nulu (stupně šedi), 100 znamená žádnou změnu, větší hodnoty ji odpovídajícím způsobem upraví.</Translation>
+        <Old null="1" />
+      </Description>
+    </Saturation>
+    <Lightness>
+      <DisplayName>
+        <Translation>Světlost %</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Stupnice lehkosti vyjádřená jako procento původní lehkosti. 0 změní měřítko lehkosti na nulu (černá), 100 znamená beze změny, větší hodnoty ji odpovídajícím způsobem upraví.</Translation>
+        <Old null="1" />
+      </Description>
+    </Lightness>
+  </EffectHueSaturationLightness>
+  <EffectGamma>
+    <EffectName>
+      <Translation>Gama korekce</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Upravuje hodnotu gama (křivka jasu) každého kanálu ve vrstvě.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <GammaRed>
+      <DisplayName>
+        <Translation>Červená gama</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Nastavení gama pro červený kanál. Rozumné hodnoty jsou mezi přibližně 0,8 až 2,3.</Translation>
+        <Old null="1" />
+      </Description>
+    </GammaRed>
+    <GammaGreen>
+      <DisplayName>
+        <Translation>Zelená gama</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Nastavení gama pro zelený kanál. Rozumné hodnoty jsou mezi přibližně 0,8 až 2,3.</Translation>
+        <Old null="1" />
+      </Description>
+    </GammaGreen>
+    <GammaBlue>
+      <DisplayName>
+        <Translation>Modré gama</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Nastavení gama pro modrý kanál. Rozumné hodnoty jsou mezi přibližně 0,8 až 2,3.</Translation>
+        <Old null="1" />
+      </Description>
+    </GammaBlue>
+  </EffectGamma>
+  <EffectLevel>
+    <EffectName>
+      <Translation>Úrovně</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Změní jas všech pixelů podle křivky určené třemi konfigurovatelnými body.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <BlackPoint>
+      <DisplayName>
+        <Translation>Černý bod %</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Všechny pixely s touto hodnotou nebo méně budou černé.</Translation>
+        <Old null="1" />
+      </Description>
+    </BlackPoint>
+    <WhitePoint>
+      <DisplayName>
+        <Translation>Bílý bod%</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Všechny pixely s touto hodnotou nebo vyšší budou bílé.</Translation>
+        <Old null="1" />
+      </Description>
+    </WhitePoint>
+    <MidPoint>
+      <DisplayName>
+        <Translation>Střední bod</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Vybere výstupní obrázek gama.</Translation>
+        <Old null="1" />
+      </Description>
+    </MidPoint>
+  </EffectLevel>
+  <EffectInvert>
+    <EffectName>
+      <Translation>Invertovat</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Invertuje barvy ve vrstvě.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+  </EffectInvert>
+  <EffectAdaptiveBlur>
+    <EffectName>
+      <Translation>Rozostření: adaptivní</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Rozostří vrstvu v oblastech, které neobsahují ostré hrany.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje poloměr zpracování. Doporučená hodnota: 0, která automaticky vybere optimální poloměr.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Síla</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje sílu rozostření. Vyšší hodnoty vedou k většímu rozostření. Jsou povoleny zlomkové hodnoty.</Translation>
+        <Old null="1" />
+      </Description>
+    </Sigma>
+  </EffectAdaptiveBlur>
+  <EffectAdaptiveSharpen>
+    <EffectName>
+      <Translation>Zaostřit: adaptivní</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Zaostří vrstvu v oblastech, které obsahují ostré hrany. Hladké oblasti zůstávají nedotčeny.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje poloměr zpracování. Doporučená hodnota: 0, která automaticky vybere optimální poloměr.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Síla</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje sílu efektu zaostření. Jsou povoleny zlomkové hodnoty.</Translation>
+        <Old null="1" />
+      </Description>
+    </Sigma>
+  </EffectAdaptiveSharpen>
+  <EffectSharpen>
+    <EffectName>
+      <Translation>Brousit</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Zaostří vrstvu.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje poloměr zpracování. Doporučená hodnota: 0, která automaticky vybere optimální poloměr.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Síla</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje sílu efektu zaostření. Jsou povoleny zlomkové hodnoty.</Translation>
+        <Old null="1" />
+      </Description>
+    </Sigma>
+  </EffectSharpen>
+  <EffectUnsharpMask>
+    <EffectName>
+      <Translation>Zaostřit: ostrá maska</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Zaostří vrstvu pomocí filtru neostrých masek.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje poloměr zpracování. Doporučená hodnota: 0, která automaticky vybere optimální poloměr.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Síla</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje sílu efektu zaostření. Jsou povoleny zlomkové hodnoty.</Translation>
+        <Old null="1" />
+      </Description>
+    </Sigma>
+  </EffectUnsharpMask>
+  <EffectSelectiveBlur>
+    <EffectName>
+      <Translation>Rozostření: selektivní</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Rozostří vrstvu v oblastech, které neobsahují ostré hrany nebo vysoký kontrast.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje poloměr zpracování. Doporučená hodnota: 0, která automaticky vybere optimální poloměr.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Síla</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje sílu rozostření. Vyšší hodnoty vedou k většímu rozostření. Jsou povoleny zlomkové hodnoty.</Translation>
+        <Old null="1" />
+      </Description>
+    </Sigma>
+    <Threshold>
+      <DisplayName>
+        <Translation>Práh</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje práh kontrastu, který určuje, které oblasti obrazu jsou rozmazané.</Translation>
+        <Old null="1" />
+      </Description>
+    </Threshold>
+  </EffectSelectiveBlur>
+  <EffectMotionBlur>
+    <EffectName>
+      <Translation>Rozostření: pohyb</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Rozostří vrstvu a simuluje lineární rozmazání pohybu.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Radius>
+      <DisplayName>
+        <Translation>Poloměr</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje poloměr zpracování. Doporučená hodnota: 0, která automaticky vybere optimální poloměr.</Translation>
+        <Old null="1" />
+      </Description>
+    </Radius>
+    <Sigma>
+      <DisplayName>
+        <Translation>Vzdálenost</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje délku stopy rozostření pohybu. Vyšší hodnoty vedou k většímu rozostření. Jsou povoleny zlomkové hodnoty.</Translation>
+        <Old null="1" />
+      </Description>
+    </Sigma>
+    <Angle>
+      <DisplayName>
+        <Translation>Úhel</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Určuje směr stopy rozostření pohybu ve stupních.</Translation>
+        <Old null="1" />
+      </Description>
+    </Angle>
+  </EffectMotionBlur>
+  <EffectRadialBlur>
+    <EffectName>
+      <Translation>Rozostření: radiální</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Rozostří vrstvu a simuluje rozmazání pohybem</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Úhel</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Úhel rotace rozmazání, ve stupních.</Translation>
+        <Old null="1" />
+      </Description>
+    </Angle>
+  </EffectRadialBlur>
+  <EffectWave>
+    <EffectName>
+      <Translation>Vlna</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Zkresluje vrstvu ve tvaru vlny.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Amplitude>
+      <DisplayName>
+        <Translation>Amplituda</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Vybírá amplitudu vlny.</Translation>
+        <Old null="1" />
+      </Description>
+    </Amplitude>
+    <Length>
+      <DisplayName>
+        <Translation>Délka</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Vybere délku vlny.</Translation>
+        <Old null="1" />
+      </Description>
+    </Length>
+  </EffectWave>
+  <EffectRotate>
+    <EffectName>
+      <Translation>Točit se</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Otočí vrstvu.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Angle>
+      <DisplayName>
+        <Translation>Úhel</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Úhel natočení ve stupních.</Translation>
+        <Old null="1" />
+      </Description>
+    </Angle>
+    <RotateX>
+      <DisplayName>
+        <Translation>X</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Souřadnice X středu otáčení.</Translation>
+        <Old null="1" />
+      </Description>
+    </RotateX>
+    <RotateY>
+      <DisplayName>
+        <Translation>Y</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Souřadnice Y středu otáčení.</Translation>
+        <Old null="1" />
+      </Description>
+    </RotateY>
+  </EffectRotate>
+  <EffectNormalizeBrightness>
+    <EffectName>
+      <Translation>Vyrovnat jas (vylepšený)</Translation>
+      <Old null="1" />
+    </EffectName>
+    <EffectDescription>
+      <Translation>Normalizuje jas každého obrázku na zadanou hodnotu, takže jas je stejný u všech ikon bez ohledu na původní jas obrazu. Toto je nová a vylepšená varianta efektu Equalize.</Translation>
+      <Old null="1" />
+    </EffectDescription>
+    <Strength>
+      <DisplayName>
+        <Translation>Síla %</Translation>
+        <Old null="1" />
+      </DisplayName>
+      <Description>
+        <Translation>Efektová síla. Hodnoty pod 100% nedosahují úplného vyrovnávání jasu a do jisté míry zachovávají původní variaci.</Translation>
+        <Old null="1" />
+      </Description>
+    </Strength>
+    <Brightness>
+      <DisplayName>
+        <Translation>Jas %</Translation>
+        <Old>Brightness %</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Požadovaný průměrný jas obrazu. Jas obrázku je upraven tak, aby se průměrný jas všech pixelů rovnal této hodnotě.</Translation>
+        <Old null="1" />
+      </Description>
+    </Brightness>
+    <Saturation>
+      <DisplayName>
+        <Translation>Sytost</Translation>
+        <Old>Saturation</Old>
+      </DisplayName>
+      <Description>
+        <Translation>Režim nastavení sytosti. „Snižte“ tóny do sytosti poněkud, ale pouze v případě, že je tímto efektem snížen jas vrstvy, se zlepší vzhled jasnějších oblastí obrazu.</Translation>
+        <Old null="1" />
+      </Description>
+    </Saturation>
+    <SaturationMode>
+      <NoChange>
+        <Translation>Žádná změna</Translation>
+        <Old null="1" />
+      </NoChange>
+      <Reduce>
+        <Translation>Snížit</Translation>
+        <Old null="1" />
+      </Reduce>
+      <Zero>
+        <Translation>Nula (šedá stupnice)</Translation>
+        <Old>Zero (grayscale)</Old>
+      </Zero>
+    </SaturationMode>
+  </EffectNormalizeBrightness>
+  <BoolWithPassthrough>
+    <Yes>
+      <Translation>Ano</Translation>
+      <Old null="1" />
+    </Yes>
+    <No>
+      <Translation>Ne</Translation>
+      <Old null="1" />
+    </No>
+    <Passthrough>
+      <Translation>Přejít: k další "Varianta"</Translation>
+      <Old>Passthrough: to next "Vary by"</Old>
+    </Passthrough>
+  </BoolWithPassthrough>
+  <ImageBuiltInStyle>
+    <Contour>
+      <Translation>Obrys</Translation>
+      <Old null="1" />
+    </Contour>
+    <ThreeD>
+      <Translation>3D</Translation>
+      <Old null="1" />
+    </ThreeD>
+    <ThreeDLarge>
+      <Translation>3D (velký)</Translation>
+      <Old null="1" />
+    </ThreeDLarge>
+    <Country>
+      <Translation>Země</Translation>
+      <Old null="1" />
+    </Country>
+    <Class>
+      <Translation>Třída</Translation>
+      <Old null="1" />
+    </Class>
+  </ImageBuiltInStyle>
+  <SelectBy>
+    <Class>
+      <Translation>Třída (Dělostřelectvo • Stíhač • Lehká • atd.)</Translation>
+      <Old null="1" />
+    </Class>
+    <Country>
+      <Translation>Země (SSSR • Německo • USA • atd.)</Translation>
+      <Old null="1" />
+    </Country>
+    <Category>
+      <Translation>Dostupnost (normální • prémiová • speciální)</Translation>
+      <Old null="1" />
+    </Category>
+    <Tier>
+      <Translation>Úroveň (1 .. 10)</Translation>
+      <Old null="1" />
+    </Tier>
+    <Single>
+      <Translation>Jedna hodnota</Translation>
+      <Old null="1" />
+    </Single>
+  </SelectBy>
+  <ClipMode>
+    <ByPixels>
+      <Translation>Podle pixelů</Translation>
+      <Old null="1" />
+    </ByPixels>
+    <ByLayerBounds>
+      <Translation>Hranicemi vrstvy</Translation>
+      <Old null="1" />
+    </ByLayerBounds>
+    <ByIconBounds>
+      <Translation>Podle ikon hranice</Translation>
+      <Old null="1" />
+    </ByIconBounds>
+  </ClipMode>
+  <SizeMode>
+    <NoChange>
+      <Translation>Žádná změna</Translation>
+      <Old null="1" />
+    </NoChange>
+    <ByPercentage>
+      <Translation>Podle %</Translation>
+      <Old>By %</Old>
+    </ByPercentage>
+    <BySizeWidthOnly>
+      <Translation>Podle velikosti: šířka</Translation>
+      <Old null="1" />
+    </BySizeWidthOnly>
+    <BySizeHeightOnly>
+      <Translation>Podle velikosti: výška</Translation>
+      <Old null="1" />
+    </BySizeHeightOnly>
+    <BySizeFit>
+      <Translation>Podle velikosti: fit</Translation>
+      <Old null="1" />
+    </BySizeFit>
+    <BySizeStretch>
+      <Translation>Podle velikosti: úsek</Translation>
+      <Old null="1" />
+    </BySizeStretch>
+  </SizeMode>
+  <MaskMode>
+    <Combined>
+      <Translation>Kombinovaný</Translation>
+      <Old null="1" />
+    </Combined>
+    <Opacity>
+      <Translation>Neprůhlednost</Translation>
+      <Old null="1" />
+    </Opacity>
+    <Grayscale>
+      <Translation>Stupně šedé</Translation>
+      <Old null="1" />
+    </Grayscale>
+  </MaskMode>
+  <GrowShrinkMode>
+    <GrowAndShrink>
+      <Translation>Růst a smršťování</Translation>
+      <Old null="1" />
+    </GrowAndShrink>
+    <GrowOnly>
+      <Translation>Rostou pouze</Translation>
+      <Old null="1" />
+    </GrowOnly>
+    <ShrinkOnly>
+      <Translation>Pouze smršťování</Translation>
+      <Old null="1" />
+    </ShrinkOnly>
+  </GrowShrinkMode>
+  <Filter>
+    <Auto>
+      <Translation>Auto</Translation>
+      <Old null="1" />
+    </Auto>
+    <Lanczos>
+      <Translation>Lanczos</Translation>
+      <Old null="1" />
+    </Lanczos>
+    <Mitchell>
+      <Translation>Mitchell</Translation>
+      <Old null="1" />
+    </Mitchell>
+    <Bicubic>
+      <Translation>Bicubic</Translation>
+      <Old null="1" />
+    </Bicubic>
+    <Sinc256>
+      <Translation>Sinc256</Translation>
+      <Old null="1" />
+    </Sinc256>
+    <Sinc1024>
+      <Translation>Sinc1024</Translation>
+      <Old null="1" />
+    </Sinc1024>
+  </Filter>
+  <OpacityStyle>
+    <Auto>
+      <Translation>Auto</Translation>
+      <Old null="1" />
+    </Auto>
+    <MoveEndpoint>
+      <Translation>Přesunout koncový bod</Translation>
+      <Old null="1" />
+    </MoveEndpoint>
+    <MoveMidpoint>
+      <Translation>Přesunout střed</Translation>
+      <Old null="1" />
+    </MoveMidpoint>
+    <Additive>
+      <Translation>Přísada</Translation>
+      <Old null="1" />
+    </Additive>
+  </OpacityStyle>
+  <BlurEdgeMode>
+    <Transparent>
+      <Translation>Průhledné pixely</Translation>
+      <Old null="1" />
+    </Transparent>
+    <Same>
+      <Translation>Nejbližší barva pixelu</Translation>
+      <Old null="1" />
+    </Same>
+    <Mirror>
+      <Translation>Zrcadlo podél okraje</Translation>
+      <Old null="1" />
+    </Mirror>
+    <Wrap>
+      <Translation>Zabalte na opačný okraj</Translation>
+      <Old null="1" />
+    </Wrap>
+  </BlurEdgeMode>
+  <TextSmoothingStyle>
+    <Aliased>
+      <Translation>Aliased</Translation>
+      <Old null="1" />
+    </Aliased>
+    <AntiAliasGDI>
+      <Translation>Anti-aliased (hinted)</Translation>
+      <Old null="1" />
+    </AntiAliasGDI>
+    <UnhintedGDI>
+      <Translation>Anti-aliased (unhinted)</Translation>
+      <Old null="1" />
+    </UnhintedGDI>
+    <ClearType>
+      <Translation>ClearType</Translation>
+      <Old null="1" />
+    </ClearType>
+  </TextSmoothingStyle>
+  <Category>
+    <General>
+      <Translation>Všeobecné</Translation>
+      <Old null="1" />
+    </General>
+    <Settings>
+      <Translation>Nastavení</Translation>
+      <Old null="1" />
+    </Settings>
+    <Image>
+      <Translation>Obraz</Translation>
+      <Old>Image</Old>
+    </Image>
+    <Font>
+      <Translation>Písmo</Translation>
+      <Old null="1" />
+    </Font>
+    <Position>
+      <Translation>Pozice</Translation>
+      <Old null="1" />
+    </Position>
+    <Size>
+      <Translation>Velikost</Translation>
+      <Old null="1" />
+    </Size>
+    <Mask>
+      <Translation>Maska</Translation>
+      <Old null="1" />
+    </Mask>
+    <TextSource>
+      <Translation>Zdroj textu</Translation>
+      <Old null="1" />
+    </TextSource>
+    <Debug>
+      <Translation>Ladit</Translation>
+      <Old null="1" />
+    </Debug>
+    <Clip>
+      <Translation>Připnout</Translation>
+      <Old>Clip</Old>
+    </Clip>
+    <Shift>
+      <Translation>Posun</Translation>
+      <Old null="1" />
+    </Shift>
+    <Channels>
+      <Translation>Kanály</Translation>
+      <Old null="1" />
+    </Channels>
+  </Category>
+  <Selector>
+    <By>
+      <Translation> Varianta</Translation>
+      <Old null="1" />
+    </By>
+    <ByN>
+      <Translation> Varianta (# {0})</Translation>
+      <Old null="1" />
+    </ByN>
+    <By_Color_Description>
+      <Translation>Určuje vlastnost tanky, podle které se mění barva. Barvy pro všechny tanky, jejichž barva je nastavena na průhlednou černou (# 00000000), se místo toho mění podle "Varianta (# {0})".</Translation>
+      <Old null="1" />
+    </By_Color_Description>
+    <By_Color_DescriptionLast>
+      <Translation>Určuje vlastnost tanku, podle které se mění barva.</Translation>
+      <Old null="1" />
+    </By_Color_DescriptionLast>
+    <By_Bool_Description>
+      <Translation>Určuje vlastnost tanku, podle které se mění nastavení. Nastavení pro všechny tanky, jejichž nastavení je nastaveno na „Passthrough“, se místo toho mění podle „Varianta (# {0})“.</Translation>
+      <Old null="1" />
+    </By_Bool_Description>
+    <By_Bool_DescriptionLast>
+      <Translation>Určuje vlastnost tanky, podle které se mění nastavení.</Translation>
+      <Old null="1" />
+    </By_Bool_DescriptionLast>
+    <By_String_Description>
+      <Translation>Určuje vlastnost tanky, podle které se text mění. Text pro všechny tanky, jejichž text je prázdný, se místo toho mění podle "Varianta (# {0})".</Translation>
+      <Old null="1" />
+    </By_String_Description>
+    <By_String_DescriptionLast>
+      <Translation>Určuje vlastnost tanky, podle které se text mění.</Translation>
+      <Old null="1" />
+    </By_String_DescriptionLast>
+    <By_Filename_Description>
+      <Translation>Určuje vlastnost tanky, podle které se mění název souboru. Název souboru pro všechny tanky, jejichž název souboru je prázdný, se místo toho mění podle "Varianta (# {0})".</Translation>
+      <Old null="1" />
+    </By_Filename_Description>
+    <By_Filename_DescriptionLast>
+      <Translation>Určuje vlastnost tanky, podle které se mění název souboru.</Translation>
+      <Old null="1" />
+    </By_Filename_DescriptionLast>
+    <ClassLight>
+      <Translation>Třída: Lehký tank</Translation>
+      <Old null="1" />
+    </ClassLight>
+    <ClassMedium>
+      <Translation>Třída: Střední tank</Translation>
+      <Old null="1" />
+    </ClassMedium>
+    <ClassHeavy>
+      <Translation>Třída: Těžký tank</Translation>
+      <Old null="1" />
+    </ClassHeavy>
+    <ClassDestroyer>
+      <Translation>Třída: Stíhač</Translation>
+      <Old null="1" />
+    </ClassDestroyer>
+    <ClassArtillery>
+      <Translation>Třída: Dělostřelectvo</Translation>
+      <Old null="1" />
+    </ClassArtillery>
+    <ClassNone>
+      <Translation>Třída: Žádná</Translation>
+      <Old null="1" />
+    </ClassNone>
+    <CountryUSSR>
+      <Translation>Země: SSSR</Translation>
+      <Old null="1" />
+    </CountryUSSR>
+    <CountryGermany>
+      <Translation>Země: Německo</Translation>
+      <Old null="1" />
+    </CountryGermany>
+    <CountryUSA>
+      <Translation>Země: USA</Translation>
+      <Old null="1" />
+    </CountryUSA>
+    <CountryFrance>
+      <Translation>Země: Francie</Translation>
+      <Old null="1" />
+    </CountryFrance>
+    <CountryChina>
+      <Translation>Země: Čína</Translation>
+      <Old null="1" />
+    </CountryChina>
+    <CountryUK>
+      <Translation>Země: UK</Translation>
+      <Old null="1" />
+    </CountryUK>
+    <CountryJapan>
+      <Translation>Země: Japonsko</Translation>
+      <Old null="1" />
+    </CountryJapan>
+    <CountryCzech>
+      <Translation>Země: Czech</Translation>
+      <Old null="1" />
+    </CountryCzech>
+    <CountrySweden>
+      <Translation>Země: Švédsko</Translation>
+      <Old null="1" />
+    </CountrySweden>
+    <CountryPoland>
+      <Translation>Země: Polsko</Translation>
+      <Old null="1" />
+    </CountryPoland>
+    <CountryItaly>
+      <Translation>Země: Itálie</Translation>
+      <Old null="1" />
+    </CountryItaly>
+    <CountryNone>
+      <Translation>Země: Žádné</Translation>
+      <Old null="1" />
+    </CountryNone>
+    <CategNormal>
+      <Translation>Dostupnost: Normální</Translation>
+      <Old null="1" />
+    </CategNormal>
+    <CategPremium>
+      <Translation>Dostupnost: Prémiové</Translation>
+      <Old null="1" />
+    </CategPremium>
+    <CategSpecial>
+      <Translation>Dostupnost: Speciální</Translation>
+      <Old null="1" />
+    </CategSpecial>
+    <CategCollector>
+      <Translation>Avail.: Collector</Translation>
+      <Old null="1" />
+    </CategCollector>
+    <Single>
+      <Translation>Nemění se</Translation>
+      <Old null="1" />
+    </Single>
+    <SingleDescription>
+      <Translation>Pokud je položka „Varianta“ nastavena na „No variation“, určuje hodnotu, která se má použít. Použijte, když se hodnota nemusí měnit podle vlastností tanku.</Translation>
+      <Old null="1" />
+    </SingleDescription>
+    <TierN>
+      <Translation>Úroveň: {0,2}</Translation>
+      <Old null="1" />
+    </TierN>
+    <TierNone>
+      <Translation>Úroveň: Žádná</Translation>
+      <Old null="1" />
+    </TierNone>
+  </Selector>
+  <DlgMessage>
+    <OK>
+      <Translation>&amp;OK</Translation>
+      <Old null="1" />
+    </OK>
+    <CaptionInfo>
+      <Translation>Informace</Translation>
+      <Old null="1" />
+    </CaptionInfo>
+    <CaptionQuestion>
+      <Translation>Otázka</Translation>
+      <Old null="1" />
+    </CaptionQuestion>
+    <CaptionWarning>
+      <Translation>Varování</Translation>
+      <Old null="1" />
+    </CaptionWarning>
+    <CaptionError>
+      <Translation>Chyba</Translation>
+      <Old null="1" />
+    </CaptionError>
+  </DlgMessage>
+  <Prompt>
+    <RenameLayer_Title>
+      <Translation>Přejmenovat vrstvu</Translation>
+      <Old null="1" />
+    </RenameLayer_Title>
+    <RenameLayer_Label>
+      <Translation>Název vrstvy:</Translation>
+      <Old null="1" />
+    </RenameLayer_Label>
+    <RenameEffect_Title>
+      <Translation>Přejmenovat efekt</Translation>
+      <Old null="1" />
+    </RenameEffect_Title>
+    <RenameEffect_Label>
+      <Translation>Název efektu:</Translation>
+      <Old null="1" />
+    </RenameEffect_Label>
+    <CreateStyle_Title>
+      <Translation>Vytvořte styl</Translation>
+      <Old null="1" />
+    </CreateStyle_Title>
+    <CreateStyle_Label>
+      <Translation>Nový název stylu:</Translation>
+      <Old null="1" />
+    </CreateStyle_Label>
+    <RenameStyle_Title>
+      <Translation>Změnit název stylu</Translation>
+      <Old null="1" />
+    </RenameStyle_Title>
+    <RenameStyle_Label>
+      <Translation>Nový název stylu:</Translation>
+      <Old null="1" />
+    </RenameStyle_Label>
+    <ChangeAuthor_Title>
+      <Translation>Změnit autora stylu</Translation>
+      <Old null="1" />
+    </ChangeAuthor_Title>
+    <ChangeAuthor_Label>
+      <Translation>Nový autor stylu:</Translation>
+      <Old null="1" />
+    </ChangeAuthor_Label>
+    <DuplicateStyle_Title>
+      <Translation>Duplicitní styl</Translation>
+      <Old null="1" />
+    </DuplicateStyle_Title>
+    <DuplicateStyle_Label>
+      <Translation>Nový název stylu:</Translation>
+      <Old null="1" />
+    </DuplicateStyle_Label>
+    <IconDims_Title>
+      <Translation>Rozměry ikon</Translation>
+      <Old null="1" />
+    </IconDims_Title>
+    <IconDims_Width>
+      <Translation>Zadejte šířku ikon v pixelech:</Translation>
+      <Old null="1" />
+    </IconDims_Width>
+    <IconDims_Height>
+      <Translation>Zadejte výšku ikon v pixelech:</Translation>
+      <Old null="1" />
+    </IconDims_Height>
+    <IconDims_NumberError>
+      <Translation>Zadejte celé číslo větší než nula.</Translation>
+      <Old null="1" />
+    </IconDims_NumberError>
+    <AtlasTexture_Title>
+      <Translation>Atlas dimensions</Translation>
+      <Old null="1" />
+    </AtlasTexture_Title>
+    <AtlasTexture_Width>
+      <Translation>Please enter the width of the atlas, in pixels:</Translation>
+      <Old null="1" />
+    </AtlasTexture_Width>
+    <AtlasTexture_Height>
+      <Translation>Please enter the height of the atlas, in pixels:</Translation>
+      <Old null="1" />
+    </AtlasTexture_Height>
+    <AtlasTexture_NumberError>
+      <Translation>Please enter a whole number greater than zero.</Translation>
+      <Old null="1" />
+    </AtlasTexture_NumberError>
+    <Centerable_Prompt>
+      <Translation encoding="c-literal">Vyberte jeden ze dvou režimů šířky ikon:\n\n• Středové ikony mohou být vodorovně vystředěny nad tanky. Šířka uložených ikon se odpovídajícím způsobem liší.\n• Všechny ikony s pevnou šířkou mají stejnou šířku, ale nebudou správně vystředěny, pokud není obraz tanku již vystředěn uvnitř hranic ikon.\n\nVšimněte si, že toto nastavení nemá uvnitř viditelný efekt. Tank Icon Maker, protože všechny ikony jsou zarovnány doleva. Efekt bude viditelný ve hře.\n\nPro tento styl byl vybrán režim současné šířky: {0}.</Translation>
+      <Old null="1" />
+    </Centerable_Prompt>
+    <Centerable_Yes>
+      <Translation>Centrovatelné</Translation>
+      <Old null="1" />
+    </Centerable_Yes>
+    <Centerable_No>
+      <Translation>Pevná šířka</Translation>
+      <Old null="1" />
+    </Centerable_No>
+    <ExportFormat_Title>
+      <Translation>Export stylů</Translation>
+      <Old null="1" />
+    </ExportFormat_Title>
+    <ExportFormat_Label>
+      <Translation>Šablona názvu souboru (podporované podsložky):</Translation>
+      <Old null="1" />
+    </ExportFormat_Label>
+    <Yes>
+      <Translation>Ano</Translation>
+      <Old null="1" />
+    </Yes>
+    <No>
+      <Translation>Ne</Translation>
+      <Old null="1" />
+    </No>
+    <Cancel>
+      <Translation>Zrušit</Translation>
+      <Old>Cancel</Old>
+    </Cancel>
+    <PromptWindowOK>
+      <Translation>OK</Translation>
+      <Old null="1" />
+    </PromptWindowOK>
+    <OverwriteIcons_Prompt>
+      <Translation encoding="c-literal">Chcete přepsat své současné ikony?\r\n\r\nCesta: {0}\r\n\r\nUpozornění: VŠECHNY {1} soubory v této cestě budou přepsány a za to neexistuje žádný ZPĚT!</Translation>
+      <Old encoding="c-literal">Would you like to overwrite your current icons?\n\nPath: {0}\n\nWarning: ALL {1} files in this path will be overwritten, and there is NO UNDO for this!</Old>
+    </OverwriteIcons_Prompt>
+    <OverwriteIcons_Yes>
+      <Translation>&amp;Ano, přepsat všechny soubory</Translation>
+      <Old null="1" />
+    </OverwriteIcons_Yes>
+    <GameNotFound_Prompt>
+      <Translation>Zdá se, že tento adresář neobsahuje podporovanou verzi World Of Tanks. Opravdu ho chcete použít?</Translation>
+      <Old null="1" />
+    </GameNotFound_Prompt>
+    <GameNotFound_Ignore>
+      <Translation>&amp;Použít přesto</Translation>
+      <Old null="1" />
+    </GameNotFound_Ignore>
+    <IconsSaved>
+      <Translation encoding="c-literal">Icons saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Translation>
+      <Old null="1" />
+    </IconsSaved>
+    <IconsAndAtlasSaved>
+      <Translation encoding="c-literal">Icons saved to “{0}”!\nBattleAtlas saved to “{1}”\nVehicleMarkerAtlas saved to “{2}”\nCustom atlas saved to “{3}”\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Translation>
+      <Old null="1" />
+    </IconsAndAtlasSaved>
+    <AtlasSaved>
+      <Translation encoding="c-literal">Atlas saved to “{0}”!\n\n• Icons with text may show mirrored.\n• The game may overlay tank tiers on top of your icons.\n\nTo find out how these issues can be fixed please refer to the Tank Icon Maker website.</Translation>
+      <Old null="1" />
+    </AtlasSaved>
+    <IconsSavedGoToForum>
+      <Translation>Otevřete &amp;webovou stránku v prohlížeči</Translation>
+      <Old null="1" />
+    </IconsSavedGoToForum>
+    <IconsSaveSkipped>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Note that 1 image was skipped due to errors.</item>
+        <item>Note that {0} images were skipped due to errors.</item>
+      </Translations>
+      <Old null="1" />
+    </IconsSaveSkipped>
+    <IconsSaveError>
+      <Translation encoding="c-literal">The icons could not be saved due to an error.\n\nError message:\n • {0}</Translation>
+      <Old null="1" />
+    </IconsSaveError>
+    <VisitWebsiteBtn>
+      <Translation>Navštivte webovou stránku projektu.</Translation>
+      <Old>Visit project website</Old>
+    </VisitWebsiteBtn>
+    <Upvote_BuiltInOnly>
+      <Translation>Z bezpečnostních důvodů lze upgradovat pouze vestavěné styly.</Translation>
+      <Old null="1" />
+    </Upvote_BuiltInOnly>
+    <Upvote_NotAvailable>
+      <Translation>Tento styl v současné době nemá přidružený příspěvek na fórech World of Tanks.</Translation>
+      <Old null="1" />
+    </Upvote_NotAvailable>
+    <Upvote_Prompt>
+      <Translation encoding="c-literal">Děkujeme {0} za návrh tohoto stylu, prosím přidejte následující téma na fóru World of Tanks:\r\n\r\n{1}</Translation>
+      <Old encoding="c-literal">To thank {0} for designing this style, please upvote the following topic on the World of Tanks forum:\n\n{1}</Old>
+    </Upvote_Prompt>
+    <Upvote_Open>
+      <Translation>&amp;Otevřít v prohlížeči</Translation>
+      <Old null="1" />
+    </Upvote_Open>
+    <PasteLayerEffect_Error>
+      <Translation>Nelze vložit vrstvu nebo efekt. Pokud vkládáte surový XML, je v něm pravděpodobně chyba.</Translation>
+      <Old null="1" />
+    </PasteLayerEffect_Error>
+    <DeleteLayerEffect_Prompt>
+      <Translation>Odstraňte vybranou vrstvu</Translation>
+      <Old null="1" />
+    </DeleteLayerEffect_Prompt>
+    <DeleteLayerEffect_Yes>
+      <Translation>&amp;Odstranit</Translation>
+      <Old null="1" />
+    </DeleteLayerEffect_Yes>
+    <BulkStyles_ColumnTitle>
+      <Translation>Styl</Translation>
+      <Old null="1" />
+    </BulkStyles_ColumnTitle>
+    <BulkStyles_PathColumn>
+      <Translation>Ikona uložení cesty</Translation>
+      <Old null="1" />
+    </BulkStyles_PathColumn>
+    <DeleteStyle_Prompt>
+      <Translation>Vyberte styly, které chcete odstranit:</Translation>
+      <Old null="1" />
+    </DeleteStyle_Prompt>
+    <DeleteStyle_Yes>
+      <Translation>Odstranit</Translation>
+      <Old null="1" />
+    </DeleteStyle_Yes>
+    <DeleteStyle_PromptSure>
+      <Translation>Opravdu chcete tyto styly smazat?</Translation>
+      <Old null="1" />
+    </DeleteStyle_PromptSure>
+    <DeleteStyle_Success>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Style deleted.</item>
+        <item>{0} styles deleted.</item>
+      </Translations>
+      <Old null="1" />
+    </DeleteStyle_Success>
+    <StyleImport_Fail>
+      <Translation>Soubor nelze z nějakého důvodu načíst. Může to být ve špatném formátu.</Translation>
+      <Old null="1" />
+    </StyleImport_Fail>
+    <StyleExport_Prompt>
+      <Translation>Vyberte styly, které chcete exportovat:</Translation>
+      <Old null="1" />
+    </StyleExport_Prompt>
+    <StyleExport_Yes>
+      <Translation>Export</Translation>
+      <Old null="1" />
+    </StyleExport_Yes>
+    <StyleExport_Success>
+      <IsNumber>
+        <item>True</item>
+      </IsNumber>
+      <Translations>
+        <item>Styl byl exportován.</item>
+        <item>BylY exportováno {0} stylY.</item>
+        <item></item>
+      </Translations>
+      <Old>
+        <item>The style has been exported.</item>
+        <item>{0} styles have been exported.</item>
+      </Old>
+    </StyleExport_Success>
+    <BulkSave_Prompt>
+      <Translation encoding="c-literal">Chystáte se uložit ikony tanků pro více stylů. Všechny existující ikony budou přepsány bez dalšího potvrzení!\r\n\r\nVyberte styly, pro které chcete ikony uložit:</Translation>
+      <Old encoding="c-literal">You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:</Old>
+    </BulkSave_Prompt>
+    <BulkSave_Yes>
+      <Translation>Uložit</Translation>
+      <Old null="1" />
+    </BulkSave_Yes>
+    <BulkSave_Progress>
+      <Translation>Ukládání ikon ...</Translation>
+      <Old null="1" />
+    </BulkSave_Progress>
+  </Prompt>
+  <Error>
+    <DataMissing_NoWotInstallation>
+      <Translation>Na této cestě se nepodařilo zjistit podporovanou instalaci World of Tanks.</Translation>
+      <Old null="1" />
+    </DataMissing_NoWotInstallation>
+    <DataMissing_WotVersionTooOld>
+      <Translation>Tato verze World of Tanks ({0}) není podporována, protože nejsou k dispozici žádné vhodné konfigurační soubory.</Translation>
+      <Old null="1" />
+    </DataMissing_WotVersionTooOld>
+    <DataMissing_NoInstallationSelected>
+      <Translation>Vyberte instalaci hry výše nebo přidejte novou pomocí zeleného tlačítka [+].</Translation>
+      <Old null="1" />
+    </DataMissing_NoInstallationSelected>
+    <DataMissing_DirNotFound>
+      <Translation>Tento adresář neexistuje.</Translation>
+      <Old null="1" />
+    </DataMissing_DirNotFound>
+    <RenderWithErrors>
+      <Translation>Některé ikony tanku nebyly vykresleny správně; Nezapomeňte si prohlédnout „Všechny tanky“ a pro podrobnosti klikněte na každý rozbitý obrázek.</Translation>
+      <Old null="1" />
+    </RenderWithErrors>
+    <RenderWithWarnings>
+      <Translation>Některé z ikon tanku se zobrazují s upozorněním; Nezapomeňte zobrazit "Všechny tanky" a kliknutím na každý obrázek s ikonou upozornění zobrazte podrobnosti.</Translation>
+      <Old null="1" />
+    </RenderWithWarnings>
+    <RenderIconOK>
+      <Translation>Tato ikona byla vykreslena bez problémů.</Translation>
+      <Old null="1" />
+    </RenderIconOK>
+    <RenderIconFail>
+      <Translation>Tuto ikonu nelze vykreslit: {0}</Translation>
+      <Old null="1" />
+    </RenderIconFail>
+    <ClipboardError>
+      <Translation encoding="c-literal">Nelze kopírovat do schránky: schránka pravděpodobně právě teď používá jiná aplikace.\r\n\r\nZkus to znovu?</Translation>
+      <Old encoding="c-literal">Could not copy to clipboard: another application is probably using the clipboard right now.\n\nTry again?</Old>
+    </ClipboardError>
+    <ClipboardError_Retry>
+      <Translation>&amp;Opakovat</Translation>
+      <Old null="1" />
+    </ClipboardError_Retry>
+    <ExceptionGlobal>
+      <Translation encoding="c-literal">Došlo k chybě. Toto je chyba v programu.\r\n\r\nZašlete prosím chybovou zprávu programátorovi, aby bylo možné tuto chybu opravit.</Translation>
+      <Old encoding="c-literal">An error has occurred. This is a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionGlobal>
+    <ExceptionLoadingGameData>
+      <Translation encoding="c-literal">Data hry se nepodařilo načíst. Toto je pravděpodobně chyba v programu.\r\n\r\nZašlete prosím chybovou zprávu programátorovi, aby bylo možné tuto chybu opravit.</Translation>
+      <Old encoding="c-literal">Could not load game data. This is probably a bug in the program.\n\nPlease send an error report to the programmer so that this can be fixed.</Old>
+    </ExceptionLoadingGameData>
+    <ExceptionInRender>
+      <Translation>Vrstva nebo efekt vyvolala výjimku při vykreslování tohoto obrázku. Toto je chyba v programu; nahlaste to prosím.</Translation>
+      <Old null="1" />
+    </ExceptionInRender>
+    <ErrorToClipboard_Copy>
+      <Translation>Zkopírujte zprávu do &amp;schránky</Translation>
+      <Old>Copy report to &amp;clipboard</Old>
+    </ErrorToClipboard_Copy>
+    <ErrorToClipboard_OK>
+      <Translation>OK</Translation>
+      <Old null="1" />
+    </ErrorToClipboard_OK>
+    <ErrorToClipboard_Copied>
+      <Translation>Informace o chybě jsou nyní ve vaší schránce.</Translation>
+      <Old null="1" />
+    </ErrorToClipboard_Copied>
+  </Error>
+  <Misc>
+    <ProgramVersion>
+      <Translation>Verze {0} (sestavení {1})</Translation>
+      <Old null="1" />
+    </ProgramVersion>
+    <GlobalStatus_Loading>
+      <Translation>Načítání...</Translation>
+      <Old null="1" />
+    </GlobalStatus_Loading>
+    <GlobalStatus_Saving>
+      <Translation>Ukládání ...</Translation>
+      <Old null="1" />
+    </GlobalStatus_Saving>
+    <Filter_FilenameEditor>
+      <Translation>Obrazové soubory | * .png; *. Jpg; *. Tga | Všechny soubory | *. *</Translation>
+      <Old null="1" />
+    </Filter_FilenameEditor>
+    <Filter_ImportExportStyle>
+      <Translation>Ikony stylů | * .xml | Všechny soubory | *. *</Translation>
+      <Old null="1" />
+    </Filter_ImportExportStyle>
+    <NameOfCopied>
+      <Translation>{0} (kopie)</Translation>
+      <Old null="1" />
+    </NameOfCopied>
+    <NameOfNewStyle>
+      <Translation>Nový styl</Translation>
+      <Old null="1" />
+    </NameOfNewStyle>
+    <NameOfTankImageLayer>
+      <Translation>Obrázek tanku</Translation>
+      <Old null="1" />
+    </NameOfTankImageLayer>
+    <NameOfNewStyleAuthor>
+      <Translation>mě</Translation>
+      <Old null="1" />
+    </NameOfNewStyleAuthor>
+    <StyleDisplay_Original>
+      <Translation>[originál]</Translation>
+      <Old null="1" />
+    </StyleDisplay_Original>
+    <StyleDisplay_Current>
+      <Translation>[aktuální]</Translation>
+      <Old null="1" />
+    </StyleDisplay_Current>
+    <StyleDisplay_BuiltIn>
+      <Translation>[vestavěný] {0} (o {1})</Translation>
+      <Old null="1" />
+    </StyleDisplay_BuiltIn>
+    <StyleDisplay_Normal>
+      <Translation>{0} (o {1})</Translation>
+      <Old null="1" />
+    </StyleDisplay_Normal>
+    <PropSource_Author>
+      <Translation>Autor:</Translation>
+      <Old null="1" />
+    </PropSource_Author>
+    <PropSource_TierRoman>
+      <Translation>Úroveň (Roman)</Translation>
+      <Old null="1" />
+    </PropSource_TierRoman>
+    <PropSource_TierArabic>
+      <Translation>Úroveň (arabština)</Translation>
+      <Old null="1" />
+    </PropSource_TierArabic>
+    <ExpandablePropertyDesc>
+      <Translation>(rozbalte a upravte)</Translation>
+      <Old null="1" />
+    </ExpandablePropertyDesc>
+  </Misc>
+  <Calculator>
+    <CouldNotParseExpression>
+      <Translation>nemohl analyzovat výraz</Translation>
+      <Old null="1" />
+    </CouldNotParseExpression>
+    <ErrLabel_Error>
+      <Translation>Chyba</Translation>
+      <Old null="1" />
+    </ErrLabel_Error>
+    <ErrLabel_Expression>
+      <Translation>Výraz</Translation>
+      <Old null="1" />
+    </ErrLabel_Expression>
+    <ErrLabel_Layer>
+      <Translation>Vrstva</Translation>
+      <Old null="1" />
+    </ErrLabel_Layer>
+    <ErrLabel_Effect>
+      <Translation>Efekt</Translation>
+      <Old>Effect</Old>
+    </ErrLabel_Effect>
+    <ErrLabel_Property>
+      <Translation>Vlastnictví</Translation>
+      <Old null="1" />
+    </ErrLabel_Property>
+    <Err_LocationMarker>
+      <Translation>TADY</Translation>
+      <Old null="1" />
+    </Err_LocationMarker>
+    <Err_ExpectedEndOfExpression>
+      <Translation>očekávaný konec projevu</Translation>
+      <Old null="1" />
+    </Err_ExpectedEndOfExpression>
+    <Err_UnexpectedEndOfExpression>
+      <Translation>neočekávaný konec projevu</Translation>
+      <Old null="1" />
+    </Err_UnexpectedEndOfExpression>
+    <Err_ExpectedParenthesisOrOperator>
+      <Translation>očekávané „)“ nebo operátor</Translation>
+      <Old null="1" />
+    </Err_ExpectedParenthesisOrOperator>
+    <Err_ExpectedCommaOrParenthesis>
+      <Translation>očekávané „,“ nebo „)“</Translation>
+      <Old null="1" />
+    </Err_ExpectedCommaOrParenthesis>
+    <Err_UnexpectedCharacter>
+      <Translation>neočekávaný znak: „{0}“</Translation>
+      <Old null="1" />
+    </Err_UnexpectedCharacter>
+    <Err_CannotParseNumber>
+      <Translation>nelze analyzovat číslo: „{0}“</Translation>
+      <Old null="1" />
+    </Err_CannotParseNumber>
+    <Err_UnknownVariable>
+      <Translation>neznámá proměnná: “{0}”</Translation>
+      <Old null="1" />
+    </Err_UnknownVariable>
+    <Err_UnknownFunction>
+      <Translation>neznámá funkce: „{0}“</Translation>
+      <Old null="1" />
+    </Err_UnknownFunction>
+    <Err_UnknownLayerProperty>
+      <Translation>neznámá vlastnost vrstvy: „{0}“</Translation>
+      <Old null="1" />
+    </Err_UnknownLayerProperty>
+    <Err_ResultInfinite>
+      <Translation>výsledek výpočtu je nekonečný (dělení nulou?)</Translation>
+      <Old null="1" />
+    </Err_ResultInfinite>
+    <Err_ResultNaN>
+      <Translation>výsledek výpočtu není-a-číslo (nula dělená nulou?)</Translation>
+      <Old null="1" />
+    </Err_ResultNaN>
+    <Err_FunctionParamCountExact>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>funkce „{0}“ vyžaduje parametr {1}; dostal {2}</item>
+        <item>funkce „{0}“ vyžaduje parametr {1}; dostal {2}</item>
+        <item></item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires {1} parameter; got {2}</item>
+        <item>function “{0}” requires {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountExact>
+    <Err_FunctionParamCountAtLeast>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>funkce „{0}“ vyžaduje parametr {1}; dostal {2}</item>
+        <item>funkce „{0}“ vyžaduje parametr {1}; dostal {2}</item>
+        <item></item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires at least {1} parameter; got {2}</item>
+        <item>function “{0}” requires at least {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountAtLeast>
+    <Err_FunctionParamCountAtMost>
+      <IsNumber>
+        <item>False</item>
+        <item>True</item>
+        <item>False</item>
+      </IsNumber>
+      <Translations>
+        <item>funkce „{0}“ vyžaduje parametr {1}; dostal {2}</item>
+        <item>funkce „{0}“ vyžaduje parametr {1}; dostal {2}</item>
+        <item></item>
+      </Translations>
+      <Old>
+        <item>function “{0}” requires at most {1} parameter; got {2}</item>
+        <item>function “{0}” requires at most {1} parameters; got {2}</item>
+      </Old>
+    </Err_FunctionParamCountAtMost>
+    <Err_NoLayerWithId>
+      <Translation>neznámé ID vrstvy: „{0}“</Translation>
+      <Old null="1" />
+    </Err_NoLayerWithId>
+    <Err_RecursiveLayerReference>
+      <Translation>rekurzivní odkaz na vrstvu: „{0}“</Translation>
+      <Old null="1" />
+    </Err_RecursiveLayerReference>
+  </Calculator>
+</item>
