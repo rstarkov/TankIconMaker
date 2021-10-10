@@ -33,6 +33,10 @@
       <Translation>(标准)</Translation>
       <Old>(standard)</Old>
     </PathTemplate_Standard>
+    <FontFamilyNotFound>
+      <Translation>The "{0}" font was not found.</Translation>
+      <Old>The "{0}" font was not found.</Old>
+    </FontFamilyNotFound>
     <ErrorConflictingId>
       <Translation>二个或更多层拥有相同 ID “{0}”时. 层 IDs必须唯一.</Translation>
       <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>

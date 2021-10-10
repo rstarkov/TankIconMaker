@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.IO.Packaging;
@@ -941,8 +942,32 @@ namespace TankIconMaker
                     DlgMessage.ShowInfo(App.Translation.Error.ErrorToClipboard_Copied);
         }
 
+        private Boolean checkingForFont(string fontFamily)
+        {
+            InstalledFontCollection installedFontCollection = new InstalledFontCollection();
+            System.Drawing.FontFamily[] fontFamilies = installedFontCollection.Families;
+            int count = fontFamilies.Length;
+            Boolean fontFound = false;
+            for (int i = 0; i < count && !fontFound; ++i)
+            {
+                fontFound = (fontFamily == fontFamilies[i].Name);
+            }
+            if (!fontFound)
+            {
+                string message = App.Translation.MainWindow.FontFamilyNotFound.Fmt(fontFamily);
+                string caption = App.Translation.DlgMessage.CaptionWarning.ToString();
+                MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            return fontFound;
+        }
+
         private void ctLayerProperties_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
+            PropertyItem changedProperty = (PropertyItem)e.OriginalSource;
+            if (changedProperty.PropertyDescriptor.Name == "FontFamily")
+            {
+                checkingForFont(e.NewValue.ToString());
+            }
             if (App.Settings.ActiveStyle.Kind != StyleKind.User)
             {
                 GetEditableStyle(); // duplicate the style

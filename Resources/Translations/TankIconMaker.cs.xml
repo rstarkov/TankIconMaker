@@ -33,6 +33,10 @@
       <Translation>(Standard)</Translation>
       <Old null="1" />
     </PathTemplate_Standard>
+    <FontFamilyNotFound>
+      <Translation>The "{0}" font was not found.</Translation>
+      <Old>The "{0}" font was not found.</Old>
+    </FontFamilyNotFound>
     <ErrorConflictingId>
       <Translation>Dvě nebo více vrstev mají stejné ID „{0}“. ID vrstvy musí být jedinečné.</Translation>
       <Old null="1" />

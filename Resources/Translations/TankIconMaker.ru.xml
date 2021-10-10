@@ -33,6 +33,10 @@
       <Translation>(стандартный)</Translation>
       <Old>(standard)</Old>
     </PathTemplate_Standard>
+    <FontFamilyNotFound>
+      <Translation>Шрифт "{0}" не найден.</Translation>
+      <Old>The "{0}" font was not found.</Old>
+    </FontFamilyNotFound>
     <ErrorConflictingId>
       <Translation>Идентификаторы двух слоев совпадают: “{0}”.</Translation>
       <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
