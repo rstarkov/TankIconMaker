@@ -33,6 +33,10 @@
       <Translation>(Standard)</Translation>
       <Old>(standard)</Old>
     </PathTemplate_Standard>
+    <FontFamilyNotFound>
+      <Translation>The "{0}" font was not found.</Translation>
+      <Old>The "{0}" font was not found.</Old>
+    </FontFamilyNotFound>
     <ErrorConflictingId>
       <Translation>Zwei oder mehr Ebenen haben den gleichen Bezeichner, „{0}“. Die Bezeichner müssen eindeutig sein.</Translation>
       <Old>Two or more layers have the same ID “{0}”. Layer IDs must be unique.</Old>
