@@ -46,7 +46,7 @@
       <Old null="1" />
     </ErrorMagickEffectNoRedist>
     <ErrorCreateAtlasImage>
-      <Translation>Unable to place images in the atlas. Try reducing the size of the images or resizing the atlas. See item "More" &gt; "Atlas width|height".</Translation>
+      <Translation>Unable to place images in the atlas “{0}”. Try reducing the size of the images or resizing the atlas. See item "More" &gt; "Atlas width|height".</Translation>
       <Old null="1" />
     </ErrorCreateAtlasImage>
     <ctGameDirLabel>
