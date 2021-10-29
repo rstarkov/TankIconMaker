@@ -46,7 +46,7 @@
       <Old>Visual C++ Redistrable 2013 not found. You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784</Old>
     </ErrorMagickEffectNoRedist>
     <ErrorCreateAtlasImage>
-      <Translation>Невозможно разместить изображения в атласе. Попробуйте уменьшить размер изображений или изменить размер атласа. См. пункт "Еще" > "Ширина|Высота атласа".</Translation>
+      <Translation>Невозможно разместить изображения в атласе “{0}”. Попробуйте уменьшить размер изображений или изменить размер атласа. См. пункт "Еще" > "Ширина|Высота атласа".</Translation>
       <Old>Unable to place images in the atlas. Try reducing the size of the images or resizing the atlas. See item "More" > "Atlas width|height".</Old>
     </ErrorCreateAtlasImage>
     <ctGameDirLabel>

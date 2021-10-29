@@ -177,7 +177,7 @@ namespace TankIconMaker
                             j++;
                     if (Rct.Bottom > TextureHeight)
                     {
-                        throw new Exception(App.Translation.MainWindow.ErrorCreateAtlasImage);
+                        throw new Exception(App.Translation.MainWindow.ErrorCreateAtlasImage.Fmt(App.Settings.ActiveStyle.Name));
                     }
                     j = TakePlaceList.Count - 1;
                     while ((j >= 0) && (TakePlaceList[j].Bottom > Rct.Bottom))
