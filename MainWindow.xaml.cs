@@ -609,7 +609,7 @@ namespace TankIconMaker
                 return;
             try
             {
-                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, context);
+                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, "test", context);
                 tank.LoadedImage = new BitmapRam(style.IconWidth, style.IconHeight);
                 layer.Draw(tank);
             }
@@ -626,7 +626,7 @@ namespace TankIconMaker
             _warnings.RemoveWhere(w => w is Warning_LayerTest_UnexpectedProperty);
             try
             {
-                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, context);
+                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, "test", context);
                 tank.PropertyValue = "z"; // very short, so substring/indexing can fail, also not parseable as integer. Hopefully "unexpected enough".
                 tank.LoadedImage = new BitmapRam(style.IconWidth, style.IconHeight);
                 layer.Draw(tank);
@@ -643,7 +643,7 @@ namespace TankIconMaker
             _warnings.RemoveWhere(w => w is Warning_LayerTest_MissingImage);
             try
             {
-                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, context);
+                var tank = new TestTank("test", 5, Country.USSR, Class.Medium, Category.Normal, "test", context);
                 tank.PropertyValue = "test";
                 layer.Draw(tank);
             }
