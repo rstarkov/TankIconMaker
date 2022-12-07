@@ -272,7 +272,7 @@ namespace TankIconMaker
 
         public TrString PathTemplate_Standard = "(standard)";
         public TrString FontFamilyNotFound = "The \"{0}\" font was not found.";
-        
+
         public TrString ErrorConflictingId = "Two or more layers have the same ID “{0}”. Layer IDs must be unique.";
         public TrString ErrorMagickEffectNoRedist = "Visual C++ Redistrable 2013 not found. " +
             "You can install it from https://www.microsoft.com/ru-RU/download/details.aspx?id=40784";
