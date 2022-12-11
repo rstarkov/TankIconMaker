@@ -34,7 +34,7 @@ namespace TankIconMaker.Layers
                         image = null;
                         foreach (string items in guiPackage)
                         {
-                            image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour.Replace("\"GuiPackage\"", items), tank.TankId + config.TankIconExtension));
+                            image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSourceContour.Replace("\"GuiPackage\"", items), tank.ImageName + config.TankIconExtension));
                             if (image != null)
                                 break;
                         }
@@ -43,7 +43,7 @@ namespace TankIconMaker.Layers
                         image = null;
                         foreach (string items in guiPackage)
                         {
-                            image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D.Replace("\"GuiPackage\"", items), tank.TankId + config.TankIconExtension));
+                            image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3D.Replace("\"GuiPackage\"", items), tank.ImageName + config.TankIconExtension));
                             if (image != null)
                                 break;
                         }
@@ -52,7 +52,7 @@ namespace TankIconMaker.Layers
                         image = null;
                         foreach (string items in guiPackage)
                         {
-                            image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge.Replace("\"GuiPackage\"", items), tank.TankId + config.TankIconExtension));
+                            image = ImageCache.GetImage(new CompositePath(tank.Context, installation.Path, config.PathSource3DLarge.Replace("\"GuiPackage\"", items), tank.ImageName + config.TankIconExtension));
                             if (image != null)
                                 break;
                         }

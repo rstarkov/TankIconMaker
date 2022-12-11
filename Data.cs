@@ -18,8 +18,8 @@ namespace TankIconMaker
             _addWarning = addWarning;
         }
 
-        public Tank(string tankId, int tier, Country country, Class class_, Category category)
-            : base(tankId, country, tier, class_, category, Enumerable.Empty<KeyValuePair<ExtraPropertyId, string>>(), null)
+        public Tank(string tankId, int tier, Country country, Class class_, Category category, string imageName)
+            : base(tankId, country, tier, class_, category, imageName, Enumerable.Empty<KeyValuePair<ExtraPropertyId, string>>(), null)
         {
         }
 
@@ -37,8 +37,8 @@ namespace TankIconMaker
     class TestTank : Tank
     {
         /// <summary>Constructor.</summary>
-        public TestTank(string tankId, int tier, Country country, Class class_, Category category, WotContext context)
-            : base(tankId, tier, country, class_, category)
+        public TestTank(string tankId, int tier, Country country, Class class_, Category category, string imageName, WotContext context)
+            : base(tankId, tier, country, class_, category, imageName)
         {
             TankId = tankId;
             Tier = tier;
@@ -46,6 +46,7 @@ namespace TankIconMaker
             Class = class_;
             Category = category;
             Context = context;
+            ImageName = imageName;
         }
 
         public string PropertyValue;
