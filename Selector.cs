@@ -118,6 +118,8 @@ namespace TankIconMaker
         public static MemberTr Tier9Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(9)); }
         public T Tier10 { get; set; }
         public static MemberTr Tier10Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(10)); }
+        public T Tier11 { get; set; }
+        public static MemberTr Tier11Tr(Translation tr) { return new MemberTr(tr.Selector.TierN.Fmt(11)); }
 
         public static MemberTr ByTr(Translation tr) { return new MemberTr(tr.Selector.By, getDescriptionString(tr).Fmt(2)); }
         public static MemberTr By2Tr(Translation tr) { return new MemberTr(tr.Selector.ByN.Fmt(2), getDescriptionString(tr).Fmt(3)); }
@@ -132,7 +134,7 @@ namespace TankIconMaker
         public ValueSelector(T value)
             : base(value)
         {
-            Tier1 = Tier2 = Tier3 = Tier4 = Tier5 = Tier6 = Tier7 = Tier8 = Tier9 = Tier10 = TierNone = value;
+            Tier1 = Tier2 = Tier3 = Tier4 = Tier5 = Tier6 = Tier7 = Tier8 = Tier9 = Tier10 = Tier11 = TierNone = value;
         }
 
         public T GetValue(Tank tank)
@@ -167,6 +169,7 @@ namespace TankIconMaker
                         case 8: return Tier8;
                         case 9: return Tier9;
                         case 10: return Tier10;
+                        case 11: return Tier11;
                         default: throw new Exception();
                     }
                 case SelectBy.Single: return Single;

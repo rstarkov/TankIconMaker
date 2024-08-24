@@ -766,7 +766,7 @@ namespace TankIconMaker
         public TrString Class = "Class (Artillery • Destroyer • Light • etc)";
         public TrString Country = "Country (USSR • Germany • USA • etc)";
         public TrString Category = "Availability (Normal • Premium • etc)";
-        public TrString Tier = "Tier (1 .. 10)";
+        public TrString Tier = "Tier (1 .. 11)";
         public TrString Single = "Single value";
 
         public class Conv : LingoEnumConverter<SelectBy, SelectByTranslation>
