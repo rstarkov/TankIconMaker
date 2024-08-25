@@ -31,5 +31,5 @@
     <item key="Artillery">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\tanks\SPG.png</item>
   </PathSourceClass>
   <TankIconExtension>.png</TankIconExtension>
-  <GuiPackageName>gui-part1 gui-part2</GuiPackageName>
+  <GuiPackageName>gui-part1 gui-part2 gui-part3</GuiPackageName>
 </item>
