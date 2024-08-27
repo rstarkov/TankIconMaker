@@ -140,8 +140,8 @@ ussr-R77_KV2_IGR,,,,,,del
 #  - type: one of "light", "medium", "heavy", "artillery", "destroyer", "none"
 #  - availability: one of "normal" (available for silver), "premium" (available for gold), "special" (not available)
 #  - game version: #1234, the "#" is mandatory and the number MUST consist of 4 digits
-#  - icon name: file name with vehicle icon
 #  - "del" marker: see examples above
+#  - icon name: file name with vehicle icon
 #
 # All fields except for the first one are optional.
 #
