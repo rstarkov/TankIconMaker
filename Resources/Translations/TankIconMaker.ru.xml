@@ -463,7 +463,7 @@
       <Translation>Наименование</Translation>
       <Old>Name</Old>
     </ctNameColHeader>
-	<ctEnabledColHeader>
+    <ctEnabledColHeader>
       <Translation>Включено</Translation>
       <Old>Enabled</Old>
     </ctEnabledColHeader>

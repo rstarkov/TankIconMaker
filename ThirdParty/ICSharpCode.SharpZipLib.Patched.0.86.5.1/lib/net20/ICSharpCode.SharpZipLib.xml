@@ -43,7 +43,7 @@
             <summary>
             When multiplied by compression parameter (1-9) gives the block size for compression
             9 gives the best compression but uses the most memory.
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.BZip2.BZip2Constants.MaximumAlphaSize">
             <summary>
@@ -359,7 +359,7 @@
         <member name="M:ICSharpCode.SharpZipLib.BZip2.BZip2OutputStream.Flush">
             <summary>
             Flush output buffers
-            </summary>		
+            </summary>
         </member>
         <member name="T:ICSharpCode.SharpZipLib.Checksums.Adler32">
             <summary>
@@ -588,7 +588,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Checksums.StrangeCRC.#ctor">
             <summary>
             Initialise a default instance of <see cref="T:ICSharpCode.SharpZipLib.Checksums.StrangeCRC"></see>
-            </summary>	
+            </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Checksums.StrangeCRC.Reset">
             <summary>
@@ -1221,7 +1221,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Encryption.PkzipClassicCryptoBase.UpdateKeys(System.Byte)">
             <summary>
             Update encryption keys
-            </summary>		
+            </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Encryption.PkzipClassicCryptoBase.Reset">
             <summary>
@@ -1526,7 +1526,7 @@
         </member>
         <member name="T:ICSharpCode.SharpZipLib.GZip.GZipException">
             <summary>
-            GZipException represents a Gzip specific exception	
+            GZipException represents a Gzip specific exception
             </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.GZip.GZipException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
@@ -1571,15 +1571,15 @@
 
             class MainClass
             {
-            	public static void Main(string[] args)
-            	{
-            		using (Stream inStream = new GZipInputStream(File.OpenRead(args[0])))
-            		using (FileStream outStream = File.Create(Path.GetFileNameWithoutExtension(args[0]))) {
-            			byte[] buffer = new byte[4096];
-            			StreamUtils.Copy(inStream, outStream, buffer);
-            		}
-            	}
-            }	
+              public static void Main(string[] args)
+              {
+                using (Stream inStream = new GZipInputStream(File.OpenRead(args[0])))
+                using (FileStream outStream = File.Create(Path.GetFileNameWithoutExtension(args[0]))) {
+                  byte[] buffer = new byte[4096];
+                  StreamUtils.Copy(inStream, outStream, buffer);
+                }
+              }
+            }
             </code>
             </example>
         </member>
@@ -1645,16 +1645,16 @@
 
              class MainClass
              {
-             	public static void Main(string[] args)
-             	{
-             			using (Stream s = new GZipOutputStream(File.Create(args[0] + ".gz")))
-             			using (FileStream fs = File.OpenRead(args[0])) {
-             				byte[] writeData = new byte[4096];
-             				Streamutils.Copy(s, fs, writeData);
-             			}
-             		}
-             	}
-             }	
+               public static void Main(string[] args)
+               {
+                   using (Stream s = new GZipOutputStream(File.Create(args[0] + ".gz")))
+                   using (FileStream fs = File.OpenRead(args[0])) {
+                     byte[] writeData = new byte[4096];
+                     Streamutils.Copy(s, fs, writeData);
+                   }
+                 }
+               }
+             }
              </code>
              </example>
         </member>
@@ -1819,18 +1819,18 @@
 
              class MainClass
              {
-             	public static void Main(string[] args)
-             	{
-            			using (Stream inStream = new LzwInputStream(File.OpenRead(args[0])))
-            			using (FileStream outStream = File.Create(Path.GetFileNameWithoutExtension(args[0]))) {
-            				byte[] buffer = new byte[4096];
-            				StreamUtils.Copy(inStream, outStream, buffer);
+               public static void Main(string[] args)
+               {
+                  using (Stream inStream = new LzwInputStream(File.OpenRead(args[0])))
+                  using (FileStream outStream = File.Create(Path.GetFileNameWithoutExtension(args[0]))) {
+                    byte[] buffer = new byte[4096];
+                    StreamUtils.Copy(inStream, outStream, buffer);
                                      // OR
                                      inStream.Read(buffer, 0, buffer.Length);
                                      // now do something with the buffer
-             		}
-             	}
-             }	
+                 }
+               }
+             }
              </code>
              </example>
         </member>
@@ -2812,7 +2812,7 @@
         </member>
         <member name="T:ICSharpCode.SharpZipLib.Tar.TarException">
             <summary>
-            TarExceptions are used for exceptions specific to tar classes and code.	
+            TarExceptions are used for exceptions specific to tar classes and code.
             </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Tar.TarException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
@@ -3607,7 +3607,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Tar.TarInputStream.EntryFactoryAdapter.CreateEntry(System.Byte[])">
             <summary>
             Create an entry based on details in <paramref name="headerBuffer">header</paramref>
-            </summary>			
+            </summary>
             <param name="headerBuffer">The buffer containing entry details.</param>
             <returns>A new <see cref="T:ICSharpCode.SharpZipLib.Tar.TarEntry"/></returns>
         </member>
@@ -3629,7 +3629,7 @@
         <member name="F:ICSharpCode.SharpZipLib.Tar.TarInputStream.readBuffer">
             <summary>
             Buffer used with calls to <code>Read()</code>
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Tar.TarInputStream.tarBuffer">
             <summary>
@@ -3739,7 +3739,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Tar.TarOutputStream.Flush">
             <summary>
             All buffered data is written to destination
-            </summary>		
+            </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Tar.TarOutputStream.Finish">
             <summary>
@@ -3840,7 +3840,7 @@
         <member name="F:ICSharpCode.SharpZipLib.Tar.TarOutputStream.assemblyBufferLength">
             <summary>
             current 'Assembly' buffer length
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Tar.TarOutputStream.isClosed">
             <summary>
@@ -4196,107 +4196,107 @@
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MAX_MATCH">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MIN_MATCH">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MAX_WBITS">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.WSIZE">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.WMASK">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.HASH_BITS">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.HASH_SIZE">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.HASH_MASK">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.HASH_SHIFT">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MIN_LOOKAHEAD">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MAX_DIST">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.PENDING_BUF_SIZE">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MAX_BLOCK_SIZE">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.DEFLATE_STORED">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.DEFLATE_FAST">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.DEFLATE_SLOW">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.GOOD_LENGTH">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MAX_LAZY">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.NICE_LENGTH">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.MAX_CHAIN">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="F:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterConstants.COMPR_FUNC">
             <summary>
             Internal compression engine constant
-            </summary>		
+            </summary>
         </member>
         <member name="T:ICSharpCode.SharpZipLib.Zip.Compression.DeflateStrategy">
             <summary>
@@ -4355,7 +4355,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.NeedsInput">
             <summary>
             Determines if more <see cref="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.SetInput(System.Byte[],System.Int32,System.Int32)">input</see> is needed.
-            </summary>		
+            </summary>
             <returns>Return true if input is needed via <see cref="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.SetInput(System.Byte[],System.Int32,System.Int32)">SetInput</see></returns>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.SetDictionary(System.Byte[],System.Int32,System.Int32)">
@@ -4369,27 +4369,27 @@
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.Reset">
             <summary>
             Reset internal state
-            </summary>		
+            </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.ResetAdler">
             <summary>
             Reset Adler checksum
-            </summary>		
+            </summary>
         </member>
         <member name="P:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.Adler">
             <summary>
             Get current value of Adler checksum
-            </summary>		
+            </summary>
         </member>
         <member name="P:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.TotalIn">
             <summary>
             Total data processed
-            </summary>		
+            </summary>
         </member>
         <member name="P:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.Strategy">
             <summary>
             Get/set the <see cref="T:ICSharpCode.SharpZipLib.Zip.Compression.DeflateStrategy">deflate strategy</see>
-            </summary>		
+            </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterEngine.SetLevel(System.Int32)">
             <summary>
@@ -4554,7 +4554,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterHuffman.Reset">
             <summary>
             Reset internal state
-            </summary>		
+            </summary>
         </member>
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterHuffman.SendAllTrees(System.Int32)">
             <summary>
@@ -4579,7 +4579,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.DeflaterHuffman.FlushBlock(System.Byte[],System.Int32,System.Int32,System.Boolean)">
             <summary>
             Flush block to output with compression
-            </summary>		
+            </summary>
             <param name="stored">Data to flush</param>
             <param name="storedOffset">Index of first byte to flush</param>
             <param name="storedLength">Count of bytes to flush</param>
@@ -5556,7 +5556,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Zip.Compression.Streams.InflaterInputStream.StopDecrypting">
             <summary>
             Clear any cryptographic state.
-            </summary>		
+            </summary>
         </member>
         <member name="P:ICSharpCode.SharpZipLib.Zip.Compression.Streams.InflaterInputStream.Available">
             <summary>
@@ -6687,7 +6687,7 @@
         <member name="M:ICSharpCode.SharpZipLib.Zip.ZipConstants.ConvertToString(System.Byte[],System.Int32)">
             <summary>
             Convert a portion of a byte array to a string.
-            </summary>		
+            </summary>
             <param name="data">
             Data to convert to string
             </param>
@@ -7043,7 +7043,7 @@
             by PKZIP for DOS version 2.04g then this value will be zero.  Otherwise the value
             will be non-zero and identify the host system on which the attributes are compatible.
             </summary>
-            		
+
             <remarks>
             The values for this as defined in the Zip File format and by others are shown below.  The values are somewhat
             misleading in some cases as they are not all used as shown.  You should consult the relevant documentation
@@ -7078,7 +7078,7 @@
         <member name="P:ICSharpCode.SharpZipLib.Zip.ZipEntry.Version">
             <summary>
             Get minimum Zip feature version required to extract this entry
-            </summary>		
+            </summary>
             <remarks>
             Minimum features are defined as:<br/>
             1.0 - Default value<br/>
@@ -8072,23 +8072,23 @@
 
             class MainClass
             {
-            	static public void Main(string[] args)
-            	{
-            		using (ZipFile zFile = new ZipFile(args[0])) {
-            			Console.WriteLine("Listing of : " + zFile.Name);
-            			Console.WriteLine("");
-            			Console.WriteLine("Raw Size    Size      Date     Time     Name");
-            			Console.WriteLine("--------  --------  --------  ------  ---------");
-            			foreach (ZipEntry e in zFile) {
-            				if ( e.IsFile ) {
-            					DateTime d = e.DateTime;
-            					Console.WriteLine("{0, -10}{1, -10}{2}  {3}   {4}", e.Size, e.CompressedSize,
-            						d.ToString("dd-MM-yy"), d.ToString("HH:mm"),
-            						e.Name);
-            				}
-            			}
-            		}
-            	}
+              static public void Main(string[] args)
+              {
+                using (ZipFile zFile = new ZipFile(args[0])) {
+                  Console.WriteLine("Listing of : " + zFile.Name);
+                  Console.WriteLine("");
+                  Console.WriteLine("Raw Size    Size      Date     Time     Name");
+                  Console.WriteLine("--------  --------  --------  ------  ---------");
+                  foreach (ZipEntry e in zFile) {
+                    if ( e.IsFile ) {
+                      DateTime d = e.DateTime;
+                      Console.WriteLine("{0, -10}{1, -10}{2}  {3}   {4}", e.Size, e.CompressedSize,
+                        d.ToString("dd-MM-yy"), d.ToString("HH:mm"),
+                        e.Name);
+                    }
+                  }
+                }
+              }
             }
             </code>
             </example>
@@ -9391,31 +9391,31 @@
 
              class MainClass
              {
-             	public static void Main(string[] args)
-             	{
-             		using ( ZipInputStream s = new ZipInputStream(File.OpenRead(args[0]))) {
+               public static void Main(string[] args)
+               {
+                 using ( ZipInputStream s = new ZipInputStream(File.OpenRead(args[0]))) {
 
-             			ZipEntry theEntry;
-             			const int size = 2048;
-             			byte[] data = new byte[2048];
-             			
-             			while ((theEntry = s.GetNextEntry()) != null) {
+                   ZipEntry theEntry;
+                   const int size = 2048;
+                   byte[] data = new byte[2048];
+
+                   while ((theEntry = s.GetNextEntry()) != null) {
                              if ( entry.IsFile ) {
-             				    Console.Write("Show contents (y/n) ?");
-             				    if (Console.ReadLine() == "y") {
-             				    	while (true) {
-             				    		size = s.Read(data, 0, data.Length);
-             				    		if (size > 0) {
-             				    			Console.Write(new ASCIIEncoding().GetString(data, 0, size));
-             				    		} else {
-             				    			break;
-             				    		}
-             				    	}
-             				    }
-             				}
-             			}
-             		}
-             	}
+                     Console.Write("Show contents (y/n) ?");
+                     if (Console.ReadLine() == "y") {
+                       while (true) {
+                         size = s.Read(data, 0, data.Length);
+                         if (size > 0) {
+                           Console.Write(new ASCIIEncoding().GetString(data, 0, size));
+                         } else {
+                           break;
+                         }
+                       }
+                     }
+                     }
+                   }
+                 }
+               }
              }
              </code>
              </example>
@@ -9677,26 +9677,26 @@
 
              class MainClass
              {
-             	public static void Main(string[] args)
-             	{
-             		string[] filenames = Directory.GetFiles(args[0]);
-             		byte[] buffer = new byte[4096];
-             		
-             		using ( ZipOutputStream s = new ZipOutputStream(File.Create(args[1])) ) {
-             		
-             			s.SetLevel(9); // 0 - store only to 9 - means best compression
-             		
-             			foreach (string file in filenames) {
-             				ZipEntry entry = new ZipEntry(file);
-             				s.PutNextEntry(entry);
+               public static void Main(string[] args)
+               {
+                 string[] filenames = Directory.GetFiles(args[0]);
+                 byte[] buffer = new byte[4096];
 
-             				using (FileStream fs = File.OpenRead(file)) {
-            						StreamUtils.Copy(fs, s, buffer);
-             				}
-             			}
-             		}
-             	}
-             }	
+                 using ( ZipOutputStream s = new ZipOutputStream(File.Create(args[1])) ) {
+
+                   s.SetLevel(9); // 0 - store only to 9 - means best compression
+
+                   foreach (string file in filenames) {
+                     ZipEntry entry = new ZipEntry(file);
+                     s.PutNextEntry(entry);
+
+                     using (FileStream fs = File.OpenRead(file)) {
+                        StreamUtils.Copy(fs, s, buffer);
+                     }
+                   }
+                 }
+               }
+             }
              </code>
              </example>
         </member>
