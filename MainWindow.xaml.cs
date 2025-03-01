@@ -849,6 +849,7 @@ namespace TankIconMaker
                 case DisplayFilter.UK: selection = context.Tanks.Where(t => t.Country == Country.UK); break;
                 case DisplayFilter.USA: selection = context.Tanks.Where(t => t.Country == Country.USA); break;
                 case DisplayFilter.USSR: selection = context.Tanks.Where(t => t.Country == Country.USSR); break;
+                case DisplayFilter.Intunion: selection = context.Tanks.Where(t => t.Country == Country.Intunion); break;
 
                 case DisplayFilter.Light: selection = context.Tanks.Where(t => t.Class == Class.Light); break;
                 case DisplayFilter.Medium: selection = context.Tanks.Where(t => t.Class == Class.Medium); break;
