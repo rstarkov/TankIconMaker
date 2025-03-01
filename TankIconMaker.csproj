@@ -36,21 +36,21 @@
     <ApplicationIcon>Resources\Graphics\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Magick.NET-Q8-AnyCPU, Version=7.17.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>packages\Magick.NET-Q8-AnyCPU.7.17.0.1\lib\net40\Magick.NET-Q8-AnyCPU.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>ThirdParty\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Magick.NET-Q8-AnyCPU, Version=7.14.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>ThirdParty\Magick.NET-Q8-AnyCPU.7.14.3\lib\net40\Magick.NET-Q8-AnyCPU.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="TeximpNet, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>ThirdParty\TeximpNet.1.2.0\lib\net40\TeximpNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>ThirdParty\Ookii.Dialogs.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TeximpNet, Version=1.4.3.0, Culture=neutral, PublicKeyToken=978ca55aa4aa29a3, processorArchitecture=MSIL">
+      <HintPath>packages\TeximpNet.1.4.3\lib\net40\TeximpNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WPFToolkit.Extended, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -263,8 +263,6 @@
       <Images Include="Resources\Images\*" />
       <Licenses Include="ThirdParty\license-*" />
       <Translations Include="Resources\Translations\*" />
-      <FreeImage Include="ThirdParty\TeximpNet.1.2.0\native\FreeImage\*" />
-      <NvidiaTextureTools Include="ThirdParty\TeximpNet.1.2.0\native\NvidiaTextureTools\*" />
     </ItemGroup>
     <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutputPath)\Data" />
     <Copy SourceFiles="@(Images)" DestinationFolder="$(OutputPath)\Images" />
@@ -283,4 +281,11 @@
   <PropertyGroup>
     <PostBuildEvent>"$(TargetPath)" --post-build-check "$(SolutionDir)."</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="packages\TeximpNet.1.4.3\build\TeximpNet.targets" Condition="Exists('packages\TeximpNet.1.4.3\build\TeximpNet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\TeximpNet.1.4.3\build\TeximpNet.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\TeximpNet.1.4.3\build\TeximpNet.targets'))" />
+  </Target>
 </Project>

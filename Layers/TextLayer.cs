@@ -247,6 +247,7 @@ namespace TankIconMaker.Layers
             Text.CountrySweden = "Sverige";
             Text.CountryPoland = "Polska";
             Text.CountryItaly = "Italia";
+            Text.CountryIntunion = "Union";
 
             Text.ClassNone = "";
             Text.ClassLight = "LT";
@@ -271,6 +272,7 @@ namespace TankIconMaker.Layers
             Text.Tier8 = "VIII";
             Text.Tier9 = "IX";
             Text.Tier10 = "X";
+            Text.Tier11 = "XI";
         }
 
         public override LayerBase Clone()
