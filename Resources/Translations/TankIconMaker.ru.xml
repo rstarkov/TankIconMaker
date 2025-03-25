@@ -213,6 +213,10 @@
       <Translation>Италия</Translation>
       <Old>Italy</Old>
     </ctDisplayModeCountryItaly>
+    <ctDisplayModeCountryIntunion>
+      <Translation>Сборная</Translation>
+      <Old>Union</Old>
+    </ctDisplayModeCountryIntunion>
     <ctDisplayModeClassLight>
       <Translation>Легкие танки</Translation>
       <Old>Light tanks</Old>
@@ -2347,6 +2351,10 @@
       <Translation>Страна: Италия</Translation>
       <Old>Country: Italy</Old>
     </CountryItaly>
+    <CountryIntunion>
+      <Translation>Страна: Сборная</Translation>
+      <Old>Country: Union</Old>
+    </CountryIntunion>
     <CountryNone>
       <Translation>Страна: без страны</Translation>
       <Old>Country: None</Old>
