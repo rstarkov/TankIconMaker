@@ -2,7 +2,7 @@
 <item>
   <PathMods>res_mods\"VersionName"</PathMods>
   <PathVehicleList>res\packages\scripts.pkg|scripts\item_defs\vehicles\"Country"\list.xml</PathVehicleList>
-  <PathMoFiles>res\text\LC_MESSAGES</PathMoFiles>
+  <PathMoFiles>res\text\lc_messages|res\text\ru\lc_messages</PathMoFiles>
   <PathDestination>res_mods\"VersionName"\gui\maps\icons\vehicle\contour</PathDestination>
   <PathDestinationAtlas>res_mods\"VersionName"\gui\flash\atlases</PathDestinationAtlas>
   <PathSourceScripts>res\packages\scripts.pkg|scripts</PathSourceScripts>
@@ -22,6 +22,7 @@
     <item key="Sweden">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\nations\sweden.png</item>
     <item key="Poland">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\nations\poland.png</item>
     <item key="Italy">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\nations\italy.png</item>
+    <item key="Intunion">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\nations\intunion.png</item>
   </PathSourceCountry>
   <PathSourceClass>
     <item key="Light">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\tanks\lightTank.png</item>

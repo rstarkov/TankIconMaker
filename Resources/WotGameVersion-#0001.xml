@@ -2,7 +2,7 @@
 <item>
   <PathMods>res_mods\"VersionName"</PathMods>
   <PathVehicleList>res\packages\scripts.pkg|scripts\item_defs\vehicles\"Country"\list.xml</PathVehicleList>
-  <PathMoFiles>res\text\LC_MESSAGES</PathMoFiles>
+  <PathMoFiles>res\text\lc_messages|res\text\ru\lc_messages</PathMoFiles>
   <PathDestination>res_mods\"VersionName"\gui\maps\icons\vehicle\contour</PathDestination>
   <PathDestinationAtlas>res_mods\"VersionName"\gui\flash\atlases</PathDestinationAtlas>
   <PathSourceScripts>res\packages\scripts.pkg|scripts</PathSourceScripts>
@@ -31,5 +31,5 @@
     <item key="Artillery">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\tanks\SPG.png</item>
   </PathSourceClass>
   <TankIconExtension>.png</TankIconExtension>
-  <GuiPackageName>gui-part1 gui-part2 gui</GuiPackageName>
+  <GuiPackageName>gui-part1 gui-part2 gui-part3</GuiPackageName>
 </item>
