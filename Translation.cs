@@ -751,6 +751,8 @@ namespace TankIconMaker
         public TrString Contour = "Contour";
         public TrString ThreeD = "3D";
         public TrString ThreeDLarge = "3D (large)";
+        public TrString ThreeDv2 = "3D v2";
+        public TrString ThreeDLargev2 = "3D (large) v2";
         public TrString Country = "Country";
         public TrString Class = "Class";
 

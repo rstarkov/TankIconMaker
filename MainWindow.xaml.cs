@@ -1275,9 +1275,9 @@ namespace TankIconMaker
                     {
                         try
                         {
+                            renderTask.Render(); // before the path is expanded, because that uses the real 3D image name found while rendering
                             var path = Ut.ExpandIconPath(overrideIconsPath ?? style.PathTemplate, context, style, renderTask.Tank);
                             path = Ut.GetSafeFilename(path);
-                            renderTask.Render();
                             if (style.IconsBulkSaveEnabled && !renderTask.isEmpty)
                             {
                                 Directory.CreateDirectory(Path.GetDirectoryName(path));

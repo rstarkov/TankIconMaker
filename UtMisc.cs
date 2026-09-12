@@ -15,12 +15,36 @@ using RT.Util;
 using RT.Util.Dialogs;
 using RT.Util.ExtensionMethods;
 using RT.Util.Lingo;
+using TankIconMaker.Layers;
 using WotDataLib;
 
 namespace TankIconMaker
 {
     static partial class Ut
     {
+        private static readonly ConcurrentDictionary<string, string> _real3DImageNames =
+            new ConcurrentDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        public static void SetReal3DImageName(string tankId, string realBaseName)
+        {
+            if (string.IsNullOrEmpty(tankId) || string.IsNullOrEmpty(realBaseName))
+                return;
+            _real3DImageNames[tankId] = realBaseName;
+        }
+
+        public static string GetReal3DImageName(string tankId)
+        {
+            if (string.IsNullOrEmpty(tankId))
+                return null;
+            string value;
+            return _real3DImageNames.TryGetValue(tankId, out value) ? value : null;
+        }
+
+        public static void ClearReal3DImageNames()
+        {
+            _real3DImageNames.Clear();
+        }
+
         /// <summary>Shorthand for string.Format, with a more natural ordering (since formatting is typically an afterthought).</summary>
         public static string Fmt(this string formatString, params object[] args)
         {
@@ -404,7 +428,43 @@ namespace TankIconMaker
         }
 
         /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
-        public static string ExpandIconPath(string path, WotContext context, Style style, WotTank tank,
+		public static string ExpandIconPath(string path, WotContext context, Style style, WotTank tank,
+			bool fragment = false, SaveType saveType = SaveType.Icons)
+		{
+
+			var tankImageLayer = style.Layers.OfType<TankImageLayer>().FirstOrDefault();
+			var is3Dv2 = tankImageLayer != null &&
+				(tankImageLayer.Style == ImageBuiltInStyle.ThreeDv2 ||
+				 tankImageLayer.Style == ImageBuiltInStyle.ThreeDLargev2);
+
+			if (is3Dv2 && tank != null)
+			{
+				return ExpandIconPath3Dv2(path, context, style, tank, fragment, saveType);
+			}
+
+			if (tank != null)
+			{
+				var country = tank.Country;
+				var class_ = tank.Class;
+				var tankId = tank.TankId;
+				var fullName = tank.ClientData != null ? tank.ClientData.FullName : tank.TankId;
+				var shortName = tank.ClientData != null ? tank.ClientData.ShortName : tank.TankId;
+				var tier = tank.Tier;
+				return ExpandIconPath(path, context, style,
+					country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "czech", "sweden", "poland", "italy", "intunion", "none"),
+					class_.Pick("light", "medium", "heavy", "destroyer", "artillery", "none"), tankId, fullName,
+					shortName, tier, fragment, saveType);
+			}
+			else
+			{
+				return ExpandIconPath(path, context, style, "none", "none", "none", "none", "none", 0, fragment, saveType);
+			}
+		}
+	
+		/// <summary>
+		/// 3D version v2 based on a real 3D name.
+		/// </summary>
+        public static string ExpandIconPath3Dv2(string path, WotContext context, Style style, WotTank tank,
             bool fragment = false, SaveType saveType = SaveType.Icons)
         {
             if (tank != null)
@@ -415,18 +475,68 @@ namespace TankIconMaker
                 var fullName = tank.ClientData != null ? tank.ClientData.FullName : tank.TankId;
                 var shortName = tank.ClientData != null ? tank.ClientData.ShortName : tank.TankId;
                 var tier = tank.Tier;
-                return ExpandIconPath(path, context, style,
+                var shortImageName = GetShortImageName(tank);
+                return ExpandIconPath3Dv2(path, context, style,
                     country.Pick("ussr", "germany", "usa", "france", "china", "uk", "japan", "czech", "sweden", "poland", "italy", "intunion", "none"),
-                    class_.Pick("light", "medium", "heavy", "destroyer", "artillery", "none"), tankId, fullName,
-                    shortName, tier,
+                    class_.Pick("light", "medium", "heavy", "destroyer", "artillery", "none"),
+                    tankId, fullName, shortName, shortImageName, tier,
                     fragment, saveType);
             }
             else
             {
-                return ExpandIconPath(path, context, style, "none", "none", "none", "none", "none", 0, fragment, saveType);
+                return ExpandIconPath3Dv2(path, context, style,
+                    "none", "none", "none", "none", "none", null, 0, fragment, saveType);
             }
         }
 
+		private static string ExpandIconPath3Dv2(string path, WotContext context, Style style, string country, string class_, string tankId, string tankFullName, string tankShortName, string shortImageName, int tankTier, bool fragment, SaveType saveType)
+		{
+
+			if (string.IsNullOrEmpty(path))
+			{
+				switch (saveType)
+				{
+					case SaveType.Icons: path = "{IconsPath}\\{TankId}{Ext}"; break;
+					case SaveType.BattleAtlas: path = "{AtlasPath}\\" + AtlasBuilder.battleAtlas + ".png"; break;
+					case SaveType.VehicleMarkerAtlas: path = "{AtlasPath}\\" + AtlasBuilder.vehicleMarkerAtlas + ".png"; break;
+					case SaveType.CustomAtlas: path = "{AtlasPath}\\" + AtlasBuilder.customAtlas + ".png"; break;
+					default: throw new ArgumentOutOfRangeException(nameof(saveType));
+				}
+			}
+
+			path = path.Replace("{IconsPath}", Ut.ExpandPath(context, context.VersionConfig.PathDestination) + @"\");
+			path = path.Replace("{AtlasPath}", Ut.ExpandPath(context, context.VersionConfig.PathDestinationAtlas) + @"\");
+			path = path.Replace("{TimPath}", PathUtil.AppPath + @"\");
+			path = path.Replace("{GamePath}", context.Installation.Path + @"\");
+			path = path.Replace("{GameVersion}", context.Installation.GameVersionName);
+
+			if (class_ != null) path = path.Replace("{TankClass}", class_);
+			if (country != null) path = path.Replace("{TankCountry}", country);
+			
+			if (!string.IsNullOrEmpty(shortImageName))
+			{
+				path = path.Replace("{TankId}", shortImageName.ToLowerInvariant());
+			}
+			else
+			{
+				path = path.Replace("{TankId}", tankId);
+			}
+			
+			if (tankFullName != null) path = path.Replace("{TankFullName}", tankFullName);
+			if (tankShortName != null) path = path.Replace("{TankShortName}", tankShortName);
+			path = path.Replace("{TankTier}", tankTier.ToString());
+			path = path.Replace("{StyleName}", style.Name);
+			path = path.Replace("{StyleAuthor}", style.Author);
+			path = path.Replace("{Ext}", context.VersionConfig.TankIconExtension);
+
+			path = Environment.ExpandEnvironmentVariables(path);
+			path = path.Replace(@"\\", @"\").Replace(@"\\", @"\").Replace(@"\\", @"\");
+
+			if (path.EndsWith("\\") && !path.EndsWith(":\\"))
+				path = path.Substring(0, path.Length - 1);
+
+			return fragment ? path : Path.GetFullPath(Path.Combine(context.Installation.Path, path));
+		}
         /// <summary>Expands a Tank Icon Maker-style path, which may have expandable tokens like "VersionName".</summary>
         public static string ExpandIconPath(string path, WotContext context, Style style, Country country,
             Class class_, bool fragment = false, SaveType saveType = SaveType.Icons)
@@ -572,6 +682,27 @@ namespace TankIconMaker
             }
             return errorInfo.ToString();
         }
+		
+		/// <summary>
+		/// The base file name of a 3D v2 icon: the spelling that was found while reading the image, or a shortened
+		/// TankId/ImageName when the image has not been read yet.
+		/// </summary>
+		private static string GetShortImageName(WotTank tank)
+		{
+			if (tank == null)
+				return null;
+
+			var real = GetReal3DImageName(tank.TankId);
+			if (!string.IsNullOrEmpty(real))
+				return real;
+
+			var imageName = tank.ImageName ?? tank.TankId;
+			var dashIndex = imageName.IndexOf('-');
+			if (dashIndex > 0)
+				imageName = imageName.Substring(dashIndex + 1);
+			return imageName.Replace('-', '_');
+		}
+			
     }
 
     /// <summary>

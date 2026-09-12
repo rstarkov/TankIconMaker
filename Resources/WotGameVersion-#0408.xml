@@ -9,7 +9,9 @@
   <PathSourceAtlas>res\packages\"GuiPackage".pkg|gui\flash\atlases</PathSourceAtlas>
   <PathSourceContour>res\packages\"GuiPackage".pkg|gui\maps\icons\vehicle\contour</PathSourceContour>
   <PathSource3D>res\packages\"GuiPackage".pkg|gui\maps\icons\vehicle\small</PathSource3D>
+  <PathSource3Dv2>res\packages\"GuiPackage".pkg|gui\maps\icons\vehicle\x120x96</PathSource3Dv2>
   <PathSource3DLarge>res\packages\"GuiPackage".pkg|gui\maps\icons\vehicle</PathSource3DLarge>
+  <PathSource3DLargev2>res\packages\"GuiPackage".pkg|gui\maps\icons\vehicle\x380x304</PathSource3DLargev2>
   <PathSourceCountry>
     <item key="USSR">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\nations\ussr.png</item>
     <item key="Germany">res\packages\"GuiPackage".pkg|gui\maps\icons\filters\nations\germany.png</item>

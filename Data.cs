@@ -64,7 +64,9 @@ namespace TankIconMaker
     {
         Contour,
         ThreeD,
+        ThreeDv2,
         ThreeDLarge,
+        ThreeDLargev2,
         Country,
         Class
     }
