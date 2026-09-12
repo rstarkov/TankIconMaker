@@ -77,7 +77,7 @@
         <ScaleTransform x:Key="UiZoomer" CenterX="0" CenterY="0" ScaleX="1" ScaleY="1" />
     </Window.Resources>
 
-    <Grid Name="ctOuterGrid" Background="{StaticResource ResourceKey=bkgCheckered}" LayoutTransform="{StaticResource UiZoomer}">
+    <Grid Name="ctOuterGrid" Background="{StaticResource ResourceKey=bkgCheckered}" LayoutTransform="{StaticResource UiZoomer}" UseLayoutRounding="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="325" Name="ctLeftColumn" />
             <ColumnDefinition Width="*" />

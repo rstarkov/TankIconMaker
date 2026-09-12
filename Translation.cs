@@ -272,6 +272,8 @@ namespace TankIconMaker
 
         public TrString PathTemplate_Standard = "(standard)";
         public TrString FontFamilyNotFound = "The \"{0}\" font was not found.";
+        public TrString FontsMissing = "The style \"{0}\" uses fonts that are not installed on this computer:\n\n{1}\n\nThese layers are drawn with the \"{2}\" font instead, so the icons will not look as designed. Install the missing fonts and restart Tank Icon Maker.";
+        public TrString FontsMissing_Layer = "• \"{0}\" in layer \"{1}\"";
 
         public TrString ErrorConflictingId = "Two or more layers have the same ID “{0}”. Layer IDs must be unique.";
         public TrString ErrorMagickEffectNoRedist = "Visual C++ Redistrable 2013 not found. " +
@@ -963,6 +965,9 @@ namespace TankIconMaker
         public TrString IconsSavedGoToForum = "Open &website in browser";
         public TrStringNum IconsSaveSkipped = new TrStringNum("Note that 1 image was skipped due to errors.", "Note that {0} images were skipped due to errors.");
         public TrString IconsSaveError = "The icons could not be saved due to an error.\n\nError message:\n • {0}";
+        public TrString FontsMissing_Prompt = "Some text layers use fonts that are not installed on this computer:\n\n{0}\n\nThese layers are drawn with the \"{1}\" font instead, so the icons will not look as designed.\n\nContinue anyway?";
+        public TrString FontsMissing_StyleLayer = "• {0}: \"{1}\" in layer \"{2}\"";
+        public TrString FontsMissing_Continue = "&Continue anyway";
         public TrString VisitWebsiteBtn = "Visit project website";
         public TrString Upvote_BuiltInOnly = "For security reasons, only built-in styles can be upvoted.";
         public TrString Upvote_NotAvailable = "This style does not currently have an associated post on World of Tanks forums.";
@@ -985,6 +990,7 @@ namespace TankIconMaker
         public TrString BulkSave_Prompt = "You are about to save tank icons for multiple styles. Any existing icons will be overwritten without further confirmation!\n\nSelect styles you wish to save the icons for:";
         public TrString BulkSave_Yes = "_Save";
         public TrString BulkSave_Progress = "Saving icons...";
+        public TrString BulkSave_Failures = "{0} icon(s) could not be saved:\n\n{1}";
     }
 
     [LingoStringClass, LingoInGroup(TranslationGroup.DlgMessage)]

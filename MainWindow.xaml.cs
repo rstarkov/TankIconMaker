@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.IO.Packaging;
@@ -44,6 +44,7 @@ namespace TankIconMaker
         private ObservableValue<bool> _rendering = new ObservableValue<bool>(false);
         private ObservableValue<bool> _dataMissing = new ObservableValue<bool>(false);
         private ObservableCollection<Warning> _warnings = new ObservableCollection<Warning>();
+        private HashSet<string> _missingFontsShown = new HashSet<string>();
 
         private LanguageHelperWpfOld<Translation> _translationHelper;
 
@@ -514,6 +515,7 @@ namespace TankIconMaker
             foreach (var image in ctIconsPanel.Children.OfType<TankImageControl>())
                 image.Opacity = 0.7;
             _warnings.RemoveWhere(w => w is Warning_RenderedWithErrWarn);
+            updateMissingFontWarnings();
 
             _updateIconsTimer.Stop();
             _cancelRender.Cancel();
@@ -666,6 +668,8 @@ namespace TankIconMaker
             var img = new TankImageControl
             {
                 SnapsToDevicePixels = true,
+                // Without this the icon lands between screen pixels at a Windows scaling of 125% and the preview looks distorted
+                UseLayoutRounding = true,
                 Margin = new Thickness { Right = 15 },
                 Cursor = Cursors.Hand,
                 Opacity = 0.7,
@@ -945,21 +949,106 @@ namespace TankIconMaker
 
         private Boolean checkingForFont(string fontFamily)
         {
-            InstalledFontCollection installedFontCollection = new InstalledFontCollection();
-            System.Drawing.FontFamily[] fontFamilies = installedFontCollection.Families;
-            int count = fontFamilies.Length;
-            Boolean fontFound = false;
-            for (int i = 0; i < count && !fontFound; ++i)
-            {
-                fontFound = (fontFamily == fontFamilies[i].Name);
-            }
+            Boolean fontFound = string.Equals(resolveGdiFontFamily(fontFamily, System.Drawing.FontStyle.Regular), fontFamily, StringComparison.OrdinalIgnoreCase);
             if (!fontFound)
             {
+                // Reported right here, so the check that runs on every render does not pop up again for this font
+                _missingFontsShown.Add(missingFontKey(App.Settings.ActiveStyle, fontFamily));
                 string message = App.Translation.MainWindow.FontFamilyNotFound.Fmt(fontFamily);
                 string caption = App.Translation.DlgMessage.CaptionWarning.ToString();
                 MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             return fontFound;
+        }
+
+        /// <summary>
+        /// Returns the name of the font family GDI+ really draws with when asked for <paramref name="fontFamily"/>. GDI+ quietly
+        /// substitutes Microsoft Sans Serif for a font that is not installed, so a different name means the font is missing.
+        /// </summary>
+        private static string resolveGdiFontFamily(string fontFamily, System.Drawing.FontStyle fontStyle)
+        {
+            try
+            {
+                using (var font = new System.Drawing.Font(fontFamily, 10f, fontStyle))
+                    return font.Name;
+            }
+            catch (ArgumentException)
+            {
+                // The font is installed but lacks this style; rendering reports that on its own
+                return fontFamily;
+            }
+        }
+
+        private sealed class MissingFont
+        {
+            public string LayerName, FontFamily, Substitute;
+        }
+
+        /// <summary>Lists the visible text layers of the style whose fonts are not installed.</summary>
+        private static List<MissingFont> getMissingFonts(Style style)
+        {
+            var result = new List<MissingFont>();
+            foreach (var layer in style.Layers.OfType<TextLayer>().Where(l => l.Visible))
+            {
+                var fontStyle = (layer.FontBold ? System.Drawing.FontStyle.Bold : 0) | (layer.FontItalic ? System.Drawing.FontStyle.Italic : 0);
+                var substitute = resolveGdiFontFamily(layer.FontFamily, fontStyle);
+                if (!string.Equals(substitute, layer.FontFamily, StringComparison.OrdinalIgnoreCase))
+                    result.Add(new MissingFont { LayerName = string.IsNullOrEmpty(layer.Name) ? layer.TypeName : layer.Name, FontFamily = layer.FontFamily, Substitute = substitute });
+            }
+            return result;
+        }
+
+        private static string missingFontKey(Style style, string fontFamily)
+        {
+            return style.Name + "\n" + style.Author + "\n" + (fontFamily ?? "").ToLowerInvariant();
+        }
+
+        /// <summary>
+        /// Keeps a warning about the active style's missing fonts in the warnings list, and pops it up once per style and font,
+        /// because GDI+ substitutes such fonts without telling anyone.
+        /// </summary>
+        private void updateMissingFontWarnings()
+        {
+            _warnings.RemoveWhere(w => w is Warning_MissingFont);
+            var style = App.Settings.ActiveStyle;
+            if (style == null)
+                return;
+            var missing = getMissingFonts(style);
+            if (missing.Count == 0)
+                return;
+            var message = App.Translation.MainWindow.FontsMissing.Fmt(style.Name,
+                string.Join("\n", missing.Select(m => App.Translation.MainWindow.FontsMissing_Layer.Fmt(m.FontFamily, m.LayerName))), missing[0].Substitute);
+            _warnings.Add(new Warning_MissingFont(message));
+            bool isNew = false;
+            foreach (var m in missing)
+                if (_missingFontsShown.Add(missingFontKey(style, m.FontFamily)))
+                    isNew = true;
+            if (isNew)
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() => DlgMessage.ShowWarning(message)));
+        }
+
+        /// <summary>Asks whether to continue when any of the styles draws text with a font that is not installed.</summary>
+        private bool confirmMissingFonts(IEnumerable<Style> styles)
+        {
+            var lines = new List<string>();
+            string substitute = null;
+            foreach (var style in styles)
+                foreach (var missing in getMissingFonts(style))
+                {
+                    lines.Add(App.Translation.Prompt.FontsMissing_StyleLayer.Fmt(style.Name, missing.FontFamily, missing.LayerName));
+                    if (substitute == null)
+                        substitute = missing.Substitute;
+                }
+            if (lines.Count == 0)
+                return true;
+            return new DlgMessage
+            {
+                Message = App.Translation.Prompt.FontsMissing_Prompt.Fmt(string.Join("\n", lines), substitute),
+                Type = DlgType.Warning,
+                Buttons = new string[] { App.Translation.Prompt.FontsMissing_Continue, App.Translation.Prompt.Cancel },
+                AcceptButton = 0,
+                CancelButton = 1,
+            }.Show() == 0;
         }
 
         private void ctLayerProperties_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
@@ -1165,7 +1254,7 @@ namespace TankIconMaker
                                 renders[renderTask.TankId] = renderTask;
                                 renderTask.Render();
                             }
-                        var atlasBuilder = new AtlasBuilder(context);
+                        var atlasBuilder = new AtlasBuilder(context, style);
                         atlasBuilder.SaveAtlas(path, atlasType, renders.Values);
                     }
                     finally
@@ -1249,7 +1338,8 @@ namespace TankIconMaker
             var context = CurContext;
             var stylesCount = stylesToSave.Count();
             int tasksRemaining = stylesCount;
-            var atlasBuilder = new AtlasBuilder(context);
+            // Collected quietly and reported once at the end: a message per failed icon would mean hundreds of dialogs
+            var failures = new ConcurrentQueue<string>();
             foreach (var styleF in stylesToSave)
             {
                 var style = styleF; // foreach variable scope fix
@@ -1284,8 +1374,9 @@ namespace TankIconMaker
                                 Ut.SaveImage(renderTask.Image, path, context.VersionConfig.TankIconExtension);
                             }
                         }
-                        finally
+                        catch (Exception ex)
                         {
+                            failures.Enqueue("{0} ({1}): {2}: {3}".Fmt(style.Name, style.Author, renderTask.TankId, ex.Message));
                         }
                     });
                 }
@@ -1299,6 +1390,9 @@ namespace TankIconMaker
                 var atlasTask = Task.Factory.ContinueWhenAll(styleTasks.ToArray(), renders =>
                 {
                     var atlasPath = Ut.ExpandPath(context, context.VersionConfig.PathDestinationAtlas);
+                    var atlasBuilder = new AtlasBuilder(context, style);
+                    try
+                    {
                     if (style.BattleAtlasBulkSaveEnabled)
                     {
                         var path = Ut.ExpandIconPath(overridePathTemplate == null ? style.BattleAtlasPathTemplate:
@@ -1329,6 +1423,11 @@ namespace TankIconMaker
                         path = Ut.GetSafeFilename(path);
                         atlasBuilder.SaveAtlas(path, SaveType.CustomAtlas, renderTasks);
                     }
+                    }
+                    catch (Exception ex)
+                    {
+                        failures.Enqueue("{0} ({1}): {2}".Fmt(style.Name, style.Author, ex.Message));
+                    }
 
                     Interlocked.Decrement(ref tasksRemaining);
                     if ((DateTime.UtcNow - lastGuiUpdate).TotalMilliseconds > 50)
@@ -1351,12 +1450,32 @@ namespace TankIconMaker
                     _rendering.Value = false;
                     GlobalStatusHide();
                     GC.Collect();
+                    reportBulkSaveFailures(failures);
                 }));
             });
         }
 
+        /// <summary>
+        ///     Reports everything that failed during a bulk save in a single message, never one per icon, and writes the full
+        ///     list to a file next to the program.
+        /// </summary>
+        private void reportBulkSaveFailures(ConcurrentQueue<string> failures)
+        {
+            var all = failures.ToArray();
+            if (all.Length == 0)
+                return;
+            string logPath = PathUtil.AppPathCombine("BulkSaveErrors.txt");
+            try { File.WriteAllLines(logPath, all); }
+            catch { logPath = null; }
+            DlgMessage.ShowWarning(App.Translation.Prompt.BulkSave_Failures.Fmt(all.Length, string.Join("\n", all.Take(10)))
+                + (logPath == null ? "" : "\n\n" + logPath));
+        }
+
         private void ctSave_Click(object _, RoutedEventArgs __)
         {
+            if (!confirmMissingFonts(new[] { App.Settings.ActiveStyle }))
+                return;
+
             GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
             var style = App.Settings.ActiveStyle;
             var savingTasks = new List<Task>();
@@ -1441,6 +1560,9 @@ namespace TankIconMaker
 
         private void ctSaveIconsToGameFolder_Click(object _ = null, RoutedEventArgs __ = null)
         {
+            if (!confirmMissingFonts(new[] { App.Settings.ActiveStyle }))
+                return;
+
             GlobalStatusShow(App.Translation.Misc.GlobalStatus_Saving);
             var style = App.Settings.ActiveStyle;
             var savingTasks = new Task[]
@@ -1498,6 +1620,9 @@ namespace TankIconMaker
 
         private void ctSaveIconsToSpecifiedFolder_Click(object _ = null, RoutedEventArgs __ = null)
         {
+            if (!confirmMissingFonts(new[] { App.Settings.ActiveStyle }))
+                return;
+
             var style = App.Settings.ActiveStyle;
             var dlg = new VistaFolderBrowserDialog();
             dlg.ShowNewFolderButton = true; // argh, the dialog requires the path to exist
@@ -1554,6 +1679,9 @@ namespace TankIconMaker
 
         private void ctSaveIconsToBattleAtlas_Click(object _ = null, RoutedEventArgs __ = null)
         {
+            if (!confirmMissingFonts(new[] { App.Settings.ActiveStyle }))
+                return;
+
             var dlg = new VistaSaveFileDialog();
             dlg.AddExtension = true;
             dlg.FileName = AtlasBuilder.battleAtlas; // Default file name
@@ -1616,6 +1744,9 @@ namespace TankIconMaker
 
         private void ctSaveIconsToVehicleMarkerAtlas_Click(object sender, RoutedEventArgs e)
         {
+            if (!confirmMissingFonts(new[] { App.Settings.ActiveStyle }))
+                return;
+
             var dlg = new VistaSaveFileDialog();
             dlg.AddExtension = true;
             dlg.FileName = AtlasBuilder.vehicleMarkerAtlas; // Default file name
@@ -1677,6 +1808,9 @@ namespace TankIconMaker
 
         private void ctSaveToAtlas_Click(object _ = null, RoutedEventArgs __ = null)
         {
+            if (!confirmMissingFonts(new[] { App.Settings.ActiveStyle }))
+                return;
+
             var dlg = new VistaSaveFileDialog();
             dlg.AddExtension = true;
             dlg.FileName = AtlasBuilder.customAtlas; // Default file name
@@ -1756,6 +1890,8 @@ namespace TankIconMaker
             var stylesToSave = getBulkSaveStyles();
             if (stylesToSave.Count == 0)
                 return;
+            if (!confirmMissingFonts(stylesToSave))
+                return;
             bulkSaveIcons(stylesToSave);
         }
 
@@ -1771,6 +1907,9 @@ namespace TankIconMaker
             var overridePathTemplate = dlg.SelectedPath + "\\{StyleName} ({StyleAuthor})";
             var stylesToSave = getBulkSaveStyles(overridePathTemplate);
             if (stylesToSave.Count == 0)
+                return;
+
+            if (!confirmMissingFonts(stylesToSave))
                 return;
 
             App.Settings.BulkSaveToFolderPath = dlg.SelectedPath;
@@ -2400,7 +2539,9 @@ namespace TankIconMaker
             var stylesToExport = CheckListWindow.ShowCheckList(this, allStyles, tr.StyleExport_Prompt, tr.StyleExport_Yes, new string[] { tr.BulkStyles_ColumnTitle }).ToHashSet();
             if (stylesToExport.Count == 0)
                 return;
-            else if (stylesToExport.Count == 1)
+            if (!confirmMissingFonts(stylesToExport))
+                return;
+            if (stylesToExport.Count == 1)
             {
                 var dlg = new VistaSaveFileDialog();
                 dlg.Filter = App.Translation.Misc.Filter_ImportExportStyle;
@@ -2556,6 +2697,7 @@ namespace TankIconMaker
         private sealed class Warning_LayerTest_MissingImage : Warning { public Warning_LayerTest_MissingImage(string text) { Text = text; } }
         private sealed class Warning_RenderedWithErrWarn : Warning { public Warning_RenderedWithErrWarn(string text) { Text = text; } }
         private sealed class Warning_DataLoadWarning : Warning { public Warning_DataLoadWarning(string text) { Text = text; } }
+        private sealed class Warning_MissingFont : Warning { public Warning_MissingFont(string text) { Text = text; } }
 
     }
 

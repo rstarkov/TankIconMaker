@@ -52,6 +52,9 @@ namespace TankIconMaker.Effects
             if (renderTask.IsLayerAlreadyReferenced(maskLayer))
                 throw new StyleUserError(App.Translation.EffectMaskLayer.ErrorRecursiveLayerReference.Fmt(MaskLayerId));
             var maskImg = renderTask.RenderLayer(maskLayer);
+            // A mask layer that draws nothing (for example a tank image the game does not have) acts as a fully transparent mask
+            if (maskImg == null)
+                return Invert ? layer : new BitmapRam(layer.Width, layer.Height);
             using (layer.UseWrite())
             {
                 using (maskImg.UseRead())
